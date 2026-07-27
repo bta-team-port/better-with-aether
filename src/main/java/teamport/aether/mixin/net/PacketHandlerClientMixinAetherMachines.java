@@ -24,24 +24,24 @@ public abstract class PacketHandlerClientMixinAetherMachines {
     @Final
     @Shadow
     private Minecraft mc;
-    @Inject(method = "handleOpenWindow", at = @At("TAIL"))
+    @Inject(method = "handleContainerOpen(Lnet/minecraft/core/net/packet/PacketContainerOpen;)V", at = @At("TAIL"))
     private void handleAetherMachines(PacketContainerOpen packet, CallbackInfo ci) {
         PlayerLocal playerLocal = this.mc.thePlayer;
         AetherScreens playerScreen = (AetherScreens) playerLocal;
         if (packet.inventoryType == AetherConfig.ENCHANTER_SCREEN_ID) {
             TileEntityEnchanter machine = new TileEntityEnchanter();
             playerScreen.aether$displayEnchanterScreen(machine);
-            playerLocal.craftingInventory.containerId = packet.windowId;
+            playerLocal.containerMenu.containerId = packet.windowId;
         }
         if (packet.inventoryType == AetherConfig.FREEZER_SCREEN_ID) {
             TileEntityFreezer machine = new TileEntityFreezer();
             playerScreen.aether$displayFreezerScreen(machine);
-            playerLocal.craftingInventory.containerId = packet.windowId;
+            playerLocal.containerMenu.containerId = packet.windowId;
         }
         if (packet.inventoryType == AetherConfig.INCUBATOR_SCREEN_ID) {
             TileEntityIncubator machine = new TileEntityIncubator();
             playerScreen.aether$displayIncubatorScreen(machine);
-            playerLocal.craftingInventory.containerId = packet.windowId;
+            playerLocal.containerMenu.containerId = packet.windowId;
         }
     }
 }

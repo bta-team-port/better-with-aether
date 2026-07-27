@@ -17,8 +17,8 @@ import teamport.aether.world.AetherDimension;
 
 @Mixin(value = ItemMap.class, remap = false)
 public abstract class MapFixMixin {
-    @Definition(id = "getBlockID", method = "Lnet/minecraft/core/world/chunk/Chunk;getBlockID(III)I")
-    @Expression("? = ?.getBlockID(?, ?, ?)")
+    @Definition(id = "getBlockId", method = "Lnet/minecraft/core/world/chunk/Chunk;getBlockId(Lnet/minecraft/core/world/pos/ChunkTilePosc;)I")
+    @Expression("? = ?.getBlockId(?)")
     @Inject(method = "update", at = @At(value = "MIXINEXTRAS:EXPRESSION", shift = At.Shift.AFTER))
     void fixMap(World world, Entity entity, ItemMapSavedData data, CallbackInfo ci, @Local(name = "id") LocalIntRef id, @Local(name = "height") int height) {
         if (world.dimension.id != AetherDimension.getAether().id) return;

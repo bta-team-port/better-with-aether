@@ -5,7 +5,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
-import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
+import teamport.aether.effect.api.IHasEffects;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.effect.AetherEffects;
 
@@ -16,7 +16,7 @@ public class ItemBucketSkyrootRemedy extends Item {
     }
 
     @Override
-    public ItemStack onUseItem(ItemStack itemstack, World world, Player entityplayer) {
+    public ItemStack onUse(ItemStack itemstack, World world, Player entityplayer) {
         entityplayer.triggerAchievement(AetherAchievements.REMEDY);
         IHasEffects<?> effectPlayer = (IHasEffects<?>) entityplayer;
         AetherEffects.add((Mob) effectPlayer, AetherEffects.remedyEffect, 1);

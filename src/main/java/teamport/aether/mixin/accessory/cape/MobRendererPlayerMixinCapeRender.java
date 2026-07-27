@@ -1,81 +1,60 @@
 package teamport.aether.mixin.accessory.cape;
 
-import com.llamalad7.mixinextras.expression.Definition;
-import com.llamalad7.mixinextras.expression.Expression;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Local;
-import com.llamalad7.mixinextras.sugar.Share;
-import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
-import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.render.ImageParser;
 import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.entity.MobRendererPlayer;
-import net.minecraft.client.render.model.ModelBase;
-import net.minecraft.client.render.tessellator.Tessellator;
+import net.minecraft.client.render.renderer.GLRenderer;
+import net.minecraft.client.render.renderer.State;
+import net.minecraft.client.render.tessellator.TessellatorGeneral;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.gamemode.Gamemode;
-import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import teamport.aether.ducks.IContainerInventoryAether;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.accessory.ItemAccessoryArmor;
 
 @Environment(EnvType.CLIENT)
 @Mixin(value = MobRendererPlayer.class, remap = false)
 public abstract class MobRendererPlayerMixinCapeRender extends MobRenderer<Player> {
-    protected MobRendererPlayerMixinCapeRender(ModelBase model, float shadowSize) {
-        super(model, shadowSize);
+    protected MobRendererPlayerMixinCapeRender(float shadowSize) {
+        super(shadowSize);
     }
 
-    @WrapOperation(method = "renderSpecials(Lnet/minecraft/core/entity/player/Player;F)V", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/GL11;glColor4f(FFFF)V", ordinal = 4))
-    private void renderPlayerSpecialsInvisible(float red, float green, float blue, float alpha, Operation<Void> original, Player player, float partialTick) {
+    @WrapOperation(method = "renderAdditional(Lnet/minecraft/client/render/tessellator/TessellatorGeneral;Lnet/minecraft/core/entity/player/Player;F)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/renderer/GLRenderer;setColor4f(FFFF)V"))
+    private void renderCapeInvisible(float red, float green, float blue, float alpha, Operation<Void> original, TessellatorGeneral tessellator, Player player, float partialTick) {
         if (!PlayerUtil.isInvisible(player)) {
-            original.call(red, blue, green, alpha);
+            original.call(red, green, blue, alpha);
             return;
         }
-        original.call(red, blue, green, 0.0F);
-        GL11.glEnable(GL11.GL_BLEND);
+        original.call(red, green, blue, 0.0F);
+        GLRenderer.enableState(State.BLEND);
     }
 
-    ///  Afterward we need to restore the GL11 state back so rendering can resume as is
-    @Inject(method = "renderSpecials(Lnet/minecraft/core/entity/player/Player;F)V", at = @At("HEAD"))
-    private void pushGL11AlphaTestRef(Player player, float partialTick, CallbackInfo ci, @Share("alphaTest") LocalFloatRef alphaTest) {
-        alphaTest.set(GL11.glGetFloat(GL11.GL_ALPHA_TEST_REF));
-        GL11.glAlphaFunc(GL11.GL_GREATER, 0.0F);
-    }
-
-    @Inject(method = "renderSpecials(Lnet/minecraft/core/entity/player/Player;F)V", at = @At("RETURN"))
-    private void popGL11AlphaTestRef(Player player, float partialTick, CallbackInfo ci, @Share("alphaTest") LocalFloatRef alphaTest) {
-        GL11.glAlphaFunc(GL11.GL_GREATER, alphaTest.get());
-    }
-
-    @Definition(id = "spectator", field = "Lnet/minecraft/core/player/gamemode/Gamemode;spectator:Lnet/minecraft/core/player/gamemode/Gamemode;")
-    @Expression("spectator")
-    @ModifyExpressionValue(method = "renderSpecials(Lnet/minecraft/client/render/tessellator/Tessellator;Lnet/minecraft/core/entity/player/Player;DDD)V", at = @At(value = "MIXINEXTRAS:EXPRESSION", ordinal = 1))
-    private Gamemode renderPlayerInvisNametag(Gamemode original, Tessellator tessellator, Player player, double d, double d1, double d2) {
+    @ModifyExpressionValue(method = "renderSpecials(Lnet/minecraft/client/render/tessellator/TessellatorGeneral;Lnet/minecraft/core/entity/player/Player;DDD)V", at = @At(value = "FIELD", target = "Lnet/minecraft/core/player/gamemode/Gamemodes;SPECTATOR:Lnet/minecraft/core/player/gamemode/Gamemode;", ordinal = 1))
+    private Gamemode renderPlayerInvisNametag(Gamemode original, TessellatorGeneral tessellator, Player player, double d, double d1, double d2) {
         if (PlayerUtil.isInvisible(player)) {
             return player.getGamemode();
         }
         return original;
     }
 
-    @Definition(id = "bindDownloadableTexture", method = "Lnet/minecraft/client/render/entity/MobRendererPlayer;bindDownloadableTexture(Ljava/lang/String;Ljava/lang/String;Lnet/minecraft/client/render/ImageParser;)Z")
-    @Expression("? = ?.bindDownloadableTexture(?, ?, ?)")
-    @Inject(method = "renderSpecials*", at = @At(value = "MIXINEXTRAS:EXPRESSION", shift = At.Shift.AFTER))
-    private void renderAetherCape(Player player, float partialTick, CallbackInfo ci, @Local(name = "renderCape") LocalBooleanRef renderCape) {
-        ItemStack itemStack = player.inventory.armorItemInSlot(5);
-        if (itemStack == null) return;
-        if (!(itemStack.getItem() instanceof ItemAccessoryArmor)) return;
-        Item item = itemStack.getItem();
-        String path = String.format("/assets/%s/textures/armor/cape/%s.png", item.namespaceID.namespace(), ((ItemAccessoryArmor) item).name());
-        this.renderDispatcher.textureManager.loadTexture(path).bind();
-        renderCape.set(true);
+    @WrapOperation(method = "renderAdditional(Lnet/minecraft/client/render/tessellator/TessellatorGeneral;Lnet/minecraft/core/entity/player/Player;F)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/MobRendererPlayer;bindDownloadableTexture(Ljava/lang/String;Ljava/lang/String;Lnet/minecraft/client/render/ImageParser;)Z", ordinal = 0))
+    private boolean bindAetherCape(MobRendererPlayer renderer, String url, String fallback, ImageParser parser, Operation<Boolean> original, TessellatorGeneral tessellator, Player player, float partialTick) {
+        ItemStack itemStack = ((IContainerInventoryAether) player.inventory).aether$getAccessoryInventory()[1];
+        if (itemStack != null && itemStack.getItem() instanceof ItemAccessoryArmor) {
+            Item item = itemStack.getItem();
+            String path = String.format("/assets/%s/textures/armor/cape/%s.png", item.namespaceID.namespace(), ((ItemAccessoryArmor) item).name());
+            this.renderDispatcher.textureManager.loadTexture(path).bind();
+            return true;
+        }
+        return original.call(renderer, url, fallback, parser);
     }
 }

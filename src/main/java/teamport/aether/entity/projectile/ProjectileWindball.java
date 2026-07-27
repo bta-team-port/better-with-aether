@@ -75,7 +75,6 @@ public class ProjectileWindball extends Projectile implements ProjectileAether, 
     @Override
     public void tick() {
         super.tick();
-        ++this.ticksInAir;
         if (ticksInAir > 500) {
             this.remove();
         }
@@ -90,11 +89,12 @@ public class ProjectileWindball extends Projectile implements ProjectileAether, 
 
     @Override
     public void onHit(HitResult result) {
-        if (result.entity instanceof MobZephyr) {
+        Entity hitEntity = result instanceof HitResult.Entity ? ((HitResult.Entity) result).entity : null;
+        if (hitEntity instanceof MobZephyr) {
             return;
         }
-        if (this.world != null && !this.world.isClientSide && result.entity != null && !(result.entity instanceof Projectile)) {
-            MobUtil.knockback(result.entity, this, 4.0f, 0.0f);
+        if (this.world != null && !this.world.isClientSide && hitEntity != null && !(hitEntity instanceof Projectile)) {
+            MobUtil.knockback(hitEntity, this, 4.0f, 0.0f);
             this.world.playSoundAtEntity(null, this, "aether:mob.zephyr.shoot", 0.3F, 2.0F);
         }
         this.remove();

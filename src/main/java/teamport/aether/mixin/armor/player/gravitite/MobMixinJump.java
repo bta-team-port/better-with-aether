@@ -47,7 +47,7 @@ public abstract class MobMixinJump extends Entity {
             return;
         }
         Player player = (Player) (Object) this;
-        if (noPhysics) {
+        if (hasNoPhysics()) {
             usedDoubleJump = true;
             return;
         }
@@ -73,7 +73,7 @@ public abstract class MobMixinJump extends Entity {
             return original.call(instance, attacker, damage, type);
         }
         damage = damage - 13;
-        player.inventory.damageArmor(damage > 0 ? damage : 1);
+        player.damageArmor(damage > 0 ? damage : 1);
         return false;
     }
 }

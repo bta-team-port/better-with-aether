@@ -4,6 +4,7 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicRotatable;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
+import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.Item;
@@ -11,9 +12,11 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.Side;
-import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.WorldSource;
+import net.minecraft.core.world.pos.TilePosc;
+import org.joml.primitives.AABBd;
+import org.joml.primitives.AABBdc;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.helper.ParticleMaker;
 import turniplabs.halplibe.helper.EnvironmentHelper;
@@ -24,13 +27,23 @@ public class BlockLogicDungeonDoor extends BlockLogicRotatable {
     public final @Nullable Supplier<Item> droppedItem;
 
     public BlockLogicDungeonDoor(Block<?> block, @Nullable Supplier<Item> droppedItem) {
-        super(block, Material.stone);
+        super(block, Materials.STONE);
         this.droppedItem = droppedItem;
     }
 
     @Override
-    public boolean getImmovable() {
-        return true;
+    public int getPistonPushReaction(World world, TilePosc pos) {
+        return Material.PISTON_CANT_PUSH;
+    }
+
+    @Override
+    public boolean onInteracted(World world, TilePosc pos, Player player, Side side, double xHit, double yHit) {
+        return onBlockRightClicked(world, pos.x(), pos.y(), pos.z(), player, side, xHit, yHit);
+    }
+
+    @Override
+    public void onRemoved(World world, TilePosc pos, int data) {
+        removeDoorGrid(world, pos.x(), pos.y(), pos.z(), data);
     }
 
     @Override
@@ -45,13 +58,13 @@ public class BlockLogicDungeonDoor extends BlockLogicRotatable {
     @Override
     public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xHit, double yHit) {
         Direction dir = getDirectionFromMeta(world.getBlockMetadata(x, y, z));
-        if (dir.getSide() != side) return false;
+        if (dir.side() != side) return false;
 
-        Direction dirOpposite = dir.getOpposite();
+        Direction dirOpposite = dir.opposite();
 
-        int destX = x + dirOpposite.getOffsetX();
-        int destY = y + dirOpposite.getOffsetY();
-        int destZ = z + dirOpposite.getOffsetZ();
+        int destX = x + dirOpposite.offsetX();
+        int destY = y + dirOpposite.offsetY();
+        int destZ = z + dirOpposite.offsetZ();
 
 
         while (destY > 0 && world.getBlockId(destX, destY - 1, destZ) == 0) --destY;
@@ -70,11 +83,11 @@ public class BlockLogicDungeonDoor extends BlockLogicRotatable {
     }
 
     @Override
-    public AABB getBlockBoundsFromState(WorldSource world, int x, int y, int z) {
-        return this.getBoundsForRotation(BlockLogicRotatable.getDirectionFromMeta(world.getBlockMetadata(x, y, z)));
+    public AABBdc getBoundsFromState(WorldSource world, TilePosc pos) {
+        return this.getBoundsForRotation(BlockLogicRotatable.getDirectionFromMeta(world.getBlockMetadata(pos.x(), pos.y(), pos.z())));
     }
 
-    public AABB getBoundsForRotation(Direction rotation) {
+    public AABBdc getBoundsForRotation(Direction rotation) {
         float top = 1.0F;
         float bottom = 0.0F;
 
@@ -82,12 +95,12 @@ public class BlockLogicDungeonDoor extends BlockLogicRotatable {
         switch (rotation) {
             case EAST:
             case WEST:
-                return AABB.getTemporaryBB(thickness, bottom, 0.0F, 1 - thickness, top, 1.0F);
+                return new AABBd(thickness, bottom, 0.0F, 1 - thickness, top, 1.0F);
 
             case SOUTH:
             case NORTH:
             default:
-                return AABB.getTemporaryBB(0.0F, bottom, thickness, 1.0F, top, (1.0F - thickness));
+                return new AABBd(0.0F, bottom, thickness, 1.0F, top, (1.0F - thickness));
         }
     }
 

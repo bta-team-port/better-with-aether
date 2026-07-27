@@ -1,12 +1,15 @@
 package teamport.aether.entity.projectile;
 
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.util.helper.BlockParticleHelper;
 import net.minecraft.core.util.helper.DamageType;
+import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.phys.HitResult;
-import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
+import org.joml.Vector3dc;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 import teamport.aether.entity.monster.fireminion.MobFireMinion;
 import teamport.aether.helper.ParticleMaker;
@@ -48,20 +51,31 @@ public class ProjectileElementIce extends ProjectileElementBase implements Aethe
 
     @Override
     public void doExplosion() {
-        doExplosionHelper(world, this, PARTICLES, null, null, null, 0.25F);
+        if (world == null) return;
+        int iceData = BlockParticleHelper.encodeBlockData(Blocks.ICE.id(), 0, Side.TOP);
+        for (int i = 0; i < 16; i++) {
+            double px = this.x + (world.rand.nextDouble()) - (world.rand.nextDouble() * 0.375);
+            double py = this.y + 0.5 + (world.rand.nextDouble()) - (world.rand.nextDouble() * 0.375);
+            double pz = this.z + (world.rand.nextDouble()) - (world.rand.nextDouble() * 0.375);
+            String key = PARTICLES[world.rand.nextInt(PARTICLES.length)];
+            int data = "block".equals(key) ? iceData : 0;
+            ParticleMaker.spawnParticle(world, key, px, py, pz, 0, 0, 0, data);
+        }
+        world.playBlockSoundEffect(null, this.x, this.y, this.z, Blocks.ICE, net.minecraft.core.enums.EnumBlockSoundEffectType.MINE);
     }
 
     @Override
     public void onHit(HitResult hitResult) {
+        Entity hitEntity = hitResult instanceof HitResult.Entity ? ((HitResult.Entity) hitResult).entity : null;
         if (this.world != null && !this.world.isClientSide
-            && hitResult.entity != null
-            && !(hitResult.entity instanceof ProjectileElementBase)
+            && hitEntity != null
+            && !(hitEntity instanceof ProjectileElementBase)
         ) {
-            if (hitResult.entity instanceof MobBossSunspirit) {
+            if (hitEntity instanceof MobBossSunspirit) {
                 if (this.owner instanceof Player) {
                     // The sunspirit only takes damage from ice projectiles, so, we set this here directly.
                     // This is jank btw. I know.
-                    hitResult.entity.hurt(this, this.damage, DamageType.GENERIC);
+                    hitEntity.hurt(this, this.damage, DamageType.GENERIC);
 
                     doExplosion();
                     this.remove();
@@ -70,9 +84,9 @@ public class ProjectileElementIce extends ProjectileElementBase implements Aethe
 
                 super.onHit(hitResult);
                 return;
-            } else if (hitResult.entity instanceof MobFireMinion) {
+            } else if (hitEntity instanceof MobFireMinion) {
                 if (this.owner instanceof Player) {
-                    hitResult.entity.hurt(this, 100, DamageType.GENERIC);
+                    hitEntity.hurt(this, 100, DamageType.GENERIC);
 
                     doExplosion();
                     this.remove();
@@ -81,8 +95,8 @@ public class ProjectileElementIce extends ProjectileElementBase implements Aethe
 
                 super.onHit(hitResult);
                 return;
-            } else if (hitResult.entity instanceof Mob) {
-                hitResult.entity.hurt(this.owner, this.damage, DamageType.GENERIC);
+            } else if (hitEntity instanceof Mob) {
+                hitEntity.hurt(this.owner, this.damage, DamageType.GENERIC);
                 this.remove();
 
                 return;
@@ -100,9 +114,9 @@ public class ProjectileElementIce extends ProjectileElementBase implements Aethe
                 this.owner = (Player) entity;
             }
 
-            Vec3 lookAngle = entity.getLookAngle();
+            Vector3dc lookAngle = entity.getViewVector(1.0F);
             if (lookAngle != null) {
-                this.setHeading(lookAngle.x, lookAngle.y, lookAngle.z, 0.5f, 0.0F);
+                this.setHeading(lookAngle.x(), lookAngle.y(), lookAngle.z(), 0.5f, 0.0F);
                 bounceCount = 18;
             }
 

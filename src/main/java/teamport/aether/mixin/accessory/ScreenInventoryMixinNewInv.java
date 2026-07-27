@@ -5,7 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.container.ScreenInventory;
-import net.minecraft.client.render.Font;
+import net.minecraft.client.render.font.FontRenderer;
 import net.minecraft.client.render.TextureManager;
 import net.minecraft.client.render.texture.Texture;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,8 +20,8 @@ public abstract class ScreenInventoryMixinNewInv {
         return original.call(instance, "/assets/aether/textures/gui/container/inventory.png");
     }
     // adjust text position
-    @WrapOperation(method = "drawGuiContainerForegroundLayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/Font;drawString(Ljava/lang/String;III)V"))
-    private void fixLabelPlacement(Font instance, String text, int x, int y, int color, Operation<Void> original) {
-        original.call(instance, text, 98, y, color);
+    @WrapOperation(method = "drawGuiContainerForegroundLayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/container/ScreenInventory;drawStringNoShadow(Lnet/minecraft/client/render/font/FontRenderer;Ljava/lang/CharSequence;III)V"))
+    private void fixLabelPlacement(ScreenInventory instance, FontRenderer fontRenderer, CharSequence text, int x, int y, int color, Operation<Void> original) {
+        original.call(instance, fontRenderer, text, 98, y, color);
     }
 }

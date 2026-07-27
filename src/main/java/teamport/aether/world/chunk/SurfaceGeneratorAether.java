@@ -2,41 +2,44 @@ package teamport.aether.world.chunk;
 
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.biome.Biome;
+import teamport.aether.block.AetherBlocks;
+import teamport.aether.world.biome.BiomeAether;
 import net.minecraft.core.world.chunk.Chunk;
 import net.minecraft.core.world.generate.chunk.ChunkGeneratorResult;
 import net.minecraft.core.world.generate.chunk.perlin.SurfaceGenerator;
-import net.minecraft.core.world.noise.BasePerlinNoise;
-import net.minecraft.core.world.noise.PerlinNoise;
+import net.minecraft.core.world.noise.FractalNoise3D;
+import net.minecraft.core.world.noise.ImprovedPerlinNoise;
+import net.minecraft.core.world.noise.Noise3D;
 
 import java.util.Random;
 
 public class SurfaceGeneratorAether implements SurfaceGenerator {
     private final World world;
-    private final BasePerlinNoise<?> soilNoise;
+    private final Noise3D soilNoise;
 
-    public SurfaceGeneratorAether(World world, BasePerlinNoise<?> soilNoise) {
+    public SurfaceGeneratorAether(World world, Noise3D soilNoise) {
         this.world = world;
         this.soilNoise = soilNoise;
     }
 
     public SurfaceGeneratorAether(World world) {
-        this(world, new PerlinNoise(world.getRandomSeed(), 4, 44));
+        this(world, new FractalNoise3D<>(ImprovedPerlinNoise.genOctaves(world.getRandomSeed(), 4, 44)));
     }
 
     @Override
     public void generateSurface(Chunk chunk, ChunkGeneratorResult result) {
-        int minY = this.world.getWorldType().getMinY();
-        int maxY = this.world.getWorldType().getMaxY();
+        int minY = this.world.getWorldType().getMinY(world);
+        int maxY = this.world.getWorldType().getMaxY(world);
 
-        int chunkX = chunk.xPosition;
-        int chunkZ = chunk.zPosition;
+        int chunkX = chunk.pos.x;
+        int chunkZ = chunk.pos.z;
         int worldFillBlock = this.world.getWorldType().getFillerBlockId();
 
         Random rand = new Random(chunkX * 341873128712L + chunkZ * 132897987541L);
         double beachScale = 0.03125;
 
-        double[] soilThicknessNoise = this.soilNoise.get(
-            null,
+        double[] soilThicknessNoise = this.soilNoise.getRegion(
+            new double[16 * 16 * 1],
             chunkX * 16.0,
             chunkZ * 16.0,
             0.0,
@@ -69,8 +72,13 @@ public class SurfaceGeneratorAether implements SurfaceGenerator {
                     )
                         && block == 0
                     ) {
-                        topBlock = biome.topBlock;
-                        fillerBlock = biome.fillerBlock;
+                        if (biome instanceof BiomeAether) {
+                            topBlock = AetherBlocks.GRASS_AETHER.id();
+                            fillerBlock = AetherBlocks.DIRT_AETHER.id();
+                        } else {
+                            topBlock = biome.getSurfaceProperties().getTopBlock().id();
+                            fillerBlock = biome.getSurfaceProperties().getFillerBlock().id();
+                        }
                     }
 
                     lastBiome = biome;

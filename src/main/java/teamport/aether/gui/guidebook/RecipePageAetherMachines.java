@@ -5,13 +5,14 @@ import net.minecraft.client.gui.ItemElement;
 import net.minecraft.client.gui.TooltipElement;
 import net.minecraft.client.gui.guidebook.*;
 import net.minecraft.client.gui.guidebook.search.GuidebookPageSearch;
+import net.minecraft.client.option.GameSettings;
 import net.minecraft.client.option.enums.DescriptionPromptEnum;
-import net.minecraft.client.render.Font;
+import net.minecraft.client.render.font.FontRenderer;
 import net.minecraft.client.render.TextureManager;
+import net.minecraft.client.render.renderer.GLRenderer;
 import net.minecraft.core.data.registry.recipe.SearchQuery;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.player.inventory.slot.Slot;
-import org.lwjgl.opengl.GL11;
 import teamport.aether.recipe.RecipeEntryAetherMachine;
 
 import java.util.*;
@@ -53,7 +54,7 @@ public abstract class RecipePageAetherMachines extends RecipePage<RecipeEntryAet
     }
 
     @Override
-    public void renderForeground(TextureManager re, Font fr, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    public void renderForeground(TextureManager re, FontRenderer fr, int x, int y, int mouseX, int mouseY, float partialTicks) {
         if (this.recipes.isEmpty()) {
             this.drawStringCenteredNoShadow(fr, I18n.getInstance().translateKey("guidebook.section.search.error.no_recipes"), x + 79, y + 110, -8355712);
         }
@@ -78,7 +79,7 @@ public abstract class RecipePageAetherMachines extends RecipePage<RecipeEntryAet
     @Override
     public boolean keyTyped(char c, int key, int x, int y, int mouseX, int mouseY) {
         super.keyTyped(c, key, x, y, mouseX, mouseY);
-        if (mc.gameSettings.keyShowRecipe.isKeyboardKey(key)) {
+        if (GameSettings.KEY_SHOW_RECIPE.isKeyboardKey(key)) {
             SlotGuidebook hoveringSlot = null;
 
             for (SlotGuidebook slot : this.slots) {
@@ -95,7 +96,7 @@ public abstract class RecipePageAetherMachines extends RecipePage<RecipeEntryAet
                 ScreenGuidebook.getPageManager().setCurrentPage(ScreenGuidebook.getPageManager().getSectionIndex(GuidebookSections.CRAFTING), true);
                 return true;
             }
-        } else if (mc.gameSettings.keyShowUsage.isKeyboardKey(key)) {
+        } else if (GameSettings.KEY_SHOW_USAGE.isKeyboardKey(key)) {
             SlotGuidebook hoveringSlot = null;
 
             for (SlotGuidebook slot : this.slots) {
@@ -131,7 +132,7 @@ public abstract class RecipePageAetherMachines extends RecipePage<RecipeEntryAet
     }
 
     @Override
-    public void renderOverlay(TextureManager re, Font fr, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    public void renderOverlay(TextureManager re, FontRenderer fr, int x, int y, int mouseX, int mouseY, float partialTicks) {
         super.renderOverlay(re, fr, x, y, mouseX, mouseY, partialTicks);
         SlotGuidebook mouseOverSlot = null;
 
@@ -140,9 +141,9 @@ public abstract class RecipePageAetherMachines extends RecipePage<RecipeEntryAet
                 mouseOverSlot = slot;
             }
 
-            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+            GLRenderer.setColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             if (mouseOverSlot != null && mouseOverSlot.hasItem()) {
-                boolean showDescription = DescriptionPromptEnum.showDescription(mc);
+                boolean showDescription = DescriptionPromptEnum.showDescription();
                 String str = this.tooltipElement.getTooltipText(mouseOverSlot.getItemStack(), showDescription, mouseOverSlot);
                 if (!str.isEmpty()) {
                     this.tooltipElement.render(str, mouseX, mouseY, 8, -8);

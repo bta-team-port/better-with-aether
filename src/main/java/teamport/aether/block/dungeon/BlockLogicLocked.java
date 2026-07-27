@@ -6,6 +6,7 @@ import net.minecraft.core.block.material.Material;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
 import org.jspecify.annotations.Nullable;
 
 public class BlockLogicLocked extends BlockLogicDungeon {
@@ -14,6 +15,11 @@ public class BlockLogicLocked extends BlockLogicDungeon {
     public BlockLogicLocked(Block<?> block, Material material, Block<?> replacement) {
         super(block, material);
         this.replacement = replacement;
+    }
+
+    @Override
+    public int getPistonPushReaction(World world, TilePosc pos) {
+        return Material.PISTON_CANT_PUSH;
     }
 
     @Override

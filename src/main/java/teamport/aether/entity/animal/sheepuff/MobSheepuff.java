@@ -29,7 +29,7 @@ public class MobSheepuff extends MobAetherAnimal {
 
     public MobSheepuff(World world) {
         super(world);
-        this.textureIdentifier = NamespaceID.getPermanent("aether", "sheepuff");
+        this.setTextureIdentifier("aether", "sheepuff");
         this.growthTimer = this.random.nextInt(100) + 100;
         this.setSize(0.9F, 1.3F);
     }

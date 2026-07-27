@@ -16,7 +16,8 @@ public abstract class MobWolfMixinFallDamage {
             original.call(distance);
             return;
         }
-        ArmorMaterial material = ((MobWolf) (Object) this).getArmorMaterial();
+        net.minecraft.core.item.ItemStack armor = ((MobWolf)(Object) this).getArmorItem();
+        ArmorMaterial material = (armor != null && armor.getItem() instanceof net.minecraft.core.item.IArmorItem) ? ((net.minecraft.core.item.IArmorItem<?>) armor.getItem()).getArmorMaterial() : null;
         if (material == null || !material.equals(AetherArmorMaterial.GRAVITITE)) {
             original.call(distance);
         }

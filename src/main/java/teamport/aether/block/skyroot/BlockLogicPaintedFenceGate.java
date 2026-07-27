@@ -2,7 +2,9 @@ package teamport.aether.block.skyroot;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicFenceGatePainted;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
 
 public class BlockLogicPaintedFenceGate extends BlockLogicFenceGatePainted {
     protected final int unpaintedBlockID;
@@ -13,8 +15,8 @@ public class BlockLogicPaintedFenceGate extends BlockLogicFenceGatePainted {
     }
 
     @Override
-    public void removeDye(World world, int x, int y, int z) {
-        int meta = world.getBlockMetadata(x, y, z);
-        world.setBlockAndMetadataWithNotify(x, y, z, unpaintedBlockID, meta & -241);
+    public void removeDye(World world, TilePosc pos) {
+        int meta = world.getBlockData(pos);
+        world.setBlockTypeDataNotify(pos, Blocks.getBlock(unpaintedBlockID), meta & -241);
     }
 }

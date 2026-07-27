@@ -26,9 +26,6 @@ import teamport.aether.entity.monster.mimic.MimicRegistry;
 import teamport.aether.item.AetherItemTags;
 import teamport.aether.item.AetherItems;
 import teamport.aether.item.accessory.ItemTrinket;
-import teamport.aether.lookup.LookupFuelEnchanter;
-import teamport.aether.lookup.LookupFuelFreezer;
-import teamport.aether.lookup.LookupFuelIncubator;
 import teamport.aether.net.*;
 import teamport.aether.net.message.*;
 import teamport.aether.recipe.RecipeEntryAetherMachine;
@@ -36,17 +33,18 @@ import teamport.aether.recipe.RecipeEntryIncubator;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.biome.AetherBiomes;
 import teamport.aether.world.feature.AetherWorldFeatures;
+import turniplabs.halplibe.HalpLibe;
+import turniplabs.halplibe.event.defs.CommonEvents;
 import turniplabs.halplibe.helper.network.NetworkHandler;
-import turniplabs.halplibe.util.GameStartEntrypoint;
+import turniplabs.halplibe.util.dependency.Key;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static net.minecraft.core.entity.animal.MobFireflyCluster.FireflyColor.register;
 
-@SuppressWarnings({"java:S1104", "java:S1444", "java:S3008"})
-public class AetherMod implements GameStartEntrypoint, ModInitializer {
-    public static final String MOD_ID = "aether";
+public class AetherMod implements ModInitializer {
+    public static final String MOD_ID = HalpLibe.registerMod("aether", true);
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     @SuppressWarnings("OptionalGetWithoutIsPresent")
     public static final String VERSION_STRING = FabricLoader.getInstance().getModContainer(MOD_ID).get().getMetadata().getVersion().getFriendlyString();
@@ -56,7 +54,6 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
 
     public static final DamageType LIGHTNING = new DamageType("damagetype.lightning", true, true, "aether:gui/hud/protection_lightning");
     public static final DamageType HOLY = new DamageType("damagetype.holy", false, true, "aether:gui/hud/protection_holy");
-    @SuppressWarnings("java:S2386")
     public static final Map<Integer, BlockLogicNote.Instrument> BLOCK_INSTRUMENTS = new HashMap<>();
 
     public static final BlockLogicNote.Instrument FLUTE = new BlockLogicNote.Instrument(11, "flute");
@@ -70,33 +67,39 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     public static final BlockLogicNote.Instrument SAXOPHONE = new BlockLogicNote.Instrument(19, "saxophone");
     public static final BlockLogicNote.Instrument MUSICBOX = new BlockLogicNote.Instrument(20, "musicbox");
 
-    // for slots
     public static final byte ARMOR_START_INDEX = 41;
 
-    // for zanite
     public static final float ZANITE_MULTIPLIER = 2.0F;
 
     public static final byte BRONZE_CHANCES = 4;
     public static final byte SILVER_CHANCES = 10;
     public static final byte GOLD_CHANCES = 11;
 
+    private final AetherRecipes recipes = new AetherRecipes();
+
     @Override
     public void onInitialize() {
         LOGGER.info("Aether initialized, welcome to a hostile paradise. Version {} {}", STATE, VERSION_STRING);
+        Key key = Key.of(MOD_ID);
+        CommonEvents.BEFORE_GAME_START.listen(key, this::beforeGameStart);
+        CommonEvents.AFTER_GAME_START.listen(key, this::afterGameStart);
+        CommonEvents.RECIPES_NAMESPACE_INIT.listen(key, recipes::initNamespaces);
+        CommonEvents.RECIPES_READY.listen(key, recipes::onRecipesReady);
+
         NetworkHandler.registerNetworkMessage(SunspiritDeathNetworkMessage::new);
         NetworkHandler.registerNetworkMessage(AetherRideableNetworkMessage::new);
         NetworkHandler.registerNetworkMessage(BossListNetworkMessage::new);
         NetworkHandler.registerNetworkMessage(AetherDungeonMapUpdateNetworkMessage::new);
+        NetworkHandler.registerNetworkMessage(AetherDungeonMapRequestNetworkMessage::new);
         NetworkHandler.registerNetworkMessage(AetherSyncRepulsionNetworkMessage::new);
         NetworkHandler.registerNetworkMessage(EjectRiderNetworkMessage::new);
-
-        registerNewRecipeTypes();
+        NetworkHandler.registerNetworkMessage(EffectSyncNetworkMessage::new);
+        NetworkHandler.registerNetworkMessage(ExtraHealthSyncNetworkMessage::new);
     }
 
-    @Override
     public void beforeGameStart() {
-        AetherGlobals.init();
         AetherConfig.init();
+        registerNewRecipeTypes();
         AetherEntities.init();
         AetherBlocks.init();
         AetherDimension.init();
@@ -115,12 +118,8 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         SoundTypes.loadSoundsJson(MOD_ID);
     }
 
-    @Override
     public void afterGameStart() {
         AetherEffects.init();
-        LookupFuelEnchanter.init();
-        LookupFuelFreezer.init();
-        LookupFuelIncubator.init();
         MimicRegistry.init();
 
         TRANSLATOR = I18n.getInstance();
@@ -144,7 +143,9 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     public static void registerNewRecipeTypes() {
         Registries.RECIPE_TYPES.register("aether:machine", RecipeEntryAetherMachine.class);
         Registries.RECIPE_TYPES.register("aether:incubator", RecipeEntryIncubator.class);
-        Registries.RECIPE_TYPES.register("aether:repair", RecipeEntryAetherMachine.class);
+        if (AetherConfig.INCLUDE_REPAIR_RECIPES) {
+            Registries.RECIPE_TYPES.register("aether:repair", RecipeEntryAetherMachine.class);
+        }
     }
 
     public static void registerNewTagForItems() {

@@ -43,7 +43,7 @@ public class MobWhirly extends MobAetherAnimal implements Creature {
     public MobWhirly(World world) {
         super(world);
         this.setSize(1.0F, 2.0F);
-        this.textureIdentifier = NamespaceID.getPermanent("aether", "whirly");
+        this.setTextureIdentifier("aether", "whirly");
         this.maxLifetime = this.random.nextInt(1024) + 1024;
         this.moveSpeed = 0.35F;
         this.footSize = 1.0f;
@@ -99,7 +99,6 @@ public class MobWhirly extends MobAetherAnimal implements Creature {
         return block != null && block.hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN);
     }
 
-    @SuppressWarnings("java:S131")
     @Override
     public boolean collidesWith(Entity entity) {
         float launchSpeed = 0.75F;

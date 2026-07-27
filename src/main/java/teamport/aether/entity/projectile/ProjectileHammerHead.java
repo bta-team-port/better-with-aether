@@ -37,7 +37,6 @@ public class ProjectileHammerHead extends Projectile implements ProjectileAether
     @Override
     public void tick() {
         super.tick();
-        ++this.ticksInAir;
         if (ticksInAir > 200) {
             doEffect();
             remove();
@@ -46,13 +45,14 @@ public class ProjectileHammerHead extends Projectile implements ProjectileAether
 
     @Override
     public void onHit(HitResult hitResult) {
-        if (hitResult.entity != null) {
-            hitResult.entity.hurt(this.owner, this.damage, DamageType.COMBAT);
+        if (hitResult instanceof HitResult.Entity) {
+            Entity hitEntity = ((HitResult.Entity) hitResult).entity;
+            hitEntity.hurt(this.owner, this.damage, DamageType.COMBAT);
             doEffect();
             this.remove();
         }
 
-        if (hitResult.hitType == HitResult.HitType.TILE) {
+        if (hitResult instanceof HitResult.Tile) {
             doEffect();
             this.remove();
         }

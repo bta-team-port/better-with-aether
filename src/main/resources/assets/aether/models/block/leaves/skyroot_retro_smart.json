@@ -1,0 +1,4 @@
+{
+  "parent": "minecraft:block/leaves/leaves_smart",
+  "textures": { "all": "aether:block/leaves/skyroot_retro_fancy" }
+}

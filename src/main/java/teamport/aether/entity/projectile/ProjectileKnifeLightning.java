@@ -37,24 +37,26 @@ public class ProjectileKnifeLightning extends Projectile implements ProjectileAe
     @Override
     public void onHit(HitResult hitResult) {
         if (this.world == null) return;
-        if (hitResult.entity != null) {
-            hitResult.entity.hurt(this.owner, this.damage, AetherMod.LIGHTNING);
+        if (hitResult instanceof HitResult.Entity) {
+            Entity hitEntity = ((HitResult.Entity) hitResult).entity;
+            hitEntity.hurt(this.owner, this.damage, AetherMod.LIGHTNING);
             if (!world.isClientSide) {
-                world.entityJoinedWorld(new EntityLightning(hitResult.entity.world, hitResult.entity.x, hitResult.entity.y, hitResult.entity.z));
+                world.entityJoinedWorld(new EntityLightning(hitEntity.world, hitEntity.x, hitEntity.y, hitEntity.z));
             }
 
             doEffect();
             this.remove();
         }
 
-        if (hitResult.hitType == HitResult.HitType.TILE) {
+        if (hitResult instanceof HitResult.Tile) {
+            HitResult.Tile tileHit = (HitResult.Tile) hitResult;
             if (!world.isClientSide) {
                 world.entityJoinedWorld(
                     new EntityLightning(
                         world,
-                        (double) hitResult.x + hitResult.side.getOffsetX(),
-                        (double) hitResult.y + hitResult.side.getOffsetY(),
-                        (double) hitResult.z + hitResult.side.getOffsetZ()
+                        (double) tileHit.tilePos.x() + tileHit.side.offsetX(),
+                        (double) tileHit.tilePos.y() + tileHit.side.offsetY(),
+                        (double) tileHit.tilePos.z() + tileHit.side.offsetZ()
                     )
                 );
             }

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_lantern_hanging",
+  "textures": {
+    "all": "aether:block/lantern_firefly_silver"
+  }
+}

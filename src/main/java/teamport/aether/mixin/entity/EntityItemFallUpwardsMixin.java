@@ -1,11 +1,11 @@
 package teamport.aether.mixin.entity;
 
-import net.minecraft.core.block.Blocks;
+import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityItem;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -24,22 +24,22 @@ public abstract class EntityItemFallUpwardsMixin extends Entity {
         super(world);
     }
 
-    @Inject(method = "tick", at = @At("TAIL"))
+    @Inject(method = "tick()V", at = @At("TAIL"))
     private void makeGravititeFloat(CallbackInfo ci) {
         if (item != null && item.getItem().hasTag(AetherItemTags.FALLS_UPWARDS)) {
             this.yd += 0.08;
         }
     }
 
-    @ModifyVariable(method = "tick", at = @At(value = "STORE"), ordinal = 0)
+    @ModifyVariable(method = "handleFriction(Lnet/minecraft/core/block/Block;Z)V", at = @At(value = "STORE"), ordinal = 0)
     private float flipFriction(float friction) {
         if (!item.getItem().hasTag(AetherItemTags.FALLS_UPWARDS)) {
             return friction;
         }
 
-        int blockAbove = this.world.getBlockId(MathHelper.floor(this.x), MathHelper.floor(this.bb.maxY) + 1, MathHelper.floor(this.z));
-        if (blockAbove > 0) {
-            return Blocks.blocksList[blockAbove].friction * 0.98F;
+        Block<?> blockAbove = this.world.getBlockType(new TilePos(this.x, this.bb.maxY + 1.0, this.z));
+        if (blockAbove.id() > 0) {
+            return blockAbove.friction * 0.98F;
         }
 
         if (this.y > (double) 320.0F) {

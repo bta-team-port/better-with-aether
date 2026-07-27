@@ -15,8 +15,16 @@ import static net.minecraft.core.util.helper.Direction.*;
 public class MetadataHelper {
     public static final byte MASK_DIRECTION = 3;
 
+    public static int horizontalIndex(Direction direction) {
+        Direction[] arr = Direction.horizontal;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == direction) return i;
+        }
+        return 0;
+    }
+
     public static int getMetadataFromDyeAndDirection(DyeColor dyeColor, Direction direction) {
-        return dyeColor.blockMeta << 4 | direction.getHorizontalIndex();
+        return dyeColor.blockMeta << 4 | horizontalIndex(direction);
     }
 
     public static int getMetadataFromDyeAndLower(DyeColor dyeColor, int lowerBits) {
@@ -25,7 +33,7 @@ public class MetadataHelper {
 
 
     public static int maskDirectionHorizontal(int metadata, Direction direction) {
-        return (metadata & ~MASK_DIRECTION) | direction.getHorizontalIndex();
+        return (metadata & ~MASK_DIRECTION) | horizontalIndex(direction);
     }
 
 
@@ -48,7 +56,7 @@ public class MetadataHelper {
         int metadata = dyeColor.blockMeta << 4;
         metadata |= upper << 3;
         metadata |= open << 2;
-        return metadata | getTrapDoorMetaForDirection(direction.getOpposite());
+        return metadata | getTrapDoorMetaForDirection(direction.opposite());
     }
 
     /**

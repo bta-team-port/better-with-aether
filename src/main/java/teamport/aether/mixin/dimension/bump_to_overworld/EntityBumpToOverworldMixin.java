@@ -39,7 +39,7 @@ public abstract class EntityBumpToOverworldMixin {
     private void fallToOverWorld(CallbackInfo ci) {
         if (world == null || EnvironmentHelper.isClientWorld()) return;
         Dimension dimension = world.dimension;
-        if (dimension.id == AetherDimension.getAether().id && y < world.worldType.getMinY() - 10) {
+        if (dimension.id == AetherDimension.getAether().id && y < world.getWorldType().getMinY(world) - 10) {
             if (getPassenger() != null) {
                 if (getPassenger() instanceof Player) return;
                 ejectRider();

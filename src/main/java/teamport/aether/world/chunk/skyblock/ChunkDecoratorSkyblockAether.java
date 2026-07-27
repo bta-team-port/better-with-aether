@@ -24,8 +24,8 @@ public class ChunkDecoratorSkyblockAether implements ChunkDecorator {
 
     @Override
     public void decorate(Chunk chunk) {
-        int chunkX = chunk.xPosition;
-        int chunkZ = chunk.zPosition;
+        int chunkX = chunk.pos.x;
+        int chunkZ = chunk.pos.z;
         int x = chunkX * 16;
         int z = chunkZ * 16;
         Random rand = new Random(this.world.getRandomSeed());
@@ -96,7 +96,7 @@ public class ChunkDecoratorSkyblockAether implements ChunkDecorator {
     }
 
     public boolean contains(Chunk chunk, int xBlock, int zBlock) {
-        return chunk.xPosition == xBlock >> 4 && chunk.zPosition == zBlock >> 4;
+        return chunk.pos.x == xBlock >> 4 && chunk.pos.z == zBlock >> 4;
     }
 
     public void tryPlace(Chunk chunk, int xBlock, int yBlock, int zBlock, int blockId) {

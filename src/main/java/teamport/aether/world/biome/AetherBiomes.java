@@ -4,7 +4,6 @@ import net.minecraft.core.world.biome.Biome;
 import net.minecraft.core.world.biome.Biomes;
 
 public class AetherBiomes {
-    @SuppressWarnings({"java:S1104", "java:S1444", "java:S3008"})
     public static Biome AETHER_PLAINS;
 
     private static boolean hasInit = false;

@@ -13,7 +13,6 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(value = CommandHeal.class, remap = false, priority = 0)
 public abstract class CommandHealMixin {
-    @SuppressWarnings({"java:S3516", "SameReturnValue"})
     @Expression("? instanceof ?")
     @ModifyExpressionValue(method = "lambda$register$0", at = @At("MIXINEXTRAS:EXPRESSION"))
     private static boolean handleMobHeal(boolean original, @Local(name = "entity") Entity entity, @Local(name = "entitiesAffected") LocalIntRef entitiesAffected, @Local(name = "amount") int amount) {

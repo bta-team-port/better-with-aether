@@ -24,7 +24,7 @@ public class ItemRegenStone extends ItemTrinket implements IAccessoryEffects {
         if (
             slotId < player.inventory.mainInventory.length
                 || slotId - player.inventory.mainInventory.length < TRINKET_1_SLOT
-                || player.gamemode.isPlayerInvulnerable()
+                || player.gamemode.hasInvulnerablePlayer()
         ) {
             tag.putInt("time", 0);
             return;

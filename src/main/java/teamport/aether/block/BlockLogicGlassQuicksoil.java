@@ -4,6 +4,7 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicTransparent;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
+import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
@@ -13,7 +14,7 @@ import static teamport.aether.AetherConfig.QUICK_SOIL_SPEED_CAP;
 
 public class BlockLogicGlassQuicksoil extends BlockLogicTransparent {
     public BlockLogicGlassQuicksoil(Block<?> block) {
-        super(block, Material.glass);
+        super(block, Materials.GLASS);
         block.friction = 1.05f;
     }
 

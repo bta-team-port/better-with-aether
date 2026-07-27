@@ -4,6 +4,7 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicLeavesBase;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
+import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.MathHelper;
@@ -16,7 +17,7 @@ import java.util.Random;
 public class BlockLogicLeavesSkyroot extends BlockLogicLeavesBase {
 
     public BlockLogicLeavesSkyroot(Block<?> block) {
-        super(block, Material.leaves, AetherBlocks.SAPLING_SKYROOT);
+        super(block, Materials.LEAVES, AetherBlocks.SAPLING_SKYROOT);
     }
 
     @Override
@@ -34,7 +35,7 @@ public class BlockLogicLeavesSkyroot extends BlockLogicLeavesBase {
         WindProvider wind = world.getWorldType().getWindManager();
         float windIntensity = wind.getWindIntensity(world, x, y, z);
         if (rand.nextInt((int) (40.0F + 200.0F * (1.0F - windIntensity))) == 0) {
-            world.spawnParticle("fallingAetherLeaf", x, (double) y - (double) 0.1F, z, 0.0F, 0.0F, 0.0F, 0);
+            world.spawnParticle("fallingAetherLeaf", x, (double) y - (double) 0.1F, z, 0.0F, 0.0F, 0.0F, 0, false);
         }
     }
 }

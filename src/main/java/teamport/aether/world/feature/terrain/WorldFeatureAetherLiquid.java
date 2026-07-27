@@ -64,7 +64,7 @@ public class WorldFeatureAetherLiquid extends WorldFeature {
                 world.setBlockWithNotify(x, y, z, this.liquidBlockId);
                 world.scheduledUpdatesAreImmediate = true;
                 Block<?> block = Blocks.blocksList[this.liquidBlockId];
-                if (block != null) block.updateTick(world, x, y, z, random);
+                if (block != null) block.updateTick(world, x, y, z, random, false);
                 world.scheduledUpdatesAreImmediate = false;
             }
 

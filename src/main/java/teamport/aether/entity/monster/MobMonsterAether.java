@@ -30,7 +30,7 @@ public abstract class MobMonsterAether extends MobMonster implements Enemy {
             return false;
         } else {
             int blockLight = this.world.getBlockLightValue(blockX, blockY, blockZ);
-            if (this.world.getCurrentWeather() != null && this.world.getCurrentWeather().doMobsSpawnInDaylight) {
+            if (this.world.getCurrentWeather() != null && this.world.getCurrentWeather().isMobDaylightSpawnAllowed()) {
                 blockLight /= 2;
             }
 

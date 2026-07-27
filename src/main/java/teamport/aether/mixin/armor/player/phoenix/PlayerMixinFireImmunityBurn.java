@@ -2,6 +2,7 @@ package teamport.aether.mixin.armor.player.phoenix;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityLightning;
 import net.minecraft.core.entity.player.Player;
@@ -25,9 +26,9 @@ public abstract class PlayerMixinFireImmunityBurn {
     @Shadow
     public abstract boolean hurt(Entity attacker, int baseDamage, DamageType type);
     @WrapMethod(method = "burn")
-    private void burn(int damage, Operation<Void> original) {
+    private void burn(int damage, Block block, Operation<Void> original) {
         if (!((Entity) (Object) this instanceof Player)) {
-            original.call(damage);
+            original.call(damage, block);
             return;
         }
         Player player = (Player) (Object) this;
@@ -35,7 +36,7 @@ public abstract class PlayerMixinFireImmunityBurn {
             MixinHelper.damageArmourWithEffect(1, player, x, y, z, bbHeight, bbWidth);
             return;
         }
-        original.call(damage);
+        original.call(damage, block);
     }
     @WrapMethod(method = "thunderHit")
     private void thunderHit(EntityLightning bolt, Operation<Void> original) {

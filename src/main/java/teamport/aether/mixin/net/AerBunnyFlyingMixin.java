@@ -19,8 +19,8 @@ public abstract class AerBunnyFlyingMixin {
     private PlayerServer playerEntity;
     @Shadow
     private int playerInAirTime;
-    @Inject(method = "handleFlying", at = @At("HEAD"))
-    private void handleFlying(PacketMovePlayer packet, CallbackInfo ci) {
+    @Inject(method = "handleMovePlayer(Lnet/minecraft/core/net/packet/PacketMovePlayer;)V", at = @At("HEAD"))
+    private void handleMovePlayer(PacketMovePlayer packet, CallbackInfo ci) {
         if (this.playerEntity.passenger instanceof MobAerbunny) {
             playerInAirTime = 0;
         }

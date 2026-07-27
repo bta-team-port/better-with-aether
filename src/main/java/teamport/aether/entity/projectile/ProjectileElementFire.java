@@ -33,9 +33,7 @@ public class ProjectileElementFire extends ProjectileElementBase implements Aeth
     @Override
     public void tick() {
         if (this.world == null) return;
-        for (int j = 0; j < 1; j++) {
-            ParticleMaker.spawnParticle(world, "flame", this.x, this.y + 0.5, this.z, world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), 0, world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), 0);
-        }
+        ParticleMaker.spawnParticle(world, "flame", this.x, this.y + 0.5, this.z, world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), 0, world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), 0);
 
         super.tick();
     }
@@ -47,10 +45,11 @@ public class ProjectileElementFire extends ProjectileElementBase implements Aeth
 
     @Override
     public void onHit(HitResult hitResult) {
-        if (this.world != null && !this.world.isClientSide && !(hitResult.entity instanceof MobBossSunspirit || hitResult.entity instanceof ProjectileElementBase || hitResult.entity instanceof MobFireMinion) && hitResult.entity instanceof Mob) {
-            hitResult.entity.hurt(this.owner, this.damage, DamageType.FIRE);
-            hitResult.entity.maxFireTicks = 200;
-            hitResult.entity.remainingFireTicks = 200;
+        Entity hitEntity = hitResult instanceof HitResult.Entity ? ((HitResult.Entity) hitResult).entity : null;
+        if (this.world != null && !this.world.isClientSide && !(hitEntity instanceof MobBossSunspirit || hitEntity instanceof ProjectileElementBase || hitEntity instanceof MobFireMinion) && hitEntity instanceof Mob) {
+            hitEntity.hurt(this.owner, this.damage, DamageType.FIRE);
+            hitEntity.maxFireTicks = 200;
+            hitEntity.remainingFireTicks = 200;
             this.remove();
             return;
         }

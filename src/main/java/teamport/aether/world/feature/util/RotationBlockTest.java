@@ -15,7 +15,7 @@ import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
 public class RotationBlockTest extends WorldFeature {
     @Override
     public boolean place(World world, Random random, int x, int y, int z) {
-        Direction[] horizontalDirections = Direction.horizontalDirections;
+        Direction[] horizontalDirections = Direction.horizontal;
         for (int i = 0; i < horizontalDirections.length; i++) {
             Direction dir = horizontalDirections[i];
             make(world, x - 4 * i, y, z, dir);

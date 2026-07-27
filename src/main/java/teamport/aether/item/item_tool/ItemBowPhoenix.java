@@ -1,14 +1,12 @@
 package teamport.aether.item.item_tool;
 
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.item.IArmorItem;
 import net.minecraft.core.item.ItemBow;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.world.World;
+import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.entity.projectile.ProjectileArrowFlaming;
-
-import static teamport.aether.item.accessory.SlotAccessory.CAPE_SLOT;
 
 public class ItemBowPhoenix extends ItemBow {
     public ItemBowPhoenix(String name, String namespaceId, int id) {
@@ -18,11 +16,11 @@ public class ItemBowPhoenix extends ItemBow {
     }
 
     @Override
-    public ItemStack onUseItem(ItemStack itemstack, World world, Player entityplayer) {
-        int index = findActiveQuiver(entityplayer, 2);
-        ItemStack quiverSlot = entityplayer.inventory.armorItemInSlot(index);
-        if (quiverSlot != null && quiverSlot.itemID == Items.ARMOR_QUIVER.id && quiverSlot.getMetadata() < quiverSlot.getMaxDamage()) {
-            entityplayer.inventory.armorItemInSlot(index).damageItem(1, entityplayer);
+    public ItemStack onUse(ItemStack itemstack, World world, Player entityplayer) {
+        int quiverIndex = PlayerUtil.getActiveQuiverSlot(entityplayer);
+        ItemStack quiverSlot = PlayerUtil.getActiveQuiver(entityplayer);
+        if (quiverSlot != null && quiverSlot.itemID == Items.ARMOR_QUIVER.id) {
+            PlayerUtil.damageItemArmor(entityplayer, quiverSlot, quiverIndex);
             shootArrow(itemstack, world, entityplayer);
         } else if ((quiverSlot != null && quiverSlot.itemID == Items.ARMOR_QUIVER_GOLD.id) ||
             entityplayer.inventory.consumeInventoryItem(Items.AMMO_ARROW_GOLD.id)
@@ -48,15 +46,4 @@ public class ItemBowPhoenix extends ItemBow {
         }
     }
 
-    public int findActiveQuiver(Player entityplayer, int index) {
-        ItemStack bodyItem = entityplayer.inventory.armorItemInSlot(index);
-        if (
-            bodyItem == null
-                || (bodyItem.itemID != Items.ARMOR_QUIVER_GOLD.id
-                && 0 >= bodyItem.getMaxDamage() - bodyItem.getMetadata())
-        ) {
-            return CAPE_SLOT;
-        }
-        return IArmorItem.PIECE_CHEST;
-    }
 }

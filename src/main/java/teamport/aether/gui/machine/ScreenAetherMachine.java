@@ -1,19 +1,17 @@
 package teamport.aether.gui.machine;
 
 import net.minecraft.client.gui.container.ScreenContainerAbstract;
+import net.minecraft.client.option.GameSettings;
 import net.minecraft.core.InventoryAction;
-import net.minecraft.core.block.entity.TileEntityFurnaceBlast;
 import net.minecraft.core.crafting.LookupFuelFurnace;
-import net.minecraft.core.crafting.LookupFuelFurnaceBlast;
 import net.minecraft.core.data.registry.Registries;
-import net.minecraft.core.data.registry.recipe.entry.RecipeEntryBlastFurnace;
 import net.minecraft.core.data.registry.recipe.entry.RecipeEntryFurnace;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.menu.*;
 import net.minecraft.core.player.inventory.slot.Slot;
 import net.minecraft.core.player.inventory.slot.SlotCreative;
 import net.minecraft.core.player.inventory.slot.SlotResult;
-import org.lwjgl.input.Keyboard;
+import org.lwjgl.glfw.GLFW;
 import teamport.aether.mixin.accessors.ScreenContainerAbstractAccessor;
 
 public abstract class ScreenAetherMachine extends ScreenContainerAbstract {
@@ -30,7 +28,6 @@ public abstract class ScreenAetherMachine extends ScreenContainerAbstract {
      * Additional machines can be checked in getTargetSlot. All aether machine screens need to inherit from
      * this class for it work.
      */
-    @SuppressWarnings("java:S6541")
     @Override
     public void clickInventory(int x, int y, int mouseButton) {
         int slotId = ((ScreenContainerAbstractAccessor) this).invokeGetSlotId(x, y);
@@ -42,7 +39,7 @@ public abstract class ScreenAetherMachine extends ScreenContainerAbstract {
                 }
 
                 this.mc.playerController.handleInventoryMouseClick(this.inventorySlots.containerId, action, null, this.mc.thePlayer);
-            } else if (!this.mc.thePlayer.getGamemode().consumeBlocks() && mouseButton == 2) {
+            } else if (!this.mc.thePlayer.getGamemode().hasBlockConsumption() && mouseButton == 2) {
                 Slot slot = this.inventorySlots.getSlot(slotId);
                 if (slot.getItemStack() == null) {
                     this.mc.playerController.handleInventoryMouseClick(this.inventorySlots.containerId, InventoryAction.SORT, new int[]{slotId, 64}, this.mc.thePlayer);
@@ -52,16 +49,20 @@ public abstract class ScreenAetherMachine extends ScreenContainerAbstract {
 
             } else {
                 InventoryAction action = InventoryAction.CLICK_LEFT;
-                boolean shiftPressed = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT);
-                boolean ctrlPressed = Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL);
-                boolean altPressed = Keyboard.isKeyDown(Keyboard.KEY_LMENU) || Keyboard.isKeyDown(Keyboard.KEY_RMENU);
-                boolean spacePressed = Keyboard.isKeyDown(Keyboard.KEY_SPACE);
+                long window = this.mc.gameWindow.getHandle();
+                boolean shiftPressed = GLFW.glfwGetKey(window, GLFW.GLFW_KEY_LEFT_SHIFT) == GLFW.GLFW_PRESS
+                    || GLFW.glfwGetKey(window, GLFW.GLFW_KEY_RIGHT_SHIFT) == GLFW.GLFW_PRESS;
+                boolean ctrlPressed = GLFW.glfwGetKey(window, GLFW.GLFW_KEY_LEFT_CONTROL) == GLFW.GLFW_PRESS
+                    || GLFW.glfwGetKey(window, GLFW.GLFW_KEY_RIGHT_CONTROL) == GLFW.GLFW_PRESS;
+                boolean altPressed = GLFW.glfwGetKey(window, GLFW.GLFW_KEY_LEFT_ALT) == GLFW.GLFW_PRESS
+                    || GLFW.glfwGetKey(window, GLFW.GLFW_KEY_RIGHT_ALT) == GLFW.GLFW_PRESS;
+                boolean spacePressed = GLFW.glfwGetKey(window, GLFW.GLFW_KEY_SPACE) == GLFW.GLFW_PRESS;
                 if (mouseButton == 10) {
                     shiftPressed = true;
                     mouseButton = 0;
                 }
 
-                if (this.mc.gameSettings.keySortInventory.isMouseButton(mouseButton)) {
+                if (GameSettings.KEY_SORT_INVENTORY.isMouseButton(mouseButton)) {
                     action = InventoryAction.SORT;
                 }
 
@@ -75,7 +76,7 @@ public abstract class ScreenAetherMachine extends ScreenContainerAbstract {
                 }
 
                 if (slot instanceof SlotResult) {
-                    if (Boolean.TRUE.equals(this.mc.gameSettings.swapCraftingButtons.value)) {
+                    if (Boolean.TRUE.equals(GameSettings.SWAP_CRAFTING_BUTTONS.value)) {
                         if (shiftPressed && ctrlPressed) {
                             action = InventoryAction.MOVE_SIMILAR;
                         } else if (shiftPressed) {
@@ -132,33 +133,17 @@ public abstract class ScreenAetherMachine extends ScreenContainerAbstract {
                     target = this.getTargetSlot(stackInSlot, clickedItemId);
 
                     if (this.inventorySlots instanceof MenuFurnace) {
-                        MenuFurnace furnace = (MenuFurnace) this.inventorySlots;
-                        boolean isBlastFurnace = furnace.furnace instanceof TileEntityFurnaceBlast;
                         boolean isIngredient = false;
-                        boolean isFuel;
-                        if (isBlastFurnace) {
-                            for (RecipeEntryBlastFurnace recipe : Registries.RECIPES.getAllBlastFurnaceRecipes()) {
-                                isIngredient = recipe.matches(stackInSlot);
-                                if (isIngredient) {
-                                    break;
-                                }
+                        for (RecipeEntryFurnace recipe : Registries.RECIPES.getAllFurnaceRecipes()) {
+                            isIngredient = recipe.matches(stackInSlot);
+                            if (isIngredient) {
+                                break;
                             }
-
-                            isFuel = LookupFuelFurnaceBlast.instance.getFuelYield(clickedItemId) > 0;
-                        } else {
-                            for (RecipeEntryFurnace recipe : Registries.RECIPES.getAllFurnaceRecipes()) {
-                                isIngredient = recipe.matches(stackInSlot);
-                                if (isIngredient) {
-                                    break;
-                                }
-                            }
-
-                            isFuel = LookupFuelFurnace.instance.getFuelYield(clickedItemId) > 0;
                         }
 
                         if (isIngredient) {
                             target = 1;
-                        } else if (isFuel) {
+                        } else if (LookupFuelFurnace.instance.getFuelYield(clickedItemId) > 0) {
                             target = 2;
                         }
                     }

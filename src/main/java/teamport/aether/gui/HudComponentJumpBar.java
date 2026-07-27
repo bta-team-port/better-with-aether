@@ -7,9 +7,11 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.hud.HudIngame;
 import net.minecraft.client.gui.hud.component.HudComponentMovable;
 import net.minecraft.client.gui.hud.component.layout.Layout;
+import net.minecraft.client.option.GameSettings;
 import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
-import org.lwjgl.opengl.GL11;
+import net.minecraft.client.render.renderer.GLRenderer;
+import net.minecraft.client.render.renderer.State;
 import teamport.aether.entity.AetherJumpAmount;
 
 @Environment(EnvType.CLIENT)
@@ -22,22 +24,24 @@ public class HudComponentJumpBar extends HudComponentMovable {
     }
 
     @Override
-    public boolean isVisible(Minecraft mc) {
-        return mc.gameSettings.immersiveMode.drawHotbar() && mc.thePlayer.vehicle instanceof AetherJumpAmount;
+    public boolean isVisible() {
+        return GameSettings.IMMERSIVE_MODE.drawHotbar()
+            && mc.thePlayer != null
+            && mc.thePlayer.vehicle instanceof AetherJumpAmount;
     }
 
     @Override
-    public void render(Minecraft mc, HudIngame hud, int xSizeScreen, int ySizeScreen, float partialTick) {
+    public void render(HudIngame hud, int xSizeScreen, int ySizeScreen, float partialTick) {
         if (!(mc.thePlayer.vehicle instanceof AetherJumpAmount)) return;
 
         int maxJumps = ((AetherJumpAmount) mc.thePlayer.vehicle).getJumpMaxAmount();
         int currentJumps = ((AetherJumpAmount) mc.thePlayer.vehicle).getJumpAmount();
 
-        int baseX = this.getLayout().getComponentX(mc, this, xSizeScreen);
-        int baseY = this.getLayout().getComponentY(mc, this, ySizeScreen);
+        int baseX = this.getLayout().getComponentX(this, xSizeScreen);
+        int baseY = this.getLayout().getComponentY(this, ySizeScreen);
 
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        GL11.glDisable(GL11.GL_BLEND);
+        GLRenderer.setColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        GLRenderer.disableState(State.BLEND);
 
         for (int i = 0; i < maxJumps; i++) {
             int row = i / 10;
@@ -52,12 +56,12 @@ public class HudComponentJumpBar extends HudComponentMovable {
     }
 
     @Override
-    public void renderPreview(Minecraft mc, Gui gui, Layout layout, int screenWidth, int screenHeight) {
-        int x = layout.getComponentX(mc, this, screenWidth);
-        int y = layout.getComponentY(mc, this, screenHeight);
+    public void renderPreview(Gui gui, Layout layout, int screenWidth, int screenHeight) {
+        int x = layout.getComponentX(this, screenWidth);
+        int y = layout.getComponentY(this, screenHeight);
 
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        GL11.glDisable(GL11.GL_BLEND);
+        GLRenderer.setColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        GLRenderer.disableState(State.BLEND);
 
         int previewFilled = 5;
 

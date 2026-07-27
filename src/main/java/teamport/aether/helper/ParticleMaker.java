@@ -2,14 +2,12 @@ package teamport.aether.helper;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
-import net.minecraft.core.net.packet.PacketAddParticle;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.net.PlayerList;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.mixin.accessors.EntityAccessor;
+import teamport.aether.helper.server.ParticleMakerServer;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.Random;
@@ -21,17 +19,11 @@ public class ParticleMaker {
         if (EnvironmentHelper.isClientWorld()) return;
 
         if (EnvironmentHelper.isServerEnvironment()) {
-            PlayerList playerList = MinecraftServer.getInstance().playerList;
-
-            playerList.sendPacketToAllPlayersInDimension(
-                new PacketAddParticle(particleKey, x, y, z, motionX, motionY, motionZ, data, maxDistance),
-                world.dimension.id
-            );
-
+            ParticleMakerServer.spawnParticle(world, particleKey, x, y, z, motionX, motionY, motionZ, data, maxDistance);
             return;
         }
 
-        world.spawnParticle(particleKey, x, y, z, motionX, motionY, motionZ, data, maxDistance);
+        world.spawnParticle(particleKey, x, y, z, motionX, motionY, motionZ, data, maxDistance, false);
     }
 
     public static void spawnParticle(World world, String particleKey, double x, double y, double z, double motionX, double motionY, double motionZ, int data) {
@@ -52,9 +44,9 @@ public class ParticleMaker {
             double faceY = blockY + 0.5 + (random.nextDouble() * 0.6 - 0.3);
             double faceZ = blockZ + 0.5 + (random.nextDouble() * 0.6 - 0.3);
 
-            double offX = face.getOffsetX() * (random.nextDouble() * 0.3);
-            double offY = face.getOffsetY() * (random.nextDouble() * 0.3);
-            double offZ = face.getOffsetZ() * (random.nextDouble() * 0.3);
+            double offX = face.offsetX() * (random.nextDouble() * 0.3);
+            double offY = face.offsetY() * (random.nextDouble() * 0.3);
+            double offZ = face.offsetZ() * (random.nextDouble() * 0.3);
 
             double spawnX = faceX + offX;
             double spawnY = faceY + offY;

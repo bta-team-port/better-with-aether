@@ -34,8 +34,8 @@ public class ItemToolSwordHoly extends ItemToolSword implements AetherHasCustomD
     }
 
     @Override
-    public int getDamageVsEntity(Entity entity, ItemStack itemstack) {
-        int damage = super.getDamageVsEntity(entity, itemstack);
+    public int getDamageVsEntity(ItemStack itemstack, Entity entity) {
+        int damage = super.getDamageVsEntity(itemstack, entity);
         if (undeadKills(entity)) {
             damage = damage * 2;
         }

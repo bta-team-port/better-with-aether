@@ -14,16 +14,6 @@ import teamport.aether.lookup.LookupFuelEnchanter;
 
 public class TileEntityEnchanter extends AetherTileEntityMachine {
 
-    /// canSmelt                -> canProcess
-    /// smeltItem               -> processItem
-    /// updateFurnace           -> updateContainer
-    /// getBurnTimeFromItem     -> getEnergyTimeFromItem
-    /// getCookProgressScaled   -> getProgressScale
-    /// maxEnergyTime           -> maxBurnTime
-    /// currentEnergyTime       -> currentBurnTime
-    /// maxProcessTime          -> maxCookTime
-    /// currentProcessTime      -> currentCookTime
-
     @Override
     public String getNameTranslationKey() {
         return "container.enchanter.name";
@@ -101,7 +91,7 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
 
     public boolean eternallyLit(boolean updateMachine) {
         if ((this.worldObj == null
-            || this.worldObj.getBlockId(this.x, this.y, this.z) == AetherBlocks.ENCHANTER_IDLE.id())
+            || this.worldObj.getBlockId(this.tilePos.x, this.tilePos.y, this.tilePos.z) == AetherBlocks.ENCHANTER_IDLE.id())
             && this.getCurrentEnergyTime() == 0 && this.containerItemStacks[0] == null
             && this.containerItemStacks[1] != null
             && this.containerItemStacks[1].itemID == AetherBlocks.BLOCK_ZANITE.id()
@@ -174,14 +164,14 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
         }
 
         if (this.worldObj != null && wasEmpty && this.containerItemStacks[2] != null) {
-            this.worldObj.markBlockNeedsUpdate(this.x, this.y, this.z);
+            this.worldObj.markBlockNeedsUpdate(this.tilePos.x, this.tilePos.y, this.tilePos.z);
         }
     }
 
     @Override
     public void updateContainer(boolean forceLit) {
         if (this.worldObj != null) {
-            BlockLogicEnchanter.updateFurnaceBlockState(forceLit || this.getCurrentEnergyTime() > 0, this.worldObj, this.x, this.y, this.z);
+            BlockLogicEnchanter.updateFurnaceBlockState(forceLit || this.getCurrentEnergyTime() > 0, this.worldObj, this.tilePos.x, this.tilePos.y, this.tilePos.z);
             return;
         }
         if (this.carriedBlock != null) {

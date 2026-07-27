@@ -2,13 +2,13 @@ package teamport.aether.entity.animal.sheepuff;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.render.renderer.GLRenderer;
 import net.minecraft.core.util.helper.MathHelper;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import org.lwjgl.opengl.GL11;
 import org.useless.dragonfly.models.entity.BoneTransform;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
-import org.useless.dragonfly.renderer.MobRenderer;
+import net.minecraft.client.render.entity.MobRenderer;
 
 @Environment(EnvType.CLIENT)
 public class MobRendererSheepuff extends MobRenderer<MobSheepuff> {
@@ -23,21 +23,21 @@ public class MobRendererSheepuff extends MobRenderer<MobSheepuff> {
 
         switch (layer) {
             case 1:
-                GL11.glColor3f(brightness * MobSheepuff.FLEECE_COLOR_TABLE[colorIndex][0], brightness * MobSheepuff.FLEECE_COLOR_TABLE[colorIndex][1], brightness * MobSheepuff.FLEECE_COLOR_TABLE[colorIndex][2]);
+                GLRenderer.setColor3f(brightness * MobSheepuff.FLEECE_COLOR_TABLE[colorIndex][0], brightness * MobSheepuff.FLEECE_COLOR_TABLE[colorIndex][1], brightness * MobSheepuff.FLEECE_COLOR_TABLE[colorIndex][2]);
                 model = this.getModel("main");
                 this.bindTexture("/assets/aether/textures/entity/sheepuff/wool_overlay.png");
                 break;
 
             case 2:
                 if (!entity.getSheared() && !entity.getPuffed()) {
-                    GL11.glColor3f(brightness * MobSheepuff.FLEECE_COLOR_TABLE[colorIndex][0], brightness * MobSheepuff.FLEECE_COLOR_TABLE[colorIndex][1], brightness * MobSheepuff.FLEECE_COLOR_TABLE[colorIndex][2]);
+                    GLRenderer.setColor3f(brightness * MobSheepuff.FLEECE_COLOR_TABLE[colorIndex][0], brightness * MobSheepuff.FLEECE_COLOR_TABLE[colorIndex][1], brightness * MobSheepuff.FLEECE_COLOR_TABLE[colorIndex][2]);
                     model = this.getModel("wool");
                     this.bindTexture("/assets/aether/textures/entity/sheepuff/wool_overlay.png");
                 }
                 break;
             case 3:
                 if (entity.getPuffed()) {
-                    GL11.glColor3f(brightness * MobSheepuff.FLEECE_COLOR_TABLE[colorIndex][0], brightness * MobSheepuff.FLEECE_COLOR_TABLE[colorIndex][1], brightness * MobSheepuff.FLEECE_COLOR_TABLE[colorIndex][2]);
+                    GLRenderer.setColor3f(brightness * MobSheepuff.FLEECE_COLOR_TABLE[colorIndex][0], brightness * MobSheepuff.FLEECE_COLOR_TABLE[colorIndex][1], brightness * MobSheepuff.FLEECE_COLOR_TABLE[colorIndex][2]);
                     model = this.getModel("puffed");
                     this.bindTexture("/assets/aether/textures/entity/sheepuff/wool_overlay.png");
                 }

@@ -2,7 +2,7 @@ package teamport.aether.particle;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.entity.particle.ParticleLeaf;
+import net.minecraft.client.render.particle.ParticleLeaf;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.world.World;
 

@@ -3,24 +3,24 @@ package teamport.aether.mixin.accessory.quiver;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.enums.HumanArmorShape;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.item.Items;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import teamport.aether.ducks.IContainerInventoryAether;
+import teamport.aether.entity.player.PlayerUtil;
 
 @Mixin(value = Player.class, remap = false)
 public abstract class PlayerMixinNextArrow {
     @Shadow
     public ContainerInventory inventory;
-    @WrapOperation(method = "getNextArrow", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/player/inventory/container/ContainerInventory;armorItemInSlot(I)Lnet/minecraft/core/item/ItemStack;"))
-    private ItemStack checkAdditionalSlots(ContainerInventory instance, int slotId, Operation<ItemStack> original) {
-        ItemStack bodyItem = original.call(instance, slotId);
-        ItemStack capeItem = instance.armorItemInSlot(5);
-        if (bodyItem == null || (bodyItem.itemID != Items.ARMOR_QUIVER_GOLD.id && 0 >= bodyItem.getMaxDamage() - bodyItem.getMetadata())) {
-            return capeItem;
-        }
-        return bodyItem;
+    @WrapOperation(method = "getNextArrow", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/player/Player;getItemInArmorSlot(Lnet/minecraft/core/enums/HumanArmorShape;)Lnet/minecraft/core/item/ItemStack;"))
+    private ItemStack checkAdditionalSlots(Player instance, HumanArmorShape shape, Operation<ItemStack> original) {
+        ItemStack bodyItem = original.call(instance, shape);
+        ItemStack capeItem = ((IContainerInventoryAether) inventory).aether$getAccessoryInventory()[1];
+        if (PlayerUtil.isUsableQuiver(bodyItem)) return bodyItem;
+        return PlayerUtil.isUsableQuiver(capeItem) ? capeItem : bodyItem;
     }
 }

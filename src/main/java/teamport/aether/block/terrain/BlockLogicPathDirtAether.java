@@ -5,24 +5,30 @@ import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
+import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.WorldSource;
+import net.minecraft.core.world.pos.TilePosc;
+import org.joml.primitives.AABBd;
+import org.joml.primitives.AABBdc;
 import teamport.aether.block.AetherBlocks;
 
 public class BlockLogicPathDirtAether extends BlockLogic {
     public BlockLogicPathDirtAether(Block<?> block) {
-        super(block, Material.dirt);
+        super(block, Materials.DIRT);
         block.setTicking(true);
         this.setBlockBounds(0.0, 0.0, 0.0, 1.0, 0.9375, 1.0);
         block.withLightBlock(255);
     }
 
     @Override
-    public AABB getCollisionBoundingBoxFromPool(WorldSource world, int x, int y, int z) {
-        return AABB.getTemporaryBB(x, y, z, x + 1.0, y + 1.0, z + 1.0);
+    public AABBdc getCollisionAABB(WorldSource world, TilePosc pos) {
+        int x = pos.x();
+        int y = pos.y();
+        int z = pos.z();
+        return new AABBd(x, y, z, x + 1.0, y + 1.0, z + 1.0);
     }
 
     @Override

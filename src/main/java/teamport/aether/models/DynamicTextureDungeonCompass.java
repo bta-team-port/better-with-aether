@@ -33,7 +33,7 @@ public class DynamicTextureDungeonCompass extends DynamicTexture {
 
     public void postInit() {
         this.initTexture();
-        BufferedImage atlas = this.targetTexture.parentAtlas.atlas;
+        BufferedImage atlas = this.targetTexture.parentAtlas.colorImage;
         this.compassImageData = new byte[this.targetTexture.getArea() * 4];
 
         for (int x = 0; x < this.targetTexture.width; ++x) {
@@ -100,10 +100,10 @@ public class DynamicTextureDungeonCompass extends DynamicTexture {
                 int r = this.compassImageData[i * 4] & 255;
                 int g = this.compassImageData[i * 4 + 1] & 255;
                 int b = this.compassImageData[i * 4 + 2] & 255;
-                this.imageData[i * 4] = (byte) r;
-                this.imageData[i * 4 + 1] = (byte) g;
-                this.imageData[i * 4 + 2] = (byte) b;
-                this.imageData[i * 4 + 3] = (byte) a;
+                this.getImageData(0)[i * 4] = (byte) r;
+                this.getImageData(0)[i * 4 + 1] = (byte) g;
+                this.getImageData(0)[i * 4 + 2] = (byte) b;
+                this.getImageData(0)[i * 4 + 3] = (byte) a;
             }
         }
 
@@ -154,10 +154,10 @@ public class DynamicTextureDungeonCompass extends DynamicTexture {
             g = 100;
             b = 100;
             a = 255;
-            this.imageData[j * 4] = (byte) r;
-            this.imageData[j * 4 + 1] = (byte) g;
-            this.imageData[j * 4 + 2] = (byte) b;
-            this.imageData[j * 4 + 3] = (byte) a;
+            this.getImageData(0)[j * 4] = (byte) r;
+            this.getImageData(0)[j * 4 + 1] = (byte) g;
+            this.getImageData(0)[j * 4 + 2] = (byte) b;
+            this.getImageData(0)[j * 4 + 3] = (byte) a;
         }
 
         for (i = (int) (-8.0 * this.scaleFactor); i <= (int) (16.0 * this.scaleFactor); ++i) {
@@ -170,10 +170,10 @@ public class DynamicTextureDungeonCompass extends DynamicTexture {
             y2 = (int) (ys + y * i * 0.3 * 0.5);
             j = y2 * this.targetTexture.width + x2;
 
-            this.imageData[j * 4] = (byte) r;
-            this.imageData[j * 4 + 1] = (byte) g;
-            this.imageData[j * 4 + 2] = (byte) b;
-            this.imageData[j * 4 + 3] = (byte) a;
+            this.getImageData(0)[j * 4] = (byte) r;
+            this.getImageData(0)[j * 4 + 1] = (byte) g;
+            this.getImageData(0)[j * 4 + 2] = (byte) b;
+            this.getImageData(0)[j * 4 + 3] = (byte) a;
         }
     }
 }

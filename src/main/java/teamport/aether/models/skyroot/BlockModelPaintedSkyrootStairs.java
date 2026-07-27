@@ -8,6 +8,7 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicStairs;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.WorldSource;
+import net.minecraft.core.world.pos.TilePosc;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelPaintedSkyrootStairs<T extends BlockLogicStairs> extends BlockModelStairs<T> {
@@ -22,8 +23,8 @@ public class BlockModelPaintedSkyrootStairs<T extends BlockLogicStairs> extends 
     }
 
     @Override
-    public IconCoordinate getBlockTexture(WorldSource blockAccess, int x, int y, int z, Side side) {
-        return this.getBlockTextureFromSideAndMetadata(side, blockAccess.getBlockMetadata(x, y, z));
+    public IconCoordinate getBlockTexture(WorldSource blockAccess, TilePosc pos, Side side) {
+        return this.getBlockTextureFromSideAndMetadata(side, blockAccess.getBlockMetadata(pos.x(), pos.y(), pos.z()));
     }
 }
 

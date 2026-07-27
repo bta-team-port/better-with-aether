@@ -58,7 +58,7 @@ public class MobBossFlying extends MobFlying implements EnemyBoss {
 
     @Override
     public String getBossTitle() {
-        final String translationKey = EntityDispatcher.nameKeyForClass(this.getClass());
+        final String translationKey = EntityDispatcher.getInstance().entryForClass(this.getClass()).nameKey;
         return String.format(I18n.getInstance().translateKey(translationKey + ".title"), getBossName());
     }
 

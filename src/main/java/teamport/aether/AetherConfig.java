@@ -12,7 +12,6 @@ import java.util.Optional;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
-@SuppressWarnings({"java:S1104", "java:S1444", "java:S3008"})
 public class AetherConfig {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
@@ -69,7 +68,6 @@ public class AetherConfig {
         return result;
     }
 
-    @SuppressWarnings({"java:S899", "ResultOfMethodCallIgnored"})
     static void init() {
         LOGGER.info("Initializing config..");
 
@@ -129,7 +127,6 @@ public class AetherConfig {
                 .addEntry("INCLUDE_REPAIR_RECIPES", INCLUDE_REPAIR_RECIPES);
     }
 
-    // Useless Numerical will sort it out for us.
     @SuppressWarnings("unused")
     public static int itemID(String itemName) {
         return currentItemID++;

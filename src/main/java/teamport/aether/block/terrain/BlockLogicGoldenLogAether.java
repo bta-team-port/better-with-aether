@@ -20,7 +20,7 @@ public class BlockLogicGoldenLogAether extends BlockLogicLogAether {
     public void onBlockDestroyedByPlayer(World world, int x, int y, int z, Side side, int meta, Player player, Item item) {
         super.onBlockDestroyedByPlayer(world, x, y, z, side, meta, player, item);
         ItemStack heldItem = player.getHeldItem();
-        if (heldItem != null && meta == 0 && player.getGamemode().consumeBlocks()) {
+        if (heldItem != null && meta == 0 && player.getGamemode().hasBlockConsumption()) {
             if (!EnvironmentHelper.isClientWorld() && heldItem.getItem() instanceof ItemToolAxeAether) {
                 world.dropItem(x, y, z, new ItemStack(AetherItems.AMBER, world.rand.nextInt(3) + 1));
             }

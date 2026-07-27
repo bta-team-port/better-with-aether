@@ -4,9 +4,10 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.worldtype.WorldTypeFX;
 import net.minecraft.core.util.helper.MathHelper;
-import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.type.WorldType;
+import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
 @Environment(EnvType.CLIENT)
 public class WorldTypeFXAether extends WorldTypeFX {
@@ -26,7 +27,7 @@ public class WorldTypeFXAether extends WorldTypeFX {
     }
 
     @Override
-    public float getCloudHeight() {
+    public float getCloudHeight(World world) {
         return 8;
     }
 
@@ -55,7 +56,7 @@ public class WorldTypeFXAether extends WorldTypeFX {
     }
 
     @Override
-    public Vec3 getFogColor(World world, double x, double y, double z, float celestialAngle, float partialTick) {
+    public Vector3fc getFogColor(World world, double x, double y, double z, float celestialAngle, float partialTick) {
         float f2 = MathHelper.cos(celestialAngle * 3.1415927F * 2.0F) * 2.0F + 0.5F;
         f2 = MathHelper.clamp(f2, 0.0F, 1.0F);
         float r;
@@ -74,6 +75,6 @@ public class WorldTypeFXAether extends WorldTypeFX {
         r *= f2 * 0.94F + 0.06F;
         g *= f2 * 0.94F + 0.06F;
         b *= f2 * 0.91F + 0.09F;
-        return Vec3.getTempVec3(r, g, b);
+        return new Vector3f(r, g, b);
     }
 }

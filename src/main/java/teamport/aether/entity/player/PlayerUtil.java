@@ -2,17 +2,22 @@ package teamport.aether.entity.player;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.enums.HumanArmorShape;
 import net.minecraft.core.item.IArmorItem;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.Items;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.Nullable;
-import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
+import teamport.aether.ducks.IContainerInventoryAether;
 import teamport.aether.effect.AetherEffects;
+import teamport.aether.effect.api.IHasEffects;
 import teamport.aether.item.AetherItems;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
+import static teamport.aether.item.accessory.SlotAccessory.CAPE_SLOT;
+import static teamport.aether.item.accessory.SlotAccessory.GLOVES_SLOT;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
 
@@ -23,7 +28,6 @@ public class PlayerUtil {
         HOLD, MAIN, ARMOR
     }
 
-    @SuppressWarnings("java:S135")
     ///  Count the armor pieces of a specific material.
     public static int countArmorPiecesOfMaterial(ContainerInventory inventory, ArmorMaterial material) {
         int count = 0;
@@ -33,41 +37,46 @@ public class PlayerUtil {
                 continue;
             }
             IArmorItem armor = (IArmorItem) itemStack.getItem();
-            if (armor.getArmorPiece() != i) {
+            if (armor.getArmorShape().getSlotIndex() != i) {
                 continue;
             }
-            ArmorMaterial armorMaterial = armor.getArmorMaterial();
-            if (armorMaterial == null || !armorMaterial.equals(material)) {
-                continue;
+            if (hasArmorMaterial(armor, material)) count++;
+        }
+
+        ItemStack[] accessories = ((IContainerInventoryAether) inventory).aether$getAccessoryInventory();
+        for (int logicalSlot = GLOVES_SLOT; logicalSlot <= CAPE_SLOT; logicalSlot++) {
+            ItemStack itemStack = accessories[logicalSlot - GLOVES_SLOT];
+            if (itemStack != null && itemStack.getItem() instanceof IArmorItem armor && hasArmorMaterial(armor, material)) {
+                count++;
             }
-            count++;
         }
         return count;
     }
 
-    @SuppressWarnings("java:S135")
     /// Counts the accessories of a specific material.
     public static int countAccessoriesOfMaterial(ContainerInventory inventory, ArmorMaterial material) {
         int count = 0;
-        for (int i = 6; i < inventory.armorInventory.length; ++i) {
-            ItemStack itemStack = inventory.armorInventory[i];
+        ItemStack[] accessories = ((IContainerInventoryAether) inventory).aether$getAccessoryInventory();
+        for (int slot = TRINKET_1_SLOT - GLOVES_SLOT; slot <= TRINKET_2_SLOT - GLOVES_SLOT; slot++) {
+            ItemStack itemStack = accessories[slot];
             if (itemStack == null || !(itemStack.getItem() instanceof IArmorItem)) {
                 continue;
             }
             IArmorItem armor = (IArmorItem) itemStack.getItem();
-            ArmorMaterial armorMaterial = armor.getArmorMaterial();
-            if (armorMaterial == null || !armorMaterial.equals(material)) {
-                continue;
-            }
-            count++;
+            if (hasArmorMaterial(armor, material)) count++;
         }
         return count;
     }
 
+    private static boolean hasArmorMaterial(IArmorItem armor, ArmorMaterial material) {
+        ArmorMaterial armorMaterial = armor.getArmorMaterial();
+        return armorMaterial != null && armorMaterial.equals(material);
+    }
+
     /// Checks if player is wearing gold pendants
     public static boolean isSilkTouchPendant(Player player) {
-        ItemStack trinketOne = player.inventory.armorInventory[TRINKET_1_SLOT];
-        ItemStack trinketTwo = player.inventory.armorInventory[TRINKET_2_SLOT];
+        ItemStack trinketOne = getArmorOrAccessoryItem(player, TRINKET_1_SLOT);
+        ItemStack trinketTwo = getArmorOrAccessoryItem(player, TRINKET_2_SLOT);
         return trinketOne != null && trinketOne.getItem().id == AetherItems.ARMOR_TALISMAN_GOLD.id
             || trinketTwo != null && trinketTwo.getItem().id == AetherItems.ARMOR_TALISMAN_GOLD.id;
     }
@@ -129,8 +138,51 @@ public class PlayerUtil {
     public static void damageItemArmor(Player player, int itemDamage, ItemStack stack, int index) {
         stack.damageItem(itemDamage, player);
         if (stack.stackSize <= 0) {
-            player.inventory.armorInventory[index] = null;
+            if (index < player.inventory.armorInventory.length) {
+                player.inventory.armorInventory[index] = null;
+            } else {
+                ((IContainerInventoryAether) player.inventory).aether$getAccessoryInventory()[index - GLOVES_SLOT] = null;
+            }
         }
+    }
+
+    public static ItemStack getArmorOrAccessoryItem(Player player, int armorSlot) {
+        if (armorSlot < player.inventory.armorInventory.length) {
+            return player.inventory.armorInventory[armorSlot];
+        }
+        ItemStack[] accessories = ((IContainerInventoryAether) player.inventory).aether$getAccessoryInventory();
+        int accessorySlot = armorSlot - GLOVES_SLOT;
+        return accessorySlot >= 0 && accessorySlot < accessories.length ? accessories[accessorySlot] : null;
+    }
+
+    public static void clearArmorOrAccessoryItem(Player player, int armorSlot) {
+        if (armorSlot < player.inventory.armorInventory.length) {
+            player.inventory.armorInventory[armorSlot] = null;
+            return;
+        }
+        ItemStack[] accessories = ((IContainerInventoryAether) player.inventory).aether$getAccessoryInventory();
+        int accessorySlot = armorSlot - GLOVES_SLOT;
+        if (accessorySlot >= 0 && accessorySlot < accessories.length) {
+            accessories[accessorySlot] = null;
+        }
+    }
+
+    public static ItemStack getActiveQuiver(Player player) {
+        int slot = getActiveQuiverSlot(player);
+        return slot >= 0 ? getArmorOrAccessoryItem(player, slot) : null;
+    }
+
+    public static int getActiveQuiverSlot(Player player) {
+        int chestSlot = HumanArmorShape.CHEST.getSlotIndex();
+        if (isUsableQuiver(getArmorOrAccessoryItem(player, chestSlot))) return chestSlot;
+        if (isUsableQuiver(getArmorOrAccessoryItem(player, CAPE_SLOT))) return CAPE_SLOT;
+        return -1;
+    }
+
+    public static boolean isUsableQuiver(ItemStack stack) {
+        if (stack == null) return false;
+        if (stack.itemID == Items.ARMOR_QUIVER_GOLD.id) return true;
+        return stack.itemID == Items.ARMOR_QUIVER.id && stack.getMetadata() < stack.getMaxDamage();
     }
 
     ///  Tool taking only 1 damage is quite common.
@@ -184,7 +236,6 @@ public class PlayerUtil {
         return acc;
     }
 
-     @SuppressWarnings("java:S1172")
     ///  To check if the player can be attacked by Swets
     public static boolean isSwetty(Entity entity, double distance){
         return PlayerUtil.isSwetty(entity);

@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 public abstract class MenuInventoryMixinAddSlotAdjSlotTwo {
     @WrapMethod(method = "getHotbarSlotId")
     public int getHotbarSlotId(int number, Operation<Integer> original) {
-        if ((MenuAbstract) (Object) this instanceof MenuInventory) return 27 + 8 + number;
+        if ((MenuAbstract) (Object) this instanceof MenuInventory) return 27 + 9 + number;
         return original.call(number);
     }
 }

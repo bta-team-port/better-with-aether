@@ -12,7 +12,6 @@ public class BlockLogicTorchAmbrosium extends BlockLogicTorch {
         block.setTicking(true);
     }
 
-    @SuppressWarnings("java:S131")
     @Override
     public void animationTick(World world, int x, int y, int z, Random rand) {
         double xPos = x + 0.5;
@@ -23,19 +22,19 @@ public class BlockLogicTorchAmbrosium extends BlockLogicTorch {
         int side = world.getBlockMetadata(x, y, z) & 7;
         switch (side) {
             case 1:
-                world.spawnParticle("flameambrosium", xPos - d4, yPos + d3, zPos, 0.0, 0.0, 0.0, 0);
+                world.spawnParticle("flameambrosium", xPos - d4, yPos + d3, zPos, 0.0, 0.0, 0.0, 0, false);
                 break;
             case 2:
-                world.spawnParticle("flameambrosium", xPos + d4, yPos + d3, zPos, 0.0, 0.0, 0.0, 0);
+                world.spawnParticle("flameambrosium", xPos + d4, yPos + d3, zPos, 0.0, 0.0, 0.0, 0, false);
                 break;
             case 3:
-                world.spawnParticle("flameambrosium", xPos, yPos + d3, zPos - d4, 0.0, 0.0, 0.0, 0);
+                world.spawnParticle("flameambrosium", xPos, yPos + d3, zPos - d4, 0.0, 0.0, 0.0, 0, false);
                 break;
             case 4:
-                world.spawnParticle("flameambrosium", xPos, yPos + d3, zPos + d4, 0.0, 0.0, 0.0, 0);
+                world.spawnParticle("flameambrosium", xPos, yPos + d3, zPos + d4, 0.0, 0.0, 0.0, 0, false);
                 break;
             case 5:
-                world.spawnParticle("flameambrosium", xPos, yPos, zPos, 0.0, 0.0, 0.0, 0);
+                world.spawnParticle("flameambrosium", xPos, yPos, zPos, 0.0, 0.0, 0.0, 0, false);
         }
 
     }

@@ -7,10 +7,9 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.chunk.Chunk;
-import net.minecraft.server.MinecraftServer;
 import teamport.aether.AetherMod;
 import teamport.aether.compat.AetherPlugin;
-import teamport.aether.net.message.AetherDungeonMapUpdateNetworkMessage;
+import teamport.aether.net.message.AetherDungeonMapRequestNetworkMessage;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.feature.dungeon.bronze.DungeonLogicBronzeDungeon;
 import teamport.aether.world.feature.dungeon.gold.DungeonLogicGoldDungeon;
@@ -147,7 +146,7 @@ public class DungeonMap {
             long time = System.currentTimeMillis();
             if (time - lastListUpdateStamp >= MP_LIST_UPDATE_COOLDOWN) {
                 lastListUpdateStamp = time;
-                NetworkHandler.sendToServer(new AetherDungeonMapUpdateNetworkMessage());
+                NetworkHandler.sendToServer(new AetherDungeonMapRequestNetworkMessage());
             }
 
             return entryListCache;
@@ -205,16 +204,7 @@ public class DungeonMap {
     }
 
     public static void onWorldTick(World world) {
-        List<Player> players;
-        if (EnvironmentHelper.isServerEnvironment()) {
-            // thx java!
-            players = (List<Player>) (Object) MinecraftServer.getInstance().playerList.playerEntities;
-        }
-        else {
-            players = world.players;
-        }
-
-        for (Player player : players) {
+        for (Player player : world.players) {
             for (DungeonLogic dungeonLogic : DUNGEON_MAP.values()) {
                 if (
                     dungeonLogic != null

@@ -11,6 +11,7 @@ import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.floating_block.EntityFloatingBlock;
@@ -28,14 +29,10 @@ public class ItemToolAxeGravitite extends ItemToolAxeAether implements AetherHas
     }
 
     @Override
-    public boolean onUseItemOnBlock(
-        ItemStack itemstack,
-        Player player,
-        World world,
-        int blockX, int blockY, int blockZ,
-        Side side,
-        double xPlaced, double yPlaced
-    ) {
+    public boolean onUseOnBlock(ItemStack itemstack, World world, Player player, TilePosc blockPos, Side side, double xPlaced, double yPlaced) {
+        int blockX = blockPos.x();
+        int blockY = blockPos.y();
+        int blockZ = blockPos.z();
         Block<?> block = world.getBlock(blockX, blockY, blockZ);
         Block<?> nextBlock = world.getBlock(blockX, blockY + 1, blockZ);
         if (block == null

@@ -27,10 +27,10 @@ public class BlockModelPaintedSkyrootTrapDoor<T extends BlockLogic> extends Bloc
         int color = data >> 4 & 15;
         int orientation = data & 3;
         if (BlockLogicTrapDoor.isTrapdoorOpen(data)) {
-            int index = Sides.orientationLookUpTrapdoorOpen[6 * orientation + side.getId()];
+            int index = Sides.orientationLookUpTrapdoorOpen[6 * orientation + side.id];
             return index < 2 ? TOP_TEXTURES[color] : SIDE_TEXTURES[color];
         } else {
-            return side.getAxis() == Axis.Y ? TOP_TEXTURES[color] : SIDE_TEXTURES[color];
+            return side.axis() == Axis.Y ? TOP_TEXTURES[color] : SIDE_TEXTURES[color];
         }
     }
 

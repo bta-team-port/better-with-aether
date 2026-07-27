@@ -1,7 +1,6 @@
 package teamport.aether.entity.boss.slider;
 
 import com.mojang.nbt.tags.CompoundTag;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.material.MaterialLiquid;
 import net.minecraft.core.entity.Entity;
@@ -12,12 +11,12 @@ import net.minecraft.core.item.tool.ItemToolPickaxe;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.net.command.TextFormatting;
 import net.minecraft.core.sound.SoundCategory;
-import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
-import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
+import org.joml.primitives.AABBd;
+import org.joml.primitives.AABBdc;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.block.AetherBlocks;
@@ -29,8 +28,8 @@ import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.boss.AetherBossList;
 import teamport.aether.entity.boss.MobBoss;
 import teamport.aether.entity.player.MessageMaker;
-import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.helper.ParticleMaker;
+import teamport.aether.helper.client.BossMusicClientHelper;
 import teamport.aether.item.item_tool.ItemToolPickaxeAether;
 import teamport.aether.world.AetherDimension;
 import turniplabs.halplibe.helper.EnvironmentHelper;
@@ -102,7 +101,9 @@ public class MobBossSlider extends MobBoss {
         this.speed = BASE_SPEED;
         this.scoreValue = 10000;
         this.setSize(2F, 2F);
-        this.textureIdentifier = NamespaceID.getPermanent("aether", "boss_slider");
+        this.heightOffset = 0.0F;
+        this.setBounds();
+        this.setTextureIdentifier("aether", "boss_slider");
         this.chatColor = (byte) (TextFormatting.BROWN.id & 255);
     }
 
@@ -220,7 +221,7 @@ public class MobBossSlider extends MobBoss {
             float posX;
             float posY;
             float posZ;
-            Direction dir = Direction.directions[this.random.nextInt(Direction.directions.length)];
+            Direction dir = Direction.all[this.random.nextInt(Direction.all.length)];
             switch (dir) {
                 case WEST:
                     posX = (float) (this.x - 1);
@@ -267,9 +268,8 @@ public class MobBossSlider extends MobBoss {
         }
     }
 
-    @Override
-    public AABB getBb() {
-        return this.bb.copy();
+    public AABBdc getBb() {
+        return new AABBd(this.bb);
     }
 
     public float getDeformX() {
@@ -299,13 +299,12 @@ public class MobBossSlider extends MobBoss {
         this.world.playSoundAtEntity(null, this, "aether:achievement.bronze", 0.5f, 1.0f);
 
         if (!EnvironmentHelper.isServerEnvironment()) {
-            Minecraft.getMinecraft().sndManager.stopMusic();
+            BossMusicClientHelper.stop();
         }
 
         super.onDeath(entityKilledBy);
     }
 
-    @SuppressWarnings("java:S6541")
     @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
         if (attacker == null && type == null && damage == 100) {
@@ -329,7 +328,7 @@ public class MobBossSlider extends MobBoss {
             return false;
         }
         this.tryAwake();
-        if (!((Player) attacker).gamemode.areMobsHostile()) {
+        if (!((Player) attacker).gamemode.hasHostileMobs()) {
             this.creativeAttackersList.add((Player) attacker);
         }
         this.target = attacker;
@@ -388,8 +387,7 @@ public class MobBossSlider extends MobBoss {
             this.world.playSoundAtEntity(null, this, "aether:mob.slider.awaken", 1F, 1F);
 
             if (!EnvironmentHelper.isServerEnvironment()) {
-                Minecraft.getMinecraft().sndManager.stopMusic();
-                Minecraft.getMinecraft().sndManager.playMusic("aether:aether_music_boss.sliderboss", (float) this.x, (float) this.y, (float) this.z, 1.0F, 1.0F);
+                BossMusicClientHelper.play("aether:aether_music_boss.sliderboss", this.x, this.y, this.z);
             }
 
             this.wakeUpTimer = WAKEUP_TIMER;
@@ -402,7 +400,7 @@ public class MobBossSlider extends MobBoss {
         }
         if (this.world.getClosestPlayerToEntity(this, AetherDimension.BOSS_DETECTION_RADIUS) == null) {
             this.setState(State.ASLEEP);
-            returnToOriginalState();
+            this.returnToOriginalState();
         }
         if (this.target == null || world.rand.nextInt(10) == 0) {
             this.target = findPlayerToAttack();
@@ -460,7 +458,6 @@ public class MobBossSlider extends MobBoss {
 
     protected void stateAsleep() { /* ZZZ... */}
 
-    @SuppressWarnings("java:S131")
     protected void stateSlam() {
         if (this.world == null) return;
 
@@ -476,7 +473,7 @@ public class MobBossSlider extends MobBoss {
             final int slamRadius = 5;
             final float launchSpeed = 0.75F;
 
-            final AABB boundingBox = AABB.getTemporaryBB(this.x - slamRadius, this.y, this.z - slamRadius, this.x + slamRadius, this.y + slamRadius, this.z + slamRadius);
+            final AABBdc boundingBox = new AABBd(this.x - slamRadius, this.y, this.z - slamRadius, this.x + slamRadius, this.y + slamRadius, this.z + slamRadius);
             List<Entity> list = this.world.getEntitiesWithinAABB(Entity.class, boundingBox);
 
             for (Entity entity : list) {
@@ -520,7 +517,6 @@ public class MobBossSlider extends MobBoss {
     }
 
 
-    @SuppressWarnings("java:S6541")
     @Override
     public void tick() {
         super.baseTick();
@@ -571,7 +567,7 @@ public class MobBossSlider extends MobBoss {
         if (this.world == null) return null;
         Player entityplayer = this.world.getClosestPlayerToEntity(this, 32.0F);
         if (entityplayer == null) return null;
-        if ((this.canEntityBeSeen(entityplayer) && entityplayer.gamemode.areMobsHostile())) {
+        if (this.canEntityBeSeen(entityplayer) && entityplayer.gamemode.hasHostileMobs()) {
             ((AetherBossList) entityplayer).aether$TryAddBossList(this);
             return entityplayer;
         }
@@ -587,18 +583,14 @@ public class MobBossSlider extends MobBoss {
         }
         float moveAmount = this.speed / TICKS_PER_SECOND;
         if (this.blocksToMove > moveAmount) {
-            move(
-                moveAmount * this.moveDirection.getOffsetX(),
-                moveAmount * this.moveDirection.getOffsetY(),
-                moveAmount * this.moveDirection.getOffsetZ()
-            );
+            this.move(moveAmount * this.moveDirection.offsetX(),
+                moveAmount * this.moveDirection.offsetY(),
+                moveAmount * this.moveDirection.offsetZ());
             this.blocksToMove -= moveAmount;
         } else {
-            move(
-                this.blocksToMove * this.moveDirection.getOffsetX(),
-                this.blocksToMove * this.moveDirection.getOffsetY(),
-                this.blocksToMove * this.moveDirection.getOffsetZ()
-            );
+            this.move(this.blocksToMove * this.moveDirection.offsetX(),
+                this.blocksToMove * this.moveDirection.offsetY(),
+                this.blocksToMove * this.moveDirection.offsetZ());
             this.blocksToMove = 0;
         }
         if (this.x == this.xo && this.y == this.yo && this.z == this.zo) {
@@ -625,7 +617,6 @@ public class MobBossSlider extends MobBoss {
                     if (block == null || !this.breakBlock(this.world, x1, y1, z1)) {
                         continue;
                     }
-                    doExplosionEffect(this.world, x1, y1, z1);
                     this.blocksToMove -= 0.5F * Math.min(block.getHardness() / 3f, 1);
                     blocksBroken++;
                 }
@@ -682,12 +673,7 @@ public class MobBossSlider extends MobBoss {
     public Direction calculateDirection(Entity entity) {
         double deltaX = this.x - entity.x;
         double deltaZ = this.z - entity.z;
-        double deltaY = this.y;
-        if (entity instanceof Player) {
-            deltaY -= PlayerUtil.getY((Player) entity);
-        } else {
-            deltaY -= entity.y;
-        }
+        double deltaY = this.y - entity.y;
         if (Math.abs(deltaY) >= entity.bbHeight) {
             return deltaY < 0 ? Direction.UP : Direction.DOWN;
         } else if (Math.abs(deltaX) > Math.abs(deltaZ)) {
@@ -732,7 +718,7 @@ public class MobBossSlider extends MobBoss {
             return super.collidesWith(entity);
         }
         if (entity instanceof Player) {
-            if (!((Player) entity).gamemode.isPlayerInvulnerable()) {
+            if (!((Player) entity).gamemode.hasInvulnerablePlayer()) {
                 MobUtil.multiHit(this, entity,
                     inst((int) Math.floor(BASE_DAMAGE * getAngerModifier()), DamageType.FALL),
                     inst((int) Math.floor((BASE_DAMAGE * 0.50F) * getAngerModifier()), DamageType.COMBAT)

@@ -60,9 +60,10 @@ public class AchievementPageAether extends AchievementPage implements AetherAchi
 
     static {
         IconCoordinate water = TextureRegistry.getTexture("aether:block/jank/water_flow");
-        WATER_FLOWING = new IconCoordinate(water.parentAtlas, water.namespaceId, water.getImageSource());
+        WATER_FLOWING = new IconCoordinate(water.parentAtlas, water.namespaceId);
         WATER_FLOWING.setDimension(water.width / 2, water.height / 2);
-        WATER_FLOWING.setPosition(water.iconX, water.iconY);
+        WATER_FLOWING.iconX = water.iconX;
+        WATER_FLOWING.iconY = water.iconY;
 
         AETHER_GRASS = TextureRegistry.getTexture("aether:block/grass_aether/side_retro");
         AETHER_DIRT = TextureRegistry.getTexture("aether:block/dirt_aether");
@@ -91,20 +92,24 @@ public class AchievementPageAether extends AchievementPage implements AetherAchi
         ICE_STONE = TextureRegistry.getTexture("aether:block/icestone");
 
         IconCoordinate sliderSheet = TextureRegistry.getTexture("aether:block/jank/slider");
-        SLIDER_TOP_LEFT     = new IconCoordinate(sliderSheet.parentAtlas, sliderSheet.namespaceId, sliderSheet.getImageSource());
-        SLIDER_BOTTOM_LEFT  = new IconCoordinate(sliderSheet.parentAtlas, sliderSheet.namespaceId, sliderSheet.getImageSource());
-        SLIDER_TOP_RIGHT    = new IconCoordinate(sliderSheet.parentAtlas, sliderSheet.namespaceId, sliderSheet.getImageSource());
-        SLIDER_BOTTOM_RIGHT = new IconCoordinate(sliderSheet.parentAtlas, sliderSheet.namespaceId, sliderSheet.getImageSource());
+        SLIDER_TOP_LEFT     = new IconCoordinate(sliderSheet.parentAtlas, sliderSheet.namespaceId);
+        SLIDER_BOTTOM_LEFT  = new IconCoordinate(sliderSheet.parentAtlas, sliderSheet.namespaceId);
+        SLIDER_TOP_RIGHT    = new IconCoordinate(sliderSheet.parentAtlas, sliderSheet.namespaceId);
+        SLIDER_BOTTOM_RIGHT = new IconCoordinate(sliderSheet.parentAtlas, sliderSheet.namespaceId);
 
         SLIDER_TOP_LEFT.setDimension(16, 16);
         SLIDER_BOTTOM_LEFT.setDimension(16, 16);
         SLIDER_TOP_RIGHT.setDimension(16, 16);
         SLIDER_BOTTOM_RIGHT.setDimension(16, 16);
 
-        SLIDER_TOP_LEFT.setPosition(sliderSheet.iconX,             sliderSheet.iconY);
-        SLIDER_BOTTOM_LEFT.setPosition(sliderSheet.iconX,          sliderSheet.iconY + 16);
-        SLIDER_TOP_RIGHT.setPosition(sliderSheet.iconX    + 16, sliderSheet.iconY);
-        SLIDER_BOTTOM_RIGHT.setPosition(sliderSheet.iconX + 16, sliderSheet.iconY + 16);
+        SLIDER_TOP_LEFT.iconX = sliderSheet.iconX;
+        SLIDER_TOP_LEFT.iconY = sliderSheet.iconY;
+        SLIDER_BOTTOM_LEFT.iconX = sliderSheet.iconX;
+        SLIDER_BOTTOM_LEFT.iconY = sliderSheet.iconY + 16;
+        SLIDER_TOP_RIGHT.iconX = sliderSheet.iconX + 16;
+        SLIDER_TOP_RIGHT.iconY = sliderSheet.iconY;
+        SLIDER_BOTTOM_RIGHT.iconX = sliderSheet.iconX + 16;
+        SLIDER_BOTTOM_RIGHT.iconY = sliderSheet.iconY + 16;
 
         TERRAIN_MAP = new IconCoordinate[21];
         TERRAIN_MAP[0] = null;
@@ -215,7 +220,7 @@ public class AchievementPageAether extends AchievementPage implements AetherAchi
 
     @Override
     public IconCoordinate getAchievementIcon(Achievement achievement) {
-        return TextureRegistry.getTexture(achievement.getType().texture);
+        return TextureRegistry.getTexture(achievement.getType().texture());
     }
 
     @Override
@@ -235,12 +240,12 @@ public class AchievementPageAether extends AchievementPage implements AetherAchi
 
     @Override
     public @NonNull String getName() {
-        return I18n.getInstance().translateNameKey(name);
+        return I18n.getInstance().translateKey(name);
     }
 
     @Override
     public @NonNull String getDescription() {
-        return I18n.getInstance().translateNameKey(name);
+        return I18n.getInstance().translateKey(name);
     }
 
     @Override

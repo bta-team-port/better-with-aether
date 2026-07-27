@@ -17,10 +17,13 @@ import teamport.aether.world.AetherDimension;
 @Environment(EnvType.SERVER)
 @Mixin(value = WorldServer.class, remap = false)
 public abstract class MPWorldMixin extends World {
+    protected MPWorldMixin() {
+        super((net.minecraft.core.world.save.LevelStorage) null, (net.minecraft.core.world.settings.WorldConfiguration) null, (Dimension) null);
+    }
     @Unique
     private int cooldown = Global.TICKS_PER_SECOND;
-    @Inject(method = "tick", at = @At("RETURN"))
-    private void tick(CallbackInfo ci) {
+    @Inject(method = "tick()V", at = @At("RETURN"))
+    private void loadFallenEntities(CallbackInfo ci) {
         cooldown--;
         if (cooldown < 0 && dimension.id == Dimension.OVERWORLD.id) {
             cooldown = Global.TICKS_PER_SECOND / 2 + rand.nextInt(Global.TICKS_PER_SECOND / 2);

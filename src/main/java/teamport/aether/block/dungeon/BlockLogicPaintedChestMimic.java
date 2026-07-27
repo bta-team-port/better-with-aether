@@ -2,9 +2,11 @@ package teamport.aether.block.dungeon;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.IPainted;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
 
 public class BlockLogicPaintedChestMimic extends BlockLogicChestMimic implements IPainted {
     protected final int unpaintedBlockID;
@@ -15,9 +17,9 @@ public class BlockLogicPaintedChestMimic extends BlockLogicChestMimic implements
     }
 
     @Override
-    public void removeDye(World world, int x, int y, int z) {
-        int meta = world.getBlockMetadata(x, y, z);
-        world.setBlockAndMetadataWithNotify(x, y, z, unpaintedBlockID, meta & -241);
+    public void removeDye(World world, TilePosc pos) {
+        int meta = world.getBlockData(pos);
+        world.setBlockTypeDataNotify(pos, Blocks.getBlock(unpaintedBlockID), meta & -241);
     }
 
     @Override
@@ -36,7 +38,7 @@ public class BlockLogicPaintedChestMimic extends BlockLogicChestMimic implements
     }
 
     @Override
-    public void setColor(World world, int x, int y, int z, DyeColor color) {
-        IPainted.super.setColor(world, x, y, z, color);
+    public void setColor(World world, TilePosc pos, DyeColor color) {
+        IPainted.super.setColor(world, pos, color);
     }
 }

@@ -13,7 +13,7 @@ public class WorldTypeAetherRetro extends WorldTypeAether {
 
     @Override
     public BiomeProvider createBiomeProvider(World world) {
-        return new BiomeProviderSingleBiome(AetherBiomes.AETHER_PLAINS, 1.0F, 1.0F, 1.0F);
+        return new BiomeProviderSingleBiome(world, AetherBiomes.AETHER_PLAINS, 1.0F, 1.0F, 1.0F);
     }
 
 }

@@ -20,7 +20,7 @@ public abstract class PlayerLoginMixin {
     @Shadow
     @Final
     private MinecraftServer mcServer;
-    @Inject(method = "doLogin", at = @At(value = "TAIL"))
+    @Inject(method = "doLogin(Lnet/minecraft/core/net/packet/PacketLogin;)V", at = @At("TAIL"))
     private void doLogin(PacketLogin loginPacket, CallbackInfo ci) {
         PlayerServer player = this.mcServer.playerList.getPlayerEntity(loginPacket.username);
         if (player != null) AetherServer.onPlayerJoinedServer(player);

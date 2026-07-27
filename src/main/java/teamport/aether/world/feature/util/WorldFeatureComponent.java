@@ -1,10 +1,13 @@
 package teamport.aether.world.feature.util;
 
 import net.minecraft.core.block.BlockLogicChest;
+import net.minecraft.core.block.Block;
+import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.helper.Pair;
@@ -74,7 +77,7 @@ public class WorldFeatureComponent {
         WorldFeatureBlock wfb,
         LootGenerator lootGenerator
     ) {
-        Container inventory = BlockLogicChest.getInventory(world, wfb.getX(), wfb.getY(), wfb.getZ());
+        Container inventory = getOrCreateChestInventory(world, new TilePos(wfb.getX(), wfb.getY(), wfb.getZ()));
 
         if (inventory == null) return;
         List<ItemStack> stacks = lootGenerator.generate(random);
@@ -82,6 +85,21 @@ public class WorldFeatureComponent {
         for (ItemStack stack : stacks) {
             WorldFeatureComponent.placeItemInChest(random, stack, inventory);
         }
+    }
+
+    public static @Nullable Container getOrCreateChestInventory(World world, TilePos pos) {
+        TileEntity tileEntity = world.getTileEntity(pos);
+        if (tileEntity == null) {
+            Block<?> block = world.getBlock(pos.x, pos.y, pos.z);
+            if (block == null || block.entitySupplier == null) return null;
+
+            tileEntity = block.entitySupplier.get();
+            if (tileEntity == null) return null;
+            world.setTileEntity(pos, tileEntity);
+        }
+
+        if (!(tileEntity instanceof Container)) return null;
+        return BlockLogicChest.getInventory(world, pos);
     }
 
     public static void placeItemInChest(Random random, @Nullable ItemStack itemstack, @NonNull Container inventory) {
@@ -169,9 +187,9 @@ public class WorldFeatureComponent {
         WorldFeatureComponent component = new WorldFeatureComponent();
         for (int i = 0; i < length - 1; i++) {
             component.add(wfb(startX, startY, startZ, id, meta, withNotify));
-            startX += direction.getOffsetX();
-            startY += direction.getOffsetY();
-            startZ += direction.getOffsetZ();
+            startX += direction.offsetX();
+            startY += direction.offsetY();
+            startZ += direction.offsetZ();
         }
         component.add(wfb(startX, startY, startZ, id, meta, withNotify));
         return component;
@@ -187,9 +205,9 @@ public class WorldFeatureComponent {
         WorldFeatureComponent component = new WorldFeatureComponent();
         for (int i = 0; i < length - 1; i++) {
             component.add(wfb(startX, startY, startZ, pallet.getRandom(random), withNotify));
-            startX += direction.getOffsetX();
-            startY += direction.getOffsetY();
-            startZ += direction.getOffsetZ();
+            startX += direction.offsetX();
+            startY += direction.offsetY();
+            startZ += direction.offsetZ();
         }
         component.add(wfb(startX, startY, startZ, pallet.getRandom(random), withNotify));
         return component;
@@ -209,14 +227,14 @@ public class WorldFeatureComponent {
         length1 = Math.max(length1, 1);
         length2 = Math.max(length2, 1);
         for (int i = 0; i < length2; i++) {
-            blockX = startX + direction2.getOffsetX() * i;
-            blockY = startY + direction2.getOffsetY() * i;
-            blockZ = startZ + direction2.getOffsetZ() * i;
+            blockX = startX + direction2.offsetX() * i;
+            blockY = startY + direction2.offsetY() * i;
+            blockZ = startZ + direction2.offsetZ() * i;
             for (int j = 0; j < length1; j++) {
                 component.add(wfb(blockX, blockY, blockZ, id, meta, withNotify));
-                blockX += direction1.getOffsetX();
-                blockY += direction1.getOffsetY();
-                blockZ += direction1.getOffsetZ();
+                blockX += direction1.offsetX();
+                blockY += direction1.offsetY();
+                blockZ += direction1.offsetZ();
             }
         }
         component.setTail(blockX, blockY, blockZ);
@@ -237,14 +255,14 @@ public class WorldFeatureComponent {
         length1 = Math.max(length1, 1);
         length2 = Math.max(length2, 1);
         for (int i = 0; i < length2; i++) {
-            blockX = startX + direction2.getOffsetX() * i;
-            blockY = startY + direction2.getOffsetY() * i;
-            blockZ = startZ + direction2.getOffsetZ() * i;
+            blockX = startX + direction2.offsetX() * i;
+            blockY = startY + direction2.offsetY() * i;
+            blockZ = startZ + direction2.offsetZ() * i;
             for (int j = 0; j < length1; j++) {
                 component.add(wfb(blockX, blockY, blockZ, pallet.getRandom(random), withNotify));
-                blockX += direction1.getOffsetX();
-                blockY += direction1.getOffsetY();
-                blockZ += direction1.getOffsetZ();
+                blockX += direction1.offsetX();
+                blockY += direction1.offsetY();
+                blockZ += direction1.offsetZ();
             }
         }
         component.setTail(blockX, blockY, blockZ);
@@ -266,18 +284,18 @@ public class WorldFeatureComponent {
         length2 = Math.max(length2, 1);
         length3 = Math.max(length3, 1);
         for (int i = 0; i < length3; i++) {
-            int x3 = startX + direction3.getOffsetX() * i;
-            int y3 = startY + direction3.getOffsetY() * i;
-            int z3 = startZ + direction3.getOffsetZ() * i;
+            int x3 = startX + direction3.offsetX() * i;
+            int y3 = startY + direction3.offsetY() * i;
+            int z3 = startZ + direction3.offsetZ() * i;
             for (int j = 0; j < length2; j++) {
-                blockX = x3 + direction2.getOffsetX() * j;
-                blockY = y3 + direction2.getOffsetY() * j;
-                blockZ = z3 + direction2.getOffsetZ() * j;
+                blockX = x3 + direction2.offsetX() * j;
+                blockY = y3 + direction2.offsetY() * j;
+                blockZ = z3 + direction2.offsetZ() * j;
                 for (int k = 0; k < length1; k++) {
                     component.add(wfb(blockX, blockY, blockZ, id, meta, withNotify));
-                    blockX += direction1.getOffsetX();
-                    blockY += direction1.getOffsetY();
-                    blockZ += direction1.getOffsetZ();
+                    blockX += direction1.offsetX();
+                    blockY += direction1.offsetY();
+                    blockZ += direction1.offsetZ();
                 }
             }
         }
@@ -301,18 +319,18 @@ public class WorldFeatureComponent {
         length2 = Math.max(length2, 1);
         length3 = Math.max(length3, 1);
         for (int i = 0; i < length3; i++) {
-            int x3 = startX + direction3.getOffsetX() * i;
-            int y3 = startY + direction3.getOffsetY() * i;
-            int z3 = startZ + direction3.getOffsetZ() * i;
+            int x3 = startX + direction3.offsetX() * i;
+            int y3 = startY + direction3.offsetY() * i;
+            int z3 = startZ + direction3.offsetZ() * i;
             for (int j = 0; j < length2; j++) {
-                blockX = x3 + direction2.getOffsetX() * j;
-                blockY = y3 + direction2.getOffsetY() * j;
-                blockZ = z3 + direction2.getOffsetZ() * j;
+                blockX = x3 + direction2.offsetX() * j;
+                blockY = y3 + direction2.offsetY() * j;
+                blockZ = z3 + direction2.offsetZ() * j;
                 for (int k = 0; k < length1; k++) {
                     component.add(wfb(blockX, blockY, blockZ, pallet.getRandom(random), withNotify));
-                    blockX += direction1.getOffsetX();
-                    blockY += direction1.getOffsetY();
-                    blockZ += direction1.getOffsetZ();
+                    blockX += direction1.offsetX();
+                    blockY += direction1.offsetY();
+                    blockZ += direction1.offsetZ();
                 }
             }
         }
@@ -339,9 +357,9 @@ public class WorldFeatureComponent {
             id, meta,
             direction1, length1,
             direction2, length2,
-            startX + direction3.getOffsetX() * (length3 - 1),
-            startY + direction3.getOffsetY() * (length3 - 1),
-            startZ + direction3.getOffsetZ() * (length3 - 1),
+            startX + direction3.offsetX() * (length3 - 1),
+            startY + direction3.offsetY() * (length3 - 1),
+            startZ + direction3.offsetZ() * (length3 - 1),
             withNotify
         ));
         component.add(drawPlane(
@@ -355,9 +373,9 @@ public class WorldFeatureComponent {
             id, meta,
             direction1, length1,
             direction3, length3,
-            startX + direction2.getOffsetX() * (length2 - 1),
-            startY + direction2.getOffsetY() * (length2 - 1),
-            startZ + direction2.getOffsetZ() * (length2 - 1),
+            startX + direction2.offsetX() * (length2 - 1),
+            startY + direction2.offsetY() * (length2 - 1),
+            startZ + direction2.offsetZ() * (length2 - 1),
             withNotify
         ));
         component.add(drawPlane(
@@ -371,9 +389,9 @@ public class WorldFeatureComponent {
             id, meta,
             direction2, length2,
             direction3, length3,
-            startX + direction1.getOffsetX() * (length1 - 1),
-            startY + direction1.getOffsetY() * (length1 - 1),
-            startZ + direction1.getOffsetZ() * (length1 - 1),
+            startX + direction1.offsetX() * (length1 - 1),
+            startY + direction1.offsetY() * (length1 - 1),
+            startZ + direction1.offsetZ() * (length1 - 1),
             withNotify
         ));
         return component;
@@ -398,9 +416,9 @@ public class WorldFeatureComponent {
         component.add(drawPlane(random, pallet,
             direction1, length1,
             direction2, length2,
-            startX + direction3.getOffsetX() * (length3 - 1),
-            startY + direction3.getOffsetY() * (length3 - 1),
-            startZ + direction3.getOffsetZ() * (length3 - 1),
+            startX + direction3.offsetX() * (length3 - 1),
+            startY + direction3.offsetY() * (length3 - 1),
+            startZ + direction3.offsetZ() * (length3 - 1),
             withNotify
         ));
         component.add(drawPlane(
@@ -414,9 +432,9 @@ public class WorldFeatureComponent {
             random, pallet,
             direction1, length1,
             direction3, length3,
-            startX + direction2.getOffsetX() * (length2 - 1),
-            startY + direction2.getOffsetY() * (length2 - 1),
-            startZ + direction2.getOffsetZ() * (length2 - 1),
+            startX + direction2.offsetX() * (length2 - 1),
+            startY + direction2.offsetY() * (length2 - 1),
+            startZ + direction2.offsetZ() * (length2 - 1),
             withNotify
         ));
         component.add(drawPlane(
@@ -430,9 +448,9 @@ public class WorldFeatureComponent {
             random, pallet,
             direction2, length2,
             direction3, length3,
-            startX + direction1.getOffsetX() * (length1 - 1),
-            startY + direction1.getOffsetY() * (length1 - 1),
-            startZ + direction1.getOffsetZ() * (length1 - 1),
+            startX + direction1.offsetX() * (length1 - 1),
+            startY + direction1.offsetY() * (length1 - 1),
+            startZ + direction1.offsetZ() * (length1 - 1),
             withNotify
         ));
         return component;
@@ -458,9 +476,9 @@ public class WorldFeatureComponent {
             direction1, length1 - 2,
             direction2, length2 - 2,
             direction3, length3 - 2,
-            startX + direction1.getOffsetX() + direction2.getOffsetX() + direction3.getOffsetX(),
-            startY + direction1.getOffsetY() + direction2.getOffsetY() + direction3.getOffsetY(),
-            startZ + direction1.getOffsetZ() + direction2.getOffsetZ() + direction3.getOffsetZ(),
+            startX + direction1.offsetX() + direction2.offsetX() + direction3.offsetX(),
+            startY + direction1.offsetY() + direction2.offsetY() + direction3.offsetY(),
+            startZ + direction1.offsetZ() + direction2.offsetZ() + direction3.offsetZ(),
             withNotify)
         );
         return hollow;
@@ -486,9 +504,9 @@ public class WorldFeatureComponent {
             direction1, length1 - 2,
             direction2, length2 - 2,
             direction3, length3,
-            startX + direction1.getOffsetX() + direction2.getOffsetX() + direction3.getOffsetX(),
+            startX + direction1.offsetX() + direction2.offsetX() + direction3.offsetX(),
             startY,
-            startZ + direction1.getOffsetZ() + direction2.getOffsetZ() + direction3.getOffsetZ(),
+            startZ + direction1.offsetZ() + direction2.offsetZ() + direction3.offsetZ(),
             withNotify
         ));
         return cylinder;

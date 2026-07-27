@@ -3,12 +3,13 @@ package teamport.aether.entity.animal.whirly;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.core.util.helper.MathHelper;
+import net.minecraft.client.render.renderer.GLRenderer;
+import net.minecraft.client.render.renderer.State;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import org.lwjgl.opengl.GL11;
 import org.useless.dragonfly.models.entity.BoneTransform;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
-import org.useless.dragonfly.renderer.MobRenderer;
+import net.minecraft.client.render.entity.MobRenderer;
 
 @Environment(EnvType.CLIENT)
 public class MobRendererWhirly extends MobRenderer<MobWhirly> {
@@ -18,13 +19,16 @@ public class MobRendererWhirly extends MobRenderer<MobWhirly> {
 
     @Override
     protected @Nullable StaticEntityModel getAndSetupModelForLayer(@NonNull MobWhirly whirly, float brightness, float partialTick, int layer) {
-        StaticEntityModel model;
+        StaticEntityModel model = null;
         if (layer == 1) {
             model = this.getModel("wind");
             model.resetBones();
         } else if (layer == 0) {
             model = this.getModel("main");
             model.resetBones();
+        } else if (layer == 2) {
+            GLRenderer.textureM4f().identity();
+            GLRenderer.disableState(State.BLEND);
         } else {
             model = null;
         }
@@ -39,13 +43,8 @@ public class MobRendererWhirly extends MobRenderer<MobWhirly> {
             float wobbleStrength = 0.12F;
             float wobble = MathHelper.sin(time * wobbleSpeed) * wobbleStrength;
 
-            GL11.glMatrixMode(GL11.GL_TEXTURE);
-            GL11.glPushMatrix();
-            GL11.glLoadIdentity();
-            GL11.glTranslatef(-scroll, 0.0F, 0.0F);
-
-            GL11.glMatrixMode(GL11.GL_MODELVIEW);
-            GL11.glEnable(GL11.GL_BLEND);
+            GLRenderer.textureM4f().identity().translate(-scroll, 0.0F, 0.0F);
+            GLRenderer.enableState(State.BLEND);
 
             BoneTransform wind = model.getTransform("wind");
             wind.rotY = time * spinSpeed;
@@ -63,13 +62,7 @@ public class MobRendererWhirly extends MobRenderer<MobWhirly> {
             wind4.rotY = wind3.rotY;
             wind4.rotX = wobble * 0.35F;
 
-        } else if (layer == 2) {
-            GL11.glMatrixMode(GL11.GL_TEXTURE);
-            GL11.glPopMatrix();
-            GL11.glLoadIdentity();
-            GL11.glMatrixMode(GL11.GL_MODELVIEW);
-            GL11.glDisable(GL11.GL_BLEND);
-        } else {
+        } else if (layer == 0) {
             float bodyYaw = this.getBodyYaw(whirly, partialTick);
             float headYaw = this.getHeadYaw(whirly, partialTick) - bodyYaw;
             float headPitch = this.getHeadPitch(whirly, partialTick);

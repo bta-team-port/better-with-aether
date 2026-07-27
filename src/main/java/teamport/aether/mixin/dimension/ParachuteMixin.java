@@ -41,7 +41,7 @@ public abstract class ParachuteMixin extends Mob {
             && this.world.dimension.id == AetherDimension.getAether().id
             && !EnvironmentHelper.isClientWorld()
             && AetherDimension.canGetParachute(uuid)) {
-            if (!this.gamemode.isPlayerInvulnerable()) {
+            if (!this.gamemode.hasInvulnerablePlayer()) {
                 EntityItem chute = new EntityItem(world, x, y, z, new ItemStack(AetherItems.PARACHUTE_CLOUD, 1));
                 world.entityJoinedWorld(chute);
             }

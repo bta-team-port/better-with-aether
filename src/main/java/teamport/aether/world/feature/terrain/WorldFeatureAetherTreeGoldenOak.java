@@ -70,7 +70,6 @@ public class WorldFeatureAetherTreeGoldenOak extends WorldFeature {
 
     }
 
-    @SuppressWarnings("java:S3358")
     private static Block<?> getDirtForGrass(int id) {
         if (id != Blocks.GRASS.id() && id != Blocks.GRASS_RETRO.id()) {
             return id == Blocks.GRASS_SCORCHED.id() ? Blocks.DIRT_SCORCHED : id == AetherBlocks.GRASS_AETHER.id() ? AetherBlocks.DIRT_AETHER : null;
