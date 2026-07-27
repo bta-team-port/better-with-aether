@@ -40,12 +40,9 @@ to [Better with Aether Repo](https://github.com/bta-team-port/better-with-aether
 
 ### REQUIRES:
 
-- BTA == 7.3_04
-- Halplibe >= [5.3.3](https://github.com/Turnip-Labs/bta-halplibe/releases/tag/v5.3.3)
-- Catalyst-Core >= [2.2.0](https://github.com/MartinSVK12/catalyst)
-- Catalyst-Effects = [2.5.3](https://github.com/MartinSVK12/catalyst)
-- UselessNumericals >= [1.1.0-7.3_04](https://github.com/gungun974/UselessNumerical/releases/tag/1.1.0-7.3_04)
-- DragonFly >= [1.7.0-alpha.7](https://modrinth.com/mod/dragonfly-model-library/version/1.7.0-alpha.7)
+- BTA == 8.0.1
+- Halplibe >= [6.1.3+8.0](https://github.com/Turnip-Labs/bta-halplibe/releases)
+- UselessNumericals >= [1.1.1-8.0](https://github.com/gungun974/UselessNumerical/releases)
 
 ### Screenshots from the latest Release:
 
