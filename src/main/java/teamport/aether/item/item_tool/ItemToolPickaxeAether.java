@@ -2,10 +2,18 @@ package teamport.aether.item.item_tool;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Mob;
+import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemTool;
+import net.minecraft.core.util.helper.Side;
+import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
+import redart15.commandly.veincapitator.VeinMining;
 import teamport.aether.block.AetherBlockTags;
+import teamport.aether.compat.commandly.AetherCommandlyRules;
+import teamport.aether.entity.player.PlayerUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +35,18 @@ public class ItemToolPickaxeAether extends ItemTool {
         } else {
             return block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
         }
+    }
+
+    @Override
+    public boolean beforeBlockDestroyed(ItemStack selfStack, World world, Player player, Block<?> block, TilePosc blockPos, Side side) {
+        if (!world.isClientSide && AetherCommandlyRules.canVeinMine(world) && !player.isSneaking()) {
+            return !VeinMining
+                .veinMining(world, selfStack, blockPos, player)
+                .setDropCause(PlayerUtil.isSilkTouchPendant(player) ? EnumDropCause.SILK_TOUCH : EnumDropCause.PROPER_TOOL)
+                .setMiningTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
+                .mine(block, side);
+        }
+        return true;
     }
 
     static {
