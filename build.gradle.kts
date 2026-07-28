@@ -44,6 +44,7 @@ dependencies {
     implementation(libs.catalyst.core)
     implementation(libs.catalyst.effects)
 
+    compileOnly(libs.commandly)
     compileOnly(libs.bundles.btaLwjgl)
     compileOnly(libs.joml)
     compileOnly(libs.joml.primitives)

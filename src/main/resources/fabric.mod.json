@@ -50,6 +50,7 @@
     "client": ["teamport.aether.AetherClient"],
     "server": ["teamport.aether.AetherServer"],
     "uselessNumerical": ["teamport.aether.compat.uselessnumerical.Allias"],
+    "commandly": ["teamport.aether.compat.commandly.AetherCommandlyPlugin"],
     "preLaunch": []
   },
 
