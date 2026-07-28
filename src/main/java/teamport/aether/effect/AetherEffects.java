@@ -6,7 +6,13 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import org.jspecify.annotations.Nullable;
-import teamport.aether.effect.api.*;
+import sunsetsatellite.catalyst.effects.api.effect.Effect;
+import sunsetsatellite.catalyst.effects.api.effect.EffectContainer;
+import sunsetsatellite.catalyst.effects.api.effect.EffectStack;
+import sunsetsatellite.catalyst.effects.api.effect.EffectTagDispatcher;
+import sunsetsatellite.catalyst.effects.api.effect.EffectTimeType;
+import sunsetsatellite.catalyst.effects.api.effect.Effects;
+import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.entity.boss.slider.MobBossSlider;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
@@ -163,13 +169,11 @@ public class AetherEffects {
             if(effect.getEffect() == stackToAdd.getEffect()){
                 int amount = Math.min(stackToAdd.getAmount(), effect.getEffect().getMaxStack() - effect.getAmount());
                 if (amount <= 0) {
-                    if (effect.getEffect().getEffectTimeType() != EffectTimeType.RESET) return false;
-                    effect.refresh();
-                    hasEffects.getContainer().markDirty();
+                    if (effect.getEffect().getTimeType() != EffectTimeType.RESET) return false;
+                    effect.add(0, hasEffects.getContainer());
                     return true;
                 }
                 effect.add(amount, hasEffects.getContainer());
-                hasEffects.getContainer().markDirty();
                 return true;
             }
         }

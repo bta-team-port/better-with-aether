@@ -5,7 +5,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
-import teamport.aether.effect.api.IHasEffects;
+import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.effect.AetherEffects;
 

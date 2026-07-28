@@ -8,9 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import teamport.aether.effect.api.HealthHelper;
-import teamport.aether.net.message.ExtraHealthSyncNetworkMessage;
-import turniplabs.halplibe.helper.network.NetworkHandler;
+import sunsetsatellite.catalyst.effects.helper.HealthHelper;
 
 @Environment(EnvType.SERVER)
 @Mixin(value = PlayerList.class, remap = false)
@@ -20,6 +18,5 @@ public abstract class PlayerListMixinRespawnWithExtraHealth {
         PlayerServer newPlayer = cir.getReturnValue();
         HealthHelper.setExtraHealth(newPlayer, HealthHelper.getExtraHealth(previousPlayer));
         newPlayer.heal(newPlayer.getMaxHealth());
-        NetworkHandler.sendToPlayer(newPlayer, new ExtraHealthSyncNetworkMessage(newPlayer));
     }
 }

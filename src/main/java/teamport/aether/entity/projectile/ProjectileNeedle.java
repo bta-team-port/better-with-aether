@@ -13,7 +13,7 @@ import net.minecraft.core.world.pos.TilePos;
 import org.joml.Vector3d;
 import org.joml.primitives.AABBdc;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.effect.api.IHasEffects;
+import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.effect.AetherEffects;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItems;

@@ -10,9 +10,9 @@ import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.Nullable;
+import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.ducks.IContainerInventoryAether;
 import teamport.aether.effect.AetherEffects;
-import teamport.aether.effect.api.IHasEffects;
 import teamport.aether.item.AetherItems;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 

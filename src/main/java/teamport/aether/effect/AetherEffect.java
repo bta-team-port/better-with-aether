@@ -2,9 +2,9 @@ package teamport.aether.effect;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
-import teamport.aether.effect.api.Effect;
-import teamport.aether.effect.api.EffectTimeType;
-import teamport.aether.effect.api.Modifier;
+import sunsetsatellite.catalyst.effects.api.effect.Effect;
+import sunsetsatellite.catalyst.effects.api.effect.EffectTimeType;
+import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
 
 import java.util.List;
 
