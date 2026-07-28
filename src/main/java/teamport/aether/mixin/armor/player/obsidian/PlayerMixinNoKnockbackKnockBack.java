@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherArmorMaterial;
 
-@Mixin(value = Mob.class)
+@Mixin(value = Mob.class, remap = false)
 public abstract class PlayerMixinNoKnockbackKnockBack {
     @WrapMethod(method = "knockBack")
     private void knockBack(Entity entity, int i, double d, double d1, Operation<Void> original) {

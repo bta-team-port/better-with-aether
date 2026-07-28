@@ -15,7 +15,7 @@ import teamport.aether.item.accessory.pendant.ItemPendant;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
 
-@Mixin(value = ServerPlayerController.class)
+@Mixin(value = ServerPlayerController.class, remap = false)
 public class ServerPlayerControllerPendantDamageMixin{
 
     @Shadow Player player;

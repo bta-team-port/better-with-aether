@@ -17,7 +17,7 @@ import teamport.aether.entity.monster.sentry.EntityEntrySentry;
 import teamport.aether.models.EntityEntryFloatingBlock;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = ViewerCategoryEntity.class)
+@Mixin(value = ViewerCategoryEntity.class, remap = false)
 public abstract class ViewerCategoryEntityMixin {
     @Shadow
     public abstract void addEntry(EntityEntry<?> entry);

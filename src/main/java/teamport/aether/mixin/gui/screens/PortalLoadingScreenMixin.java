@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.world.AetherDimension;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = LoadingScreenRenderer.class)
+@Mixin(value = LoadingScreenRenderer.class, remap = false)
 public abstract class PortalLoadingScreenMixin {
     @Expression("'/assets/minecraft/textures/gui/background.png'")
     @ModifyExpressionValue(method = "updateLoadingBackground(Lnet/minecraft/core/world/Dimension;)V", at = @At("MIXINEXTRAS:EXPRESSION"))

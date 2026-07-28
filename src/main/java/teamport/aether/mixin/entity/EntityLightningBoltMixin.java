@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.AetherMod;
 
-@Mixin(value = Entity.class)
+@Mixin(value = Entity.class, remap = false)
 public abstract class EntityLightningBoltMixin {
     @Shadow
     public abstract boolean hurt(Entity attacker, int baseDamage, DamageType type);

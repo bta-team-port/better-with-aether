@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.AetherClient;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = ScreenMainMenu.class)
+@Mixin(value = ScreenMainMenu.class, remap = false)
 public abstract class ScreenMainMenuMixin {
 
     @Shadow

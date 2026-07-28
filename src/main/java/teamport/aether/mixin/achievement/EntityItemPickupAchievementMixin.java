@@ -13,7 +13,7 @@ import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.item.AetherItems;
 
-@Mixin(value = EntityItem.class)
+@Mixin(value = EntityItem.class, remap = false)
 public abstract class EntityItemPickupAchievementMixin {
     @Shadow
     public ItemStack item;

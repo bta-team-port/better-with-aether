@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.world.AetherDimension;
 
-@Mixin(value = ItemMap.class)
+@Mixin(value = ItemMap.class, remap = false)
 public abstract class MapFixMixin {
     @Definition(id = "getBlockId", method = "Lnet/minecraft/core/world/chunk/Chunk;getBlockId(Lnet/minecraft/core/world/pos/ChunkTilePosc;)I")
     @Expression("? = ?.getBlockId(?)")

@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.block.AetherBlockTags;
 
-@Mixin(value = EntityMinecart.class)
+@Mixin(value = EntityMinecart.class, remap = false)
 public abstract class MinecartCarriablesFix extends Entity {
     protected MinecartCarriablesFix(@Nullable World world) {
         super(world);

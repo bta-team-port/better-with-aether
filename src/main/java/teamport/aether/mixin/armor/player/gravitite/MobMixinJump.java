@@ -19,7 +19,7 @@ import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherArmorMaterial;
 
-@Mixin(value = Mob.class)
+@Mixin(value = Mob.class, remap = false)
 public abstract class MobMixinJump extends Entity {
     protected MobMixinJump(@Nullable World world) {
         super(world);

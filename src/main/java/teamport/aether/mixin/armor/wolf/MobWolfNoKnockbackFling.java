@@ -8,7 +8,7 @@ import net.minecraft.core.item.material.ArmorMaterial;
 import org.spongepowered.asm.mixin.Mixin;
 import teamport.aether.item.AetherArmorMaterial;
 
-@Mixin(value = Entity.class)
+@Mixin(value = Entity.class, remap = false)
 public abstract class MobWolfNoKnockbackFling {
     @WrapMethod(method = "fling")
     private void fling(double xd, double yd, double zd, float pushTime, Operation<Void> original) {

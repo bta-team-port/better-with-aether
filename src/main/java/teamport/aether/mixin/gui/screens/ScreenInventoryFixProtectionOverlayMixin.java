@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.mixin.accessors.ScreenContainerAbstractAccessor;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = ScreenInventory.class)
+@Mixin(value = ScreenInventory.class, remap = false)
 public abstract class ScreenInventoryFixProtectionOverlayMixin extends ScreenContainerAbstract {
     protected ScreenInventoryFixProtectionOverlayMixin(Player player) {
         super(player.containerMenu);

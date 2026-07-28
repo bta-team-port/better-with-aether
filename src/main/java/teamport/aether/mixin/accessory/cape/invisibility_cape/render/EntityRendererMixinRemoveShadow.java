@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import teamport.aether.entity.player.PlayerUtil;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = EntityRenderer.class)
+@Mixin(value = EntityRenderer.class, remap = false)
 public abstract class EntityRendererMixinRemoveShadow<T extends Entity> {
     @WrapMethod(method = "renderShadow")
     private void removeShadow(TessellatorGeneral tessellator, T entity, double posX, double posY, double posZ, float opacity, float partialTick, Operation<Void> original) {

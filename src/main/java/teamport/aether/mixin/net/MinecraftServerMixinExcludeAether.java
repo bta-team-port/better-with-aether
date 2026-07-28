@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import teamport.aether.world.AetherDimension;
 
 @Environment(EnvType.SERVER)
-@Mixin(value = MinecraftServer.class)
+@Mixin(value = MinecraftServer.class, remap = false)
 public abstract class MinecraftServerMixinExcludeAether {
     @Shadow
     public PropertyManager propertyManager;

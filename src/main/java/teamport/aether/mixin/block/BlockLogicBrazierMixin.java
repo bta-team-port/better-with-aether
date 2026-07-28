@@ -20,7 +20,7 @@ import teamport.aether.helper.ParticleMaker;
 import teamport.aether.world.AetherDimension;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
-@Mixin(value = BlockLogicBrazier.class)
+@Mixin(value = BlockLogicBrazier.class, remap = false)
 public abstract class BlockLogicBrazierMixin extends BlockLogic {
     protected BlockLogicBrazierMixin(Block<?> block, Material material) {
         super(block, material);

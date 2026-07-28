@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import teamport.aether.item.AetherItemTags;
 
-@Mixin(value = EntityItem.class)
+@Mixin(value = EntityItem.class, remap = false)
 public abstract class EntityItemMixinImmunities {
     @Shadow
     public ItemStack item;

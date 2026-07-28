@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
 
 @Environment(EnvType.SERVER)
-@Mixin(value = PacketHandlerServer.class)
+@Mixin(value = PacketHandlerServer.class, remap = false)
 public abstract class AerBunnyFlyingMixin {
     @Shadow
     private PlayerServer playerEntity;

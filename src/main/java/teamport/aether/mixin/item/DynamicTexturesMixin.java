@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.models.DynamicTextureDungeonCompass;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = TextureManager.class)
+@Mixin(value = TextureManager.class, remap = false)
 public abstract class DynamicTexturesMixin {
     @Shadow
     @Final

@@ -8,7 +8,7 @@ import teamport.aether.block.entity.TileEntityFreezer;
 import teamport.aether.block.entity.TileEntityIncubator;
 import teamport.aether.gui.AetherScreens;
 
-@Mixin(value = Player.class)
+@Mixin(value = Player.class, remap = false)
 public abstract class PlayerMixinAetherScreens implements AetherScreens {
     @Override
     public void aether$displayEnchanterScreen(TileEntityEnchanter tileEntity) {}

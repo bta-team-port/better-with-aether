@@ -6,7 +6,7 @@ import net.minecraft.core.player.inventory.menu.MenuAbstract;
 import net.minecraft.core.player.inventory.menu.MenuInventory;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(value = MenuAbstract.class)
+@Mixin(value = MenuAbstract.class, remap = false)
 public abstract class MenuInventoryMixinAddSlotAdjSlotTwo {
     @WrapMethod(method = "getHotbarSlotId")
     public int getHotbarSlotId(int number, Operation<Integer> original) {
