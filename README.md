@@ -43,6 +43,8 @@ to [Better with Aether Repo](https://github.com/bta-team-port/better-with-aether
 - BTA == 8.0.1
 - Halplibe >= [6.1.3+8.0](https://github.com/Turnip-Labs/bta-halplibe/releases)
 - UselessNumericals >= [1.1.1-8.0](https://github.com/gungun974/UselessNumerical/releases)
+- Catalyst Core >= [3.0.0-v8.0.1](https://github.com/MartinSVK12/catalyst/releases)
+- Catalyst Effects >= [3.0.0-v8.0.1](https://github.com/MartinSVK12/catalyst/releases)
 
 ### Screenshots from the latest Release:
 

@@ -41,6 +41,8 @@ dependencies {
     implementation(libs.loader)
     implementation(libs.halplibe)
     implementation(libs.uselessNumerical)
+    implementation(libs.catalyst.core)
+    implementation(libs.catalyst.effects)
 
     compileOnly(libs.bundles.btaLwjgl)
     compileOnly(libs.joml)
@@ -115,6 +117,8 @@ tasks {
             "fabricloader" to libs.versions.loader.get(),
             "halplibe" to libs.versions.halplibe.get(),
             "uselessnumerical" to libs.versions.uselessNumerical.get(),
+            "catalystcore" to libs.versions.catalyst.core.get(),
+            "catalysteffects" to libs.versions.catalyst.effects.get(),
             "java" to libs.versions.java.get(),
             "modmenu" to libs.versions.modMenu.get()
         )
