@@ -19,7 +19,7 @@ import teamport.aether.block.entity.TileEntityIncubator;
 import teamport.aether.gui.AetherScreens;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = PacketHandlerClient.class)
+@Mixin(value = PacketHandlerClient.class, remap = false)
 public abstract class PacketHandlerClientMixinAetherMachines {
     @Final
     @Shadow

@@ -29,7 +29,7 @@ import teamport.aether.mixin.accessors.MenuAbstractAccessor;
 
 import static teamport.aether.item.accessory.SlotAccessory.*;
 
-@Mixin(value = MenuInventory.class)
+@Mixin(value = MenuInventory.class, remap = false)
 public abstract class MenuInventoryMixinAddSlotAdjSlot {
     @Shadow
     public ContainerInventory inventory;

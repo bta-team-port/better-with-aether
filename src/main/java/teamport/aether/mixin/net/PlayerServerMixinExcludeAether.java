@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.world.AetherDimension;
 
 @Environment(EnvType.SERVER)
-@Mixin(value = PlayerServer.class)
+@Mixin(value = PlayerServer.class, remap = false)
 public abstract class PlayerServerMixinExcludeAether {
     @Shadow
     public MinecraftServer mcServer;

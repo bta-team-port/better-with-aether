@@ -26,7 +26,7 @@ import java.util.Random;
 import java.util.function.BiConsumer;
 import org.jspecify.annotations.Nullable;
 
-@Mixin(value = ItemBucket.class)
+@Mixin(value = ItemBucket.class, remap = false)
 public abstract class LavaBucketMixin {
     private static boolean aether$isAetherLava(ItemStack stack, World world) {
         return world.getDimension() == AetherDimension.getAether()

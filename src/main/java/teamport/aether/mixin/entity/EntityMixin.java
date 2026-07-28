@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.block.terrain.BlockLogicCloudBase;
 
-@Mixin(value = Entity.class)
+@Mixin(value = Entity.class, remap = false)
 public abstract class EntityMixin {
     @Shadow
     public float fallDistance;

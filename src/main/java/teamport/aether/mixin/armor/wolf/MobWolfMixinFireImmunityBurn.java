@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import teamport.aether.helper.MixinHelper;
 import teamport.aether.helper.ParticleMaker;
 
-@Mixin(value = Entity.class)
+@Mixin(value = Entity.class, remap = false)
 public abstract class MobWolfMixinFireImmunityBurn {
     @Shadow
     @Nullable

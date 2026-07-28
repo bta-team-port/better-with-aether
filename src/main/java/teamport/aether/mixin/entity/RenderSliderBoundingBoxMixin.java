@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.entity.boss.slider.MobBossSlider;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = RenderGlobal.class)
+@Mixin(value = RenderGlobal.class, remap = false)
 public abstract class RenderSliderBoundingBoxMixin {
     @WrapOperation(
         method = "drawInterpolatedEntityBoundingBox(Lnet/minecraft/core/entity/Entity;Lorg/joml/primitives/AABBdc;Lnet/minecraft/client/render/camera/ICamera;F)V",

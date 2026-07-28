@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.entity.AetherMobOtherImmunities;
 
-@Mixin(value = BlockLogicCactus.class)
+@Mixin(value = BlockLogicCactus.class, remap = false)
 public abstract class CactusSpikeImmunitiesMixin {
     @WrapOperation(method = "onEntityCollision(Lnet/minecraft/core/world/World;Lnet/minecraft/core/world/pos/TilePosc;Lnet/minecraft/core/entity/Entity;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Entity;hurt(Lnet/minecraft/core/entity/Entity;ILnet/minecraft/core/util/helper/DamageType;)Z"))
     private boolean monsterImmuneToSpikes(Entity instance, Entity attacker, int baseDamage, DamageType type, Operation<Boolean> original, World world, TilePosc pos, Entity entity) {

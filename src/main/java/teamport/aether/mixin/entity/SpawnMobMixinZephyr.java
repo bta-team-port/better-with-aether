@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
 
-@Mixin(value = SpawnerMobs.class)
+@Mixin(value = SpawnerMobs.class, remap = false)
 public abstract class SpawnMobMixinZephyr {
 
 

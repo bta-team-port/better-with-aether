@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value = WorldType.class, priority = 0)
+@Mixin(value = WorldType.class, remap = false, priority = 0)
 public abstract class WorldTypeOverworldRespawnMixin {
     @Inject(method = "getRespawnLocation(Lnet/minecraft/core/world/World;)V", at = @At("HEAD"))
     private void respawnLocationOne(World world, CallbackInfo ci, @Share("attempts") LocalIntRef attempts) {

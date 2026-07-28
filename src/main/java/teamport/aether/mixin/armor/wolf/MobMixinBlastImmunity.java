@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.item.AetherArmorMaterial;
 
-@Mixin(value = Mob.class)
+@Mixin(value = Mob.class, remap = false)
 public abstract class MobMixinBlastImmunity {
     @Shadow
     public abstract boolean interact(@NonNull Player player);

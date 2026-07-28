@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.item.AetherItemTags;
 
-@Mixin(value = EntityItem.class)
+@Mixin(value = EntityItem.class, remap = false)
 public abstract class EntityItemFallUpwardsMixin extends Entity {
     @Shadow
     public ItemStack item;

@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import static teamport.aether.AetherMod.*;
 
-@Mixin(value = BlockLogicNote.class)
+@Mixin(value = BlockLogicNote.class, remap = false)
 public abstract class BlockLogicNoteTriggerMixin {
     @Expression("'note.'")
     @ModifyExpressionValue(method = "triggerEvent", at = @At("MIXINEXTRAS:EXPRESSION"))

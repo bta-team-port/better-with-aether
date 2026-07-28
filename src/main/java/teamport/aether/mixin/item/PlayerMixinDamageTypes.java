@@ -20,7 +20,7 @@ import teamport.aether.item.accessory.ItemGloves;
 
 import static teamport.aether.item.accessory.SlotAccessory.GLOVES_SLOT;
 
-@Mixin(value = Player.class)
+@Mixin(value = Player.class, remap = false)
 public abstract class PlayerMixinDamageTypes {
     @Shadow
     public ContainerInventory inventory;

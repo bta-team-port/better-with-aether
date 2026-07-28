@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.ducks.IBlockAether;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = RenderBlocks.class)
+@Mixin(value = RenderBlocks.class, remap = false)
 public abstract class RenderBlocksMixin {
     @ModifyExpressionValue(
         method = "setupLighting(Lnet/minecraft/core/world/WorldSource;Lnet/minecraft/core/block/Block;Lnet/minecraft/core/world/pos/TilePosc;FFFLnet/minecraft/core/util/helper/Side;IIIFIIIFFIIIFF)V",

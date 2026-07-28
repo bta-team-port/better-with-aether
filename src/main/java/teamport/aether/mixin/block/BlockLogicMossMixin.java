@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.block.AetherBlocks;
 
-@Mixin(value = BlockLogicMoss.class)
+@Mixin(value = BlockLogicMoss.class, remap = false)
 public abstract class BlockLogicMossMixin {
     @ModifyReturnValue(method = "onBonemealUsed", at = @At(value = "TAIL"))
     private boolean addOnBonemealUsed(boolean original, ItemStack itemstack, @Nullable Player player, World world, TilePosc pos, Side side, double xPlaced, double yPlaced) {
