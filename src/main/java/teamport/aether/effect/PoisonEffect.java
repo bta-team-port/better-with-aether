@@ -5,17 +5,20 @@ import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Direction;
-import teamport.aether.effect.api.EffectContainer;
-import teamport.aether.effect.api.EffectStack;
-import teamport.aether.effect.api.EffectTimeType;
-import teamport.aether.effect.api.IHasEffects;
-import teamport.aether.effect.api.Modifier;
+import sunsetsatellite.catalyst.effects.api.effect.EffectContainer;
+import sunsetsatellite.catalyst.effects.api.effect.EffectStack;
+import sunsetsatellite.catalyst.effects.api.effect.EffectTimeType;
+import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
+import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
 import teamport.aether.AetherMod;
 import teamport.aether.helper.ParticleMaker;
 
 import java.util.List;
+import java.util.WeakHashMap;
 
 public class PoisonEffect extends AetherEffect {
+    private final WeakHashMap<Mob, double[]> drift = new WeakHashMap<>();
+
     public PoisonEffect(String nameKey, String id, List<Modifier<?>> modifiers, EffectTimeType effectTimeType, int maxStack) {
         super(nameKey, id, modifiers, effectTimeType, maxStack);
     }
@@ -63,21 +66,18 @@ public class PoisonEffect extends AetherEffect {
                 ParticleMaker.spawnPoisonParticles(mob.world, mob.x, mob.y, mob.z, mob.bbHeight, mob.bbWidth);
             }
         }
-        slideEntity(mob, effectStack);
+        slideEntity(mob);
     }
 
-    private void slideEntity(Mob mob, EffectStack effectStack) {
+    private void slideEntity(Mob mob) {
+        double[] d = drift.computeIfAbsent(mob, k -> new double[2]);
         double gauss = mob.world.rand.nextGaussian();
-        double newMotD = 0.1 * gauss;
-        double motD = 0.2 * newMotD + (1.0 - 0.2) * effectStack.getMotionDrift();
-        effectStack.setMotionDrift(motD);
-        mob.xd += motD;
-        mob.zd += motD;
-        double newRotD = 0.7853981633974483 * gauss;
-        double rotD = 0.125 * newRotD + (1.0 - 0.125) * effectStack.getRotationDrift();
-        effectStack.setRotationDrift(rotD);
-        mob.yRot = (float) (mob.yRot + rotD);
-        mob.xRot = (float) (mob.xRot + rotD);
+        d[0] = 0.2 * (0.1 * gauss) + 0.8 * d[0];
+        d[1] = 0.125 * (0.7853981633974483 * gauss) + 0.875 * d[1];
+        mob.xd += d[0];
+        mob.zd += d[0];
+        mob.yRot = (float) (mob.yRot + d[1]);
+        mob.xRot = (float) (mob.xRot + d[1]);
     }
 
     @Override
