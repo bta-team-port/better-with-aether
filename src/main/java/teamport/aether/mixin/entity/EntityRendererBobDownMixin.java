@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.item.AetherItemTags;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = EntityRendererItem.class, remap = false)
+@Mixin(value = EntityRendererItem.class)
 public abstract class EntityRendererBobDownMixin {
 
     @ModifyExpressionValue(method = "render(Lnet/minecraft/client/render/tessellator/TessellatorGeneral;Lnet/minecraft/core/entity/EntityItem;DDDFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/util/helper/MathHelper;sin(F)F"))

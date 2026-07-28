@@ -669,7 +669,7 @@ public final class AetherItems {
 
 
         ARMOR_TALISMAN_REGEN = itemBuilder(CreativeInventoryCategory.ARMOR)
-            .build(new ItemRegenStone("armor.talisman.regen", itemKey("armor_talisman_regen"), itemID("ARMOR_TALISMAN_REGEN"), "regen"));
+            .build(new ItemRegenStone("armor.talisman.regen", itemKey("armor_talisman_regen"), itemID("ARMOR_TALISMAN_REGEN"), "regen_trinket"));
 
         ARMOR_TALISMAN_BUBBLE = itemBuilder(CreativeInventoryCategory.ARMOR)
             .build(new ItemIronBubble("armor.talisman.bubble", itemKey("armor_talisman_bubble"), itemID("ARMOR_TALISMAN_BUBBLE"), "bubble"));

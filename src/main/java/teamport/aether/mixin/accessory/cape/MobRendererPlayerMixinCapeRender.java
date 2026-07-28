@@ -22,7 +22,7 @@ import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.accessory.ItemAccessoryArmor;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = MobRendererPlayer.class, remap = false)
+@Mixin(value = MobRendererPlayer.class)
 public abstract class MobRendererPlayerMixinCapeRender extends MobRenderer<Player> {
     protected MobRendererPlayerMixinCapeRender(float shadowSize) {
         super(shadowSize);

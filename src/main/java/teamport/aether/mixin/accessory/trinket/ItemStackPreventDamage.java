@@ -15,7 +15,7 @@ import teamport.aether.mixin.accessors.ItemAccessor;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
 
-@Mixin(value = ItemStack.class, remap = false)
+@Mixin(value = ItemStack.class)
 public abstract class ItemStackPreventDamage {
     @WrapOperation(method = "damageItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/item/ItemStack;isItemStackDamageable()Z"))
     private boolean preventDamage(ItemStack instance, Operation<Boolean> original, int i, @Nullable Entity entity) {

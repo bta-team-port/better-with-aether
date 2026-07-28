@@ -26,7 +26,7 @@ import teamport.aether.helper.ClientRenderHelper;
 import teamport.aether.item.AetherItems;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = HudIngame.class, remap = false)
+@Mixin(value = HudIngame.class)
 public abstract class ArmorOverlayMixin extends Gui {
     @Shadow
     protected Minecraft mc;

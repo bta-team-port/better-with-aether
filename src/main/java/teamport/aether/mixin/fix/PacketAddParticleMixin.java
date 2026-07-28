@@ -11,7 +11,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-@Mixin(value = PacketAddParticle.class, remap = false)
+@Mixin(value = PacketAddParticle.class)
 public abstract class PacketAddParticleMixin {
     @Shadow
     public int data;

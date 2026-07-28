@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.item.AetherItemTags;
 
-@Mixin(value = MobPig.class, remap = false)
+@Mixin(value = MobPig.class)
 public abstract class MobPigMixin {
     @ModifyReturnValue(method = "isFavouriteItem", at = @At(value = "RETURN"))
     private boolean isFavouriteItem(boolean original, ItemStack itemStack) {

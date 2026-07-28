@@ -26,6 +26,10 @@ import teamport.aether.entity.monster.mimic.MimicRegistry;
 import teamport.aether.item.AetherItemTags;
 import teamport.aether.item.AetherItems;
 import teamport.aether.item.accessory.ItemTrinket;
+import teamport.aether.lookup.LookupFuelEnchanter;
+import teamport.aether.lookup.LookupFuelFreezer;
+import teamport.aether.lookup.LookupFuelIncubator;
+import teamport.aether.lookup.LookupTrinketIcons;
 import teamport.aether.net.*;
 import teamport.aether.net.message.*;
 import teamport.aether.recipe.RecipeEntryAetherMachine;
@@ -118,6 +122,10 @@ public class AetherMod implements ModInitializer {
 
     public void afterGameStart() {
         AetherEffects.init();
+        LookupFuelEnchanter.init();
+        LookupFuelFreezer.init();
+        LookupFuelIncubator.init();
+        LookupTrinketIcons.init();
         MimicRegistry.init();
 
         TRANSLATOR = I18n.getInstance();

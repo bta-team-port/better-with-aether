@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.world.AetherDimension;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = SoundEngine.class, remap = false)
+@Mixin(value = SoundEngine.class)
 public abstract class AetherMusicMixin {
     @Shadow
     private Minecraft mc;

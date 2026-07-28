@@ -11,11 +11,11 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = PlayerLocal.class, remap = false)
+@Mixin(value = PlayerLocal.class)
 public abstract class PlayerRespawnExtraHealthMixin {
     @Shadow
     protected Minecraft mc;
-    @Inject(method = "respawnPlayer", at = @At("TAIL"), remap = false)
+    @Inject(method = "respawnPlayer", at = @At("TAIL"))
     private void restoreExtraHeartsClient(CallbackInfo ci) {
         this.mc.thePlayer.heal(1000);
     }

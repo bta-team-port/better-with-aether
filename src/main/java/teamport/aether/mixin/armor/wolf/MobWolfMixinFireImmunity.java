@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.helper.MixinHelper;
 import teamport.aether.helper.ParticleMaker;
 
-@Mixin(value = MobWolf.class, remap = false)
+@Mixin(value = MobWolf.class)
 public abstract class MobWolfMixinFireImmunity extends MobAnimal {
     protected MobWolfMixinFireImmunity(World world) {
         super(world);

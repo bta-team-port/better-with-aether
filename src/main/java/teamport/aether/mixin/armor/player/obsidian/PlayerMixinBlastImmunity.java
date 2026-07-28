@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherArmorMaterial;
 
-@Mixin(value = Player.class, remap = false)
+@Mixin(value = Player.class)
 public abstract class PlayerMixinBlastImmunity {
     @Shadow
     public ContainerInventory inventory;

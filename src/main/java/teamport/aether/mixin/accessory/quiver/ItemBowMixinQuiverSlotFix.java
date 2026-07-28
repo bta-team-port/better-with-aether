@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.ducks.IContainerInventoryAether;
 import teamport.aether.entity.player.PlayerUtil;
 
-@Mixin(value = ItemBow.class, remap = false)
+@Mixin(value = ItemBow.class)
 public abstract class ItemBowMixinQuiverSlotFix {
     @WrapOperation(method = "onUse(Lnet/minecraft/core/item/ItemStack;Lnet/minecraft/core/world/World;Lnet/minecraft/core/entity/player/Player;)Lnet/minecraft/core/item/ItemStack;", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/player/Player;getItemInArmorSlot(Lnet/minecraft/core/enums/HumanArmorShape;)Lnet/minecraft/core/item/ItemStack;"))
     private ItemStack checkAdditionalSlots(Player instance, HumanArmorShape armorShape, Operation<ItemStack> original) {

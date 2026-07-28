@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.SERVER)
-@Mixin(value = PlayerServer.class, remap = false)
+@Mixin(value = PlayerServer.class)
 public abstract class PlayerServerAddDartsMixin extends PlayerGetNextDartMixin {
     protected PlayerServerAddDartsMixin(@Nullable World world) {
         super(world);

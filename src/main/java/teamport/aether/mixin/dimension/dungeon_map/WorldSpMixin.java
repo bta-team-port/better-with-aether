@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.world.feature.util.map.DungeonMap;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = World.class, remap = false)
+@Mixin(value = World.class)
 public abstract class WorldSpMixin {
     @Inject(method = "tick", at = @At("RETURN"))
     private void onTick(CallbackInfo ci) {

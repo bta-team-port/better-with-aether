@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.world.AetherDimension;
 
 @Environment(EnvType.SERVER)
-@Mixin(value = WorldServer.class, remap = false)
+@Mixin(value = WorldServer.class)
 public abstract class MPWorldMixin extends World {
     protected MPWorldMixin() {
         super((net.minecraft.core.world.save.LevelStorage) null, (net.minecraft.core.world.settings.WorldConfiguration) null, (Dimension) null);

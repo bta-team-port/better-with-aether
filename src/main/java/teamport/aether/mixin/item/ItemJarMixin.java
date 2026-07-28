@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.AetherMod;
 import teamport.aether.item.AetherItems;
 
-@Mixin(value = ItemJar.class, remap = false)
+@Mixin(value = ItemJar.class)
 public abstract class ItemJarMixin {
     @Inject(method = "captureFirefly(Lnet/minecraft/core/entity/animal/MobFireflyCluster;)Lnet/minecraft/core/item/Item;", at = @At("HEAD"), cancellable = true)
     private static void onCaptureFirefly(MobFireflyCluster firefly, CallbackInfoReturnable<Item> cir) {

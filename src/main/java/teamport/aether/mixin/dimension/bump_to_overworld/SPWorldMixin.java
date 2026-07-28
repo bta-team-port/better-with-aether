@@ -19,7 +19,7 @@ import turniplabs.halplibe.helper.EnvironmentHelper;
 import java.util.Random;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = World.class, remap = false)
+@Mixin(value = World.class)
 public abstract class SPWorldMixin {
     @Shadow
     @Final

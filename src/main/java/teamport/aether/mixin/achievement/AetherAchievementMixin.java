@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import static teamport.aether.AetherMod.MOD_ID;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = AchievementToast.class, remap = false)
+@Mixin(value = AchievementToast.class)
 public abstract class AetherAchievementMixin {
     @Shadow
     @Final

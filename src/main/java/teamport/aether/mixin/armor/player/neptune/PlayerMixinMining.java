@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherArmorMaterial;
 
-@Mixin(value = Player.class, remap = false)
+@Mixin(value = Player.class)
 public abstract class PlayerMixinMining {
     @ModifyExpressionValue(method = "getCurrentPlayerStrVsBlock", at = @At(value = "CONSTANT", args = "floatValue=5.0F"))
     private float modifyWaterSlowdownConstant(float original) {

@@ -18,7 +18,7 @@ import teamport.aether.item.AetherItems;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
 
-@Mixin(value = BlockLogic.class, remap = false)
+@Mixin(value = BlockLogic.class)
 public abstract class BlockLogicHarvestBlockGoldPendant {
     @WrapOperation(
         method = "onHarvest(Lnet/minecraft/core/world/World;Lnet/minecraft/core/entity/player/Player;Lnet/minecraft/core/world/pos/TilePosc;ILnet/minecraft/core/block/entity/TileEntity;)V",

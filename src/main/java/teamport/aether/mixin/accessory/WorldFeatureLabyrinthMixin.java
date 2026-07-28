@@ -13,7 +13,7 @@ import teamport.aether.item.AetherItems;
 
 import java.util.Random;
 
-@Mixin(value = WorldFeatureLabyrinth.class, remap = false)
+@Mixin(value = WorldFeatureLabyrinth.class)
 public abstract class WorldFeatureLabyrinthMixin {
     @Shadow
     public WeightedRandomBag<WeightedRandomLootObject> chestLoot;

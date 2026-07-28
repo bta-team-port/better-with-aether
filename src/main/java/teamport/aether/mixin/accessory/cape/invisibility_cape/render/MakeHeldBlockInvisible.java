@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import teamport.aether.entity.player.PlayerUtil;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = ItemModelBlock.class, remap = false)
+@Mixin(value = ItemModelBlock.class)
 public abstract class MakeHeldBlockInvisible {
     @WrapMethod(method = "render(Lnet/minecraft/client/render/tessellator/TessellatorGeneral;Lnet/minecraft/core/entity/Entity;Lnet/minecraft/core/item/ItemStack;Ljava/lang/String;ZIBFZ)V")
     private void makeItemInvisible(TessellatorGeneral tessellator, Entity entity, ItemStack itemStack, String displayContext, boolean translate, int count, byte light, float partialTick, boolean leftHanded, Operation<Void> original) {

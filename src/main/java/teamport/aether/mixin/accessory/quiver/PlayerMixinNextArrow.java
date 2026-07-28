@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.ducks.IContainerInventoryAether;
 import teamport.aether.entity.player.PlayerUtil;
 
-@Mixin(value = Player.class, remap = false)
+@Mixin(value = Player.class)
 public abstract class PlayerMixinNextArrow {
     @Shadow
     public ContainerInventory inventory;

@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.entity.AetherRideable;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = PlayerLocal.class, remap = false)
+@Mixin(value = PlayerLocal.class)
 public abstract class PlayerLocalHandleAetherRideableMixin extends Player {
     protected PlayerLocalHandleAetherRideableMixin(World world) {
         super(world);

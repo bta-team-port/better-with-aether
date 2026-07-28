@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.block.AetherBlocks;
 
-@Mixin(value = BlockLogicPathDirt.class, remap = false)
+@Mixin(value = BlockLogicPathDirt.class)
 public abstract class BlockLogicPathDirtMixin {
     @Definition(id = "isSolid", method = "Lnet/minecraft/core/block/material/Material;isSolid()Z")
     @Expression("?.isSolid()")

@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import teamport.aether.world.AetherDimension;
 
-@Mixin(value = EntityLightning.class, remap = false)
+@Mixin(value = EntityLightning.class)
 public abstract class LightningBoltSoundMixin extends Entity {
 
     protected LightningBoltSoundMixin(@Nullable World world) {

@@ -33,7 +33,7 @@ import static teamport.aether.AetherMod.ARMOR_START_INDEX;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = ItemElement.class, remap = false)
+@Mixin(value = ItemElement.class)
 public abstract class ItemElementMixinHoverShowSlot {
     @Unique
     private int lastTick = 0;

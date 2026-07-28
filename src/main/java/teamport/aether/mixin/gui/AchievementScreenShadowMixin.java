@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.achievements.AetherAchievementPageExtras;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = ScreenAchievements.class, remap = false)
+@Mixin(value = ScreenAchievements.class)
 public abstract class AchievementScreenShadowMixin {
     @Shadow
     private AchievementPage currentPage;

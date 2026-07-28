@@ -204,6 +204,11 @@ public class DungeonMap {
     }
 
     public static void onWorldTick(World world) {
+        while (!DEAD_DUNGEONS.empty()) {
+            int id = DEAD_DUNGEONS.pop();
+            DUNGEON_MAP.remove(id);
+        }
+
         for (Player player : world.players) {
             for (DungeonLogic dungeonLogic : DUNGEON_MAP.values()) {
                 if (
@@ -223,6 +228,7 @@ public class DungeonMap {
 
         for (DungeonLogic logic : DUNGEON_MAP.values()) {
             if (logic == null || logic.getDimensionID() != world.dimension.id) continue;
+
             logic.tick(world);
         }
     }
@@ -230,6 +236,8 @@ public class DungeonMap {
     public static boolean isEmpty() {
         return DUNGEON_MAP.isEmpty();
     }
+
+    private static final Stack<Integer> DEAD_DUNGEONS = new Stack<>();
 
     /// Marks dungeon for removal.
     public static void remove(Integer id) {
@@ -241,6 +249,7 @@ public class DungeonMap {
         }
 
         DUNGEON_MAP.get(id).markedRemoved = true;
+        DEAD_DUNGEONS.push(id);
     }
 
     public static <T extends DungeonLogic> T register(Class<T> dungeonClass, World world, long seed, int x, int y, int z) {

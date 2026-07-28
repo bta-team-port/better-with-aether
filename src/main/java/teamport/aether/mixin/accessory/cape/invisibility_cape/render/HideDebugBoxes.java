@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import teamport.aether.entity.player.PlayerUtil;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = RenderGlobal.class, remap = false)
+@Mixin(value = RenderGlobal.class)
 public class HideDebugBoxes {
     @WrapMethod(method = "drawInterpolatedEntityBoundingBox(Lnet/minecraft/core/entity/Entity;Lorg/joml/primitives/AABBdc;Lnet/minecraft/client/render/camera/ICamera;F)V")
     private void hideInvisibleBoundingBox(Entity entity, AABBdc boundingBox, ICamera camera, float partialTicks, Operation<Void> original) {

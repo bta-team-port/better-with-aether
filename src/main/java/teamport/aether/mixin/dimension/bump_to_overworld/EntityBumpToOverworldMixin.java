@@ -16,7 +16,7 @@ import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import static teamport.aether.world.AetherDimension.addEntityToFallen;
 
-@Mixin(value = Entity.class, remap = false)
+@Mixin(value = Entity.class)
 public abstract class EntityBumpToOverworldMixin {
     @Shadow
     @Nullable

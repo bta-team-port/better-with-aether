@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.AetherServer;
 
 @Environment(EnvType.SERVER)
-@Mixin(value = PacketHandlerLogin.class, remap = false)
+@Mixin(value = PacketHandlerLogin.class)
 public abstract class PlayerLoginMixin {
     @Shadow
     @Final
