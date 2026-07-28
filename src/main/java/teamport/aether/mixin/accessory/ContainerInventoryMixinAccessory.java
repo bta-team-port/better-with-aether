@@ -74,6 +74,16 @@ public abstract class ContainerInventoryMixinAccessory implements IContainerInve
                 aether$accessorySlots[slot] = ItemStack.readItemStackFromNbt(itemTag);
             }
         }
+        for (ItemStack item : armorInventory) {
+            if (item != null && item.getItem() instanceof IAccessoryEffects) {
+                ((IAccessoryEffects) item.getItem()).addEffect(player, item);
+            }
+        }
+        for (ItemStack item : aether$accessorySlots) {
+            if (item != null && item.getItem() instanceof IAccessoryEffects) {
+                ((IAccessoryEffects) item.getItem()).addEffect(player, item);
+            }
+        }
     }
 
     @Inject(method = "clear", at = @At("TAIL"))
