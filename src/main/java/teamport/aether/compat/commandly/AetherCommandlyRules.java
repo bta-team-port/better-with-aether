@@ -1,5 +1,3 @@
-// TODO: restore commandly compat once upstream mod lands on BTA 8.0
-/*
 package teamport.aether.compat.commandly;
 
 import net.fabricmc.loader.api.FabricLoader;
@@ -11,13 +9,12 @@ public class AetherCommandlyRules {
     private static final boolean IS_LOADED = FabricLoader.getInstance().isModLoaded("commandly");
 
     public static boolean canVeinMine(World world) {
-        if(IS_LOADED) return world.getGameRuleValue(CommandlyMod.VEINMINING);
+        if (IS_LOADED) return Boolean.TRUE.equals(world.getGameRuleValue(CommandlyMod.VEINMINING));
         return false;
     }
 
     public static boolean canGrassSpread(World world) {
-        if(IS_LOADED) return world.getGameRuleValue(CommandlyMod.GRASS_SPREADING);
+        if (IS_LOADED) return Boolean.TRUE.equals(world.getGameRuleValue(CommandlyMod.GRASS_SPREADING));
         return true;
     }
 }
-*/

@@ -1,5 +1,3 @@
-// TODO: restore commandly compat once upstream mod lands on BTA 8.0
-/*
 package teamport.aether.compat.commandly;
 
 import redart15.commandly.api.CommandlyPlugin;
@@ -32,4 +30,3 @@ public class AetherCommandlyPlugin implements CommandlyPlugin {
         PickAxeRegister.register(AetherItems.TOOL_PICKAXE_VALKYRIE, AetherToolMaterial.valkyrie);
     }
 }
-*/

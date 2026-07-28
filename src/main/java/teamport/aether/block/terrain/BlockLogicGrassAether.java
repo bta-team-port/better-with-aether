@@ -6,9 +6,7 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.material.Materials;
-import net.minecraft.core.data.gamerule.GameRule;
 import net.minecraft.core.data.gamerule.GameRules;
-import net.minecraft.core.data.registry.Registries;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumDropCause;
@@ -23,6 +21,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
+import teamport.aether.compat.commandly.AetherCommandlyRules;
 import teamport.aether.item.AetherItems;
 import teamport.aether.world.AetherDimension;
 
@@ -59,7 +58,7 @@ public class BlockLogicGrassAether extends BlockLogic implements IBonemealable {
                         && world.getBlockId(x1, y1, z1) == this.dirt.id()
                         && world.getBlockLightValue(x1, y1 + 1, z1) >= 4
                         && Blocks.lightBlock[world.getBlockId(x1, y1 + 1, z1)] <= 2
-                        && canGrassSpread(world)
+                        && AetherCommandlyRules.canGrassSpread(world)
                     ) {
                         world.setBlockWithNotify(x1, y1, z1, this.block.id());
                     }
@@ -80,11 +79,6 @@ public class BlockLogicGrassAether extends BlockLogic implements IBonemealable {
             }
 
         }
-    }
-
-    private static boolean canGrassSpread(World world) {
-        GameRule<?> grassSpreading = Registries.GAME_RULES.getItem("doGrassSpreading");
-        return grassSpreading == null || Boolean.TRUE.equals(world.getGameRuleValue(grassSpreading));
     }
 
     @Override
