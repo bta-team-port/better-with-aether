@@ -1,6 +1,6 @@
 package teamport.aether.effect;
 
-import teamport.aether.effect.api.IHasEffects;
+import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 
 public interface ILockInteractable {
     default void lockTriggered(IHasEffects<?> entity) {

@@ -83,7 +83,6 @@
     "entity.MobPigMixin",
     "entity.MobSheepMixin",
     "entity.SpawnMobMixinZephyr",
-    "effect.EntityEffectMixin",
     "fix.CommandHealMixin",
     "fix.MapFixMixin",
     "fix.MinecartCarriablesFix",
@@ -106,7 +105,6 @@
     "item.TreeCapitatorAetherAxeMixin",
     "player.PlayerBossListMixin",
     "player.PlayerDeathMessageMixin",
-    "player.PlayerExtraHealthMixin",
     "player.PlayerFixArmorMixin",
     "player.PlayerGetNextDartMixin",
     "player.PlayerMixinDevDrops"
@@ -145,7 +143,6 @@
     "gui.GuidebookMixinInclude",
     "gui.MinecraftMixinAddNewAchievements",
     "gui.hud.ArmorOverlayMixin",
-    "gui.hud.HudComponentHealthBarMixin",
     "gui.hud.HudComponentEntrypointMixin",
     "gui.screens.PlayerLocalMixinAetherScreens",
     "gui.screens.PortalLoadingScreenMixin",
@@ -165,7 +162,6 @@
     "player.PlayerRespawnExtraHealthMixin"
   ],
   "server": [
-    "effect.EntityTrackerEntryImplMixin",
     "accessory.PlayerServerMixinAccessoryServer",
     "dimension.bump_to_overworld.MPBumpToOverworldMixin",
     "dimension.bump_to_overworld.MPWorldMixin",

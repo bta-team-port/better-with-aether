@@ -22,10 +22,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.ducks.IContainerInventoryAether;
-import teamport.aether.effect.api.EffectRendererDispatcher;
-import teamport.aether.effect.api.EffectStack;
-import teamport.aether.effect.api.IHasEffects;
-import teamport.aether.effect.api.TintEffectRender;
 import teamport.aether.helper.ClientRenderHelper;
 import teamport.aether.item.AetherItems;
 
@@ -91,12 +87,6 @@ public abstract class ArmorOverlayMixin extends Gui {
             (this.mc.thePlayer.isSneaking() ||
                 (this.mc.thePlayer.onGround && velocity < 0.075D))) {
             ClientRenderHelper.renderShieldVignette(mc.textureManager, width, height);
-        }
-
-        for (EffectStack stack : ((IHasEffects<?>) this.mc.thePlayer).getContainer().getEffects()) {
-            if (EffectRendererDispatcher.getInstance().get(stack.getEffect()) instanceof TintEffectRender<?> renderer) {
-                ClientRenderHelper.renderTintVignette(mc.textureManager, width, height, renderer.vignette, renderer.tint, renderer.calcAlpha(stack));
-            }
         }
     }
 }
