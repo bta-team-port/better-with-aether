@@ -139,6 +139,7 @@ public abstract class AetherTileEntityMachine extends TileEntity implements Cont
     public void updateContainer(boolean forceLit) {
     }
 
+    @SuppressWarnings("java:S1172")
     public int getEnergyTimeFromItem(ItemStack itemStack) {
         return 0;
     }

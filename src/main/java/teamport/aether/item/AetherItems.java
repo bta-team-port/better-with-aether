@@ -51,6 +51,7 @@ import turniplabs.halplibe.helper.creativeInventory.CreativeInventoryPlacement;
 import static teamport.aether.AetherConfig.itemID;
 import static teamport.aether.AetherMod.MOD_ID;
 
+@SuppressWarnings({"java:S1104", "java:S1444", "java:S3008"})
 public final class AetherItems {
     public static Item MEDAL_VICTORY;
 

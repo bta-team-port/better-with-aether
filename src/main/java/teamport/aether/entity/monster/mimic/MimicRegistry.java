@@ -15,6 +15,7 @@ public class MimicRegistry {
     ///  Static values are initialed in the order of declaration, default has to be the first value!
     public static final MimicEntry DEFAULT = mimicEntry(0, "skyroot", AetherBlocks.CHEST_MIMIC_SKYROOT.id(), 0, AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 0);
     public static final MimicRegistry instance = new MimicRegistry();
+    @SuppressWarnings("java:S116")
     protected final List<MimicEntry> MIMIC_ENTRY_LIST = new ArrayList<>();
 
     public static void init() {

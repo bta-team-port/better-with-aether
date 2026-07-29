@@ -6,6 +6,7 @@ import teamport.aether.item.AetherItems;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("java:S6548")
 public class LookupFuelEnchanter {
     public static final LookupFuelEnchanter INSTANCE = new LookupFuelEnchanter();
     private final Map<Integer, Integer> fuelList = new HashMap<>();

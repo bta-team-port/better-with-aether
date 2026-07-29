@@ -97,6 +97,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
     }
 
     @Override
+    @SuppressWarnings("java:S128")
     public @Nullable ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int x, int y, int z, int meta, TileEntity tileEntity) {
         if (tileEntity == null) {
             tileEntity = world.getTileEntity(x, y, z);
@@ -121,6 +122,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
     }
 
     @Override
+    @SuppressWarnings("java:S2259")
     public void onActivatorInteract(World world, int x, int y, int z, TileEntityActivator activator, Direction direction) {
         MobMimic mimic = summonMimic(world, x, y, z);
         moveToSafe(world, mimic, x, y, z, 0, 0);
@@ -137,6 +139,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
     }
 
     @Override
+    @SuppressWarnings({"java:S3516", "java:S2259"})
     public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xHit, double yHit) {
         ItemStack held = player.getHeldItem();
         if (held != null && held.getItem() instanceof ItemLabel) {
@@ -187,6 +190,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         return summonMimic(world, tileEntity, x, y, z, metadata);
     }
 
+    @SuppressWarnings("java:S2259")
     private void triggerMimic(World world, int x, int y, int z, int meta, TileEntity tileEntity) {
         MobMimic mimic = summonMimic(world, tileEntity, x, y, z, meta);
         world.playSoundEffect(mimic, SoundCategory.ENTITY_SOUNDS, x + 0.5, y + 0.5, z + 0.5, "random.door_open", 1.0f, 0.5f);

@@ -29,6 +29,7 @@ public class PlayerUtil {
     }
 
     ///  Count the armor pieces of a specific material.
+    @SuppressWarnings("java:S135")
     public static int countArmorPiecesOfMaterial(ContainerInventory inventory, ArmorMaterial material) {
         int count = 0;
         for (int i = 0; i < inventory.armorInventory.length; ++i) {
@@ -54,6 +55,7 @@ public class PlayerUtil {
     }
 
     /// Counts the accessories of a specific material.
+    @SuppressWarnings("java:S135")
     public static int countAccessoriesOfMaterial(ContainerInventory inventory, ArmorMaterial material) {
         int count = 0;
         ItemStack[] accessories = ((IContainerInventoryAether) inventory).aether$getAccessoryInventory();
@@ -237,6 +239,7 @@ public class PlayerUtil {
     }
 
     ///  To check if the player can be attacked by Swets
+    @SuppressWarnings("java:S1172")
     public static boolean isSwetty(Entity entity, double distance){
         return PlayerUtil.isSwetty(entity);
     }

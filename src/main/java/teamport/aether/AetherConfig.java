@@ -12,6 +12,7 @@ import java.util.Optional;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
+@SuppressWarnings({"java:S1104", "java:S1444", "java:S3008"})
 public class AetherConfig {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
@@ -68,6 +69,7 @@ public class AetherConfig {
         return result;
     }
 
+    @SuppressWarnings({"java:S899", "ResultOfMethodCallIgnored"})
     static void init() {
         LOGGER.info("Initializing config..");
 

@@ -140,10 +140,12 @@ public class BlockLogicTrapped extends BlockLogicDungeon implements AetherBlockT
         }
     }
 
+    @SuppressWarnings("java:S1452")
     public Block<?> getReplaceOnClear() {
         return replaceOnClear;
     }
 
+    @SuppressWarnings("java:S1452")
     public Block<?> getBreakResult() {
         return breakResult;
     }

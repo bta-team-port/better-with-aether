@@ -50,6 +50,7 @@ import static teamport.aether.AetherMod.LOGGER;
 import static teamport.aether.AetherMod.MOD_ID;
 
 @Environment(EnvType.CLIENT)
+@SuppressWarnings({"java:S1104", "java:S1444", "java:S3008"})
 public class AetherClient implements ClientModInitializer {
     public static HudComponent BOSS_BAR;
     public static HudComponent JUMP_BAR;

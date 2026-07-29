@@ -306,6 +306,7 @@ public class MobBossSlider extends MobBoss {
     }
 
     @Override
+    @SuppressWarnings("java:S6541")
     public boolean hurt(Entity attacker, int damage, DamageType type) {
         if (attacker == null && type == null && damage == 100) {
             return MobUtil.killMob(this);
@@ -458,6 +459,7 @@ public class MobBossSlider extends MobBoss {
 
     protected void stateAsleep() { /* ZZZ... */}
 
+    @SuppressWarnings("java:S131")
     protected void stateSlam() {
         if (this.world == null) return;
 
@@ -518,6 +520,7 @@ public class MobBossSlider extends MobBoss {
 
 
     @Override
+    @SuppressWarnings("java:S6541")
     public void tick() {
         super.baseTick();
         if (this.world == null) {

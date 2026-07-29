@@ -26,6 +26,7 @@ import teamport.aether.item.AetherItems;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("java:S110")
 public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessage {
     private double ydO;
     protected int jumpDelay;
@@ -85,6 +86,7 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
     }
 
     @Override
+    @SuppressWarnings("java:S1192")
     public void tick() {
         if (this.world == null) return;
         this.doTickEffect();

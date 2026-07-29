@@ -24,6 +24,7 @@ import java.util.List;
 import static teamport.aether.AetherConfig.INCLUDE_REPAIR_RECIPES;
 import static teamport.aether.AetherMod.MOD_ID;
 
+@SuppressWarnings({"java:S1104", "java:S1444", "java:S3008"})
 public class AetherRecipes {
     public static RecipeNamespace AETHER;
     public static RecipeGroupAetherMachine ENCHANTER;

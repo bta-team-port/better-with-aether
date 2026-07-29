@@ -258,6 +258,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
 
     public static final WorldFeatureAetherQuicksoil QUICKSOIL = new WorldFeatureAetherQuicksoil(AetherBlocks.QUICKSOIL.id());
 
+    @SuppressWarnings("java:S1119")
     public void decorateWithQuickSoil(Random rand, int worldX, int worldZ, int minY, int maxY) {
         int rangeY = maxY + 1 - minY;
 

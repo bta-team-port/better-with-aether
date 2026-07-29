@@ -41,6 +41,7 @@ public class BlockLogicChestLocked extends BlockLogicRotatable {
     }
 
     @Override
+    @SuppressWarnings("java:S3516")
     public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced) {
         if (this.locked && !player.gamemode.hasInvulnerablePlayer()) {
             ItemStack item = player.getHeldItem();

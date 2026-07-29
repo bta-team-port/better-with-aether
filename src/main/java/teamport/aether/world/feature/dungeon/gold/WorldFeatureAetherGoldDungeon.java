@@ -218,6 +218,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeatureMap<DungeonLogicG
         wfb(x, (int) Math.floor(15 * 1.12 * 2 + y) - 2, z, AetherBlocks.GRASS_AETHER.id(), 0, false).place(world);
     }
 
+    @SuppressWarnings("java:S5413")
     private void createOuterSpheres(int x, int y, int z) {
         // place the outer spheres
         List<Integer> angles = new ArrayList<>();

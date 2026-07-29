@@ -18,6 +18,7 @@ import teamport.aether.entity.player.PlayerUtil;
 @Mixin(value = ItemModelStandard.class, remap = false)
 public abstract class MakeHeldItemInvisible {
     @WrapMethod(method = "render(Lnet/minecraft/client/render/tessellator/TessellatorGeneral;Lnet/minecraft/core/entity/Entity;Lnet/minecraft/core/item/ItemStack;Ljava/lang/String;ZIBFZ)V")
+    @SuppressWarnings("java:S107")
     private void makeItemInvisible(TessellatorGeneral tessellator, Entity holder, ItemStack itemStack, String displayPosId, boolean items3d, int clusterSize, byte lightIndex, float partialTick, boolean leftHanded, Operation<Void> original) {
         if (holder instanceof Player
             && (holder != Minecraft.getMinecraft().thePlayer || GameSettings.THIRD_PERSON_VIEW.value != 0)

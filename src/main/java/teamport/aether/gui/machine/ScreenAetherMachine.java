@@ -29,6 +29,7 @@ public abstract class ScreenAetherMachine extends ScreenContainerAbstract {
      * this class for it work.
      */
     @Override
+    @SuppressWarnings("java:S6541")
     public void clickInventory(int x, int y, int mouseButton) {
         int slotId = ((ScreenContainerAbstractAccessor) this).invokeGetSlotId(x, y);
         if (slotId != -1) {

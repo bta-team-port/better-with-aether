@@ -27,6 +27,7 @@ public class ItemToolAxeAether extends ItemTool {
     }
 
     @Override
+    @SuppressWarnings("java:S5411")
     public boolean beforeBlockDestroyed(ItemStack itemStack, World world, Player player, Block<?> block, TilePosc blockPos, Side side) {
         if (!world.isClientSide && world.getGameRuleValue(GameRules.TREECAPITATOR) && !player.isSneaking()) {
             ItemStack held = player.getHeldItem();

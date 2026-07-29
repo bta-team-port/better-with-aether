@@ -116,6 +116,7 @@ public class MobBossSunspirit extends MobBossFlying {
     }
 
 
+    @SuppressWarnings("java:S131")
     protected void moveSunspirit() {
         if (this.world == null) {
             return;

@@ -63,6 +63,7 @@ public class EntityFloatingBlock extends Entity {
     }
 
     @Override
+    @SuppressWarnings("java:S6541")
     public void tick() {
         if (this.world == null) return;
         if (this.carriedBlock.blockId == 0) {

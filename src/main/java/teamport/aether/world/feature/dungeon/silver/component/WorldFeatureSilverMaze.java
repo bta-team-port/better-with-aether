@@ -136,6 +136,7 @@ public class WorldFeatureSilverMaze {
         }
     }
 
+    @SuppressWarnings("java:S2234")
     public void createMaze(Random random, int x, int y, int z) {
         this.random = random;
         this.rooms = new WorldFeatureComponent();
@@ -161,6 +162,7 @@ public class WorldFeatureSilverMaze {
         this.rooms.add(this.doors);
     }
 
+    @SuppressWarnings("java:S131")
     public void createRoomMaze(int to, int from, int x, int y, int z) {
         int levelCurrent = to / 9;
         int columnCurrent = (to - levelCurrent * 9) / 3;

@@ -13,6 +13,7 @@ public class BlockLogicTorchAmbrosium extends BlockLogicTorch {
     }
 
     @Override
+    @SuppressWarnings("java:S131")
     public void animationTick(World world, int x, int y, int z, Random rand) {
         double xPos = x + 0.5;
         double yPos = y + 0.7;

@@ -178,6 +178,7 @@ public final class BiomeProviderAether extends BiomeProvider {
     }
 
     @Override
+    @SuppressWarnings({"java:S1119", "java:S6541"})
     public double[] getBiomenesses(double[] biomenesses, int x, int y, int z, int xSize, int ySize, int zSize) {
         if (biomenesses == null || biomenesses.length < xSize * ySize * zSize) {
             biomenesses = new double[xSize * ySize * zSize];

@@ -14,6 +14,7 @@ import teamport.aether.entity.player.PlayerUtil;
 @Mixin(value = EntityRenderer.class, remap = false)
 public abstract class EntityRendererMixinRemoveShadow<T extends Entity> {
     @WrapMethod(method = "renderShadow")
+    @SuppressWarnings("java:S107")
     private void removeShadow(TessellatorGeneral tessellator, T entity, double posX, double posY, double posZ, float opacity, float partialTick, Operation<Void> original) {
         if (PlayerUtil.isInvisible(entity)) return;
         original.call(tessellator, entity, posX, posY, posZ, opacity, partialTick);

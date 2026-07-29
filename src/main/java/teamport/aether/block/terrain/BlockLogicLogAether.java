@@ -41,6 +41,7 @@ public class BlockLogicLogAether extends BlockLogicLog {
     /**
      * @implNote This is a modifies BreakResult for TreecapitatorHelper, to allow AetherTrees to work nicely with the gamerule
      */
+    @SuppressWarnings("java:S1172")
     public ItemStack[] getAdditionalBreakResult(World world, Item tool, ItemStack[] results, int meta) {
         if (results == null) return new ItemStack[0];
         if (tool != null && tool.equals(AetherItems.TOOL_AXE_SKYROOT) && meta == 0) {

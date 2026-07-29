@@ -43,6 +43,7 @@ import java.util.Map;
 
 import static net.minecraft.core.entity.animal.MobFireflyCluster.FireflyColor.register;
 
+@SuppressWarnings({"java:S1104", "java:S1444", "java:S3008"})
 public class AetherMod implements ModInitializer {
     public static final String MOD_ID = HalpLibe.registerMod("aether", true);
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
@@ -54,6 +55,7 @@ public class AetherMod implements ModInitializer {
 
     public static final DamageType LIGHTNING = new DamageType("damagetype.lightning", true, true, "aether:gui/hud/protection_lightning");
     public static final DamageType HOLY = new DamageType("damagetype.holy", false, true, "aether:gui/hud/protection_holy");
+    @SuppressWarnings("java:S2386")
     public static final Map<Integer, BlockLogicNote.Instrument> BLOCK_INSTRUMENTS = new HashMap<>();
 
     public static final BlockLogicNote.Instrument FLUTE = new BlockLogicNote.Instrument(11, "flute");

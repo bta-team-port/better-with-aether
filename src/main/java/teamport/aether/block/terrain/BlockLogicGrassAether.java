@@ -37,6 +37,7 @@ public class BlockLogicGrassAether extends BlockLogic implements IBonemealable {
     }
 
     @Override
+    @SuppressWarnings("java:S5411")
     public void updateTick(World world, TilePosc pos, Random rand, boolean scheduled) {
         int x = pos.x();
         int y = pos.y();
@@ -82,6 +83,7 @@ public class BlockLogicGrassAether extends BlockLogic implements IBonemealable {
     }
 
     @Override
+    @SuppressWarnings("java:S1119")
     public boolean onBonemealUsed(ItemStack itemstack, Player player, World world, TilePosc pos, Side side, double xPlaced, double yPlaced) {
         int blockX = pos.x();
         int blockY = pos.y();

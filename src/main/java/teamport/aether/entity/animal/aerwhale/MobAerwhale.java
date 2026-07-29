@@ -64,6 +64,7 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
     }
 
     @Override
+    @SuppressWarnings("java:S131")
     public void updateAI() {
         if (this.world == null || this.world.isClientSide) return;
 
