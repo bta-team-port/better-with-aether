@@ -7,6 +7,7 @@ import teamport.aether.AetherMod;
 
 import java.lang.reflect.Field;
 
+@SuppressWarnings({"java:S1104", "java:S1444", "java:S3008", "unchecked"})
 public class AetherBlockTags {
 
     public static Tag<Block<?>> MINEABLE_BY_AETHER_PICKAXE = Tag.of("mineable_by_aether_pickaxe");

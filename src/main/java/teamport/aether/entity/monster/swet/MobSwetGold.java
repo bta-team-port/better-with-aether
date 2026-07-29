@@ -16,6 +16,7 @@ import teamport.aether.item.AetherItems;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("java:S110")
 public class MobSwetGold extends MobSwet implements Enemy {
 
     public MobSwetGold(World world) {

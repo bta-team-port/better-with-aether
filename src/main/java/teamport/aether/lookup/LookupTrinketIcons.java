@@ -9,6 +9,7 @@ import teamport.aether.item.accessory.IAccessory;
 
 import java.util.*;
 
+@SuppressWarnings("java:S6548")
 public class LookupTrinketIcons {
     public static final LookupTrinketIcons INSTANCE = new LookupTrinketIcons();
     private final Map<NamespaceID, String> idOutlineTextures = new HashMap<>();

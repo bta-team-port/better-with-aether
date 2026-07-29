@@ -100,6 +100,7 @@ public class MobWhirly extends MobAetherAnimal implements Creature {
     }
 
     @Override
+    @SuppressWarnings("java:S131")
     public boolean collidesWith(Entity entity) {
         float launchSpeed = 0.75F;
         if (this.world != null && !(entity instanceof MobWhirly)) {

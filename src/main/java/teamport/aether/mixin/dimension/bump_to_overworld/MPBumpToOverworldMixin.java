@@ -31,6 +31,7 @@ public abstract class MPBumpToOverworldMixin extends Player {
     }
     @Shadow
     @NonNull
+    @SuppressWarnings("java:S1161")
     public abstract String getDisplayName();
     @Inject(method = "onUpdateEntity()V", at = @At("HEAD"))
     private void bumpPlayerToOverworld(CallbackInfo ci) {

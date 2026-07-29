@@ -18,6 +18,7 @@ import teamport.aether.helper.ParticleMaker;
 
 ;
 
+@SuppressWarnings("java:S110")
 public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMessage {
     private int cooldown;
     private final int maxLifetime;
@@ -52,6 +53,7 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
     }
 
     @Override
+    @SuppressWarnings("java:S1192")
     public void updateAI() {
         super.updateAI();
         if (this.isInWaterOrRain() || (this.entityAge >= this.maxLifetime && !this.hadNicknameSet)) {
@@ -95,6 +97,7 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
     public void causeFallDamage(float distance){/* dont take fall damage*/}
 
     @Override
+    @SuppressWarnings("java:S131")
     public boolean collidesWith(Entity entity) {
         float launchSpeed = 0.75F;
         if (this.world != null && !(entity instanceof MobWhirly)) {

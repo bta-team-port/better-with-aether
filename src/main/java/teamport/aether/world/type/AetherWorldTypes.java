@@ -9,6 +9,7 @@ import net.minecraft.core.world.type.tag.WorldTypeTags;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings({"java:S1104", "java:S1444", "java:S3008"})
 public abstract class AetherWorldTypes {
     public static WorldType AETHER_DEFAULT;
     public static WorldType AETHER_EXTENDED;

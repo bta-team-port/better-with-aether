@@ -67,6 +67,7 @@ public class AetherRemoteResourceDownloaderThread extends Thread {
     }
 
     @Override
+    @SuppressWarnings({"java:S2674", "ResultOfMethodCallIgnored"})
     public void run() {
         JsonArray manifest;
 

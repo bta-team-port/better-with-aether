@@ -55,6 +55,7 @@ import static teamport.aether.AetherMod.TRANSLATOR;
 import static teamport.aether.entity.monster.mimic.MimicRegistry.DEFAULT;
 import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
 
+@SuppressWarnings("java:S110")
 public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMessage {
     private int mimicTime;
     int mimicChestID = AetherBlocks.CHEST_MIMIC_SKYROOT.id();
@@ -342,6 +343,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
             ((TileEntityMimic) tileEntity).setCustomName(this.nickname, this.chatColor);
     }
 
+    @SuppressWarnings("java:S3776")
     private IntPair getTarget(World world, WorldFeaturePoint point) {
         Map<WorldFeaturePoint, Integer> distance = new HashMap<>();
         Queue<WorldFeaturePoint> queue = new ArrayDeque<>();

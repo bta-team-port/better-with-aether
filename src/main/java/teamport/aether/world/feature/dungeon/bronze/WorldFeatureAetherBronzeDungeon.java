@@ -157,6 +157,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
     public WorldFeatureAetherBronzeDungeon() {}
 
     @Override
+    @SuppressWarnings("java:S6541")
     public boolean place(final World world, final Random random, final int x, final int y, final int z) {
         this.world = world;
         this.random = random;

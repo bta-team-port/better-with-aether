@@ -73,6 +73,7 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
     }
 
     @Override
+    @SuppressWarnings("java:S1192")
     public void tick() {
         if (this.world != null && this.world.isClientSide) {
             byte i = this.entityData.getByte(16);
@@ -104,6 +105,7 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
     }
 
     @Override
+    @SuppressWarnings({"java:S6541", "java:S3776", "java:S1192"})
     public void updateAI() {
         if (this.world != null && !this.world.isClientSide && !this.world.getDifficulty().canHostileMobsSpawn()) {
             this.remove();

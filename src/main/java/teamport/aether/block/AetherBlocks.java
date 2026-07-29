@@ -30,6 +30,7 @@ import turniplabs.halplibe.helper.creativeInventory.CreativeInventoryPlacement;
 import static teamport.aether.AetherConfig.blockID;
 import static teamport.aether.AetherMod.MOD_ID;
 
+@SuppressWarnings({"java:S6539", "java:S1104", "java:S1444", "java:S3008"})
 public final class AetherBlocks {
     public static Block<BlockLogicPortalAether> PORTAL_AETHER;
 

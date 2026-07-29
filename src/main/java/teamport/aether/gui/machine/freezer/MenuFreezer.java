@@ -83,6 +83,7 @@ public class MenuFreezer extends MenuAbstract {
     }
 
     @Override
+    @SuppressWarnings("java:S131")
     public void setData(int id, int value) {
         switch (id) {
             case 0:

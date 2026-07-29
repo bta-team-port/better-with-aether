@@ -111,6 +111,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     }
 
     @Inject(method = "renderSpecials(Lnet/minecraft/client/render/tessellator/TessellatorGeneral;Lnet/minecraft/core/entity/player/Player;DDD)V", at = @At("TAIL"))
+    @SuppressWarnings("java:S107")
     public void renderBunny(TessellatorGeneral tessellator, Player entity, double x, double y, double z, CallbackInfo ci) {
         if (entity == Minecraft.getMinecraft().thePlayer) {
             Screen currScreen = Minecraft.getMinecraft().currentScreen;

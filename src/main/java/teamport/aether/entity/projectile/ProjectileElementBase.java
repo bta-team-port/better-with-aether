@@ -107,6 +107,7 @@ public abstract class ProjectileElementBase extends Projectile implements Projec
     }
 
     @Override
+    @SuppressWarnings("java:S131")
     public void onHit(HitResult hitResult) {
     }
 
