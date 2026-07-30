@@ -20,7 +20,7 @@ import static teamport.aether.item.item_tool.AetherToolMaterial.VALKYRIE_TOOL_EX
 public abstract class PacketHandlerServerValkToolsReachMixin {
     @Shadow
     private PlayerServer playerEntity;
-    @ModifyVariable(method = "handleBlockDig", at = @At("STORE"), name = "playerDist")
+    @ModifyVariable(method = "handlePlayerAction", at = @At("STORE"), name = "playerDist")
     private double fixReachDistanceForBlocks(double original) {
         if (AetherToolMaterial.isHoldingValkyrieTool(playerEntity)) {
             double playerReach = (playerEntity.gamemode.getBlockReachDistance() + VALKYRIE_TOOL_EXTEND_RANGE_BY);
@@ -29,7 +29,7 @@ public abstract class PacketHandlerServerValkToolsReachMixin {
         }
         return original;
     }
-    @WrapOperation(method = "handleUseEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/entity/player/PlayerServer;distanceToSqr(Lnet/minecraft/core/entity/Entity;)D") )
+    @WrapOperation(method = "handleEntityInteract", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/entity/player/PlayerServer;distanceToSqr(Lnet/minecraft/core/entity/Entity;)D") )
     private double fixReachDistanceForEntities(PlayerServer instance, Entity entity, Operation<Double> original) {
         double dist = original.call(instance, entity);
         if (AetherToolMaterial.isHoldingValkyrieTool(instance)) {
