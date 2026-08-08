@@ -5,6 +5,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.chunk.Chunk;
 import net.minecraft.core.world.generate.chunk.ChunkGenerator;
 import net.minecraft.core.world.generate.chunk.ChunkGeneratorResult;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 
 public class ChunkGeneratorSkyblockAether extends ChunkGenerator {
@@ -13,7 +14,7 @@ public class ChunkGeneratorSkyblockAether extends ChunkGenerator {
     }
 
     @Override
-    public ChunkGeneratorResult doBlockGeneration(Chunk chunk) {
+    public @NonNull ChunkGeneratorResult doBlockGeneration(@NonNull Chunk chunk) {
         ChunkGeneratorResult result = new ChunkGeneratorResult();
 
         int x;
@@ -53,7 +54,7 @@ public class ChunkGeneratorSkyblockAether extends ChunkGenerator {
         return result;
     }
 
-    public boolean contains(Chunk chunk, int xBlock, int zBlock) {
+    public boolean contains(@NonNull Chunk chunk, int xBlock, int zBlock) {
         return chunk.pos.x == xBlock >> 4 && chunk.pos.z == zBlock >> 4;
     }
 

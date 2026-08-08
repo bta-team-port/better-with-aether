@@ -8,6 +8,7 @@ import net.minecraft.core.data.registry.recipe.SearchQuery;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.collection.Pair;
 import net.minecraft.core.util.helper.MathHelper;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherRecipes;
 import teamport.aether.recipe.RecipeEntryAetherMachine;
 
@@ -70,7 +71,7 @@ public class GuidebookSectionFreezer extends SearchableGuidebookSection {
 
     }
 
-    public static void filterRecipe(SearchQuery query, List<RecipeEntryAetherMachine> allRecipes, List<RecipeEntryAetherMachine> filteredRecipes) {
+    public static void filterRecipe(SearchQuery query, @NonNull List<RecipeEntryAetherMachine> allRecipes, List<RecipeEntryAetherMachine> filteredRecipes) {
         for (RecipeEntryAetherMachine recipe : allRecipes) {
             if (recipe.matchesQueryIgnoreExceptions(query)) {
                 filteredRecipes.add(recipe);
@@ -78,7 +79,7 @@ public class GuidebookSectionFreezer extends SearchableGuidebookSection {
         }
     }
 
-    public static List<RecipeEntryAetherMachine> moveRepairablesToBack(List<RecipeEntryAetherMachine> recipes) {
+    public static @NonNull List<RecipeEntryAetherMachine> moveRepairablesToBack(@NonNull List<RecipeEntryAetherMachine> recipes) {
         List<RecipeEntryAetherMachine> newRecipes = new ArrayList<>(recipes.size());
         List<RecipeEntryAetherMachine> repairable = new ArrayList<>();
         for (RecipeEntryAetherMachine recipe : recipes) {

@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.ducks.IBlockAether;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = Block.class, remap = false)
+@Mixin(Block.class)
 public abstract class BlockMixin<T extends BlockLogic> implements IBlockAether {
     @Shadow
     public int emission;

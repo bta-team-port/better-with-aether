@@ -14,7 +14,10 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -24,11 +27,11 @@ import teamport.aether.world.AetherDimension;
 
 import java.util.Random;
 import java.util.function.BiConsumer;
-import org.jspecify.annotations.Nullable;
 
-@Mixin(value = ItemBucket.class, remap = false)
+@Mixin(ItemBucket.class)
 public abstract class LavaBucketMixin {
-    private static boolean aether$isAetherLava(ItemStack stack, World world) {
+    @Unique
+    private static boolean aether$isAetherLava(ItemStack stack, @NonNull World world) {
         return world.getDimension() == AetherDimension.getAether()
             && ItemBucket.STATE_LAVA.equals(ItemBucket.getState(stack));
     }
@@ -42,18 +45,18 @@ public abstract class LavaBucketMixin {
     )
     private boolean aether$validateAerogelPlacement(
         World instance,
-        int blockId,
-        TilePosc pos,
-        boolean ignoreEntities,
+        int id,
+        TilePosc tilePos,
+        boolean ignoreCollision,
         Side side,
         Operation<Boolean> original,
-        ItemStack stack,
+        ItemStack itemStack,
         World world
     ) {
-        if (aether$isAetherLava(stack, world)) {
-            blockId = AetherBlocks.AEROGEL.id();
+        if (aether$isAetherLava(itemStack, world)) {
+            id = AetherBlocks.AEROGEL.id();
         }
-        return original.call(instance, blockId, pos, ignoreEntities, side);
+        return original.call(instance, id, tilePos, ignoreCollision, side);
     }
 
     @WrapOperation(
@@ -65,16 +68,16 @@ public abstract class LavaBucketMixin {
     )
     private boolean aether$placeAerogel(
         World instance,
-        TilePosc pos,
-        Block<?> fluidBlock,
+        TilePosc tilePos,
+        Block<?> block,
         Operation<Boolean> original,
-        ItemStack stack,
+        ItemStack itemStack,
         World world
     ) {
-        if (aether$isAetherLava(stack, world)) {
-            fluidBlock = AetherBlocks.AEROGEL;
+        if (aether$isAetherLava(itemStack, world)) {
+            block = AetherBlocks.AEROGEL;
         }
-        return original.call(instance, pos, fluidBlock);
+        return original.call(instance, tilePos, block);
     }
 
     @WrapOperation(
@@ -86,7 +89,7 @@ public abstract class LavaBucketMixin {
     )
     private void aether$playAerogelPlacementSound(
         World instance,
-        @Nullable Entity source,
+        @Nullable Entity player,
         SoundCategory category,
         double x,
         double y,
@@ -95,14 +98,14 @@ public abstract class LavaBucketMixin {
         float volume,
         float pitch,
         Operation<Void> original,
-        ItemStack stack,
+        ItemStack itemStack,
         World world
     ) {
-        if (aether$isAetherLava(stack, world)) {
+        if (aether$isAetherLava(itemStack, world)) {
             soundPath = "fire.ignite";
             pitch = instance.rand.nextFloat() * 0.4f + 0.8f;
         }
-        original.call(instance, source, category, x, y, z, soundPath, volume, pitch);
+        original.call(instance, player, category, x, y, z, soundPath, volume, pitch);
     }
 
     @WrapOperation(
@@ -117,10 +120,10 @@ public abstract class LavaBucketMixin {
         Object worldArgument,
         Object positionArgument,
         Operation<Void> original,
-        ItemStack stack,
+        ItemStack itemStack,
         World world
     ) {
-        if (!aether$isAetherLava(stack, world)) {
+        if (!aether$isAetherLava(itemStack, world)) {
             original.call(placementAction, worldArgument, positionArgument);
             return;
         }
@@ -152,26 +155,26 @@ public abstract class LavaBucketMixin {
     )
     private boolean aether$placeAerogelFromActivator(
         World instance,
-        TilePosc pos,
-        Block<?> fluidBlock,
+        TilePosc tilePos,
+        Block<?> block,
         Operation<Boolean> original,
-        ItemStack stack,
+        ItemStack selfStack,
         World world,
         TileEntityActivator activator,
         Random random,
-        TilePosc activatorPos,
+        TilePosc blockPos,
         Direction direction,
         double offX,
         double offY,
         double offZ,
         @Share("aether$aerogelPlaced") LocalBooleanRef aerogelPlaced
     ) {
-        if (!aether$isAetherLava(stack, world)) {
-            return original.call(instance, pos, fluidBlock);
+        if (!aether$isAetherLava(selfStack, world)) {
+            return original.call(instance, tilePos, block);
         }
 
-        boolean canPlace = instance.canBlockIdBePlacedAt(AetherBlocks.AEROGEL.id(), pos, true, direction.side());
-        boolean placed = canPlace && original.call(instance, pos, AetherBlocks.AEROGEL);
+        boolean canPlace = instance.canBlockIdBePlacedAt(AetherBlocks.AEROGEL.id(), tilePos, true, direction.side());
+        boolean placed = canPlace && original.call(instance, tilePos, AetherBlocks.AEROGEL);
         aerogelPlaced.set(placed);
         return placed;
     }
@@ -187,11 +190,11 @@ public abstract class LavaBucketMixin {
         cancellable = true
     )
     private void aether$doNotConsumeFailedActivatorPlacement(
-        ItemStack stack,
+        ItemStack selfStack,
         World world,
         TileEntityActivator activator,
         Random random,
-        TilePosc activatorPos,
+        TilePosc blockPos,
         Direction direction,
         double offX,
         double offY,
@@ -199,7 +202,7 @@ public abstract class LavaBucketMixin {
         CallbackInfo ci,
         @Share("aether$aerogelPlaced") LocalBooleanRef aerogelPlaced
     ) {
-        if (aether$isAetherLava(stack, world) && !aerogelPlaced.get()) {
+        if (aether$isAetherLava(selfStack, world) && !aerogelPlaced.get()) {
             ci.cancel();
         }
     }

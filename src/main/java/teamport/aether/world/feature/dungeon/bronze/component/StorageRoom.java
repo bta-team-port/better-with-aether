@@ -55,14 +55,14 @@ public class StorageRoom extends BaseBronzeRoom {
             WorldFeaturePoint[] points = pointList.get(i);
             for (WorldFeaturePoint point : points) {
                 IntPair idMeta = DISPLAY.getRandom(random);
-                chest.add(wfb(point.getX(), point.getY(), point.getZ(), idMeta.getFirst(), idMeta.getSecond(), true));
+                chest.add(wfb(point.getX(), point.getY(), point.getZ(), idMeta.first(), idMeta.second(), true));
             }
         }
         for (int i = 2; i < pointList.size(); i++) {
             WorldFeaturePoint[] points = pointList.get(i);
             for (WorldFeaturePoint point : points) {
                 IntPair idMeta = CHEST_OR_MIMIC.getRandom(random);
-                chest.add(wfb(point.getX(), point.getY(), point.getZ(), idMeta.getFirst(), idMeta.getSecond(), false));
+                chest.add(wfb(point.getX(), point.getY(), point.getZ(), idMeta.first(), idMeta.second(), false));
             }
         }
     }

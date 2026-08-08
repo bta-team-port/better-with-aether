@@ -8,6 +8,7 @@ import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.util.helper.Side;
+import org.jspecify.annotations.NonNull;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelRetroCrossedSquares<T extends BlockLogic> extends BlockModelCrossedSquares<T> {
@@ -19,7 +20,7 @@ public class BlockModelRetroCrossedSquares<T extends BlockLogic> extends BlockMo
     }
 
     @Override
-    public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int metadata) {
+    public IconCoordinate getBlockTextureFromSideAndMetadata(@NonNull Side side, int metadata) {
         return isRetro() ? retroTexture : super.getBlockTextureFromSideAndMetadata(side, metadata);
     }
 }

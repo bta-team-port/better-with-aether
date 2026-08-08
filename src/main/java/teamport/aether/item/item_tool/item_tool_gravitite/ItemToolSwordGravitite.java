@@ -5,6 +5,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.util.helper.DamageType;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.MobUtil;
 import teamport.aether.item.AetherHasCustomDamageType;
 import teamport.aether.item.item_tool.ItemToolSwordAether;
@@ -18,7 +19,7 @@ public class ItemToolSwordGravitite extends ItemToolSwordAether implements Aethe
     }
 
     @Override
-    public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
+    public boolean hitEntity(@NonNull ItemStack itemstack, @NonNull Mob target, @NonNull Mob attacker) {
         if (target instanceof Mob && target.hurtTime == 10) {
             if(attacker.isSneaking() && attacker instanceof Player){
                 MobUtil.knockback(target, attacker,KNOCKBACK_STRENGTH, 0.4f);

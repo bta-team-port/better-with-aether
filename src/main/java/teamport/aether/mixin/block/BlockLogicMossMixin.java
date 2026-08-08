@@ -8,24 +8,25 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.block.AetherBlocks;
 
-@Mixin(value = BlockLogicMoss.class, remap = false)
+@Mixin(BlockLogicMoss.class)
 public abstract class BlockLogicMossMixin {
     @ModifyReturnValue(method = "onBonemealUsed", at = @At(value = "TAIL"))
-    private boolean addOnBonemealUsed(boolean original, ItemStack itemstack, @Nullable Player player, World world, TilePosc pos, Side side, double xPlaced, double yPlaced) {
+    private boolean addOnBonemealUsed(boolean original, ItemStack itemStack, @Nullable Player player, @NonNull World world, TilePosc tilePos, Side side, double xHit, double yHit) {
         if (!world.isClientSide) {
             if (player == null || player.getGamemode().hasBlockConsumption()) {
-                --itemstack.stackSize;
+                --itemStack.stackSize;
             }
 
             for (int j1 = 0; j1 < 32; ++j1) {
-                int k1 = pos.x();
-                int l1 = pos.y();
-                int i2 = pos.z();
+                int k1 = tilePos.x();
+                int l1 = tilePos.y();
+                int i2 = tilePos.z();
 
                 int blockId;
                 for (blockId = 0; blockId < j1 / 16; ++blockId) {

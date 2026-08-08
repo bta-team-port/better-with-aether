@@ -44,16 +44,14 @@ public class AetherRideableNetworkMessage implements NetworkMessage {
 
     @Override
     public void handle(NetworkContext networkContext) {
-        if (EnvironmentHelper.isServerEnvironment()) {
+        if (EnvironmentHelper.isMultiplayerServer()) {
             Player player = networkContext.player;
 
-            if (player.vehicle instanceof AetherRideable) {
-                AetherRideable vehicle = (AetherRideable) player.vehicle;
+            if (player.vehicle instanceof AetherRideable vehicle) {
                 vehicle.controlEntity(moveForward, moveStrafe, isJumping, xRot, yRot);
             }
 
-            else if (player.passenger instanceof AetherRideable) {
-                AetherRideable vehicle = (AetherRideable) player.passenger;
+            else if (player.passenger instanceof AetherRideable vehicle) {
                 vehicle.controlEntity(moveForward, moveStrafe, isJumping, xRot, yRot);
             }
         }

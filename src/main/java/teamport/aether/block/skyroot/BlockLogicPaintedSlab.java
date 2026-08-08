@@ -5,6 +5,7 @@ import net.minecraft.core.block.BlockLogicSlabPainted;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 
 public class BlockLogicPaintedSlab extends BlockLogicSlabPainted {
     protected final int unpaintedBlockID;
@@ -15,7 +16,7 @@ public class BlockLogicPaintedSlab extends BlockLogicSlabPainted {
     }
 
     @Override
-    public void removeDye(World world, TilePosc pos) {
+    public void removeDye(@NonNull World world, @NonNull TilePosc pos) {
         int meta = world.getBlockData(pos);
         world.setBlockTypeDataNotify(pos, Blocks.getBlock(unpaintedBlockID), meta & 15);
     }

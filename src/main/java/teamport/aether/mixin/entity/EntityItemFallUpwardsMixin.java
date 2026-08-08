@@ -6,7 +6,7 @@ import net.minecraft.core.entity.EntityItem;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
-import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,12 +15,12 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.item.AetherItemTags;
 
-@Mixin(value = EntityItem.class, remap = false)
+@Mixin(EntityItem.class)
 public abstract class EntityItemFallUpwardsMixin extends Entity {
     @Shadow
     public ItemStack item;
 
-    protected EntityItemFallUpwardsMixin(@Nullable World world) {
+    protected EntityItemFallUpwardsMixin(@NonNull World world) {
         super(world);
     }
 

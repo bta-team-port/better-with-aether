@@ -5,6 +5,7 @@ import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import org.joml.Vector3dc;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.projectile.ProjectileWindball;
 
 public class ItemStaffCloud extends Item {
@@ -15,7 +16,7 @@ public class ItemStaffCloud extends Item {
     }
 
     @Override
-    public ItemStack onUse(ItemStack itemstack, World world, Player entityplayer) {
+    public ItemStack onUse(@NonNull ItemStack itemstack, @NonNull World world, @NonNull Player entityplayer) {
         world.playSoundAtEntity(entityplayer, entityplayer, "aether:mob.zephyr.shoot", 0.3F, 1.0F / (itemRand.nextFloat() * -0.2F - 0.4F));
         if (!world.isClientSide) {
             Vector3dc look = entityplayer.getViewVector(1.0F);

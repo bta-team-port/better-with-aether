@@ -8,6 +8,7 @@ import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.util.helper.LightIndexHelper;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 
 @Environment(EnvType.CLIENT)
 public class ParticleFireSpiral extends Particle {
@@ -31,7 +32,7 @@ public class ParticleFireSpiral extends Particle {
     }
 
     @Override
-    public void render(TessellatorParticle tessellator, float partialTick) {
+    public void render(@NonNull TessellatorParticle tessellator, float partialTick) {
         float progress = (this.age + partialTick) / this.lifetime;
         this.size = this.oSize * (1.0F - progress * progress * 0.5F);
         super.render(tessellator, partialTick);

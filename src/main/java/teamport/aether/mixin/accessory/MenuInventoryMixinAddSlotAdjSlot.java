@@ -15,6 +15,7 @@ import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.player.inventory.menu.MenuInventory;
 import net.minecraft.core.player.inventory.slot.Slot;
 import net.minecraft.core.player.inventory.slot.SlotResult;
+import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -29,7 +30,7 @@ import teamport.aether.mixin.accessors.MenuAbstractAccessor;
 
 import static teamport.aether.item.accessory.SlotAccessory.*;
 
-@Mixin(value = MenuInventory.class, remap = false)
+@Mixin(MenuInventory.class)
 public abstract class MenuInventoryMixinAddSlotAdjSlot {
     @Shadow
     public ContainerInventory inventory;
@@ -64,7 +65,7 @@ public abstract class MenuInventoryMixinAddSlotAdjSlot {
      * alters the target to be always 2 for accessories - Redart15
      */
     @ModifyReturnValue(method = "getTargetSlots", at = @At("RETURN"))
-    private IntList accessoryTargets(IntList original, InventoryAction action, Slot slot, int target, Player player) {
+    private IntList accessoryTargets(IntList original, InventoryAction action, @NonNull Slot slot, int target, Player player) {
         if (slot.index < 9 || slot.index > 44 || target == 1 || slot.getItemStack() == null) {
             return original;
         }

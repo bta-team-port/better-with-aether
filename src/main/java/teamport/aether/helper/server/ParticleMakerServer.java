@@ -5,12 +5,14 @@ import net.fabricmc.api.Environment;
 import net.minecraft.core.net.packet.PacketAddParticle;
 import net.minecraft.core.world.World;
 import net.minecraft.server.MinecraftServer;
+import org.jspecify.annotations.NonNull;
 
 @Environment(EnvType.SERVER)
 public final class ParticleMakerServer {
-    private ParticleMakerServer() { }
+    private ParticleMakerServer() {
+    }
 
-    public static void spawnParticle(World world, String particleKey, double x, double y, double z,
+    public static void spawnParticle(@NonNull World world, String particleKey, double x, double y, double z,
                                      double motionX, double motionY, double motionZ, int data, double maxDistance) {
         MinecraftServer.getInstance().playerList.sendPacketToAllPlayersInDimension(
             new PacketAddParticle(particleKey, x, y, z, motionX, motionY, motionZ, data, maxDistance),

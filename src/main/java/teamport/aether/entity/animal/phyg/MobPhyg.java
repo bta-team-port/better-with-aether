@@ -8,7 +8,6 @@ import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
-import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.achievements.AetherAchievements;
@@ -96,7 +95,7 @@ public class MobPhyg extends MobAetherAnimalRideable {
     public boolean interact(@NonNull Player player) {
         if (super.interact(player)) return true;
 
-        if (!this.getSaddled() || this.world == null || this.world.isClientSide) return false;
+        if (!this.getSaddled() || this.world.isClientSide) return false;
         if (this.passenger != null && this.passenger != player) return false;
 
         player.startRiding(this);
@@ -140,12 +139,15 @@ public class MobPhyg extends MobAetherAnimalRideable {
     public float getWingFold() {
         return wingFold;
     }
+
     public float getWingFoldO() {
         return wingFoldO;
     }
+
     public float getWingAngle() {
         return wingAngle;
     }
+
     public float getWingAngleO() {
         return wingAngleO;
     }

@@ -6,6 +6,7 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.helper.Side;
+import org.jspecify.annotations.NonNull;
 
 import java.util.Objects;
 
@@ -30,15 +31,15 @@ public class WorldFeaturePoint {
         this.z = length;
     }
 
-    public static WorldFeaturePoint wfp() {
+    public static @NonNull WorldFeaturePoint wfp() {
         return new WorldFeaturePoint(0, 0, 0);
     }
 
-    public static WorldFeaturePoint wfp(int x, int y, int z) {
+    public static @NonNull WorldFeaturePoint wfp(int x, int y, int z) {
         return new WorldFeaturePoint(x, y, z);
     }
 
-    public static WorldFeaturePoint wfpoint(Entity e) {
+    public static @NonNull WorldFeaturePoint wfpoint(@NonNull Entity e) {
         return new WorldFeaturePoint((int) e.x, (int) e.y, (int) e.z);
     }
 
@@ -61,8 +62,7 @@ public class WorldFeaturePoint {
     @Override
     public boolean equals(Object o) {
         if (o == null) return false;
-        if (!(o instanceof WorldFeaturePoint)) return false;
-        WorldFeaturePoint mem = (WorldFeaturePoint) o;
+        if (!(o instanceof WorldFeaturePoint mem)) return false;
         return mem.x == this.x && mem.y == this.y && mem.z == this.z;
     }
 
@@ -74,7 +74,7 @@ public class WorldFeaturePoint {
         return result;
     }
 
-    public static WorldFeaturePoint fromCompoundTag(CompoundTag tag) {
+    public static @NonNull WorldFeaturePoint fromCompoundTag(@NonNull CompoundTag tag) {
         return new WorldFeaturePoint(
                 tag.getInteger("x"),
                 tag.getInteger("y"),
@@ -93,7 +93,7 @@ public class WorldFeaturePoint {
         return this;
     }
 
-    public WorldFeaturePoint add(WorldFeaturePoint point) {
+    public WorldFeaturePoint add(@NonNull WorldFeaturePoint point) {
         this.x += point.x;
         this.y += point.y;
         this.z += point.z;
@@ -108,7 +108,7 @@ public class WorldFeaturePoint {
     }
 
     @SuppressWarnings("UnusedReturnValue")
-    public WorldFeaturePoint subtract(WorldFeaturePoint point) {
+    public WorldFeaturePoint subtract(@NonNull WorldFeaturePoint point) {
         this.x -= point.x;
         this.y -= point.y;
         this.z -= point.z;
@@ -122,7 +122,7 @@ public class WorldFeaturePoint {
         return this;
     }
 
-    public WorldFeaturePoint moveInDirection(Direction direction) {
+    public WorldFeaturePoint moveInDirection(@NonNull Direction direction) {
         Side side = direction.side();
         this.x += side.offsetX();
         this.y += side.offsetY();
@@ -130,7 +130,7 @@ public class WorldFeaturePoint {
         return this;
     }
 
-    public WorldFeaturePoint moveInDirection(Direction direction, int amount) {
+    public WorldFeaturePoint moveInDirection(@NonNull Direction direction, int amount) {
         Side side = direction.side();
         this.x += side.offsetX() * amount;
         this.y += side.offsetY() * amount;
@@ -138,7 +138,7 @@ public class WorldFeaturePoint {
         return this;
     }
 
-    public double distanceTo(WorldFeaturePoint point) {
+    public double distanceTo(@NonNull WorldFeaturePoint point) {
         double dx = (double) this.x - point.x;
         double dy = (double) this.y - point.y;
         double dz = (double) this.z - point.z;
@@ -167,7 +167,7 @@ public class WorldFeaturePoint {
         return this.subtract(pivotX, pivotY, pivotZ).rotateY(MathHelper.toRadians(angle)).add(pivotX, pivotY, pivotZ);
     }
 
-    public WorldFeaturePoint rotateYAroundPivot(WorldFeaturePoint pivotPoint, Direction direction) {
+    public WorldFeaturePoint rotateYAroundPivot(WorldFeaturePoint pivotPoint, @NonNull Direction direction) {
         switch (direction) {
             case EAST: {
                 this.subtract(pivotPoint);

@@ -8,6 +8,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePosc;
 import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
 public class BlockLogicLocked extends BlockLogicDungeon {
     private final Block<?> replacement;
@@ -18,16 +19,13 @@ public class BlockLogicLocked extends BlockLogicDungeon {
     }
 
     @Override
-    public int getPistonPushReaction(World world, TilePosc pos) {
+    public int getPistonPushReaction(@NonNull World world, @NonNull TilePosc pos) {
         return Material.PISTON_CANT_PUSH;
     }
 
-    @Override
-    public @Nullable ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
-        if (dropCause != EnumDropCause.IMPROPER_TOOL) {
-            return new ItemStack[]{new ItemStack(replacement, 1)};
-        }
-        return null;
+
+    public @NonNull ItemStack @Nullable [] getBreakResult(@NonNull World world, @NonNull EnumDropCause dropCause, int data, @Nullable TileEntity tileEntity) {
+        return dropCause != EnumDropCause.IMPROPER_TOOL ? new ItemStack[]{new ItemStack(this.replacement)} : null;
     }
 
     public Block<?> getReplacement() {

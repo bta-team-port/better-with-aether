@@ -6,11 +6,10 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.enums.LightLayer;
 import net.minecraft.core.item.Items;
-import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
 import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
@@ -23,7 +22,7 @@ public class MobCockatrice extends MobMonsterAether implements Enemy, AetherDeat
     private float oFlap;
     private float flapping = 1.0F;
 
-    public MobCockatrice(@Nullable World world) {
+    public MobCockatrice(@NonNull World world) {
         super(world);
         this.setTextureIdentifier("aether", "cockatrice");
         this.setSize(1.0F, 2.0F);
@@ -66,7 +65,7 @@ public class MobCockatrice extends MobMonsterAether implements Enemy, AetherDeat
 
     @Override
     public void onLivingUpdate() {
-        if (this.world != null && this.world.isClientSide) {
+        if (this.world.isClientSide) {
             this.attackTime = this.entityData.getInt(15);
         } else {
             this.entityData.set(15, this.attackTime);
@@ -80,7 +79,7 @@ public class MobCockatrice extends MobMonsterAether implements Enemy, AetherDeat
             double d = entity.x - this.x;
             double d1 = entity.z - this.z;
             if (this.attackTime == 0) {
-                if (this.world != null && !this.world.isClientSide) {
+                if (!this.world.isClientSide) {
                     ProjectileNeedle needle = new ProjectileNeedle(this.world, this);
                     double d2 = entity.y + entity.getHeadHeight() - 0.8 - needle.y;
                     float f1 = MathHelper.sqrt(d * d + d1 * d1) * 0.2F;
@@ -130,43 +129,28 @@ public class MobCockatrice extends MobMonsterAether implements Enemy, AetherDeat
 
     @Override
     public void playLivingSound() {
-        if (this.world == null) {
-            super.playLivingSound();
-            return;
-        }
         this.world.playSoundAtEntity(null, this, this.getLivingSound(), 0.5f, (this.random.nextFloat() - this.random.nextFloat()) * 0.5F + 0.25F);
     }
 
     @Override
     public void playHurtSound() {
-        if (this.world == null) {
-            super.playHurtSound();
-            return;
-        }
         this.world.playSoundAtEntity(null, this, this.getHurtSound(), 0.5f, (this.random.nextFloat() - this.random.nextFloat()) * 0.5F + 0.25F);
     }
 
     @Override
     public void playDeathSound() {
-        if (this.world == null) {
-            super.playDeathSound();
-            return;
-        }
         this.world.playSoundAtEntity(null, this, this.getDeathSound(), 0.5f, (this.random.nextFloat() - this.random.nextFloat()) * 0.5F + 0.25F);
     }
 
     @Override
     public boolean canSpawnHere() {
-        if (this.world == null) return false;
-        int blockX = MathHelper.floor(this.x);
-        int blockY = MathHelper.floor(this.bb.minY);
-        int blockZ = MathHelper.floor(this.z);
-        if (this.world.getSavedLightValue(LightLayer.Block, blockX, blockY, blockZ) > 7) {
+        TilePos blockPos = new TilePos(this.x, this.bb.minY, this.z);
+        if (this.world.getSavedLightValue(LightLayer.Block, blockPos) > 7) {
             return false;
-        } else if (this.world.getSavedLightValue(LightLayer.Sky, blockX, blockY, blockZ) > this.random.nextInt(32)) {
+        } else if (this.world.getSavedLightValue(LightLayer.Sky, blockPos) > this.random.nextInt(32)) {
             return false;
         } else {
-            int blockLight = this.world.getBlockLightValue(blockX, blockY, blockZ);
+            int blockLight = this.world.getBlockLightValue(blockPos);
             if (this.world.getCurrentWeather() != null && this.world.getCurrentWeather().isMobDaylightSpawnAllowed()) {
                 blockLight /= 2;
             }
@@ -174,15 +158,19 @@ public class MobCockatrice extends MobMonsterAether implements Enemy, AetherDeat
             return blockLight <= 4 && AetherBlockTags.PASSIVE_MOBS_SPAWN.appliesTo(this.world.getBlock(MathHelper.floor(this.x), MathHelper.floor(this.y - this.heightOffset) - 1, MathHelper.floor(this.z))) && super.canSpawnHere();
         }
     }
+
     public float getFlap() {
         return flap;
     }
+
     public float getFlapSpeed() {
         return flapSpeed;
     }
+
     public float getOFlapSpeed() {
         return oFlapSpeed;
     }
+
     public float getOFlap() {
         return oFlap;
     }

@@ -11,6 +11,7 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 import redart15.commandly.veincapitator.VeinMining;
 import teamport.aether.AetherMod;
 import teamport.aether.block.AetherBlockTags;
@@ -25,7 +26,7 @@ public class ItemToolPickaxeValkyrie extends ItemToolPickaxeAether implements Ae
     }
 
     @Override
-    public boolean canHarvestBlock(ItemStack itemStack, Mob mob, Block<?> block) {
+    public boolean canHarvestBlock(@NonNull ItemStack itemStack, @NonNull Mob mob, @NonNull Block<?> block) {
         Integer miningLevel = aetherMiningLevels.get(block);
         if (miningLevel != null) {
             return this.material.getMiningLevel() >= miningLevel;
@@ -35,7 +36,7 @@ public class ItemToolPickaxeValkyrie extends ItemToolPickaxeAether implements Ae
     }
 
     @Override
-    public boolean beforeBlockDestroyed(ItemStack selfStack, World world, Player player, Block<?> block, TilePosc blockPos, Side side) {
+    public boolean beforeBlockDestroyed(@NonNull ItemStack selfStack, @NonNull World world, @NonNull Player player, @NonNull Block<?> block, @NonNull TilePosc blockPos, @NonNull Side side) {
         if (!world.isClientSide && AetherCommandlyRules.canVeinMine(world) && !player.isSneaking()) {
             return !VeinMining
                 .veinMining(world, selfStack, blockPos, player)
@@ -47,7 +48,7 @@ public class ItemToolPickaxeValkyrie extends ItemToolPickaxeAether implements Ae
     }
 
     @Override
-    public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
+    public float getStrVsBlock(@NonNull ItemStack itemstack, @NonNull Block<?> block) {
         return block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE) || block.hasTag(BlockTags.MINEABLE_BY_PICKAXE) ? this.material.getEfficiency(false) : 1.0F;
     }
 

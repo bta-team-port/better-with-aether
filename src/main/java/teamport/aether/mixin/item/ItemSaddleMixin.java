@@ -11,31 +11,25 @@ import teamport.aether.entity.animal.moa.MobMoa;
 import teamport.aether.entity.animal.phow.MobPhow;
 import teamport.aether.entity.animal.phyg.MobPhyg;
 
-@Mixin(value = ItemSaddle.class, remap = false)
+@Mixin(ItemSaddle.class)
 public abstract class ItemSaddleMixin {
     @ModifyReturnValue(method = "useOnEntity(Lnet/minecraft/core/item/ItemStack;Lnet/minecraft/core/entity/player/Player;Lnet/minecraft/core/entity/Mob;)Z", at = @At("TAIL"))
-    private boolean callOnItemUse(boolean original, ItemStack itemstack, Player player, Mob mob) {
-        if (mob instanceof MobPhyg && itemstack.consumeItem(player)) {
-            MobPhyg entity = (MobPhyg) mob;
-            if (!entity.getSaddled()) {
-                entity.setSaddled(true);
-                return true;
-            }
+    private boolean callOnItemUse(boolean original, ItemStack selfStack, Player player, Mob mob) {
+        if (mob instanceof MobPhyg entity && selfStack.consumeItem(player) && !entity.getSaddled()) {
+            entity.setSaddled(true);
+            return true;
         }
-        if (mob instanceof MobPhow && itemstack.consumeItem(player)) {
-            MobPhow entity = (MobPhow) mob;
-            if (!entity.getSaddled()) {
-                entity.setSaddled(true);
-                return true;
-            }
+
+        if (mob instanceof MobPhow entity && selfStack.consumeItem(player) && !entity.getSaddled()) {
+            entity.setSaddled(true);
+            return true;
         }
-        if (mob instanceof MobMoa && itemstack.consumeItem(player)) {
-            MobMoa entity = (MobMoa) mob;
-            if (!entity.getSaddled() && entity.isTamed()) {
-                entity.setSaddled(true);
-                return true;
-            }
+
+        if (mob instanceof MobMoa entity && selfStack.consumeItem(player) && !entity.getSaddled() && entity.isTamed()) {
+            entity.setSaddled(true);
+            return true;
         }
+
         return original;
     }
 }

@@ -10,6 +10,7 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 
 import java.util.Random;
 
@@ -38,7 +39,7 @@ public class ItemDoorDungeon extends Item {
     }
 
     @Override
-    public boolean onUseOnBlock(ItemStack itemstack, World world, Player entityplayer, TilePosc blockPos, Side side, double xPlaced, double yPlaced) {
+    public boolean onUseOnBlock(@NonNull ItemStack itemstack, @NonNull World world, Player entityplayer, @NonNull TilePosc blockPos, @NonNull Side side, double xPlaced, double yPlaced) {
         int blockX = blockPos.x();
         int blockY = blockPos.y();
         int blockZ = blockPos.z();
@@ -108,7 +109,7 @@ public class ItemDoorDungeon extends Item {
     }
 
     @Override
-    public void onUseByActivator(ItemStack itemStack, World world, TileEntityActivator activatorBlock, Random random, TilePosc blockPos, Direction direction, double offX, double offY, double offZ) {
+    public void onUseByActivator(@NonNull ItemStack itemStack, @NonNull World world, @NonNull TileEntityActivator activatorBlock, @NonNull Random random, @NonNull TilePosc blockPos, @NonNull Direction direction, double offX, double offY, double offZ) {
         int blockX = blockPos.x();
         int blockY = blockPos.y();
         int blockZ = blockPos.z();

@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = MobRendererBipedArmored.class, remap = false)
+@Mixin(MobRendererBipedArmored.class)
 public abstract class MobRendererMixinExtendArmor<T extends Mob> {
     @ModifyReturnValue(method = "maxRenderLayer(Lnet/minecraft/core/entity/Mob;)I", at = @At("RETURN"))
     private int extendArmorLayers(int original, T entity) {

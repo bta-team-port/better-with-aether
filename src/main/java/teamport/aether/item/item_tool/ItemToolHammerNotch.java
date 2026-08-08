@@ -5,6 +5,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemToolSword;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.projectile.ProjectileHammerHead;
 
 public class ItemToolHammerNotch extends ItemToolSword {
@@ -13,7 +14,7 @@ public class ItemToolHammerNotch extends ItemToolSword {
     }
 
     @Override
-    public ItemStack onUse(ItemStack itemstack, World world, Player entityplayer) {
+    public ItemStack onUse(@NonNull ItemStack itemstack, @NonNull World world, @NonNull Player entityplayer) {
         itemstack.damageItem(1, entityplayer);
         world.playSoundAtEntity(null, entityplayer, "mob.ghast.fireball", 0.5F, 0.5F / (itemRand.nextFloat() * 0.4F + 0.8F));
         if (!world.isClientSide) {

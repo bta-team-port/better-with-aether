@@ -9,7 +9,6 @@ import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.LightLayer;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
@@ -68,16 +67,13 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
 
     @Override
     public boolean canSpawnHere() {
-        if (this.world == null) return false;
-        int x = MathHelper.floor(this.x);
-        int y = MathHelper.floor(this.bb.minY);
-        int z = MathHelper.floor(this.z);
+        TilePos blockPos = new TilePos(this.x, this.bb.minY, this.z);
 
-        if (this.world.getBlockId(x, y - 1, z) != AetherBlocks.GRASS_AETHER.id()) {
+        if (this.world.getBlockData(blockPos.down()) != AetherBlocks.GRASS_AETHER.id()) {
             return false;
         }
 
-        if (this.world.getSavedLightValue(LightLayer.Block, x, y, z) > 7) {
+        if (this.world.getSavedLightValue(LightLayer.Block, blockPos) > 7) {
             return false;
         }
 
@@ -86,7 +82,7 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         for (int i = 0; i < 8; i++) {
             int offsetX = adjacentOffsets[i * 2];
             int offsetZ = adjacentOffsets[i * 2 + 1];
-            int blockId = this.world.getBlockId(x + offsetX, y, z + offsetZ);
+            int blockId = this.world.getBlockId(blockPos.x() + offsetX, blockPos.y(), blockPos.z() + offsetZ);
             Block<?> block = Blocks.blocksList[blockId];
             if (block != null && block.isCubeShaped()) {
                 return false;
@@ -112,7 +108,7 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
     }
 
     @Override
-    public void push(Entity entity) {
+    public void push(@NonNull Entity entity) {
         /* should not be fling*/
         for (int i = 0; i < 8; ++i) {
             double d1 = this.x + (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
@@ -131,13 +127,13 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
     @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
-        if (this.world == null) return;
-        int belowX = MathHelper.floor(this.x);
         int belowY = MathHelper.floor(this.bb.minY) - 1;
-        int belowZ = MathHelper.floor(this.z);
-        int belowId = this.world.getBlockId(belowX, belowY, belowZ);
+
+        TilePos below = new TilePos(this.x, this.bb.minY - 1, this.z);
+
+        int belowId = this.world.getBlockData(below);
         Block<?> belowBlock = Blocks.blocksList[belowId];
-        double blockTopY = (belowBlock != null) ? (belowY + belowBlock.getBoundsFromState(this.world, new TilePos(belowX, belowY, belowZ)).maxY()) : (belowY + 1.0);
+        double blockTopY = (belowBlock != null) ? (belowY + belowBlock.getBoundsFromState(this.world, new TilePos(below)).maxY()) : (belowY + 1.0);
         double gap = this.bb.minY - blockTopY;
         this.onGround = (belowId != 0) && (gap <= 0.001D);
 
@@ -187,7 +183,7 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
             ++this.smokeTime;
             if (this.smokeTime >= (this.hasTarget ? 3 : 8)) {
                 this.smokeTime = 0;
-                if (this.world.getBlockId(belowX, belowY, belowZ) != AetherBlocks.GRASS_AETHER.id()) {
+                if (this.world.getBlockData(below) != AetherBlocks.GRASS_AETHER.id()) {
                     MobUtil.killMob(this);
                 }
             }
@@ -201,13 +197,13 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
     }
 
     @Override
-    public boolean canEntityBeSeen(Entity entity) {
-        return this.world != null && this.world.checkBlockCollisionBetweenPoints(new Vector3d(this.x, this.y + this.getHeadHeight(), this.z), new Vector3d(entity.x, entity.y + entity.getHeadHeight(), entity.z),
+    public boolean canEntityBeSeen(@NonNull Entity entity) {
+        return this.world.checkBlockCollisionBetweenPoints(new Vector3d(this.x, this.y + this.getHeadHeight(), this.z), new Vector3d(entity.x, entity.y + entity.getHeadHeight(), entity.z),
             false, true, false) == null;
     }
 
     public void shootTarget(Entity target) {
-        if (!this.isAlive() || this.world == null || !this.world.getDifficulty().canHostileMobsSpawn() || this.world.isClientSide) {
+        if (!this.isAlive() || !this.world.getDifficulty().canHostileMobsSpawn() || this.world.isClientSide) {
             return;
         }
 

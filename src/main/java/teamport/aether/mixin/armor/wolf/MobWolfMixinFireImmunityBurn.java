@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import teamport.aether.helper.MixinHelper;
 import teamport.aether.helper.ParticleMaker;
 
-@Mixin(value = Entity.class, remap = false)
+@Mixin(Entity.class)
 public abstract class MobWolfMixinFireImmunityBurn {
     @Shadow
     @Nullable
@@ -28,10 +28,10 @@ public abstract class MobWolfMixinFireImmunityBurn {
     public float bbHeight;
     @Shadow
     public float bbWidth;
-    @WrapMethod(method = "burn")
-    private void burn(int damage, Block block, Operation<Void> original) {
+    @WrapMethod(method = "burn(ILnet/minecraft/core/block/Block;)V")
+    private void burn(int damage, Block<?> fireSource, Operation<Void> original) {
         if (!((Entity) (Object) this instanceof MobWolf)) {
-            original.call(damage, block);
+            original.call(damage, fireSource);
             return;
         }
         if (MixinHelper.isImmuneToFire((MobWolf) (Object) this)) {
@@ -39,7 +39,7 @@ public abstract class MobWolfMixinFireImmunityBurn {
             ParticleMaker.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
             return;
         }
-        original.call(damage, block);
+        original.call(damage, fireSource);
     }
     @WrapMethod(method = "thunderHit")
     private void thunderHit(EntityLightning bolt, Operation<Void> original) {

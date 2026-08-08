@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import static teamport.aether.AetherMod.BLOCK_INSTRUMENTS;
 
-@Mixin(value = BlockLogicNote.Instrument.class, remap = false)
+@Mixin(BlockLogicNote.Instrument.class)
 public abstract class AddInstrumentsMixin {
     @ModifyReturnValue(method = "getInstrumentFromBlock", at = @At("RETURN"))
     private static BlockLogicNote.@NonNull Instrument injectCustomInstruments(BlockLogicNote.@NonNull Instrument original, @Nullable Block<?> block) {

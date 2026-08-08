@@ -12,7 +12,9 @@ import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.util.helper.Axis;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.WorldSource;
+import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelGrassAether<T extends BlockLogic> extends BlockModelStandard<T> {
@@ -35,8 +37,9 @@ public class BlockModelGrassAether<T extends BlockLogic> extends BlockModelStand
     }
 
     @Override
-    public IconCoordinate getBlockTexture(WorldSource blockAccess, TilePosc pos, Side side) {
-        Material above = blockAccess.getBlockMaterial(pos.x(), pos.y() + 1, pos.z());
+    public IconCoordinate getBlockTexture(@NonNull WorldSource blockAccess, @NonNull TilePosc pos, @NonNull Side side) {
+        TilePos tilePos = new TilePos(pos);
+        Material above = blockAccess.getBlockMaterial(pos.up(tilePos));
         boolean isSnowy = (above == Materials.TOP_SNOW || above == Materials.SNOW);
 
         if (isSnowy && side.axis() != Axis.Y) {
@@ -52,7 +55,7 @@ public class BlockModelGrassAether<T extends BlockLogic> extends BlockModelStand
     }
 
     @Override
-    public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int data) {
+    public IconCoordinate getBlockTextureFromSideAndMetadata(@NonNull Side side, int data) {
         if (isRetro()) {
             if (side == Side.TOP) return retroTop;
             if (side == Side.BOTTOM) return retroBottom;
@@ -62,7 +65,7 @@ public class BlockModelGrassAether<T extends BlockLogic> extends BlockModelStand
     }
 
     @Override
-    public boolean shouldSideBeColored(WorldSource blockAccess, TilePosc pos, Side side, int meta) {
+    public boolean shouldSideBeColored(@NonNull WorldSource blockAccess, @NonNull TilePosc pos, @NonNull Side side, int meta) {
         Material material = blockAccess.getBlockMaterial(pos.x(), pos.y() + 1, pos.z());
         if (material != Materials.TOP_SNOW && material != Materials.SNOW) {
             return useOverlay || side == Side.TOP;

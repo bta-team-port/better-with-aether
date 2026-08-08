@@ -1,6 +1,7 @@
 package teamport.aether.item.accessory;
 
 import net.minecraft.core.item.Item;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.item.AetherItemTags;
 import teamport.aether.lookup.LookupTrinketIcons;
 
@@ -22,7 +23,7 @@ public class ItemTrinket extends Item implements IAccessory {
         this.withTags(AetherItemTags.tags(AetherItemTags.TRINKET));
     }
 
-    public static void setIcon(Item item, String path) {
+    public static void setIcon(@NonNull Item item, String path) {
         LookupTrinketIcons.INSTANCE.addEntry(item.namespaceID, path);
         item.withTags(AetherItemTags.tags(AetherItemTags.TRINKET));
     }

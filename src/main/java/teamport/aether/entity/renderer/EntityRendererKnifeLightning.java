@@ -5,6 +5,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.renderer.GLRenderer;
 import net.minecraft.client.render.tessellator.TessellatorGeneral;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.projectile.ProjectileKnifeLightning;
 
 @Environment(EnvType.CLIENT)
@@ -12,11 +13,11 @@ public class EntityRendererKnifeLightning extends EntityRenderer<ProjectileKnife
     public EntityRendererKnifeLightning() {}
 
     @Override
-    public void render(TessellatorGeneral tessellator, ProjectileKnifeLightning knife, double x, double y, double z, float yaw, float partialTick) {
+    public void render(@NonNull TessellatorGeneral tessellator, @NonNull ProjectileKnifeLightning knife, double x, double y, double z, float yaw, float partialTick) {
         this.doRenderKnife(tessellator, knife, x, y, z, yaw, partialTick);
     }
 
-    public void doRenderKnife(TessellatorGeneral tessellator, ProjectileKnifeLightning knife, double x, double y, double z, float yaw, float partialTick) {
+    public void doRenderKnife(@NonNull TessellatorGeneral tessellator, @NonNull ProjectileKnifeLightning knife, double x, double y, double z, float yaw, float partialTick) {
         float texMinX = 0.0F;
         float texMaxX = 1.0F;
         float texMinY = 0.0F;

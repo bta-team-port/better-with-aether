@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.ducks.IBlockAether;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = LightingCache.class, remap = false)
+@Mixin(LightingCache.class)
 public abstract class LightingCacheMixin {
     @Shadow
     private Block<?> block;

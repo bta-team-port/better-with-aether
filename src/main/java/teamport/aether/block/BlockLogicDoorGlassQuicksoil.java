@@ -6,6 +6,8 @@ import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import java.util.function.Supplier;
@@ -25,9 +27,10 @@ public class BlockLogicDoorGlassQuicksoil extends BlockLogicDoor {
     }
 
     @Override
-    public boolean collidesWithEntity(Entity entity, World world, int x, int y, int z) {
-        entity.xd = Math.max(Math.min(entity.xd, QUICK_SOIL_SPEED_CAP), -QUICK_SOIL_SPEED_CAP);
-        entity.zd = Math.max(Math.min(entity.zd, QUICK_SOIL_SPEED_CAP), -QUICK_SOIL_SPEED_CAP);
-        return super.collidesWithEntity(entity, world, x, y, z);
+    public void onEntityWalkedOn(@NonNull World world, @NonNull TilePosc tilePos, @NonNull Entity walker) {
+        walker.xd = Math.max(Math.min(walker.xd, QUICK_SOIL_SPEED_CAP), -QUICK_SOIL_SPEED_CAP);
+        walker.zd = Math.max(Math.min(walker.zd, QUICK_SOIL_SPEED_CAP), -QUICK_SOIL_SPEED_CAP);
+        super.onEntityWalkedOn(world, tilePos, walker);
     }
+
 }

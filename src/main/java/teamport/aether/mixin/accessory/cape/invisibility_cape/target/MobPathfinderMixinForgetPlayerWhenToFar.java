@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.entity.player.PlayerUtil;
 
-@Mixin(value = MobPathfinder.class, remap = false)
+@Mixin(MobPathfinder.class)
 public abstract class MobPathfinderMixinForgetPlayerWhenToFar {
     @Shadow
     @Nullable

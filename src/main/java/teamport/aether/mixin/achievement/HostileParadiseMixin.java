@@ -5,6 +5,7 @@ import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,13 +14,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.world.AetherDimension;
 
-@Mixin(value = Player.class, remap = false)
+@Mixin(Player.class)
 public abstract class HostileParadiseMixin extends Mob {
 
     @Shadow
-    public abstract void addStat(Stat statbase, int i);
+    public abstract void addStat(@Nullable Stat stat, int i);
 
-    protected HostileParadiseMixin(@Nullable World world) {
+    protected HostileParadiseMixin(@NonNull World world) {
         super(world);
     }
 

@@ -4,10 +4,8 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
-import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.data.gamerule.GameRules;
-import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.IBonemealable;
@@ -21,16 +19,15 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
-import teamport.aether.compat.commandly.AetherCommandlyRules;
 import teamport.aether.item.AetherItems;
 import teamport.aether.world.AetherDimension;
 
 import java.util.Random;
 
 public class BlockLogicGrassAether extends BlockLogic implements IBonemealable {
-    public final Block<?> dirt;
+    public final @NonNull Block<?> dirt;
 
-    public BlockLogicGrassAether(Block<?> block, Block<?> dirt) {
+    public BlockLogicGrassAether(@NonNull Block<?> block, @NonNull Block<?> dirt) {
         super(block, Materials.GRASS);
         block.setTicking(true);
         this.dirt = dirt;
@@ -38,44 +35,35 @@ public class BlockLogicGrassAether extends BlockLogic implements IBonemealable {
 
     @Override
     @SuppressWarnings("java:S5411")
-    public void updateTick(World world, TilePosc pos, Random rand, boolean scheduled) {
-        int x = pos.x();
-        int y = pos.y();
-        int z = pos.z();
+    public void updateTick(@NonNull World world, @NonNull TilePosc tilePos, @NonNull Random rand, boolean isRandomTick) {
         if (!world.isClientSide) {
-            if (world.getBlockLightValue(x, y + 1, z) < 4 && Blocks.lightBlock[world.getBlockId(x, y + 1, z)] > 2) {
-                if (rand.nextInt(4) != 0) {
-                    return;
-                }
-
-                world.setBlockWithNotify(x, y, z, this.dirt.id());
-            } else if (world.getBlockLightValue(x, y + 1, z) >= 9) {
-                int idToSpawn;
-                for (idToSpawn = 0; idToSpawn < 4; ++idToSpawn) {
-                    int x1 = x + rand.nextInt(3) - 1;
-                    int y1 = y + rand.nextInt(5) - 3;
-                    int z1 = z + rand.nextInt(3) - 1;
-                    if (world.isBlockLoaded(x1, y1, z1)
-                        && world.getBlockId(x1, y1, z1) == this.dirt.id()
-                        && world.getBlockLightValue(x1, y1 + 1, z1) >= 4
-                        && Blocks.lightBlock[world.getBlockId(x1, y1 + 1, z1)] <= 2
-                        && AetherCommandlyRules.canGrassSpread(world)
-                    ) {
-                        world.setBlockWithNotify(x1, y1, z1, this.block.id());
+            TilePos queryPos = new TilePos();
+            if (world.getBlockLightValue(tilePos.up(queryPos)) < 4 && world.getBlockType(tilePos.up(queryPos)).lightBlock() > 2) {
+                world.setBlockTypeNotify(tilePos, this.dirt);
+            } else if (world.getBlockLightValue(tilePos.up(queryPos)) >= 9) {
+                for (int i = 0; i < 4; ++i) {
+                    int checkX = tilePos.x() + rand.nextInt(3) - 1;
+                    int checkY = tilePos.y() + rand.nextInt(5) - 3;
+                    int checkZ = tilePos.z() + rand.nextInt(3) - 1;
+                    if (world.getBlockType(queryPos.set(checkX, checkY, checkZ)) == this.dirt && world.getBlockLightValue(queryPos.set(checkX, checkY + 1, checkZ)) >= 4 && world.getBlockType(queryPos.set(checkX, checkY + 1, checkZ)).lightBlock() <= 2) {
+                        world.setBlockTypeNotify(queryPos.set(checkX, checkY, checkZ), this.block);
                     }
                 }
 
-                if (world.getGameRuleValue(GameRules.DO_SEASONAL_GROWTH) && world.getBlockId(x, y + 1, z) == 0 && rand.nextInt(512) == 0 && (world.dimension == AetherDimension.getAether())) {
+                if (world.getGameRuleValue(GameRules.DO_SEASONAL_GROWTH) && world.getBlockType(tilePos.up(queryPos)) == Blocks.AIR && rand.nextInt(512) == 0 && (world.dimension == AetherDimension.getAether())) {
+                    Block<?> blockToSpawn = null;
                     int r = rand.nextInt(400);
                     if (r < 26) {
-                        idToSpawn = AetherBlocks.FLOWER_PURPLE.id();
+                        blockToSpawn = AetherBlocks.FLOWER_PURPLE;
                     } else if (r < 41) {
-                        idToSpawn = AetherBlocks.FLOWER_WHITE.id();
+                        blockToSpawn = AetherBlocks.FLOWER_WHITE;
                     } else {
-                        idToSpawn = AetherBlocks.TALLGRASS_AETHER.id();
+                        blockToSpawn = Blocks.TALLGRASS;
                     }
 
-                    world.setBlockWithNotify(x, y + 1, z, idToSpawn);
+                    if (blockToSpawn != null) {
+                        world.setBlockTypeNotify(tilePos.up(queryPos), blockToSpawn);
+                    }
                 }
             }
 
@@ -84,10 +72,10 @@ public class BlockLogicGrassAether extends BlockLogic implements IBonemealable {
 
     @Override
     @SuppressWarnings("java:S1119")
-    public boolean onBonemealUsed(ItemStack itemstack, Player player, World world, TilePosc pos, Side side, double xPlaced, double yPlaced) {
-        int blockX = pos.x();
-        int blockY = pos.y();
-        int blockZ = pos.z();
+    public boolean onBonemealUsed(@NonNull ItemStack itemStack, @Nullable Player player, @NonNull World world, @NonNull TilePosc tilePos, @NonNull Side side, double xHit, double yHit) {
+        int blockX = tilePos.x();
+        int blockY = tilePos.y();
+        int blockZ = tilePos.z();
         if (!world.isClientSide) {
             Random random = world.rand;
             label175:
@@ -126,7 +114,7 @@ public class BlockLogicGrassAether extends BlockLogic implements IBonemealable {
             }
 
             if (player.getGamemode().hasBlockConsumption()) {
-                --itemstack.stackSize;
+                --itemStack.stackSize;
             }
         }
         player.swingItem();
@@ -134,32 +122,24 @@ public class BlockLogicGrassAether extends BlockLogic implements IBonemealable {
     }
 
     @Override
-    public void onBlockPlacedByMob(World world, int x, int y, int z, @NonNull Side side, Mob mob, double xPlaced, double yPlaced) {
-        world.setBlockMetadataWithNotify(x, y, z, 1);
-    }
-
-    @Override
-    public int getPlacedBlockMetadata(@Nullable Player player, ItemStack stack, World world, int x, int y, int z, Side side, double xPlaced, double yPlaced) {
+    public int getPlacedData(@Nullable Player player, @NonNull ItemStack itemStack, @NonNull World world, @NonNull TilePosc tilePos, @NonNull Side side, double xHit, double yHit) {
         return 1;
     }
 
     @Override
-    public void onBlockDestroyedByPlayer(World world, int x, int y, int z, Side side, int meta, Player player, Item item) {
+    public void onDestroyedByPlayer(@NonNull World world, @NonNull TilePosc tilePos, @NonNull Side side, int data, @NonNull Player player, @Nullable Item item) {
         ItemStack heldItem = player.getHeldItem();
-        if (heldItem != null && heldItem.getItem().equals(AetherItems.TOOL_SHOVEL_SKYROOT) && meta == 0 && player.getGamemode().hasBlockConsumption()) {
-            this.onHarvest(world, player, new TilePos(x, y, z), 1, world.getTileEntity(x, y, z));
+        if (heldItem != null && heldItem.getItem().equals(AetherItems.TOOL_SHOVEL_SKYROOT) && data == 0 && player.getGamemode().hasBlockConsumption()) {
+            this.onHarvest(world, player, tilePos, 1, world.getTileEntity(tilePos));
         }
     }
 
 
     @Override
-    public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
-        switch (dropCause) {
-            case SILK_TOUCH:
-            case PICK_BLOCK:
-                return new ItemStack[]{new ItemStack(this)};
-            default:
-                return new ItemStack[]{new ItemStack(this.dirt)};
-        }
+    public ItemStack[] getBreakResult(@NonNull World world, @NonNull EnumDropCause dropCause, int data, @Nullable TileEntity tileEntity) {
+        return switch (dropCause) {
+            case SILK_TOUCH, PICK_BLOCK -> new ItemStack[]{new ItemStack(this)};
+            default -> new ItemStack[]{new ItemStack(this.dirt)};
+        };
     }
 }

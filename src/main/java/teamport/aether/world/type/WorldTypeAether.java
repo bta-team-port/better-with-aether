@@ -11,11 +11,12 @@ import net.minecraft.core.world.season.Seasons;
 import net.minecraft.core.world.type.WorldType;
 import net.minecraft.core.world.weather.Weather;
 import net.minecraft.core.world.weather.Weathers;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.world.SunSpiritDeath;
+import teamport.aether.world.biome.AetherBiomes;
 import teamport.aether.world.chunk.BiomeProviderAether;
 import teamport.aether.world.chunk.ChunkGeneratorAether;
-import teamport.aether.world.biome.AetherBiomes;
 
 public class WorldTypeAether extends WorldType {
     public WorldTypeAether(WorldType.Properties properties) {
@@ -58,12 +59,12 @@ public class WorldTypeAether extends WorldType {
     }
 
     @Override
-    public Biome[] allBiomes() {
+    public Biome @NonNull [] allBiomes() {
         return new Biome[]{AetherBiomes.AETHER_PLAINS};
     }
 
     @Override
-    public BiomeProvider createBiomeProvider(World world) {
+    public @NonNull BiomeProvider createBiomeProvider(World world) {
         return new BiomeProviderAether(world);
     }
 
@@ -73,8 +74,8 @@ public class WorldTypeAether extends WorldType {
     }
 
     @Override
-    public boolean isValidSpawn(World world, int i, int j, int k) {
-        return world.getBlock(i, j, k) == AetherBlocks.GRASS_AETHER;
+    public boolean isValidSpawn(World world, int x, int y, int z) {
+        return world.getBlockId(x, y, z) == AetherBlocks.GRASS_AETHER.id();
     }
 
     @Override

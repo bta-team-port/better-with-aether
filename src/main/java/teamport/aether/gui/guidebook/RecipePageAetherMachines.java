@@ -13,6 +13,7 @@ import net.minecraft.client.render.renderer.GLRenderer;
 import net.minecraft.core.data.registry.recipe.SearchQuery;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.player.inventory.slot.Slot;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.recipe.RecipeEntryAetherMachine;
 
 import java.util.*;
@@ -72,7 +73,7 @@ public abstract class RecipePageAetherMachines extends RecipePage<RecipeEntryAet
 
     }
 
-    public boolean getIsMouseOverSlot(Slot slot, int x, int y, int mouseX, int mouseY) {
+    public boolean getIsMouseOverSlot(@NonNull Slot slot, int x, int y, int mouseX, int mouseY) {
         return mouseX >= x + slot.x - 1 && mouseX < x + slot.x + 16 + 1 && mouseY >= y + slot.y - 1 && mouseY < y + slot.y + 16 + 1;
     }
 

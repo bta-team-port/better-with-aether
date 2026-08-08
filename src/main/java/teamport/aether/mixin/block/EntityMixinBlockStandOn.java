@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.block.dungeon.AetherBlockTriggerStandOn;
 
-@Mixin(value = Entity.class, remap = false)
+@Mixin(Entity.class)
 public abstract class EntityMixinBlockStandOn {
 
 	@Definition(id = "muteStepSounds", field = "Lnet/minecraft/core/entity/Entity;muteStepSounds:Z")

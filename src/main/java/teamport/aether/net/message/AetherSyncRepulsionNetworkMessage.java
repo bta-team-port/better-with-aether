@@ -15,7 +15,7 @@ public class AetherSyncRepulsionNetworkMessage implements NetworkMessage {
 
     public AetherSyncRepulsionNetworkMessage() {}
 
-    public AetherSyncRepulsionNetworkMessage(Player player) {
+    public AetherSyncRepulsionNetworkMessage(@NonNull Player player) {
         this.playerUUID = player.uuid;
         this.repulsion = ((AetherRepulsion) player).aether$isRepulse();
     }
@@ -31,10 +31,10 @@ public class AetherSyncRepulsionNetworkMessage implements NetworkMessage {
         repulsion = packet.readBoolean();
     }
     @Override
-    public void handleClientEnv(NetworkContext context) {
+    public void handleClientEnv(@NonNull NetworkContext context) {
         World world = context.player.world;
 
-        if (world != null) world.players.stream()
+        world.players.stream()
             .filter(p -> p.uuid.equals(playerUUID))
             .forEach(p -> ((AetherRepulsion) p).aether$SyncRepulsion(repulsion));
     }

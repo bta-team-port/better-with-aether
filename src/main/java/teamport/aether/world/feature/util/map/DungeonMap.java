@@ -7,6 +7,8 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.chunk.Chunk;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.AetherMod;
 import teamport.aether.compat.AetherPlugin;
 import teamport.aether.net.message.AetherDungeonMapRequestNetworkMessage;
@@ -66,7 +68,7 @@ public class DungeonMap {
         TYPE_KEY_MAP.put(type, key);
     }
 
-    public static CompoundTag save(CompoundTag data) {
+    public static CompoundTag save(@NonNull CompoundTag data) {
         ListTag dungeons = new ListTag();
 
         DUNGEON_MAP.forEach((id, dungeon) -> {
@@ -87,22 +89,21 @@ public class DungeonMap {
         DUNGEON_MAP.clear();
     }
 
-    public static void load(CompoundTag data) {
+    public static void load(@NonNull CompoundTag data) {
         DUNGEON_MAP.clear();
 
         Tag<?> dungeons = data.getTagOrDefault(AetherMod.MOD_ID+".dungeon", null);
 
-        if (dungeons instanceof ListTag) {
-            ((ListTag)dungeons).forEach(tag -> {
+        if (dungeons instanceof ListTag listTag) {
+            listTag.forEach(tag -> {
                 DungeonLogic dungeon = loadDungeonFromNBT((CompoundTag) tag);
                 if (dungeon != null) DUNGEON_MAP.put(dungeon.id, dungeon);
             });
         }
 
         /// for backwards compatibility with alpha.
-        else if (dungeons instanceof CompoundTag) {
-            CompoundTag compoundDungeons = (CompoundTag) dungeons;
-            for (Tag<?> tag : compoundDungeons.getValues()) {
+        else if (dungeons instanceof CompoundTag compoundTag) {
+            for (Tag<?> tag : compoundTag.getValues()) {
                 if (!(tag instanceof CompoundTag)) continue;
 
                 ((CompoundTag) tag).putInt("id", Integer.parseInt(tag.getTagName()));
@@ -112,7 +113,7 @@ public class DungeonMap {
         }
     }
 
-    private static DungeonLogic loadDungeonFromNBT(CompoundTag tag) {
+    private static @Nullable DungeonLogic loadDungeonFromNBT(@NonNull CompoundTag tag) {
         String type = tag.getString("type");
         int dimensionID = tag.getInteger("dimensionID");
         long seed = tag.getLong("seed");
@@ -142,7 +143,7 @@ public class DungeonMap {
     private static long lastListUpdateStamp = 0;
 
     public static Collection<DungeonLogic> getDungeonList() {
-        if (EnvironmentHelper.isClientWorld()) {
+        if (EnvironmentHelper.isMultiplayerClient()) {
             long time = System.currentTimeMillis();
             if (time - lastListUpdateStamp >= MP_LIST_UPDATE_COOLDOWN) {
                 lastListUpdateStamp = time;
@@ -155,7 +156,7 @@ public class DungeonMap {
         return DUNGEON_MAP.values();
     }
 
-    public static ListTag serializeListFor(Player player) {
+    public static @NonNull ListTag serializeListFor(Player player) {
         ListTag resultTag = new ListTag();
 
         DUNGEON_MAP.values().stream()
@@ -173,7 +174,7 @@ public class DungeonMap {
         return resultTag;
     }
 
-    public static void updateListCache(ListTag dungeons) {
+    public static void updateListCache(@NonNull ListTag dungeons) {
         entryListCache.clear();
 
         dungeons.forEach( tag -> {
@@ -191,7 +192,7 @@ public class DungeonMap {
         func.accept(dungeon);
     }
 
-    protected static boolean chunkWithinRadius(Player player, int chunkX, int chunkZ) {
+    protected static boolean chunkWithinRadius(@NonNull Player player, int chunkX, int chunkZ) {
         int playerChunkX = Math.floorDiv((int) player.x, Chunk.CHUNK_SIZE_X);
         int playerChunkZ = Math.floorDiv((int) player.z, Chunk.CHUNK_SIZE_Z);
 
@@ -252,7 +253,7 @@ public class DungeonMap {
         DEAD_DUNGEONS.push(id);
     }
 
-    public static <T extends DungeonLogic> T register(Class<T> dungeonClass, World world, long seed, int x, int y, int z) {
+    public static <T extends DungeonLogic> @NonNull T register(Class<T> dungeonClass, World world, long seed, int x, int y, int z) {
         int id = DUNGEON_MAP.size();
         while (DUNGEON_MAP.get(id) != null) id++;
 

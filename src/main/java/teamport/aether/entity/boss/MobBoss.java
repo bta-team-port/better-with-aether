@@ -35,7 +35,7 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
     @Nullable
     public ItemStack trophy = null;
 
-    protected MobBoss(@Nullable World world) {
+    protected MobBoss(@NonNull World world) {
         super(world);
     }
 
@@ -77,12 +77,11 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
 
     @Override
     public void onDeath(Entity entityKilledBy) {
-        if (this.world == null) return;
         AetherMod.LOGGER.info("{} of ID {} has been slain!", bossName, dungeonID);
 
 
         if (trophy != null) {
-            if (!EnvironmentHelper.isClientWorld()) world.dropItem((int) x, (int) y, (int) z, trophy);
+            if (!EnvironmentHelper.isMultiplayerClient()) world.dropItem((int) x, (int) y, (int) z, trophy);
             world.playBlockEvent(null, 1003, (int) x, (int) y, (int) z, 0);
         }
 
@@ -112,9 +111,7 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
         bossName = tag.getString("bossName");
 
         CompoundTag trophyNBT = tag.getCompound("trophy");
-        if (trophyNBT != null) {
-            trophy = ItemStack.readItemStackFromNbt(trophyNBT);
-        }
+        trophy = ItemStack.readItemStackFromNbt(trophyNBT);
 
         if (tag.getBoolean("hasHadReturnPointSet")) {
             CompoundTag returnPointNBT = tag.getCompound("returnPoint");
@@ -160,7 +157,7 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
     }
 
     @Override
-    public String deathMessage(Player player) {
+    public String deathMessage(@NonNull Player player) {
         String key = EntityDispatcher.getInstance().entryForClass(this.getClass()).nameKey + ".death_message";
         String name = key + "_" + random.nextInt(9);
 

@@ -3,13 +3,13 @@ package teamport.aether.entity.monster;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.monster.MobMonster;
 import net.minecraft.core.enums.LightLayer;
-import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
-import org.jspecify.annotations.Nullable;
+import net.minecraft.core.world.pos.TilePos;
+import org.jspecify.annotations.NonNull;
 
 public abstract class MobMonsterAether extends MobMonster implements Enemy {
 
-    protected MobMonsterAether(@Nullable World world) {
+    protected MobMonsterAether(@NonNull World world) {
         super(world);
     }
 
@@ -20,16 +20,13 @@ public abstract class MobMonsterAether extends MobMonster implements Enemy {
 
     @Override
     public boolean canSpawnHere() {
-        int blockX = MathHelper.floor(this.x);
-        int blockY = MathHelper.floor(this.bb.minY);
-        int blockZ = MathHelper.floor(this.z);
-
-        if (this.world == null || this.world.getSavedLightValue(LightLayer.Block, blockX, blockY, blockZ) > 7) {
+        TilePos blockPos = new TilePos(this.x, this.bb.minY, this.z);
+        if (this.world.getSavedLightValue(LightLayer.Block, blockPos) > 7) {
             return false;
-        } else if (this.world.getSavedLightValue(LightLayer.Sky, blockX, blockY, blockZ) > this.random.nextInt(32)) {
+        } else if (this.world.getSavedLightValue(LightLayer.Sky, blockPos) > this.random.nextInt(32)) {
             return false;
         } else {
-            int blockLight = this.world.getBlockLightValue(blockX, blockY, blockZ);
+            int blockLight = this.world.getBlockLightValue(blockPos);
             if (this.world.getCurrentWeather() != null && this.world.getCurrentWeather().isMobDaylightSpawnAllowed()) {
                 blockLight /= 2;
             }

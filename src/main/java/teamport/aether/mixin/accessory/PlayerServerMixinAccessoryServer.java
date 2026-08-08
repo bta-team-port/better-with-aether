@@ -20,7 +20,7 @@ import teamport.aether.ducks.IContainerInventoryAether;
 import java.util.UUID;
 
 @Environment(EnvType.SERVER)
-@Mixin(value = PlayerServer.class, remap = false)
+@Mixin(PlayerServer.class)
 public abstract class PlayerServerMixinAccessoryServer {
     @Shadow
     private ItemStack[] playerInventory;

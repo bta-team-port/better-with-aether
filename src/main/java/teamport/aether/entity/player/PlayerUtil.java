@@ -9,6 +9,7 @@ import net.minecraft.core.item.Items;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.ducks.IContainerInventoryAether;
@@ -30,14 +31,13 @@ public class PlayerUtil {
 
     ///  Count the armor pieces of a specific material.
     @SuppressWarnings("java:S135")
-    public static int countArmorPiecesOfMaterial(ContainerInventory inventory, ArmorMaterial material) {
+    public static int countArmorPiecesOfMaterial(@NonNull ContainerInventory inventory, ArmorMaterial material) {
         int count = 0;
         for (int i = 0; i < inventory.armorInventory.length; ++i) {
             ItemStack itemStack = inventory.armorInventory[i];
-            if (itemStack == null || !(itemStack.getItem() instanceof IArmorItem)) {
+            if (itemStack == null || !(itemStack.getItem() instanceof IArmorItem<?> armor)) {
                 continue;
             }
-            IArmorItem armor = (IArmorItem) itemStack.getItem();
             if (armor.getArmorShape().getSlotIndex() != i) {
                 continue;
             }
@@ -47,7 +47,7 @@ public class PlayerUtil {
         ItemStack[] accessories = ((IContainerInventoryAether) inventory).aether$getAccessoryInventory();
         for (int logicalSlot = GLOVES_SLOT; logicalSlot <= CAPE_SLOT; logicalSlot++) {
             ItemStack itemStack = accessories[logicalSlot - GLOVES_SLOT];
-            if (itemStack != null && itemStack.getItem() instanceof IArmorItem armor && hasArmorMaterial(armor, material)) {
+            if (itemStack != null && itemStack.getItem() instanceof IArmorItem<?> armor && hasArmorMaterial(armor, material)) {
                 count++;
             }
         }
@@ -61,16 +61,15 @@ public class PlayerUtil {
         ItemStack[] accessories = ((IContainerInventoryAether) inventory).aether$getAccessoryInventory();
         for (int slot = TRINKET_1_SLOT - GLOVES_SLOT; slot <= TRINKET_2_SLOT - GLOVES_SLOT; slot++) {
             ItemStack itemStack = accessories[slot];
-            if (itemStack == null || !(itemStack.getItem() instanceof IArmorItem)) {
+            if (itemStack == null || !(itemStack.getItem() instanceof IArmorItem<?> armor)) {
                 continue;
             }
-            IArmorItem armor = (IArmorItem) itemStack.getItem();
             if (hasArmorMaterial(armor, material)) count++;
         }
         return count;
     }
 
-    private static boolean hasArmorMaterial(IArmorItem armor, ArmorMaterial material) {
+    private static boolean hasArmorMaterial(@NonNull IArmorItem<?> armor, ArmorMaterial material) {
         ArmorMaterial armorMaterial = armor.getArmorMaterial();
         return armorMaterial != null && armorMaterial.equals(material);
     }
@@ -86,14 +85,14 @@ public class PlayerUtil {
     /// Y pos on the server counted from the player's foot height but on the client it is counted from the player's head height
     /// We want count the player pos from his feet
     public static double getY(Player player) {
-        if (EnvironmentHelper.isSinglePlayer()) {
+        if (EnvironmentHelper.isSingleplayerClient()) {
             return player.y - player.bbHeight;
         }
         return player.y;
     }
 
     public static double getHeadY(Player player) {
-        if (EnvironmentHelper.isSinglePlayer()) {
+        if (EnvironmentHelper.isSingleplayerClient()) {
             return player.y;
         }
         return player.y - player.bbHeight;
@@ -104,7 +103,7 @@ public class PlayerUtil {
     }
 
     /// The normal damageItem does not destroy the item if the item durability hits zero.
-    public static void damageItem(Player player, int itemDamage, ItemStack stack, InventoryType type, int index) {
+    public static void damageItem(Player player, int itemDamage, @NonNull ItemStack stack, InventoryType type, int index) {
         stack.damageItem(itemDamage, player);
         if (stack.stackSize <= 0) {
             switch (type) {
@@ -123,7 +122,7 @@ public class PlayerUtil {
 
     /// The normal damageItem does not destroy the item if the item durability hits zero. This target an item to destroy
     /// in the player main inventory at an index.
-    public static void damageItemMain(Player player, int itemDamage, ItemStack stack, int index) {
+    public static void damageItemMain(Player player, int itemDamage, @NonNull ItemStack stack, int index) {
         stack.damageItem(itemDamage, player);
         if (stack.stackSize <= 0) {
             player.inventory.mainInventory[index] = null;
@@ -137,7 +136,7 @@ public class PlayerUtil {
 
     /// The normal damageItem does not destroy the item if the item durability hits zero. This target an item to destroy
     /// in the player armor inventory at an index.
-    public static void damageItemArmor(Player player, int itemDamage, ItemStack stack, int index) {
+    public static void damageItemArmor(Player player, int itemDamage, @NonNull ItemStack stack, int index) {
         stack.damageItem(itemDamage, player);
         if (stack.stackSize <= 0) {
             if (index < player.inventory.armorInventory.length) {
@@ -148,7 +147,7 @@ public class PlayerUtil {
         }
     }
 
-    public static ItemStack getArmorOrAccessoryItem(Player player, int armorSlot) {
+    public static @Nullable ItemStack getArmorOrAccessoryItem(@NonNull Player player, int armorSlot) {
         if (armorSlot < player.inventory.armorInventory.length) {
             return player.inventory.armorInventory[armorSlot];
         }
@@ -157,7 +156,7 @@ public class PlayerUtil {
         return accessorySlot >= 0 && accessorySlot < accessories.length ? accessories[accessorySlot] : null;
     }
 
-    public static void clearArmorOrAccessoryItem(Player player, int armorSlot) {
+    public static void clearArmorOrAccessoryItem(@NonNull Player player, int armorSlot) {
         if (armorSlot < player.inventory.armorInventory.length) {
             player.inventory.armorInventory[armorSlot] = null;
             return;
@@ -169,7 +168,7 @@ public class PlayerUtil {
         }
     }
 
-    public static ItemStack getActiveQuiver(Player player) {
+    public static @Nullable ItemStack getActiveQuiver(Player player) {
         int slot = getActiveQuiverSlot(player);
         return slot >= 0 ? getArmorOrAccessoryItem(player, slot) : null;
     }
@@ -213,7 +212,7 @@ public class PlayerUtil {
         return PlayerUtil.getClosestPlayerToEntity(world, entity.x, entity.y, entity.z, radius, playerStatus);
     }
 
-    public static @Nullable Player getClosestPlayerToEntity(World world, double x, double y, double z, double radius, PlayerStatus[] playerStatus) {
+    public static @Nullable Player getClosestPlayerToEntity(@NonNull World world, double x, double y, double z, double radius, PlayerStatus[] playerStatus) {
         double closestDistance = Double.POSITIVE_INFINITY;
         Player returnPlayer = null;
         for (Player currentPlayer : world.players) {
@@ -230,7 +229,7 @@ public class PlayerUtil {
         return returnPlayer;
     }
 
-    private static boolean test(PlayerStatus[] playerStatus, Player player, double distance) {
+    private static boolean test(PlayerStatus @NonNull [] playerStatus, Player player, double distance) {
         boolean acc = false;
         for (PlayerStatus status : playerStatus) {
             acc |= status.test(player, distance);

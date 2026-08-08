@@ -36,15 +36,14 @@ public class PriorityEntry<T> implements Comparable<PriorityEntry<T>> {
     }
 
     @Override
-    public int compareTo(PriorityEntry that) {
+    public int compareTo(@NonNull PriorityEntry that) {
         return Double.compare(this.weight, that.weight);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PriorityEntry)) return false;
-        PriorityEntry<?> that = (PriorityEntry<?>) o;
+        if (!(o instanceof PriorityEntry<?> that)) return false;
         return this.data.equals(that.data);
     }
 }

@@ -11,6 +11,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.net.packet.Packet;
 import net.minecraft.core.net.packet.PacketTileEntityData;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.AetherRecipes;
 import teamport.aether.achievements.AetherAchievements;
@@ -26,7 +27,7 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
     }
 
     @Override
-    public String getNameTranslationKey() {
+    public @NonNull String getNameTranslationKey() {
         return "container.incubator.name";
     }
 
@@ -185,8 +186,8 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
         if (entity instanceof MobMoa) {
             ((MobMoa) entity).setTamed(true);
         }
-        if (entity instanceof MobSlime) {
-            ((MobSlime) entity).setSlimeSize(random.nextInt(4) + 1);
+        if (entity instanceof MobSlime slime) {
+            slime.setSlimeSize(random.nextInt(4) + 1);
         }
         return entity;
     }

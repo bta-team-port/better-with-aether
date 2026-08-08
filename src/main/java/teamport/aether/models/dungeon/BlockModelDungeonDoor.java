@@ -14,6 +14,7 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.helper.Sides;
 import net.minecraft.core.world.WorldSource;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
 
 import java.util.EnumMap;
@@ -33,7 +34,7 @@ public class BlockModelDungeonDoor<T extends BlockLogic> extends BlockModelRotat
         this.height = height;
     }
 
-    protected IconCoordinate ctm(IconCoordinate fallback, WorldSource blockAccess, int x, int y, int z, Side side) {
+    protected IconCoordinate ctm(IconCoordinate fallback, @NonNull WorldSource blockAccess, int x, int y, int z, @NonNull Side side) {
         int meta = blockAccess.getBlockMetadata(x, y, z);
         Side sideRotated = Side.fromId(Sides.orientationLookUpHorizontal[6 * Math.min(meta & BlockLogicRotatable.MASK_DIRECTION, 5) + side.id]);
         IconCoordinate baseTex;
@@ -84,6 +85,7 @@ public class BlockModelDungeonDoor<T extends BlockLogic> extends BlockModelRotat
     }
 
     private static final class CoordinateBuffer extends IconCoordinate {
+
         private CoordinateBuffer(AtlasStitcher atlas) {
             super(atlas, null);
         }
@@ -96,21 +98,21 @@ public class BlockModelDungeonDoor<T extends BlockLogic> extends BlockModelRotat
     }
 
     @Override
-    public IconCoordinate getBlockTexture(WorldSource blockAccess, TilePosc pos, Side side) {
+    public IconCoordinate getBlockTexture(@NonNull WorldSource blockAccess, @NonNull TilePosc pos, @NonNull Side side) {
         return ctm(TextureRegistry.getTexture("minecraft:block/texture_missing"), blockAccess, pos.x(), pos.y(), pos.z(), side);
     }
 
     @Override
-    public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int metadata) {
+    public IconCoordinate getBlockTextureFromSideAndMetadata(@NonNull Side side, int metadata) {
         return isRetro() ? particleTextureRetro : particleTexture;
     }
 
     @Override
-    public IconCoordinate getParticleTexture(Side side, int meta) {
+    public IconCoordinate getParticleTexture(@NonNull Side side, int meta) {
         return isRetro() ? particleTextureRetro : particleTexture;
     }
 
-    public BlockModelDungeonDoor<T> setRetroTex(String texture, Side... sides) {
+    public BlockModelDungeonDoor<T> setRetroTex(String texture, Side @NonNull ... sides) {
         IconCoordinate coordinate = TextureRegistry.getTexture(texture);
         for (Side side : sides) this.retroBlockTextures.put(side, coordinate);
         return this;

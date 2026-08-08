@@ -8,6 +8,7 @@ import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import java.util.function.Supplier;
@@ -33,7 +34,7 @@ public class BlockLogicPaintableDoor extends BlockLogicDoor {
     }
 
     @Override
-    public void setColor(World world, TilePosc pos, DyeColor color) {
+    public void setColor(@NonNull World world, @NonNull TilePosc pos, @NonNull DyeColor color) {
         int meta = world.getBlockData(pos);
         TilePos otherPos = this.isTop ? pos.down(new TilePos()) : pos.up(new TilePos());
         if (this.isTop) {

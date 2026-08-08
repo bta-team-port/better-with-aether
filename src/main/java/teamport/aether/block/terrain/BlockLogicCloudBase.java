@@ -2,11 +2,9 @@ package teamport.aether.block.terrain;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicTransparent;
-import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.projectile.Projectile;
-import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.WorldSource;
@@ -15,6 +13,7 @@ import org.joml.Vector3d;
 import org.joml.Vector3dc;
 import org.joml.primitives.AABBd;
 import org.joml.primitives.AABBdc;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
 
 public class BlockLogicCloudBase extends BlockLogicTransparent {
@@ -23,12 +22,12 @@ public class BlockLogicCloudBase extends BlockLogicTransparent {
     }
 
     @Override
-    public int getPistonPushReaction(World world, TilePosc pos) {
+    public int getPistonPushReaction(@NonNull World world, @NonNull TilePosc pos) {
         return 1;
     }
 
     @Override
-    public void onEntityWalkedOn(World world, TilePosc pos, Entity entity) {
+    public void onEntityWalkedOn(@NonNull World world, @NonNull TilePosc pos, @NonNull Entity entity) {
         this.onEntityCollision(world, pos, entity);
     }
 
@@ -37,12 +36,13 @@ public class BlockLogicCloudBase extends BlockLogicTransparent {
         return false;
     }
 
-    public boolean getIsBlockSolid(WorldSource blockAccess, int x, int y, int z, Side side) {
+    @Override
+    public boolean suffocatesEntities(@NonNull WorldSource source, @NonNull TilePosc tilePos, @NonNull Class<? extends Entity> entityClass) {
         return false;
     }
 
     @Override
-    public void onEntityInside(World world, TilePosc pos, Entity entity, Vector3d entityVelocity) {
+    public void onEntityInside(@NonNull World world, @NonNull TilePosc pos, @NonNull Entity entity, @NonNull Vector3d entityVelocity) {
         this.onEntityCollision(world, pos, entity);
     }
 
@@ -52,13 +52,13 @@ public class BlockLogicCloudBase extends BlockLogicTransparent {
     }
 
     @Override
-    public boolean collidesWithEntity(Entity entity, World world, TilePosc pos) {
+    public boolean collidesWithEntity(@NonNull Entity entity, @NonNull World world, @NonNull TilePosc pos) {
         if (entity instanceof Projectile || entity instanceof MobZephyr) return false;
         return super.collidesWithEntity(entity, world, pos);
     }
 
     @Override
-    public HitResult collisionRayTrace(World world, TilePosc pos, Vector3dc start, Vector3dc end, boolean useSelectorBoxes) {
+    public HitResult collisionRayTrace(@NonNull World world, @NonNull TilePosc pos, @NonNull Vector3dc start, @NonNull Vector3dc end, boolean useSelectorBoxes) {
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         boolean isProjectile = false;
 
@@ -73,7 +73,7 @@ public class BlockLogicCloudBase extends BlockLogicTransparent {
     }
 
     @Override
-    public AABBdc getCollisionAABB(WorldSource world, TilePosc pos) {
+    public AABBdc getCollisionAABB(@NonNull WorldSource world, TilePosc pos) {
         int x = pos.x();
         int y = pos.y();
         int z = pos.z();
@@ -81,7 +81,7 @@ public class BlockLogicCloudBase extends BlockLogicTransparent {
     }
 
     @Override
-    public void onEntityCollision(World world, TilePosc pos, Entity entity) {
+    public void onEntityCollision(@NonNull World world, @NonNull TilePosc pos, @NonNull Entity entity) {
         if (!(entity instanceof MobZephyr)) {
             if (!entity.isSneaking() && entity.yd < 0.0) {
                 entity.yd *= 0.005;

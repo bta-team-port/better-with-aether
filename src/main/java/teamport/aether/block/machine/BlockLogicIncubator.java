@@ -4,7 +4,6 @@ import net.minecraft.core.Global;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicRotatable;
 import net.minecraft.core.block.entity.TileEntity;
-import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumDropCause;
@@ -34,36 +33,31 @@ public class BlockLogicIncubator extends BlockLogicRotatable {
     }
 
     @Override
-    public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
-        switch (dropCause) {
-            case PICK_BLOCK:
-            case EXPLOSION:
-            case PROPER_TOOL:
-            case SILK_TOUCH:
-            case PISTON_CRUSH:
-                return new ItemStack[]{new ItemStack(AetherBlocks.INCUBATOR_IDLE)};
-            default:
-                return null;
-        }
+    public ItemStack[] getBreakResult(@NonNull World world, @NonNull EnumDropCause dropCause, int meta, TileEntity tileEntity) {
+        return switch (dropCause) {
+            case PICK_BLOCK, EXPLOSION, PROPER_TOOL, SILK_TOUCH, PISTON_CRUSH ->
+                new ItemStack[]{new ItemStack(AetherBlocks.INCUBATOR_IDLE)};
+            default -> null;
+        };
     }
 
     @Override
-    public void animationTick(World world, int x, int y, int z, Random rand) {
+    public void animationTick(@NonNull World world, @NonNull TilePosc tilePos, @NonNull Random rand) {
         if (!this.isActive) {
             return;
         }
         if (rand.nextInt(4) > 0) return;
         double radius = 0.3;
         double angle = 2 * Math.PI * rand.nextDouble();
-        double xPos = x + 0.5 + radius * Math.cos(angle);
-        double yPos = y + 1.0;
-        double zPos = z + 0.5 + radius * Math.sin(angle);
+        double xPos = tilePos.x() + 0.5 + radius * Math.cos(angle);
+        double yPos = tilePos.y() + 1.0;
+        double zPos = tilePos.z() + 0.5 + radius * Math.sin(angle);
         double dy = (rand.nextGaussian() * 0.5 + 1.0) * 0.01;
         world.spawnParticle("flameambrosium", xPos, yPos, zPos, 0.0, dy, 0.0, 0, false);
     }
 
     @Override
-    public boolean onInteracted(World world, TilePosc pos, Player player, Side side, double xPlaced, double yPlaced) {
+    public boolean onInteracted(@NonNull World world, @NonNull TilePosc pos, @NonNull Player player, Side side, double xPlaced, double yPlaced) {
         if (!world.isClientSide) {
             TileEntityIncubator tileEntityIncubator = (TileEntityIncubator) world.getTileEntity(pos);
             ((AetherScreens) player).aether$displayIncubatorScreen(tileEntityIncubator);

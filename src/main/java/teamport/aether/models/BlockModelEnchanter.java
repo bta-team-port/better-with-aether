@@ -12,6 +12,7 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.helper.Sides;
 import net.minecraft.core.world.WorldSource;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -25,14 +26,14 @@ public class BlockModelEnchanter<T extends BlockLogic> extends BlockModelHorizon
     }
 
     @Override
-    public IconCoordinate getBlockTexture(WorldSource blockAccess, TilePosc pos, Side side) {
-        int data = blockAccess.getBlockMetadata(pos.x(), pos.y(), pos.z());
+    public IconCoordinate getBlockTexture(@NonNull WorldSource blockAccess, @NonNull TilePosc pos, @NonNull Side side) {
+        int data = blockAccess.getBlockData(pos);
         int index = Sides.orientationLookUpHorizontal[6 * Math.min(data, 5) + side.id];
         if (index >= Sides.orientationLookUpHorizontal.length) {
             return this.blockTextures.get(Side.BOTTOM);
         } else if (index == Side.NORTH.id) {
             IconCoordinate originalFront = isRetro() ? retroTextures.get(Side.NORTH) : this.blockTextures.get(Side.NORTH);
-            Container container = (Container) blockAccess.getTileEntity(pos.x(), pos.y(), pos.z());
+            Container container = (Container) blockAccess.getTileEntity(pos);
             if (container != null) {
                 boolean hasOutput = container.getItem(2) != null;
                 if (hasOutput && originalFront != null) {
@@ -48,7 +49,7 @@ public class BlockModelEnchanter<T extends BlockLogic> extends BlockModelHorizon
         }
     }
 
-    public BlockModelEnchanter<T> setRetroTex(String texture, Side... sides) {
+    public BlockModelEnchanter<T> setRetroTex(String texture, Side @NonNull ... sides) {
         IconCoordinate coordinate = TextureRegistry.getTexture(texture);
         for (Side side : sides) retroTextures.put(side, coordinate);
         return this;

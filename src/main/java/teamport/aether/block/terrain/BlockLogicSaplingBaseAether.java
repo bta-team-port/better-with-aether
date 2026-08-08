@@ -4,9 +4,11 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicSaplingBase;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.tag.BlockTags;
+import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
 
@@ -19,8 +21,7 @@ public abstract class BlockLogicSaplingBaseAether extends BlockLogicSaplingBase 
     }
 
     @Override
-    public boolean mayPlaceOn(Block<?> block) {
-        if (block == null) return false;
+    public boolean mayPlaceOn(@NonNull Block<?> block) {
         int blockId = block.id();
         return (block.hasTag(BlockTags.GROWS_FLOWERS)
             || blockId == AetherBlocks.QUICKSOIL.id()
@@ -32,24 +33,25 @@ public abstract class BlockLogicSaplingBaseAether extends BlockLogicSaplingBase 
     }
 
     @Override
-    public void updateTick(World world, TilePosc pos, Random rand, boolean scheduled) {
-        int x = pos.x();
-        int y = pos.y();
-        int z = pos.z();
+    public void updateTick(@NonNull World world, @NonNull TilePosc tilePos, @NonNull Random rand, boolean isRandomTick) {
         if (!world.isClientSide) {
-            if (world.getBlockId(x, y - 1, z) == AetherBlocks.QUICKSOIL.id() || world.getBlockId(x, y - 1, z) == Blocks.SAND.id()) {
-                world.setBlockWithNotify(x, y, z, AetherBlocks.DEADBUSH_AETHER.id());
+            TilePos queryPos = new TilePos();
+            if (!this.canGrowOnSand && world.getBlockType(tilePos.down(queryPos)) == Blocks.SAND || world.getBlockType(tilePos.down(queryPos)) == AetherBlocks.QUICKSOIL) {
+                world.setBlockTypeNotify(tilePos, AetherBlocks.DEADBUSH_AETHER);
             }
 
-            super.updateTick(world, pos, rand, scheduled);
+            super.updateTick(world, tilePos, rand, isRandomTick);
             int growthRate = 30;
+            if (world.getSeasonManager().getCurrentSeason() != null) {
+                growthRate = MathHelper.floor_float((float) growthRate / world.getSeasonManager().getCurrentSeason().cropGrowthFactor);
+            }
 
-            if (world.getBlockLightValue(x, y + 1, z) >= 9 && rand.nextInt(growthRate) == 0) {
-                int l = world.getBlockMetadata(x, y, z);
+            if (world.getBlockLightValue(tilePos.up(queryPos)) >= 9 && rand.nextInt(growthRate) == 0) {
+                int l = world.getBlockData(tilePos);
                 if ((l & 8) == 0) {
-                    world.setBlockMetadataWithNotify(x, y, z, l | 8);
+                    world.setBlockData(tilePos, l | 8);
                 } else {
-                    this.growTree(world, pos, rand);
+                    this.growTree(world, tilePos, rand);
                 }
             }
 

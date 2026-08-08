@@ -6,7 +6,8 @@ import net.minecraft.client.Minecraft;
 
 @Environment(EnvType.CLIENT)
 public final class BossMusicClientHelper {
-    private BossMusicClientHelper() { }
+    private BossMusicClientHelper() {
+    }
 
     public static void stop() {
         Minecraft.getMinecraft().sndManager.stopMusic();

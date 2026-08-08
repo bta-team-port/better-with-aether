@@ -11,27 +11,28 @@ import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Mixin;
 import teamport.aether.world.AetherDimension;
 
-@Mixin(value = BlockLogicFire.class, remap = false)
+@Mixin(BlockLogicFire.class)
 public abstract class BlockLogicFireMixin extends BlockLogic {
     protected BlockLogicFireMixin(Block<?> block, Material material) {
         super(block, material);
     }
 
     @WrapMethod(method = "onPlacedByWorld")
-    private void onPlacedByWorld(World world, TilePosc pos, Operation<Void> original) {
+    private void onPlacedByWorld(@NonNull World world, TilePosc tilePos, Operation<Void> original) {
         if (world.dimension == AetherDimension.getAether()) {
-            Block<?> below = world.getBlockType(pos.down(new TilePos()));
-            boolean infiniteBurn = below != null && below.hasTag(BlockTags.INFINITE_BURN);
+            Block<?> below = world.getBlockType(tilePos.down(new TilePos()));
+            boolean infiniteBurn = below.hasTag(BlockTags.INFINITE_BURN);
 
             if (!infiniteBurn) {
-                world.setBlockType(pos, Blocks.AIR);
+                world.setBlockType(tilePos, Blocks.AIR);
                 return;
             }
         }
 
-        original.call(world, pos);
+        original.call(world, tilePos);
     }
 }

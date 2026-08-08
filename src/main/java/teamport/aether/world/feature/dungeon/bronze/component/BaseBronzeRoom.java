@@ -8,6 +8,7 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import net.minecraft.core.world.pos.TilePos;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.block.dungeon.BlockLogicChestLocked;
@@ -99,7 +100,7 @@ public abstract class BaseBronzeRoom extends WorldFeature {
         return new ArrayList<>();
     }
 
-    public void addDoor(Direction heading, WorldFeaturePoint p1, Direction direction1, int length1, Direction direction2, int length2) {
+    public void addDoor(Direction heading, @NonNull WorldFeaturePoint p1, @NonNull Direction direction1, int length1, @NonNull Direction direction2, int length2) {
         WorldFeaturePoint p2 = new WorldFeaturePoint(p1.getX(), p1.getY(), p1.getZ());
         p2.add(direction1.offsetX() * length1, direction1.offsetY() * length1, direction1.offsetZ() * length1);
         p2.add(direction2.offsetX() * length2, direction2.offsetY() * length2, direction2.offsetZ() * length2);
@@ -137,8 +138,8 @@ public abstract class BaseBronzeRoom extends WorldFeature {
         check = drawPlane(0, 0, SOUTH, this.width, EAST, this.length, this.x, this.y + this.height, this.z, true);
         for (WorldFeaturePoint point : check.getBlockList()) {
             Block<?> block = world.getBlock(point.getX(), point.getY(), point.getZ());
-            Material blockMaterial = block == null ? Materials.AIR : block.getMaterial();
-            if (block != null && block.blockHardness < 0) return false;
+            Material blockMaterial = block.getMaterial();
+            if (block.blockHardness < 0) return false;
             if (blockMaterial == Materials.AIR) countAir++;
             if (blockMaterial.isLiquid()) countLiquid++;
         }
@@ -150,8 +151,8 @@ public abstract class BaseBronzeRoom extends WorldFeature {
         countAir = countLiquid = 0;
         for (WorldFeaturePoint point : check.getBlockList()) {
             Block<?> block = this.world.getBlock(point.getX(), point.getY(), point.getZ());
-            Material blockMaterial = block == null ? Materials.AIR : block.getMaterial();
-            if (block != null && block.blockHardness < 0) return false;
+            Material blockMaterial = block.getMaterial();
+            if (block.blockHardness < 0) return false;
             if (blockMaterial == Materials.AIR) countAir++;
             if (blockMaterial.isLiquid()) countLiquid++;
         }
@@ -164,8 +165,8 @@ public abstract class BaseBronzeRoom extends WorldFeature {
         countAir = countLiquid = 0;
         for (WorldFeaturePoint point : check.getBlockList()) {
             Block<?> block = this.world.getBlock(point.getX(), point.getY(), point.getZ());
-            Material blockMaterial = block == null ? Materials.AIR : block.getMaterial();
-            if (block != null && block.blockHardness < 0) return false;
+            Material blockMaterial = block.getMaterial();
+            if (block.blockHardness < 0) return false;
             if (blockMaterial == Materials.AIR) countAir++;
             if (blockMaterial.isLiquid()) countLiquid++;
         }
@@ -210,24 +211,22 @@ public abstract class BaseBronzeRoom extends WorldFeature {
         }
     }
 
-    public static boolean roomCanReplace(World world, WorldFeatureBlock wfblock) {
+    public static boolean roomCanReplace(@NonNull World world, @NonNull WorldFeatureBlock wfblock) {
         Block<?> block = world.getBlock(wfblock.getX(), wfblock.getY(), wfblock.getZ());
-        int blockID = block == null ? 0 : block.id();
-        Material blockMaterial = blockID == 0 ? Materials.AIR : block.getMaterial();
-        if (block != null) {
-            BlockLogic logic = block.getLogic();
-            if (
-                logic instanceof BlockLogicLocked
-                    || logic instanceof BlockLogicMobSpawner
-                    || logic instanceof BlockLogicChestLocked
-                    || logic instanceof BlockLogicDungeonDoor
-            ) {
-                return false;
-            }
+        int blockID = block.id();
+        Material blockMaterial = blockID == Blocks.AIR.id() ? Materials.AIR : block.getMaterial();
+        BlockLogic logic = block.getLogic();
+        if (
+            logic instanceof BlockLogicLocked
+                || logic instanceof BlockLogicMobSpawner
+                || logic instanceof BlockLogicChestLocked
+                || logic instanceof BlockLogicDungeonDoor
+        ) {
+            return false;
+        }
 
-            if (block.blockHardness < 0) {
-                return false;
-            }
+        if (block.blockHardness < 0) {
+            return false;
         }
 
         if (blockMaterial == Materials.WATER || blockMaterial == Materials.LAVA) {
@@ -288,13 +287,13 @@ public abstract class BaseBronzeRoom extends WorldFeature {
         return null;
     }
 
-    public boolean intercept(WorldFeaturePoint point) {
+    public boolean intercept(@NonNull WorldFeaturePoint point) {
         return (point.getX() <= this.x + length && point.getX() >= this.x)
             && (point.getY() <= this.y + height && point.getY() >= this.y)
             && (point.getZ() <= this.z + width && point.getZ() >= this.z);
     }
 
-    public boolean intercept(WorldFeaturePoint point, BaseBronzeRoom room) {
+    public boolean intercept(@NonNull WorldFeaturePoint point, BaseBronzeRoom room) {
         return (point.getX() <= this.x + length && point.getX() + room.length >= this.x)
             && (point.getY() <= this.y + height && point.getY() + room.height >= this.y)
             && (point.getZ() <= this.z + width && point.getZ() + room.width >= this.z);

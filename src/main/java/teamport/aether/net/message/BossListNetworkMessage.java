@@ -22,7 +22,7 @@ public class BossListNetworkMessage implements NetworkMessage {
         REMOVE
     }
 
-    public static BossListNetworkMessage clear() {
+    public static @NonNull BossListNetworkMessage clear() {
         BossListNetworkMessage e = new BossListNetworkMessage();
         e.type = Type.CLEAR;
         e.entityID = -1;
@@ -33,7 +33,7 @@ public class BossListNetworkMessage implements NetworkMessage {
     public BossListNetworkMessage() {
     }
 
-    public BossListNetworkMessage(Type type, Entity entity) {
+    public BossListNetworkMessage(Type type, @NonNull Entity entity) {
         this.type = type;
         this.entityID = entity.id;
     }
@@ -52,16 +52,16 @@ public class BossListNetworkMessage implements NetworkMessage {
 
     @Override
     public void handle(NetworkContext context) {
-        if (!EnvironmentHelper.isClientWorld()) return;
+        if (!EnvironmentHelper.isMultiplayerClient()) return;
 
         LOGGER.info("Received BossList update message.");
 
         Player player = context.player;
 
-        if (player.world != null && type != Type.CLEAR) {
+        if (type != Type.CLEAR) {
             Optional<Entity> entityOption = player.world.getLoadedEntityList().stream().filter(e -> e.id == entityID).findFirst();
 
-            if (!entityOption.isPresent()) {
+            if (entityOption.isEmpty()) {
                 LOGGER.error("Couldn't find boss to add to list.");
                 return;
             }

@@ -11,6 +11,7 @@ import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.WorldSource;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.dungeon.BlockLogicChestMimic;
 
 @Environment(EnvType.CLIENT)
@@ -24,8 +25,8 @@ public class BlockModelPaintedOakMimic<T extends BlockLogicChestMimic> extends B
     }
 
     @Override
-    public IconCoordinate getBlockTexture(WorldSource blockAccess, TilePosc pos, Side side) {
-        int meta = blockAccess.getBlockMetadata(pos.x(), pos.y(), pos.z());
+    public IconCoordinate getBlockTexture(@NonNull WorldSource blockAccess, @NonNull TilePosc pos, @NonNull Side side) {
+        int meta = blockAccess.getBlockData(pos);
         int color = meta >> 4;
         Side facing = BlockLogicChest.getDirectionFromMeta(meta).side();
         if (side == Side.TOP || side == Side.BOTTOM) {
@@ -38,7 +39,7 @@ public class BlockModelPaintedOakMimic<T extends BlockLogicChestMimic> extends B
     }
 
     @Override
-    public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int data) {
+    public IconCoordinate getBlockTextureFromSideAndMetadata(@NonNull Side side, int data) {
         int color = data >> 4;
         if (side == Side.SOUTH) {
             return FRONT_TEXTURES[color];

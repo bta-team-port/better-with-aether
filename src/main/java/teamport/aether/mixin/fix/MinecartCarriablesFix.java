@@ -16,14 +16,15 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.entity.vehicle.EntityMinecart;
 import net.minecraft.core.world.IVehicle;
 import net.minecraft.core.world.World;
-import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.block.AetherBlockTags;
 
-@Mixin(value = EntityMinecart.class, remap = false)
+@Mixin(EntityMinecart.class)
 public abstract class MinecartCarriablesFix extends Entity {
-    protected MinecartCarriablesFix(@Nullable World world) {
+
+    protected MinecartCarriablesFix(@NonNull World world) {
         super(world);
     }
 
@@ -44,14 +45,14 @@ public abstract class MinecartCarriablesFix extends Entity {
     }
 
     @ModifyReturnValue(method = "interact", at = @At("RETURN"))
-    private boolean doNotCarryTwo(boolean original, @Share("shouldNotCarry") LocalBooleanRef shouldNotCarry) {
+    private boolean doNotCarryTwo(boolean original, @Share("shouldNotCarry") @NonNull LocalBooleanRef shouldNotCarry) {
         if (shouldNotCarry.get()) return false;
         return original;
     }
 
     @WrapOperation(method = "interact", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/player/Player;startRiding(Lnet/minecraft/core/world/IVehicle;)V"))
-    private void doNotCarryThree(Player instance, IVehicle iVehicle, Operation<Void> original, @Share("shouldNotCarry") LocalBooleanRef shouldNotCarry) {
+    private void doNotCarryThree(Player instance, IVehicle vehicle, Operation<Void> original, @Share("shouldNotCarry") @NonNull LocalBooleanRef shouldNotCarry) {
         if (shouldNotCarry.get()) return;
-        original.call(instance, iVehicle);
+        original.call(instance, vehicle);
     }
 }

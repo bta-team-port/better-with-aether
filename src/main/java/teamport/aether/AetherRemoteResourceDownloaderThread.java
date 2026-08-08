@@ -86,10 +86,9 @@ public class AetherRemoteResourceDownloaderThread extends Thread {
         List<Pair<File, String>> entriesToDownload = new ArrayList<>();
 
         for (JsonElement entry : entries) {
-            if (!(entry instanceof JsonObject)) continue;
-            JsonObject entryObj = (JsonObject) entry;
+            if (!(entry instanceof JsonObject entryObj)) continue;
 
-            String key = entryObj.get("Key").getAsString();
+			String key = entryObj.get("Key").getAsString();
             String md5 = entryObj.get("MD5").getAsString();
 
             File soundFile = new File(resourcesFolder, key);
@@ -137,8 +136,8 @@ public class AetherRemoteResourceDownloaderThread extends Thread {
             this.state = State.DOWNLOADING;
 
             for (Pair<File, String> entry : entriesToDownload) {
-                File soundFile = entry.getFirst();
-                String key = entry.getSecond();
+                File soundFile = entry.first();
+                String key = entry.second();
 
                 try {
                     downloadSoundFile(key, soundFile);

@@ -5,6 +5,7 @@ import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.util.helper.DamageType;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherMod;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.item.AetherHasCustomDamageType;
@@ -16,7 +17,7 @@ public class ItemToolAxeValkyrie extends ItemToolAxeAether implements AetherHasC
     }
 
     @Override
-    public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
+    public float getStrVsBlock(@NonNull ItemStack itemstack, @NonNull Block<?> block) {
         return block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE) || block.hasTag(BlockTags.MINEABLE_BY_AXE) ? this.material.getEfficiency(false) : 1.0F;
     }
 

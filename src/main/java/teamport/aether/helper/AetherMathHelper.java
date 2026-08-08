@@ -1,5 +1,7 @@
 package teamport.aether.helper;
 
+import org.jspecify.annotations.NonNull;
+
 import java.util.Random;
 
 public class AetherMathHelper {
@@ -20,7 +22,7 @@ public class AetherMathHelper {
     /**
      * @implNote Generate an exponential distributed random values function with lambda set to 1.
      */
-    public static double nextExponential(Random random) {
+    public static double nextExponential(@NonNull Random random) {
         return -Math.log(1 - random.nextDouble());
     }
 }

@@ -24,7 +24,7 @@ import teamport.aether.mixin.accessors.ItemToolSwordAccessor;
 
 import java.util.List;
 
-@Mixin(value = Mob.class, remap = false)
+@Mixin(Mob.class)
 public abstract class SkyrootSwordDropMultiplier {
     @Shadow
     protected abstract void dropDeathItems();
@@ -38,11 +38,11 @@ public abstract class SkyrootSwordDropMultiplier {
     protected abstract List<WeightedRandomLootObject> getMobDrops();
 
     @Inject(method = "onDeath(Lnet/minecraft/core/entity/Entity;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;dropDeathItems()V"))
-    private void multiplyDrop(Entity entity, CallbackInfo ci) {
-        if (!(entity instanceof Player)) {
+    private void multiplyDrop(Entity entityKilledBy, CallbackInfo ci) {
+        if (!(entityKilledBy instanceof Player)) {
             return;
         }
-        ItemStack heldStack = ((Player) entity).getHeldItem();
+        ItemStack heldStack = ((Player) entityKilledBy).getHeldItem();
         if (heldStack == null || !(heldStack.getItem() instanceof ItemToolSword)) {
             return;
         }

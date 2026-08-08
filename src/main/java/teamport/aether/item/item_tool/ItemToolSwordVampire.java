@@ -6,6 +6,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemToolSword;
+import org.jspecify.annotations.NonNull;
 
 public class ItemToolSwordVampire extends ItemToolSword {
     public ItemToolSwordVampire(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
@@ -13,10 +14,10 @@ public class ItemToolSwordVampire extends ItemToolSword {
     }
 
     @Override
-    public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
+    public boolean hitEntity(@NonNull ItemStack itemstack, @NonNull Mob target, @NonNull Mob attacker) {
         boolean hitEntity = super.hitEntity(itemstack, target, attacker);
         if (target instanceof Mob && target.hurtTime == 10 && hitEntity) {
-            if ((target instanceof Player) && ((Player) target).gamemode.hasInvulnerablePlayer()) {
+            if ((target instanceof Player player) && player.gamemode.hasInvulnerablePlayer()) {
                 return false;
             }
             if (attacker.getHealth() < attacker.getMaxHealth() && attacker.getHealth() + attacker.getTotalHealingRemaining() < attacker.getMaxHealth()) {

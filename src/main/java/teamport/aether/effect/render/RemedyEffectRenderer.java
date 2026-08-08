@@ -1,6 +1,7 @@
 package teamport.aether.effect.render;
 
 import net.minecraft.core.entity.player.Player;
+import org.jspecify.annotations.NonNull;
 import sunsetsatellite.catalyst.effects.api.effect.Effect;
 import sunsetsatellite.catalyst.effects.api.effect.EffectStack;
 import sunsetsatellite.catalyst.effects.api.effect.render.TintEffectRender;
@@ -17,7 +18,7 @@ public class RemedyEffectRenderer<T extends Effect> extends TintEffectRender<T> 
     }
 
     @Override
-    public float calcAlpha(EffectStack effectStack) {
+    public float calcAlpha(@NonNull EffectStack effectStack) {
         float percent = (float) effectStack.getTimeLeft() / (float) effectStack.getDuration();
         return (float) Math.pow(percent, 4.0f);
     }

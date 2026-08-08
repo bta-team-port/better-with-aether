@@ -4,7 +4,6 @@ import net.minecraft.core.Global;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicRotatable;
 import net.minecraft.core.block.entity.TileEntity;
-import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumDropCause;
@@ -34,43 +33,41 @@ public class BlockLogicEnchanter extends BlockLogicRotatable {
     }
 
     @Override
-    public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
-        switch (dropCause) {
-            case PICK_BLOCK:
-            case EXPLOSION:
-            case PROPER_TOOL:
-            case SILK_TOUCH:
-            case PISTON_CRUSH:
-                return new ItemStack[]{new ItemStack(AetherBlocks.ENCHANTER_IDLE)};
-            default:
-                return null;
-        }
+    public ItemStack[] getBreakResult(@NonNull World world, @NonNull EnumDropCause dropCause, int meta, TileEntity tileEntity) {
+        return switch (dropCause) {
+            case PICK_BLOCK, EXPLOSION, PROPER_TOOL, SILK_TOUCH, PISTON_CRUSH ->
+                new ItemStack[]{new ItemStack(AetherBlocks.ENCHANTER_IDLE)};
+            default -> null;
+        };
     }
 
     @Override
-    public void animationTick(World world, int x, int y, int z, Random rand) {
+    public void animationTick(@NonNull World world, @NonNull TilePosc tilePos, @NonNull Random rand) {
         if (this.isActive) {
-            int l = world.getBlockMetadata(x, y, z);
-            double poxX = x + 0.5;
-            double posY = y + 0.5 + (rand.nextDouble() * 6.0 / 16.0);
-            double posZ = z + 0.5;
-            double f3 = 0.52;
-            double f4 = rand.nextDouble() * 0.6 - 0.3;
-            if (l == 4) {
-                world.spawnParticle("flameenchanter", poxX - f3, posY, posZ + f4, 0.0, 0.0, 0.0, 0, false);
-            } else if (l == 5) {
-                world.spawnParticle("flameenchanter", poxX + f3, posY, posZ + f4, 0.0, 0.0, 0.0, 0, false);
-            } else if (l == 2) {
-                world.spawnParticle("flameenchanter", poxX + f4, posY, posZ - f3, 0.0, 0.0, 0.0, 0, false);
-            } else if (l == 3) {
-                world.spawnParticle("flameenchanter", poxX + f4, posY, posZ + f3, 0.0, 0.0, 0.0, 0, false);
+            double poxX = (double) tilePos.x() + (double) 0.5F;
+            double posY = (double) tilePos.y() + (double) 0.0F + (double) (rand.nextFloat() * 6.0F / 16.0F);
+            double posZ = (double) tilePos.z() + (double) 0.5F;
+            double f3 = 0.52F;
+            double f4 = rand.nextFloat() * 0.6F - 0.3F;
+            switch (BlockLogicRotatable.getDirectionFromMeta(world.getBlockData(tilePos))) {
+                case WEST:
+                    world.spawnParticle("flameenchanter", poxX - f3, posY, posZ + f4, 0.0F, 0.0F, 0.0F, 0, false);
+                    break;
+                case EAST:
+                    world.spawnParticle("flameenchanter", poxX + f3, posY, posZ + f4, 0.0F, 0.0F, 0.0F, 0, false);
+                    break;
+                case NORTH:
+                    world.spawnParticle("flameenchanter", poxX + f4, posY, posZ - f3, 0.0F, 0.0F, 0.0F, 0, false);
+                    break;
+                case SOUTH:
+                    world.spawnParticle("flameenchanter", poxX + f4, posY, posZ + f3, 0.0F, 0.0F, 0.0F, 0, false);
             }
 
         }
     }
 
     @Override
-    public boolean onInteracted(World world, TilePosc pos, Player player, Side side, double xPlaced, double yPlaced) {
+    public boolean onInteracted(@NonNull World world, @NonNull TilePosc pos, @NonNull Player player, Side side, double xPlaced, double yPlaced) {
         if (!world.isClientSide) {
             TileEntityEnchanter tileEntityEnchanter = (TileEntityEnchanter) world.getTileEntity(pos);
             ((AetherScreens) player).aether$displayEnchanterScreen(tileEntityEnchanter);

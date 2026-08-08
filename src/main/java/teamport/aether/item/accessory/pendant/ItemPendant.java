@@ -3,16 +3,16 @@ package teamport.aether.item.accessory.pendant;
 import net.minecraft.core.enums.HumanArmorShape;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.material.ArmorMaterial;
-import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.item.AetherItemTags;
 import teamport.aether.item.accessory.IAccessory;
 
-public class ItemPendant extends Item implements IAccessory{
+public class ItemPendant extends Item implements IAccessory {
     private final String name;
     protected final ArmorMaterial material;
     private boolean canHarvestDamage;
 
-    public ItemPendant(String translationKey, String namespaceId, int id, String name, ArmorMaterial material) {
+    public ItemPendant(String translationKey, String namespaceId, int id, String name, @NonNull ArmorMaterial material) {
         super(translationKey, namespaceId, id);
         this.name = name;
         this.maxStackSize = 1;
@@ -32,12 +32,12 @@ public class ItemPendant extends Item implements IAccessory{
         return name;
     }
 
-    public ItemPendant setHarvestDamagable(){
+    public ItemPendant setHarvestDamageable() {
         this.canHarvestDamage = true;
         return this;
     }
 
-    public boolean canHarvestDamage(){
+    public boolean canHarvestDamage() {
         return this.canHarvestDamage;
     }
 }

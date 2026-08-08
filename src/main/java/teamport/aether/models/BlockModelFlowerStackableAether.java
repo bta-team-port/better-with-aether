@@ -8,6 +8,7 @@ import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicFlowerStackable;
 import net.minecraft.core.util.helper.Side;
+import org.jspecify.annotations.NonNull;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelFlowerStackableAether<T extends BlockLogicFlowerStackable> extends BlockModelCrossedSquares<T> {
@@ -26,7 +27,7 @@ public class BlockModelFlowerStackableAether<T extends BlockLogicFlowerStackable
     }
 
     @Override
-    public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int data) {
+    public IconCoordinate getBlockTextureFromSideAndMetadata(@NonNull Side side, int data) {
         int stackCount = BlockLogicFlowerStackable.getStackCount(data);
         if (isRetro()) {
             return stackCount > 3 ? this.iconsRetro[0] : this.iconsRetro[stackCount];

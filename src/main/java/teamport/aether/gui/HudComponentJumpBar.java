@@ -2,16 +2,16 @@ package teamport.aether.gui;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.hud.HudIngame;
 import net.minecraft.client.gui.hud.component.HudComponentMovable;
 import net.minecraft.client.gui.hud.component.layout.Layout;
 import net.minecraft.client.option.GameSettings;
-import net.minecraft.client.render.texture.stitcher.IconCoordinate;
-import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.client.render.renderer.GLRenderer;
 import net.minecraft.client.render.renderer.State;
+import net.minecraft.client.render.texture.stitcher.IconCoordinate;
+import net.minecraft.client.render.texture.stitcher.TextureRegistry;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.AetherJumpAmount;
 
 @Environment(EnvType.CLIENT)
@@ -56,7 +56,7 @@ public class HudComponentJumpBar extends HudComponentMovable {
     }
 
     @Override
-    public void renderPreview(Gui gui, Layout layout, int screenWidth, int screenHeight) {
+    public void renderPreview(Gui gui, @NonNull Layout layout, int screenWidth, int screenHeight) {
         int x = layout.getComponentX(this, screenWidth);
         int y = layout.getComponentY(this, screenHeight);
 

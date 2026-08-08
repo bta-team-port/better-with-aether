@@ -28,12 +28,11 @@ public class ParticleGoldenDust extends Particle {
     @Override
     protected AABBdc getCollisionBox(TilePos tilePos) {
         Block<?> block = this.world.getBlockType(tilePos);
-        return block != null && Block.hasLogicClass(block, BlockLogicLeavesBase.class) ? null : super.getCollisionBox(tilePos);
+        return Block.hasLogicClass(block, BlockLogicLeavesBase.class) ? null : super.getCollisionBox(tilePos);
     }
 
     @Override
     public void tick() {
-        if (this.world == null) return;
         float windDirection = this.world.getWorldType().getWindManager().getWindDirection(this.world, (float) this.x, (float) this.y, (float) this.z);
         float windIntensity = this.world.getWorldType().getWindManager().getWindIntensity(this.world, (float) this.x, (float) this.y, (float) this.z) * 0.01F;
         double dx = Math.cos(windDirection * Math.PI * 2.0) * (windIntensity / 4.0);

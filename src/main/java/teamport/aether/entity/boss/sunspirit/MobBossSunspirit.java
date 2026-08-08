@@ -166,7 +166,7 @@ public class MobBossSunspirit extends MobBossFlying {
         }
         if (!this.world.getDifficulty().canHostileMobsSpawn()) {
             if (this.isAgro) {
-                if (!EnvironmentHelper.isServerEnvironment()) {
+                if (!EnvironmentHelper.isMultiplayerServer()) {
                     BossMusicClientHelper.stop();
                 }
                 this.isAgro = false;
@@ -287,7 +287,7 @@ public class MobBossSunspirit extends MobBossFlying {
                 this.rotateSunspirit(this.random.nextInt(360));
                 DungeonMap.runWithDungeon(dungeonID, d -> d.lock(this.world));
 
-                if (!EnvironmentHelper.isServerEnvironment()) {
+                if (!EnvironmentHelper.isMultiplayerServer()) {
                     BossMusicClientHelper.play("aether:aether_music_boss.fireboss", this.x, this.y, this.z);
                 }
 
@@ -330,7 +330,7 @@ public class MobBossSunspirit extends MobBossFlying {
 
         this.world.playSoundAtEntity(null, this, "aether:achievement.gold", 0.5f, 1.0f);
 
-        if (!EnvironmentHelper.isServerEnvironment()) {
+        if (!EnvironmentHelper.isMultiplayerServer()) {
             BossMusicClientHelper.stop();
         }
 
@@ -450,7 +450,7 @@ public class MobBossSunspirit extends MobBossFlying {
             this.rotateSunspirit(this.random.nextInt(360));
             DungeonMap.runWithDungeon(dungeonID, d -> d.lock(this.world));
 
-            if (!EnvironmentHelper.isServerEnvironment()) {
+            if (!EnvironmentHelper.isMultiplayerServer()) {
                 BossMusicClientHelper.play("aether:aether_music_boss.fireboss", this.x, this.y, this.z);
             }
         }

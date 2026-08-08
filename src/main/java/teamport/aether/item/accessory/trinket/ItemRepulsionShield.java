@@ -7,6 +7,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.joml.primitives.AABBd;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.item.AetherRepulsion;
 import teamport.aether.item.accessory.IAccessoryEffects;
 import teamport.aether.entity.player.PlayerUtil;
@@ -22,7 +23,7 @@ public class ItemRepulsionShield extends ItemShield implements IAccessoryEffects
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, World world, Entity entity, int slotId, boolean flag) {
+    public void inventoryTick(@NonNull ItemStack stack, @NonNull World world, @NonNull Entity entity, int slotId, boolean flag) {
         Player player = (Player) entity;
 
         int armorSlot = slotId - player.inventory.mainInventory.length;

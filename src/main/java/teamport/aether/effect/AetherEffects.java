@@ -5,6 +5,7 @@ import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import sunsetsatellite.catalyst.effects.api.effect.Effect;
 import sunsetsatellite.catalyst.effects.api.effect.EffectContainer;
@@ -160,7 +161,7 @@ public class AetherEffects {
 
     public static boolean add(Entity entity, EffectStack stackToAdd) {
         if (!(entity instanceof IHasEffects)) return false;
-        if (entity.world != null && entity.world.isClientSide) return false;
+        if (entity.world.isClientSide) return false;
         if (!stackToAdd.getEffect().canApplyTo(entity)) return false;
         if (stackToAdd.getAmount() <= 0) return false;
         IHasEffects<?> hasEffects = (IHasEffects<?>) entity;
@@ -185,7 +186,7 @@ public class AetherEffects {
         return true;
     }
 
-    public static <T> boolean isLocked(EffectStack effectStack, EffectContainer<T> effectContainer) {
+    public static <T> boolean isLocked(@NonNull EffectStack effectStack, EffectContainer<T> effectContainer) {
         Effect effectToAdd = effectStack.getEffect();
         Effect effectBlocker = AetherEffects.LookupLooks.instance.getLocker(effectToAdd);
 

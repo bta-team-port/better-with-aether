@@ -7,7 +7,6 @@ import net.minecraft.core.item.ItemBucket;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.item.tag.ItemTags;
-import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.animal.MobAetherAnimalRideable;
@@ -133,7 +132,7 @@ public class MobPhow extends MobAetherAnimalRideable {
             }
         }
 
-        if (!this.getSaddled() || this.world == null || this.world.isClientSide) return false;
+        if (!this.getSaddled() || this.world.isClientSide) return false;
         if (this.passenger != null && this.passenger != player) return false;
 
         player.startRiding(this);
@@ -144,15 +143,19 @@ public class MobPhow extends MobAetherAnimalRideable {
     public boolean isFavouriteItem(ItemStack itemStack) {
         return itemStack != null && itemStack.getItem().hasTag(ItemTags.COWS_FAVOURITE_ITEM);
     }
+
     public float getWingFold() {
         return wingFold;
     }
+
     public float getWingFoldO() {
         return wingFoldO;
     }
+
     public float getWingAngle() {
         return wingAngle;
     }
+
     public float getWingAngleO() {
         return wingAngleO;
     }

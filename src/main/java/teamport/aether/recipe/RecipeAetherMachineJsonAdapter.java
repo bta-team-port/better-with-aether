@@ -5,12 +5,13 @@ import net.minecraft.core.data.registry.Registries;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.data.registry.recipe.adapter.RecipeJsonAdapter;
 import net.minecraft.core.item.ItemStack;
+import org.jspecify.annotations.NonNull;
 
 import java.lang.reflect.Type;
 
 public class RecipeAetherMachineJsonAdapter implements RecipeJsonAdapter<RecipeEntryAetherMachine> {
     @Override
-    public RecipeEntryAetherMachine deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public RecipeEntryAetherMachine deserialize(@NonNull JsonElement json, Type typeOfT, @NonNull JsonDeserializationContext context) throws JsonParseException {
         JsonObject obj = json.getAsJsonObject();
         RecipeSymbol input = context.deserialize(obj.get("input").getAsJsonObject(), RecipeSymbol.class);
         ItemStack output = context.deserialize(obj.get("output").getAsJsonObject(), ItemStack.class);
@@ -19,7 +20,7 @@ public class RecipeAetherMachineJsonAdapter implements RecipeJsonAdapter<RecipeE
     }
 
     @Override
-    public JsonElement serialize(RecipeEntryAetherMachine src, Type typeOfSrc, JsonSerializationContext context) {
+    public JsonElement serialize(@NonNull RecipeEntryAetherMachine src, Type typeOfSrc, @NonNull JsonSerializationContext context) {
         JsonObject obj = new JsonObject();
         obj.addProperty("name", src.toString());
         obj.addProperty("type", Registries.RECIPE_TYPES.getKey(src.getClass()));

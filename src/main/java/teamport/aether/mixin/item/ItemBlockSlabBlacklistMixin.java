@@ -23,25 +23,25 @@ import teamport.aether.helper.MixinHelper;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.world.AetherDimension;
 
-@Mixin(value = IAccumulatable.class, remap = false)
+@Mixin(IAccumulatable.class)
 public interface ItemBlockSlabBlacklistMixin {
 
     @Definition(id = "stackSize", field = "Lnet/minecraft/core/item/ItemStack;stackSize:I")
     @Expression("?.stackSize <= 0")
     @ModifyExpressionValue(method = "placeOnBlockAccumulatable", at = @At("MIXINEXTRAS:EXPRESSION"))
-    private boolean banBlocksFromDimensionsOne(boolean original, boolean shift, ItemStack stack, World world, @Nullable Player player, TilePosc pos, Side side, double xPlaced, double yPlaced) {
+    private boolean banBlocksFromDimensionsOne(boolean original, boolean shift, ItemStack selfStack, World world, @Nullable Player player, TilePosc tilePos, Side side, double xHit, double yHit) {
         Block<?> block = ((IPlaceable.PlaceableBlock<?>) this).getBlock();
         return original || this instanceof ItemBlockSlab<?> && world.dimension != AetherDimension.getAether() && AetherDimension.getDimensionBlacklist(world.dimension).contains(block.id());
     }
 
     @WrapOperation(method = "placeOnBlockAccumulatable", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/world/World;setBlockTypeDataRaw(Lnet/minecraft/core/world/pos/TilePosc;Lnet/minecraft/core/block/Block;I)Z"))
-    private boolean banBlocksFromDimensionsTwo(World world, TilePosc pos, Block<?> block, int data, Operation<Boolean> original, boolean shift, ItemStack stack, World ignoredWorld, @Nullable Player player) {
-        return placeAccumulatedSlab(world, pos, block, data, original, player);
+    private boolean banBlocksFromDimensionsTwo(World world, TilePosc tilePos, Block<?> block, int data, Operation<Boolean> original, boolean shift, ItemStack selfStack, World ignoredWorld, @Nullable Player player) {
+        return placeAccumulatedSlab(world, tilePos, block, data, original, player);
     }
 
     @WrapOperation(method = "placeOnBlockAccumulatable", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/world/World;setBlockTypeData(Lnet/minecraft/core/world/pos/TilePosc;Lnet/minecraft/core/block/Block;I)Z"))
-    private boolean banBlocksFromDimensionsThree(World world, TilePosc pos, Block<?> block, int data, Operation<Boolean> original, boolean shift, ItemStack stack, World ignoredWorld, @Nullable Player player) {
-        return placeAccumulatedSlab(world, pos, block, data, original, player);
+    private boolean banBlocksFromDimensionsThree(World world, TilePosc tilePos, Block<?> block, int data, Operation<Boolean> original, boolean shift, ItemStack selfStack, World ignoredWorld, @Nullable Player player) {
+        return placeAccumulatedSlab(world, tilePos, block, data, original, player);
     }
 
     @Unique
