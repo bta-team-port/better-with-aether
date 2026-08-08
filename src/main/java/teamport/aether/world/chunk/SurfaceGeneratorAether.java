@@ -2,6 +2,7 @@ package teamport.aether.world.chunk;
 
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.biome.Biome;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.world.biome.BiomeAether;
 import net.minecraft.core.world.chunk.Chunk;
@@ -27,7 +28,7 @@ public class SurfaceGeneratorAether implements SurfaceGenerator {
     }
 
     @Override
-    public void generateSurface(Chunk chunk, ChunkGeneratorResult result) {
+    public void generateSurface(@NonNull Chunk chunk, @NonNull ChunkGeneratorResult result) {
         int minY = this.world.getWorldType().getMinY(world);
         int maxY = this.world.getWorldType().getMaxY(world);
 
@@ -39,7 +40,7 @@ public class SurfaceGeneratorAether implements SurfaceGenerator {
         double beachScale = 0.03125;
 
         double[] soilThicknessNoise = this.soilNoise.getRegion(
-            new double[16 * 16 * 1],
+            new double[16 * 16],
             chunkX * 16.0,
             chunkZ * 16.0,
             0.0,

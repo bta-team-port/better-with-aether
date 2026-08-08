@@ -4,6 +4,7 @@ import net.minecraft.core.data.registry.Registries;
 import net.minecraft.core.data.registry.recipe.*;
 import net.minecraft.core.data.registry.recipe.adapter.RecipeJsonAdapter;
 import net.minecraft.core.item.ItemStack;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 import java.util.Objects;
@@ -30,7 +31,7 @@ public class RecipeEntryAetherMachine extends RecipeEntryBase<RecipeSymbol, Item
         return this.getInput().matches(stack);
     }
 
-    public boolean matchesQuery(SearchQuery query) {
+    public boolean matchesQuery(@NonNull SearchQuery query) {
         switch (query.mode) {
             case ALL: {
                 if ((matchesRecipe(query) || matchesUsage(query)) && matchesScope(query)) return true;
@@ -48,7 +49,7 @@ public class RecipeEntryAetherMachine extends RecipeEntryBase<RecipeSymbol, Item
         return false;
     }
 
-    public boolean matchesScope(SearchQuery query) {
+    public boolean matchesScope(@NonNull SearchQuery query) {
         if (query.scope.getLeft() == SearchQuery.SearchScope.NONE) return true;
         if (query.scope.getLeft() == SearchQuery.SearchScope.NAMESPACE) {
             RecipeNamespace namespace = Registries.RECIPES.getItem(query.scope.getRight());
@@ -65,7 +66,7 @@ public class RecipeEntryAetherMachine extends RecipeEntryBase<RecipeSymbol, Item
         return false;
     }
 
-    public boolean matchesRecipe(SearchQuery query) {
+    public boolean matchesRecipe(@NonNull SearchQuery query) {
         if (query.query.getLeft() == SearchQuery.QueryType.NAME) {
             if (query.strict && this.getOutput().getDisplayName().equalsIgnoreCase(query.query.getRight())) {
                 return true;

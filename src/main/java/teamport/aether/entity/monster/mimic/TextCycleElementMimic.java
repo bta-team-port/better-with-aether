@@ -4,6 +4,7 @@ import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.modelviewer.elements.TextCycleElement;
 import net.minecraft.client.render.font.FontRenderer;
 import net.minecraft.core.block.Blocks;
+import org.jspecify.annotations.NonNull;
 
 import static teamport.aether.AetherMod.TRANSLATOR;
 
@@ -20,7 +21,7 @@ public class TextCycleElementMimic extends TextCycleElement<String> {
 	}
 
 	@Override
-	public String getElementFromString(String s) {
+	public String getElementFromString(@NonNull String s) {
 		if (s.isEmpty()) {
 			return MimicRegistry.DEFAULT.getPathName();
 		}

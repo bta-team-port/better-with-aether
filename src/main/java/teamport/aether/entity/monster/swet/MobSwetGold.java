@@ -6,7 +6,6 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
-import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.LightIndexHelper;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;

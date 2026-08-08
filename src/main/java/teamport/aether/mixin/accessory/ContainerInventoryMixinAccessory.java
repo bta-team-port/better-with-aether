@@ -6,6 +6,9 @@ import com.mojang.nbt.tags.ListTag;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -18,17 +21,21 @@ import teamport.aether.item.accessory.IAccessoryEffects;
 
 import java.util.Arrays;
 
-@Mixin(value = ContainerInventory.class, remap = false)
+@Mixin(ContainerInventory.class)
 public abstract class ContainerInventoryMixinAccessory implements IContainerInventoryAether {
     @Unique
     private static final int AETHER_ACCESSORY_SLOT_OFFSET = 104;
 
     @Shadow
+    @Final
+    @NonNull
     public Player player;
     @Shadow
-    public ItemStack[] armorInventory;
+    @Final
+    public @Nullable ItemStack @NonNull [] armorInventory;
     @Shadow
-    public ItemStack[] mainInventory;
+    @Final
+    public @Nullable ItemStack @NonNull [] mainInventory;
 
     @Unique
     private final ItemStack[] aether$accessorySlots = new ItemStack[4];
@@ -44,15 +51,15 @@ public abstract class ContainerInventoryMixinAccessory implements IContainerInve
     }
 
     @Inject(method = "getItem", at = @At("HEAD"), cancellable = true)
-    private void getAccessoryItem(int index, CallbackInfoReturnable<ItemStack> cir) {
-        int accessoryIndex = aether$getAccessoryIndex(index);
+    private void getAccessoryItem(int slot, CallbackInfoReturnable<ItemStack> cir) {
+        int accessoryIndex = aether$getAccessoryIndex(slot);
         if (accessoryIndex >= 0) {
             cir.setReturnValue(aether$accessorySlots[accessoryIndex]);
         }
     }
 
     @Inject(method = "save(Lcom/mojang/nbt/tags/ListTag;)Lcom/mojang/nbt/tags/ListTag;", at = @At("RETURN"))
-    private void saveAccessories(ListTag tag, CallbackInfoReturnable<ListTag> cir) {
+    private void saveAccessories(ListTag parentTag, @NonNull CallbackInfoReturnable<ListTag> cir) {
         ListTag result = cir.getReturnValue();
         for (int slot = 0; slot < aether$accessorySlots.length; ++slot) {
             ItemStack itemStack = aether$accessorySlots[slot];
@@ -66,9 +73,9 @@ public abstract class ContainerInventoryMixinAccessory implements IContainerInve
     }
 
     @Inject(method = "load(Lcom/mojang/nbt/tags/ListTag;)V", at = @At("TAIL"))
-    private void loadAccessories(ListTag tag, CallbackInfo ci) {
-        for (int i = 0; i < tag.tagCount(); ++i) {
-            CompoundTag itemTag = (CompoundTag) tag.tagAt(i);
+    private void loadAccessories(@NonNull ListTag parentTag, CallbackInfo ci) {
+        for (int i = 0; i < parentTag.tagCount(); ++i) {
+            CompoundTag itemTag = (CompoundTag) parentTag.tagAt(i);
             int slot = (itemTag.getByte("Slot") & 255) - AETHER_ACCESSORY_SLOT_OFFSET;
             if (slot >= 0 && slot < aether$accessorySlots.length) {
                 aether$accessorySlots[slot] = ItemStack.readItemStackFromNbt(itemTag);
@@ -111,14 +118,14 @@ public abstract class ContainerInventoryMixinAccessory implements IContainerInve
      * a mixin is needed into removeItem. - Redart15
      */
     @Inject(method = "removeItem", at = @At("HEAD"), cancellable = true)
-    private void updateEffects(int index, int takeAmount, CallbackInfoReturnable<ItemStack> cir) {
-        if (index < this.mainInventory.length) {
+    private void updateEffects(int slot, int takeAmount, CallbackInfoReturnable<ItemStack> cir) {
+        if (slot < this.mainInventory.length) {
             return;
         }
-        int accessoryIndex = aether$getAccessoryIndex(index);
+        int accessoryIndex = aether$getAccessoryIndex(slot);
         ItemStack itemStack = accessoryIndex >= 0
             ? aether$accessorySlots[accessoryIndex]
-            : this.armorInventory[index - this.mainInventory.length];
+            : this.armorInventory[slot - this.mainInventory.length];
         if (itemStack != null && itemStack.getItem() instanceof IAccessoryEffects) {
             ((IAccessoryEffects) itemStack.getItem()).removeEffect(player, itemStack);
         }
@@ -134,20 +141,20 @@ public abstract class ContainerInventoryMixinAccessory implements IContainerInve
      * a mixin is needed into setItem. - Redart15
      */
     @Inject(method = "setItem", at = @At("HEAD"), cancellable = true)
-    private void updateEffects(int index, ItemStack newItem, CallbackInfo ci) {
-        if (index < this.mainInventory.length) {
+    private void updateEffects(int slot, ItemStack stack, CallbackInfo ci) {
+        if (slot < this.mainInventory.length) {
             return;
         }
-        int accessoryIndex = aether$getAccessoryIndex(index);
+        int accessoryIndex = aether$getAccessoryIndex(slot);
         ItemStack oldItem = accessoryIndex >= 0
             ? aether$accessorySlots[accessoryIndex]
-            : this.armorInventory[index - this.mainInventory.length];
+            : this.armorInventory[slot - this.mainInventory.length];
         // this is only called when we SWAP an item
         if (oldItem != null && oldItem.getItem() instanceof IAccessoryEffects) {
             ((IAccessoryEffects) oldItem.getItem()).removeEffect(player, oldItem);
         }
         if (accessoryIndex >= 0) {
-            aether$accessorySlots[accessoryIndex] = newItem;
+            aether$accessorySlots[accessoryIndex] = stack;
             ci.cancel();
         }
     }
@@ -164,12 +171,12 @@ public abstract class ContainerInventoryMixinAccessory implements IContainerInve
     }
 
     @Inject(method = "containsItem", at = @At("RETURN"), cancellable = true)
-    private void containsAccessory(ItemStack itemStack, CallbackInfoReturnable<Boolean> cir) {
-        if (cir.getReturnValue()) {
+    private void containsAccessory(ItemStack stack, @NonNull CallbackInfoReturnable<Boolean> cir) {
+        if (Boolean.TRUE.equals(cir.getReturnValue())) {
             return;
         }
         for (ItemStack accessory : aether$accessorySlots) {
-            if (accessory != null && accessory.isStackEqual(itemStack)) {
+            if (accessory != null && accessory.isStackEqual(stack)) {
                 cir.setReturnValue(true);
                 return;
             }
@@ -177,8 +184,8 @@ public abstract class ContainerInventoryMixinAccessory implements IContainerInve
     }
 
     @Inject(method = "transferAllContents", at = @At("TAIL"))
-    private void transferAccessoryContents(ContainerInventory source, CallbackInfo ci) {
-        ItemStack[] sourceAccessories = ((IContainerInventoryAether) source).aether$getAccessoryInventory();
+    private void transferAccessoryContents(ContainerInventory inventory, CallbackInfo ci) {
+        ItemStack[] sourceAccessories = ((IContainerInventoryAether) inventory).aether$getAccessoryInventory();
         for (int slot = 0; slot < aether$accessorySlots.length; ++slot) {
             aether$accessorySlots[slot] = sourceAccessories[slot];
             sourceAccessories[slot] = null;
@@ -192,7 +199,7 @@ public abstract class ContainerInventoryMixinAccessory implements IContainerInve
     }
 
     @Unique
-    private ItemStack aether$removeAccessoryItem(int index, int takeAmount) {
+    private @org.jspecify.annotations.Nullable ItemStack aether$removeAccessoryItem(int index, int takeAmount) {
         ItemStack itemStack = aether$accessorySlots[index];
         if (itemStack == null) {
             return null;

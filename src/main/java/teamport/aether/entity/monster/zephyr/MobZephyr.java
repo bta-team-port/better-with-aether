@@ -5,14 +5,15 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.MobFlying;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.util.collection.NamespaceID;
-import net.minecraft.core.util.helper.LightIndexHelper;
 import net.minecraft.core.util.helper.DamageType;
+import net.minecraft.core.util.helper.LightIndexHelper;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
 import org.joml.Vector3dc;
 import org.joml.primitives.AABBd;
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.player.PlayerUtil;
@@ -59,15 +60,14 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
     }
 
     @Override
-    public String getEntityTexture() {
+    public @NonNull String getEntityTexture() {
         return this.entityData.getByte(16) != 1 ? super.getEntityTexture() : "/assets/aether/textures/entity/zephyr_fire/" + this.getTextureReference() + ".png";
     }
 
     @Override
     public @NonNull String getDefaultEntityTexture() {
         if (this.entityData.getByte(16) != 1) {
-            String entityTexture = super.getEntityTexture();
-            if (entityTexture != null) return entityTexture;
+            return super.getEntityTexture();
         }
         return "/assets/aether/textures/entity/zephyr_fire/" + this.getTextureReference() + ".png";
     }
@@ -75,7 +75,7 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
     @Override
     @SuppressWarnings("java:S1192")
     public void tick() {
-        if (this.world != null && this.world.isClientSide) {
+        if (this.world.isClientSide) {
             byte i = this.entityData.getByte(16);
             if (i > 0 && this.attackCharge == 0) {
                 this.world.playSoundAtEntity(null, this, "aether:mob.zephyr.shoot", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
@@ -107,7 +107,7 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
     @Override
     @SuppressWarnings({"java:S6541", "java:S3776", "java:S1192"})
     public void updateAI() {
-        if (this.world != null && !this.world.isClientSide && !this.world.getDifficulty().canHostileMobsSpawn()) {
+        if (!this.world.isClientSide && !this.world.getDifficulty().canHostileMobsSpawn()) {
             this.remove();
         }
 
@@ -168,12 +168,12 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
             double vZ = dZ + this.targetedEntity.zd * dist / 7.5 - vec3.z() * d8;
             this.yBodyRot = this.yRot = -((float) Math.atan2(vX, vZ)) * 180.0F / 3.1415927F;
             if (this.canEntityBeSeen(this.targetedEntity)) {
-                if (this.attackCharge == 10 && this.world != null) {
+                if (this.attackCharge == 10) {
                     this.world.playSoundAtEntity(null, this, "aether:mob.zephyr.call", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                 }
 
                 ++this.attackCharge;
-                if (this.attackCharge == 20 && this.world != null) {
+                if (this.attackCharge == 20) {
                     this.world.playSoundAtEntity(null, this, "aether:mob.zephyr.shoot", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                     ProjectileWindball windball = new ProjectileWindball(this.world, this, vX, vY, vZ);
                     windball.setPos(this.x + vec3.x() * d8, this.y + (this.bbHeight / 2.0F) - 0.5, this.z + vec3.z() * d8);
@@ -192,7 +192,7 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
             }
         }
 
-        if (this.world != null && !this.world.isClientSide) {
+        if (!this.world.isClientSide) {
             byte chargeData = this.entityData.getByte(16);
             byte chargeState = (byte) (this.attackCharge <= 10 ? 0 : 1);
             if (chargeData != chargeState) {
@@ -201,8 +201,7 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
         }
     }
 
-    private Entity findPlayerToAttack() {
-        if (this.world == null) return null;
+    private @Nullable Entity findPlayerToAttack() {
         Player player = PlayerUtil.getClosestNonInvisPlayerToEntity(this.world, this, (float) 100.0);
         if (player == null || !this.canEntityBeSeen(player) || !player.getGamemode().hasHostileMobs()) {
             return null;
@@ -218,7 +217,7 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
 
         for (int i = 1; i < d3; ++i) {
             axisalignedbb.translate(d4, d5, d6);
-            if (this.world == null || !this.world.getCubes(this, axisalignedbb).isEmpty()) {
+            if (!this.world.getCubes(this, axisalignedbb).isEmpty()) {
                 return false;
             }
         }
@@ -261,8 +260,6 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
 
     @Override
     public boolean canSpawnHere() {
-        if (this.world == null) return false;
-
         boolean tooManyZephyrs = world.entities.stream()
             .filter(MobZephyr.class::isInstance)
             .filter(e -> e.distanceTo(this) <= 64)
@@ -270,15 +267,13 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
 
         if (tooManyZephyrs) return false;
 
-        int x = MathHelper.floor(this.x);
-        int y = MathHelper.floor(this.bb.minY);
-        int z = MathHelper.floor(this.z);
+        TilePos blockPos = new TilePos(this.x, this.bb.minY, this.z);
 
         return this.world.getDifficulty().canHostileMobsSpawn()
             && this.world.checkIfAABBIsClear(this.bb)
             && this.random.nextInt(10) == 0
             && this.world.getCubes(this, this.bb).isEmpty()
-            && this.world.canBlockSeeTheSky(x, y, z);
+            && this.world.canBlockSeeSky(blockPos);
     }
 
     @Override

@@ -11,6 +11,7 @@ import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 import org.joml.primitives.AABBd;
 import org.joml.primitives.AABBdc;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherMod;
 import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
 import teamport.aether.helper.ParticleMaker;
@@ -23,7 +24,7 @@ public class ProjectileElementLightning extends ProjectileElementBase implements
     private static final float HOMING_POWER = 0.15F;
     private static final float TOP_SPEED = 0.5F;
 
-    public static Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner) {
+    public static @NonNull Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner) {
         return getEntity(ProjectileElementLightning.class, world, x, y, z, meta, hasVelocity, xd, yd, zd, owner);
     }
 
@@ -54,7 +55,6 @@ public class ProjectileElementLightning extends ProjectileElementBase implements
 
     @Override
     public void tick() {
-        if (this.world == null) return;
         for (int j = 0; j < 2; j++) {
             ParticleMaker.spawnParticle(world, "lightning", this.x, this.y + 0.5, this.z, world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), world.rand.nextFloat() * 0.25F * -1, world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), 0);
         }
@@ -73,13 +73,12 @@ public class ProjectileElementLightning extends ProjectileElementBase implements
             List<Mob> entities = this.world.getEntitiesWithinAABB(Mob.class, searchBox);
             Player closestPlayer = null;
             for (Mob entity : entities) {
-                if (entity instanceof Player && entity.isAlive()) {
+                if (entity instanceof Player player && entity.isAlive()) {
                     double distance = this.distanceTo(entity);
-                    if (distance < 32.0f) {
-                        if (closestPlayer == null || distance < this.distanceTo(closestPlayer)) {
-                            closestPlayer = (Player) entity;
-                        }
+                    if (distance < 32.0f && (closestPlayer == null || distance < this.distanceTo(closestPlayer))) {
+                        closestPlayer = player;
                     }
+
                 }
             }
             this.target = closestPlayer;
@@ -110,26 +109,25 @@ public class ProjectileElementLightning extends ProjectileElementBase implements
     }
 
     @Override
-    public void onHit(HitResult hitResult) {
-        Entity hitEntity = hitResult instanceof HitResult.Entity ? ((HitResult.Entity) hitResult).entity : null;
-        if (this.world != null && !this.world.isClientSide) {
-            if (!(hitEntity instanceof MobBossValkyrie || hitEntity instanceof ProjectileElementBase)) {
-                if (hitEntity instanceof MobCreeper || hitEntity instanceof MobPig) {
-                    EntityLightning bolt = new EntityLightning(world, x, y, z);
-                    world.entityJoinedWorld(bolt);
-                    this.remove();
-                    doExplosion();
-                    return;
-                }
+    public void onHit(@NonNull HitResult hitResult) {
+        Entity hitEntity = hitResult instanceof HitResult.Entity entity ? entity.entity : null;
+        if (!this.world.isClientSide && !(hitEntity instanceof MobBossValkyrie || hitEntity instanceof ProjectileElementBase)) {
+            if (hitEntity instanceof MobCreeper || hitEntity instanceof MobPig) {
+                EntityLightning bolt = new EntityLightning(world, x, y, z);
+                world.entityJoinedWorld(bolt);
+                this.remove();
+                doExplosion();
+                return;
+            }
 
-                if (hitEntity instanceof Mob) {
-                    hitEntity.hurt(this.owner, this.damage, AetherMod.LIGHTNING);
-                    this.remove();
-                    doExplosion();
-                    return;
-                }
+            if (hitEntity instanceof Mob) {
+                hitEntity.hurt(this.owner, this.damage, AetherMod.LIGHTNING);
+                this.remove();
+                doExplosion();
+                return;
             }
         }
+
 
         super.onHit(hitResult);
     }

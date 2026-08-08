@@ -80,12 +80,10 @@ public class DynamicTextureDungeonCompass extends DynamicTexture {
                 lastPositionUpdateStamp = time;
             } else coord = positionCache;
 
-            if (coord != null) {
-                if (player.distanceTo(coord.getX(), player.y, coord.getZ()) > 16) {
-                    double distX = coord.getX() - player.x;
-                    double distZ = coord.getZ() - player.z;
-                    return (player.yRot - 90.0F) * Math.PI / 180.0 - Math.atan2(distZ, distX);
-                }
+            if (coord != null && player.distanceTo(coord.getX(), player.y, coord.getZ()) > 16) {
+                double distX = coord.getX() - player.x;
+                double distZ = coord.getZ() - player.z;
+                return (player.yRot - 90.0F) * Math.PI / 180.0 - Math.atan2(distZ, distX);
             }
         }
 

@@ -14,6 +14,7 @@ import net.minecraft.core.util.helper.Color;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import org.joml.primitives.AABBdc;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherArmorMaterial;
@@ -56,21 +57,21 @@ public class MixinHelper {
     public static void damageArmourWithEffect(int damage, Player player, double x, double y, double z, float bbHeight, float bbWidth) {
         if (((EntityAccessor) player).getRandom().nextFloat() < (double) 0.05F) {
             player.damageArmor(damage);
-            if (((EntityAccessor) player).getRandom().nextInt(6) == 0 && player.world != null) {
+            if (((EntityAccessor) player).getRandom().nextInt(6) == 0) {
                 player.world.playSoundAtEntity(null, player, "random.fizz", 0.5F, 0.8F / (((EntityAccessor) player).getRandom().nextFloat() * 0.2F + 0.9F));
             }
         }
         ParticleMaker.spawnSmokeParticles(player.world, x, y, z, bbHeight, bbWidth);
     }
 
-    public static boolean isImmuneToFire(MobWolf mobWolf) {
+    public static boolean isImmuneToFire(@NonNull MobWolf mobWolf) {
         net.minecraft.core.item.ItemStack armor = mobWolf.getArmorItem();
         if (armor == null || !(armor.getItem() instanceof net.minecraft.core.item.IArmorItem)) return false;
         ArmorMaterial armorMaterial = ((net.minecraft.core.item.IArmorItem<?>) armor.getItem()).getArmorMaterial();
         return armorMaterial != null && armorMaterial.equals(AetherArmorMaterial.PHOENIX);
     }
 
-    public static boolean isBrokenAABB(AABBdc aabb) {
+    public static boolean isBrokenAABB(@NonNull AABBdc aabb) {
         double diffX = Math.abs(aabb.maxX() - aabb.minX());
         double diffY = Math.abs(aabb.maxY() - aabb.minY());
         double diffZ = Math.abs(aabb.maxZ() - aabb.minZ());
@@ -94,7 +95,7 @@ public class MixinHelper {
                     );
                 }
                 Block<?> block = world.getBlockType(new TilePos((int) Math.round(entity.x), (int) Math.round(entity.y - 1), (int) Math.round(entity.z)));
-                String name = block == null ? "air" : block.getLanguageKey(0);
+                String name = block.getLanguageKey(0);
                 LOGGER.error("Currently standing on: {} at ", name);
                 LOGGER.error("Please send this log to a BWA developer!");
                 Thread.dumpStack();

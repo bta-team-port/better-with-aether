@@ -2,12 +2,12 @@ package teamport.aether.entity.animal.phow;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.render.entity.MobRendererQuadruped;
 import net.minecraft.core.util.helper.MathHelper;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.useless.dragonfly.models.entity.BoneTransform;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
-import teamport.aether.entity.animal.MobRendererQuadruped;
 
 @Environment(EnvType.CLIENT)
 public class MobRendererPhow extends MobRendererQuadruped<MobPhow> {

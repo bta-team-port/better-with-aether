@@ -14,7 +14,7 @@ import teamport.aether.item.accessory.ItemGloves;
 import static teamport.aether.AetherMod.ZANITE_MULTIPLIER;
 import static teamport.aether.item.accessory.SlotAccessory.GLOVES_SLOT;
 
-@Mixin(value = Player.class, remap = false)
+@Mixin(Player.class)
 public abstract class ContainerInventoryMixinGlovesDamage {
     @ModifyExpressionValue(
         method = "attackTargetEntityWithCurrentItem(Lnet/minecraft/core/entity/Entity;)V",
@@ -23,10 +23,9 @@ public abstract class ContainerInventoryMixinGlovesDamage {
     private int getGloveDamage(int original) {
         Player player = (Player) (Object) this;
         ItemStack stack = PlayerUtil.getArmorOrAccessoryItem(player, GLOVES_SLOT);
-        if (stack == null || !(stack.getItem() instanceof ItemGloves)) {
+        if (stack == null || !(stack.getItem() instanceof ItemGloves gloves)) {
             return original;
         }
-        ItemGloves gloves = (ItemGloves) stack.getItem();
         ArmorMaterial material = gloves.getArmorMaterial();
         if (material!= null && material == AetherArmorMaterial.ZANITE) {
             float durabilityProgress = (float) stack.getMetadata() / material.durability;

@@ -58,8 +58,7 @@ public class MimicEntry {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof MimicEntry)) return false;
-        MimicEntry that = (MimicEntry) o;
+        if (!(o instanceof MimicEntry that)) return false;
         return mimicVariant == that.mimicVariant && pathName.equalsIgnoreCase(that.pathName) && mimicChestID == that.mimicChestID && mimicChestMetadata == that.mimicChestMetadata && chestID == that.chestID && chestMetadata == that.chestMetadata;
     }
 

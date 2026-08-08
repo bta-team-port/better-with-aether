@@ -10,6 +10,7 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 import org.joml.Vector3dc;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 import teamport.aether.entity.monster.fireminion.MobFireMinion;
 import teamport.aether.helper.ParticleMaker;
@@ -17,7 +18,7 @@ import teamport.aether.helper.ParticleMaker;
 public class ProjectileElementIce extends ProjectileElementBase implements AetherProjectileDeathMessages {
     private static final String[] PARTICLES = {"block", "snowshovel"};
 
-    public static Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner) {
+    public static @NonNull Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner) {
         return getEntity(ProjectileElementIce.class, world, x, y, z, meta, hasVelocity, xd, yd, zd, owner);
     }
 
@@ -34,7 +35,6 @@ public class ProjectileElementIce extends ProjectileElementBase implements Aethe
 
     @Override
     public void tick() {
-        if (this.world == null) return;
         for (int j = 0; j < 2; j++) {
             if (random.nextInt(5) == 0) {
                 ParticleMaker.spawnParticle(world, "snowflake", this.x, this.y + 0.5, this.z, world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), 0, world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), 0);
@@ -46,12 +46,11 @@ public class ProjectileElementIce extends ProjectileElementBase implements Aethe
 
     @Override
     public void bounceSound() {
-        if (this.world != null) this.world.playSoundAtEntity(null, this, "step.permafrost", 2.0F, 1.0F);
+        this.world.playSoundAtEntity(null, this, "step.permafrost", 2.0F, 1.0F);
     }
 
     @Override
     public void doExplosion() {
-        if (world == null) return;
         int iceData = BlockParticleHelper.encodeBlockData(Blocks.ICE.id(), 0, Side.TOP);
         for (int i = 0; i < 16; i++) {
             double px = this.x + (world.rand.nextDouble()) - (world.rand.nextDouble() * 0.375);
@@ -65,11 +64,9 @@ public class ProjectileElementIce extends ProjectileElementBase implements Aethe
     }
 
     @Override
-    public void onHit(HitResult hitResult) {
-        Entity hitEntity = hitResult instanceof HitResult.Entity ? ((HitResult.Entity) hitResult).entity : null;
-        if (this.world != null && !this.world.isClientSide
-            && hitEntity != null
-            && !(hitEntity instanceof ProjectileElementBase)
+    public void onHit(@NonNull HitResult hitResult) {
+        Entity hitEntity = hitResult instanceof HitResult.Entity entity ? entity.entity : null;
+        if (!this.world.isClientSide && hitEntity != null && !(hitEntity instanceof ProjectileElementBase)
         ) {
             if (hitEntity instanceof MobBossSunspirit) {
                 if (this.owner instanceof Player) {
@@ -110,8 +107,8 @@ public class ProjectileElementIce extends ProjectileElementBase implements Aethe
     public boolean hurt(Entity entity, int damage, DamageType type) {
         this.markHurt();
         if (entity != null) {
-            if (entity instanceof Player) {
-                this.owner = (Player) entity;
+            if (entity instanceof Player player) {
+                this.owner = player;
             }
 
             Vector3dc lookAngle = entity.getViewVector(1.0F);

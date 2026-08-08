@@ -15,12 +15,12 @@ public class MobRendererSwet extends MobRenderer<MobSwet> {
         super(shadowSize);
     }
 
-    public void scaleSlime(MobSwet entityswets, float partialTick) {
+    public void scaleSlime(@NonNull MobSwet swet, float partialTick) {
         float f2 = 1.0F;
         float f1 = 1.0F;
         float f3 = 1.5F;
-        double yd = MathHelper.lerp(entityswets.getYdO(), entityswets.yd, partialTick);
-        if (!entityswets.onGround) {
+        double yd = MathHelper.lerp(swet.getYdO(), swet.yd, partialTick);
+        if (!swet.onGround) {
             if (yd > 0.85) {
                 f1 = 1.425F;
                 f2 = 0.575F;
@@ -34,8 +34,8 @@ public class MobRendererSwet extends MobRenderer<MobSwet> {
             }
         }
 
-        if (entityswets.passenger != null) {
-            f3 = 1.5F + (entityswets.passenger.bbWidth + entityswets.passenger.bbHeight) * 0.75F;
+        if (swet.passenger != null) {
+            f3 = 1.5F + (swet.passenger.bbWidth + swet.passenger.bbHeight) * 0.75F;
         }
 
         f1 = MathHelper.clamp(f1, 0.1F, 10.0F);

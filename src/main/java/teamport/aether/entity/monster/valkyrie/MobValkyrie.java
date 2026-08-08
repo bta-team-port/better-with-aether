@@ -4,7 +4,6 @@ import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
-import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.IItemHolding;
@@ -12,10 +11,10 @@ import net.minecraft.core.entity.MobPathfinder;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
-import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
+import net.minecraft.core.world.pos.TilePosc;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherMod;
 import teamport.aether.entity.AetherDeathMessage;
@@ -83,7 +82,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
         }
 
         this.moveSpeed = this.target == null ? 0.5F : 1.0F;
-        if (this.world != null && !this.world.getDifficulty().canHostileMobsSpawn() && this.target != null) {
+        if (!this.world.getDifficulty().canHostileMobsSpawn() && this.target != null) {
             this.target = null;
         }
 
@@ -131,7 +130,9 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
             int j = (int) this.y;
             int k = newZ + (this.random.nextInt(6) - this.random.nextInt(6));
 
-            if (j >= 0 && j <= 255 && this.isAirySpace(i, j, k) && this.isAirySpace(i, j + 1, k) && !this.isAirySpace(i, j - 1, k) && i >= dungeonXMin && i <= dungeonXMax && k >= dungeonZMin && k <= dungeonZMax) {
+            TilePos blockPos = new TilePos(i, j, k);
+
+            if (j >= 0 && j <= 255 && this.isAirySpace(blockPos) && this.isAirySpace(blockPos.up()) && !this.isAirySpace(blockPos.down()) && i >= dungeonXMin && i <= dungeonXMax && k >= dungeonZMin && k <= dungeonZMax) {
                 newX = i;
                 newY = j;
                 newZ = k;
@@ -142,13 +143,13 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
         if (!flag) {
             this.teleportFailed();
         } else {
-            if (!EnvironmentHelper.isServerEnvironment()) {
+            if (!EnvironmentHelper.isMultiplayerServer()) {
                 ParticleMaker.spawnParticle(this.world, "explode", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
                 ParticleMaker.spawnParticle(this.world, "smoke", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
                 ParticleMaker.spawnParticle(this.world, "largesmoke", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
             }
             this.setPos(newX + 0.5, newY, newZ + 0.5);
-            if (this.world != null) world.playSoundAtEntity(null, this, "mob.ghast.fireball", 1.0F, 1.0F / (random.nextFloat() * 0.4F + 0.8F));
+            world.playSoundAtEntity(null, this, "mob.ghast.fireball", 1.0F, 1.0F / (random.nextFloat() * 0.4F + 0.8F));
             this.xd = 0.0;
             this.yd = 0.0;
             this.zd = 0.0;
@@ -163,13 +164,13 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
         }
     }
 
-    public boolean isAirySpace(int x, int y, int z) {
-        if (this.world == null) return true;
-        int p = this.world.getBlockId(x, y, z);
-        Block<?> block = world.getBlock(x, y, z);
+    public boolean isAirySpace(TilePosc tilePos) {
+
+        int p = this.world.getBlockData(tilePos);
+        Block<?> block = world.getBlockType(tilePos);
         Block<?> blockTwo = Blocks.blocksList[p];
 
-        return p == 0 || blockTwo == null || blockTwo.getCollisionBoundingBoxFromPool(this.world, x, y, z) == null || block != null && block.getMaterial() == Materials.WATER;
+        return p == 0 || blockTwo == null || blockTwo.getCollisionAABB(this.world, tilePos) == null || block.getMaterial() == Materials.WATER;
     }
 
     @Override
@@ -198,7 +199,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
             String message = AetherMod.TRANSLATOR.translateKey(formatString);
             MessageMaker.sendMessage(entityplayer, message);
         }
-        if (this.world != null) world.playSoundAtEntity(null, this, "aether:mob.valkyrie.talk", 1.0f, 1.0f);
+        world.playSoundAtEntity(null, this, "aether:mob.valkyrie.talk", 1.0f, 1.0f);
         return true;
     }
 
@@ -250,10 +251,8 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
 
     @Override
     public boolean canSpawnHere() {
-        int i = MathHelper.floor(this.x);
-        int j = MathHelper.floor(this.bb.minY);
-        int k = MathHelper.floor(this.z);
-        return this.world != null && this.world.getFullBlockLightValue(i, j, k) > 8 && this.world.getIsAnySolidGround(this.bb) && this.world.getCollidingSolidBlockBoundingBoxes(this, this.bb).isEmpty() && !this.world.getIsAnyLiquid(this.bb);
+        TilePos blockPos = new TilePos(this.x, this.bb.minY, this.z);
+        return this.world.getFullBlockLightValue(blockPos) > 8 && this.world.getIsAnySolidGround(this.bb) && this.world.getCollidingSolidBlockBoundingBoxes(this, this.bb).isEmpty() && !this.world.getIsAnyLiquid(this.bb);
     }
 
     @Override
@@ -270,7 +269,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
 
     @Override
     public Entity findPlayerToAttack() {
-        return this.world != null && this.world.getDifficulty().canHostileMobsSpawn() ? super.getTarget() : null;
+        return this.world.getDifficulty().canHostileMobsSpawn() ? super.getTarget() : null;
     }
 
     @Override
@@ -283,12 +282,12 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
             super.hurt(attacker, damage / 2, type);
         }
 
-        if (attacker instanceof Player && this.world != null && this.world.getDifficulty().canHostileMobsSpawn()) {
+        if (attacker instanceof Player player && this.world.getDifficulty().canHostileMobsSpawn()) {
             int pokey = this.random.nextInt(3) + 1;
             if (this.target == null && this.chatTime <= 0) {
                 String formatString = String.format("%s.%d", "valkyrie.duel_start", pokey);
                 String message = AetherMod.TRANSLATOR.translateKey(formatString);
-                MessageMaker.sendMessage((Player) attacker, message);
+                MessageMaker.sendMessage(player, message);
                 this.chatTime = 60;
                 world.playSoundAtEntity(null, this, "aether:mob.valkyrie.talk", 1.0f, 1.0f);
             } else {
@@ -301,14 +300,14 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
                 this.dead = true;
                 String formatString = String.format("%s.%d", "valkyrie.submit", pokey);
                 String message = AetherMod.TRANSLATOR.translateKey(formatString);
-                MessageMaker.sendMessage((Player) attacker, message);
+                MessageMaker.sendMessage(player, message);
                 this.animateHurt();
             }
             return flag;
         } else {
             this.teleport(this.x, this.y, this.z, 4);
             this.remainingFireTicks = 0;
-            if (this.world != null) world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
+            world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
             return false;
         }
     }
@@ -319,17 +318,14 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
             this.attackTime = 20;
             this.swingArm();
             entity.hurt(this, ATTACK_STRENGTH, AetherMod.HOLY);
-            if (this.target != null && entity == this.target && entity instanceof Player) {
-                Player player = (Player) entity;
-                if (player.getHealth() <= 0) {
-                    int pokey = this.random.nextInt(3) + 1;
-                    String formatString = String.format("%s.%d", "valkyrie.attacked", pokey);
-                    String message = AetherMod.TRANSLATOR.translateKey(formatString);
-                    MessageMaker.sendMessage(player, message);
-                    if (this.world != null) world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 1.0f);
-                    this.target = null;
-                    this.chatTime = 0;
-                }
+            if (this.target != null && entity == this.target && entity instanceof Player player && player.getHealth() <= 0) {
+                int pokey = this.random.nextInt(3) + 1;
+                String formatString = String.format("%s.%d", "valkyrie.attacked", pokey);
+                String message = AetherMod.TRANSLATOR.translateKey(formatString);
+                MessageMaker.sendMessage(player, message);
+                world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 1.0f);
+                this.target = null;
+                this.chatTime = 0;
             }
         }
     }

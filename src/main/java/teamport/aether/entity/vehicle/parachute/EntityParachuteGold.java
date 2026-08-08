@@ -1,11 +1,11 @@
 package teamport.aether.entity.vehicle.parachute;
 
 import net.minecraft.core.world.World;
-import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 
 public class EntityParachuteGold extends EntityParachute {
-    public EntityParachuteGold(@Nullable World world) {
+    public EntityParachuteGold(@NonNull World world) {
         super(world);
         maxSpeed = 0.15F;
 

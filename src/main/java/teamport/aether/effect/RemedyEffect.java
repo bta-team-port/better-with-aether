@@ -39,15 +39,14 @@ public class RemedyEffect extends AetherEffect implements ILockInteractable {
 
     @Override
     public void lockTriggered(IHasEffects<?> hasEffects) {
-        if (!(hasEffects instanceof Mob)) {
+        if (!(hasEffects instanceof Mob mob)) {
             return;
         }
-        Mob mob = (Mob) hasEffects;
         spawnParticles(mob);
     }
 
     private static void spawnParticles(Mob mob) {
-        if (EnvironmentHelper.isSinglePlayer()) {
+        if (EnvironmentHelper.isSingleplayerClient()) {
             if (mob instanceof Player) {
                 ParticleMaker.spawnRemedyParticle(mob.world, mob.x, mob.y - mob.bbHeight, mob.z, mob.bbHeight, mob.bbWidth);
             } else {

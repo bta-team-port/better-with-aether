@@ -2,23 +2,22 @@ package teamport.aether.entity.floating_block;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.Lighting;
 import net.minecraft.client.render.TileEntityRenderDispatcher;
 import net.minecraft.client.render.block.model.BlockModelDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.renderer.BlendFactor;
 import net.minecraft.client.render.renderer.GLRenderer;
+import net.minecraft.client.render.renderer.Shaders;
 import net.minecraft.client.render.renderer.State;
 import net.minecraft.client.render.tessellator.TessellatorGeneral;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.client.render.tileentity.TileEntityRenderer;
-import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
-import net.minecraft.core.block.motion.CarriedBlock;
-import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.BlocksContainer;
 import net.minecraft.core.world.pos.TilePos;
+import org.jspecify.annotations.NonNull;
+import org.lwjgl.opengl.GL41;
 
 @Environment(EnvType.CLIENT)
 public class EntityRendererFloatingBlock extends EntityRenderer<EntityFloatingBlock> {
@@ -28,56 +27,42 @@ public class EntityRendererFloatingBlock extends EntityRenderer<EntityFloatingBl
         super(0.5F);
     }
 
-    @Override
-    public void render(TessellatorGeneral tessellator, EntityFloatingBlock floatingBlock, double x, double y, double z, float yaw, float partialTick) {
+    public void render(@NonNull TessellatorGeneral tessellator, @NonNull EntityFloatingBlock floatingBlock, double x, double y, double z, float yaw, float partialTick) {
         if (this.container == null || this.container.world != floatingBlock.world) {
             this.container = new BlocksContainer(floatingBlock.world);
         }
 
         GLRenderer.pushFrame();
+        GLRenderer.setColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        GLRenderer.setLightmapCoord2f(15.0F, 15.0F);
         GLRenderer.modelM4f().translate((float) x, (float) y, (float) z);
+        GLRenderer.setShader(Shaders.ITEM);
         TextureRegistry.worldAtlas.bind();
-        Lighting.disable();
+        GL41.glActiveTexture(33986);
+        TextureRegistry.worldAtlas.layerTextureMap.get("emissive").bind();
+        GL41.glActiveTexture(33987);
+        TextureRegistry.worldAtlas.layerTextureMap.get("maskColor").bind();
+        GL41.glActiveTexture(33984);
         GLRenderer.setBlendFunc(BlendFactor.SRC_ALPHA, BlendFactor.ONE_MINUS_SRC_ALPHA);
         GLRenderer.enableState(State.BLEND);
         GLRenderer.disableState(State.CULL_FACE);
-
-        int blockX = MathHelper.floor(floatingBlock.x);
-        int blockY = MathHelper.floor(floatingBlock.y);
-        int blockZ = MathHelper.floor(floatingBlock.z);
-        TilePos blockPos = new TilePos(blockX, blockY, blockZ);
-        CarriedBlock carriedBlock = floatingBlock.getCarriedBlock();
-        Block<?> block = Blocks.getBlock(carriedBlock.blockId);
-
-        if (block != null) {
-            tessellator.startDrawingQuads();
-            tessellator.setTranslation((-blockX) - 0.5, (-blockY) - 0.5, (-blockZ) - 0.5);
-
-            this.container.partialTick = partialTick;
-            this.container.setLightReferenceEntity(floatingBlock);
-            this.container.setBlock(blockX, blockY, blockZ, carriedBlock.blockId, carriedBlock.metadata, carriedBlock.entity);
-
-            BlockModelDispatcher.getInstance().getDispatch(block).renderNoCulling(tessellator, this.container, blockPos);
-
-            this.container.setLightReferenceEntity(null);
-            this.container.clear();
-
-            tessellator.setTranslation(0.0, 0.0, 0.0);
-            tessellator.draw();
-        }
-
-        Lighting.enableLight();
+        TilePos blockPos = new TilePos(floatingBlock);
+        tessellator.startDrawingQuads();
+        tessellator.setTranslation((double) (-blockPos.x) - (double) 0.5F, (double) (-blockPos.y) - (double) 0.5F, (double) (-blockPos.z) - (double) 0.5F);
+        this.container.setLightReferenceEntity(floatingBlock);
+        this.container.setBlock(blockPos.x, blockPos.y, blockPos.z, floatingBlock.carriedBlock.blockId, floatingBlock.carriedBlock.metadata, floatingBlock.carriedBlock.entity);
+        BlockModelDispatcher.getInstance().getDispatch(Blocks.getBlock(floatingBlock.carriedBlock.blockId)).renderNoCulling(GLRenderer.getTessellator(), this.container, blockPos);
+        this.container.setLightReferenceEntity(null);
+        this.container.clear();
+        tessellator.setTranslation(0.0F, 0.0F, 0.0F);
+        tessellator.draw();
         GLRenderer.popFrame();
-
-        TileEntity tileEntity = carriedBlock.entity;
-        if (tileEntity == null) {
-            return;
-        }
-        TileEntityRenderer<TileEntity> renderer = TileEntityRenderDispatcher.instance.getRenderer(tileEntity);
+        TileEntityRenderer<TileEntity> renderer = TileEntityRenderDispatcher.instance.getRenderer(floatingBlock.carriedBlock.entity);
         if (renderer != null) {
             GLRenderer.pushFrame();
-            renderer.doRender(tessellator, tileEntity, x - 0.5, y - 0.5, z - 0.5, partialTick);
+            renderer.doRender(tessellator, floatingBlock.carriedBlock.entity, x - (double) 0.5F, y - (double) 0.5F, z - (double) 0.5F, partialTick);
             GLRenderer.popFrame();
         }
+
     }
 }

@@ -17,7 +17,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = ScreenSelectWorld.class, remap = false, priority = 0)
+@Mixin(value = ScreenSelectWorld.class, priority = 0)
 public abstract class UNWarnMixin extends Screen {
     @Shadow
     private List<SaveFile> saveList;
@@ -27,8 +27,8 @@ public abstract class UNWarnMixin extends Screen {
     private int selectedWorld;
 
     @WrapMethod(method = "selectWorld")
-    private void aether$warnAboutMissingUselessNumericalData(int index, Operation<Void> original) {
-        SaveFile save = this.saveList.get(index);
+    private void aether$warnAboutMissingUselessNumericalData(int i, Operation<Void> original) {
+        SaveFile save = this.saveList.get(i);
         Path savePath = this.mc.getMinecraftDir().toPath().resolve("saves").resolve(save.getFileName());
         Path aetherDimension = savePath.resolve("dimensions").resolve(Integer.toString(AetherDimension.getAether().id));
 
@@ -39,6 +39,6 @@ public abstract class UNWarnMixin extends Screen {
             return;
         }
 
-        original.call(index);
+        original.call(i);
     }
 }

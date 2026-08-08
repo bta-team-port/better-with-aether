@@ -14,6 +14,7 @@ import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.gui.AetherScreens;
 import teamport.aether.item.AetherItems;
@@ -25,14 +26,14 @@ public class BlockLogicPaintableSignSkyroot extends BlockLogicSign implements IP
     }
 
     @Override
-    public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
+    public ItemStack[] getBreakResult(@NonNull World world, @NonNull EnumDropCause dropCause, int meta, TileEntity tileEntity) {
         return new ItemStack[]{new ItemStack(AetherItems.SIGN_SKYROOT)};
     }
 
     @Override
-    public boolean onInteracted(World world, TilePosc pos, Player player, Side side, double xPlaced, double yPlaced) {
+    public boolean onInteracted(World world, @NonNull TilePosc pos, @NonNull Player player, Side side, double xPlaced, double yPlaced) {
         TileEntitySign signEntity = (TileEntitySign) world.getTileEntity(pos);
-        if (signEntity != null && player != null) {
+        if (signEntity != null) {
             if (player.getHeldItem() != null && player.getHeldItem().itemID == Items.DUST_GLOWSTONE.id && !signEntity.isGlowing()) {
                 signEntity.setGlowing(true);
                 if (player.getGamemode().hasBlockConsumption()) {
@@ -51,7 +52,7 @@ public class BlockLogicPaintableSignSkyroot extends BlockLogicSign implements IP
     }
 
     @Override
-    public void setColor(World world, TilePosc pos, DyeColor color) {
+    public void setColor(@NonNull World world, @NonNull TilePosc pos, @NonNull DyeColor color) {
         int meta = world.getBlockData(pos);
         world.setBlockTypeRaw(pos, this.isFreeStanding ? AetherBlocks.SIGN_POST_PLANKS_SKYROOT_PAINTED : AetherBlocks.SIGN_WALL_PLANKS_SKYROOT_PAINTED);
         world.setBlockDataNotify(pos, color.blockMeta << 4 | meta & 15);

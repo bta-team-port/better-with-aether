@@ -4,7 +4,6 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.sound.SoundCategory;
-import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
@@ -15,8 +14,6 @@ import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.entity.projectile.ProjectileElementLightning;
 import teamport.aether.helper.ParticleMaker;
-
-;
 
 @SuppressWarnings("java:S110")
 public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMessage {
@@ -80,8 +77,7 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
 
     @Override
     protected Entity findPlayerToAttack() {
-        if (this.world == null) return null;
-        Player entityplayer =  PlayerUtil.getClosestNonInvisPlayerToEntity(this.world, this, 16.0);
+        Player entityplayer = PlayerUtil.getClosestNonInvisPlayerToEntity(this.world, this, 16.0);
         return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().hasHostileMobs() ? entityplayer : null;
     }
 
@@ -94,13 +90,13 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
     }
 
     @Override
-    public void causeFallDamage(float distance){/* dont take fall damage*/}
+    public void causeFallDamage(float distance) {/* dont take fall damage*/}
 
     @Override
     @SuppressWarnings("java:S131")
     public boolean collidesWith(Entity entity) {
         float launchSpeed = 0.75F;
-        if (this.world != null && !(entity instanceof MobWhirly)) {
+        if (!(entity instanceof MobWhirly)) {
             float launchHeightSpeed = launchSpeed / 2.0f;
             entity.fling(world.rand.nextGaussian(), launchHeightSpeed, world.rand.nextGaussian(), 0);
             return false;
@@ -134,5 +130,5 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
     }
 
     @Override
-    protected void jump(){/* looks weird if it jumps */}
+    protected void jump() {/* looks weird if it jumps */}
 }

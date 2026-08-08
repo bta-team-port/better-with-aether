@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.world.AetherDimension;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = Minecraft.class)
+@Mixin(Minecraft.class)
 public class ClearLevelDataMixin {
     @Inject(method = "startWorld(Ljava/lang/String;)V", at = @At("HEAD"))
     public void clearDataStartWorld(String worldDirName, CallbackInfo ci) {
@@ -20,7 +20,7 @@ public class ClearLevelDataMixin {
     }
 
     @Inject(method = "createAndStartWorld(Lnet/minecraft/core/world/settings/WorldConfiguration;)V", at = @At("HEAD"))
-    public void clearDataCreateAndStartWorld(WorldConfiguration config, CallbackInfo ci) {
+    public void clearDataCreateAndStartWorld(WorldConfiguration worldConfiguration, CallbackInfo ci) {
         AetherDimension.setDimensionDataDefaults();
         AetherDimension.setWorldDataDefaults();
     }

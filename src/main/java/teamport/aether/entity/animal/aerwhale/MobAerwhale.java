@@ -1,19 +1,15 @@
 package teamport.aether.entity.animal.aerwhale;
 
-import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.MobFlying;
 import net.minecraft.core.entity.animal.AmbientCreature;
-import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.HitResult;
-import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import org.joml.Vector3d;
 import teamport.aether.entity.MobUtil;
-import turniplabs.halplibe.helper.EnvironmentHelper;
 
 public class MobAerwhale extends MobFlying implements AmbientCreature {
     private static final double CRUISE_SPEED = 0.22;
@@ -66,7 +62,7 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
     @Override
     @SuppressWarnings("java:S131")
     public void updateAI() {
-        if (this.world == null || this.world.isClientSide) return;
+        if (this.world.isClientSide) return;
 
         double waypointDistance = this.distanceToSqr(this.waypointX, this.waypointY, this.waypointZ);
         if (--this.waypointTicks <= 0 || waypointDistance < 64.0) {
@@ -128,7 +124,6 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
     @Override
     public void tick() {
         super.baseTick();
-        if (this.world == null) return;
 
         if (this.world.isClientSide) {
             this.lerpPosAndRot();
@@ -193,7 +188,7 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
 
     @Override
     public void spawnInit() {
-        if (this.world != null && this.world.getBlockId((int) (this.x + 0.5), (int) (this.y + 25), (int) (this.z + 0.5)) == 0) {
+        if (this.world.getBlockId((int) (this.x + 0.5), (int) (this.y + 25), (int) (this.z + 0.5)) == 0) {
             this.moveTo(this.x, this.y + 25, this.z, this.yRot, 0.0F);
         }
     }
@@ -203,11 +198,10 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
         int x = MathHelper.floor(this.x);
         int y = MathHelper.floor(this.bb.minY);
         int z = MathHelper.floor(this.z);
-        return this.world != null && this.world.checkIfAABBIsClear(this.bb) && this.world.getCollidingSolidBlockBoundingBoxes(this, this.bb).isEmpty() && !this.world.isAABBInMaterial(this.bb, Materials.WATER) && this.world.getFullBlockLightValue(x, y, z) > 8;
+        return this.world.checkIfAABBIsClear(this.bb) && this.world.getCollidingSolidBlockBoundingBoxes(this, this.bb).isEmpty() && !this.world.isAABBInMaterial(this.bb, Materials.WATER) && this.world.getFullBlockLightValue(x, y, z) > 8;
     }
 
     public double openSpace(float rotationyRotOffset, float rotationPitchOffset) {
-        if (this.world == null) return 50.0;
         float yRot = this.yRot + rotationyRotOffset;
         float pitch = this.xRot + rotationPitchOffset;
         Vector3d vec3d = new Vector3d(this.x, this.y, this.z);

@@ -7,6 +7,7 @@ import net.minecraft.client.gui.guidebook.SlotGuidebook;
 import net.minecraft.client.render.TextureManager;
 import net.minecraft.client.render.renderer.GLRenderer;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.gui.guidebook.AetherSlotGuidebook;
 import teamport.aether.gui.guidebook.RecipePageAetherMachines;
 import teamport.aether.recipe.RecipeEntryAetherMachine;
@@ -22,7 +23,7 @@ public class RecipePageFreezer extends RecipePageAetherMachines {
     }
 
     @Override
-    public void buildSlots(List<RecipeEntryAetherMachine> recipes) {
+    public void buildSlots(@NonNull List<RecipeEntryAetherMachine> recipes) {
         for (RecipeEntryAetherMachine recipe : recipes) {
             List<SlotGuidebook> recipeSlots = new ArrayList<>();
             recipeSlots.add(new AetherSlotGuidebook(0, 47, 32 * (this.getMap().size() + 1) - 16, recipe.getInput(), false, recipe));

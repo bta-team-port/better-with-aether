@@ -5,6 +5,7 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.MethodParametersAnnotation;
 import net.minecraft.core.world.generate.feature.WorldFeature;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 
 import java.util.Random;
@@ -18,7 +19,7 @@ public class WorldFeatureAetherLiquid extends WorldFeature {
     }
 
     @Override
-    public boolean place(World world, Random random, int x, int y, int z) {
+    public boolean place(@NonNull World world, Random random, int x, int y, int z) {
         if (world.getBlockId(x, y + 1, z) != AetherBlocks.COBBLE_HOLYSTONE.id()) {
             return false;
         } else if (world.getBlockId(x, y - 1, z) != AetherBlocks.COBBLE_HOLYSTONE.id()) {

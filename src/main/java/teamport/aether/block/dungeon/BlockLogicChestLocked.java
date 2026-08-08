@@ -14,6 +14,7 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 
 public class BlockLogicChestLocked extends BlockLogicRotatable {
     private final ItemStack key;
@@ -29,20 +30,20 @@ public class BlockLogicChestLocked extends BlockLogicRotatable {
     }
 
     @Override
-    public int getPistonPushReaction(World world, TilePosc pos) {
+    public int getPistonPushReaction(@NonNull World world, @NonNull TilePosc pos) {
         return this.locked
             ? Material.PISTON_CANT_PUSH
             : super.getPistonPushReaction(world, pos);
     }
 
     @Override
-    public boolean onInteracted(World world, TilePosc pos, Player player, Side side, double xHit, double yHit) {
+    public boolean onInteracted(@NonNull World world, TilePosc pos, @NonNull Player player, Side side, double xHit, double yHit) {
         return onBlockRightClicked(world, pos.x(), pos.y(), pos.z(), player, side, xHit, yHit);
     }
 
     @Override
     @SuppressWarnings("java:S3516")
-    public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced) {
+    public boolean onBlockRightClicked(@NonNull World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced) {
         if (this.locked && !player.gamemode.hasInvulnerablePlayer()) {
             ItemStack item = player.getHeldItem();
 
@@ -60,7 +61,7 @@ public class BlockLogicChestLocked extends BlockLogicRotatable {
     }
 
     @Override
-    public float blockStrength(World world, int x, int y, int z, Side side, Player player) {
+    public float blockStrength(@NonNull World world, int x, int y, int z, @NonNull Side side, @NonNull Player player) {
         if (this.block.blockHardness < 0.0F) {
             return 0.0F;
         } else {

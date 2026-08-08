@@ -5,6 +5,7 @@ import net.minecraft.core.world.chunk.Chunk;
 import net.minecraft.core.world.generate.chunk.perlin.DensityGenerator;
 import net.minecraft.core.world.noise.FractalNoise3D;
 import net.minecraft.core.world.noise.ImprovedPerlinNoise;
+import org.jspecify.annotations.NonNull;
 
 public class DensityGeneratorAetherExtended implements DensityGenerator {
     private final World world;
@@ -13,7 +14,7 @@ public class DensityGeneratorAetherExtended implements DensityGenerator {
     private final FractalNoise3D<ImprovedPerlinNoise> maxLimitNoise;
     private final FractalNoise3D<ImprovedPerlinNoise> mainNoise;
 
-    public DensityGeneratorAetherExtended(World world) {
+    public DensityGeneratorAetherExtended(@NonNull World world) {
         this.world = world;
 
         minLimitNoise = new FractalNoise3D<>(ImprovedPerlinNoise.genOctaves(world.getRandomSeed(), 16, 0));
@@ -22,7 +23,7 @@ public class DensityGeneratorAetherExtended implements DensityGenerator {
     }
 
     @Override
-    public double[] generateDensityMap(Chunk chunk) {
+    public double @NonNull [] generateDensityMap(@NonNull Chunk chunk) {
         int terrainHeight = (world.getWorldType().getMaxY(world) + 1) - world.getWorldType().getMinY(world);
 
         int xSize = 5;

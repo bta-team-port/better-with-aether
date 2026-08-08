@@ -141,7 +141,7 @@ public class AetherRecipes {
     }
 
     public static void oreGemGroups() {
-        Registries.ITEM_GROUPS.register("aether:gems", Registries.stackListOf(AetherBlocks.BLOCK_GRAVITITE));
+        Registries.ITEM_GROUPS.register("aether:gems", Registries.stackListOf(AetherBlocks.BLOCK_GRAVITITE, Items.DIAMOND));
         Registries.ITEM_GROUPS.register("aether:sticks", Registries.stackListOf(AetherItems.STICK_SKYROOT, Items.STICK));
         Registries.ITEM_GROUPS.register("aether:ambrosium_ores", Registries.stackListOf(AetherBlocks.ORE_AMBROSIUM_HOLYSTONE));
         Registries.ITEM_GROUPS.register("aether:zanite_ores", Registries.stackListOf(AetherBlocks.ORE_ZANITE_HOLYSTONE));

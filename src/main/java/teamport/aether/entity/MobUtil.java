@@ -5,6 +5,7 @@ import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.helper.MathHelper;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherArmorMaterial;
 
@@ -23,8 +24,8 @@ public class MobUtil {
         double distX = attacker.x - target.x;
         double distZ = attacker.z - target.z;
 
-        if(target instanceof Player){
-            int count = PlayerUtil.countArmorPiecesOfMaterial(((Player)target).inventory, AetherArmorMaterial.OBSIDIAN);
+        if(target instanceof Player player){
+            int count = PlayerUtil.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.OBSIDIAN);
             if (count >= 5) {
                 return;
             }
@@ -74,7 +75,7 @@ public class MobUtil {
         return MobUtil.killMob(mob, null);
     }
 
-    public static boolean killMob(Mob mob, Entity attack) {
+    public static boolean killMob(@NonNull Mob mob, Entity attack) {
         mob.setHealthRaw(0);
         mob.playDeathSound();
         mob.onDeath(attack);

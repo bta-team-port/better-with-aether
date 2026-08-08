@@ -3,6 +3,7 @@ package teamport.aether.entity.monster.mimic;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.util.helper.DyeColor;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 
 import java.util.ArrayList;
@@ -50,7 +51,7 @@ public class MimicRegistry {
         this.MIMIC_ENTRY_LIST.add(mimicEntry(mimicVariant, pathName, mimicChestId, mimicChestMetadata, chestID, chestMetadata));
     }
 
-    protected void addEntry(int mimicVariant, String pathName, Block<?> mimicChest, Block<?> chest) {
+    protected void addEntry(int mimicVariant, String pathName, @NonNull Block<?> mimicChest, @NonNull Block<?> chest) {
         this.MIMIC_ENTRY_LIST.add(mimicEntry(mimicVariant, pathName, mimicChest.id(), 0, chest.id(), 0));
     }
 
@@ -92,7 +93,7 @@ public class MimicRegistry {
         return DEFAULT;
     }
 
-    public static MimicEntry getRandomEntry(Random random) {
+    public static MimicEntry getRandomEntry(@NonNull Random random) {
         return instance.MIMIC_ENTRY_LIST.get(random.nextInt(instance.MIMIC_ENTRY_LIST.size()));
     }
 

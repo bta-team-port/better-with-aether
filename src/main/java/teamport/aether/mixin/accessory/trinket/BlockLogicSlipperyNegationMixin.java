@@ -19,14 +19,13 @@ import teamport.aether.entity.player.PlayerUtil;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
 
-@Mixin(value = Mob.class, remap = false)
+@Mixin(Mob.class)
 public abstract class BlockLogicSlipperyNegationMixin {
     @WrapOperation(method = "moveEntityWithHeading(FF)V", at = @At(value = "FIELD", target = "Lnet/minecraft/core/block/Block;friction:F", opcode = Opcodes.GETFIELD))
     private float adjustFriction(Block<?> instance, Operation<Float> original) {
         Mob mob = (Mob) (Object) this;
-        if (!(mob instanceof Player)) return original.call(instance);
+        if (!(mob instanceof Player player)) return original.call(instance);
 
-        Player player = (Player) mob;
         World world = player.world;
         if (world == null) return original.call(instance);
         int x = (int) Math.floor(player.x);

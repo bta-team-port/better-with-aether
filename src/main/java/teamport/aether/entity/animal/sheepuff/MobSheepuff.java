@@ -10,7 +10,6 @@ import net.minecraft.core.enums.EnumBlockSoundEffectType;
 import net.minecraft.core.item.ItemDye;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.tool.ItemToolShears;
-import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
@@ -64,7 +63,6 @@ public class MobSheepuff extends MobAetherAnimal {
 
     @Override
     public boolean interact(@NonNull Player player) {
-        if (this.world == null) return super.interact(player);
         if (super.interact(player)) return true;
 
         ItemStack heldItem = player.inventory.getCurrentItem();
@@ -117,7 +115,7 @@ public class MobSheepuff extends MobAetherAnimal {
         return true;
     }
 
-    public void onItemInteract(ItemStack itemStack) {
+    public void onItemInteract(@NonNull ItemStack itemStack) {
         boolean canShear = this.getPuffed() || (!this.getSheared() && !this.getPuffed());
         if (itemStack.getItem() instanceof ItemToolShears && canShear) {
 
@@ -174,7 +172,6 @@ public class MobSheepuff extends MobAetherAnimal {
 
     @Override
     public void onLivingUpdate() {
-        if (this.world == null) return;
         super.onLivingUpdate();
 
         if (!this.getPuffed()) {
@@ -242,12 +239,8 @@ public class MobSheepuff extends MobAetherAnimal {
         }
     }
 
-    private Block<?> getBlockBelow() {
-        return this.world.getBlock(
-            MathHelper.floor(this.x),
-            MathHelper.floor(this.y - 0.1),
-            MathHelper.floor(this.z)
-        );
+    private @NonNull Block<?> getBlockBelow() {
+        return this.world.getBlock(MathHelper.floor(this.x), MathHelper.floor(this.y - 0.1), MathHelper.floor(this.z));
     }
 
     private boolean isValidGrass(Block<?> block) {
@@ -273,7 +266,7 @@ public class MobSheepuff extends MobAetherAnimal {
         return DyeColor.colorFromBlockMeta(this.entityData.getByte(16) & 15);
     }
 
-    public void setFleeceColor(DyeColor color) {
+    public void setFleeceColor(@NonNull DyeColor color) {
         byte woolState = this.entityData.getByte(16);
         this.entityData.set(16, (byte) (woolState & -16 | color.blockMeta & 15));
     }
@@ -306,11 +299,11 @@ public class MobSheepuff extends MobAetherAnimal {
 
     }
 
-    public static DyeColor getRandomFleeceColor(Random random) {
+    public static DyeColor getRandomFleeceColor(@NonNull Random random) {
         int i = random.nextInt(100);
-        if(i < 5){
+        if (i < 5) {
             return DyeColor.LIGHT_BLUE;
-        }else if(i < 10){
+        } else if (i < 10) {
             return DyeColor.CYAN;
         } else if (i < 15) {
             return DyeColor.LIME;

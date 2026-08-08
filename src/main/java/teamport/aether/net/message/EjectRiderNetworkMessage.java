@@ -10,7 +10,7 @@ public class EjectRiderNetworkMessage implements NetworkMessage {
 
     public EjectRiderNetworkMessage() {}
 
-    public EjectRiderNetworkMessage(Entity vehicle) {
+    public EjectRiderNetworkMessage(@NonNull Entity vehicle) {
         this.vehicle = vehicle.id;
     }
 
@@ -25,8 +25,8 @@ public class EjectRiderNetworkMessage implements NetworkMessage {
     }
 
     @Override
-    public void handleClientEnv(NetworkContext context) {
-        if (context.player == null || context.player.world == null) return;
+    public void handleClientEnv(@NonNull NetworkContext context) {
+        if (context.player == null) return;
         Entity entity = context.player.id == vehicle
             ? context.player
             : context.player.world.getEntityByID(vehicle);

@@ -10,6 +10,7 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.world.WorldSource;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelAetherStoneMossy<T extends BlockLogic> extends BlockModelStandard<T> {
@@ -20,7 +21,7 @@ public class BlockModelAetherStoneMossy<T extends BlockLogic> extends BlockModel
     }
 
     @Override
-    public boolean render(TessellatorGeneral tessellator, WorldSource blockAccess, TilePosc pos) {
+    public boolean render(@NonNull TessellatorGeneral tessellator, @NonNull WorldSource blockAccess, @NonNull TilePosc pos) {
         boolean rendered = super.render(tessellator, blockAccess, pos);
         renderBlocks.overrideBlockTexture = mossOverlay;
         boolean overlayRendered = super.render(tessellator, blockAccess, pos);
@@ -29,7 +30,7 @@ public class BlockModelAetherStoneMossy<T extends BlockLogic> extends BlockModel
     }
 
     @Override
-    public void renderStandalone(TessellatorGeneral tessellator, int metadata, byte lightmap) {
+    public void renderStandalone(@NonNull TessellatorGeneral tessellator, int metadata, byte lightmap) {
         super.renderStandalone(tessellator, metadata, lightmap);
         renderBlocks.overrideBlockTexture = mossOverlay;
         super.renderStandalone(tessellator, metadata, lightmap);

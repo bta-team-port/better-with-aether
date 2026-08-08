@@ -6,6 +6,7 @@ import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.data.registry.recipe.SearchQuery;
 import net.minecraft.core.data.registry.recipe.adapter.RecipeJsonAdapter;
 import net.minecraft.core.item.ItemStack;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class RecipeEntryIncubator extends RecipeEntryBase<RecipeSymbol, RecipeEn
         return this.getInput().matches(stack);
     }
 
-    public boolean matchesQuery(SearchQuery query) {
+    public boolean matchesQuery(@NonNull SearchQuery query) {
         switch (query.mode) {
             case ALL: {
                 if ((matchesRecipe(query) || matchesUsage(query))) return true;
@@ -48,7 +49,7 @@ public class RecipeEntryIncubator extends RecipeEntryBase<RecipeSymbol, RecipeEn
     }
 
 
-    public boolean matchesRecipe(SearchQuery query) {
+    public boolean matchesRecipe(@NonNull SearchQuery query) {
         if (query.query.getLeft() == SearchQuery.QueryType.NAME) {
             if (query.strict && this.getOutput().getEntity().equalsIgnoreCase(query.query.getRight())) {
                 return true;

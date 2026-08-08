@@ -8,6 +8,7 @@ import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import net.minecraft.core.world.pos.TilePos;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.dungeon.BlockLogicChestLocked;
 import teamport.aether.helper.AetherMathHelper;
 
@@ -33,16 +34,16 @@ public class WorldFeatureAetherTreasureChest extends WorldFeature {
     }
 
     @Override
-    public boolean place(World world, Random random, int ix, int iy, int iz) {
+    public boolean place(@NonNull World world, Random random, int ix, int iy, int iz) {
         TilePos pos = new TilePos(ix, iy, iz);
         Block<?> block = world.getBlock(ix, iy, iz);
-        Container inventory = block == null ? null : getOrCreateChestInventory(world, pos);
-        if (block != null && inventory != null && block.getLogic() instanceof BlockLogicChestLocked) {
+        Container inventory = getOrCreateChestInventory(world, pos);
+        if (inventory != null && block.getLogic() instanceof BlockLogicChestLocked) {
             for (int i = 0; i < inventory.getContainerSize(); i++) {
                 inventory.setItem(i, null);
             }
         }
-        if (block == null || block.id() != chestID) {
+        if (block.id() != chestID) {
             world.setBlockAndMetadataWithNotify(ix, iy, iz, chestID, chestMetadata);
         }
         this.setTreasure(world, random, ix, iy, iz);

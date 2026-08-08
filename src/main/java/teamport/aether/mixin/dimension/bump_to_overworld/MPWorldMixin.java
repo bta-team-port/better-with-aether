@@ -6,6 +6,7 @@ import net.minecraft.core.Global;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.save.LevelStorage;
 import net.minecraft.server.world.WorldServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -15,11 +16,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.world.AetherDimension;
 
 @Environment(EnvType.SERVER)
-@Mixin(value = WorldServer.class, remap = false)
+@Mixin(WorldServer.class)
 public abstract class MPWorldMixin extends World {
     protected MPWorldMixin() {
-        super((net.minecraft.core.world.save.LevelStorage) null, (net.minecraft.core.world.settings.WorldConfiguration) null, (Dimension) null);
+        super((LevelStorage) null, null, null);
     }
+
     @Unique
     private int cooldown = Global.TICKS_PER_SECOND;
     @Inject(method = "tick()V", at = @At("RETURN"))

@@ -4,7 +4,6 @@ import net.minecraft.core.Global;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicRotatable;
 import net.minecraft.core.block.entity.TileEntity;
-import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumDropCause;
@@ -34,25 +33,20 @@ public class BlockLogicFreezer extends BlockLogicRotatable {
     }
 
     @Override
-    public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
-        switch (dropCause) {
-            case PICK_BLOCK:
-            case EXPLOSION:
-            case PROPER_TOOL:
-            case SILK_TOUCH:
-            case PISTON_CRUSH:
-                return new ItemStack[]{new ItemStack(AetherBlocks.FREEZER_IDLE)};
-            default:
-                return null;
-        }
+    public ItemStack[] getBreakResult(@NonNull World world, @NonNull EnumDropCause dropCause, int meta, TileEntity tileEntity) {
+        return switch (dropCause) {
+            case PICK_BLOCK, EXPLOSION, PROPER_TOOL, SILK_TOUCH, PISTON_CRUSH ->
+                new ItemStack[]{new ItemStack(AetherBlocks.FREEZER_IDLE)};
+            default -> null;
+        };
     }
 
     @Override
-    public void animationTick(World world, int x, int y, int z, Random rand) {
+    public void animationTick(@NonNull World world, @NonNull TilePosc tilePos, @NonNull Random rand) {
         if (this.isActive) {
-            double poxX = x + 0.5;
-            double posY = y + 1.0 + (rand.nextDouble() * 6.0 / 16.0);
-            double posZ = z + 0.5;
+            double poxX = tilePos.x() + 0.5;
+            double posY = tilePos.y() + 1.0 + (rand.nextDouble() * 6.0 / 16.0);
+            double posZ = tilePos.z() + 0.5;
             for (int i = 0; i < 3; i++) {
                 double maxSpeedX = rand.nextGaussian() * 0.05;
                 double maxSpeedZ = rand.nextGaussian() * 0.05;
@@ -64,7 +58,7 @@ public class BlockLogicFreezer extends BlockLogicRotatable {
 
 
     @Override
-    public boolean onInteracted(World world, TilePosc pos, Player player, Side side, double xPlaced, double yPlaced) {
+    public boolean onInteracted(@NonNull World world, @NonNull TilePosc pos, @NonNull Player player, Side side, double xPlaced, double yPlaced) {
         if (!world.isClientSide) {
             TileEntityFreezer tileEntityFreezer = (TileEntityFreezer) world.getTileEntity(pos);
             ((AetherScreens) player).aether$displayFreezerScreen(tileEntityFreezer);

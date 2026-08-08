@@ -12,7 +12,7 @@ import teamport.aether.item.AetherItems;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
 
-@Mixin(value = Player.class, remap = false)
+@Mixin(Player.class)
 public abstract class ContainerInventoryGetStrVsBlockPendantsMixin {
     @ModifyExpressionValue(
         method = "getCurrentPlayerStrVsBlock(Lnet/minecraft/core/block/Block;)F",

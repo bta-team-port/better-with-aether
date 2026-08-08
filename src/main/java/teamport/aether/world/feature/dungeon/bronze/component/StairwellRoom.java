@@ -39,32 +39,25 @@ public class StairwellRoom extends BaseBronzeRoom {
         Direction dir = horizontal[random.nextInt(4)];
 
         WorldFeatureComponent staircase = new WorldFeatureComponent();
-        WorldFeaturePoint offset;
-
-        switch (dir) {
-            case WEST:
+        WorldFeaturePoint offset = switch (dir) {
+            case WEST -> {
                 decoration.add(drawVolume(random, ROOM_PALLET, SOUTH, 4, UP, 1, EAST, 1, x + 5, y + height - 9, z + 2, false));
-                offset = wfp(0, 0, 0);
-                break;
-
-            case SOUTH:
+                yield wfp(0, 0, 0);
+            }
+            case SOUTH -> {
                 decoration.add(drawVolume(random, ROOM_PALLET, SOUTH, 1, UP, 1, EAST, 4, x + 2, y + height - 9, z + 2, false));
-                offset = wfp(3, 0, 0);
-                break;
-
-            case EAST:
+                yield wfp(3, 0, 0);
+            }
+            case EAST -> {
                 decoration.add(drawVolume(random, ROOM_PALLET, SOUTH, 4, UP, 1, EAST, 1, x + 2, y + height - 9, z + 2, false));
-                offset = wfp(3, 0, -3);
-                break;
-
-            case NORTH:
+                yield wfp(3, 0, -3);
+            }
+            case NORTH -> {
                 decoration.add(drawVolume(random, ROOM_PALLET, SOUTH, 1, UP, 1, EAST, 4, x + 2, y + height - 9, z + 5, false));
-                offset = wfp(0, 0, -3);
-                break;
-
-            default:
-                offset = wfp(0, 0, 0);
-        }
+                yield wfp(0, 0, -3);
+            }
+            default -> wfp(0, 0, 0);
+        };
 
         WorldFeaturePoint stepPosition = wfp(x + 2, y + 1, z + 5);
         for (int i = 0; i < (height - 9) << 1; i++) {

@@ -10,7 +10,7 @@ import turniplabs.halplibe.helper.EnvironmentHelper;
 public class AetherWailaLoadMixins implements PreLaunchEntrypoint {
     @Override
     public void onPreLaunch() {
-        if (!EnvironmentHelper.isServerEnvironment()) {
+        if (!EnvironmentHelper.isMultiplayerServer()) {
             FabricLoader loader = FabricLoader.getInstance();
             if (loader.isModLoaded("btwaila")) {
                 Mixins.addConfiguration("compat/aether/waila/waila.mixins.json");

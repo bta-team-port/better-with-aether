@@ -1,87 +1,31 @@
 package teamport.aether.block.terrain;
 
+import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
-import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
-import net.minecraft.core.world.pos.TilePosc;
-import net.minecraft.core.world.generate.feature.WorldFeatureOre;
-import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
-import teamport.aether.entity.floating_block.EntityFloatingBlock;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+import teamport.aether.block.BlockLogicFloatingBlock;
 import teamport.aether.item.AetherItems;
 
-import java.util.Random;
+public class BlockLogicOreGravitite extends BlockLogicFloatingBlock {
+    public static Int2IntArrayMap variantMap = new Int2IntArrayMap();
 
-public class BlockLogicOreGravitite extends BlockLogic {
-    public static final Int2IntArrayMap variantMap = new Int2IntArrayMap();
-
-    public BlockLogicOreGravitite(Block<?> block, Block<?> parentBlock, Material material) {
+    public BlockLogicOreGravitite(@NonNull Block<?> block, @NonNull Block<?> parentBlock, @NonNull Material material) {
         super(block, material);
         variantMap.put(parentBlock.id(), block.id());
     }
 
     @Override
-    public void onBlockPlacedByWorld(World world, int x, int y, int z) {
-        world.scheduleBlockUpdate(x, y, z, this.block.id(), this.tickDelay());
-    }
-
-    @Override
-    public void onNeighborBlockChange(World world, int x, int y, int z, int blockId) {
-        world.scheduleBlockUpdate(x, y, z, this.block.id(), this.tickDelay());
-    }
-
-    @Override
-    public void updateTick(World world, TilePosc pos, Random rand, boolean scheduled) {
-        this.tryToFall(world, pos.x(), pos.y(), pos.z());
-    }
-
-    public void tryToFall(World world, int x, int y, int z) {
-        if (canFallAbove(world, x, y + 1, z) && y < 256) {
-            byte byte0 = 32;
-            if (world.areBlocksLoaded(x - byte0, y - byte0, z - byte0, x + byte0, y + byte0, z + byte0)) {
-                EntityFloatingBlock entityFloatingBlock = new EntityFloatingBlock(world, x + 0.5, y + 0.5, z + 0.5, this.block.id(), 0, null);
-                world.entityJoinedWorld(entityFloatingBlock);
-                world.setBlockWithNotify(x, y, z, 0);
-            } else {
-                world.setBlockWithNotify(x, y, z, 0);
-
-                while (canFallAbove(world, x, y + 1, z) && y < 256) {
-                    ++y;
-                }
-
-                if (y < 256) {
-                    world.setBlockWithNotify(x, y, z, this.block.id());
-                }
-            }
-        }
-    }
-
-    @Override
-    public int tickDelay() {
-        return 3;
-    }
-
-    public static boolean canFallAbove(World world, int x, int y, int z) {
-        Block<?> block = world.getBlock(x, y, z);
-        return block == null || block.hasTag(BlockTags.PLACE_OVERWRITES);
-    }
-
-    @Override
-    public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
-        switch (dropCause) {
-            case SILK_TOUCH:
-            case PICK_BLOCK:
-                return new ItemStack[]{new ItemStack(this)};
-            case EXPLOSION:
-            case PROPER_TOOL:
-            case PISTON_CRUSH:
-                return new ItemStack[]{new ItemStack(AetherItems.ORE_RAW_GRAVITITE)};
-            default:
-                return null;
-        }
+    public ItemStack[] getBreakResult(@NonNull World world, @NonNull EnumDropCause dropCause, int data, @Nullable TileEntity tileEntity) {
+        return switch (dropCause) {
+            case SILK_TOUCH, PICK_BLOCK -> new ItemStack[]{new ItemStack(this)};
+            case EXPLOSION, PROPER_TOOL, PISTON_CRUSH -> new ItemStack[]{new ItemStack(AetherItems.ORE_RAW_GRAVITITE)};
+            default -> null;
+        };
     }
 }

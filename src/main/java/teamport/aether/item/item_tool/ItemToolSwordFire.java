@@ -11,6 +11,7 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherHasCustomDamageType;
 import teamport.aether.world.AetherDimension;
@@ -21,10 +22,10 @@ public class ItemToolSwordFire extends ItemToolSword implements AetherHasCustomD
     }
 
     @Override
-    public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
+    public boolean hitEntity(@NonNull ItemStack itemstack, @NonNull Mob target, @NonNull Mob attacker) {
         boolean hitEntity = super.hitEntity(itemstack, target, attacker);
         if (target instanceof Mob && target.hurtTime == 10 && hitEntity) {
-            if ((target instanceof Player) && ((Player) target).gamemode.hasInvulnerablePlayer()) {
+            if ((target instanceof Player player) && player.gamemode.hasInvulnerablePlayer()) {
                 return false;
             }
             ParticleMaker.spawnFireSwordParticles(target);
@@ -36,7 +37,7 @@ public class ItemToolSwordFire extends ItemToolSword implements AetherHasCustomD
     }
 
     @Override
-    public boolean onUseOnBlock(ItemStack itemstack, World world, Player player, TilePosc blockPos, Side side, double xPlaced, double yPlaced) {
+    public boolean onUseOnBlock(@NonNull ItemStack itemstack, @NonNull World world, Player player, @NonNull TilePosc blockPos, @NonNull Side side, double xPlaced, double yPlaced) {
         int blockX = blockPos.x();
         int blockY = blockPos.y();
         int blockZ = blockPos.z();

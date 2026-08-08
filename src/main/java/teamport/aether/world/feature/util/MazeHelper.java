@@ -1,5 +1,6 @@
 package teamport.aether.world.feature.util;
 
+import org.jspecify.annotations.NonNull;
 import teamport.aether.helper.unboxed.IntPair;
 
 import java.util.*;
@@ -48,18 +49,18 @@ public class MazeHelper {
         }
     }
 
-    public static List<IntPair> randomMazeKruskal(Map<Integer, List<Integer>> graph, int size) {
+    public static @NonNull List<IntPair> randomMazeKruskal(Map<Integer, List<Integer>> graph, int size) {
         List<IntPair> edges = makeEdgeList(graph);
         Collections.shuffle(edges);
         return randomMazeKruskal(edges, size);
     }
 
-    public static List<IntPair> randomMazeKruskal(List<IntPair> edges, int size) {
+    public static @NonNull List<IntPair> randomMazeKruskal(@NonNull List<IntPair> edges, int size) {
         List<IntPair> mst = new ArrayList<>();
         Dsu uf = new Dsu(size);
 
         for (IntPair edge : edges) {
-            if (uf.union(edge.getFirst(), edge.getSecond())) {
+            if (uf.union(edge.first(), edge.second())) {
                 mst.add(edge);
             }
             if (mst.size() == size - 1) {
@@ -69,7 +70,7 @@ public class MazeHelper {
         return mst;
     }
 
-    public static List<IntPair> makeEdgeList(Map<Integer, List<Integer>> graph) {
+    public static List<IntPair> makeEdgeList(@NonNull Map<Integer, List<Integer>> graph) {
         Set<IntPair> edgeSet = new HashSet<>();
 
         for (Map.Entry<Integer, List<Integer>> node : graph.entrySet()) {
@@ -83,12 +84,12 @@ public class MazeHelper {
         return new ArrayList<>(edgeSet);
     }
 
-    public static Map<Integer, List<Integer>> makeGraph(List<IntPair> edgeList) {
+    public static @NonNull Map<Integer, List<Integer>> makeGraph(@NonNull List<IntPair> edgeList) {
         Map<Integer, List<Integer>> graph = new HashMap<>();
 
         for (IntPair edge : edgeList) {
-            Integer u = edge.getFirst();
-            Integer v = edge.getSecond();
+            Integer u = edge.first();
+            Integer v = edge.second();
             graph.computeIfAbsent(u, k -> new ArrayList<>()).add(v);
             graph.computeIfAbsent(v, k -> new ArrayList<>()).add(u);
         }

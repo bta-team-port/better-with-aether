@@ -4,7 +4,7 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
-import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,18 +20,21 @@ import turniplabs.halplibe.helper.network.NetworkHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-@Mixin(value = Player.class, remap = false)
+@Mixin(Player.class)
 public abstract class PlayerBossListMixin extends Mob implements AetherBossList {
-    protected PlayerBossListMixin(@Nullable World world) {
-        super(world);
-    }
+
     @Unique
     private List<Mob> bossList = new ArrayList<>();
+
+    protected PlayerBossListMixin(@NonNull World world) {
+        super(world);
+    }
+
     @Override
     public List<Mob> aether$getBossList() {
         List<Mob> bosses = new ArrayList<>(bossList);
         for (Mob boss : bossList) {
-            if ((boss instanceof EnemyBoss && !((EnemyBoss) boss).canFight()) || !boss.isAlive() || boss.world == null || world == null || boss.world.dimension != world.dimension || boss.distanceTo(this) > AetherDimension.BOSS_DETECTION_RADIUS) {
+            if (boss instanceof EnemyBoss && !((EnemyBoss) boss).canFight() || !boss.isAlive() || boss.world.dimension != world.dimension || boss.distanceTo(this) > AetherDimension.BOSS_DETECTION_RADIUS) {
                 bosses.remove(boss);
             }
         }
@@ -42,7 +45,7 @@ public abstract class PlayerBossListMixin extends Mob implements AetherBossList 
     public void aether$TryAddBossList(Mob mob) {
         if (!bossList.contains(mob)) {
             bossList.add(mob);
-            if (EnvironmentHelper.isServerEnvironment()) {
+            if (EnvironmentHelper.isMultiplayerServer()) {
                 NetworkHandler.sendToPlayer(
                     (Player) (Object) this,
                     new BossListNetworkMessage(BossListNetworkMessage.Type.ADD, mob)
@@ -53,7 +56,7 @@ public abstract class PlayerBossListMixin extends Mob implements AetherBossList 
     @Override
     public void aether$clearBossList() {
         bossList.clear();
-        if (EnvironmentHelper.isServerEnvironment()) {
+        if (EnvironmentHelper.isMultiplayerServer()) {
             NetworkHandler.sendToPlayer(
                 (Player) (Object) this,
                 BossListNetworkMessage.clear()
@@ -63,7 +66,7 @@ public abstract class PlayerBossListMixin extends Mob implements AetherBossList 
     @Override
     public void aether$removeFromBossList(Mob mob) {
         bossList.remove(mob);
-        if (EnvironmentHelper.isServerEnvironment()) {
+        if (EnvironmentHelper.isMultiplayerServer()) {
             NetworkHandler.sendToPlayer(
                 (Player) (Object) this,
                 new BossListNetworkMessage(BossListNetworkMessage.Type.REMOVE, mob)

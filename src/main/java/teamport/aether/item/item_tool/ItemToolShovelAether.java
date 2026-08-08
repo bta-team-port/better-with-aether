@@ -13,6 +13,7 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
@@ -25,16 +26,16 @@ public class ItemToolShovelAether extends ItemTool{
     }
 
     @Override
-    public boolean canHarvestBlock(ItemStack itemStack, Mob mob, Block<?> block) {
+    public boolean canHarvestBlock(@NonNull ItemStack itemStack, @NonNull Mob mob, Block<?> block) {
         return block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL);
     }
 
     @Override
-    public boolean onUseOnBlock(ItemStack itemstack, World world, Player player, TilePosc blockPos, Side side, double xPlaced, double yPlaced) {
+    public boolean onUseOnBlock(@NonNull ItemStack itemstack, @NonNull World world, Player player, @NonNull TilePosc blockPos, @NonNull Side side, double xPlaced, double yPlaced) {
         return this.shovelBlock(itemstack, player, world, blockPos.x(), blockPos.y(), blockPos.z(), side);
     }
 
-    public boolean shovelBlock(ItemStack itemstack, @Nullable Player entityplayer, World world, int blockX, int blockY, int blockZ, Side side) {
+    public boolean shovelBlock(ItemStack itemstack, @Nullable Player entityplayer, @NonNull World world, int blockX, int blockY, int blockZ, Side side) {
         int blockId = world.getBlockId(blockX, blockY, blockZ);
         int blockAbove = world.getBlockId(blockX, blockY + 1, blockZ);
         if (side != Side.BOTTOM && blockAbove == 0 && (blockId == Blocks.GRASS.id() || blockId == Blocks.DIRT.id() || blockId == Blocks.GRASS_RETRO.id() || blockId == Blocks.FARMLAND_DIRT.id())) {
@@ -58,7 +59,7 @@ public class ItemToolShovelAether extends ItemTool{
     }
 
     @Override
-    public void onUseByActivator(ItemStack itemStack, World world, TileEntityActivator activatorBlock, Random random, TilePosc blockPos, Direction direction, double offX, double offY, double offZ) {
+    public void onUseByActivator(@NonNull ItemStack itemStack, @NonNull World world, @NonNull TileEntityActivator activatorBlock, @NonNull Random random, @NonNull TilePosc blockPos, @NonNull Direction direction, double offX, double offY, double offZ) {
         this.shovelBlock(itemStack, null, world, blockPos.x() + direction.offsetX(), blockPos.y() + direction.offsetY(), blockPos.z() + direction.offsetZ(), direction.side());
     }
 }

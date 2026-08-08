@@ -12,6 +12,7 @@ import net.minecraft.core.net.command.CommandSource;
 import net.minecraft.core.net.command.arguments.ArgumentTypeVector3d;
 import net.minecraft.core.net.command.helpers.DoubleCoordinates;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +31,7 @@ public class CommandCount implements CommandManager.CommandRegistry {
 
     @SuppressWarnings("unchecked")
     @Override
-    public void register(CommandDispatcher<CommandSource> commandDispatcher) {
+    public void register(@NonNull CommandDispatcher<CommandSource> commandDispatcher) {
         commandDispatcher
             .register((ArgumentBuilderLiteral<CommandSource>) (Object) literal("aether:countBlocks").requires(t -> ((CommandSource) t).hasAdmin())
                 .then(ArgumentBuilderRequired.argument("first", ArgumentTypeVector3d.vec3d())
@@ -41,7 +42,7 @@ public class CommandCount implements CommandManager.CommandRegistry {
                         }))));
     }
 
-    private static void calcBlockCount(CommandContext<Object> c) throws CommandSyntaxException {
+    private static void calcBlockCount(@NonNull CommandContext<Object> c) throws CommandSyntaxException {
         CommandSource sauce = (CommandSource) c.getSource();
         World world = sauce.getWorld();
         DoubleCoordinates first = c.getArgument("first", DoubleCoordinates.class);
@@ -62,7 +63,7 @@ public class CommandCount implements CommandManager.CommandRegistry {
                 for (int z = Math.min(fz, sz); z <= Math.max(fz, sz); z++) {
                     int id = world.getBlockId(x, y, z);
                     Block<?> block = Blocks.getBlock(id);
-                    String name = block == null ? "Air" : TRANSLATOR.translateKey(block.getLanguageKey(0) + ".name");
+                    String name = TRANSLATOR.translateKey(block.getLanguageKey(0) + ".name");
                     count.merge(name, 1, Integer::sum);
                 }
             }

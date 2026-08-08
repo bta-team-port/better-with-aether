@@ -9,6 +9,7 @@ import net.minecraft.core.data.registry.recipe.SearchQuery;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.collection.Pair;
 import net.minecraft.core.util.helper.MathHelper;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherRecipes;
 import teamport.aether.gui.guidebook.freezer.GuidebookSectionFreezer;
 import teamport.aether.recipe.RecipeEntryAetherMachine;
@@ -74,7 +75,7 @@ public class GuidebookSectionEnchanter extends SearchableGuidebookSection {
 
     }
 
-    public static void filterRecipe(SearchQuery query, List<RecipeEntryAetherMachine> allRecipes, List<RecipeEntryAetherMachine> filteredRecipes) {
+    public static void filterRecipe(SearchQuery query, @NonNull List<RecipeEntryAetherMachine> allRecipes, List<RecipeEntryAetherMachine> filteredRecipes) {
         for (RecipeEntryAetherMachine recipe : allRecipes) {
             if (recipe.matchesQueryIgnoreExceptions(query)) {
                 filteredRecipes.add(recipe);

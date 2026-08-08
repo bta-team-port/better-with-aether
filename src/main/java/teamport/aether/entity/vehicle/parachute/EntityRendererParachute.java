@@ -7,6 +7,7 @@ import net.minecraft.client.render.renderer.BlendFactor;
 import net.minecraft.client.render.renderer.GLRenderer;
 import net.minecraft.client.render.renderer.State;
 import net.minecraft.client.render.tessellator.TessellatorGeneral;
+import org.jspecify.annotations.NonNull;
 
 @Environment(EnvType.CLIENT)
 public class EntityRendererParachute extends EntityRenderer<EntityParachute> {
@@ -14,7 +15,7 @@ public class EntityRendererParachute extends EntityRenderer<EntityParachute> {
         super(0.0F);
     }
 
-    public void render(TessellatorGeneral tessellator, EntityParachute entity, double x, double y, double z, float yaw, float partialTick) {
+    public void render(@NonNull TessellatorGeneral tessellator, @NonNull EntityParachute entity, double x, double y, double z, float yaw, float partialTick) {
         GLRenderer.pushFrame();
         GLRenderer.modelM4f().translate((float) x, (float) y, (float) z);
 

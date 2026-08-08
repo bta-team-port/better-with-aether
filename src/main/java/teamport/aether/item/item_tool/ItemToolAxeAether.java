@@ -2,7 +2,6 @@ package teamport.aether.item.item_tool;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicLog;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.data.gamerule.GameRules;
 import net.minecraft.core.data.gamerule.TreecapitatorHelper;
 import net.minecraft.core.entity.Mob;
@@ -13,6 +12,7 @@ import net.minecraft.core.item.tool.ItemTool;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.item.AetherItems;
 
@@ -22,13 +22,13 @@ public class ItemToolAxeAether extends ItemTool {
     }
 
     @Override
-    public boolean canHarvestBlock(ItemStack itemStack, Mob mob, Block<?> block) {
+    public boolean canHarvestBlock(@NonNull ItemStack itemStack, @NonNull Mob mob, @NonNull Block<?> block) {
         return block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
     }
 
     @Override
     @SuppressWarnings("java:S5411")
-    public boolean beforeBlockDestroyed(ItemStack itemStack, World world, Player player, Block<?> block, TilePosc blockPos, Side side) {
+    public boolean beforeBlockDestroyed(@NonNull ItemStack itemStack, @NonNull World world, @NonNull Player player, @NonNull Block<?> block, @NonNull TilePosc blockPos, @NonNull Side side) {
         if (!world.isClientSide && world.getGameRuleValue(GameRules.TREECAPITATOR) && !player.isSneaking()) {
             ItemStack held = player.getHeldItem();
             if (Block.hasLogicClass(block, BlockLogicLog.class) && (block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE) || held != null && held.itemID == AetherItems.TOOL_AXE_VALKYRIE.id)) {

@@ -8,6 +8,7 @@ import net.minecraft.core.world.biome.provider.BiomeProvider;
 import net.minecraft.core.world.noise.FractalNoise2D;
 import net.minecraft.core.world.noise.SimplexNoise;
 import net.minecraft.core.world.type.WorldType;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.world.biome.AetherBiomes;
 
 import java.util.Iterator;
@@ -47,14 +48,14 @@ public final class BiomeProviderAether extends BiomeProvider {
         this.fuzzinessNoise = createLegacyNoise(seed * 543321L, 2, FUZZINESS_LACUNARITY);
     }
 
-    private static FractalNoise2D<SimplexNoise> createLegacyNoise(long seed, int octaves, double lacunarity) {
+    private static @NonNull FractalNoise2D<SimplexNoise> createLegacyNoise(long seed, int octaves, double lacunarity) {
         return new FractalNoise2D<>(SimplexNoise.genOctaves(seed, octaves))
             .setLacunarity(lacunarity)
             .setPersistence(LEGACY_PERSISTENCE);
     }
 
     @Override
-    public Biome[] getBiomes(Biome[] biomes, double[] temperatures, double[] humidities, double[] varieties, int x, int y, int z, int xSize, int ySize, int zSize) {
+    public Biome @NonNull [] getBiomes(Biome[] biomes, double[] temperatures, double[] humidities, double[] varieties, int x, int y, int z, int xSize, int ySize, int zSize) {
         if (biomes == null || biomes.length < xSize * ySize * zSize) {
             biomes = new Biome[xSize * ySize * zSize];
         }
@@ -88,7 +89,7 @@ public final class BiomeProviderAether extends BiomeProvider {
     }
 
     @Override
-    public double[] getTemperatures(double[] temperatures, int x, int z, int xSize, int zSize) {
+    public double @NonNull [] getTemperatures(double[] temperatures, int x, int z, int xSize, int zSize) {
         if (temperatures == null || temperatures.length < xSize * zSize) {
             temperatures = new double[xSize * zSize];
         }
@@ -118,7 +119,7 @@ public final class BiomeProviderAether extends BiomeProvider {
     }
 
     @Override
-    public double[] getHumidities(double[] humidities, int x, int z, int xSize, int zSize) {
+    public double @NonNull [] getHumidities(double[] humidities, int x, int z, int xSize, int zSize) {
         if (humidities == null || humidities.length < xSize * zSize) {
             humidities = new double[xSize * zSize];
         }
@@ -148,7 +149,7 @@ public final class BiomeProviderAether extends BiomeProvider {
     }
 
     @Override
-    public double[] getVarieties(double[] varieties, int x, int z, int xSize, int zSize) {
+    public double @NonNull [] getVarieties(double[] varieties, int x, int z, int xSize, int zSize) {
         if (varieties == null || varieties.length < xSize * zSize) {
             varieties = new double[xSize * zSize];
         }
@@ -179,7 +180,7 @@ public final class BiomeProviderAether extends BiomeProvider {
 
     @Override
     @SuppressWarnings({"java:S1119", "java:S6541"})
-    public double[] getBiomenesses(double[] biomenesses, int x, int y, int z, int xSize, int ySize, int zSize) {
+    public double @NonNull [] getBiomenesses(double[] biomenesses, int x, int y, int z, int xSize, int ySize, int zSize) {
         if (biomenesses == null || biomenesses.length < xSize * ySize * zSize) {
             biomenesses = new double[xSize * ySize * zSize];
         }

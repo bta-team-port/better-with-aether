@@ -7,6 +7,7 @@ import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.block.dungeon.BlockLogicDungeonDoor;
 import teamport.aether.block.dungeon.BlockLogicLocked;
@@ -89,11 +90,11 @@ public abstract class DungeonLogic {
     protected int doorReplacementMeta = 0;
     // </structure data>
 
-    public void setClearArea(Pair<WorldFeaturePoint, WorldFeaturePoint> clearArea) {
-        this.setClearArea(clearArea.getFirst(), clearArea.getSecond());
+    public void setClearArea(@NonNull Pair<WorldFeaturePoint, WorldFeaturePoint> clearArea) {
+        this.setClearArea(clearArea.first(), clearArea.second());
     }
 
-    public void setClearArea(WorldFeaturePoint p1, WorldFeaturePoint p2) {
+    public void setClearArea(@NonNull WorldFeaturePoint p1, @NonNull WorldFeaturePoint p2) {
         WorldFeaturePoint lowest = WorldFeaturePoint.wfp(Math.min(p1.getX(), p2.getX()), Math.min(p1.getY(), p2.getY()), Math.min(p1.getZ(), p2.getZ()));
         WorldFeaturePoint highest = WorldFeaturePoint.wfp(Math.max(p1.getX(), p2.getX()), Math.max(p1.getY(), p2.getY()), Math.max(p1.getZ(), p2.getZ()));
         this.clearArea = new Pair<>(lowest, highest);
@@ -107,7 +108,7 @@ public abstract class DungeonLogic {
         this.entranceDoor.addAll(entranceDoor);
     }
 
-    public <T extends Entity & EnemyBoss> void notifyBossDead(T boss) {
+    public <T extends Entity & EnemyBoss> void notifyBossDead(@NonNull T boss) {
         onDungeonRemoved(boss.world);
     }
 
@@ -165,7 +166,6 @@ public abstract class DungeonLogic {
             if (clearArea != null) {
                 iterate3d(clearArea, p -> {
                     Block<?> block = world.getBlock(p.getX(), p.getY(), p.getZ());
-                    if (block == null) return;
 
                     BlockLogic logic = block.getLogic();
                     if (logic instanceof BlockLogicLocked) {
@@ -180,14 +180,14 @@ public abstract class DungeonLogic {
         }
     }
 
-    public CompoundTag saveStructureData(CompoundTag data) {
+    public CompoundTag saveStructureData(@NonNull CompoundTag data) {
         data.putInt("doorReplacementID", this.doorReplacementID);
         data.putInt("doorReplacementMeta", this.doorReplacementMeta);
         data.putBoolean("entranceLocked", this.entranceLocked);
 
         if (this.clearArea != null) {
-            data.put("clearPos1", this.clearArea.getFirst().toCompoundTag());
-            data.put("clearPos2", this.clearArea.getSecond().toCompoundTag());
+            data.put("clearPos1", this.clearArea.first().toCompoundTag());
+            data.put("clearPos2", this.clearArea.second().toCompoundTag());
         }
 
         if (this.treasureDoor != null && !this.treasureDoor.isEmpty()) {
@@ -206,7 +206,7 @@ public abstract class DungeonLogic {
         return data;
     }
 
-    public void loadStructureData(CompoundTag data) {
+    public void loadStructureData(@NonNull CompoundTag data) {
         this.doorReplacementID = data.getInteger("doorReplacementID");
         this.doorReplacementMeta = data.getInteger("doorReplacementMeta");
         this.entranceLocked = data.getBoolean("entranceLocked");
@@ -218,33 +218,30 @@ public abstract class DungeonLogic {
             WorldFeaturePoint.fromCompoundTag(data.getCompound("clearPos2"))
         );
 
-        if (this.clearArea.getFirst() == null || this.clearArea.getSecond() == null) {
+        if (this.clearArea.first() == null || this.clearArea.second() == null) {
             this.clearArea = null;
         }
 
         ListTag treasureDoorNBT = data.getList("blocksDestroyOnDeath");
-        if (treasureDoorNBT != null) {
-            List<WorldFeaturePoint> list = new ArrayList<>();
 
-            for (int i = 0; i < treasureDoorNBT.tagCount(); i++) {
-                CompoundTag blockNBT = (CompoundTag) treasureDoorNBT.tagAt(i);
-                list.add(WorldFeaturePoint.fromCompoundTag(blockNBT));
-            }
+        List<WorldFeaturePoint> worldFeaturePoints = new ArrayList<>();
 
-            this.treasureDoor = list;
+        for (int i = 0; i < treasureDoorNBT.tagCount(); i++) {
+            CompoundTag blockNBT = (CompoundTag) treasureDoorNBT.tagAt(i);
+            worldFeaturePoints.add(WorldFeaturePoint.fromCompoundTag(blockNBT));
         }
+
+        this.treasureDoor = worldFeaturePoints;
 
         ListTag entranceDoorNBT = data.getList("blocksDungeonEntrance");
-        if (entranceDoorNBT != null) {
-            List<WorldFeatureBlock> list = new ArrayList<>();
+        List<WorldFeatureBlock> worldFeatureBlocks = new ArrayList<>();
 
-            for (int i = 0; i < entranceDoorNBT.tagCount(); i++) {
-                CompoundTag blockNBT = (CompoundTag) entranceDoorNBT.tagAt(i);
-                list.add(WorldFeatureBlock.fromCompoundTag(blockNBT));
-            }
-
-            this.entranceDoor = list;
+        for (int i = 0; i < entranceDoorNBT.tagCount(); i++) {
+            CompoundTag blockNBT = (CompoundTag) entranceDoorNBT.tagAt(i);
+            worldFeatureBlocks.add(WorldFeatureBlock.fromCompoundTag(blockNBT));
         }
+
+        this.entranceDoor = worldFeatureBlocks;
 
     }
 

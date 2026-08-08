@@ -6,6 +6,7 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 
 public class BlockLogicPaintedChest extends BlockLogicChestPainted {
     protected final int unpaintedBlockID;
@@ -16,7 +17,7 @@ public class BlockLogicPaintedChest extends BlockLogicChestPainted {
     }
 
     @Override
-    public void removeDye(World world, TilePosc pos) {
+    public void removeDye(@NonNull World world, @NonNull TilePosc pos) {
         int meta = this.stripColorFromMetadata(world.getBlockData(pos));
         world.setBlockTypeDataNotify(pos, Blocks.getBlock(unpaintedBlockID), meta);
     }

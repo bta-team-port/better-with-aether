@@ -108,7 +108,6 @@ public class ProjectileNeedle extends Projectile implements ProjectileAether, Ae
 
     @Override
     public void tick() {
-        if (this.world == null) return;
         if (this.shake > 0) {
             --this.shake;
         }
@@ -120,11 +119,9 @@ public class ProjectileNeedle extends Projectile implements ProjectileAether, Ae
         }
 
         Block<?> block = this.world.getBlock(this.xTile, this.yTile, this.zTile);
-        if (block != null) {
-            AABBdc aabb = block.getCollisionAABB(this.world, new TilePos(this.xTile, this.yTile, this.zTile));
-            if (aabb != null && aabb.containsPoint(this.x, this.y, this.z)) {
-                this.inGround = true;
-            }
+        AABBdc aabb = block.getCollisionAABB(this.world, new TilePos(this.xTile, this.yTile, this.zTile));
+        if (aabb != null && aabb.containsPoint(this.x, this.y, this.z)) {
+            this.inGround = true;
         }
 
         if (this.inGround) {
@@ -152,17 +149,15 @@ public class ProjectileNeedle extends Projectile implements ProjectileAether, Ae
 
     @Override
     public HitResult getHitResult() {
-        if (this.world == null) return super.getHitResult();
         Vector3d oldPosition = new Vector3d(this.x, this.y, this.z);
         Vector3d newPosition = new Vector3d(this.x + this.xd, this.y + this.yd, this.z + this.zd);
         return this.world.checkBlockCollisionBetweenPoints(oldPosition, newPosition, false, true, false);
     }
 
     @Override
-    public void onHit(HitResult hitResult) {
-        if (this.world == null) return;
-        if (hitResult instanceof HitResult.Entity) {
-            Entity hitEntity = ((HitResult.Entity) hitResult).entity;
+    public void onHit(@NonNull HitResult hitResult) {
+        if (hitResult instanceof HitResult.Entity entity) {
+            Entity hitEntity = entity.entity;
             if (hitEntity.hurt(this.owner, this.damage, DamageType.COMBAT)) {
                 IHasEffects<?> target = (IHasEffects<?>) hitEntity;
                 AetherEffects.add((Entity) target, AetherEffects.poisonEffect, random.nextInt(1) + 1);
@@ -177,8 +172,7 @@ public class ProjectileNeedle extends Projectile implements ProjectileAether, Ae
                 this.remove();
             }
 
-        } else if (hitResult instanceof HitResult.Tile) {
-            HitResult.Tile tileHit = (HitResult.Tile) hitResult;
+        } else if (hitResult instanceof HitResult.Tile tileHit) {
             this.xTile = tileHit.tilePos.x();
             this.yTile = tileHit.tilePos.y();
             this.zTile = tileHit.tilePos.z();
@@ -196,7 +190,6 @@ public class ProjectileNeedle extends Projectile implements ProjectileAether, Ae
     }
 
     public void inGroundAction() {
-        if (this.world == null) return;
         this.world.playSoundAtEntity(null, this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
 
         for (int j = 0; j < 4; ++j) {
@@ -241,12 +234,13 @@ public class ProjectileNeedle extends Projectile implements ProjectileAether, Ae
     }
 
     @SuppressWarnings("unused")
-    public static Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner) {
+    public static @NonNull Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner) {
         ProjectileNeedle projectile = new ProjectileNeedle(world, x, y, z);
         if (hasVelocity) projectile.setHeading(xd, yd, zd, 1, 0);
-        if (owner instanceof Mob) projectile.owner = (Mob) owner;
+        if (owner instanceof Mob mob) projectile.owner = mob;
         return projectile;
     }
+
     public int getShake() {
         return shake;
     }

@@ -7,7 +7,8 @@ import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.world.World;
-import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,13 +17,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.helper.MixinHelper;
 import teamport.aether.helper.ParticleMaker;
 
-@Mixin(value = Player.class, remap = false)
+@Mixin(Player.class)
 public abstract class PlayerMixinFireImmunity extends Mob {
-    protected PlayerMixinFireImmunity(@Nullable World world) {
+    @Shadow
+    @Final
+    @NonNull
+    public ContainerInventory inventory;
+
+    protected PlayerMixinFireImmunity(@NonNull World world) {
         super(world);
     }
-    @Shadow
-    public ContainerInventory inventory;
+
     @Inject(method = "tick", at = @At("HEAD"))
     private void tick(CallbackInfo ci) {
         if (this.isInLava() || this.isInWater()) {

@@ -4,8 +4,8 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
 import org.joml.primitives.AABBd;
+import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.block.terrain.BlockLogicCloudBase;
 
-@Mixin(value = Entity.class, remap = false)
+@Mixin(Entity.class)
 public abstract class EntityMixin {
     @Shadow
     public float fallDistance;
@@ -25,7 +25,7 @@ public abstract class EntityMixin {
 
     @Shadow
     @Final
-    @NotNull
+    @NonNull
     public AABBd bb;
 
     @Inject(method = "checkOnWater", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Entity;checkAndHandleWater(Z)Z"))
@@ -43,7 +43,7 @@ public abstract class EntityMixin {
             for (int y = minY; y <= maxY; y++) {
                 for (int z = minZ; z <= maxZ; z++) {
                     Block<?> block = world.getBlock(x, y, z);
-                    if (block != null && Block.hasLogicClass(block, BlockLogicCloudBase.class)) {
+                    if (Block.hasLogicClass(block, BlockLogicCloudBase.class)) {
                         this.fallDistance = 0.0F;
                         this.wasInWater = false;
                         return;

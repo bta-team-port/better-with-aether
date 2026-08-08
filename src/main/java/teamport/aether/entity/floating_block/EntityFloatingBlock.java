@@ -2,6 +2,7 @@ package teamport.aether.entity.floating_block;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.entity.TileEntityDispatcher;
 import net.minecraft.core.block.motion.CarriedBlock;
@@ -65,8 +66,7 @@ public class EntityFloatingBlock extends Entity {
     @Override
     @SuppressWarnings("java:S6541")
     public void tick() {
-        if (this.world == null) return;
-        if (this.carriedBlock.blockId == 0) {
+        if (this.carriedBlock.blockId == Blocks.AIR.id()) {
             this.remove();
             return;
         }

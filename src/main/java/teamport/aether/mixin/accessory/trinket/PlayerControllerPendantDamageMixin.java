@@ -20,13 +20,13 @@ import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = PlayerController.class, remap = false)
+@Mixin(PlayerController.class)
 public abstract class PlayerControllerPendantDamageMixin {
     @Shadow
     @Final
     protected Minecraft mc;
     @Inject(method = "destroyBlock", at= @At(value = "INVOKE", target = "Lnet/minecraft/core/block/Block;onDestroyedByPlayer(Lnet/minecraft/core/world/World;Lnet/minecraft/core/world/pos/TilePosc;Lnet/minecraft/core/util/helper/Side;ILnet/minecraft/core/entity/player/Player;Lnet/minecraft/core/item/Item;)V"))
-    public void damagePendant(TilePosc pos, Side side, CallbackInfoReturnable<Boolean> cir){
+    public void damagePendant(TilePosc tilePos, Side side, CallbackInfoReturnable<Boolean> cir){
         if (this.mc.thePlayer == null) return;
         ItemStack trinketSlot1 = PlayerUtil.getArmorOrAccessoryItem(this.mc.thePlayer, TRINKET_1_SLOT);
         ItemStack trinketSlot2 = PlayerUtil.getArmorOrAccessoryItem(this.mc.thePlayer, TRINKET_2_SLOT);

@@ -3,6 +3,7 @@ package teamport.aether.entity.vehicle.parachute;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.tessellator.TessellatorGeneral;
+import org.jspecify.annotations.NonNull;
 
 @Environment(EnvType.CLIENT)
 final class ParachuteGeometry {
@@ -16,7 +17,7 @@ final class ParachuteGeometry {
     private ParachuteGeometry() {
     }
 
-    static void render(TessellatorGeneral tessellator) {
+    static void render(@NonNull TessellatorGeneral tessellator) {
         tessellator.startDrawingQuads();
 
         tessellator.setNormal(0.0F, 0.0F, -1.0F);
@@ -46,7 +47,7 @@ final class ParachuteGeometry {
         tessellator.draw();
     }
 
-    private static void face(TessellatorGeneral tessellator, float minU, float minV, float maxU, float maxV,
+    private static void face(@NonNull TessellatorGeneral tessellator, float minU, float minV, float maxU, float maxV,
                              float x1, float y1, float z1, float x2, float y2, float z2,
                              float x3, float y3, float z3, float x4, float y4, float z4) {
         tessellator.addVertexWithUV(x1, y1, z1, maxU, minV);

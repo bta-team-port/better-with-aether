@@ -9,6 +9,7 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherMod;
 import teamport.aether.entity.projectile.ProjectileKnifeLightning;
 import teamport.aether.item.AetherHasCustomDamageType;
@@ -21,7 +22,7 @@ public class ItemToolKnifeLightning extends Item implements IDispensable, Aether
     }
 
     @Override
-    public ItemStack onUse(ItemStack itemstack, World world, Player entityplayer) {
+    public ItemStack onUse(@NonNull ItemStack itemstack, @NonNull World world, @NonNull Player entityplayer) {
         itemstack.consumeItem(entityplayer);
         entityplayer.swingItem();
 
@@ -34,7 +35,7 @@ public class ItemToolKnifeLightning extends Item implements IDispensable, Aether
     }
 
     @Override
-    public void onUseByActivator(ItemStack itemStack, World world, TileEntityActivator activatorBlock, Random random, TilePosc blockPos, Direction direction, double offX, double offY, double offZ) {
+    public void onUseByActivator(@NonNull ItemStack itemStack, @NonNull World world, @NonNull TileEntityActivator activatorBlock, @NonNull Random random, @NonNull TilePosc blockPos, @NonNull Direction direction, double offX, double offY, double offZ) {
         if (!world.isClientSide) {
             ProjectileKnifeLightning projectileKnife = new ProjectileKnifeLightning(world, blockPos.x() + offX, blockPos.y() + offY, blockPos.z() + offZ);
             projectileKnife.setHeading(direction.offsetX() * 0.6, direction.offsetY() == 0 ? 0.1 : direction.offsetY() * 0.6, direction.offsetZ() * 0.6F, 1.1F, 6.0F);
@@ -44,7 +45,7 @@ public class ItemToolKnifeLightning extends Item implements IDispensable, Aether
     }
 
     @Override
-    public void onDispensed(ItemStack itemStack, World world, Random random, Direction direction, double x, double y, double z) {
+    public void onDispensed(@NonNull ItemStack itemStack, @NonNull World world, @NonNull Random random, @NonNull Direction direction, double x, double y, double z) {
         if (!world.isClientSide) {
             ProjectileKnifeLightning entityknife = new ProjectileKnifeLightning(world, x, y, z);
             entityknife.setHeading(direction.offsetX(), direction.offsetY() + 0.1, direction.offsetZ(), 1.1F, 6.0F);

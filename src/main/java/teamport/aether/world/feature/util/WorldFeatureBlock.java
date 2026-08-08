@@ -7,6 +7,7 @@ import net.minecraft.core.util.helper.Axis;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.helper.Pair;
 import teamport.aether.helper.unboxed.IntPair;
 
@@ -26,57 +27,57 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
         this.withNotify = withNotify;
     }
 
-    WorldFeatureBlock(int x, int y, int z, Pair<Integer, Integer> blockAndMeta, boolean withNotify) {
+    WorldFeatureBlock(int x, int y, int z, @NonNull Pair<Integer, Integer> blockAndMeta, boolean withNotify) {
         super(x, y, z);
-        this.blockId = blockAndMeta.getFirst();
-        this.metadata = blockAndMeta.getSecond();
+        this.blockId = blockAndMeta.first();
+        this.metadata = blockAndMeta.second();
         this.withNotify = withNotify;
     }
 
-    WorldFeatureBlock(int x, int y, int z, IntPair blockAndMeta, boolean withNotify) {
+    WorldFeatureBlock(int x, int y, int z, @NonNull IntPair blockAndMeta, boolean withNotify) {
         super(x, y, z);
-        this.blockId = blockAndMeta.getFirst();
-        this.metadata = blockAndMeta.getSecond();
+        this.blockId = blockAndMeta.first();
+        this.metadata = blockAndMeta.second();
         this.withNotify = withNotify;
     }
 
-    public static WorldFeatureBlock wfb(WorldFeaturePoint point, int blockID, int metadata, boolean withNotify) {
+    public static WorldFeatureBlock wfb(@NonNull WorldFeaturePoint point, int blockID, int metadata, boolean withNotify) {
         return new WorldFeatureBlock(point.getX(), point.getY(), point.getZ(), blockID, metadata, withNotify);
     }
 
-    public static WorldFeatureBlock wfb(WorldFeaturePoint point, int blockID, int metadata) {
+    public static @NonNull WorldFeatureBlock wfb(@NonNull WorldFeaturePoint point, int blockID, int metadata) {
         return new WorldFeatureBlock(point.getX(), point.getY(), point.getZ(), blockID, metadata, false);
     }
 
-    public static WorldFeatureBlock wfb(WorldFeaturePoint point) {
+    public static @NonNull WorldFeatureBlock wfb(@NonNull WorldFeaturePoint point) {
         return new WorldFeatureBlock(point.getX(), point.getY(), point.getZ(), 0, 0, false);
     }
 
-    public static WorldFeatureBlock wfb(int x, int y, int z) {
+    public static @NonNull WorldFeatureBlock wfb(int x, int y, int z) {
         return new WorldFeatureBlock(x, y, z, 0, 0, false);
     }
 
-    public static WorldFeatureBlock wfb(int x, int y, int z, int blockID) {
+    public static @NonNull WorldFeatureBlock wfb(int x, int y, int z, int blockID) {
         return new WorldFeatureBlock(x, y, z, blockID, 0, false);
     }
 
-    public static WorldFeatureBlock wfb(int x, int y, int z, int blockID, int metadata) {
+    public static @NonNull WorldFeatureBlock wfb(int x, int y, int z, int blockID, int metadata) {
         return new WorldFeatureBlock(x, y, z, blockID, metadata, false);
     }
 
-    public static WorldFeatureBlock wfb(int x, int y, int z, int blockID, boolean withNotify) {
+    public static @NonNull WorldFeatureBlock wfb(int x, int y, int z, int blockID, boolean withNotify) {
         return new WorldFeatureBlock(x, y, z, blockID, 0, withNotify);
     }
 
-    public static WorldFeatureBlock wfb(int x, int y, int z, int blockID, int metadata, boolean withNotify) {
+    public static @NonNull WorldFeatureBlock wfb(int x, int y, int z, int blockID, int metadata, boolean withNotify) {
         return new WorldFeatureBlock(x, y, z, blockID, metadata, withNotify);
     }
 
-    public static WorldFeatureBlock wfb(int x, int y, int z, IntPair blockAndMeta, boolean withNotify) {
+    public static @NonNull WorldFeatureBlock wfb(int x, int y, int z, IntPair blockAndMeta, boolean withNotify) {
         return new WorldFeatureBlock(x, y, z, blockAndMeta, withNotify);
     }
 
-    public static WorldFeatureBlock wfb(int x, int y, int z, Pair<Integer, Integer> blockAndMeta, boolean withNotify) {
+    public static @NonNull WorldFeatureBlock wfb(int x, int y, int z, Pair<Integer, Integer> blockAndMeta, boolean withNotify) {
         return new WorldFeatureBlock(x, y, z, blockAndMeta, withNotify);
     }
 
@@ -92,24 +93,20 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
         }
 
         Block<?> block = Blocks.getBlock(this.blockId);
-        if (block != null && block.isEntityTile && block.entitySupplier != null && world.getTileEntity(ix, iy, iz) == null) {
+        if (block.isEntityTile && block.entitySupplier != null && world.getTileEntity(ix, iy, iz) == null) {
             TileEntity tileEntity = block.entitySupplier.get();
-            if (tileEntity != null) {
-                world.setTileEntity(ix, iy, iz, tileEntity);
-            }
+            world.setTileEntity(ix, iy, iz, tileEntity);
         }
     }
 
     @Override
-    public WorldFeaturePoint rotateYAroundPivot(WorldFeaturePoint pivotPoint, Direction direction) {
+    public WorldFeaturePoint rotateYAroundPivot(WorldFeaturePoint pivotPoint, @NonNull Direction direction) {
         super.rotateYAroundPivot(pivotPoint, direction);
         int rotateAmount = horizontalIndex(direction) - horizontalIndex(NORTH);
 
         Block<?> block = Blocks.getBlock(this.blockId);
-        if (block == null) return this;
 
         BlockLogic logic = block.getLogic();
-        if (logic == null) return this;
 
         if (logic instanceof BlockLogicFenceGate) {
             int indexDirection = this.metadata & BlockLogicFenceGate.MASK_DIRECTION;
@@ -159,8 +156,7 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
                 this.metadata = replaceBits(this.metadata, BlockLogicAxisAligned.MASK_DIRECTION,
                     BlockLogicAxisAligned.axisToMeta(newAxis));
             }
-        } else if (logic instanceof BlockLogicLadder) {
-            BlockLogicLadder ladder = (BlockLogicLadder) logic;
+        } else if (logic instanceof BlockLogicLadder ladder) {
             Side currentSide = ladder.getSideFromMeta(this.metadata);
             if (currentSide.isHorizontal()) {
                 this.metadata = ladder.getMetaForSide(rotateY(currentSide.direction(), rotateAmount).side());
@@ -182,8 +178,7 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
                 this.metadata = BlockLogicPressurePlate.setSide(this.metadata,
                     rotateY(currentSide.direction(), rotateAmount).side());
             }
-        } else if (logic instanceof BlockLogicSign) {
-            BlockLogicSign sign = (BlockLogicSign) logic;
+        } else if (logic instanceof BlockLogicSign sign) {
             int currentOrientation = this.metadata & BlockLogicSign.MASK_SIDE;
             if (sign.isFreeStanding) {
                 this.metadata = replaceBits(this.metadata, BlockLogicSign.MASK_SIDE,
@@ -224,32 +219,32 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
         return (metadata & ~mask) | (value & mask);
     }
 
-    private static Direction rotateY(Direction direction, int rotateAmount) {
+    private static Direction rotateY(@NonNull Direction direction, int rotateAmount) {
         return direction.rotate(Axis.Y, -rotateAmount);
     }
 
     private static Direction getButtonDirection(int metadata) {
-        switch (metadata) {
-            case BlockLogicButton.SIDE_WEST: return Direction.WEST;
-            case BlockLogicButton.SIDE_EAST: return Direction.EAST;
-            case BlockLogicButton.SIDE_NORTH: return Direction.NORTH;
-            case BlockLogicButton.SIDE_SOUTH: return Direction.SOUTH;
-            case BlockLogicButton.SIDE_TOP: return Direction.UP;
-            case BlockLogicButton.SIDE_BOTTOM: return Direction.DOWN;
-            default: return Direction.NONE;
-        }
+        return switch (metadata) {
+            case BlockLogicButton.SIDE_WEST -> Direction.WEST;
+            case BlockLogicButton.SIDE_EAST -> Direction.EAST;
+            case BlockLogicButton.SIDE_NORTH -> Direction.NORTH;
+            case BlockLogicButton.SIDE_SOUTH -> Direction.SOUTH;
+            case BlockLogicButton.SIDE_TOP -> Direction.UP;
+            case BlockLogicButton.SIDE_BOTTOM -> Direction.DOWN;
+            default -> Direction.NONE;
+        };
     }
 
-    private static int getButtonMetadata(Direction direction) {
-        switch (direction) {
-            case WEST: return BlockLogicButton.SIDE_WEST;
-            case EAST: return BlockLogicButton.SIDE_EAST;
-            case NORTH: return BlockLogicButton.SIDE_NORTH;
-            case SOUTH: return BlockLogicButton.SIDE_SOUTH;
-            case UP: return BlockLogicButton.SIDE_TOP;
-            case DOWN: return BlockLogicButton.SIDE_BOTTOM;
-            default: return 0;
-        }
+    private static int getButtonMetadata(@NonNull Direction direction) {
+        return switch (direction) {
+            case WEST -> BlockLogicButton.SIDE_WEST;
+            case EAST -> BlockLogicButton.SIDE_EAST;
+            case NORTH -> BlockLogicButton.SIDE_NORTH;
+            case SOUTH -> BlockLogicButton.SIDE_SOUTH;
+            case UP -> BlockLogicButton.SIDE_TOP;
+            case DOWN -> BlockLogicButton.SIDE_BOTTOM;
+            default -> 0;
+        };
     }
 
     private static int rotateLever(int rotation, int rotateAmount) {
@@ -271,23 +266,23 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
             default: return rotation;
         }
 
-        switch (rotateY(direction, rotateAmount)) {
-            case EAST: return BlockLogicLever.ROTATION_EAST;
-            case WEST: return BlockLogicLever.ROTATION_WEST;
-            case SOUTH: return BlockLogicLever.ROTATION_SOUTH;
-            case NORTH: return BlockLogicLever.ROTATION_NORTH;
-            default: return rotation;
-        }
+        return switch (rotateY(direction, rotateAmount)) {
+            case EAST -> BlockLogicLever.ROTATION_EAST;
+            case WEST -> BlockLogicLever.ROTATION_WEST;
+            case SOUTH -> BlockLogicLever.ROTATION_SOUTH;
+            case NORTH -> BlockLogicLever.ROTATION_NORTH;
+            default -> rotation;
+        };
     }
 
-    private static int getRepeaterMetadata(Direction direction) {
-        switch (direction) {
-            case SOUTH: return BlockLogicRepeater.DIRECTION_SOUTH;
-            case WEST: return BlockLogicRepeater.DIRECTION_WEST;
-            case NORTH: return BlockLogicRepeater.DIRECTION_NORTH;
-            case EAST: return BlockLogicRepeater.DIRECTION_EAST;
-            default: return 0;
-        }
+    private static int getRepeaterMetadata(@NonNull Direction direction) {
+        return switch (direction) {
+            case SOUTH -> BlockLogicRepeater.DIRECTION_SOUTH;
+            case WEST -> BlockLogicRepeater.DIRECTION_WEST;
+            case NORTH -> BlockLogicRepeater.DIRECTION_NORTH;
+            case EAST -> BlockLogicRepeater.DIRECTION_EAST;
+            default -> 0;
+        };
     }
 
 

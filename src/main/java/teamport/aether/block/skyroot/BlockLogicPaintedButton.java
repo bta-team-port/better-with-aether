@@ -5,6 +5,7 @@ import net.minecraft.core.block.BlockLogicButtonPainted;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 
 public class BlockLogicPaintedButton extends BlockLogicButtonPainted {
     protected final int unpaintedBlockID;
@@ -20,7 +21,7 @@ public class BlockLogicPaintedButton extends BlockLogicButtonPainted {
     }
 
     @Override
-    public void removeDye(World world, TilePosc pos) {
+    public void removeDye(@NonNull World world, @NonNull TilePosc pos) {
         int meta = stripColorFromMetadata(world.getBlockData(pos));
         Block<?> unpaintedBlock = Blocks.getBlock(unpaintedBlockID);
         world.setBlockTypeDataNotify(pos, unpaintedBlock, meta);

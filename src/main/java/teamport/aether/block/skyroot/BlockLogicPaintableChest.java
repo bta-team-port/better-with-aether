@@ -6,6 +6,7 @@ import net.minecraft.core.block.material.Material;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 
 public class BlockLogicPaintableChest extends BlockLogicChest {
     protected final Block<? extends BlockLogicPaintedChest> paintedBlock;
@@ -16,7 +17,7 @@ public class BlockLogicPaintableChest extends BlockLogicChest {
     }
 
     @Override
-    public void setColor(World world, TilePosc pos, DyeColor color) {
+    public void setColor(@NonNull World world, @NonNull TilePosc pos, @NonNull DyeColor color) {
         int meta = world.getBlockData(pos);
         world.setBlockTypeDataRaw(pos, paintedBlock, meta);
         world.setBlockData(pos, meta);

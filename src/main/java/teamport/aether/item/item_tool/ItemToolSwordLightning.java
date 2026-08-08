@@ -6,6 +6,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemToolSword;
 import net.minecraft.core.util.helper.DamageType;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherMod;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherHasCustomDamageType;
@@ -16,10 +17,10 @@ public class ItemToolSwordLightning extends ItemToolSword implements AetherHasCu
     }
 
     @Override
-    public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
+    public boolean hitEntity(@NonNull ItemStack itemstack, @NonNull Mob target, @NonNull Mob attacker) {
         boolean hitEntity = super.hitEntity(itemstack, target, attacker);
         if (target instanceof Mob && target.hurtTime == 10 && hitEntity) {
-            if ((target instanceof Player) && ((Player) target).gamemode.hasInvulnerablePlayer()) {
+            if ((target instanceof Player player) && player.gamemode.hasInvulnerablePlayer()) {
                 return false;
             }
             ParticleMaker.spawnLightningSwordParticles(target);

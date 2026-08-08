@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import teamport.aether.AetherClient;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = HudComponents.class)
+@Mixin(HudComponents.class)
 public abstract class HudComponentEntrypointMixin {
     // If you don't have this run at the point of creation of the hud component class, the reset button just won't work.
     static {

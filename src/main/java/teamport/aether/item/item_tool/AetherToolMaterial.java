@@ -5,6 +5,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemTool;
 import net.minecraft.core.item.tool.ItemToolSword;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.mixin.accessors.ItemToolSwordAccessor;
 
 public class AetherToolMaterial {
@@ -17,7 +18,7 @@ public class AetherToolMaterial {
 
     public static final int VALKYRIE_TOOL_EXTEND_RANGE_BY = 6;
 
-    public static boolean isHoldingValkyrieTool(Player player) {
+    public static boolean isHoldingValkyrieTool(@NonNull Player player) {
         ItemStack held = player.getHeldItem();
         if (held == null) return false;
         if (held.getItem() instanceof ItemTool && (((ItemTool) held.getItem()).getMaterial() == AetherToolMaterial.valkyrie)) return true;

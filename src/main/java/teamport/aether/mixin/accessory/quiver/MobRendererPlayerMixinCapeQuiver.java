@@ -20,7 +20,7 @@ import org.useless.dragonfly.models.entity.StaticEntityModel;
 import teamport.aether.ducks.IContainerInventoryAether;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = MobRendererPlayer.class, remap = false, priority = 1100)
+@Mixin(value = MobRendererPlayer.class, priority = 1100)
 public abstract class MobRendererPlayerMixinCapeQuiver extends MobRenderer<Player> {
     protected MobRendererPlayerMixinCapeQuiver(float shadowSize) {
         super(shadowSize);
