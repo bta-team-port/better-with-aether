@@ -17,7 +17,7 @@ public class NetEntrySlider extends NetEntryAnimal<MobBossSlider> {
     }
 
     @Override
-    public int getPacketDelay() {
+    public int getMovementPacketDelay() {
         return 1;
     }
 }

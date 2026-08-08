@@ -4,90 +4,75 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.PlayerRemote;
-import net.minecraft.client.render.Font;
-import net.minecraft.client.render.ItemRenderer;
-import net.minecraft.client.render.TextureManager;
+import net.minecraft.client.render.item.model.ItemModel;
 import net.minecraft.client.render.item.model.ItemModelDispatcher;
 import net.minecraft.client.render.item.model.ItemModelStandard;
-import net.minecraft.client.render.tessellator.Tessellator;
-import net.minecraft.client.render.texture.stitcher.IconCoordinate;
+import net.minecraft.client.render.renderer.GLRenderer;
+import net.minecraft.client.render.tessellator.TessellatorGeneral;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
-import org.lwjgl.opengl.GL11;
+import org.useless.dragonfly.DisplayPos;
 import teamport.aether.item.DartInterface;
+import teamport.aether.item.ItemDart;
 
 @Environment(EnvType.CLIENT)
 public class ItemModelShooter extends ItemModelStandard {
-    public ItemModelShooter(Item item, String namespace) {
-        super(item, namespace);
+    public ItemModelShooter(Item item, boolean handheld) {
+        super(item, handheld);
+        this.setDisplayPos(DisplayPos.THIRD_PERSON_RIGHT_HAND, new DisplayPos(
+            -0.0625f, -0.125f, 0.15625f, -80.0f, 260.0f, -40.0f, 0.9f, 0.9f, 0.9f
+        ));
+        this.setDisplayPos(DisplayPos.THIRD_PERSON_LEFT_HAND, new DisplayPos(
+            -0.0625f, -0.125f, 0.15625f, -80.0f, -280.0f, 40.0f, 0.9f, 0.9f, 0.9f
+        ));
     }
 
     @Override
-    public void renderItem(Tessellator tessellator, ItemRenderer renderer, ItemStack itemstack, Entity entity, float brightness, boolean handheldTransform) {
-        super.renderItem(tessellator, renderer, itemstack, entity, brightness, handheldTransform);
-        Item nextDart = null;
-        if (entity instanceof Player) {
-            Player entityplayer = (Player) entity;
-            nextDart = this.getNextDart(entityplayer);
+    public void render(TessellatorGeneral tessellator, Entity entity, ItemStack itemStack,
+                       String displayPosition, boolean render3d, int renderCount, byte lightmap, float brightness, boolean leftHand) {
+        Player player = entity instanceof Player ? (Player) entity : null;
+        if (player == null) {
+            Minecraft mc = Minecraft.getMinecraft();
+            if (mc != null) player = mc.thePlayer;
         }
 
-        if (nextDart != null) {
-            GL11.glRotatef(-90.0F, 0.0F, 0.0F, 1.0F);
-            GL11.glTranslatef(-1.2F, 0.3F, 0.0625F);
-            ItemModelDispatcher.getInstance().getDispatch(nextDart).renderItem(tessellator, renderer, itemstack, entity, brightness, false);
+        Item nextDart = player != null ? getNextDart(player) : null;
+        ItemModel dartModel = nextDart != null
+            ? ItemModelDispatcher.getInstance().getDispatch(nextDart.getDefaultStack())
+            : null;
+
+        boolean isGui = DisplayPos.GUI.equals(displayPosition);
+
+        if (isGui && dartModel != null) {
+            dartModel.render(tessellator, entity, nextDart.getDefaultStack(),
+                DisplayPos.NONE, false, 1, lightmap, brightness, leftHand);
         }
 
-    }
+        super.render(tessellator, entity, itemStack, displayPosition, render3d, renderCount, lightmap, brightness, leftHand);
 
-    @Override
-    public void renderItemIntoGui(Tessellator tessellator, Font font, TextureManager textureManager, ItemStack itemStack, int x, int y, float brightness, float alpha) {
-        Minecraft mc = Minecraft.getMinecraft();
-        Item nextDart = this.getNextDart(mc.thePlayer);
-        if (itemStack == mc.thePlayer.getHeldItem() && nextDart != null) {
-            GL11.glEnable(GL11.GL_BLEND);
-            GL11.glBlendFunc(770, 771);
-            GL11.glEnable(GL11.GL_CULL_FACE);
-            ItemModelStandard dartModel = (ItemModelStandard) ItemModelDispatcher.getInstance().getDispatch(nextDart);
-            IconCoordinate textureIndex = dartModel.getIcon(mc.thePlayer, nextDart.getDefaultStack());
-            GL11.glDisable(GL11.GL_LIGHTING);
-            textureIndex.parentAtlas.bind();
-            if (this.useColor) {
-                int color = this.getColor(itemStack);
-                float r = (color >> 16 & 255) / 255.0F;
-                float g = (color >> 8 & 255) / 255.0F;
-                float b = (color & 255) / 255.0F;
-                GL11.glColor4f(r * brightness, g * brightness, b * brightness, alpha);
-            } else {
-                GL11.glColor4f(brightness, brightness, brightness, alpha);
-            }
-
-            this.renderTexturedQuad(tessellator, x, y, textureIndex, false, false);
-            GL11.glEnable(GL11.GL_LIGHTING);
-            GL11.glEnable(GL11.GL_CULL_FACE);
-            GL11.glDisable(GL11.GL_BLEND);
+        // i hate models
+        if (!isGui && dartModel != null) {
+            GLRenderer.pushFrame();
+            GLRenderer.modelM4f()
+                .translate(-0.3125f, 0.3125f, 0.0625f)
+                .rotateZ((float) Math.toRadians(90.0));
+            dartModel.render(tessellator, entity, nextDart.getDefaultStack(),
+                DisplayPos.NONE, true, 1, lightmap, brightness, leftHand);
+            GLRenderer.popFrame();
         }
-
-        super.renderItemIntoGui(tessellator, font, textureManager, itemStack, x, y, brightness, alpha);
     }
 
     public Item getNextDart(Player player) {
         DartInterface dartPlayer = (DartInterface) player;
         if (player instanceof PlayerRemote) {
             int id = dartPlayer.better_with_aether$getDartId();
-            return id >= 0 && id < Item.itemsList.length ? Item.itemsList[id] : null;
+            if (id < 0 || id > Item.highestItemId) return null;
+            Item item = Item.getItem(id);
+            return item instanceof ItemDart ? item : null;
         } else {
             return dartPlayer.better_with_aether$getNextDart();
         }
-    }
-
-    @Override
-    public void heldTransformThirdPerson(ItemRenderer renderer, Entity entity, ItemStack itemStack) {
-        GL11.glTranslatef(0.0F, 0.125F, 0.3125F);
-        GL11.glRotatef(-20.0F, 0.0F, 1.0F, 0.0F);
-        GL11.glScalef(0.625F, -0.625F, 0.625F);
-        GL11.glRotatef(-100.0F, 1.0F, 0.0F, 0.0F);
-        GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
     }
 }

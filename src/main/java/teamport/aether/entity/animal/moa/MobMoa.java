@@ -134,7 +134,7 @@ public abstract class MobMoa extends MobAetherAnimalRideable {
 
         if (player.getHeldItem() != null && player.getHeldItem().itemID == AetherItems.PETAL_AECHOR.id && tamed
             && player.isSneaking() && this.getHealth() < this.getMaxHealth()) {
-            if (player.getGamemode().consumeBlocks()) {
+            if (player.getGamemode().hasBlockConsumption()) {
                 player.swingItem();
                 player.getHeldItem().stackSize--;
             }

@@ -16,8 +16,6 @@ public class LookupTrinketIcons {
     private final List<String> listTexture = new ArrayList<>();
     private static final Random random = new Random();
 
-    public static void init(){/* just to load this class*/}
-
     private LookupTrinketIcons() {
         this.register();
     }

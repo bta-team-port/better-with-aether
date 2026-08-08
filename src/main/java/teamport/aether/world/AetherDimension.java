@@ -9,6 +9,7 @@ import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.type.WorldTypeGroups;
 import teamport.aether.AetherConfig;
 import teamport.aether.AetherMod;
 import teamport.aether.block.AetherBlocks;
@@ -70,8 +71,11 @@ public class AetherDimension {
         AetherWorldTypes.init();
         BiomeProviderAether.init();
 
+        WorldTypeGroups.GROUPS.size();
+
         AETHER = new Dimension("aether", Dimension.OVERWORLD, 1.0f, AetherBlocks.PORTAL_AETHER, AetherWorldTypes.AETHER_DEFAULT);
         Dimension.registerDimension(AETHER_DIMENSION_ID, AETHER);
+        AetherWorldTypes.addToWorldTypeGroups(AETHER);
 
         initDimensionBlackList();
     }
@@ -86,7 +90,7 @@ public class AetherDimension {
         aetherBlacklist.add(Blocks.TORCH_COAL.id());
 
         /// these blocks are replaced on placement.
-        aetherBlacklist.add(Blocks.COBBLE_NETHERRACK_IGNEOUS.id());
+        aetherBlacklist.add(Blocks.COBBLE_NETHERRACK_CRYSTALLINE.id());
         aetherBlacklist.add(Blocks.PUMICE_WET.id());
         aetherBlacklist.add(Blocks.BRAZIER_ACTIVE.id());
         aetherBlacklist.add(Blocks.PUMPKIN_CARVED_ACTIVE.id());
@@ -103,7 +107,7 @@ public class AetherDimension {
             aetherBlacklist.add(Blocks.COBBLE_NETHERRACK.id());
             aetherBlacklist.add(Blocks.STAIRS_COBBLE_NETHERRACK.id());
             aetherBlacklist.add(Blocks.SLAB_COBBLE_NETHERRACK.id());
-            aetherBlacklist.add(Blocks.COBBLE_NETHERRACK_MOSSY.id());
+            aetherBlacklist.add(Blocks.COBBLE_NETHERRACK_CRYSTALLINE.id());
             aetherBlacklist.add(Blocks.NETHERRACK_CARVED.id());
             aetherBlacklist.add(Blocks.NETHERRACK_POLISHED.id());
             aetherBlacklist.add(Blocks.SLAB_NETHERRACK_POLISHED.id());
@@ -138,7 +142,7 @@ public class AetherDimension {
     public static MobAerbunny popBunnyFromPlayer(UUID uuidPlayer, World world) {
         CompoundTag tag = HAS_BUNNY_MAP.remove(uuidPlayer);
         if (tag == null) return null;
-        MobAerbunny mobAerbunny = (MobAerbunny) EntityDispatcher.createEntityFromNBT(tag, world);
+        MobAerbunny mobAerbunny = (MobAerbunny) EntityDispatcher.getInstance().createEntityFromNBT(tag, world);
         world.entityJoinedWorld(mobAerbunny);
         return mobAerbunny;
     }
@@ -151,8 +155,7 @@ public class AetherDimension {
     }
 
     public static boolean canGetParachute(UUID uuid) {
-        boolean result = !HAS_RECEIVED_PARACHUTE_MAP.computeIfAbsent(uuid, it -> false);
-        return result;
+        return !HAS_RECEIVED_PARACHUTE_MAP.computeIfAbsent(uuid, it -> false);
     }
 
     public static void setParachuteReceived(UUID uuid) {
@@ -187,7 +190,7 @@ public class AetherDimension {
                 while (!entities.isEmpty()) {
                     CompoundTag data = entities.remove(0);
 
-                    Entity copy = EntityDispatcher.createEntityFromNBT(data, world);
+                    Entity copy = EntityDispatcher.getInstance().createEntityFromNBT(data, world);
                     copy.load(data);
 
                     float scale = Dimension.getCoordScale(AetherDimension.getAether(), Dimension.OVERWORLD);
@@ -215,6 +218,7 @@ public class AetherDimension {
     public static void setWorldDataDefaults() {
         ENTITIES_MOVED_TO_OVERWORLD.clear();
         HAS_RECEIVED_PARACHUTE_MAP.clear();
+        HAS_BUNNY_MAP.clear();
         DungeonMap.clear();
     }
 
@@ -287,7 +291,8 @@ public class AetherDimension {
     public static void loadDimensionData(CompoundTag dimensionData) {
         AetherMod.LOGGER.debug("Loading additional dimension data.");
 
-        if (!dimensionData.containsKey(AetherMod.MOD_ID + ".__SCHEMA_VERSION__")) {
+        if (!dimensionData.containsKey(AetherMod.MOD_ID + ".__SCHEMA_VERSION__")
+            && !dimensionData.containsKey("__SCHEMA_VERSION__")) {
             loadFallenEntities(dimensionData.getList(AetherMod.MOD_ID + ".overworldFallen"));
         }
 
@@ -297,7 +302,7 @@ public class AetherDimension {
     public static void saveDimensionData(CompoundTag dimensionData) {
         AetherMod.LOGGER.debug("Saving additional dimension data.");
 
-        dimensionData.putInt("__SCHEMA_VERSION__", SCHEMA_VERSION);
+        dimensionData.putInt(AetherMod.MOD_ID + ".__SCHEMA_VERSION__", SCHEMA_VERSION);
         dimensionData.putBoolean(AetherMod.MOD_ID + ".sunspiritDeathTimestamp", SunSpiritDeath.isDead());
     }
 

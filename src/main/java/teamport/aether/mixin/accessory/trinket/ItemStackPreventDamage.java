@@ -15,7 +15,7 @@ import teamport.aether.mixin.accessors.ItemAccessor;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
 
-@Mixin(value = ItemStack.class)
+@Mixin(value = ItemStack.class, remap = false)
 public abstract class ItemStackPreventDamage {
     @WrapOperation(method = "damageItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/item/ItemStack;isItemStackDamageable()Z"))
     private boolean preventDamage(ItemStack instance, Operation<Boolean> original, int i, @Nullable Entity entity) {
@@ -23,14 +23,14 @@ public abstract class ItemStackPreventDamage {
         ItemStack asThis = (ItemStack) (Object) this;
         if (!(entity instanceof Player)) return true;
         Player player = (Player) entity;
-        ItemStack trinketOne = player.inventory.armorInventory[TRINKET_1_SLOT];
-        ItemStack trinketTwo = player.inventory.armorInventory[TRINKET_2_SLOT];
-        if (trinketOne != null && trinketOne.itemID == AetherItems.ARMOR_TALISMAN_STEEL.id && asThis.itemID != AetherItems.ARMOR_TALISMAN_STEEL.id && ((ItemAccessor) trinketOne.getItem()).getItemRand().nextInt(4) == 0) {
+        ItemStack trinketOne = PlayerUtil.getArmorOrAccessoryItem(player, TRINKET_1_SLOT);
+        ItemStack trinketTwo = PlayerUtil.getArmorOrAccessoryItem(player, TRINKET_2_SLOT);
+        if (trinketOne != null && trinketOne.itemID == AetherItems.ARMOR_TALISMAN_STEEL.id && asThis.itemID != AetherItems.ARMOR_TALISMAN_STEEL.id && ItemAccessor.getItemRand().nextInt(4) == 0) {
             PlayerUtil.damageItemArmor(player, i, trinketOne, TRINKET_1_SLOT);
             return false;
         }
 
-        if (trinketTwo != null && trinketTwo.itemID == AetherItems.ARMOR_TALISMAN_STEEL.id && asThis.itemID != AetherItems.ARMOR_TALISMAN_STEEL.id && ((ItemAccessor) trinketTwo.getItem()).getItemRand().nextInt(4) == 0) {
+        if (trinketTwo != null && trinketTwo.itemID == AetherItems.ARMOR_TALISMAN_STEEL.id && asThis.itemID != AetherItems.ARMOR_TALISMAN_STEEL.id && ItemAccessor.getItemRand().nextInt(4) == 0) {
             PlayerUtil.damageItemArmor(player, i, trinketTwo, TRINKET_2_SLOT);
             return false;
         }

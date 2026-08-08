@@ -2,7 +2,11 @@ package teamport.aether.effect;
 
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
-import sunsetsatellite.catalyst.effects.api.effect.*;
+import sunsetsatellite.catalyst.effects.api.effect.Effect;
+import sunsetsatellite.catalyst.effects.api.effect.EffectContainer;
+import sunsetsatellite.catalyst.effects.api.effect.EffectStack;
+import sunsetsatellite.catalyst.effects.api.effect.EffectTimeType;
+import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
 import teamport.aether.helper.ParticleMaker;
 import turniplabs.halplibe.helper.EnvironmentHelper;
@@ -11,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class RemedyEffect extends Effect implements ILockInteractable {
+public class RemedyEffect extends AetherEffect implements ILockInteractable {
 
     public RemedyEffect(String nameKey, String id, List<Modifier<?>> modifiers, EffectTimeType effectTimeType, int maxStack) {
         super(nameKey, id, modifiers, effectTimeType, maxStack);

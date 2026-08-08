@@ -1,19 +1,32 @@
 package teamport.aether.mixin.player;
 
-import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.net.command.TextFormatting;
+import net.minecraft.core.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import teamport.aether.entity.AetherDeathMessage;
 
-@Mixin(value = Player.class)
+@Mixin(value = Mob.class, remap = false)
 public abstract class PlayerDeathMessageMixin {
-    @ModifyReturnValue(method = "getDeathMessage", at = @At("RETURN"))
-    private String sendAetherDeathMessages(String original, Entity entityKilledBy) {
+    @Redirect(
+        method = "onDeath",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/core/world/World;sendGlobalMessageTranslated(Lnet/minecraft/core/net/command/TextFormatting$Base;Ljava/lang/String;[Ljava/lang/String;)V"
+        )
+    )
+    private void sendAetherDeathMessages(World world, TextFormatting.Base formatting, String key, String[] substitutions, Entity entityKilledBy) {
+        if (!((Object) this instanceof Player) || !(entityKilledBy instanceof AetherDeathMessage)) {
+            world.sendGlobalMessageTranslated(formatting, key, substitutions);
+            return;
+        }
+
         Player player = (Player) (Object) this;
-        if (!(entityKilledBy instanceof AetherDeathMessage)) return original;
         AetherDeathMessage killer = (AetherDeathMessage) entityKilledBy;
-        return killer.deathMessage(player);
+        world.sendGlobalMessage(killer.deathMessage(player));
     }
 }

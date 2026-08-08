@@ -5,11 +5,13 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicRotatable;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
+import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.block.entity.TileEntityIncubator;
@@ -22,7 +24,7 @@ public class BlockLogicIncubator extends BlockLogicRotatable {
     private static boolean keepIncubatorInventory = false;
 
     public BlockLogicIncubator(Block<?> block, boolean active) {
-        super(block, Material.stone);
+        super(block, Materials.STONE);
         this.isActive = active;
         block.withEntity(TileEntityIncubator::new);
     }
@@ -57,13 +59,13 @@ public class BlockLogicIncubator extends BlockLogicRotatable {
         double yPos = y + 1.0;
         double zPos = z + 0.5 + radius * Math.sin(angle);
         double dy = (rand.nextGaussian() * 0.5 + 1.0) * 0.01;
-        world.spawnParticle("flameambrosium", xPos, yPos, zPos, 0.0, dy, 0.0, 0);
+        world.spawnParticle("flameambrosium", xPos, yPos, zPos, 0.0, dy, 0.0, 0, false);
     }
 
     @Override
-    public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced) {
+    public boolean onInteracted(World world, TilePosc pos, Player player, Side side, double xPlaced, double yPlaced) {
         if (!world.isClientSide) {
-            TileEntityIncubator tileEntityIncubator = (TileEntityIncubator) world.getTileEntity(x, y, z);
+            TileEntityIncubator tileEntityIncubator = (TileEntityIncubator) world.getTileEntity(pos);
             ((AetherScreens) player).aether$displayIncubatorScreen(tileEntityIncubator);
         }
         return true;

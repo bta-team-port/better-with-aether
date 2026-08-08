@@ -10,34 +10,50 @@ import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.WorldSource;
+import net.minecraft.core.world.pos.TilePosc;
+
+import java.util.EnumMap;
+import java.util.Map;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelIncubator<T extends BlockLogic> extends BlockModelStandard<T> {
+    private final Map<Side, IconCoordinate> retroTextures = new EnumMap<>(Side.class);
+    private IconCoordinate topFilled;
+    private IconCoordinate retroTopFilled;
+
     public BlockModelIncubator(Block<T> block) {
         super(block);
     }
 
     @Override
-    public IconCoordinate getBlockTexture(WorldSource blockAccess, int x, int y, int z, Side side) {
-        if (side.getId() == Side.TOP.getId()) {
-            IconCoordinate texture;
-            if (isRetro()) {
-                texture = this.retroBlockTextures.get(Side.TOP);
-            } else {
-                texture = this.blockTextures.get(Side.TOP);
-            }
-            Container container = (Container) blockAccess.getTileEntity(x, y, z);
-            if (container != null) {
-                boolean hasInput = container.getItem(0) != null;
-                if (hasInput && texture != null) {
-                    return TextureRegistry.getTexture(texture.namespaceId.namespace() + ":block/" + texture.namespaceId.value() + "_filled");
-                }
+    public IconCoordinate getBlockTexture(WorldSource blockAccess, TilePosc pos, Side side) {
+        if (side.id == Side.TOP.id) {
+            boolean retro = isRetro();
+            IconCoordinate texture = retro ? retroTextures.get(Side.TOP) : this.blockTextures.get(Side.TOP);
+            Container container = (Container) blockAccess.getTileEntity(pos.x(), pos.y(), pos.z());
+            if (container != null && container.getItem(0) != null) {
+                IconCoordinate filled = retro ? retroTopFilled : topFilled;
+                if (filled != null) return filled;
             }
             return texture;
         }
-        if (isRetro()) {
-            return this.retroBlockTextures.get(side.getId());
-        }
-        return this.blockTextures.get(side.getId());
+        IconCoordinate retroTexture = retroTextures.get(side);
+        return isRetro() && retroTexture != null ? retroTexture : this.blockTextures.get(side.id);
+    }
+
+    public BlockModelIncubator<T> setRetroTex(String texture, Side... sides) {
+        IconCoordinate coordinate = TextureRegistry.getTexture(texture);
+        for (Side side : sides) retroTextures.put(side, coordinate);
+        return this;
+    }
+
+    public BlockModelIncubator<T> setTopFilled(String texture) {
+        this.topFilled = TextureRegistry.getTexture(texture);
+        return this;
+    }
+
+    public BlockModelIncubator<T> setRetroTopFilled(String texture) {
+        this.retroTopFilled = TextureRegistry.getTexture(texture);
+        return this;
     }
 }

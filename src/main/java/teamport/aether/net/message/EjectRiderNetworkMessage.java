@@ -1,9 +1,5 @@
 package teamport.aether.net.message;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.world.WorldClientMP;
 import net.minecraft.core.entity.Entity;
 import org.jspecify.annotations.NonNull;
 import turniplabs.halplibe.helper.network.NetworkMessage;
@@ -28,14 +24,12 @@ public class EjectRiderNetworkMessage implements NetworkMessage {
         vehicle = packet.readInt();
     }
 
-    @Environment(EnvType.CLIENT)
-    protected Entity getEntityByID(int i) {
-        Minecraft mc = Minecraft.getMinecraft();
-        return i == mc.thePlayer.id ? mc.thePlayer : ((WorldClientMP)mc.currentWorld).getEntityFromId(i);
-    }
-
     @Override
     public void handleClientEnv(NetworkContext context) {
-        getEntityByID(vehicle).ejectRider();
+        if (context.player == null || context.player.world == null) return;
+        Entity entity = context.player.id == vehicle
+            ? context.player
+            : context.player.world.getEntityByID(vehicle);
+        if (entity != null) entity.ejectRider();
     }
 }

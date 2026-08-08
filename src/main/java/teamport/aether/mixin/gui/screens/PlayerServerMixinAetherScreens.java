@@ -16,7 +16,7 @@ import teamport.aether.gui.machine.freezer.MenuFreezer;
 import teamport.aether.gui.machine.incubator.MenuIncubator;
 
 @Environment(EnvType.SERVER)
-@Mixin(value = PlayerServer.class)
+@Mixin(value = PlayerServer.class, remap = false)
 public abstract class PlayerServerMixinAetherScreens implements AetherScreens {
     @Shadow
     private int currentWindowId;
@@ -27,29 +27,29 @@ public abstract class PlayerServerMixinAetherScreens implements AetherScreens {
         this.getNextWindowId();
         PlayerServer playerServer = (PlayerServer) (Object) this;
         playerServer.playerNetServerHandler.sendPacket(new PacketContainerOpen(this.currentWindowId, AetherConfig.ENCHANTER_SCREEN_ID, tileEntity.getNameTranslationKey(), tileEntity.getContainerSize()));
-        playerServer.craftingInventory.onCraftGuiClosed(playerServer);
-        playerServer.craftingInventory = new MenuEnchanter(playerServer.inventory, tileEntity);
-        playerServer.craftingInventory.containerId = this.currentWindowId;
-        playerServer.craftingInventory.addSlotListener(playerServer);
+        playerServer.containerMenu.onCraftGuiClosed(playerServer);
+        playerServer.containerMenu = new MenuEnchanter(playerServer.inventory, tileEntity);
+        playerServer.containerMenu.containerId = this.currentWindowId;
+        playerServer.containerMenu.addSlotListener(playerServer);
     }
     @Override
     public void aether$displayFreezerScreen(TileEntityFreezer tileEntity) {
         this.getNextWindowId();
         PlayerServer playerServer = (PlayerServer) (Object) this;
         playerServer.playerNetServerHandler.sendPacket(new PacketContainerOpen(this.currentWindowId, AetherConfig.FREEZER_SCREEN_ID, tileEntity.getNameTranslationKey(), tileEntity.getContainerSize()));
-        playerServer.craftingInventory.onCraftGuiClosed(playerServer);
-        playerServer.craftingInventory = new MenuFreezer(playerServer.inventory, tileEntity);
-        playerServer.craftingInventory.containerId = this.currentWindowId;
-        playerServer.craftingInventory.addSlotListener(playerServer);
+        playerServer.containerMenu.onCraftGuiClosed(playerServer);
+        playerServer.containerMenu = new MenuFreezer(playerServer.inventory, tileEntity);
+        playerServer.containerMenu.containerId = this.currentWindowId;
+        playerServer.containerMenu.addSlotListener(playerServer);
     }
     @Override
     public void aether$displayIncubatorScreen(TileEntityIncubator tileEntity) {
         this.getNextWindowId();
         PlayerServer playerServer = (PlayerServer) (Object) this;
         playerServer.playerNetServerHandler.sendPacket(new PacketContainerOpen(this.currentWindowId, AetherConfig.INCUBATOR_SCREEN_ID, tileEntity.getNameTranslationKey(), tileEntity.getContainerSize()));
-        playerServer.craftingInventory.onCraftGuiClosed(playerServer);
-        playerServer.craftingInventory = new MenuIncubator(playerServer.inventory, tileEntity);
-        playerServer.craftingInventory.containerId = this.currentWindowId;
-        playerServer.craftingInventory.addSlotListener(playerServer);
+        playerServer.containerMenu.onCraftGuiClosed(playerServer);
+        playerServer.containerMenu = new MenuIncubator(playerServer.inventory, tileEntity);
+        playerServer.containerMenu.containerId = this.currentWindowId;
+        playerServer.containerMenu.addSlotListener(playerServer);
     }
 }

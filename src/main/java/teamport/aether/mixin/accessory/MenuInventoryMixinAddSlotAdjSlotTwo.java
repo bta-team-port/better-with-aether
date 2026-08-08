@@ -6,11 +6,11 @@ import net.minecraft.core.player.inventory.menu.MenuAbstract;
 import net.minecraft.core.player.inventory.menu.MenuInventory;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(value = MenuAbstract.class)
+@Mixin(value = MenuAbstract.class, remap = false)
 public abstract class MenuInventoryMixinAddSlotAdjSlotTwo {
     @WrapMethod(method = "getHotbarSlotId")
     public int getHotbarSlotId(int number, Operation<Integer> original) {
-        if ((MenuAbstract) (Object) this instanceof MenuInventory) return 27 + 8 + number;
+        if ((MenuAbstract) (Object) this instanceof MenuInventory) return 27 + 9 + number;
         return original.call(number);
     }
 }

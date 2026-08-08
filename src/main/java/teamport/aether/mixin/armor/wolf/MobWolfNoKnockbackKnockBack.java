@@ -9,7 +9,7 @@ import net.minecraft.core.item.material.ArmorMaterial;
 import org.spongepowered.asm.mixin.Mixin;
 import teamport.aether.item.AetherArmorMaterial;
 
-@Mixin(value = Mob.class)
+@Mixin(value = Mob.class, remap = false)
 public abstract class MobWolfNoKnockbackKnockBack {
     @WrapMethod(method = "knockBack")
     private void knockBack(Entity entity, int i, double d, double d1, Operation<Void> original) {
@@ -17,7 +17,8 @@ public abstract class MobWolfNoKnockbackKnockBack {
             original.call(entity, i, d, d1);
             return;
         }
-        ArmorMaterial material = ((MobWolf) (Object) this).getArmorMaterial();
+        net.minecraft.core.item.ItemStack armor = ((MobWolf)(Object) this).getArmorItem();
+        ArmorMaterial material = (armor != null && armor.getItem() instanceof net.minecraft.core.item.IArmorItem) ? ((net.minecraft.core.item.IArmorItem<?>) armor.getItem()).getArmorMaterial() : null;
         if (material != null && material.equals(AetherArmorMaterial.OBSIDIAN)) return;
         original.call(entity, i, d, d1);
     }

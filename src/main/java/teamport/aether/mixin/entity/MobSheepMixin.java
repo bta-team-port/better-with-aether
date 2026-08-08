@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.item.AetherItemTags;
 
-@Mixin(value = MobSheep.class)
+@Mixin(value = MobSheep.class, remap = false)
 public abstract class MobSheepMixin {
     @ModifyReturnValue(method = "isFavouriteItem", at = @At(value = "RETURN"))
     private boolean isFavouriteItem(boolean original, ItemStack itemStack) {

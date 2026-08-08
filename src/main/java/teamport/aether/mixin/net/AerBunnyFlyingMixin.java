@@ -13,14 +13,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
 
 @Environment(EnvType.SERVER)
-@Mixin(value = PacketHandlerServer.class)
+@Mixin(value = PacketHandlerServer.class, remap = false)
 public abstract class AerBunnyFlyingMixin {
     @Shadow
     private PlayerServer playerEntity;
     @Shadow
     private int playerInAirTime;
-    @Inject(method = "handleFlying", at = @At("HEAD"))
-    private void handleFlying(PacketMovePlayer packet, CallbackInfo ci) {
+    @Inject(method = "handleMovePlayer(Lnet/minecraft/core/net/packet/PacketMovePlayer;)V", at = @At("HEAD"))
+    private void handleMovePlayer(PacketMovePlayer packet, CallbackInfo ci) {
         if (this.playerEntity.passenger instanceof MobAerbunny) {
             playerInAirTime = 0;
         }

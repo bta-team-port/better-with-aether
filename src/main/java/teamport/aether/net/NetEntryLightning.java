@@ -34,7 +34,7 @@ public class NetEntryLightning implements IVehicleEntry<EntityLightning>, ITrack
     }
 
     @Override
-    public int getPacketDelay() {
+    public int getMovementPacketDelay() {
         return 1;
     }
 

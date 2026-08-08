@@ -1,3 +1,5 @@
+// TODO: restore btwaila compat once upstream mod lands on BTA 8.0
+/*
 package teamport.aether.compat.waila.mixins;
 
 import com.llamalad7.mixinextras.expression.Definition;
@@ -14,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.block.dungeon.BlockLogicChestMimic;
 import toufoumaster.btwaila.gui.components.BaseInfoComponent;
 
-@Mixin(value = BaseInfoComponent.class)
+@Mixin(value = BaseInfoComponent.class, remap = false)
 public abstract class WallaceMixin {
     @Definition(id = "translateNameKey", method = "Lnet/minecraft/core/lang/I18n;translateNameKey(Ljava/lang/String;)Ljava/lang/String;")
     @Expression("? = ?.translateNameKey(?)")
@@ -34,3 +36,4 @@ public abstract class WallaceMixin {
         }
     }
 }
+*/

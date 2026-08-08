@@ -15,9 +15,9 @@ public class ItemAmbrosium extends ItemFood {
     }
 
     @Override
-    public ItemStack onUseItem(ItemStack itemstack, World world, Player entityplayer) {
+    public ItemStack onUse(ItemStack itemstack, World world, Player entityplayer) {
         if (entityplayer.getHealth() < entityplayer.getMaxHealth() && entityplayer.getHealth() + entityplayer.getTotalHealingRemaining() < entityplayer.getMaxHealth() && itemstack.consumeItem(entityplayer)) {
-            entityplayer.eatFood(this);
+            entityplayer.eatFood(itemstack);
             entityplayer.triggerAchievement(AetherAchievements.AMBROSIUM);
             world.playSoundAtEntity(entityplayer, entityplayer, this.ticksPerHeal >= 10 ? "random.bite_extended" : "random.bite", 0.5F + (itemRand.nextFloat() - itemRand.nextFloat()) * 0.1F, 1.1F + (itemRand.nextFloat() - itemRand.nextFloat()) * 0.1F);
         }

@@ -24,7 +24,7 @@ import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.terrain.BlockLogicLogAether;
 import teamport.aether.item.item_tool.ItemToolAxeAether;
 
-@Mixin(value = TreecapitatorHelper.class)
+@Mixin(value = TreecapitatorHelper.class, remap = false)
 public abstract class TreeCapitatorAetherAxeMixin {
     @Unique
     @Nullable

@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = ScreenInventoryCreative.class)
+@Mixin(value = ScreenInventoryCreative.class, remap = false)
 public abstract class ScreenInventoryCreativeMixinNewInv {
     // binds new texture
     @WrapOperation(method = "drawGuiContainerBackgroundLayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/TextureManager;loadTexture(Ljava/lang/String;)Lnet/minecraft/client/render/texture/Texture;"))

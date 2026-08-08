@@ -1,3 +1,5 @@
+// TODO: restore btwaila compat once upstream mod lands on BTA 8.0
+/*
 package teamport.aether.compat.waila;
 
 import net.fabricmc.loader.api.FabricLoader;
@@ -16,3 +18,4 @@ public class AetherWailaLoadMixins implements PreLaunchEntrypoint {
         }
     }
 }
+*/

@@ -1,10 +1,10 @@
 package teamport.aether.entity.boss.sunspirit;
 
 import com.mojang.nbt.tags.CompoundTag;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.Material;
+import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityLightning;
 import net.minecraft.core.entity.player.Player;
@@ -12,10 +12,13 @@ import net.minecraft.core.net.command.TextFormatting;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
+import net.minecraft.core.util.helper.LightIndexHelper;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
+import org.joml.Vector3d;
+import org.joml.Vector3dc;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import sunsetsatellite.catalyst.core.util.vector.Vec2f;
@@ -26,6 +29,7 @@ import teamport.aether.entity.player.MessageMaker;
 import teamport.aether.entity.projectile.ProjectileElementFire;
 import teamport.aether.entity.projectile.ProjectileElementIce;
 import teamport.aether.helper.ParticleMaker;
+import teamport.aether.helper.client.BossMusicClientHelper;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.feature.util.map.DungeonMap;
 import turniplabs.halplibe.helper.EnvironmentHelper;
@@ -42,6 +46,7 @@ public class MobBossSunspirit extends MobBossFlying {
     private int chatLog;
     private int chatCooldown;
     private static final int START_FIGHT = 9;
+    private static final int DATA_AGGRO = 17;
 
     private static final double DEFAULT_SPEED = 0.85;
     private static final double ADDED_MAX_SPEED = 0.45;
@@ -50,7 +55,7 @@ public class MobBossSunspirit extends MobBossFlying {
     public MobBossSunspirit(@Nullable World world) {
         super(world);
         this.setSize(2.25F, 3.0F);
-        this.textureIdentifier = NamespaceID.getPermanent("aether", "boss_sunspirit");
+        this.setTextureIdentifier("aether", "boss_sunspirit");
         this.fireImmune = true;
         this.maxHurtTime = 40;
         this.scoreValue = 100000;
@@ -59,6 +64,21 @@ public class MobBossSunspirit extends MobBossFlying {
         this.chatColor = (byte) (TextFormatting.YELLOW.id & 255);
         this.footSize = 2;
         this.canBreatheUnderwater();
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_AGGRO, 0, Integer.class);
+    }
+
+    private void syncAggroState() {
+        if (this.world == null) return;
+        if (this.world.isClientSide) {
+            this.isAgro = this.entityData.getInt(DATA_AGGRO) != 0;
+        } else {
+            this.entityData.set(DATA_AGGRO, this.isAgro ? 1 : 0);
+        }
     }
 
     public void returnToOriginalState() {
@@ -102,8 +122,8 @@ public class MobBossSunspirit extends MobBossFlying {
             return;
         }
         double speed = DEFAULT_SPEED + MathHelper.lerp(0.0f, ADDED_MAX_SPEED, 1.0f - this.getHealth() / (double) this.getMaxHealth());
-        Vec3 currentPos = Vec3.getPermanentVec3(x, y, z);
-        Vec3 nextPos = Vec3.getPermanentVec3(
+        Vector3d currentPos = new Vector3d(x, y, z);
+        Vector3d nextPos = new Vector3d(
             x + xd + defaultVector.x * speed + (defaultVector.x > 0 ? bbWidth / 2 : -bbWidth / 2),
             y,
             z + zd + defaultVector.y * speed + (defaultVector.y > 0 ? bbWidth / 2 : -bbWidth / 2)
@@ -147,16 +167,17 @@ public class MobBossSunspirit extends MobBossFlying {
         if (!this.world.getDifficulty().canHostileMobsSpawn()) {
             if (this.isAgro) {
                 if (!EnvironmentHelper.isServerEnvironment()) {
-                    Minecraft.getMinecraft().sndManager.stopMusic();
+                    BossMusicClientHelper.stop();
                 }
                 this.isAgro = false;
                 this.chatLog = 0;
                 this.returnToOriginalState();
-                this.evaporateMaterialWithEffect(Material.fire);
+                this.evaporateMaterialWithEffect(Materials.FIRE);
             }
         }
         super.tick();
-        this.evaporateMaterialWithEffect(Material.water);
+        this.syncAggroState();
+        this.evaporateMaterialWithEffect(Materials.WATER);
         if (this.chatCooldown > 0) {
             --this.chatCooldown;
             this.maxFireTicks = this.remainingFireTicks = 0;
@@ -267,8 +288,7 @@ public class MobBossSunspirit extends MobBossFlying {
                 DungeonMap.runWithDungeon(dungeonID, d -> d.lock(this.world));
 
                 if (!EnvironmentHelper.isServerEnvironment()) {
-                    Minecraft.getMinecraft().sndManager.stopMusic();
-                    Minecraft.getMinecraft().sndManager.playMusic("aether:aether_music_boss.fireboss", (float) this.x, (float) this.y, (float) this.z, 1.0F, 1.0F);
+                    BossMusicClientHelper.play("aether:aether_music_boss.fireboss", this.x, this.y, this.z);
                 }
 
                 return true;
@@ -311,7 +331,7 @@ public class MobBossSunspirit extends MobBossFlying {
         this.world.playSoundAtEntity(null, this, "aether:achievement.gold", 0.5f, 1.0f);
 
         if (!EnvironmentHelper.isServerEnvironment()) {
-            Minecraft.getMinecraft().sndManager.stopMusic();
+            BossMusicClientHelper.stop();
         }
 
         super.onDeath(entityKilledBy);
@@ -325,7 +345,7 @@ public class MobBossSunspirit extends MobBossFlying {
     public Entity findPlayerToAttack() {
         if (this.world == null) return null;
         Player player = this.world.getClosestPlayerToEntity(this, 32.0);
-        if (player != null && canEntityBeSeen(player) && player.gamemode.areMobsHostile()) {
+        if (player != null && canEntityBeSeen(player) && player.gamemode.hasHostileMobs()) {
             ((AetherBossList) player).aether$TryAddBossList(this);
             return player;
         }
@@ -334,7 +354,10 @@ public class MobBossSunspirit extends MobBossFlying {
 
     @Override
     public boolean canFight() {
-        return isAlive() && isAgro;
+        boolean active = this.world != null && this.world.isClientSide
+            ? this.entityData.getInt(DATA_AGGRO) != 0
+            : this.isAgro;
+        return isAlive() && active;
     }
 
     @Override
@@ -343,9 +366,10 @@ public class MobBossSunspirit extends MobBossFlying {
     }
 
     @Override
-    public int getLightmapCoord(float partialTick) {
-        if (this.world == null) return super.getLightmapCoord(partialTick);
-        return this.world.getLightmapCoord(15, 15);
+    public byte getLightIndex(float partialTick) {
+        byte light = super.getLightIndex(partialTick);
+        light = LightIndexHelper.setSkyLight(light, 15);
+        return LightIndexHelper.setBlockLight(light, 15);
     }
 
     private void attackEntity() {
@@ -360,14 +384,15 @@ public class MobBossSunspirit extends MobBossFlying {
         if (!this.world.isClientSide) {
             if (this.timesShot < totalShots) {
                 ProjectileElementFire elementFire = new ProjectileElementFire(this.world, this);
-                elementFire.setHeading(world.rand.nextDouble(), this.getLookAngle().y, world.rand.nextDouble(), fireballSpeed, 0.0F);
+                elementFire.setHeading(world.rand.nextDouble(), this.getViewVector(1.0F).y(), world.rand.nextDouble(), fireballSpeed, 0.0F);
                 this.world.playSoundAtEntity(null, this, "mob.ghast.fireball", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                 this.world.entityJoinedWorld(elementFire);
                 this.timesShot++;
 
             } else {
                 ProjectileElementIce elementIce = new ProjectileElementIce(this.world, this);
-                elementIce.setHeading(this.getLookAngle().x, this.getLookAngle().y, this.getLookAngle().z, iceballSpeed, world.rand.nextFloat());
+                Vector3dc look = this.getViewVector(1.0F);
+                elementIce.setHeading(look.x(), look.y(), look.z(), iceballSpeed, world.rand.nextFloat());
                 this.world.playSoundAtEntity(null, this, "mob.ghast.fireball", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 2.0F);
                 this.world.entityJoinedWorld(elementIce);
                 this.timesShot = 0;
@@ -426,8 +451,7 @@ public class MobBossSunspirit extends MobBossFlying {
             DungeonMap.runWithDungeon(dungeonID, d -> d.lock(this.world));
 
             if (!EnvironmentHelper.isServerEnvironment()) {
-                Minecraft.getMinecraft().sndManager.stopMusic();
-                Minecraft.getMinecraft().sndManager.playMusic("aether:aether_music_boss.fireboss", (float) this.x, (float) this.y, (float) this.z, 1.0F, 1.0F);
+                BossMusicClientHelper.play("aether:aether_music_boss.fireboss", this.x, this.y, this.z);
             }
         }
 

@@ -15,10 +15,9 @@ import teamport.aether.item.AetherItems;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.minecraft.core.player.inventory.menu.MenuInventoryCreative.creativeItems;
-import static net.minecraft.core.player.inventory.menu.MenuInventoryCreative.creativeItemsCount;
+import static net.minecraft.core.player.inventory.menu.MenuInventoryCreative.creativeContents;
 
-@Mixin(value = MenuInventoryCreative.class)
+@Mixin(value = MenuInventoryCreative.class, remap = false)
 public abstract class MenuInventoryAddCreativeItemsMixin extends MenuInventory {
     protected MenuInventoryAddCreativeItemsMixin(ContainerInventory inventory) {
         super(inventory);
@@ -27,7 +26,7 @@ public abstract class MenuInventoryAddCreativeItemsMixin extends MenuInventory {
     private static void injected(CallbackInfo ci) {
         List<ItemStack> newCreativeItems = new ArrayList<>();
 
-        for (ItemStack item : creativeItems) {
+        for (ItemStack item : creativeContents) {
             if (item.getMetadata() == 0
                     && (item.itemID == AetherBlocks.PLANKS_SKYROOT_PAINTED.id() || item.itemID == AetherBlocks.FENCE_PLANKS_SKYROOT_PAINTED.id())) {
                 for (DyeColor dyeColor : DyeColor.blockOrderedColors()) {
@@ -56,7 +55,6 @@ public abstract class MenuInventoryAddCreativeItemsMixin extends MenuInventory {
             } else newCreativeItems.add(item);
         }
 
-        creativeItems = newCreativeItems;
-        creativeItemsCount = creativeItems.size();
+        creativeContents = newCreativeItems;
     }
 }

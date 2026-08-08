@@ -5,6 +5,7 @@ import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.material.Material;
+import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
@@ -155,8 +156,8 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
 
     public WorldFeatureAetherBronzeDungeon() {}
 
-    @SuppressWarnings("java:S6541")
     @Override
+    @SuppressWarnings("java:S6541")
     public boolean place(final World world, final Random random, final int x, final int y, final int z) {
         this.world = world;
         this.random = random;
@@ -248,7 +249,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                 if (seenRooms.stream().anyMatch(r -> r.intercept(p1))) {
                     continue;
                 }
-                tunnels.add(Entry(p1.distanceTo(door.getP1()) * bias(door.getHeading()), door(door.getHeading(), p1.moveInDirection(door.getHeading()), door.getP2().copy().moveInDirection(door.getHeading().getOpposite()))));
+                tunnels.add(Entry(p1.distanceTo(door.getP1()) * bias(door.getHeading()), door(door.getHeading(), p1.moveInDirection(door.getHeading()), door.getP2().copy().moveInDirection(door.getHeading().opposite()))));
             }
         }
         if (tunnels.isEmpty()) {
@@ -331,7 +332,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         for (WorldFeaturePoint point : door.getBlockList()) {
             Block<?> block = world.getBlock(point.getX(), point.getY(), point.getZ());
             int blockID = block == null ? 0 : block.id();
-            Material blockMaterial = block == null ? Material.air : block.getMaterial();
+            Material blockMaterial = block == null ? Materials.AIR : block.getMaterial();
             if (blockID == 0 || blockMaterial.isLiquid()) count++;
         }
         return count >= door.getBlockList().size();

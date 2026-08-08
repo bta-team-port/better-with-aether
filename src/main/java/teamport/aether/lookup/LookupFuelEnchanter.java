@@ -11,8 +11,6 @@ public class LookupFuelEnchanter {
     public static final LookupFuelEnchanter INSTANCE = new LookupFuelEnchanter();
     private final Map<Integer, Integer> fuelList = new HashMap<>();
 
-    public static void init(){/* just to load this class*/}
-
     private LookupFuelEnchanter() {
         this.register();
     }

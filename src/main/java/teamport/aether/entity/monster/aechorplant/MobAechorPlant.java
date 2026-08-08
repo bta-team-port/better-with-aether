@@ -8,13 +8,13 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.LightLayer;
-import net.minecraft.core.item.ItemBucketEmpty;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
-import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
+import org.joml.Vector3d;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
@@ -23,6 +23,7 @@ import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.entity.projectile.ProjectileNeedle;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItems;
+import teamport.aether.item.ItemBucketSkyrootEmpty;
 
 public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDeathMessage {
     private int attackCooldown;
@@ -32,7 +33,7 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
 
     public MobAechorPlant(World world1) {
         super(world1);
-        this.textureIdentifier = NamespaceID.getPermanent("aether", "aechorplant");
+        this.setTextureIdentifier("aether", "aechorplant");
         this.sinage = this.random.nextFloat() * 6.0F;
         this.smokeTime = this.attackCooldown = 0;
         this.hasTarget = false;
@@ -136,7 +137,7 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         int belowZ = MathHelper.floor(this.z);
         int belowId = this.world.getBlockId(belowX, belowY, belowZ);
         Block<?> belowBlock = Blocks.blocksList[belowId];
-        double blockTopY = (belowBlock != null) ? (belowY + belowBlock.getBlockBoundsFromState(this.world, belowX, belowY, belowZ).maxY) : (belowY + 1.0);
+        double blockTopY = (belowBlock != null) ? (belowY + belowBlock.getBoundsFromState(this.world, new TilePos(belowX, belowY, belowZ)).maxY()) : (belowY + 1.0);
         double gap = this.bb.minY - blockTopY;
         this.onGround = (belowId != 0) && (gap <= 0.001D);
 
@@ -201,7 +202,7 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
 
     @Override
     public boolean canEntityBeSeen(Entity entity) {
-        return this.world != null && this.world.checkBlockCollisionBetweenPoints(Vec3.getTempVec3(this.x, this.y + this.getHeadHeight(), this.z), Vec3.getTempVec3(entity.x, entity.y + entity.getHeadHeight(), entity.z),
+        return this.world != null && this.world.checkBlockCollisionBetweenPoints(new Vector3d(this.x, this.y + this.getHeadHeight(), this.z), new Vector3d(entity.x, entity.y + entity.getHeadHeight(), entity.z),
             false, true, false) == null;
     }
 
@@ -268,7 +269,7 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
     public boolean interact(@NonNull Player player) {
         ItemStack itemstack = player.inventory.getCurrentItem();
         if (itemstack != null && itemstack.itemID == AetherItems.BUCKET_SKYROOT.id) {
-            ItemBucketEmpty.useBucket(player, new ItemStack(AetherItems.BUCKET_SKYROOT_POISON));
+            ItemBucketSkyrootEmpty.useBucket(player, new ItemStack(AetherItems.BUCKET_SKYROOT_POISON));
             return true;
         } else {
             return super.interact(player);

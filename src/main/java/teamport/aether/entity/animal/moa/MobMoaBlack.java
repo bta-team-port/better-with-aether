@@ -21,7 +21,7 @@ public class MobMoaBlack extends MobMoa {
 
     @Override
     protected void setupAppearance() {
-        this.textureIdentifier = NamespaceID.getPermanent("aether", "moa_black");
+        this.setTextureIdentifier("aether", "moa_black");
         this.eggColor = AetherItems.EGG_MOA_BLACK;
     }
 

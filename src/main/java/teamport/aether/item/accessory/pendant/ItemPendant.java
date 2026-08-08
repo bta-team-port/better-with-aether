@@ -1,6 +1,6 @@
 package teamport.aether.item.accessory.pendant;
 
-import net.minecraft.core.item.IArmorItem;
+import net.minecraft.core.enums.HumanArmorShape;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.material.ArmorMaterial;
 import org.jspecify.annotations.Nullable;
@@ -17,7 +17,7 @@ public class ItemPendant extends Item implements IAccessory{
         this.name = name;
         this.maxStackSize = 1;
         this.material = material;
-        float maxDurability = IArmorItem.ARMOR_PIECE_DURABILITY_MODIFIERS[3] * material.durability;
+        float maxDurability = HumanArmorShape.BOOTS.getDurabilityModifier() * material.durability;
         this.setMaxDamage((int) Math.ceil(maxDurability));
         this.withTags(AetherItemTags.tags(AetherItemTags.TRINKET));
         this.canHarvestDamage = false;

@@ -1,8 +1,6 @@
 package teamport.aether.helper;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import net.minecraft.client.render.TextureManager;
-import net.minecraft.client.render.tessellator.Tessellator;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
@@ -13,9 +11,9 @@ import net.minecraft.core.item.Items;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.util.helper.Color;
-import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
-import org.lwjgl.opengl.GL11;
+import net.minecraft.core.world.pos.TilePos;
+import org.joml.primitives.AABBdc;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherArmorMaterial;
@@ -39,7 +37,6 @@ public class MixinHelper {
         BLOCK_TO_BECOME.put(Blocks.PUMPKIN_CARVED_ACTIVE.id(), Blocks.PUMPKIN_CARVED_IDLE.id());
         BLOCK_TO_BECOME.put(Blocks.BRAZIER_ACTIVE.id(), Blocks.BRAZIER_INACTIVE.id());
         BLOCK_TO_BECOME.put(Blocks.PUMICE_WET.id(), Blocks.PUMICE_DRY.id());
-        BLOCK_TO_BECOME.put(Blocks.COBBLE_NETHERRACK_IGNEOUS.id(), Blocks.COBBLE_NETHERRACK.id());
         BLOCK_TO_BECOME.put(Blocks.FLUID_LAVA_FLOWING.id(), AetherBlocks.AEROGEL.id());
         BLOCK_TO_BECOME.put(Blocks.FLUID_LAVA_STILL.id(), AetherBlocks.AEROGEL.id());
     }
@@ -58,7 +55,7 @@ public class MixinHelper {
 
     public static void damageArmourWithEffect(int damage, Player player, double x, double y, double z, float bbHeight, float bbWidth) {
         if (((EntityAccessor) player).getRandom().nextFloat() < (double) 0.05F) {
-            player.inventory.damageArmor(damage);
+            player.damageArmor(damage);
             if (((EntityAccessor) player).getRandom().nextInt(6) == 0 && player.world != null) {
                 player.world.playSoundAtEntity(null, player, "random.fizz", 0.5F, 0.8F / (((EntityAccessor) player).getRandom().nextFloat() * 0.2F + 0.9F));
             }
@@ -67,15 +64,16 @@ public class MixinHelper {
     }
 
     public static boolean isImmuneToFire(MobWolf mobWolf) {
-        ArmorMaterial armorMaterial = mobWolf.getArmorMaterial();
-        if (armorMaterial == null) return false;
-        return armorMaterial.equals(AetherArmorMaterial.PHOENIX);
+        net.minecraft.core.item.ItemStack armor = mobWolf.getArmorItem();
+        if (armor == null || !(armor.getItem() instanceof net.minecraft.core.item.IArmorItem)) return false;
+        ArmorMaterial armorMaterial = ((net.minecraft.core.item.IArmorItem<?>) armor.getItem()).getArmorMaterial();
+        return armorMaterial != null && armorMaterial.equals(AetherArmorMaterial.PHOENIX);
     }
 
-    public static boolean isBrokenAABB(AABB aabb) {
-        double diffX = Math.abs(aabb.maxX - aabb.minX);
-        double diffY = Math.abs(aabb.maxY - aabb.minY);
-        double diffZ = Math.abs(aabb.maxZ - aabb.minZ);
+    public static boolean isBrokenAABB(AABBdc aabb) {
+        double diffX = Math.abs(aabb.maxX() - aabb.minX());
+        double diffY = Math.abs(aabb.maxY() - aabb.minY());
+        double diffZ = Math.abs(aabb.maxZ() - aabb.minZ());
 
         return diffX > 1_000_000
             || diffY > 1_000_000
@@ -85,7 +83,7 @@ public class MixinHelper {
             || Double.isNaN(diffZ);
     }
 
-    public static <T> List<T> preventStupidShit(World world, Class<T> ofClass, Entity entity, AABB aabb, Operation<List<T>> original) {
+    public static <T> List<T> preventStupidShit(World world, Class<T> ofClass, Entity entity, AABBdc aabb, Operation<List<T>> original) {
         if (MixinHelper.isBrokenAABB(aabb)) {
             if (entity != null) {
                 if (LOGGER.isErrorEnabled()) {
@@ -95,7 +93,7 @@ public class MixinHelper {
                         Math.sqrt(entity.xd * entity.xd + entity.yd * entity.yd + entity.zd * entity.zd)
                     );
                 }
-                Block<?> block = world.getBlock((int) Math.round(entity.x), (int) Math.round(entity.y - 1), (int) Math.round(entity.z));
+                Block<?> block = world.getBlockType(new TilePos((int) Math.round(entity.x), (int) Math.round(entity.y - 1), (int) Math.round(entity.z)));
                 String name = block == null ? "air" : block.getLanguageKey(0);
                 LOGGER.error("Currently standing on: {} at ", name);
                 LOGGER.error("Please send this log to a BWA developer!");
@@ -111,33 +109,6 @@ public class MixinHelper {
             return new ArrayList<>();
         }
         return entity != null ? original.call(entity, aabb) : original.call(ofClass, aabb);
-    }
-
-    public static void renderShieldVignette(TextureManager textureManager, int xSize, int ySize) {
-        GL11.glPushMatrix();
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glDisable(GL11.GL_DEPTH_TEST);
-        GL11.glDepthMask(false);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        GL11.glDisable(GL11.GL_ALPHA_TEST);
-
-        textureManager.loadTexture("/assets/aether/textures/other/shieldvignette.png").bind();
-
-        Tessellator tessellator = Tessellator.instance;
-        tessellator.startDrawingQuads();
-        tessellator.addVertexWithUV(0.0, ySize, -90.0, 0.0, 1.0);
-        tessellator.addVertexWithUV(xSize, ySize, -90.0, 1.0, 1.0);
-        tessellator.addVertexWithUV(xSize, 0.0, -90.0, 1.0, 0.0);
-        tessellator.addVertexWithUV(0.0, 0.0, -90.0, 0.0, 0.0);
-        tessellator.draw();
-
-        GL11.glDepthMask(true);
-        GL11.glEnable(GL11.GL_DEPTH_TEST);
-        GL11.glEnable(GL11.GL_ALPHA_TEST);
-        GL11.glDisable(GL11.GL_BLEND);
-        GL11.glPopMatrix();
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
     }
 
     public static int mixColor(int colorA, int colorB, float ratio) {

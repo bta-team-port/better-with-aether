@@ -14,6 +14,7 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.helper.ParticleMaker;
 
@@ -29,23 +30,24 @@ public class ItemBucketSkyroot extends Item {
     }
 
     @Override
-    public ItemStack onUseItem(ItemStack stack, World world, Player player) {
+    public ItemStack onUse(ItemStack stack, World world, Player player) {
         if (this.blockToPlace == null) {
             return new ItemStack(AetherItems.BUCKET_SKYROOT);
         } else {
             double reachDistance = player.getGamemode().getBlockReachDistance();
-            HitResult rayTraceResult = player.rayTrace(reachDistance, 1.0F, false, false);
-            if (rayTraceResult != null && rayTraceResult.hitType == HitResult.HitType.TILE) {
-                int x = rayTraceResult.side.getOffsetX() + rayTraceResult.x;
-                int y = rayTraceResult.side.getOffsetY() + rayTraceResult.y;
-                int z = rayTraceResult.side.getOffsetZ() + rayTraceResult.z;
+            HitResult rayTraceResult = player.rayCast(reachDistance, 1.0F, false, false, false);
+            if (rayTraceResult instanceof HitResult.Tile) {
+                HitResult.Tile tileHit = (HitResult.Tile) rayTraceResult;
+                int x = tileHit.tilePos.x();
+                int y = tileHit.tilePos.y();
+                int z = tileHit.tilePos.z();
                 if (world.canMineBlock(player, x, y, z)) {
                     Block<?> block = world.getBlock(x, y, z);
                     if (block != null && !block.hasTag(BlockTags.PLACE_OVERWRITES) && !block.hasTag(BlockTags.BROKEN_BY_FLUIDS)) {
-                        Side side = rayTraceResult.side;
-                        x += side.getOffsetX();
-                        y += side.getOffsetY();
-                        z += side.getOffsetZ();
+                        Side side = tileHit.side;
+                        x += side.offsetX();
+                        y += side.offsetY();
+                        z += side.offsetZ();
                     }
 
                     if (y >= 0 && y < world.getHeightBlocks()) {
@@ -64,7 +66,7 @@ public class ItemBucketSkyroot extends Item {
 
                                 world.setBlockWithNotify(x, y, z, 0);
 
-                                if (player.getGamemode().consumeBlocks()) {
+                                if (player.getGamemode().hasBlockConsumption()) {
                                     return new ItemStack(AetherItems.BUCKET_SKYROOT);
                                 }
                             } else {
@@ -81,7 +83,7 @@ public class ItemBucketSkyroot extends Item {
                                 world.setBlockAndMetadataWithNotify(x, y, z, this.blockToPlace.id(), 0);
                             }
 
-                            if (player.getGamemode().consumeBlocks()) {
+                            if (player.getGamemode().hasBlockConsumption()) {
                                 return new ItemStack(AetherItems.BUCKET_SKYROOT);
                             }
                         }
@@ -94,13 +96,16 @@ public class ItemBucketSkyroot extends Item {
     }
 
     @Override
-    public void onUseByActivator(ItemStack itemStack, TileEntityActivator activatorBlock, World world, Random random, int blockX, int blockY, int blockZ, double offX, double offY, double offZ, Direction direction) {
+    public void onUseByActivator(ItemStack itemStack, World world, TileEntityActivator activatorBlock, Random random, TilePosc blockPos, Direction direction, double offX, double offY, double offZ) {
+        int blockX = blockPos.x();
+        int blockY = blockPos.y();
+        int blockZ = blockPos.z();
         if (this.blockToPlace == null) {
             itemStack.itemID = AetherItems.BUCKET_SKYROOT.id;
         } else {
-            int x = blockX + direction.getOffsetX();
-            int y = blockY + direction.getOffsetY();
-            int z = blockZ + direction.getOffsetZ();
+            int x = blockX + direction.offsetX();
+            int y = blockY + direction.offsetY();
+            int z = blockZ + direction.offsetZ();
             Block<?> b = world.getBlock(x, y, z);
             if (b == null || BlockTags.PLACE_OVERWRITES.appliesTo(b) || BlockTags.BROKEN_BY_FLUIDS.appliesTo(b)) {
                 world.setBlockWithNotify(x, y, z, this.blockToPlace.id());

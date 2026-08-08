@@ -1,5 +1,6 @@
 package teamport.aether;
 
+import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.data.DataLoader;
@@ -17,7 +18,6 @@ import teamport.aether.recipe.RecipeGroupAetherMachine;
 import teamport.aether.recipe.RecipeGroupIncubator;
 import turniplabs.halplibe.helper.RecipeBuilder;
 import turniplabs.halplibe.helper.recipeBuilders.RecipeBuilderShaped;
-import turniplabs.halplibe.util.RecipeEntrypoint;
 
 import java.util.List;
 
@@ -25,13 +25,12 @@ import static teamport.aether.AetherConfig.INCLUDE_REPAIR_RECIPES;
 import static teamport.aether.AetherMod.MOD_ID;
 
 @SuppressWarnings({"java:S1104", "java:S1444", "java:S3008"})
-public class AetherRecipes implements RecipeEntrypoint {
+public class AetherRecipes {
     public static RecipeNamespace AETHER;
     public static RecipeGroupAetherMachine ENCHANTER;
     public static RecipeGroupAetherMachine FREEZER;
     public static RecipeGroupIncubator INCUBATOR;
 
-    @Override
     public void onRecipesReady() {
         AetherRecipes.workbenchRecipes();
         AetherRecipes.furnaceRecipes();
@@ -53,7 +52,6 @@ public class AetherRecipes implements RecipeEntrypoint {
         }
     }
 
-    @Override
     public void initNamespaces() {
         RecipeBuilder.initNameSpace(MOD_ID);
         AETHER = RecipeBuilder.getRecipeNamespace(MOD_ID);
@@ -65,7 +63,7 @@ public class AetherRecipes implements RecipeEntrypoint {
         AetherRecipes.oreGemGroups();
         AetherRecipes.enchanterGroups();
 
-        Registries.ITEM_GROUPS.register("aether:milk_buckets", Registries.stackListOf(AetherItems.BUCKET_SKYROOT_MILK, Items.BUCKET_MILK));
+        Registries.ITEM_GROUPS.register("aether:milk_buckets", Registries.stackListOf(AetherItems.BUCKET_SKYROOT_MILK, bucket("minecraft:milk")));
         Registries.ITEM_GROUPS.register("aether:all_eggs", Registries.stackListOf(AetherItems.EGG_MOA_BLACK, AetherItems.EGG_MOA_BLUE, AetherItems.EGG_MOA_WHITE, Items.EGG_CHICKEN));
 
         ENCHANTER = new RecipeGroupAetherMachine(new RecipeSymbol(new ItemStack(AetherBlocks.ENCHANTER_ACTIVE.getDefaultStack())));
@@ -143,7 +141,7 @@ public class AetherRecipes implements RecipeEntrypoint {
     }
 
     public static void oreGemGroups() {
-        Registries.ITEM_GROUPS.register("aether:gems", Registries.stackListOf(Items.DIAMOND, AetherBlocks.BLOCK_GRAVITITE));
+        Registries.ITEM_GROUPS.register("aether:gems", Registries.stackListOf(AetherBlocks.BLOCK_GRAVITITE));
         Registries.ITEM_GROUPS.register("aether:sticks", Registries.stackListOf(AetherItems.STICK_SKYROOT, Items.STICK));
         Registries.ITEM_GROUPS.register("aether:ambrosium_ores", Registries.stackListOf(AetherBlocks.ORE_AMBROSIUM_HOLYSTONE));
         Registries.ITEM_GROUPS.register("aether:zanite_ores", Registries.stackListOf(AetherBlocks.ORE_ZANITE_HOLYSTONE));
@@ -168,7 +166,6 @@ public class AetherRecipes implements RecipeEntrypoint {
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("piston");
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("rotary_calendar");
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("seat");
-        RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("workbench");
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("workbench");
 
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("flag");
@@ -205,7 +202,7 @@ public class AetherRecipes implements RecipeEntrypoint {
 
     public static void freezerGroups() {
         Registries.ITEM_GROUPS.register("aether:water_buckets", Registries.stackListOf(
-            new ItemStack(Items.BUCKET_WATER),
+            bucket("minecraft:water"),
             new ItemStack(AetherItems.BUCKET_SKYROOT_WATER)
         ));
 
@@ -224,6 +221,12 @@ public class AetherRecipes implements RecipeEntrypoint {
             new ItemStack(Blocks.COBBLE_LIMESTONE),
             new ItemStack(Blocks.COBBLE_STONE)
         ));
+    }
+
+    private static ItemStack bucket(String state) {
+        CompoundTag tag = new CompoundTag();
+        tag.putString("State", state);
+        return new ItemStack(Items.BUCKET_IRON, 1, 0, tag);
     }
 
     public static void enchanterGroups() {
@@ -677,28 +680,6 @@ public class AetherRecipes implements RecipeEntrypoint {
             .addInput('X', "aether:skyroot_planks")
             .create("aether_skyroot_bucket", new ItemStack(AetherItems.BUCKET_SKYROOT, 1));
 
-        // bed
-        // boat
-        // bookshelf
-        // bowl
-        // jukebox
-        // noteblock
-        // paperwall
-        // piston
-        // rotatry
-        // seat
-        // workbench
-
-        // flag
-        // paperwall
-        // powered rail
-        // rail
-        // redstone repeater
-        // redstone torch
-
-        // detector rail
-
-
     }
 
     public static void slabRecipes() {
@@ -801,7 +782,7 @@ public class AetherRecipes implements RecipeEntrypoint {
             .addEntry(new WeightedRandomLootObject(Items.AMMO_PEBBLE.getDefaultStack(), 1, 3), 60.24)
             .addEntry(new WeightedRandomLootObject(Items.CLAY.getDefaultStack(), 1, 5), 24.10)
             .addEntry(new WeightedRandomLootObject(Items.FLINT.getDefaultStack(), 1, 3), 12.05)
-            .addEntry(new WeightedRandomLootObject(Items.SULPHUR.getDefaultStack(), 1), 2.41)
+            .addEntry(new WeightedRandomLootObject(Items.GUNPOWDER.getDefaultStack(), 1), 2.41)
             .addEntry(new WeightedRandomLootObject(Items.BONE.getDefaultStack(), 1), 0.60)
             .addEntry(new WeightedRandomLootObject(AetherItems.ZANITE.getDefaultStack(), 1), 0.30)
             .addEntry(new WeightedRandomLootObject(AetherItems.ORE_RAW_GRAVITITE.getDefaultStack(), 1), 0.30)
@@ -812,7 +793,7 @@ public class AetherRecipes implements RecipeEntrypoint {
             .addEntry(new WeightedRandomLootObject(AetherItems.AMBROSIUM.getDefaultStack(), 1, 2), 36.76)
             .addEntry(new WeightedRandomLootObject(AetherItems.AMBER.getDefaultStack(), 4, 8), 22.06)
             .addEntry(new WeightedRandomLootObject(Items.AMMO_PEBBLE.getDefaultStack(), 1, 5), 18.38)
-            .addEntry(new WeightedRandomLootObject(Items.SULPHUR.getDefaultStack(), 1), 3.68)
+            .addEntry(new WeightedRandomLootObject(Items.GUNPOWDER.getDefaultStack(), 1), 3.68)
             .addEntry(new WeightedRandomLootObject(AetherItems.PETAL_AECHOR.getDefaultStack(), 1), 0.74)
             .addEntry(new WeightedRandomLootObject(Items.BONE.getDefaultStack(), 1, 3), 7.35)
             .addEntry(new WeightedRandomLootObject(AetherItems.STICK_SKYROOT.getDefaultStack(), 1), 0.30)

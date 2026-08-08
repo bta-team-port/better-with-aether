@@ -16,14 +16,14 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.Random;
 
-public class AetherTileEntityMachine extends TileEntity implements Container {
+public abstract class AetherTileEntityMachine extends TileEntity implements Container {
     public final Random random = new Random();
 
     protected ItemStack[] containerItemStacks;
-    private int maxEnergyTime = 0;       // maxBurnTime
-    private int currentEnergyTime = 0;   // currentBurnTime
-    private int maxProcessTime = 200;    // maxCookTime
-    private int currentProcessTime = 0;  // currentCookTime
+    private int maxEnergyTime = 0;
+    private int currentEnergyTime = 0;
+    private int maxProcessTime = 200;
+    private int currentProcessTime = 0;
 
     public AetherTileEntityMachine() {
         this.containerItemStacks = new ItemStack[3];
@@ -45,7 +45,7 @@ public class AetherTileEntityMachine extends TileEntity implements Container {
             ItemStack itemstack = this.containerItemStacks[index];
             this.containerItemStacks[index] = null;
             if (this.worldObj != null && index == 2) {
-                this.worldObj.markBlockNeedsUpdate(this.x, this.y, this.z);
+                this.worldObj.markBlockNeedsUpdate(this.tilePos.x, this.tilePos.y, this.tilePos.z);
             }
             return itemstack;
         }
@@ -53,7 +53,7 @@ public class AetherTileEntityMachine extends TileEntity implements Container {
         if (this.containerItemStacks[index].stackSize <= 0) {
             this.containerItemStacks[index] = null;
             if (this.worldObj != null && index == 2) {
-                this.worldObj.markBlockNeedsUpdate(this.x, this.y, this.z);
+                this.worldObj.markBlockNeedsUpdate(this.tilePos.x, this.tilePos.y, this.tilePos.z);
             }
         }
         return itemStack;
@@ -66,7 +66,7 @@ public class AetherTileEntityMachine extends TileEntity implements Container {
         }
 
         if (this.worldObj != null && index == 2 && itemStack == null) {
-            this.worldObj.markBlockNeedsUpdate(this.x, this.y, this.z);
+            this.worldObj.markBlockNeedsUpdate(this.tilePos.x, this.tilePos.y, this.tilePos.z);
         }
     }
 
@@ -75,8 +75,7 @@ public class AetherTileEntityMachine extends TileEntity implements Container {
     }
 
     @Override
-    public void readFromNBT(CompoundTag compoundTag) {
-        super.readFromNBT(compoundTag);
+    public void readAdditionalData(CompoundTag compoundTag) {
         ListTag listTag = compoundTag.getList("Items");
         this.containerItemStacks = new ItemStack[this.getContainerSize()];
 
@@ -93,8 +92,7 @@ public class AetherTileEntityMachine extends TileEntity implements Container {
     }
 
     @Override
-    public void writeToNBT(CompoundTag compoundTag) {
-        super.writeToNBT(compoundTag);
+    public void writeAdditionalData(CompoundTag compoundTag) {
         compoundTag.putShort("EnergyTime", (short) this.currentEnergyTime);
         compoundTag.putShort("ProcessTime", (short) this.currentProcessTime);
         compoundTag.putShort("MaxEnegryTime", (short) this.maxEnergyTime);
@@ -147,15 +145,15 @@ public class AetherTileEntityMachine extends TileEntity implements Container {
     }
 
     public boolean stillValid(Player entityplayer) {
-        if (this.worldObj != null && this.worldObj.getTileEntity(this.x, this.y, this.z) == this) {
-            return entityplayer.distanceToSqr(this.x + 0.5, this.y + 0.5, this.z + 0.5) <= 64.0;
+        if (this.worldObj != null && this.worldObj.getTileEntity(this.tilePos) == this) {
+            return entityplayer.distanceToSqr(this.tilePos.x + 0.5, this.tilePos.y + 0.5, this.tilePos.z + 0.5) <= 64.0;
         } else {
             return false;
         }
     }
 
     @Override
-    public void sortContainer() {
+    public void sort() {
     }
 
     @Override
@@ -182,7 +180,6 @@ public class AetherTileEntityMachine extends TileEntity implements Container {
         return success;
     }
 
-    @Override
     public boolean canBeCarried(World world, Entity potentialHolder) {
         return true;
     }

@@ -19,7 +19,7 @@ public class ItemToolSwordLightning extends ItemToolSword implements AetherHasCu
     public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
         boolean hitEntity = super.hitEntity(itemstack, target, attacker);
         if (target instanceof Mob && target.hurtTime == 10 && hitEntity) {
-            if ((target instanceof Player) && ((Player) target).gamemode.isPlayerInvulnerable()) {
+            if ((target instanceof Player) && ((Player) target).gamemode.hasInvulnerablePlayer()) {
                 return false;
             }
             ParticleMaker.spawnLightningSwordParticles(target);

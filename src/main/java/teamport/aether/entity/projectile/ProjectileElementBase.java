@@ -43,6 +43,7 @@ public abstract class ProjectileElementBase extends Projectile implements Projec
         this.damage = 2;
         this.defaultGravity = 0.0F;
         this.setSize(1.0F, 1.0F);
+        this.setNoPhysics(true);
     }
 
     @Override
@@ -105,27 +106,9 @@ public abstract class ProjectileElementBase extends Projectile implements Projec
         }
     }
 
-    @SuppressWarnings("java:S131")
     @Override
+    @SuppressWarnings("java:S131")
     public void onHit(HitResult hitResult) {
-        if (this.world == null || this.world.isClientSide) return;
-        if (hitResult.side != null) {
-            switch (hitResult.side) {
-                case BOTTOM:
-                case TOP:
-                    this.yd = -this.yd * 1.0F;
-                    break;
-                case NORTH:
-                case SOUTH:
-                    this.zd = -this.zd * 1.0F;
-                    break;
-                case WEST:
-                case EAST:
-                    this.xd = -this.xd * 1.0F;
-                    break;
-            }
-            bounceCount++;
-        }
     }
 
     @Override
@@ -134,12 +117,9 @@ public abstract class ProjectileElementBase extends Projectile implements Projec
         this.y += this.yd;
         this.z += this.zd;
         this.yRot = (float) (Math.atan2(this.xd, this.zd) * 180.0 / Math.PI);
-
         if (this.isInWater()) {
             this.waterTick();
         }
-
-
         this.setPos(this.x, this.y, this.z);
     }
 

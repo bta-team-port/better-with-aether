@@ -3,28 +3,30 @@ package teamport.aether.mixin.item;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import com.llamalad7.mixinextras.sugar.Share;
-import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.item.tool.ItemToolShovel;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.block.AetherBlocks;
 
-@Mixin(value = ItemToolShovel.class)
+@Mixin(value = ItemToolShovel.class, remap = false)
 public abstract class ItemToolShovelMixin {
-    @WrapOperation(method = "shovelBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/block/Block;id()I", ordinal = 0))
-    private int addNewPathBlockOne(Block<?> instance, Operation<Integer> original, @Local(name = "blockId") int blockId, @Share("useAetherPath") LocalBooleanRef useAetherPath) {
-        if (blockId == AetherBlocks.GRASS_AETHER.id() || blockId == AetherBlocks.DIRT_AETHER.id()) {
-            useAetherPath.set(true);
-            return blockId;
-        }
-        useAetherPath.set(false);
-        return original.call(instance);
+    @WrapOperation(
+        method = "shovelBlock(Lnet/minecraft/core/item/ItemStack;Lnet/minecraft/core/world/World;Lnet/minecraft/core/entity/player/Player;Lnet/minecraft/core/world/pos/TilePosc;Lnet/minecraft/core/util/helper/Side;)Z",
+        at = @At(value = "FIELD", target = "Lnet/minecraft/core/block/Blocks;GRASS:Lnet/minecraft/core/block/Block;", opcode = Opcodes.GETSTATIC)
+    )
+    private Block<?> addNewPathBlockOne(Operation<Block<?>> original, @Local(name = "block") Block<?> block) {
+        if (block == AetherBlocks.GRASS_AETHER || block == AetherBlocks.DIRT_AETHER) return block;
+        return original.call();
     }
-    @WrapOperation(method = "shovelBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/block/Block;id()I", ordinal = 4))
-    private int addNewPathBlockTwo(Block<?> instance, Operation<Integer> original, @Share("useAetherPath") LocalBooleanRef useAetherPath) {
-        if (useAetherPath.get()) return original.call(AetherBlocks.PATH_DIRT_AETHER);
-        return original.call(instance);
+
+    @WrapOperation(
+        method = "shovelBlock(Lnet/minecraft/core/item/ItemStack;Lnet/minecraft/core/world/World;Lnet/minecraft/core/entity/player/Player;Lnet/minecraft/core/world/pos/TilePosc;Lnet/minecraft/core/util/helper/Side;)Z",
+        at = @At(value = "FIELD", target = "Lnet/minecraft/core/block/Blocks;PATH_DIRT:Lnet/minecraft/core/block/Block;", opcode = Opcodes.GETSTATIC)
+    )
+    private Block<?> addNewPathBlockTwo(Operation<Block<?>> original, @Local(name = "block") Block<?> block) {
+        if (block == AetherBlocks.GRASS_AETHER || block == AetherBlocks.DIRT_AETHER) return AetherBlocks.PATH_DIRT_AETHER;
+        return original.call();
     }
 }

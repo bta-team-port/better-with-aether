@@ -39,7 +39,7 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
         this.setSize(1.4F, 1.2F);
         this.setPos(this.x, this.y, this.z);
         this.jumpDelay = 20;
-        this.textureIdentifier = NamespaceID.getPermanent("aether", "swet");
+        this.setTextureIdentifier("aether", "swet");
         this.moveSpeed = 1.5F;
         this.mobDrops.add(new WeightedRandomLootObject(AetherBlocks.AERCLOUD_BLUE.getDefaultStack(), 0));
     }
@@ -85,8 +85,8 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
         return AetherItems.FOOD_GUMMY_BLUE;
     }
 
-    @SuppressWarnings("java:S1192")
     @Override
+    @SuppressWarnings("java:S1192")
     public void tick() {
         if (this.world == null) return;
         this.doTickEffect();
@@ -138,7 +138,7 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
         this.tryToDespawn();
         if (this.world == null) return;
         Player entityplayer = PlayerUtil.getClosestPlayerToEntity(this.world, this, 16.0, PlayerUtil::isInvisible, PlayerUtil::isSwetty);
-        boolean targetPlayer = entityplayer != null && entityplayer.getGamemode().areMobsHostile() && this.canEntityBeSeen(entityplayer);
+        boolean targetPlayer = entityplayer != null && entityplayer.getGamemode().hasHostileMobs() && this.canEntityBeSeen(entityplayer);
         if (entityplayer != null && targetPlayer && entityplayer != this.passenger) {
             this.lookAt(entityplayer, 10.0F, 20.0F);
         }

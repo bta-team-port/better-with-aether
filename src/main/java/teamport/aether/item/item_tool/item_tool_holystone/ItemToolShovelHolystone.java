@@ -7,6 +7,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
 import teamport.aether.item.item_tool.ItemToolShovelAether;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
@@ -18,14 +19,13 @@ public class ItemToolShovelHolystone extends ItemToolShovelAether {
     }
 
     @Override
-    public boolean onBlockDestroyed(World world, ItemStack itemstack, int i, int x, int y, int z, Side side, Mob mob) {
-        Block<?> block = Blocks.blocksList[i];
+    public boolean onBlockDestroyed(ItemStack itemstack, World world, Mob mob, Block<?> block, TilePosc blockPos, Side side) {
         if (block != null) {
             if (block.getHardness() > 0.0F || this.isSilkTouch()) {
                 itemstack.damageItem(1, mob);
             }
             if (!EnvironmentHelper.isClientWorld() && itemRand.nextInt(16) == 0 && block.getHardness() > 0.0F) {
-                world.dropItem(x, y, z, new ItemStack(AMBROSIUM, 1));
+                world.dropItem(blockPos.x(), blockPos.y(), blockPos.z(), new ItemStack(AMBROSIUM, 1));
             }
         }
         return true;

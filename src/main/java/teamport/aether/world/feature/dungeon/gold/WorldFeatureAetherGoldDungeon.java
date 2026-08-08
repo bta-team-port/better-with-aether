@@ -4,6 +4,7 @@ import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.BlockLogicRotatable;
 import net.minecraft.core.block.material.Material;
+import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
@@ -121,7 +122,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeatureMap<DungeonLogicG
     }
 
     public WorldFeatureAetherGoldDungeon(int dir) {
-        this.direction = Direction.horizontalDirections[dir & 3];
+        this.direction = Direction.horizontal[dir & 3];
     }
 
     public WorldFeatureAetherGoldDungeon(Random random) {
@@ -166,7 +167,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeatureMap<DungeonLogicG
                 int checkY = y + i * dir[1];
                 int checkZ = z + i * dir[2];
                 Material blockMaterial = world.getBlockMaterial(checkX, checkY, checkZ);
-                if (blockMaterial != Material.air) {
+                if (blockMaterial != Materials.AIR) {
                     return false;
                 }
             }
@@ -217,7 +218,6 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeatureMap<DungeonLogicG
         wfb(x, (int) Math.floor(15 * 1.12 * 2 + y) - 2, z, AetherBlocks.GRASS_AETHER.id(), 0, false).place(world);
     }
 
-    // TODO these sphere do not rotate
     @SuppressWarnings("java:S5413")
     private void createOuterSpheres(int x, int y, int z) {
         // place the outer spheres
@@ -234,7 +234,6 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeatureMap<DungeonLogicG
             double newX = x + RADIUS * Math.cos(Math.toRadians(angle));
             double newZ = z + RADIUS * Math.sin(Math.toRadians(angle));
             double radMod = (double) (4 + random.nextInt(5)) / 10;
-
             drawSphere(random, HOLYSTONE, (int) newX, (int) (y + (RADIUS * 0.8F)), (int) newZ, (int) (RADIUS * radMod), false).place(world);
         }
         double radMod2 = 0.5F;
@@ -294,8 +293,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeatureMap<DungeonLogicG
         world.setBlock(x, y, z, AetherBlocks.BLOCK_GRAVITITE.id());
 
         WorldFeatureComponent entranceDoor = new WorldFeatureComponent();
-//        Direction doorDir = direction.getHorizontalIndex() % 2 == 0? direction : direction.getOpposite();
-        int entranceDoorMeta = BlockLogicRotatable.setDirection(0, direction);
+        int entranceDoorMeta = BlockLogicRotatable.setDirection(0, Direction.NORTH);
 
         iterate3d(
             wfp(x + 2, y + 2 + RADIUS / 2, z - RADIUS / 2),

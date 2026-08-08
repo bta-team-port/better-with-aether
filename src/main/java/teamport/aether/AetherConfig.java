@@ -129,7 +129,6 @@ public class AetherConfig {
                 .addEntry("INCLUDE_REPAIR_RECIPES", INCLUDE_REPAIR_RECIPES);
     }
 
-    // Useless Numerical will sort it out for us.
     @SuppressWarnings("unused")
     public static int itemID(String itemName) {
         return currentItemID++;

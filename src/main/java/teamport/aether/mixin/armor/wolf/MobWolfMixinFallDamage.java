@@ -8,7 +8,7 @@ import net.minecraft.core.item.material.ArmorMaterial;
 import org.spongepowered.asm.mixin.Mixin;
 import teamport.aether.item.AetherArmorMaterial;
 
-@Mixin(value = Mob.class)
+@Mixin(value = Mob.class, remap = false)
 public abstract class MobWolfMixinFallDamage {
     @WrapMethod(method = "causeFallDamage")
     private void causeFallDamage(float distance, Operation<Void> original) {
@@ -16,7 +16,8 @@ public abstract class MobWolfMixinFallDamage {
             original.call(distance);
             return;
         }
-        ArmorMaterial material = ((MobWolf) (Object) this).getArmorMaterial();
+        net.minecraft.core.item.ItemStack armor = ((MobWolf)(Object) this).getArmorItem();
+        ArmorMaterial material = (armor != null && armor.getItem() instanceof net.minecraft.core.item.IArmorItem) ? ((net.minecraft.core.item.IArmorItem<?>) armor.getItem()).getArmorMaterial() : null;
         if (material == null || !material.equals(AetherArmorMaterial.GRAVITITE)) {
             original.call(distance);
         }

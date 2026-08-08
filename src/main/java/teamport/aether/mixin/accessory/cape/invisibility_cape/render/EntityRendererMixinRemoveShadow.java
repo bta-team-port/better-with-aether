@@ -5,17 +5,17 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRenderer;
-import net.minecraft.client.render.tessellator.Tessellator;
+import net.minecraft.client.render.tessellator.TessellatorGeneral;
 import net.minecraft.core.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import teamport.aether.entity.player.PlayerUtil;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = EntityRenderer.class)
+@Mixin(value = EntityRenderer.class, remap = false)
 public abstract class EntityRendererMixinRemoveShadow<T extends Entity> {
-    @SuppressWarnings("java:S107")
     @WrapMethod(method = "renderShadow")
-    private void removeShadow(Tessellator tessellator, T entity, double posX, double posY, double posZ, float opacity, float partialTick, Operation<Void> original) {
+    @SuppressWarnings("java:S107")
+    private void removeShadow(TessellatorGeneral tessellator, T entity, double posX, double posY, double posZ, float opacity, float partialTick, Operation<Void> original) {
         if (PlayerUtil.isInvisible(entity)) return;
         original.call(tessellator, entity, posX, posY, posZ, opacity, partialTick);
     }

@@ -2,8 +2,9 @@ package teamport.aether.mixin.block;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.block.model.BlockModelJar;
-import net.minecraft.client.render.tessellator.Tessellator;
+import net.minecraft.client.render.block.model.generic.BlockModelGeneric;
+import net.minecraft.client.render.block.model.generic.BlockModelGenericJar;
+import net.minecraft.client.render.tessellator.TessellatorGeneral;
 import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.block.Block;
@@ -11,27 +12,34 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.entity.TileEntityFlowerJar;
 import net.minecraft.core.world.WorldSource;
+import net.minecraft.core.world.pos.TilePosc;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import teamport.aether.block.AetherBlockTags;
 
-import static net.minecraft.client.render.block.model.BlockModel.renderBlocks;
-
 @Environment(EnvType.CLIENT)
-@Mixin(value = BlockModelJar.class)
+@Mixin(value = BlockModelGeneric.class, remap = false)
 public abstract class BlockModelJarAetherDirtMixin {
     @Unique
     private static final IconCoordinate jarFullAether = TextureRegistry.getTexture("aether:block/jar_aether_dirt");
-    @ModifyVariable(method = "render(Lnet/minecraft/client/render/tessellator/Tessellator;III)Z", at = @At(value = "STORE", ordinal = 0))
-    private IconCoordinate modifyJarTexture(IconCoordinate originalTexIndex, Tessellator tessellator, int x, int y, int z) {
-        WorldSource blockAccess = renderBlocks.blockAccess;
-        int meta = blockAccess.getBlockMetadata(x, y, z);
+
+    @ModifyVariable(
+        method = "renderAttached(Lnet/minecraft/client/render/tessellator/TessellatorGeneral;Lnet/minecraft/core/world/WorldSource;Lnet/minecraft/core/world/pos/TilePosc;ZLnet/minecraft/client/render/texture/stitcher/IconCoordinate;)Z",
+        at = @At("HEAD"),
+        argsOnly = true
+    )
+    private IconCoordinate modifyJarTexture(IconCoordinate originalTexIndex, TessellatorGeneral tessellator, WorldSource worldSource, TilePosc tilePos, boolean cullFaces, IconCoordinate overrideTexture) {
+        if (!((Object) this instanceof BlockModelGenericJar<?>)) {
+            return originalTexIndex;
+        }
+
+        int meta = worldSource.getBlockData(tilePos);
         if (meta == 0) {
             return originalTexIndex;
         }
-        TileEntity tileEntity = blockAccess.getTileEntity(x, y, z);
+        TileEntity tileEntity = worldSource.getTileEntity(tilePos);
         if (tileEntity instanceof TileEntityFlowerJar) {
             TileEntityFlowerJar jarTe = (TileEntityFlowerJar) tileEntity;
             Block<?> block = Blocks.blocksList[jarTe.flowerInPot];

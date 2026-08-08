@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.entity.player.PlayerUtil;
 
-@Mixin(value = MobMonster.class)
+@Mixin(value = MobMonster.class, remap = false)
 public abstract class MobMonsterMixinInvisiblePlayer {
     /// All enemies that inherit this method have a harder time seeing the player. Since not all Enemies inherit this method, it is advised
     /// to look in the mixin for the exceptions.

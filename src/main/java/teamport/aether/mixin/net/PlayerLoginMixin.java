@@ -15,12 +15,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.AetherServer;
 
 @Environment(EnvType.SERVER)
-@Mixin(value = PacketHandlerLogin.class)
+@Mixin(value = PacketHandlerLogin.class, remap = false)
 public abstract class PlayerLoginMixin {
     @Shadow
     @Final
     private MinecraftServer mcServer;
-    @Inject(method = "doLogin", at = @At(value = "TAIL"))
+    @Inject(method = "doLogin(Lnet/minecraft/core/net/packet/PacketLogin;)V", at = @At("TAIL"))
     private void doLogin(PacketLogin loginPacket, CallbackInfo ci) {
         PlayerServer player = this.mcServer.playerList.getPlayerEntity(loginPacket.username);
         if (player != null) AetherServer.onPlayerJoinedServer(player);

@@ -47,30 +47,21 @@
 
   "entrypoints": {
     "main": ["teamport.aether.AetherMod"],
-    "beforeGameStart": ["teamport.aether.AetherMod"],
-    "afterGameStart": ["teamport.aether.AetherMod"],
     "client": ["teamport.aether.AetherClient"],
-    "beforeClientStart": ["teamport.aether.AetherClient"],
-    "afterClientStart": ["teamport.aether.AetherClient"],
-    "initModels": ["teamport.aether.models.AetherModels"],
-    "recipesReady": ["teamport.aether.AetherRecipes"],
     "server": ["teamport.aether.AetherServer"],
-    "preLaunch": ["teamport.aether.compat.waila.AetherWailaLoadMixins"],
-
-    "btwaila": ["teamport.aether.compat.waila.AetherWailaPlugin"],
     "uselessNumerical": ["teamport.aether.compat.uselessnumerical.Allias"],
-    "commandly": ["teamport.aether.compat.commandly.AetherCommandlyPlugin"]
+    "commandly": ["teamport.aether.compat.commandly.AetherCommandlyPlugin"],
+    "preLaunch": []
   },
 
   "mixins": ["aether.mixins.json"],
 
   "depends": {
     "fabricloader": ">=${fabricloader}",
-    "dragonfly": ">=${dragonfly}",
+    "uselessnumerical": ">=${uselessnumerical}",
     "halplibe": ">=${halplibe}",
     "catalyst-core": ">=${catalystcore}",
     "catalyst-effects": ">=${catalysteffects}",
-    "uselessnumerical": ">=${uselessnumerical}",
     "minecraft": "*",
     "java": ">=${java}"
   },

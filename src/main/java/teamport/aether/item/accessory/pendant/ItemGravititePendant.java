@@ -19,7 +19,7 @@ public class ItemGravititePendant extends ItemCombatPendant {
         if (
             slotId < player.inventory.mainInventory.length
                 || slotId - player.inventory.mainInventory.length < TRINKET_1_SLOT
-                || player.gamemode.isPlayerInvulnerable()
+                || player.gamemode.hasInvulnerablePlayer()
                 || player.isInWater()
                 || player.isSneaking()
                 || player.isPassenger()

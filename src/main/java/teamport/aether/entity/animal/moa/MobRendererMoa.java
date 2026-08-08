@@ -2,13 +2,13 @@ package teamport.aether.entity.animal.moa;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.render.renderer.GLRenderer;
 import net.minecraft.core.util.helper.MathHelper;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import org.lwjgl.opengl.GL11;
 import org.useless.dragonfly.models.entity.BoneTransform;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
-import org.useless.dragonfly.renderer.MobRenderer;
+import net.minecraft.client.render.entity.MobRenderer;
 
 @Environment(EnvType.CLIENT)
 public class MobRendererMoa extends MobRenderer<MobMoa> {
@@ -23,10 +23,10 @@ public class MobRendererMoa extends MobRenderer<MobMoa> {
         if (layer == 1) {
             this.bindTexture(entity.getSaddleTexturePath());
             model = this.getModel("saddle");
-            GL11.glScalef(1.0f, 1.0f, 1.0f);
+            GLRenderer.modelM4f().scale(0.85F, 0.85F, 0.85F);
         } else {
             model = this.getModel("main");
-            GL11.glScalef(0.85f, 0.85f, 0.85f);
+            GLRenderer.modelM4f().scale(0.85F, 0.85F, 0.85F);
         }
 
         model.resetBones();

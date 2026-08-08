@@ -266,9 +266,9 @@ public class WorldFeatureSilverMaze {
     public void createTreasureRoom(int x, int y, int z, Direction doorDirection) {
         this.createHallway(x, y, z, doorDirection);
         // places chests
-        for (int i = 0; i < Direction.horizontalDirections.length; i++) {
+        for (int i = 0; i < Direction.horizontal.length; i++) {
 
-            Direction dir = Direction.horizontalDirections[i];
+            Direction dir = Direction.horizontal[i];
             if (dir == doorDirection) {
                 continue;
             }
@@ -318,8 +318,8 @@ public class WorldFeatureSilverMaze {
 
     private void createGardenRoom(int x, int y, int z, Direction doorDirection) {
         this.createHallway(x, y, z, doorDirection);
-        for (int i = 0; i < Direction.horizontalDirections.length; i++) {
-            Direction dir = Direction.horizontalDirections[i];
+        for (int i = 0; i < Direction.horizontal.length; i++) {
+            Direction dir = Direction.horizontal[i];
             if (dir == doorDirection) {
                 continue;
             }
@@ -333,8 +333,8 @@ public class WorldFeatureSilverMaze {
                     this.rooms.add(wfb(x - 1, y + 4, z + 5, AetherBlocks.FENCEGATE_PLANKS_SKYROOT_PAINTED.id(), getMetadataFromDyeAndDirection(DyeColor.GREEN, dir)));
 
                     this.rooms.add(wfb(x - 1, y + 1, z + 2, AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id(), setMetadataTrapdoor(DyeColor.WHITE, false, true, Direction.NORTH)));
-                    this.rooms.add(wfb(x - 2, y + 1, z + 3, AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id(), setMetadataTrapdoor(DyeColor.WHITE, false, true, dir.getOpposite())));
-                    this.rooms.add(wfb(x - 2, y + 1, z + 4, AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id(), setMetadataTrapdoor(DyeColor.WHITE, false, true, dir.getOpposite())));
+                    this.rooms.add(wfb(x - 2, y + 1, z + 3, AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id(), setMetadataTrapdoor(DyeColor.WHITE, false, true, dir.opposite())));
+                    this.rooms.add(wfb(x - 2, y + 1, z + 4, AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id(), setMetadataTrapdoor(DyeColor.WHITE, false, true, dir.opposite())));
                     this.rooms.add(wfb(x - 1, y + 1, z + 5, AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id(), setMetadataTrapdoor(DyeColor.WHITE, false, true, Direction.SOUTH)));
 
                     break;
@@ -347,8 +347,8 @@ public class WorldFeatureSilverMaze {
                     this.rooms.add(wfb(x - 6, y + 4, z + 5, AetherBlocks.FENCEGATE_PLANKS_SKYROOT_PAINTED.id(), getMetadataFromDyeAndDirection(DyeColor.GREEN, dir)));
 
                     this.rooms.add(wfb(x - 6, y + 1, z + 2, AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id(), setMetadataTrapdoor(DyeColor.WHITE, false, true, Direction.NORTH)));
-                    this.rooms.add(wfb(x - 5, y + 1, z + 3, AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id(), setMetadataTrapdoor(DyeColor.WHITE, false, true, dir.getOpposite())));
-                    this.rooms.add(wfb(x - 5, y + 1, z + 4, AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id(), setMetadataTrapdoor(DyeColor.WHITE, false, true, dir.getOpposite())));
+                    this.rooms.add(wfb(x - 5, y + 1, z + 3, AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id(), setMetadataTrapdoor(DyeColor.WHITE, false, true, dir.opposite())));
+                    this.rooms.add(wfb(x - 5, y + 1, z + 4, AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id(), setMetadataTrapdoor(DyeColor.WHITE, false, true, dir.opposite())));
                     this.rooms.add(wfb(x - 6, y + 1, z + 5, AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id(), setMetadataTrapdoor(DyeColor.WHITE, false, true, Direction.SOUTH)));
                     break;
                 case NORTH:
@@ -360,8 +360,8 @@ public class WorldFeatureSilverMaze {
                     this.rooms.add(wfb(x - 5, y + 4, z + 1, AetherBlocks.FENCEGATE_PLANKS_SKYROOT_PAINTED.id(), getMetadataFromDyeAndDirection(DyeColor.GREEN, dir)));
 
                     this.rooms.add(wfb(x - 2, y + 1, z + 1, AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id(), setMetadataTrapdoor(DyeColor.WHITE, false, true, Direction.EAST)));
-                    this.rooms.add(wfb(x - 4, y + 1, z + 2, AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id(), setMetadataTrapdoor(DyeColor.WHITE, false, true, dir.getOpposite())));
-                    this.rooms.add(wfb(x - 3, y + 1, z + 2, AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id(), setMetadataTrapdoor(DyeColor.WHITE, false, true, dir.getOpposite())));
+                    this.rooms.add(wfb(x - 4, y + 1, z + 2, AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id(), setMetadataTrapdoor(DyeColor.WHITE, false, true, dir.opposite())));
+                    this.rooms.add(wfb(x - 3, y + 1, z + 2, AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id(), setMetadataTrapdoor(DyeColor.WHITE, false, true, dir.opposite())));
                     this.rooms.add(wfb(x - 5, y + 1, z + 1, AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id(), setMetadataTrapdoor(DyeColor.WHITE, false, true, Direction.WEST)));
                     break;
                 case SOUTH:
@@ -374,8 +374,8 @@ public class WorldFeatureSilverMaze {
                     this.rooms.add(wfb(x - 5, y + 4, z + 6, AetherBlocks.FENCEGATE_PLANKS_SKYROOT_PAINTED.id(), getMetadataFromDyeAndDirection(DyeColor.GREEN, Direction.SOUTH)));
 
                     this.rooms.add(wfb(x - 2, y + 1, z + 6, AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id(), setMetadataTrapdoor(DyeColor.WHITE, false, true, Direction.EAST)));
-                    this.rooms.add(wfb(x - 3, y + 1, z + 5, AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id(), setMetadataTrapdoor(DyeColor.WHITE, false, true, dir.getOpposite())));
-                    this.rooms.add(wfb(x - 4, y + 1, z + 5, AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id(), setMetadataTrapdoor(DyeColor.WHITE, false, true, dir.getOpposite())));
+                    this.rooms.add(wfb(x - 3, y + 1, z + 5, AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id(), setMetadataTrapdoor(DyeColor.WHITE, false, true, dir.opposite())));
+                    this.rooms.add(wfb(x - 4, y + 1, z + 5, AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id(), setMetadataTrapdoor(DyeColor.WHITE, false, true, dir.opposite())));
                     this.rooms.add(wfb(x - 5, y + 1, z + 6, AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id(), setMetadataTrapdoor(DyeColor.WHITE, false, true, Direction.WEST)));
                     break;
             }
@@ -396,9 +396,9 @@ public class WorldFeatureSilverMaze {
     private void createSleepingChambers(int x, int y, int z, Direction doorDirection) {
         this.createHallway(x, y, z, doorDirection);
         // places chests
-        for (int i = 0; i < Direction.horizontalDirections.length; i++) {
+        for (int i = 0; i < Direction.horizontal.length; i++) {
 
-            Direction dir = Direction.horizontalDirections[i];
+            Direction dir = Direction.horizontal[i];
             if (dir == doorDirection) {
                 continue;
             }

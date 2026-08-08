@@ -24,20 +24,20 @@ import turniplabs.halplibe.helper.EnvironmentHelper;
 import static teamport.aether.world.AetherDimension.OVERWORLD_RETURN_HEIGHT;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = Player.class)
+@Mixin(value = Player.class, remap = false)
 public abstract class SPBumpToOverworldMixin extends Mob {
     protected SPBumpToOverworldMixin(@Nullable World world) {
         super(world);
     }
     @Shadow
     public int dimension;
-    @Inject(method = "tick", at = @At("HEAD"))
-    private void tick(CallbackInfo ci) {
-        if (world != null && dimension == AetherDimension.getAether().id && this.y < world.worldType.getMinY() - 10) {
+    @Inject(method = "tick()V", at = @At("HEAD"))
+    private void bumpPlayerToOverworld(CallbackInfo ci) {
+        if (world != null && dimension == AetherDimension.getAether().id && this.y < world.getWorldType().getMinY(world) - 10) {
             if (EnvironmentHelper.isSinglePlayer()) {
                 Minecraft mc = Minecraft.getMinecraft();
 
-                AetherMod.LOGGER.debug("Sending {} to overworld", getDisplayName());
+                AetherMod.LOGGER.info("Sending {} to overworld", getDisplayName());
 
                 CompoundTag passengerNBT = null;
                 CompoundTag vehicleNBT = null;
@@ -80,7 +80,7 @@ public abstract class SPBumpToOverworldMixin extends Mob {
                 }
 
                 if (passengerNBT != null) {
-                    Entity p = EntityDispatcher.createEntityFromNBT(passengerNBT, mc.currentWorld);
+                    Entity p = EntityDispatcher.getInstance().createEntityFromNBT(passengerNBT, mc.currentWorld);
                     p.load(passengerNBT);
                     p.moveTo(x, y, z, 0f, 0f);
                     mc.currentWorld.entityJoinedWorld(p);
@@ -89,7 +89,7 @@ public abstract class SPBumpToOverworldMixin extends Mob {
                 }
 
                 if (vehicleNBT != null) {
-                    Entity v = EntityDispatcher.createEntityFromNBT(vehicleNBT, mc.currentWorld);
+                    Entity v = EntityDispatcher.getInstance().createEntityFromNBT(vehicleNBT, mc.currentWorld);
                     v.load(vehicleNBT);
                     v.moveTo(x, y, z, 0f, 0f);
                     mc.currentWorld.entityJoinedWorld(v);

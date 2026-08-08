@@ -1,0 +1,4 @@
+{
+  "parent": "minecraft:block/leaves/leaves",
+  "textures": { "all": "aether:block/leaves/oak_golden_retro_fancy" }
+}

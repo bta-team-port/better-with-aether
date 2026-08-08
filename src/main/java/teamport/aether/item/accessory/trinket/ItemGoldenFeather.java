@@ -19,11 +19,11 @@ public class ItemGoldenFeather extends ItemTrinket {
         if (
             slotId < player.inventory.mainInventory.length
                 || slotId - player.inventory.mainInventory.length < TRINKET_1_SLOT
-                || player.gamemode.isPlayerInvulnerable()
+                || player.gamemode.hasInvulnerablePlayer()
         ) {
             return;
         }
-        if (player.gamemode.canPlayerFly()) {
+        if (player.gamemode.hasPlayerFlight()) {
             return;
         }
         if (!player.onGround && !player.isInWater() && !player.isInLava() && player.yd < -0.225 && !player.isSneaking()) {

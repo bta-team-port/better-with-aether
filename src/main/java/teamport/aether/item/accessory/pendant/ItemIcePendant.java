@@ -2,14 +2,16 @@ package teamport.aether.item.accessory.pendant;
 
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.Material;
+import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.HitResult;
-import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
+import org.joml.Vector3d;
+import teamport.aether.entity.player.PlayerUtil;
 
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
@@ -32,23 +34,23 @@ public class ItemIcePendant extends ItemPendant {
         ) {
             return;
         }
-        Vec3 playerPos = Vec3.getPermanentVec3(player.x, player.y - player.bbHeight, player.z);
-        Vec3 playerNextPos = Vec3.getPermanentVec3(player.x + player.xd, player.y - player.bbHeight + player.yd - 1, player.z + player.zd);
+        Vector3d playerPos = new Vector3d(player.x, player.y - player.bbHeight, player.z);
+        Vector3d playerNextPos = new Vector3d(player.x + player.xd, player.y - player.bbHeight + player.yd - 1, player.z + player.zd);
         HitResult hits = world.checkBlockCollisionBetweenPoints(playerPos, playerNextPos, true);
-        if (hits == null || hits.hitType == HitResult.HitType.ENTITY) return;
-        int x = MathHelper.ceil(hits.x);
-        int y = MathHelper.ceil(hits.y);
-        int z = MathHelper.ceil(hits.z);
+        if (!(hits instanceof HitResult.Tile)) return;
+        int x = MathHelper.ceil(hits.location.x());
+        int y = MathHelper.ceil(hits.location.y());
+        int z = MathHelper.ceil(hits.location.z());
         int proc = 0;
         for (int radius = -1; radius <= 1; radius++) {
             for (int depth = -1; depth <= 1; depth++) {
                 int xPos = x + radius;
                 int zPos = z + depth;
                 Material material = world.getBlockMaterial(xPos, y, zPos);
-                if (material == Material.water) {
+                if (material == Materials.WATER) {
                     proc++;
                     world.setBlockWithNotify(xPos, y, zPos, Blocks.ICE.id());
-                } else if (material == Material.lava) {
+                } else if (material == Materials.LAVA) {
                     proc++;
                     world.setBlockWithNotify(xPos, y, zPos, Blocks.OBSIDIAN.id());
                 }
@@ -61,12 +63,12 @@ public class ItemIcePendant extends ItemPendant {
 
     private void damagePendant(ItemStack stack, Player player) {
         stack.damageItem(1, player);
-        if (player.inventory.armorInventory[TRINKET_1_SLOT] == stack && stack.stackSize <= 0) {
-            player.inventory.armorInventory[TRINKET_1_SLOT] = null;
+        if (PlayerUtil.getArmorOrAccessoryItem(player, TRINKET_1_SLOT) == stack && stack.stackSize <= 0) {
+            PlayerUtil.clearArmorOrAccessoryItem(player, TRINKET_1_SLOT);
             return;
         }
-        if (player.inventory.armorInventory[TRINKET_2_SLOT] == stack && stack.stackSize <= 0) {
-            player.inventory.armorInventory[TRINKET_2_SLOT] = null;
+        if (PlayerUtil.getArmorOrAccessoryItem(player, TRINKET_2_SLOT) == stack && stack.stackSize <= 0) {
+            PlayerUtil.clearArmorOrAccessoryItem(player, TRINKET_2_SLOT);
         }
     }
 }

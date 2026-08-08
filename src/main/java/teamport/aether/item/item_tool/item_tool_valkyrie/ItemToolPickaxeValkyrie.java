@@ -10,6 +10,7 @@ import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
 import redart15.commandly.veincapitator.VeinMining;
 import teamport.aether.AetherMod;
 import teamport.aether.block.AetherBlockTags;
@@ -24,7 +25,7 @@ public class ItemToolPickaxeValkyrie extends ItemToolPickaxeAether implements Ae
     }
 
     @Override
-    public boolean canHarvestBlock(Mob mob, ItemStack itemStack, Block<?> block) {
+    public boolean canHarvestBlock(ItemStack itemStack, Mob mob, Block<?> block) {
         Integer miningLevel = aetherMiningLevels.get(block);
         if (miningLevel != null) {
             return this.material.getMiningLevel() >= miningLevel;
@@ -34,20 +35,20 @@ public class ItemToolPickaxeValkyrie extends ItemToolPickaxeAether implements Ae
     }
 
     @Override
-    public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
-        return block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE) || block.hasTag(BlockTags.MINEABLE_BY_PICKAXE) ? this.material.getEfficiency(false) : 1.0F;
+    public boolean beforeBlockDestroyed(ItemStack selfStack, World world, Player player, Block<?> block, TilePosc blockPos, Side side) {
+        if (!world.isClientSide && AetherCommandlyRules.canVeinMine(world) && !player.isSneaking()) {
+            return !VeinMining
+                .veinMining(world, selfStack, blockPos, player)
+                .setDropCause(PlayerUtil.isSilkTouchPendant(player) ? EnumDropCause.SILK_TOUCH : EnumDropCause.PROPER_TOOL)
+                .setMiningTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.MINEABLE_BY_PICKAXE)
+                .mine(block, side);
+        }
+        return true;
     }
 
     @Override
-    public boolean beforeDestroyBlock(World world, ItemStack itemStack, int blockId, int x, int y, int z, Side side, Player player) {
-        if (!world.isClientSide && AetherCommandlyRules.canVeinMine(world) && !player.isSneaking()) {
-            return !VeinMining
-                .veinMining(world, itemStack, x, y, z, player)
-                .setDropCause(PlayerUtil.isSilkTouchPendant(player) ? EnumDropCause.SILK_TOUCH : EnumDropCause.PROPER_TOOL)
-                .setMiningTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.MINEABLE_BY_PICKAXE)
-                .mine(blockId, side);
-        }
-        return true;
+    public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
+        return block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE) || block.hasTag(BlockTags.MINEABLE_BY_PICKAXE) ? this.material.getEfficiency(false) : 1.0F;
     }
 
     @Override

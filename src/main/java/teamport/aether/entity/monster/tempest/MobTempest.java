@@ -26,7 +26,7 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
     public MobTempest(World world) {
         super(world);
         this.setSize(1.0F, 2.0F);
-        this.textureIdentifier = NamespaceID.getPermanent("aether", "tempest");
+        this.setTextureIdentifier("aether", "tempest");
         this.maxLifetime = this.random.nextInt(1024) + 1024;
         this.scoreValue = 400;
         this.footSize = 1.0f;
@@ -52,8 +52,8 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
         }
     }
 
-    @SuppressWarnings("java:S1192")
     @Override
+    @SuppressWarnings("java:S1192")
     public void updateAI() {
         super.updateAI();
         if (this.isInWaterOrRain() || (this.entityAge >= this.maxLifetime && !this.hadNicknameSet)) {
@@ -71,7 +71,7 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
 
         if (this.cooldown >= 64 && this.target != null) {
             ProjectileElementLightning elementLightning = new ProjectileElementLightning(this.world, this);
-            elementLightning.setHeading(world.rand.nextDouble(), this.getLookAngle().y + 5, world.rand.nextDouble(), 0.5f, 0.0f);
+            elementLightning.setHeading(world.rand.nextDouble(), this.getViewVector(1.0F).y() + 5, world.rand.nextDouble(), 0.5f, 0.0f);
             this.world.playSoundAtEntity(null, this, "mob.ghast.fireball", this.getSoundVolume(), (this.random.nextFloat() + this.random.nextFloat()) * 1.2F + 1.0F);
             this.world.entityJoinedWorld(elementLightning);
             this.cooldown = 0;
@@ -82,7 +82,7 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
     protected Entity findPlayerToAttack() {
         if (this.world == null) return null;
         Player entityplayer =  PlayerUtil.getClosestNonInvisPlayerToEntity(this.world, this, 16.0);
-        return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().areMobsHostile() ? entityplayer : null;
+        return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().hasHostileMobs() ? entityplayer : null;
     }
 
     @Override
@@ -96,8 +96,8 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
     @Override
     public void causeFallDamage(float distance){/* dont take fall damage*/}
 
-    @SuppressWarnings("java:S131")
     @Override
+    @SuppressWarnings("java:S131")
     public boolean collidesWith(Entity entity) {
         float launchSpeed = 0.75F;
         if (this.world != null && !(entity instanceof MobWhirly)) {

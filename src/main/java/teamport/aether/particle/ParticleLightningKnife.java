@@ -2,12 +2,12 @@ package teamport.aether.particle;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.entity.particle.Particle;
-import net.minecraft.client.render.LightmapHelper;
-import net.minecraft.client.render.tessellator.Tessellator;
+import net.minecraft.client.render.particle.Particle;
+import net.minecraft.client.render.tessellator.TessellatorParticle;
 import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.util.helper.MathHelper;
+import net.minecraft.core.util.helper.LightIndexHelper;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 
@@ -24,21 +24,21 @@ public class ParticleLightningKnife extends Particle {
         this.xd = this.xd * 0.01 + xd;
         this.yd = this.yd * 0.01 + yd;
         this.zd = this.zd * 0.01 + zd;
-        this.x += (this.random.nextFloat() - this.random.nextFloat()) * 0.05F;
-        this.y += (this.random.nextFloat() - this.random.nextFloat()) * 0.05F;
-        this.z += (this.random.nextFloat() - this.random.nextFloat()) * 0.05F;
+        this.x += (random.nextFloat() - random.nextFloat()) * 0.05F;
+        this.y += (random.nextFloat() - random.nextFloat()) * 0.05F;
+        this.z += (random.nextFloat() - random.nextFloat()) * 0.05F;
         this.originalScale = this.size;
         this.rCol = this.gCol = this.bCol = 1.0F;
-        this.lifetime = (int) (8.0 / (0.2 + 0.8 * (this.random.nextInt(10000) / 10000.0))) + 4;
+        this.lifetime = (int) (8.0 / (0.2 + 0.8 * (random.nextInt(10000) / 10000.0))) + 4;
         this.noPhysics = true;
         this.tex = BOLT_FLIPPED;
     }
 
     @Override
-    public void render(Tessellator t, float partialTick, double xOff, double yOff, double zOff, float xa, float ya, float za, float xa2, float za2) {
-        float s = (this.age + partialTick) / this.lifetime;
-        this.size = this.originalScale * (1.0F - s * s * 0.5F);
-        super.render(t, partialTick, xOff, yOff, zOff, xa, ya, za, xa2, za2);
+    public void render(TessellatorParticle tessellator, float partialTick) {
+        float progress = (this.age + partialTick) / this.lifetime;
+        this.size = this.originalScale * (1.0F - progress * progress * 0.5F);
+        super.render(tessellator, partialTick);
     }
 
     @Override
@@ -48,8 +48,8 @@ public class ParticleLightningKnife extends Particle {
     }
 
     @Override
-    public int getLightmapCoord(float partialTick) {
-        return LightmapHelper.setBlocklightValue(super.getLightmapCoord(partialTick), 15);
+    public byte getLightIndex(float partialTick) {
+        return LightIndexHelper.setBlockLight(super.getLightIndex(partialTick), 15);
     }
 
     @Override
@@ -75,6 +75,5 @@ public class ParticleLightningKnife extends Particle {
             this.xd *= 0.7;
             this.zd *= 0.7;
         }
-
     }
 }

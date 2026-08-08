@@ -13,7 +13,7 @@ import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.item.AetherItems;
 
-@Mixin(value = SlotResult.class)
+@Mixin(value = SlotResult.class, remap = false)
 public abstract class SlotCraftingAchievementMixin {
     @Shadow
     private Player thePlayer;

@@ -26,9 +26,7 @@ public class ItemSwetCapeArmor extends ItemAccessoryArmor implements IAccessoryE
             && slotId - player.inventory.mainInventory.length == CAPE_SLOT
         ) {
             AetherEffects.add(player, AetherEffects.swetty, 1);
-            return;
         }
-        ((IHasEffects<?>) player).getContainer().remove (AetherEffects.swetty);
     }
 
     @Override

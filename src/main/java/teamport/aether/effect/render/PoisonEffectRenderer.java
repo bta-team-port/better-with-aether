@@ -9,12 +9,11 @@ import sunsetsatellite.catalyst.effects.api.effect.render.heartContainer.HeartCo
 import sunsetsatellite.catalyst.effects.api.effect.render.heartContainer.IHasCustomHeartContainer;
 
 public class PoisonEffectRenderer<T extends Effect> extends TintEffectRender<T> implements IHasCustomHeartContainer {
-    @SuppressWarnings("java:S116")
-    public final String PATH_HEART;
+    public final String pathHeart;
 
     public PoisonEffectRenderer(T effect, String vignette, int tint, String heartPath) {
         super(effect, vignette, tint);
-        PATH_HEART = heartPath;
+        pathHeart = heartPath;
     }
 
     @Override
@@ -25,9 +24,8 @@ public class PoisonEffectRenderer<T extends Effect> extends TintEffectRender<T> 
         return 0.35F + percent / 2.0F;
     }
 
-
     @Override
     public HeartContainer getCustomContainer(Player player) {
-        return new HeartContainerSimple(player, this.PATH_HEART);
+        return new HeartContainerSimple(player, pathHeart);
     }
 }

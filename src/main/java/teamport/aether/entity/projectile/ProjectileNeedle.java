@@ -7,10 +7,11 @@ import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.projectile.Projectile;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
-import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.util.phys.HitResult;
-import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
+import org.joml.Vector3d;
+import org.joml.primitives.AABBdc;
 import org.jspecify.annotations.NonNull;
 import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.effect.AetherEffects;
@@ -96,7 +97,7 @@ public class ProjectileNeedle extends Projectile implements ProjectileAether, Ae
         if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
             float f = MathHelper.sqrt(xd * xd + zd * zd);
             this.yRot = (float) (Math.atan2(xd, zd) * 30.0 / Math.PI);
-            this.xRot = (float) (Math.atan2(yd, f) * 30.0 / Math.PI);
+            this.xRot = (float) (Math.atan2(yd, f) * 180.0 / Math.PI);
             this.xRotO = this.xRot;
             this.yRotO = this.yRot;
             this.moveTo(this.x, this.y, this.z, this.yRot, this.xRot);
@@ -115,13 +116,13 @@ public class ProjectileNeedle extends Projectile implements ProjectileAether, Ae
         if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
             float f = MathHelper.sqrt(this.xd * this.xd + this.zd * this.zd);
             this.yRotO = this.yRot = (float) (Math.atan2(this.xd, this.zd) * 30.0 / Math.PI);
-            this.xRotO = this.xRot = (float) (Math.atan2(this.yd, f) * 30.0 / Math.PI);
+            this.xRotO = this.xRot = (float) (Math.atan2(this.yd, f) * 180.0 / Math.PI);
         }
 
         Block<?> block = this.world.getBlock(this.xTile, this.yTile, this.zTile);
         if (block != null) {
-            AABB aabb = block.getCollisionBoundingBoxFromPool(this.world, this.xTile, this.yTile, this.zTile);
-            if (aabb != null && aabb.contains(Vec3.getTempVec3(this.x, this.y, this.z))) {
+            AABBdc aabb = block.getCollisionAABB(this.world, new TilePos(this.xTile, this.yTile, this.zTile));
+            if (aabb != null && aabb.containsPoint(this.x, this.y, this.z)) {
                 this.inGround = true;
             }
         }
@@ -152,21 +153,22 @@ public class ProjectileNeedle extends Projectile implements ProjectileAether, Ae
     @Override
     public HitResult getHitResult() {
         if (this.world == null) return super.getHitResult();
-        Vec3 oldPosition = Vec3.getTempVec3(this.x, this.y, this.z);
-        Vec3 newPosition = Vec3.getTempVec3(this.x + this.xd, this.y + this.yd, this.z + this.zd);
+        Vector3d oldPosition = new Vector3d(this.x, this.y, this.z);
+        Vector3d newPosition = new Vector3d(this.x + this.xd, this.y + this.yd, this.z + this.zd);
         return this.world.checkBlockCollisionBetweenPoints(oldPosition, newPosition, false, true, false);
     }
 
     @Override
     public void onHit(HitResult hitResult) {
         if (this.world == null) return;
-        if (hitResult.entity != null) {
-            if (hitResult.entity.hurt(this.owner, this.damage, DamageType.COMBAT)) {
-                IHasEffects<?> target = (IHasEffects<?>) hitResult.entity;
+        if (hitResult instanceof HitResult.Entity) {
+            Entity hitEntity = ((HitResult.Entity) hitResult).entity;
+            if (hitEntity.hurt(this.owner, this.damage, DamageType.COMBAT)) {
+                IHasEffects<?> target = (IHasEffects<?>) hitEntity;
                 AetherEffects.add((Entity) target, AetherEffects.poisonEffect, random.nextInt(1) + 1);
 
                 if (this.isOnFire()) {
-                    hitResult.entity.fireHurt();
+                    hitEntity.fireHurt();
                 }
 
                 if (!this.world.isClientSide) {
@@ -175,15 +177,16 @@ public class ProjectileNeedle extends Projectile implements ProjectileAether, Ae
                 this.remove();
             }
 
-        } else {
-            this.xTile = hitResult.x;
-            this.yTile = hitResult.y;
-            this.zTile = hitResult.z;
+        } else if (hitResult instanceof HitResult.Tile) {
+            HitResult.Tile tileHit = (HitResult.Tile) hitResult;
+            this.xTile = tileHit.tilePos.x();
+            this.yTile = tileHit.tilePos.y();
+            this.zTile = tileHit.tilePos.z();
             this.inTile = this.world.getBlockId(this.xTile, this.yTile, this.zTile);
             this.inData = this.world.getBlockMetadata(this.xTile, this.yTile, this.zTile);
-            this.xd = (float) (hitResult.location.x - this.x);
-            this.yd = (float) (hitResult.location.y - this.y);
-            this.zd = (float) (hitResult.location.z - this.z);
+            this.xd = (float) (hitResult.location.x() - this.x);
+            this.yd = (float) (hitResult.location.y() - this.y);
+            this.zd = (float) (hitResult.location.z() - this.z);
             float f1 = MathHelper.sqrt(this.xd * this.xd + this.yd * this.yd + this.zd * this.zd);
             this.x -= this.xd / f1 * 0.05;
             this.y -= this.yd / f1 * 0.05;

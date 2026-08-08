@@ -38,7 +38,7 @@ public class BlockLogicPortalAether extends BlockLogicPortal {
                 zd = rand.nextDouble() * 2.0 * i1;
             }
 
-            world.spawnParticle("portal", px, py, pz, xd, yd, zd, this.fromMetadata(meta).blockMeta);
+            world.spawnParticle("portal", px, py, pz, xd, yd, zd, this.fromMetadata(meta).blockMeta, false);
         }
 
     }

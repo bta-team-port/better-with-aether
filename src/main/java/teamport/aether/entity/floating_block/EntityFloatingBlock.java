@@ -62,8 +62,8 @@ public class EntityFloatingBlock extends Entity {
         return !this.removed;
     }
 
-    @SuppressWarnings("java:S6541")
     @Override
+    @SuppressWarnings("java:S6541")
     public void tick() {
         if (this.world == null) return;
         if (this.carriedBlock.blockId == 0) {
@@ -141,9 +141,7 @@ public class EntityFloatingBlock extends Entity {
                             }
 
                             this.carriedBlock.entity.validate();
-                            this.carriedBlock.entity.x = x;
-                            this.carriedBlock.entity.y = y;
-                            this.carriedBlock.entity.z = z;
+                            this.carriedBlock.entity.tilePos.set(x, y, z);
                             this.carriedBlock.entity.worldObj = this.world;
                             this.carriedBlock.entity.carriedBlock = null;
 

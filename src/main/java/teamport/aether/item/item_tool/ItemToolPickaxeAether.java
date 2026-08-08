@@ -9,6 +9,7 @@ import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemTool;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
 import redart15.commandly.veincapitator.VeinMining;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.compat.commandly.AetherCommandlyRules;
@@ -27,7 +28,7 @@ public class ItemToolPickaxeAether extends ItemTool {
     }
 
     @Override
-    public boolean canHarvestBlock(Mob mob, ItemStack itemStack, Block<?> block) {
+    public boolean canHarvestBlock(ItemStack itemStack, Mob mob, Block<?> block) {
         Integer miningLevel = aetherMiningLevels.get(block);
         if (miningLevel != null) {
             return this.material.getMiningLevel() >= miningLevel;
@@ -37,13 +38,13 @@ public class ItemToolPickaxeAether extends ItemTool {
     }
 
     @Override
-    public boolean beforeDestroyBlock(World world, ItemStack itemStack, int blockId, int x, int y, int z, Side side, Player player) {
+    public boolean beforeBlockDestroyed(ItemStack selfStack, World world, Player player, Block<?> block, TilePosc blockPos, Side side) {
         if (!world.isClientSide && AetherCommandlyRules.canVeinMine(world) && !player.isSneaking()) {
             return !VeinMining
-                .veinMining(world, itemStack, x, y, z, player)
+                .veinMining(world, selfStack, blockPos, player)
                 .setDropCause(PlayerUtil.isSilkTouchPendant(player) ? EnumDropCause.SILK_TOUCH : EnumDropCause.PROPER_TOOL)
                 .setMiningTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
-                .mine(blockId, side);
+                .mine(block, side);
         }
         return true;
     }

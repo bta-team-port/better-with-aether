@@ -12,7 +12,7 @@ import teamport.aether.AetherGlobals;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.item.AetherItems;
 
-@Mixin(value = Player.class)
+@Mixin(value = Player.class, remap = false)
 public abstract class PlayerMixinDevDrops {
     @Inject(method = "onDeath", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/world/World;getGameRuleValue(Lnet/minecraft/core/data/gamerule/GameRule;)Ljava/lang/Object;"))
     private void extraDropsDev(Entity entityKilledBy, CallbackInfo ci) {
@@ -21,19 +21,19 @@ public abstract class PlayerMixinDevDrops {
 
         switch (uuid) {
             case AetherGlobals.UUID_LUKEISSTUFF: // LukeisStuff
-                player.dropPlayerItemWithRandomChoice(new ItemStack(AetherItems.AMMO_WINDBALL, 1), true);
+                player.dropPlayerItem(new ItemStack(AetherItems.AMMO_WINDBALL, 1));
                 break;
             case AetherGlobals.UUID_OLYPOLYU: // Olypolyu / Kheprep
-                player.dropPlayerItemWithRandomChoice(new ItemStack(AetherItems.PARACHUTE_CLOUD, 1), true);
+                player.dropPlayerItem(new ItemStack(AetherItems.PARACHUTE_CLOUD, 1));
                 break;
             case AetherGlobals.UUID_TOCININ: // Tocinin
-                player.dropPlayerItemWithRandomChoice(new ItemStack(Items.FOOD_PORKCHOP_RAW, 1), true);
+                player.dropPlayerItem(new ItemStack(Items.FOOD_PORKCHOP_RAW, 1));
                 break;
             case AetherGlobals.UUID_REDART15: // Redart15
-                player.dropPlayerItemWithRandomChoice(new ItemStack(AetherBlocks.CARVED_STONE_LIGHT, 1), true);
+                player.dropPlayerItem(new ItemStack(AetherBlocks.CARVED_STONE_LIGHT, 1));
                 break;
             case AetherGlobals.UUID_SMUSHYTACO: // SmushyTaco
-                player.dropPlayerItemWithRandomChoice(new ItemStack(AetherItems.AMMO_HAMMER_HEAD, 1), true);
+                player.dropPlayerItem(new ItemStack(AetherItems.AMMO_HAMMER_HEAD, 1));
                 break;
             default:
                 break;

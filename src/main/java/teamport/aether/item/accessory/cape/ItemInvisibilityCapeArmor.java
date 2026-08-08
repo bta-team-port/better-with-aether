@@ -25,9 +25,7 @@ public class ItemInvisibilityCapeArmor extends ItemAccessoryArmor implements IAc
             && slotId - player.inventory.mainInventory.length == CAPE_SLOT
         ) {
             AetherEffects.add(player, AetherEffects.invisibility, 1);
-            return;
         }
-        ((IHasEffects<?>) player).getContainer().remove (AetherEffects.invisibility);
     }
 
     @Override

@@ -16,11 +16,14 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.block.ItemBlock;
 import net.minecraft.core.item.tag.ItemTags;
 import net.minecraft.core.player.gamemode.Gamemode;
+import net.minecraft.core.player.gamemode.Gamemodes;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
+import net.minecraft.core.world.pos.TilePosc;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.achievements.AetherAchievements;
@@ -45,11 +48,36 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
     }
 
     @Override
+    public void onPlacedByMob(World world, TilePosc pos, @NonNull Side side, Mob mob, double xPlaced, double yPlaced) {
+        onBlockPlacedByMob(world, pos.x(), pos.y(), pos.z(), side, mob, xPlaced, yPlaced);
+    }
+
+    @Override
+    public int getPlacedData(@Nullable Player player, ItemStack stack, World world, TilePosc pos, Side side, double xPlaced, double yPlaced) {
+        return stack.getMetadata();
+    }
+
+    @Override
+    public @Nullable ItemStack[] getBreakResult(World world, EnumDropCause dropCause, TilePosc pos, int meta, TileEntity tileEntity) {
+        return getBreakResult(world, dropCause, pos.x(), pos.y(), pos.z(), meta, tileEntity);
+    }
+
+    @Override
+    public void onActivatorInteracted(World world, TilePosc pos, TileEntityActivator activator, Direction direction) {
+        onActivatorInteract(world, pos.x(), pos.y(), pos.z(), activator, direction);
+    }
+
+    @Override
+    public boolean onInteracted(World world, TilePosc pos, Player player, Side side, double xHit, double yHit) {
+        return onBlockRightClicked(world, pos.x(), pos.y(), pos.z(), player, side, xHit, yHit);
+    }
+
+    @Override
     public void onBlockPlacedByMob(World world, int x, int y, int z, @NonNull Side side, Mob mob, double xPlaced, double yPlaced) {
         int metadata = world.getBlockMetadata(x, y, z);
-        Direction direction = mob.getHorizontalPlacementDirection(side).getOpposite();
+        Direction direction = mob.getHorizontalPlacementDirection(side).opposite();
         metadata = getMetaWithDirection(metadata, direction);
-        ItemStack stack = mob.getHeldItem();
+        ItemStack stack = mob instanceof Player ? ((Player) mob).getHeldItem() : null;
         if (stack != null && stack.getItem() instanceof ItemBlock<?>) {
             CompoundTag loot = stack.getData().getCompound("loot");
             TileEntityChest chest = new TileEntityMimic();
@@ -65,14 +93,11 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
     }
 
     public static int getMetaWithDirection(int meta, Direction direction) {
-        if (direction == null) {
-            return meta;
-        }
-        return (meta & COLOR_MASK) | (direction.ordinal() & 3);
+        return BlockLogicChest.getMetaWithDirection(meta, direction);
     }
 
-    @SuppressWarnings("java:S128")
     @Override
+    @SuppressWarnings("java:S128")
     public @Nullable ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int x, int y, int z, int meta, TileEntity tileEntity) {
         if (tileEntity == null) {
             tileEntity = world.getTileEntity(x, y, z);
@@ -96,8 +121,8 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         return null;
     }
 
-    @SuppressWarnings("java:S2259")
     @Override
+    @SuppressWarnings("java:S2259")
     public void onActivatorInteract(World world, int x, int y, int z, TileEntityActivator activator, Direction direction) {
         MobMimic mimic = summonMimic(world, x, y, z);
         moveToSafe(world, mimic, x, y, z, 0, 0);
@@ -113,8 +138,8 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         );
     }
 
-    @SuppressWarnings({"java:S3516", "java:S2259"})
     @Override
+    @SuppressWarnings({"java:S3516", "java:S2259"})
     public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xHit, double yHit) {
         ItemStack held = player.getHeldItem();
         if (held != null && held.getItem() instanceof ItemLabel) {
@@ -124,10 +149,10 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
                 return true;
             }
         }
-        if (player.gamemode == Gamemode.creative) {
+        if (player.gamemode == Gamemodes.CREATIVE) {
             ItemStack stack = player.getHeldItem();
             if (stack == null || !stack.getItem().hasTag(ItemTags.PREVENT_CREATIVE_MINING)) {
-                player.displayChestScreen(BlockLogicChest.getInventory(world, x, y, z), x, y, z);
+                player.displayChestScreen(BlockLogicChest.getInventory(world, new TilePos(x, y, z)), x, y, z);
                 return true;
             }
         }
@@ -147,7 +172,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
             );
             return true;
         }
-        player.displayChestScreen(BlockLogicChest.getInventory(world, x, y, z), x, y, z);
+        player.displayChestScreen(BlockLogicChest.getInventory(world, new TilePos(x, y, z)), x, y, z);
         return true;
     }
 
@@ -278,9 +303,9 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         if (!world.isClientSide) {
             world.setBlockMetadataWithNotify(
                 x, y, z,
-                setDirection(
+                getMetaWithDirection(
                     world.getBlockMetadata(x, y, z),
-                    Direction.horizontalDirections[random.nextInt(Direction.horizontalDirections.length)]
+                    Direction.horizontal[random.nextInt(Direction.horizontal.length)]
                 )
             );
         }

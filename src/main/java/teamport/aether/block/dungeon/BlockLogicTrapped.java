@@ -4,6 +4,7 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
+import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.player.Player;
@@ -11,8 +12,9 @@ import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.phys.HitResult;
-import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
+import org.joml.Vector3d;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.entity.monster.sentry.MobSentry;
@@ -28,12 +30,19 @@ public class BlockLogicTrapped extends BlockLogicDungeon implements AetherBlockT
     private final int cooldown;
 
     public BlockLogicTrapped(Block<?> block, Block<?> breakResult, Block<?> replaceOnClear, Class<? extends Entity> monster, int cooldown) {
-        super(block, Material.stone);
+        super(block, Materials.STONE);
         block.setTicking(true);
         this.monster = monster;
         this.breakResult = breakResult;
         this.replaceOnClear = replaceOnClear;
         this.cooldown = cooldown;
+    }
+
+    @Override
+    public int getPistonPushReaction(World world, TilePosc pos) {
+        return this.block.getHardness() < 0.0F
+            ? Material.PISTON_CANT_PUSH
+            : super.getPistonPushReaction(world, pos);
     }
 
     @Override
@@ -47,7 +56,10 @@ public class BlockLogicTrapped extends BlockLogicDungeon implements AetherBlockT
     }
 
     @Override
-    public void updateTick(World world, int x, int y, int z, Random rand) {
+    public void updateTick(World world, TilePosc pos, Random rand, boolean scheduled) {
+        int x = pos.x();
+        int y = pos.y();
+        int z = pos.z();
         if (!world.isClientSide && world.getBlockMetadata(x, y, z) == 1) {
             world.setBlockMetadata(x, y, z, 0);
         }
@@ -70,7 +82,7 @@ public class BlockLogicTrapped extends BlockLogicDungeon implements AetherBlockT
     }
 
     private void triggerTrap(World world, int x, int y, int z, Entity entity) {
-        Entity theMonster = EntityDispatcher.createEntityInWorld(this.monster, world);
+        Entity theMonster = EntityDispatcher.getInstance().createEntityInWorld(this.monster, world);
         if (theMonster == null) {
             return;
         }
@@ -89,14 +101,14 @@ public class BlockLogicTrapped extends BlockLogicDungeon implements AetherBlockT
 
                 theMonster.moveTo(spawnX, spawnY, spawnZ, 0.0f, 0.0f);
 
-                if (world.getIsAnySolidGround(theMonster.bb)) {
+                if (!world.getCubes(theMonster, theMonster.bb).isEmpty()) {
                     continue;
                 }
 
                 ///  checks sight between player and entity
                 HitResult hit = world.checkBlockCollisionBetweenPoints(
-                    Vec3.getPermanentVec3(entity.x, entity.y, entity.z),
-                    Vec3.getPermanentVec3(theMonster.x, theMonster.y, theMonster.z),
+                    new Vector3d(entity.x, entity.y, entity.z),
+                    new Vector3d(theMonster.x, theMonster.y, theMonster.z),
                     false, false, true
                 );
                 if (hit != null) {
@@ -105,11 +117,15 @@ public class BlockLogicTrapped extends BlockLogicDungeon implements AetherBlockT
 
                 ///  checks if the entity can be spawned on the choosen block
                 HitResult hit1 = world.checkBlockCollisionBetweenPoints(
-                    Vec3.getPermanentVec3(theMonster.x, theMonster.y, theMonster.z),
-                    Vec3.getPermanentVec3(theMonster.x, theMonster.y - 5, theMonster.z),
+                    new Vector3d(theMonster.x, theMonster.y, theMonster.z),
+                    new Vector3d(theMonster.x, theMonster.y - 5, theMonster.z),
                     true, false, true
                 );
-                if (hit1 == null || hit1.hitType != HitResult.HitType.TILE || !world.getBlockMaterial(hit1.x, hit1.y, hit1.z).isSolid() || world.getBlockId(hit1.x, hit1.y, hit1.z) == Blocks.SPIKES.id()) {
+                if (!(hit1 instanceof HitResult.Tile)) {
+                    continue;
+                }
+                TilePosc tilePos = ((HitResult.Tile) hit1).tilePos;
+                if (!world.getBlockMaterial(tilePos.x(), tilePos.y(), tilePos.z()).isSolid() || world.getBlockId(tilePos.x(), tilePos.y(), tilePos.z()) == Blocks.SPIKES.id()) {
                     continue;
                 }
 

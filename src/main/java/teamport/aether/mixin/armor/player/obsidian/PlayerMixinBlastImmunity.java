@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherArmorMaterial;
 
-@Mixin(value = Player.class)
+@Mixin(value = Player.class, remap = false)
 public abstract class PlayerMixinBlastImmunity {
     @Shadow
     public ContainerInventory inventory;
@@ -20,7 +20,7 @@ public abstract class PlayerMixinBlastImmunity {
         if (type == null || type.equals(DamageType.BLAST) || PlayerUtil.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.OBSIDIAN) < 5) {
             return original;
         }
-        this.inventory.damageArmor((int) Math.ceil((double) damage / (double) 4.0F));
+        ((Player) (Object) this).damageArmor((int) Math.ceil((double) damage / (double) 4.0F));
         return false;
     }
 }

@@ -5,6 +5,7 @@ import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
+import net.minecraft.core.util.helper.LightIndexHelper;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -19,7 +20,7 @@ public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeat
 
     public MobFireMinion(@Nullable World world) {
         super(world);
-        this.textureIdentifier = NamespaceID.getPermanent("aether", "fire_minion");
+        this.setTextureIdentifier("aether", "fire_minion");
         this.moveSpeed = 4.0F;
         this.attackStrength = 10;
         this.fireImmune = true;
@@ -40,8 +41,10 @@ public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeat
     }
 
     @Override
-    public int getLightmapCoord(float partialTick) {
-        return this.world == null ? super.getLightmapCoord(partialTick) : this.world.getLightmapCoord(15, 15);
+    public byte getLightIndex(float partialTick) {
+        byte light = super.getLightIndex(partialTick);
+        light = LightIndexHelper.setSkyLight(light, 15);
+        return LightIndexHelper.setBlockLight(light, 15);
     }
 
     @Override
@@ -67,7 +70,7 @@ public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeat
     protected Entity findPlayerToAttack() {
         if (this.world == null) return super.findPlayerToAttack();
         Player entityplayer = this.world.getClosestPlayerToEntity(this, 16.0);
-        return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().areMobsHostile() ? entityplayer : null;
+        return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().hasHostileMobs() ? entityplayer : null;
     }
 
     @Override

@@ -3,9 +3,9 @@ package teamport.aether.mixin.entity;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.util.helper.MathHelper;
-import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
+import org.joml.primitives.AABBd;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.block.terrain.BlockLogicCloudBase;
 
-@Mixin(value = Entity.class)
+@Mixin(value = Entity.class, remap = false)
 public abstract class EntityMixin {
     @Shadow
     public float fallDistance;
@@ -26,7 +26,7 @@ public abstract class EntityMixin {
     @Shadow
     @Final
     @NotNull
-    public AABB bb;
+    public AABBd bb;
 
     @Inject(method = "checkOnWater", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Entity;checkAndHandleWater(Z)Z"))
     private void checkOnCloud(boolean addVelocity, CallbackInfo ci) {
