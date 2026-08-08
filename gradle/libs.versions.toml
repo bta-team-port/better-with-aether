@@ -2,6 +2,7 @@
 ##########################################################################
 # Plugins
 loom = "1.15-SNAPSHOT"
+minotaur = "2.9.0"
 ##########################################################################
 # Java Configuration
 java = "17"
@@ -16,15 +17,16 @@ halplibe = "6.1.4+8.0"
 uselessNumerical = "1.1.1-8.0"
 catalyst-core = "3.0.0-v8.0.1"
 catalyst-effects = "3.0.0-v8.0.1"
-commandly = "1.1.4+8.0.1"
+commandly = "1.1.6+8.0.1"
 legacyLwjgl = "1.0.6"
 ##########################################################################
 # Dependencies
 slf4jApi = "2.0.17"
+jspecify = "1.0.0"
+errorprone = "2.49.0"
 lwjgl = "3.3.3"
 joml = "1.10.8"
 jomlPrimitives = "1.10.0"
-jspecify = "1.0.0"
 ##########################################################################
 
 [libraries]
@@ -37,7 +39,11 @@ commandly = { group = "redart15", name = "commandly", version.ref = "commandly" 
 modMenu = { group = "turniplabs", name = "modmenu-bta", version.ref = "modMenu" }
 legacyLwjgl = { group = "com.github.Better-than-Adventure", name = "legacy-lwjgl3", version.ref = "legacyLwjgl" }
 slf4jApi = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4jApi" }
+jspecify = { group = "org.jspecify", name = "jspecify", version.ref = "jspecify" }
+errorprone = { group = "com.google.errorprone", name = "error_prone_annotations", version.ref = "errorprone" }
+# https://piston-data.mojang.com/v1/objects/43db9b498cb67058d2e12d394e6507722e71bb45/client.jar
 clientJar = { group = "objects", name = "client", version = "43db9b498cb67058d2e12d394e6507722e71bb45" }
+
 joml = { group = "org.joml", name = "joml", version.ref = "joml" }
 joml-primitives = { group = "org.joml", name = "joml-primitives", version.ref = "jomlPrimitives" }
 lwjgl = { group = "org.lwjgl", name = "lwjgl", version.ref = "lwjgl"}
@@ -45,10 +51,10 @@ lwjgl-glfw = { group = "org.lwjgl", name = "lwjgl-glfw", version.ref = "lwjgl"}
 lwjgl-openal = { group = "org.lwjgl", name = "lwjgl-openal", version.ref = "lwjgl"}
 lwjgl-opengl = { group = "org.lwjgl", name = "lwjgl-opengl", version.ref = "lwjgl"}
 lwjgl-stb = { group = "org.lwjgl", name = "lwjgl-stb", version.ref = "lwjgl"}
-jspecify = { group = "org.jspecify", name = "jspecify", version.ref = "jspecify" }
 
 [bundles]
 btaLwjgl = [ "lwjgl", "lwjgl-glfw", "lwjgl-openal", "lwjgl-opengl", "lwjgl-stb", "legacyLwjgl" ]
 
 [plugins]
 loom = { id = "net.fabricmc.fabric-loom", version.ref = "loom" }
+minotaur = { id = "com.modrinth.minotaur", version.ref = "minotaur" }

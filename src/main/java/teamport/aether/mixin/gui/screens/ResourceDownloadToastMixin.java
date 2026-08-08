@@ -17,10 +17,11 @@ import teamport.aether.helper.MixinHelper;
 import static teamport.aether.AetherClient.resourceDownloaderThread;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = WorldRenderer.class, remap = false)
+@Mixin(WorldRenderer.class)
 public abstract class ResourceDownloadToastMixin {
     @Shadow
     public Minecraft mc;
+
     @Inject(method = "updateCameraAndRender", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/toasts/GuiElementToastsHud;render(F)V", shift = At.Shift.AFTER))
     private void renderResourceToast(float partialTick, CallbackInfo ci) {
         if (resourceDownloaderThread.getTheState() == AetherRemoteResourceDownloaderThread.State.DOWNLOADING) {

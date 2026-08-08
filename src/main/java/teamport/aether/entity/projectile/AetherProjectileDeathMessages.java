@@ -4,6 +4,7 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.entity.projectile.Projectile;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.boss.EnemyBoss;
 
@@ -13,11 +14,10 @@ import static teamport.aether.AetherMod.TRANSLATOR;
 
 public interface AetherProjectileDeathMessages extends AetherDeathMessage {
     @Override
-    default String deathMessage(Player player) {
+    default String deathMessage(@NonNull Player player) {
         Projectile proj = (Projectile) this;
         Entity owner = proj.owner;
-        if (owner instanceof Player) {
-            Player killer = (Player) owner;
+        if (owner instanceof Player killer) {
             String keys = EntityDispatcher.getInstance().entryForClass(proj.getClass()).nameKey + ".death_message";
             if ((killer).uuid.equals(player.uuid)) {
                 return RED + TRANSLATOR.translateKey(keys + ".suicide")
@@ -28,8 +28,7 @@ public interface AetherProjectileDeathMessages extends AetherDeathMessage {
                     .replace("[KILLER]", RESET + killer.getDisplayName() + RESET + RED);
             }
         }
-        if (owner instanceof EnemyBoss) {
-            EnemyBoss boss = (EnemyBoss) owner;
+        if (owner instanceof EnemyBoss boss) {
             String bossName = EntityDispatcher.getInstance().entryForClass(owner.getClass()).nameKey + ".death_message";
             String projectileName = TRANSLATOR.translateKey(EntityDispatcher.getInstance().entryForClass(proj.getClass()).nameKey);
             return RED + TRANSLATOR.translateKey(bossName + "." + projectileName)

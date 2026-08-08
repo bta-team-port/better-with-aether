@@ -9,6 +9,7 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.util.helper.Axis;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.Side;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.skyroot.BlockLogicPaintedDoor;
 
 @Environment(EnvType.CLIENT)
@@ -24,7 +25,7 @@ public class BlockModelPaintedSkyrootDoor<T extends BlockLogicPaintedDoor> exten
     }
 
     @Override
-    public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int data) {
+    public IconCoordinate getBlockTextureFromSideAndMetadata(@NonNull Side side, int data) {
         int color = data >> 4 & 15;
         if (side.axis() == Axis.Y) {
             return FRAME_TOP_TEXTURES[color];

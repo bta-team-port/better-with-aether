@@ -1,7 +1,6 @@
 package teamport.aether.item;
 
 import net.minecraft.core.block.entity.TileEntityActivator;
-import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.entity.animal.MobCow;
 import net.minecraft.core.entity.player.Player;
@@ -13,6 +12,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePosc;
 import org.joml.primitives.AABBd;
 import org.joml.primitives.AABBdc;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.animal.phow.MobPhow;
 
 import java.util.Objects;
@@ -24,11 +24,10 @@ public class ItemBucketSkyrootEmpty extends Item {
     }
 
     @Override
-    public ItemStack onUse(ItemStack itemstack, World world, Player entityplayer) {
+    public ItemStack onUse(@NonNull ItemStack itemstack, @NonNull World world, @NonNull Player entityplayer) {
         double reachDistance = entityplayer.getGamemode().getBlockReachDistance();
         HitResult hitResult = entityplayer.rayCast(reachDistance, 1.0F, true, false, false);
-        if (hitResult instanceof HitResult.Tile) {
-            HitResult.Tile tileHit = (HitResult.Tile) hitResult;
+        if (hitResult instanceof HitResult.Tile tileHit) {
             int i = tileHit.tilePos.x();
             int j = tileHit.tilePos.y();
             int k = tileHit.tilePos.z();
@@ -46,7 +45,7 @@ public class ItemBucketSkyrootEmpty extends Item {
     }
 
     @Override
-    public void onUseByActivator(ItemStack itemStack, World world, TileEntityActivator activatorBlock, Random random, TilePosc blockPos, Direction direction, double offX, double offY, double offZ) {
+    public void onUseByActivator(@NonNull ItemStack itemStack, @NonNull World world, @NonNull TileEntityActivator activatorBlock, @NonNull Random random, @NonNull TilePosc blockPos, @NonNull Direction direction, double offX, double offY, double offZ) {
         int blockX = blockPos.x();
         int blockY = blockPos.y();
         int blockZ = blockPos.z();
@@ -70,7 +69,7 @@ public class ItemBucketSkyrootEmpty extends Item {
         }
     }
 
-    public static boolean useBucket(Player player, ItemStack itemToGive) {
+    public static boolean useBucket(@NonNull Player player, ItemStack itemToGive) {
         if (Objects.requireNonNull(player.inventory.getCurrentItem()).stackSize <= 1) {
             player.inventory.setItem(player.inventory.getCurrentSlot(), itemToGive);
             return true;

@@ -3,6 +3,7 @@ package teamport.aether.world.feature.dungeon.silver;
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.world.feature.util.map.DungeonLogic;
 
 import java.util.Random;
@@ -33,13 +34,13 @@ public class DungeonLogicSilverDungeon extends DungeonLogic {
     }
 
     @Override
-    public CompoundTag saveStructureData(CompoundTag data) {
+    public CompoundTag saveStructureData(@NonNull CompoundTag data) {
         data.putInt("direction", direction.id);
         return super.saveStructureData(data);
     }
 
     @Override
-    public void loadStructureData(CompoundTag data) {
+    public void loadStructureData(@NonNull CompoundTag data) {
         direction = Direction.fromId(data.getInteger("direction"));
         super.loadStructureData(data);
     }

@@ -16,6 +16,7 @@ import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.menu.MenuInventory;
 import net.minecraft.core.player.inventory.slot.Slot;
+import org.jspecify.annotations.NonNull;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.system.MemoryStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -33,7 +34,7 @@ import static teamport.aether.AetherMod.ARMOR_START_INDEX;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = ItemElement.class, remap = false)
+@Mixin(ItemElement.class)
 public abstract class ItemElementMixinHoverShowSlot {
     @Unique
     private int lastTick = 0;
@@ -44,7 +45,7 @@ public abstract class ItemElementMixinHoverShowSlot {
     @Shadow
     Minecraft mc;
     @WrapOperation(method = "render(Lnet/minecraft/core/item/ItemStack;IIZLnet/minecraft/core/player/inventory/slot/Slot;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/ItemElement;drawTexturedIcon(IIIILnet/minecraft/client/render/texture/stitcher/IconCoordinate;)V", ordinal = 0))
-    private void changeWildcardIconOnHoverAndClick(ItemElement instance, int x, int y, int slotWidth, int slotHeight, IconCoordinate defaultIcon, Operation<Void> original, @Local(argsOnly = true) Slot currectSlot) {
+    private void changeWildcardIconOnHoverAndClick(ItemElement instance, int x, int y, int slotWidth, int slotHeight, IconCoordinate defaultIcon, Operation<Void> original, @Local(argsOnly = true) @NonNull Slot currectSlot) {
         if (currectSlot.index >= ARMOR_START_INDEX + TRINKET_1_SLOT && (this.mc.currentScreen instanceof ScreenInventory || this.mc.currentScreen instanceof ScreenInventoryCreative)) {
             int seconds = AetherGameSettingsHolder.FLICK_ACCESSORY_SPEED.value;
             if (seconds != 0) {

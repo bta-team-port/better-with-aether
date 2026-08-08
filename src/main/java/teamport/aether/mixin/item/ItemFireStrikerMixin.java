@@ -14,27 +14,30 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.world.AetherDimension;
 
-@Mixin(value = ItemFireStriker.class, remap = false)
+@Mixin(ItemFireStriker.class)
 public abstract class ItemFireStrikerMixin extends Item {
     protected ItemFireStrikerMixin(NamespaceID namespaceId, String key, int id) {
         super(namespaceId, key, id);
     }
+
     @WrapOperation(method = "onUseOnBlock(Lnet/minecraft/core/item/ItemStack;Lnet/minecraft/core/world/World;Lnet/minecraft/core/entity/player/Player;Lnet/minecraft/core/world/pos/TilePosc;Lnet/minecraft/core/util/helper/Side;DD)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/world/World;setBlockTypeNotify(Lnet/minecraft/core/world/pos/TilePosc;Lnet/minecraft/core/block/Block;)Z"))
-    private boolean callOnItemUseOne(World instance, TilePosc firePos, Block<?> fireToPlace, Operation<Boolean> original, ItemStack itemstack, World world, Player player, TilePosc blockPos, Side side, double xPlaced, double yPlaced) {
+    private boolean callOnItemUseOne(@NonNull World instance, TilePosc tilePos, Block<?> block, Operation<Boolean> original, ItemStack selfStack, World world, Player player, TilePosc blockPos, Side side, double xHit, double yHit) {
         boolean isAether = instance.dimension == AetherDimension.getAether();
-        if (isAether && firePos instanceof TilePos mutableFirePos) {
+        if (isAether && tilePos instanceof TilePos mutableFirePos) {
             mutableFirePos.set(blockPos);
         }
-        return isAether || original.call(instance, firePos, fireToPlace);
+        return isAether || original.call(instance, tilePos, block);
     }
+
     @WrapOperation(method = "onUseOnBlock(Lnet/minecraft/core/item/ItemStack;Lnet/minecraft/core/world/World;Lnet/minecraft/core/entity/player/Player;Lnet/minecraft/core/world/pos/TilePosc;Lnet/minecraft/core/util/helper/Side;DD)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/world/World;playSoundEffect(Lnet/minecraft/core/entity/Entity;Lnet/minecraft/core/sound/SoundCategory;DDDLjava/lang/String;FF)V"))
-    private void callOnItemUseTwo(World instance, @Nullable Entity player, SoundCategory category, double x, double y, double z, String soundPath, float volume, float pitch, Operation<Void> original) {
+    private void callOnItemUseTwo(@NonNull World instance, @Nullable Entity player, SoundCategory category, double x, double y, double z, String soundPath, float volume, float pitch, Operation<Void> original) {
         if (instance.dimension == AetherDimension.getAether() && player != null) {
             for (int l = 0; l < 8; ++l) {
                 double angle = Math.toRadians(l * 45.0);

@@ -131,7 +131,7 @@ public class AetherDimension {
             SunSpiritDeath.setDead(true);
             SunSpiritDeath.setDeathTime(world.getWorldTime());
 
-            if (EnvironmentHelper.isServerEnvironment()) {
+            if (EnvironmentHelper.isMultiplayerServer()) {
                 NetworkHandler.sendToAllPlayers(
                     new SunspiritDeathNetworkMessage(SunSpiritDeath.isDead(), SunSpiritDeath.getDeathTime())
                 );
@@ -184,7 +184,7 @@ public class AetherDimension {
     public static synchronized void loadEntitiesNearPlayer(Player player, World world) {
         List<IntPair> toRemove = new ArrayList<>();
         for (IntPair pos : ENTITIES_MOVED_TO_OVERWORLD.keySet()) {
-            if (player.distanceTo(pos.getFirst() * 16.0, player.y, pos.getSecond() * 16.0) < 100) {
+            if (player.distanceTo(pos.first() * 16.0, player.y, pos.second() * 16.0) < 100) {
                 List<CompoundTag> entities = ENTITIES_MOVED_TO_OVERWORLD.computeIfAbsent(pos, intPair -> new ArrayList<>());
 
                 while (!entities.isEmpty()) {
@@ -250,8 +250,8 @@ public class AetherDimension {
 
             IntPair chunkPos = entry.getKey();
 
-            entryCompound.putInt("x", chunkPos.getFirst());
-            entryCompound.putInt("z", chunkPos.getSecond());
+            entryCompound.putInt("x", chunkPos.first());
+            entryCompound.putInt("z", chunkPos.second());
 
             entryCompound.put("entities", entities);
             entitiesToMoveMap.addTag(entryCompound);

@@ -55,7 +55,7 @@ public class MobRendererValkyrie extends MobRendererBiped<MobValkyrie> {
         }
     }
 
-    public static void setupValkyrieAnimation(StaticEntityModel model, float wingSpeed, boolean onGround) {
+    public static void setupValkyrieAnimation(@NonNull StaticEntityModel model, float wingSpeed, boolean onGround) {
         BoneTransform wingLeft = model.getTransform("wingLeft");
         BoneTransform wingRight = model.getTransform("wingRight");
         double wingDivisor = onGround ? 8.0 : 3.0;

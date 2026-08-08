@@ -49,7 +49,7 @@ public class AetherWorldFeatures {
             registerWorldFeatureClass(StairwellRoom.class, "DebugMazeWell");
             registerWorldFeatureClass(TallRoom.class, "DebugMazeTall");
             registerWorldFeatureClass(TreasureChestRoom.class, "DebugMazeTreasureChest");
-            registerWorldFeatureClass(TresureOreRoom.class, "DebugMazeTreasureOre");
+            registerWorldFeatureClass(TreasureOreRoom.class, "DebugMazeTreasureOre");
             registerWorldFeatureClass(StorageRoom.class, "DebugMazeStorage");
             registerWorldFeatureClass(DisplayRoom.class, "DebugDisplay");
             registerWorldFeatureClass(RotationBlockTest.class, "DebugRotationBlocks");

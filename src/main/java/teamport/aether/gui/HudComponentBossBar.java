@@ -12,6 +12,7 @@ import net.minecraft.client.option.GameSettings;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.client.render.renderer.GLRenderer;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.boss.AetherBossList;
 import teamport.aether.entity.boss.EnemyBoss;
 
@@ -37,7 +38,7 @@ public class HudComponentBossBar extends HudComponentMovable {
         return GameSettings.IMMERSIVE_MODE.drawHotbar() && !getBossesFromPlayer(mc).isEmpty();
     }
 
-    public int getAnchorY(ComponentAnchor anchor) {
+    public int getAnchorY(@NonNull ComponentAnchor anchor) {
         return (int) (anchor.yPosition * height);
     }
 
@@ -45,7 +46,7 @@ public class HudComponentBossBar extends HudComponentMovable {
         return height;
     }
 
-    public List<Mob> getBossesFromPlayer(Minecraft mc) {
+    public List<Mob> getBossesFromPlayer(@NonNull Minecraft mc) {
         List<Mob> bossList = ((AetherBossList) mc.thePlayer).aether$getBossList();
 
         return bossList.subList(0, Math.min(bossList.size(), BAR_AMOUNT_LIMIT));

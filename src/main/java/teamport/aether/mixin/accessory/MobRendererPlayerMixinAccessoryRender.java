@@ -18,9 +18,9 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
+import org.jspecify.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
-import org.lwjgl.opengl.GL41;
-import org.useless.dragonfly.models.entity.StaticEntityModel;
+import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -28,6 +28,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.useless.dragonfly.models.entity.StaticEntityModel;
 import teamport.aether.ducks.IContainerInventoryAether;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
 import teamport.aether.entity.player.PlayerUtil;
@@ -45,10 +46,12 @@ import teamport.aether.item.accessory.trinket.ItemRepulsionShield;
 import static teamport.aether.item.accessory.SlotAccessory.*;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = MobRendererPlayer.class, remap = false)
+@Mixin(MobRendererPlayer.class)
 public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<Player> {
+
+
     @Shadow
-    protected abstract StaticEntityModel setupAnimations(Player player, StaticEntityModel model, float partialTick, int layer);
+    protected abstract @Nullable StaticEntityModel setupAnimations(@NonNull Player player, @Nullable StaticEntityModel model, float partialTick, int layer);
 
     @Unique
     private boolean shield6 = false;
@@ -77,11 +80,8 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
         );
 
         TextureManager textureManager = this.renderDispatcher.textureManager;
-        if (textureManager == null) {
-            return;
-        }
 
-        int previousTexture = GL41.glGetInteger(GL41.GL_TEXTURE_BINDING_2D);
+        int previousTexture = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
         GLRenderer.pushFrame();
         try {
             textureManager.loadTexture(path).bind();
@@ -99,7 +99,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
             modelArmorChestplate.render();
         } finally {
             GLRenderer.popFrame();
-            GL41.glBindTexture(GL41.GL_TEXTURE_2D, previousTexture);
+            GL11.glBindTexture(GL11.GL_TEXTURE_2D, previousTexture);
         }
     }
 
@@ -117,8 +117,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
             Screen currScreen = Minecraft.getMinecraft().currentScreen;
             final boolean isInInventory = currScreen instanceof ScreenInventory || currScreen instanceof ScreenInventoryCreative;
 
-            if (entity.passenger instanceof MobAerbunny && isInInventory) {
-                MobAerbunny bunny = (MobAerbunny) entity.passenger;
+            if (entity.passenger instanceof MobAerbunny bunny && isInInventory) {
                 boolean hasHelmet = entity.inventory.armorInventory[3] != null;
 
                 GLRenderer.pushFrame();
@@ -298,7 +297,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     }
 
     @Unique
-    private ItemStack better_with_aether$getAccessory(Player player, int logicalSlot) {
+    private ItemStack better_with_aether$getAccessory(@NonNull Player player, int logicalSlot) {
         return ((IContainerInventoryAether) player.inventory).aether$getAccessoryInventory()[logicalSlot - GLOVES_SLOT];
     }
 
@@ -308,7 +307,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     }
 
     @Unique
-    private void better_with_aether$setVisible(StaticEntityModel model, boolean head, boolean chest, boolean arms, boolean rightLeg, boolean leftLeg) {
+    private void better_with_aether$setVisible(@NonNull StaticEntityModel model, boolean head, boolean chest, boolean arms, boolean rightLeg, boolean leftLeg) {
         model.getTransform("head").visible = head;
         model.getTransform("chest").visible = chest;
         model.getTransform("rightArm").visible = arms;

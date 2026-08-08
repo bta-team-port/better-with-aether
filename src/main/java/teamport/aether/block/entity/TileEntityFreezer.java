@@ -10,6 +10,7 @@ import net.minecraft.core.net.packet.Packet;
 import net.minecraft.core.net.packet.PacketTileEntityData;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherRecipes;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.block.machine.BlockLogicFreezer;
@@ -31,7 +32,7 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
     }
 
     @Override
-    public String getNameTranslationKey() {
+    public @NonNull String getNameTranslationKey() {
         return "container.freezer.name";
     }
 
@@ -169,14 +170,14 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
     }
 
     public boolean isBucket(ItemStack itemStack) {
-        if (itemStack.getItem() == Items.BUCKET_IRON) {
+        if (itemStack.getItem().equals(Items.BUCKET_IRON)) {
             return ironBucketStates.containsKey(ItemBucket.getState(itemStack));
         }
         return buckets.containsKey(itemStack.getItem().id);
     }
 
     public ItemStack getBucket(ItemStack stack) {
-        if (stack.getItem() == Items.BUCKET_IRON) {
+        if (stack.getItem().equals(Items.BUCKET_IRON)) {
             ItemStack emptyBucket = new ItemStack(Items.BUCKET_IRON, 1);
             ItemBucket.setState(emptyBucket, ironBucketStates.get(ItemBucket.getState(stack)));
             return emptyBucket;

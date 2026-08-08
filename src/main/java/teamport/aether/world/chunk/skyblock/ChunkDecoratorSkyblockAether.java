@@ -8,6 +8,7 @@ import net.minecraft.core.item.Items;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.chunk.Chunk;
 import net.minecraft.core.world.generate.chunk.ChunkDecorator;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.item.AetherItems;
 import teamport.aether.world.feature.terrain.WorldFeatureAetherClouds;
@@ -23,7 +24,7 @@ public class ChunkDecoratorSkyblockAether implements ChunkDecorator {
     }
 
     @Override
-    public void decorate(Chunk chunk) {
+    public void decorate(@NonNull Chunk chunk) {
         int chunkX = chunk.pos.x;
         int chunkZ = chunk.pos.z;
         int x = chunkX * 16;
@@ -69,8 +70,8 @@ public class ChunkDecoratorSkyblockAether implements ChunkDecorator {
         if (this.contains(chunk, 0, -3)) {
             chunk.setBlockIDWithMetadata(0, 67, 14, AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 2);
             tileEntity = chunk.getTileEntity(0, 67, 14);
-            if (tileEntity instanceof TileEntityChest) {
-                chestEntity = (TileEntityChest) tileEntity;
+            if (tileEntity instanceof TileEntityChest tileEntityChest) {
+                chestEntity = tileEntityChest;
                 chestEntity.setItem(0, new ItemStack(Blocks.SAPLING_CACAO, 1));
                 chestEntity.setItem(1, new ItemStack(Items.ORE_RAW_IRON, 8));
                 chestEntity.setItem(2, new ItemStack(Items.INGOT_STEEL_CRUDE, 6));
@@ -81,8 +82,8 @@ public class ChunkDecoratorSkyblockAether implements ChunkDecorator {
         if (this.contains(chunk, -67, 0)) {
             chunk.setBlockIDWithMetadata(13, 67, 0, AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 1);
             tileEntity = chunk.getTileEntity(13, 67, 0);
-            if (tileEntity instanceof TileEntityChest) {
-                chestEntity = (TileEntityChest) tileEntity;
+            if (tileEntity instanceof TileEntityChest tileEntityChest) {
+                chestEntity = tileEntityChest;
                 chestEntity.setItem(0, new ItemStack(AetherItems.LIFESHARD, 1));
                 chestEntity.setItem(1, new ItemStack(Items.NETHERCOAL, 1));
                 chestEntity.setItem(2, new ItemStack(Items.DIAMOND, 1));
@@ -95,7 +96,7 @@ public class ChunkDecoratorSkyblockAether implements ChunkDecorator {
 
     }
 
-    public boolean contains(Chunk chunk, int xBlock, int zBlock) {
+    public boolean contains(@NonNull Chunk chunk, int xBlock, int zBlock) {
         return chunk.pos.x == xBlock >> 4 && chunk.pos.z == zBlock >> 4;
     }
 

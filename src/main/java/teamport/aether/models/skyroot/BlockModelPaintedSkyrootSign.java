@@ -17,7 +17,7 @@ public class BlockModelPaintedSkyrootSign<T extends BlockLogicPaintedSignSkyroot
     }
 
     @Override
-    public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int meta) {
+    public IconCoordinate getBlockTextureFromSideAndMetadata(@NonNull Side side, int meta) {
         return BlockModelPaintedSkyrootPlanks.TEX_COORDS[(this.block.getLogic()).fromMetadata(meta).blockMeta];
     }
 

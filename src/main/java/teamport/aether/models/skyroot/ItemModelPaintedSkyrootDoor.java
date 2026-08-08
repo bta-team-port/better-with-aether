@@ -15,13 +15,13 @@ import org.jspecify.annotations.NonNull;
 public class ItemModelPaintedSkyrootDoor extends ItemModelStandard {
     private static final IconCoordinate[] DOOR_ICONS = new IconCoordinate[16];
 
-    public ItemModelPaintedSkyrootDoor(Item item) {
-        super(item, null);
-
+    public ItemModelPaintedSkyrootDoor(@NonNull Item item) {
+        super(item);
     }
 
+
     @Override
-    public @NonNull IconCoordinate getIcon(Entity entity, ItemStack itemStack) {
+    public @NonNull IconCoordinate getIcon(Entity entity, @NonNull ItemStack itemStack) {
         int meta = itemStack.getMetadata();
         return DOOR_ICONS[meta & 15];
     }

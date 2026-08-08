@@ -8,6 +8,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.type.WorldType;
 import org.joml.Vector3f;
 import org.joml.Vector3fc;
+import org.jspecify.annotations.NonNull;
 
 @Environment(EnvType.CLIENT)
 public class WorldTypeFXAether extends WorldTypeFX {
@@ -22,12 +23,12 @@ public class WorldTypeFXAether extends WorldTypeFX {
     }
 
     @Override
-    public WorldTypeFX setCloudHeight(float cloudHeight) {
+    public @NonNull WorldTypeFX setCloudHeight(float cloudHeight) {
         return this;
     }
 
     @Override
-    public float getCloudHeight(World world) {
+    public float getCloudHeight(@NonNull World world) {
         return 8;
     }
 
@@ -56,7 +57,7 @@ public class WorldTypeFXAether extends WorldTypeFX {
     }
 
     @Override
-    public Vector3fc getFogColor(World world, double x, double y, double z, float celestialAngle, float partialTick) {
+    public @NonNull Vector3fc getFogColor(@NonNull World world, double x, double y, double z, float celestialAngle, float partialTick) {
         float f2 = MathHelper.cos(celestialAngle * 3.1415927F * 2.0F) * 2.0F + 0.5F;
         f2 = MathHelper.clamp(f2, 0.0F, 1.0F);
         float r;

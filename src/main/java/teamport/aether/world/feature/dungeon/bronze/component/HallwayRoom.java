@@ -40,8 +40,8 @@ public class HallwayRoom extends BaseBronzeRoom {
         check.add(drawVolume(0, 0, SOUTH, 4, UP, 7, EAST, length, x, y, z + 4, false));
         for (WorldFeaturePoint point : check.getBlockList()) {
             Block<?> block = world.getBlock(point.getX(), point.getY(), point.getZ());
-            Material blockMaterial = block == null ? Materials.AIR : block.getMaterial();
-            if (block != null && block.blockHardness < 0) return false;
+            Material blockMaterial = block.getMaterial();
+            if (block.blockHardness < 0) return false;
             if (blockMaterial == Materials.AIR) countAir++;
             if (blockMaterial.isLiquid()) countLiquid++;
         }

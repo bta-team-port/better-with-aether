@@ -15,13 +15,14 @@ import teamport.aether.item.accessory.pendant.ItemPendant;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
 
-@Mixin(value = ServerPlayerController.class, remap = false)
-public class ServerPlayerControllerPendantDamageMixin{
+@Mixin(ServerPlayerController.class)
+public class ServerPlayerControllerPendantDamageMixin {
 
-    @Shadow Player player;
+    @Shadow
+    public Player player;
 
-    @Inject(method = "mineBlock(IIILnet/minecraft/core/util/helper/Side;)Z", at= @At(value = "INVOKE", target = "Lnet/minecraft/core/block/Block;onBlockDestroyedByPlayer(Lnet/minecraft/core/world/World;IIILnet/minecraft/core/util/helper/Side;ILnet/minecraft/core/entity/player/Player;Lnet/minecraft/core/item/Item;)V"))
-    public void damagePendant(int x, int y, int z, Side side, CallbackInfoReturnable<Boolean> cir){
+    @Inject(method = "mineBlock(IIILnet/minecraft/core/util/helper/Side;)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/block/Block;onBlockDestroyedByPlayer(Lnet/minecraft/core/world/World;IIILnet/minecraft/core/util/helper/Side;ILnet/minecraft/core/entity/player/Player;Lnet/minecraft/core/item/Item;)V"))
+    public void damagePendant(int x, int y, int z, Side side, CallbackInfoReturnable<Boolean> cir) {
         if (this.player == null) return;
         ItemStack trinketSlot1 = PlayerUtil.getArmorOrAccessoryItem(this.player, TRINKET_1_SLOT);
         ItemStack trinketSlot2 = PlayerUtil.getArmorOrAccessoryItem(this.player, TRINKET_2_SLOT);

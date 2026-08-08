@@ -5,6 +5,7 @@ import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Direction;
+import org.jspecify.annotations.NonNull;
 import sunsetsatellite.catalyst.effects.api.effect.EffectContainer;
 import sunsetsatellite.catalyst.effects.api.effect.EffectStack;
 import sunsetsatellite.catalyst.effects.api.effect.EffectTimeType;
@@ -24,7 +25,7 @@ public class PoisonEffect extends AetherEffect {
     }
 
     @Override
-    public <T> void activated(EffectStack effectStack, EffectContainer<T> effectContainer) {
+    public <T> void activated(EffectStack effectStack, @NonNull EffectContainer<T> effectContainer) {
         if (!canApplyTo((Entity) effectContainer.getParent())) {
             return;
         }
@@ -35,7 +36,7 @@ public class PoisonEffect extends AetherEffect {
     }
 
     @Override
-    public <T> void expired(EffectStack effectStack, EffectContainer<T> effectContainer) {
+    public <T> void expired(@NonNull EffectStack effectStack, @NonNull EffectContainer<T> effectContainer) {
         effectContainer.remove(AetherEffects.poisonEffect);
         if (effectStack.getAmount() > 1) {
             EffectStack newStack = new EffectStack(
@@ -51,13 +52,9 @@ public class PoisonEffect extends AetherEffect {
     }
 
     @Override
-    public <T> void tick(EffectStack effectStack, EffectContainer<T> effectContainer) {
+    public <T> void tick(EffectStack effectStack, @NonNull EffectContainer<T> effectContainer) {
         if (!(effectContainer.getParent() instanceof Mob)) return;
         Mob mob = (Mob) effectContainer.getParent();
-        if (mob.world == null) {
-            AetherMod.LOGGER.warn("PoisonEffect is not applied cause the world is null");
-            return;
-        }
         if (mob.tickCount % 4 == 0) {
             if (mob instanceof Player) {
                 Direction dir = Direction.fromYaw(mob.yRot).opposite();
@@ -81,7 +78,7 @@ public class PoisonEffect extends AetherEffect {
     }
 
     @Override
-    public <T> void stackAdded(EffectStack effectStack, EffectContainer<T> effectContainer) {
+    public <T> void stackAdded(EffectStack effectStack, @NonNull EffectContainer<T> effectContainer) {
         ((Mob) effectContainer.getParent()).hurt(null, 1, DamageType.GENERIC);
         super.stackAdded(effectStack, effectContainer);
     }

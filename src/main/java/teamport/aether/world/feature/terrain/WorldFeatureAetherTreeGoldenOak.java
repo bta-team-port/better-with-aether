@@ -4,6 +4,8 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.block.AetherBlocks;
 
 import java.util.Random;
@@ -11,7 +13,7 @@ import java.util.Random;
 public class WorldFeatureAetherTreeGoldenOak extends WorldFeature {
     public WorldFeatureAetherTreeGoldenOak() {}
 
-    private void branch(World world, Random random, int i, int j, int k, int slant) {
+    private void branch(World world, @NonNull Random random, int i, int j, int k, int slant) {
         int directionX = random.nextInt(3) - 1;
         int directionZ = random.nextInt(3) - 1;
 
@@ -27,7 +29,7 @@ public class WorldFeatureAetherTreeGoldenOak extends WorldFeature {
     }
 
     @Override
-    public boolean place(World world, Random random, int i, int j, int k) {
+    public boolean place(@NonNull World world, Random random, int i, int j, int k) {
         if (world.getBlockId(i, j - 1, k) != AetherBlocks.GRASS_AETHER.id() &&
             world.getBlockId(i, j - 1, k) != AetherBlocks.DIRT_AETHER.id() &&
             world.getBlockId(i, j - 1, k) != Blocks.GRASS.id() &&
@@ -62,7 +64,7 @@ public class WorldFeatureAetherTreeGoldenOak extends WorldFeature {
         }
     }
 
-    private static void onTreeGrown(World world, int x, int y, int z) {
+    private static void onTreeGrown(@NonNull World world, int x, int y, int z) {
         Block<?> dirt = getDirtForGrass(world.getBlockId(x, y - 1, z));
         if (dirt != null) {
             world.setBlockWithNotify(x, y - 1, z, dirt.id());
@@ -71,7 +73,7 @@ public class WorldFeatureAetherTreeGoldenOak extends WorldFeature {
     }
 
     @SuppressWarnings("java:S3358")
-    private static Block<?> getDirtForGrass(int id) {
+    private static @Nullable Block<?> getDirtForGrass(int id) {
         if (id != Blocks.GRASS.id() && id != Blocks.GRASS_RETRO.id()) {
             return id == Blocks.GRASS_SCORCHED.id() ? Blocks.DIRT_SCORCHED : id == AetherBlocks.GRASS_AETHER.id() ? AetherBlocks.DIRT_AETHER : null;
         } else {

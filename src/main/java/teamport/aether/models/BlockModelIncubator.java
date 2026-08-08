@@ -11,6 +11,7 @@ import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.WorldSource;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -26,11 +27,11 @@ public class BlockModelIncubator<T extends BlockLogic> extends BlockModelStandar
     }
 
     @Override
-    public IconCoordinate getBlockTexture(WorldSource blockAccess, TilePosc pos, Side side) {
+    public IconCoordinate getBlockTexture(@NonNull WorldSource blockAccess, @NonNull TilePosc pos, @NonNull Side side) {
         if (side.id == Side.TOP.id) {
             boolean retro = isRetro();
             IconCoordinate texture = retro ? retroTextures.get(Side.TOP) : this.blockTextures.get(Side.TOP);
-            Container container = (Container) blockAccess.getTileEntity(pos.x(), pos.y(), pos.z());
+            Container container = (Container) blockAccess.getTileEntity(pos);
             if (container != null && container.getItem(0) != null) {
                 IconCoordinate filled = retro ? retroTopFilled : topFilled;
                 if (filled != null) return filled;
@@ -41,7 +42,7 @@ public class BlockModelIncubator<T extends BlockLogic> extends BlockModelStandar
         return isRetro() && retroTexture != null ? retroTexture : this.blockTextures.get(side.id);
     }
 
-    public BlockModelIncubator<T> setRetroTex(String texture, Side... sides) {
+    public BlockModelIncubator<T> setRetroTex(String texture, Side @NonNull ... sides) {
         IconCoordinate coordinate = TextureRegistry.getTexture(texture);
         for (Side side : sides) retroTextures.put(side, coordinate);
         return this;

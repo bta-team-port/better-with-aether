@@ -5,6 +5,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.MobRendererPlayer;
 import net.minecraft.client.render.tessellator.TessellatorGeneral;
 import net.minecraft.core.entity.player.Player;
+import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -16,7 +17,7 @@ import teamport.aether.AetherGlobals;
 public abstract class AetherDevCapeMixin {
     @Inject(method = "renderAdditional(Lnet/minecraft/client/render/tessellator/TessellatorGeneral;Lnet/minecraft/core/entity/player/Player;F)V", at = @At("HEAD"), remap = false)
     @SuppressWarnings("java:S131")
-    private void injectCapeOverride(TessellatorGeneral tessellator, Player player, float partialTick, CallbackInfo ci) {
+    private void injectCapeOverride(TessellatorGeneral tessellator, @NonNull Player player, float partialTick, CallbackInfo ci) {
         switch (player.uuid.toString()) {
             case AetherGlobals.UUID_LUKEISSTUFF: // LukeisStuff
             case AetherGlobals.UUID_OLYPOLYU: // Olypolyu / Kheprep

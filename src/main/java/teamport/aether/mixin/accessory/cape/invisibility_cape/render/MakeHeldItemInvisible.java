@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import teamport.aether.entity.player.PlayerUtil;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = ItemModelStandard.class, remap = false)
+@Mixin(ItemModelStandard.class)
 public abstract class MakeHeldItemInvisible {
     @WrapMethod(method = "render(Lnet/minecraft/client/render/tessellator/TessellatorGeneral;Lnet/minecraft/core/entity/Entity;Lnet/minecraft/core/item/ItemStack;Ljava/lang/String;ZIBFZ)V")
     @SuppressWarnings("java:S107")

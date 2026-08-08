@@ -12,6 +12,7 @@ import net.minecraft.core.util.helper.Axis;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.helper.Sides;
+import org.jspecify.annotations.NonNull;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelPaintedSkyrootTrapDoor<T extends BlockLogic> extends BlockModelTrapDoor<T> {
@@ -23,7 +24,7 @@ public class BlockModelPaintedSkyrootTrapDoor<T extends BlockLogic> extends Bloc
     }
 
     @Override
-    public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int data) {
+    public IconCoordinate getBlockTextureFromSideAndMetadata(@NonNull Side side, int data) {
         int color = data >> 4 & 15;
         int orientation = data & 3;
         if (BlockLogicTrapDoor.isTrapdoorOpen(data)) {

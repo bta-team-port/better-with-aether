@@ -6,6 +6,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.net.packet.Packet;
 import net.minecraft.core.net.packet.PacketTileEntityData;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherRecipes;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.block.machine.BlockLogicEnchanter;
@@ -15,7 +16,7 @@ import teamport.aether.lookup.LookupFuelEnchanter;
 public class TileEntityEnchanter extends AetherTileEntityMachine {
 
     @Override
-    public String getNameTranslationKey() {
+    public @NonNull String getNameTranslationKey() {
         return "container.enchanter.name";
     }
 

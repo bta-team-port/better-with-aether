@@ -5,6 +5,7 @@ import net.minecraft.core.entity.Mob;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.mixin.accessors.EntityAccessor;
 import teamport.aether.helper.server.ParticleMakerServer;
@@ -16,9 +17,9 @@ public class ParticleMaker {
     private static final Random random = new Random();
 
     public static void spawnParticle(World world, String particleKey, double x, double y, double z, double motionX, double motionY, double motionZ, int data, double maxDistance) {
-        if (EnvironmentHelper.isClientWorld()) return;
+        if (EnvironmentHelper.isMultiplayerClient()) return;
 
-        if (EnvironmentHelper.isServerEnvironment()) {
+        if (EnvironmentHelper.isMultiplayerServer()) {
             ParticleMakerServer.spawnParticle(world, particleKey, x, y, z, motionX, motionY, motionZ, data, maxDistance);
             return;
         }
@@ -183,7 +184,7 @@ public class ParticleMaker {
         }
     }
 
-    public static void spawnLightningSwordParticles(Mob target) {
+    public static void spawnLightningSwordParticles(@NonNull Mob target) {
         Random random = ((EntityAccessor) target).getRandom();
         double startY = target.y + 2.0;
         double endY = target.y;

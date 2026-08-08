@@ -11,6 +11,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import net.minecraft.core.world.generate.feature.WorldFeatureFlowers;
 import net.minecraft.core.world.generate.feature.WorldFeatureTallGrass;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 import teamport.aether.helper.AetherMathHelper;
@@ -125,11 +126,11 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeatureMap<DungeonLogicG
         this.direction = Direction.horizontal[dir & 3];
     }
 
-    public WorldFeatureAetherGoldDungeon(Random random) {
+    public WorldFeatureAetherGoldDungeon(@NonNull Random random) {
         this(random.nextInt(4));
     }
 
-    public void placeComponent(WorldFeatureComponent component) {
+    public void placeComponent(@NonNull WorldFeatureComponent component) {
         for (WorldFeatureBlock block : component.getBlockList()) {
             block.rotateYAroundPivot(dungeonAnchor, direction);
             block.place(world);
@@ -176,7 +177,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeatureMap<DungeonLogicG
     }
 
     @Override
-    public boolean generate(DungeonLogicGoldDungeon logic, World world, long seed, int x, int y, int z) {
+    public boolean generate(@NonNull DungeonLogicGoldDungeon logic, World world, long seed, int x, int y, int z) {
         this.world = world;
         this.random = new Random(logic.seed);
         this.logic = logic;
@@ -197,7 +198,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeatureMap<DungeonLogicG
     }
 
 
-    public static List<ItemStack> generateLoot(Random random) {
+    public static @NonNull List<ItemStack> generateLoot(@NonNull Random random) {
         List<ItemStack> loot = new ArrayList<>();
         //min 8 max 10
         int count = random.nextInt(3) + 8;
@@ -255,8 +256,8 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeatureMap<DungeonLogicG
             new WorldFeaturePoint(x + 1 + RADIUS / 2 - xRoomLength, y + RADIUS / 2 + yRoomHeight, z + 1 + RADIUS / 2 - zRoomLength)
         );
 
-        clearArea.getFirst().rotateYAroundPivot(dungeonAnchor, direction);
-        clearArea.getSecond().rotateYAroundPivot(dungeonAnchor, direction);
+        clearArea.first().rotateYAroundPivot(dungeonAnchor, direction);
+        clearArea.second().rotateYAroundPivot(dungeonAnchor, direction);
         logic.setClearArea(clearArea);
 
         main.add(drawHollowShell(
@@ -350,14 +351,14 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeatureMap<DungeonLogicG
             new WorldFeaturePoint(x - RADIUS - 8, y - 5, z - RADIUS - 8),
             new WorldFeaturePoint(x + RADIUS + 8, y + RADIUS + 8, z + RADIUS + 8)
         );
-        clearArea.getFirst().rotateYAroundPivot(dungeonAnchor, direction);
-        clearArea.getSecond().rotateYAroundPivot(dungeonAnchor, direction);
+        clearArea.first().rotateYAroundPivot(dungeonAnchor, direction);
+        clearArea.second().rotateYAroundPivot(dungeonAnchor, direction);
         logic.setClearArea(clearArea);
     }
 
     public void createHeightMap(int x, int y, int z) {
         int diameter = RADIUS << 1;
-        Set<Integer> hell = HELLFIRE.getPallet().getEntries().stream().map(IntPair::getFirst).collect(Collectors.toSet());
+        Set<Integer> hell = HELLFIRE.getPallet().getEntries().stream().map(IntPair::first).collect(Collectors.toSet());
         for (int ix = -diameter; ix < diameter; ix++) {
             for (int iz = -diameter; iz < diameter; iz++) {
                 if (diameter * diameter >= ix * ix + iz * iz) {

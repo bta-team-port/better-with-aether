@@ -9,13 +9,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherArmorMaterial;
 
-@Mixin(value = Mob.class, remap = false)
+@Mixin(Mob.class)
 public abstract class PlayerMixinPendantFallDamageModifier {
     @WrapOperation(method = "causeFallDamage", at = @At(value = "INVOKE", target = "Ljava/lang/Math;ceil(D)D"))
     private double modifyDamageTaken(double damage, Operation<Double> original) {
         Mob mob = (Mob) (Object) this;
-        if (mob instanceof Player) {
-            Player player = (Player) mob;
+        if (mob instanceof Player player) {
             return Math.ceil(damage - PlayerUtil.countAccessoriesOfMaterial(player.inventory, AetherArmorMaterial.GRAVITITE) * 2);
         }
         return original.call(damage);

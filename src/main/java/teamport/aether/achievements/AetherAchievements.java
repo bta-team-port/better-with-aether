@@ -4,6 +4,7 @@ import net.minecraft.core.achievement.Achievement;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.util.collection.NamespaceID;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.item.AetherItems;
 
@@ -11,8 +12,8 @@ import static teamport.aether.AetherMod.MOD_ID;
 
 public class AetherAchievements {
 
-    public static NamespaceID key(String string) {
-        return NamespaceID.getPermanent(MOD_ID, string);
+    public static @NonNull NamespaceID key(String string) {
+        return NamespaceID.fromPool(MOD_ID, string);
     }
 
     public static String lang(String key) {

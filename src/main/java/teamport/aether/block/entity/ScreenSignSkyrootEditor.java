@@ -15,6 +15,7 @@ import net.minecraft.core.enums.EnumSignPicture;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.net.packet.PacketSignUpdate;
 import net.minecraft.core.util.helper.NetCharacters;
+import org.jspecify.annotations.NonNull;
 import org.lwjgl.input.Keyboard;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.block.skyroot.BlockLogicPaintableSignSkyroot;
@@ -67,7 +68,7 @@ public class ScreenSignSkyrootEditor extends Screen {
     }
 
     @Override
-    public void buttonClicked(ButtonElement button) {
+    public void buttonClicked(@NonNull ButtonElement button) {
         if (button.enabled) {
             if (button.id == 0) {
                 this.entitySign.setChanged();
@@ -144,7 +145,7 @@ public class ScreenSignSkyrootEditor extends Screen {
         GLRenderer.modelM4f().scale(-scale, -scale, -scale);
         GLRenderer.modelM4f().rotate((float) Math.toRadians(180.0F), 0.0F, 1.0F, 0.0F);
         Block<?> block = this.entitySign.getBlock();
-        if (block != null && ((BlockLogicPaintableSignSkyroot) block.getLogic()).isFreeStanding) {
+        if (((BlockLogicPaintableSignSkyroot) block.getLogic()).isFreeStanding) {
             float signAngle = ((this.entitySign.getBlockMeta() & 15) * 360) / 16.0F;
             GLRenderer.modelM4f().rotate((float) Math.toRadians(signAngle), 0.0F, 1.0F, 0.0F);
             GLRenderer.modelM4f().translate(0.0F, -1.0625F, 0.0F);
@@ -185,7 +186,7 @@ public class ScreenSignSkyrootEditor extends Screen {
     }
 
     @Override
-    public void guiSpecificControllerInput(ControllerInput controller) {
+    public void guiSpecificControllerInput(@NonNull ControllerInput controller) {
         super.guiSpecificControllerInput(controller);
         if (controller.digitalPad.up.pressedThisFrame()) {
             this.editLine = this.editLine - 1 & 3;

@@ -49,7 +49,6 @@ public abstract class ProjectileElementBase extends Projectile implements Projec
     @Override
     public void tick() {
         super.tick();
-        if (this.world == null) return;
         int xFloor = MathHelper.floor(this.x);
         int yFloor = MathHelper.floor(this.y);
         int zFloor = MathHelper.floor(this.z);
@@ -82,7 +81,7 @@ public abstract class ProjectileElementBase extends Projectile implements Projec
     }
 
     public void bounceSound() {
-        if (this.world != null) this.world.playSoundAtEntity(null, this, "random.explode", 0.1F, 2.0F);
+        this.world.playSoundAtEntity(null, this, "random.explode", 0.1F, 2.0F);
     }
 
     public void doExplosion() {
@@ -108,7 +107,7 @@ public abstract class ProjectileElementBase extends Projectile implements Projec
 
     @Override
     @SuppressWarnings("java:S131")
-    public void onHit(HitResult hitResult) {
+    public void onHit(@NonNull HitResult hitResult) {
     }
 
     @Override
@@ -151,7 +150,7 @@ public abstract class ProjectileElementBase extends Projectile implements Projec
     }
 
     @SuppressWarnings("unused")
-    protected static Entity getEntity(Class<? extends ProjectileElementBase> clazz, World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner) {
+    protected static @NonNull Entity getEntity(Class<? extends ProjectileElementBase> clazz, World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner) {
         ProjectileElementBase element;
         try {
             element = clazz.getDeclaredConstructor(World.class).newInstance(world);
@@ -161,7 +160,7 @@ public abstract class ProjectileElementBase extends Projectile implements Projec
 
         element.setPos(x, y, z);
         if (hasVelocity) element.setHeading(xd, yd, zd, 1, 0);
-        if (owner instanceof Mob) element.owner = (Mob) owner;
+        if (owner instanceof Mob mob) element.owner = mob;
         return element;
     }
 }

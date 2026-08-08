@@ -40,7 +40,7 @@ public abstract class MobMoa extends MobAetherAnimalRideable {
 
     @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
-        if (attacker != null && attacker == this.passenger ) return false;
+        if (attacker != null && attacker == this.passenger) return false;
         return super.hurt(attacker, damage, type);
     }
 
@@ -92,7 +92,7 @@ public abstract class MobMoa extends MobAetherAnimalRideable {
 
         this.flap += this.flapping * 2.0F;
 
-        if (this.world != null && !this.world.isClientSide && --this.eggTimer <= 0) {
+        if (!this.world.isClientSide && --this.eggTimer <= 0) {
             this.world.playSoundAtEntity(null, this, "mob.chickenplop", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
             this.dropItem(this.eggColor.id, 1);
             this.eggTimer = this.random.nextInt(6000) + 6000;
@@ -142,7 +142,7 @@ public abstract class MobMoa extends MobAetherAnimalRideable {
         }
 
         if (player.isSneaking()) return false;
-        if (!this.getSaddled() || this.world == null || this.world.isClientSide) return false;
+        if (!this.getSaddled() || this.world.isClientSide) return false;
         if (this.passenger != null && this.passenger != player) return false;
 
         player.startRiding(this);

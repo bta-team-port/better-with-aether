@@ -165,7 +165,7 @@ public class AchievementPageAether extends AchievementPage implements AetherAchi
         if (layer == 0 && origY > 0) {
             List<IntPair> water = BACKGROUND.waterSources;
             for (IntPair w : water) {
-                if (w.getFirst() == tileX && w.getSecond() <= origY)
+                if (w.first() == tileX && w.second() <= origY)
                     return WATER_FLOWING;
             }
         }
@@ -219,7 +219,7 @@ public class AchievementPageAether extends AchievementPage implements AetherAchi
     }
 
     @Override
-    public IconCoordinate getAchievementIcon(Achievement achievement) {
+    public IconCoordinate getAchievementIcon(@NonNull Achievement achievement) {
         return TextureRegistry.getTexture(achievement.getType().texture());
     }
 
@@ -279,7 +279,7 @@ public class AchievementPageAether extends AchievementPage implements AetherAchi
     }
 
     @Override
-    public void drawBeforeTiles(ScreenAchievements gui, double shiftX, double shiftY, int mouseX, int mouseY, int left, int top, int right, int bottom) {
+    public void drawBeforeTiles(@NonNull ScreenAchievements gui, double shiftX, double shiftY, int mouseX, int mouseY, int left, int top, int right, int bottom) {
         double shiftYAdjusted = (Math.floor(shiftY) + 288) / 576;
 
         int bottomTop = 0xFF7970ca;

@@ -124,9 +124,9 @@ public class AetherMod implements ModInitializer {
 
         TRANSLATOR = I18n.getInstance();
 
-        EntityPainting.addBorder(AetherItems.AMBER.getDefaultStack(), NamespaceID.getPermanent(MOD_ID, "border_amber"));
-        EntityPainting.addBorder(AetherItems.ZANITE.getDefaultStack(), NamespaceID.getPermanent(MOD_ID, "border_zanite"));
-        EntityPainting.addBorder(AetherBlocks.BLOCK_GRAVITITE.getDefaultStack(), NamespaceID.getPermanent(MOD_ID, "border_gravitite"));
+        EntityPainting.addBorder(AetherItems.AMBER.getDefaultStack(), NamespaceID.fromPool(MOD_ID, "border_amber"));
+        EntityPainting.addBorder(AetherItems.ZANITE.getDefaultStack(), NamespaceID.fromPool(MOD_ID, "border_zanite"));
+        EntityPainting.addBorder(AetherBlocks.BLOCK_GRAVITITE.getDefaultStack(), NamespaceID.fromPool(MOD_ID, "border_gravitite"));
         AetherBlockDetails.initializeBlockDetails();
         registerNewTagForItems();
     }

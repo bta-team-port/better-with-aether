@@ -6,6 +6,7 @@ import net.minecraft.core.world.biome.Biome;
 import net.minecraft.core.world.biome.SurfaceProperties;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import net.minecraft.core.world.weather.Weathers;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
 import teamport.aether.entity.animal.aerwhale.MobAerwhale;
@@ -69,7 +70,7 @@ public class BiomeAether extends Biome {
     }
 
     @Override
-    public WorldFeature getTreeFeature(Random random) {
+    public @NonNull WorldFeature getTreeFeature(@NonNull Random random) {
         return random.nextInt(10) == 0 ? new WorldFeatureAetherTree(AetherBlocks.LEAVES_SKYROOT.id(), AetherBlocks.LOG_SKYROOT.id(), 4)
             : new WorldFeatureAetherTreeGoldenOak();
     }

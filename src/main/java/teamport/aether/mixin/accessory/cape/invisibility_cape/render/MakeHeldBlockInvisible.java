@@ -13,16 +13,16 @@ import org.spongepowered.asm.mixin.Mixin;
 import teamport.aether.entity.player.PlayerUtil;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = ItemModelBlock.class, remap = false)
+@Mixin(ItemModelBlock.class)
 public abstract class MakeHeldBlockInvisible {
     @WrapMethod(method = "render(Lnet/minecraft/client/render/tessellator/TessellatorGeneral;Lnet/minecraft/core/entity/Entity;Lnet/minecraft/core/item/ItemStack;Ljava/lang/String;ZIBFZ)V")
     @SuppressWarnings("java:S107")
-    private void makeItemInvisible(TessellatorGeneral tessellator, Entity entity, ItemStack itemStack, String displayContext, boolean translate, int count, byte light, float partialTick, boolean leftHanded, Operation<Void> original) {
-        if (entity instanceof Player
-            && ("thirdperson_lefthand".equals(displayContext) || "thirdperson_righthand".equals(displayContext))
-            && PlayerUtil.isInvisible(entity)) {
+    private void makeItemInvisible(TessellatorGeneral tessellator, Entity holder, ItemStack itemStack, String displayPosId, boolean items3d, int clusterSize, byte lightIndex, float partialTick, boolean leftHanded, Operation<Void> original) {
+        if (holder instanceof Player
+            && ("thirdperson_lefthand".equals(displayPosId) || "thirdperson_righthand".equals(displayPosId))
+            && PlayerUtil.isInvisible(holder)) {
             return;
         }
-        original.call(tessellator, entity, itemStack, displayContext, translate, count, light, partialTick, leftHanded);
+        original.call(tessellator, holder, itemStack, displayPosId, items3d, clusterSize, lightIndex, partialTick, leftHanded);
     }
 }

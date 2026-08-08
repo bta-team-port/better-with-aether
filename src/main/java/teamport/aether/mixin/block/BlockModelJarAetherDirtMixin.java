@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import teamport.aether.block.AetherBlockTags;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = BlockModelGeneric.class, remap = false)
+@Mixin(BlockModelGeneric.class)
 public abstract class BlockModelJarAetherDirtMixin {
     @Unique
     private static final IconCoordinate jarFullAether = TextureRegistry.getTexture("aether:block/jar_aether_dirt");
@@ -40,8 +40,7 @@ public abstract class BlockModelJarAetherDirtMixin {
             return originalTexIndex;
         }
         TileEntity tileEntity = worldSource.getTileEntity(tilePos);
-        if (tileEntity instanceof TileEntityFlowerJar) {
-            TileEntityFlowerJar jarTe = (TileEntityFlowerJar) tileEntity;
+        if (tileEntity instanceof TileEntityFlowerJar jarTe) {
             Block<?> block = Blocks.blocksList[jarTe.flowerInPot];
             if (block != null && block.hasTag(AetherBlockTags.PLANTABLE_IN_AETHER_JAR)) {
                 return jarFullAether;

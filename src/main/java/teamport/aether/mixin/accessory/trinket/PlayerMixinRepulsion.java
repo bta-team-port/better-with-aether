@@ -8,18 +8,18 @@ import teamport.aether.net.message.AetherSyncRepulsionNetworkMessage;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 import turniplabs.halplibe.helper.network.NetworkHandler;
 
-@Mixin(value = Player.class, remap = false)
+@Mixin(Player.class)
 public abstract class PlayerMixinRepulsion implements AetherRepulsion {
     @Unique
     private boolean repulsion;
     @Override
     public void aether$setRepulsion(boolean repulsion) {
-        if (EnvironmentHelper.isClientWorld()) {
+        if (EnvironmentHelper.isMultiplayerClient()) {
             // don't allow the client to have authority over repulsion.
             return;
         }
         this.repulsion = repulsion;
-        if (EnvironmentHelper.isServerEnvironment()) {
+        if (EnvironmentHelper.isMultiplayerServer()) {
             NetworkHandler.sendToAllPlayers(new AetherSyncRepulsionNetworkMessage((Player) (Object) this));
         }
     }

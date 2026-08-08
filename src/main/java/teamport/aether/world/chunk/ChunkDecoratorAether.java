@@ -15,6 +15,7 @@ import net.minecraft.core.world.noise.ImprovedPerlinNoise;
 import net.minecraft.core.world.noise.Noise2D;
 import net.minecraft.core.world.noise.Noise3D;
 import net.minecraft.core.world.noise.SimplexNoise;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.block.terrain.BlockLogicOreAmbrosium;
@@ -39,7 +40,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
     private final Noise2D cloudNoise;
     private final Noise3D cloudNoise2;
 
-    public ChunkDecoratorAether(World world) {
+    public ChunkDecoratorAether(@NonNull World world) {
         this.world = world;
 
         this.flowerVeinNoise = new FractalNoise3D<>(ImprovedPerlinNoise.genOctaves(world.getRandomSeed(), 4, 44));
@@ -49,7 +50,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         this.cloudNoise2 = new FractalNoise3D<>(ImprovedPerlinNoise.genOctaves(world.getRandomSeed() * 31 ^ 7, 4, 44));
     }
 
-    private static Random deriveRandomFromWorld(Chunk chunk, long seed) {
+    private static @NonNull Random deriveRandomFromWorld(@NonNull Chunk chunk, long seed) {
         Random rand = new Random(seed);
 
         long l1 = rand.nextLong() / 2L * 2L + 1L;
@@ -60,7 +61,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
     }
 
     @Override
-    public void decorate(Chunk chunk) {
+    public void decorate(@NonNull Chunk chunk) {
         this.world.scheduledUpdatesAreImmediate = true;
         BlockLogicFallingBlock.fallInstantly = true;
 
@@ -95,7 +96,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
     private static final double[] CLOUD_NOISE_TOP_BUFFER = new double[16 * 16];
     private static final double[] CLOUD_NOISE_TOP_2_BUFFER = new double[16 * 16];
 
-    public void decorateWithFlatClouds(Chunk chunk) {
+    public void decorateWithFlatClouds(@NonNull Chunk chunk) {
         double scale = 0.38;
 
         this.cloudNoise.getRegion(
@@ -169,7 +170,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
     private static final double[] FLOWER_DENSITY_NOISE_BUFFER = new double[16 * 16];
     private static final double[] FLOWER_VEIN_NOISE_BUFFER = new double[8 * 8];
 
-    public void decorateWithFlowers(Chunk chunk, Random rand) {
+    public void decorateWithFlowers(@NonNull Chunk chunk, Random rand) {
         double beachScale = 0.03125;
 
         this.flowerDensityNoise.getRegion(
@@ -222,7 +223,6 @@ public class ChunkDecoratorAether implements ChunkDecorator {
                 if (blockY >= world.getWorldType().getMaxY(world)) continue;
 
                 Block<?> blk = Blocks.getBlock(chunk.getBlockID(x, blockY - 1, z));
-                if (blk == null) continue;
                 if (!blk.hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS)) continue;
 
                 if (flowerDensity < 0) {
@@ -259,7 +259,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
     public static final WorldFeatureAetherQuicksoil QUICKSOIL = new WorldFeatureAetherQuicksoil(AetherBlocks.QUICKSOIL.id());
 
     @SuppressWarnings("java:S1119")
-    public void decorateWithQuickSoil(Random rand, int worldX, int worldZ, int minY, int maxY) {
+    public void decorateWithQuickSoil(@NonNull Random rand, int worldX, int worldZ, int minY, int maxY) {
         int rangeY = maxY + 1 - minY;
 
         int yPosition;
@@ -289,7 +289,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
     public static final WorldFeatureAetherTree TREE_SKYROOT = new WorldFeatureAetherTree(AetherBlocks.LEAVES_SKYROOT.id(), AetherBlocks.LOG_SKYROOT.id(), 4);
     public static final WorldFeatureAetherLiquid WATERFALL = new WorldFeatureAetherLiquid(Blocks.FLUID_WATER_FLOWING.id());
 
-    public void decorateWithLakesAndTrees(Random rand, int minY, int maxY, int x, int z) {
+    public void decorateWithLakesAndTrees(@NonNull Random rand, int minY, int maxY, int x, int z) {
         int rangeY = maxY + 1 - minY;
 
         int y;
@@ -318,7 +318,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
     public static final WorldFeatureAetherClouds AERCLOUD_GOLD = new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_GOLD.id(), 4);
     public static final WorldFeatureAetherCloudsFlat AERCLOUD_FLAT = new WorldFeatureAetherCloudsFlat(AetherBlocks.AERCLOUD_WHITE.id(), 48);
 
-    public void decorateWithClouds(Random rand, int minY, int maxY, int worldX, int worldZ) {
+    public void decorateWithClouds(@NonNull Random rand, int minY, int maxY, int worldX, int worldZ) {
         int rangeY = maxY + 1 - minY;
         float heightModifier = rangeY / 128.0F;
         int yPosition;
@@ -400,7 +400,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         }
     }
 
-    public void decorateWithDungeons(Chunk chunk, Random rand, int minY, int maxY) {
+    public void decorateWithDungeons(@NonNull Chunk chunk, Random rand, int minY, int maxY) {
         int chunkX = chunk.pos.x;
         int chunkZ = chunk.pos.z;
 

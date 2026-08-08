@@ -7,6 +7,7 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.AetherMobFallingToOverworld;
 import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
@@ -33,7 +34,7 @@ public class ProjectileWindball extends Projectile implements ProjectileAether, 
         this.setVelocity(vX, vY, vZ);
     }
 
-    public ProjectileWindball(World world, Mob owner, double vX, double vY, double vZ) {
+    public ProjectileWindball(World world, @NonNull Mob owner, double vX, double vY, double vZ) {
         super(world);
         this.setSize(1.5F, 0.5F);
         this.moveTo(owner.x, owner.y, owner.z, owner.yRot, owner.xRot);
@@ -88,12 +89,12 @@ public class ProjectileWindball extends Projectile implements ProjectileAether, 
     }
 
     @Override
-    public void onHit(HitResult result) {
-        Entity hitEntity = result instanceof HitResult.Entity ? ((HitResult.Entity) result).entity : null;
+    public void onHit(@NonNull HitResult result) {
+        Entity hitEntity = result instanceof HitResult.Entity entity ? entity.entity : null;
         if (hitEntity instanceof MobZephyr) {
             return;
         }
-        if (this.world != null && !this.world.isClientSide && hitEntity != null && !(hitEntity instanceof Projectile)) {
+        if (!this.world.isClientSide && hitEntity != null && !(hitEntity instanceof Projectile)) {
             MobUtil.knockback(hitEntity, this, 4.0f, 0.0f);
             this.world.playSoundAtEntity(null, this, "aether:mob.zephyr.shoot", 0.3F, 2.0F);
         }
@@ -102,7 +103,6 @@ public class ProjectileWindball extends Projectile implements ProjectileAether, 
 
     @Override
     public void remove() {
-        if (this.world == null) return;
         for (int l = 0; l < 8; ++l) {
             double angle = Math.toRadians(l * 45.0);
             ParticleMaker.spawnParticle(world, "snowshovel", this.x, this.y + 0.5, this.z, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
@@ -135,10 +135,10 @@ public class ProjectileWindball extends Projectile implements ProjectileAether, 
     }
 
     @SuppressWarnings("unused")
-    public static Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner) {
+    public static @NonNull Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner) {
         ProjectileWindball windBall = new ProjectileWindball(world, x, y, z, xd, yd, zd);
         if (hasVelocity) windBall.setHeading(xd, yd, zd, 1, 0);
-        if (owner instanceof Mob) windBall.owner = (Mob) owner;
+        if (owner instanceof Mob mob) windBall.owner = mob;
         return windBall;
     }
 }

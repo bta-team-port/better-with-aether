@@ -10,6 +10,7 @@ import net.minecraft.core.item.tool.ItemTool;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 import redart15.commandly.veincapitator.VeinMining;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.compat.commandly.AetherCommandlyRules;
@@ -28,7 +29,7 @@ public class ItemToolPickaxeAether extends ItemTool {
     }
 
     @Override
-    public boolean canHarvestBlock(ItemStack itemStack, Mob mob, Block<?> block) {
+    public boolean canHarvestBlock(@NonNull ItemStack itemStack, @NonNull Mob mob, @NonNull Block<?> block) {
         Integer miningLevel = aetherMiningLevels.get(block);
         if (miningLevel != null) {
             return this.material.getMiningLevel() >= miningLevel;
@@ -38,7 +39,7 @@ public class ItemToolPickaxeAether extends ItemTool {
     }
 
     @Override
-    public boolean beforeBlockDestroyed(ItemStack selfStack, World world, Player player, Block<?> block, TilePosc blockPos, Side side) {
+    public boolean beforeBlockDestroyed(@NonNull ItemStack selfStack, @NonNull World world, @NonNull Player player, @NonNull Block<?> block, @NonNull TilePosc blockPos, @NonNull Side side) {
         if (!world.isClientSide && AetherCommandlyRules.canVeinMine(world) && !player.isSneaking()) {
             return !VeinMining
                 .veinMining(world, selfStack, blockPos, player)

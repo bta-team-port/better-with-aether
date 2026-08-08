@@ -15,12 +15,13 @@ import org.jspecify.annotations.NonNull;
 public class ItemModelPaintedSkyrootSign extends ItemModelStandard {
     private static final IconCoordinate[] SIGN = new IconCoordinate[16];
 
-    public ItemModelPaintedSkyrootSign(Item item) {
-        super(item, null);
+    public ItemModelPaintedSkyrootSign(@NonNull Item item) {
+        super(item);
     }
 
+
     @Override
-    public @NonNull IconCoordinate getIcon(Entity entity, ItemStack itemStack) {
+    public @NonNull IconCoordinate getIcon(Entity entity, @NonNull ItemStack itemStack) {
         int meta = itemStack.getMetadata();
         return SIGN[meta & 15];
     }

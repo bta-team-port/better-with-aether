@@ -7,6 +7,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.entity.projectile.Projectile;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherMod;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItems;
@@ -35,10 +36,9 @@ public class ProjectileKnifeLightning extends Projectile implements ProjectileAe
     }
 
     @Override
-    public void onHit(HitResult hitResult) {
-        if (this.world == null) return;
-        if (hitResult instanceof HitResult.Entity) {
-            Entity hitEntity = ((HitResult.Entity) hitResult).entity;
+    public void onHit(@NonNull HitResult hitResult) {
+        if (hitResult instanceof HitResult.Entity entity) {
+            Entity hitEntity = entity.entity;
             hitEntity.hurt(this.owner, this.damage, AetherMod.LIGHTNING);
             if (!world.isClientSide) {
                 world.entityJoinedWorld(new EntityLightning(hitEntity.world, hitEntity.x, hitEntity.y, hitEntity.z));
@@ -48,8 +48,7 @@ public class ProjectileKnifeLightning extends Projectile implements ProjectileAe
             this.remove();
         }
 
-        if (hitResult instanceof HitResult.Tile) {
-            HitResult.Tile tileHit = (HitResult.Tile) hitResult;
+        if (hitResult instanceof HitResult.Tile tileHit) {
             if (!world.isClientSide) {
                 world.entityJoinedWorld(
                     new EntityLightning(
@@ -67,7 +66,6 @@ public class ProjectileKnifeLightning extends Projectile implements ProjectileAe
     }
 
     public void doEffect() {
-        if (this.world == null) return;
         for (int j = 0; j < 8; ++j) {
             ParticleMaker.spawnParticle(world,
                 "item",
@@ -92,10 +90,10 @@ public class ProjectileKnifeLightning extends Projectile implements ProjectileAe
     }
 
     @SuppressWarnings("unused")
-    public static Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner) {
+    public static @NonNull Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner) {
         ProjectileKnifeLightning knife = new ProjectileKnifeLightning(world, x, y, z);
         if (hasVelocity) knife.setHeading(xd, yd, zd, 1, 0);
-        if (owner instanceof Mob) knife.owner = (Mob) owner;
+        if (owner instanceof Mob mob) knife.owner = mob;
         return knife;
     }
 }

@@ -9,6 +9,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemToolSword;
 import net.minecraft.core.util.helper.DamageType;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.animal.phyg.MobPhyg;
 import teamport.aether.helper.ParticleMaker;
 
@@ -22,7 +23,7 @@ public class ItemToolSwordPig extends ItemToolSword {
     }
 
     @Override
-    public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
+    public boolean hitEntity(@NonNull ItemStack itemstack, @NonNull Mob target, @NonNull Mob attacker) {
         if (pigSwordKills(target)) {
             double dx = target.x + (random.nextDouble() * 0.5) - 0.25;
             double dy = target.y + 0.5 + (random.nextDouble() * 0.5) - 0.25;
@@ -43,6 +44,6 @@ public class ItemToolSwordPig extends ItemToolSword {
         return target instanceof MobPig
             || target instanceof MobZombiePig
             || target instanceof MobPhyg
-            || (target instanceof Player && "Tocinin".equals(((Player) target).username));
+            || (target instanceof Player player && "Tocinin".equals(player.username));
     }
 }

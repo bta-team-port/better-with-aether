@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.item.AetherArmorMaterial;
 
-@Mixin(value = IArmorWearing.class, remap = false)
+@Mixin(IArmorWearing.class)
 public interface MobWolfMixinZaniteResistance {
     @WrapOperation(method = "getTotalProtectionAmount(Lnet/minecraft/core/util/helper/DamageType;)F", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/item/material/ArmorMaterial;getProtection(Lnet/minecraft/core/util/helper/DamageType;)F"))
     private float reduceWolfDamage(ArmorMaterial instance, DamageType damageType, Operation<Float> original) {

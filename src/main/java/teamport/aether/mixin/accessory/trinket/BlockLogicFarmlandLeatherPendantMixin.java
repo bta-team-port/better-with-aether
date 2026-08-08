@@ -16,13 +16,13 @@ import teamport.aether.entity.player.PlayerUtil;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
 
-@Mixin(value = BlockLogicFarmland.class, remap = false)
+@Mixin(BlockLogicFarmland.class)
 public abstract class BlockLogicFarmlandLeatherPendantMixin {
     @Expression("? instanceof ?")
     @ModifyExpressionValue(method = "onEntityWalkedOn(Lnet/minecraft/core/world/World;Lnet/minecraft/core/world/pos/TilePosc;Lnet/minecraft/core/entity/Entity;)V", at = @At(value = "MIXINEXTRAS:EXPRESSION"))
-    private boolean onEntityWalkedOn(boolean original, World world, TilePosc pos, Entity entity) {
+    private boolean onEntityWalkedOn(boolean original, World world, TilePosc tilePos, Entity walker) {
         if (!original) return false;
-        Player player = (Player) entity;
+        Player player = (Player) walker;
         ItemStack trinketOne = PlayerUtil.getArmorOrAccessoryItem(player, TRINKET_1_SLOT);
         ItemStack trinketTwo = PlayerUtil.getArmorOrAccessoryItem(player, TRINKET_2_SLOT);
         return (trinketOne == null || !trinketOne.getItem().namespaceID.equals(AetherItems.ARMOR_TALISMAN_LEATHER.namespaceID))

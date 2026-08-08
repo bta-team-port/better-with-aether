@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherArmorMaterial;
 
-@Mixin(value = Entity.class, remap = false)
+@Mixin(Entity.class)
 public abstract class PlayerMixinNoKnockbackFling {
     @WrapMethod(method = "fling")
     private void fling(double xd, double yd, double zd, float pushTime, Operation<Void> original) {

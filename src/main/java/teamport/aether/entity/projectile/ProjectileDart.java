@@ -182,7 +182,6 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
 
     @Override
     public void tick() {
-        if (this.world == null) return;
         if (this.shake > 0) {
             --this.shake;
         }
@@ -194,11 +193,9 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
         }
 
         Block<?> block = this.world.getBlock(this.xTile, this.yTile, this.zTile);
-        if (block != null) {
-            AABBdc aabb = block.getCollisionAABB(this.world, new TilePos(this.xTile, this.yTile, this.zTile));
-            if (aabb != null && aabb.containsPoint(this.x, this.y, this.z)) {
-                this.setGrounded(true);
-            }
+        AABBdc aabb = block.getCollisionAABB(this.world, new TilePos(this.xTile, this.yTile, this.zTile));
+        if (aabb != null && aabb.containsPoint(this.x, this.y, this.z)) {
+            this.setGrounded(true);
         }
 
         if (this.isGrounded()) {
@@ -230,29 +227,26 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
 
     @Override
     public HitResult getHitResult() {
-        if (this.world == null) return super.getHitResult();
         Vector3d oldPosition = new Vector3d(this.x, this.y, this.z);
         Vector3d newPosition = new Vector3d(this.x + this.xd, this.y + this.yd, this.z + this.zd);
         return this.world.checkBlockCollisionBetweenPoints(oldPosition, newPosition, false, true, false);
     }
 
     @Override
-    public void onHit(HitResult hitResult) {
-        if (this.world == null) return;
-        if (hitResult instanceof HitResult.Entity) {
-            Entity hitEntity = ((HitResult.Entity) hitResult).entity;
+    public void onHit(@NonNull HitResult hitResult) {
+        if (hitResult instanceof HitResult.Entity hitResult1) {
+            Entity hitEntity = hitResult1.entity;
             if (hitEntity instanceof MobZephyr) {
                 hitEntity.hurt(this.owner, 10, DamageType.COMBAT);
-                if (this.owner instanceof Player) {
-                    ((Player) this.owner).addStat(AetherAchievements.HIT_ZEPHYR, 1);
+                if (this.owner instanceof Player player) {
+                    player.addStat(AetherAchievements.HIT_ZEPHYR, 1);
                 }
             }
             if (hitEntity.hurt(this.owner, this.damage, DamageType.COMBAT)) {
-                if (dartType == 1) {
-                    if (hitEntity instanceof IHasEffects) {
-                        AetherEffects.add(hitEntity, AetherEffects.poisonEffect, random.nextInt(1) + 1);
-                    }
+                if (dartType == 1 && hitEntity instanceof IHasEffects) {
+                    AetherEffects.add(hitEntity, AetherEffects.poisonEffect, random.nextInt(1) + 1);
                 }
+
                 if (dartType >= 2) {
                     if (hitEntity instanceof MobCockatrice || hitEntity instanceof MobAechorPlant) {
                         hitEntity.hurt(this.owner, 12, AetherMod.HOLY);
@@ -280,8 +274,7 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
                 this.ticksInAir = 0;
             }
             this.remove();
-        } else if (hitResult instanceof HitResult.Tile) {
-            HitResult.Tile tileHit = (HitResult.Tile) hitResult;
+        } else if (hitResult instanceof HitResult.Tile tileHit) {
             this.xTile = tileHit.tilePos.x();
             this.yTile = tileHit.tilePos.y();
             this.zTile = tileHit.tilePos.z();
@@ -299,7 +292,6 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
     }
 
     public void inGroundAction() {
-        if (this.world == null) return;
         if (this.world.isClientSide) {
             this.setGrounded(true);
             this.shake = 3;
@@ -367,7 +359,7 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
 
     @Override
     public void playerTouch(Player player) {
-        if (this.world == null || this.world.isClientSide) return;
+        if (this.world.isClientSide) return;
         if (this.isGrounded() && this.dartBelongsToPlayer() && this.shake <= 0) {
             player.inventory.insertItem(this.stack, true);
             if (this.stack.stackSize <= 0) {
@@ -383,13 +375,14 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
         return new PacketAddEntity(tracked, this.dartType, tracked.owner == null ? -1 : tracked.owner.id, tracked.xd, tracked.yd, tracked.zd);
     }
 
-    public static Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner) {
+    public static @NonNull Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner) {
         ProjectileDart projectile = new ProjectileDart(world, x, y, z, meta);
         if (hasVelocity) projectile.setHeading(xd, yd, zd, 1, 0);
-        if (owner instanceof Mob) projectile.owner = (Mob) owner;
+        if (owner instanceof Mob mob) projectile.owner = mob;
         if (owner instanceof Player) projectile.doesDartBelongToPlayer = true;
         return projectile;
     }
+
     public int getShake() {
         return shake;
     }

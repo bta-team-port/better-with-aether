@@ -7,6 +7,7 @@ import net.minecraft.client.render.block.model.BlockModelDispatcher;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.util.helper.DyeColor;
+import org.jspecify.annotations.NonNull;
 import org.useless.dragonfly.models.block.StaticBlockModel;
 
 @Environment(EnvType.CLIENT)
@@ -21,7 +22,7 @@ public class BlockModelPaintedSkyrootChest<T extends BlockLogic> extends BlockMo
         }
     }
 
-    private StaticBlockModel load(String model) {
+    private @NonNull StaticBlockModel load(String model) {
         return BlockModelDispatcher.loadDataModel(model).asModel();
     }
 }

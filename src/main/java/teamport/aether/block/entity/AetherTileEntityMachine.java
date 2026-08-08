@@ -12,6 +12,7 @@ import net.minecraft.core.net.packet.Packet;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import java.util.Random;
@@ -70,12 +71,12 @@ public abstract class AetherTileEntityMachine extends TileEntity implements Cont
         }
     }
 
-    public String getNameTranslationKey() {
+    public @NonNull String getNameTranslationKey() {
         return "";
     }
 
     @Override
-    public void readAdditionalData(CompoundTag compoundTag) {
+    public void readAdditionalData(@NonNull CompoundTag compoundTag) {
         ListTag listTag = compoundTag.getList("Items");
         this.containerItemStacks = new ItemStack[this.getContainerSize()];
 
@@ -92,7 +93,7 @@ public abstract class AetherTileEntityMachine extends TileEntity implements Cont
     }
 
     @Override
-    public void writeAdditionalData(CompoundTag compoundTag) {
+    public void writeAdditionalData(@NonNull CompoundTag compoundTag) {
         compoundTag.putShort("EnergyTime", (short) this.currentEnergyTime);
         compoundTag.putShort("ProcessTime", (short) this.currentProcessTime);
         compoundTag.putShort("MaxEnegryTime", (short) this.maxEnergyTime);
@@ -178,10 +179,6 @@ public abstract class AetherTileEntityMachine extends TileEntity implements Cont
         }
 
         return success;
-    }
-
-    public boolean canBeCarried(World world, Entity potentialHolder) {
-        return true;
     }
 
     @Override

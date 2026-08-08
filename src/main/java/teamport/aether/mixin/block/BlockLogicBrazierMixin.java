@@ -13,6 +13,7 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -20,7 +21,7 @@ import teamport.aether.helper.ParticleMaker;
 import teamport.aether.world.AetherDimension;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
-@Mixin(value = BlockLogicBrazier.class, remap = false)
+@Mixin(BlockLogicBrazier.class)
 public abstract class BlockLogicBrazierMixin extends BlockLogic {
     protected BlockLogicBrazierMixin(Block<?> block, Material material) {
         super(block, material);
@@ -31,20 +32,20 @@ public abstract class BlockLogicBrazierMixin extends BlockLogic {
     private boolean burning;
 
     @WrapMethod(method = "onInteracted")
-    private boolean callOnInteracted(World world, TilePosc pos, Player player, Side side, double xPlaced, double yPlaced, Operation<Boolean> original) {
+    private boolean callOnInteracted(@NonNull World world, TilePosc tilePos, @NonNull Player player, Side side, double xHit, double yHit, Operation<Boolean> original) {
         ItemStack heldItem = player.getHeldItem();
         if (world.dimension == AetherDimension.getAether() && heldItem != null && heldItem.getItem() instanceof ItemFireStriker && !this.burning) {
             TilePos neighborPos = new TilePos();
             Block<?> b;
-            if (((b = world.getBlockType(pos.add(Direction.EAST, neighborPos))) == null || !(b.getLogic() instanceof BlockLogicFluid)) && ((b = world.getBlockType(pos.add(Direction.WEST, neighborPos))) == null || !(b.getLogic() instanceof BlockLogicFluid)) && ((b = world.getBlockType(pos.add(Direction.SOUTH, neighborPos))) == null || !(b.getLogic() instanceof BlockLogicFluid)) && ((b = world.getBlockType(pos.add(Direction.NORTH, neighborPos))) == null || !(b.getLogic() instanceof BlockLogicFluid))) {
-                world.setBlockTypeNotify(pos, Blocks.BRAZIER_INACTIVE);
+            if (((b = world.getBlockType(tilePos.add(Direction.EAST, neighborPos))) == null || !(b.getLogic() instanceof BlockLogicFluid)) && ((b = world.getBlockType(tilePos.add(Direction.WEST, neighborPos))) == null || !(b.getLogic() instanceof BlockLogicFluid)) && ((b = world.getBlockType(tilePos.add(Direction.SOUTH, neighborPos))) == null || !(b.getLogic() instanceof BlockLogicFluid)) && ((b = world.getBlockType(tilePos.add(Direction.NORTH, neighborPos))) == null || !(b.getLogic() instanceof BlockLogicFluid))) {
+                world.setBlockTypeNotify(tilePos, Blocks.BRAZIER_INACTIVE);
                 heldItem.damageItem(1, player);
                 for (int l = 0; l < 8; ++l) {
                     double angle = Math.toRadians(l * 45.0);
-                    ParticleMaker.spawnParticle(world, "smoke", pos.x() + 0.5, pos.y(), pos.z() + 0.5, -Math.cos(angle) / 20.0, 0.03, -Math.sin(angle) / 20.0, 0);
+                    ParticleMaker.spawnParticle(world, "smoke", tilePos.x() + 0.5, tilePos.y(), tilePos.z() + 0.5, -Math.cos(angle) / 20.0, 0.03, -Math.sin(angle) / 20.0, 0);
                 }
-                if (!EnvironmentHelper.isClientWorld()) {
-                    world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, pos.x() + 0.5, pos.y() + 0.5, pos.z() + 0.5, "fire.ignite", 1.0F, world.rand.nextFloat() * 0.4F + 0.8F);
+                if (!EnvironmentHelper.isMultiplayerClient()) {
+                    world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, tilePos.x() + 0.5, tilePos.y() + 0.5, tilePos.z() + 0.5, "fire.ignite", 1.0F, world.rand.nextFloat() * 0.4F + 0.8F);
                 }
                 return true;
             } else {
@@ -52,6 +53,6 @@ public abstract class BlockLogicBrazierMixin extends BlockLogic {
             }
         }
 
-        return original.call(world, pos, player, side, xPlaced, yPlaced);
+        return original.call(world, tilePos, player, side, xHit, yHit);
     }
 }

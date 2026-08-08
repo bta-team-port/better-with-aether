@@ -8,6 +8,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.item.AetherItems;
 
 public class BlockLogicPaintedSignSkyroot extends BlockLogicPaintableSignSkyroot implements IPainted {
@@ -15,11 +16,11 @@ public class BlockLogicPaintedSignSkyroot extends BlockLogicPaintableSignSkyroot
         super(block, isFreeStanding);
     }
 
-    public DyeColor fromMetadata(int meta) {
+    public @NonNull DyeColor fromMetadata(int meta) {
         return DyeColor.colorFromBlockMeta((meta & 240) >> 4);
     }
 
-    public int toMetadata(DyeColor color) {
+    public int toMetadata(@NonNull DyeColor color) {
         return color.blockMeta << 4;
     }
 
@@ -27,17 +28,17 @@ public class BlockLogicPaintedSignSkyroot extends BlockLogicPaintableSignSkyroot
         return meta & -241;
     }
 
-    public void removeDye(World world, TilePosc pos) {
+    public void removeDye(@NonNull World world, @NonNull TilePosc pos) {
         world.setBlockDataNotify(pos, this.stripColorFromMetadata(world.getBlockData(pos)));
     }
 
     @Override
-    public void setColor(World world, TilePosc pos, DyeColor color) {
+    public void setColor(@NonNull World world, @NonNull TilePosc pos, @NonNull DyeColor color) {
         world.setBlockDataNotify(pos, color.blockMeta << 4 | this.stripColorFromMetadata(world.getBlockData(pos)));
     }
 
     @Override
-    public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
+    public ItemStack[] getBreakResult(@NonNull World world, @NonNull EnumDropCause dropCause, int meta, TileEntity tileEntity) {
         return new ItemStack[]{new ItemStack(AetherItems.SIGN_SKYROOT_PAINTED, 1, this.fromMetadata(meta).itemMeta)};
     }
 }

@@ -74,11 +74,10 @@ public class MobBossFlying extends MobFlying implements EnemyBoss {
 
     @Override
     public void onDeath(Entity entityKilledBy) {
-        if (this.world == null) return;
         AetherMod.LOGGER.info("{} of ID {} has been slain!", bossName, dungeonID);
 
         if (trophy != null) {
-            if (!EnvironmentHelper.isClientWorld()) world.dropItem((int) x, (int) y, (int) z, trophy);
+            if (!EnvironmentHelper.isMultiplayerClient()) world.dropItem((int) x, (int) y, (int) z, trophy);
             world.playBlockEvent(null, 1003, (int) x, (int) y, (int) z, 0);
         }
 
@@ -104,9 +103,7 @@ public class MobBossFlying extends MobFlying implements EnemyBoss {
         bossName = tag.getString("bossName");
 
         CompoundTag trophyNBT = tag.getCompound("trophy");
-        if (trophyNBT != null) {
-            trophy = ItemStack.readItemStackFromNbt(trophyNBT);
-        }
+        trophy = ItemStack.readItemStackFromNbt(trophyNBT);
 
         if (tag.getBoolean("hasHadReturnPointSet")) {
             CompoundTag returnPointNBT = tag.getCompound("returnPoint");

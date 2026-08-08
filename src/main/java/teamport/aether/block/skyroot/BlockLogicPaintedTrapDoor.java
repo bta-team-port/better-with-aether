@@ -9,6 +9,7 @@ import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 
 public class BlockLogicPaintedTrapDoor extends BlockLogicTrapDoorPainted {
     protected final int unpaintedBlockID;
@@ -19,7 +20,7 @@ public class BlockLogicPaintedTrapDoor extends BlockLogicTrapDoorPainted {
     }
 
     @Override
-    public void removeDye(World world, TilePosc pos) {
+    public void removeDye(@NonNull World world, @NonNull TilePosc pos) {
         int meta = world.getBlockData(pos);
         world.setBlockTypeDataNotify(pos, Blocks.getBlock(unpaintedBlockID), meta & 15);
     }

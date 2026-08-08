@@ -24,18 +24,20 @@ import teamport.aether.world.AetherDimension;
 import static teamport.aether.world.AetherDimension.OVERWORLD_RETURN_HEIGHT;
 
 @Environment(EnvType.SERVER)
-@Mixin(value = PlayerServer.class, remap = false)
+@Mixin(PlayerServer.class)
 public abstract class MPBumpToOverworldMixin extends Player {
     protected MPBumpToOverworldMixin(World world) {
         super(world);
     }
+
     @Shadow
     @NonNull
     @SuppressWarnings("java:S1161")
     public abstract String getDisplayName();
+
     @Inject(method = "onUpdateEntity()V", at = @At("HEAD"))
     private void bumpPlayerToOverworld(CallbackInfo ci) {
-        if (this.world != null && dimension == AetherDimension.getAether().id && this.y < this.world.getWorldType().getMinY(world) - 10) {
+        if (dimension == AetherDimension.getAether().id && this.y < this.world.getWorldType().getMinY(world) - 10) {
             AetherMod.LOGGER.debug("Sending {} to overworld", getDisplayName());
             MinecraftServer server = MinecraftServer.getInstance();
 

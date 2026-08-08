@@ -32,7 +32,7 @@ public class WorldFeatureAetherOre extends WorldFeatureOre {
     }
 
     @Override
-    public boolean place(World world, Random random, TilePosc pos) {
+    public boolean place(@NonNull World world, @NonNull Random random, @NonNull TilePosc pos) {
         int xStart = pos.x();
         int yStart = pos.y();
         int zStart = pos.z();

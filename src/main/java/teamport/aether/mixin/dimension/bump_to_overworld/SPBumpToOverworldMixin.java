@@ -24,7 +24,7 @@ import turniplabs.halplibe.helper.EnvironmentHelper;
 import static teamport.aether.world.AetherDimension.OVERWORLD_RETURN_HEIGHT;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = Player.class, remap = false)
+@Mixin(Player.class)
 public abstract class SPBumpToOverworldMixin extends Mob {
     protected SPBumpToOverworldMixin(@Nullable World world) {
         super(world);
@@ -34,7 +34,7 @@ public abstract class SPBumpToOverworldMixin extends Mob {
     @Inject(method = "tick()V", at = @At("HEAD"))
     private void bumpPlayerToOverworld(CallbackInfo ci) {
         if (world != null && dimension == AetherDimension.getAether().id && this.y < world.getWorldType().getMinY(world) - 10) {
-            if (EnvironmentHelper.isSinglePlayer()) {
+            if (EnvironmentHelper.isSingleplayerClient()) {
                 Minecraft mc = Minecraft.getMinecraft();
 
                 AetherMod.LOGGER.info("Sending {} to overworld", getDisplayName());

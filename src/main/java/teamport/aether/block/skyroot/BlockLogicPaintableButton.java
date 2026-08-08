@@ -5,6 +5,7 @@ import net.minecraft.core.block.BlockLogicButtonPlanksOak;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 
 public class BlockLogicPaintableButton extends BlockLogicButtonPlanksOak {
     protected final Block<? extends BlockLogicPaintedButton> paintedBlock;
@@ -25,7 +26,7 @@ public class BlockLogicPaintableButton extends BlockLogicButtonPlanksOak {
     }
 
     @Override
-    public void setColor(World world, TilePosc pos, DyeColor color) {
+    public void setColor(@NonNull World world, @NonNull TilePosc pos, @NonNull DyeColor color) {
         int meta = world.getBlockData(pos);
         world.setBlockTypeDataRaw(pos, paintedBlock, meta);
         world.setBlockData(pos, meta);

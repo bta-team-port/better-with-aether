@@ -9,6 +9,7 @@ import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.player.inventory.menu.MenuInventory;
 import net.minecraft.core.player.inventory.slot.Slot;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.item.AetherItemTags;
 
@@ -42,7 +43,7 @@ public class SlotAccessory extends Slot {
     }
 
     @Override
-    public boolean mayPlace(ItemStack itemstack) {
+    public boolean mayPlace(@NonNull ItemStack itemstack) {
         Item item = itemstack.getItem();
         if (item instanceof ItemAccessoryArmor) {
             return ((ItemAccessoryArmor) item).getSlotID() == this.armorType;
@@ -71,9 +72,9 @@ public class SlotAccessory extends Slot {
             this.menu.inventory.player.triggerAchievement(AetherAchievements.ALL_ACCESSORY_TYPES);
         }
 
-        if (this.getItemStack() != null && this.container instanceof ContainerInventory) {
-            Player player = ((ContainerInventory) this.container).player;
-            if (player.world != null) player.world.playSoundAtEntity(player, player, "random.equip", 2.0F, 1.0F);
+        if (this.getItemStack() != null && this.container instanceof ContainerInventory containerInventory) {
+            Player player = containerInventory.player;
+            player.world.playSoundAtEntity(player, player, "random.equip", 2.0F, 1.0F);
         }
 
     }

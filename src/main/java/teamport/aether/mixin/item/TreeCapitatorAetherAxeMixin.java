@@ -24,7 +24,7 @@ import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.terrain.BlockLogicLogAether;
 import teamport.aether.item.item_tool.ItemToolAxeAether;
 
-@Mixin(value = TreecapitatorHelper.class, remap = false)
+@Mixin(TreecapitatorHelper.class)
 public abstract class TreeCapitatorAetherAxeMixin {
     @Unique
     @Nullable
@@ -55,8 +55,7 @@ public abstract class TreeCapitatorAetherAxeMixin {
     @WrapOperation(method = "breakBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/block/Block;getBreakResult(Lnet/minecraft/core/world/World;Lnet/minecraft/core/enums/EnumDropCause;IIIILnet/minecraft/core/block/entity/TileEntity;)[Lnet/minecraft/core/item/ItemStack;"))
     private ItemStack[] modifyBlockResults(Block<?> instance, World world, EnumDropCause dropCause, int x, int y, int z, int meta, TileEntity tileEntity, Operation<ItemStack[]> original) {
         ItemStack[] results = original.call(instance, world, dropCause, x, y, z, meta, tileEntity);
-        if (this.tool instanceof ItemToolAxeAether && instance.getLogic() instanceof BlockLogicLogAether) {
-            BlockLogicLogAether logic = (BlockLogicLogAether) instance.getLogic();
+        if (this.tool instanceof ItemToolAxeAether && instance.getLogic() instanceof BlockLogicLogAether logic) {
             return logic.getAdditionalBreakResult(world, tool, results, this.metadata);
         }
         return results;

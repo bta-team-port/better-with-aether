@@ -24,7 +24,7 @@ public class ItemToolShovelHolystone extends ItemToolShovelAether {
             if (block.getHardness() > 0.0F || this.isSilkTouch()) {
                 itemstack.damageItem(1, mob);
             }
-            if (!EnvironmentHelper.isClientWorld() && itemRand.nextInt(16) == 0 && block.getHardness() > 0.0F) {
+            if (!EnvironmentHelper.isMultiplayerClient() && itemRand.nextInt(16) == 0 && block.getHardness() > 0.0F) {
                 world.dropItem(blockPos.x(), blockPos.y(), blockPos.z(), new ItemStack(AMBROSIUM, 1));
             }
         }

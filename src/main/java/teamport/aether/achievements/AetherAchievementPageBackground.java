@@ -1,5 +1,6 @@
 package teamport.aether.achievements;
 
+import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherMod;
 import teamport.aether.helper.unboxed.IntPair;
 
@@ -83,7 +84,7 @@ public class AetherAchievementPageBackground {
         }
     }
 
-    private static List<List<Integer>> loadCSV(InputStream in) {
+    private static @NonNull List<List<Integer>> loadCSV(InputStream in) {
         List<List<Integer>> output = new ArrayList<>();
 
         InputStreamReader reader = new InputStreamReader(in);

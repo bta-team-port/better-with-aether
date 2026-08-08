@@ -21,7 +21,7 @@ public class TileEntityMimic extends TileEntityChest implements Container {
     }
 
     @Override
-    public String getNameTranslationKey() {
+    public @NonNull String getNameTranslationKey() {
         if (nickname.isEmpty()) {
             return "container.chest.trapped.name";
         }
@@ -38,14 +38,14 @@ public class TileEntityMimic extends TileEntityChest implements Container {
 
 
     @Override
-    public void readAdditionalData(CompoundTag tag) {
+    public void readAdditionalData(@NonNull CompoundTag tag) {
         super.readAdditionalData(tag);
         this.nickname = tag.getString("MimicNickname");
         this.chatColor = tag.getByte("MimicChatColor");
     }
 
     @Override
-    public void writeAdditionalData(CompoundTag tag) {
+    public void writeAdditionalData(@NonNull CompoundTag tag) {
         super.writeAdditionalData(tag);
         tag.putString("MimicNickname", this.nickname);
         tag.putByte("MimicChatColor", this.chatColor);

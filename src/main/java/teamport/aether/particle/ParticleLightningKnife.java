@@ -35,7 +35,7 @@ public class ParticleLightningKnife extends Particle {
     }
 
     @Override
-    public void render(TessellatorParticle tessellator, float partialTick) {
+    public void render(@NonNull TessellatorParticle tessellator, float partialTick) {
         float progress = (this.age + partialTick) / this.lifetime;
         this.size = this.originalScale * (1.0F - progress * progress * 0.5F);
         super.render(tessellator, partialTick);

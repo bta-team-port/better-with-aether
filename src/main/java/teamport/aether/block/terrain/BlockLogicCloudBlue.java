@@ -7,6 +7,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.WorldSource;
 import net.minecraft.core.world.pos.TilePosc;
 import org.joml.primitives.AABBdc;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.helper.ParticleMaker;
 import turniplabs.halplibe.helper.EnvironmentHelper;
@@ -17,17 +18,17 @@ public class BlockLogicCloudBlue extends BlockLogicCloudBase {
     }
 
     @Override
-    public AABBdc getCollisionAABB(WorldSource world, TilePosc pos) {
+    public AABBdc getCollisionAABB(@NonNull WorldSource world, TilePosc pos) {
         return null;
     }
 
     @Override
-    public void onEntityCollision(World world, TilePosc pos, Entity entity) {
+    public void onEntityCollision(@NonNull World world, @NonNull TilePosc pos, @NonNull Entity entity) {
         int y = pos.y();
         //don't reference particles on the server. It will crash.
-        if (!EnvironmentHelper.isServerEnvironment()) {
-            if (entity instanceof Player) {
-                ((Player) entity).addStat(AetherAchievements.BOUNCE, 1);
+        if (!EnvironmentHelper.isMultiplayerServer()) {
+            if (entity instanceof Player player) {
+                player.addStat(AetherAchievements.BOUNCE, 1);
             }
 
             ParticleMaker.spawnParticle(entity.world, "splash", entity.x, entity.y, entity.z, world.rand.nextFloat(), world.rand.nextFloat(), world.rand.nextFloat(), 0);
@@ -36,16 +37,8 @@ public class BlockLogicCloudBlue extends BlockLogicCloudBase {
         entity.fallDistance = 0.0F;
         entity.yd *= 0.005;
 
-        if (!EnvironmentHelper.isServerEnvironment()) {
-            if (entity.y > y && !entity.isSneaking()) {
-                this.jump(entity);
-            }
-
-        } else {
-            if (entity.y > y && !entity.isSneaking()) {
-                this.jump(entity);
-            }
-
+        if (entity.y > y && !entity.isSneaking()) {
+            this.jump(entity);
         }
     }
 

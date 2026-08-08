@@ -38,12 +38,12 @@ public class NetEntryAetherProjectile implements IVehicleEntry<ProjectileAether>
         CLASS_TO_ID.put(clazz, id);
     }
 
-    public static int getIdBits(ProjectileAether projectile) {
+    public static int getIdBits(@NonNull ProjectileAether projectile) {
         return CLASS_TO_ID.get(projectile.getClass()) << 24;
     }
 
     @Override
-    public PacketAddEntity getSpawnPacket(EntityTrackerEntry entityTrackerEntry, ProjectileAether tracked) {
+    public PacketAddEntity getSpawnPacket(EntityTrackerEntry entityTrackerEntry, @NonNull ProjectileAether tracked) {
         PacketAddEntity packet = tracked.getSpawnPacket((Projectile) tracked);
         packet.metaData |= getIdBits(tracked);
         return packet;

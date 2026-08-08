@@ -19,6 +19,7 @@ import net.minecraft.client.render.block.model.BlockModelDispatcher;
 import net.minecraft.core.item.block.ItemBlock;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.helper.Side;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherClient;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
@@ -78,8 +79,6 @@ import teamport.aether.models.dungeon.BlockModelDungeonDoor;
 import teamport.aether.models.dungeon.BlockModelMimic;
 import teamport.aether.models.dungeon.BlockModelPaintedOakMimic;
 import teamport.aether.models.skyroot.*;
-
-import static net.minecraft.client.render.block.model.BlockModelStandard.*;
 
 @Environment(EnvType.CLIENT)
 public class AetherModels {
@@ -307,7 +306,7 @@ public class AetherModels {
         dispatcher.assignRenderer(EntityParachuteGold.class, new EntityRendererParachuteGold());
     }
 
-    public void initBlockColors(BlockColorDispatcher dispatcher) {
+    public void initBlockColors(@NonNull BlockColorDispatcher dispatcher) {
         dispatcher.addDispatch(AetherBlocks.GRASS_AETHER, new BlockColorCustom(AetherClient.grassAether));
         dispatcher.addDispatch(AetherBlocks.TALLGRASS_AETHER, new BlockColorCustom(AetherClient.grassAether));
 
@@ -317,7 +316,7 @@ public class AetherModels {
         dispatcher.addDispatch(AetherBlocks.LEAVES_OAK_GOLDEN, new BlockColorCustom(AetherClient.oakGolden));
     }
 
-    private void setBlockSkyrootModels(BlockModelDispatcher dispatcher) {
+    private void setBlockSkyrootModels(@NonNull BlockModelDispatcher dispatcher) {
         dispatcher.addDispatch(new BlockModelRetroStandard<>(AetherBlocks.PLANKS_SKYROOT)
             .setRetroAllTextures("aether:block/planks_skyroot/skyroot_retro")
             .setAllTextures("aether:block/planks_skyroot/skyroot"));
@@ -363,7 +362,7 @@ public class AetherModels {
 
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT)
             .setAllTextures("aether:block/planks_skyroot/skyroot"));
-        dispatcher.addDispatch(new BlockModelPaintedSkyrootPreasurePlate<>(AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED)
+        dispatcher.addDispatch(new BlockModelPaintedSkyrootPressurePlate<>(AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED)
             .withCustomItemBounds(0.0, 0.375, 0.0, 1.0, 0.625, 1.0));
 
         dispatcher.addDispatch(AetherBlocks.FENCE_PLANKS_SKYROOT, new BlockModelFence<>(AetherBlocks.FENCE_PLANKS_SKYROOT)
@@ -381,7 +380,7 @@ public class AetherModels {
         dispatcher.addDispatch(new BlockModelPaintedSkyrootStairs<>(AetherBlocks.STAIRS_PLANKS_SKYROOT_PAINTED));
     }
 
-    private void setBlockMachineModels(BlockModelDispatcher dispatcher) {
+    private void setBlockMachineModels(@NonNull BlockModelDispatcher dispatcher) {
         dispatcher.addDispatch(new BlockModelEnchanter<>(AetherBlocks.ENCHANTER_IDLE)
             .setRetroTex("aether:block/enchanter/top_retro", Side.TOP)
             .setRetroTex("aether:block/enchanter/bottom_retro", Side.BOTTOM)
@@ -467,7 +466,7 @@ public class AetherModels {
          );
     }
 
-    private void setBlockDungeonModels(BlockModelDispatcher dispatcher) {
+    private void setBlockDungeonModels(@NonNull BlockModelDispatcher dispatcher) {
         dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.CHEST_DUNGEON_BRONZE)
             .setTex("aether:block/chest/dungeon_bronze/front", Side.NORTH)
             .setTex("aether:block/chest/dungeon_bronze/side", Side.EAST, Side.WEST, Side.SOUTH)
@@ -608,7 +607,7 @@ public class AetherModels {
 
     }
 
-    private void setBlockPlantModels(BlockModelDispatcher dispatcher) {
+    private void setBlockPlantModels(@NonNull BlockModelDispatcher dispatcher) {
         dispatcher.addDispatch(new BlockModelAetherLog<>(AetherBlocks.LOG_SKYROOT)
             .setRetroTex("aether:block/log/skyroot_side_retro", SIDES)
             .setRetroTex("aether:block/log/skyroot_top_retro", TOP_BOTTOM)
@@ -636,7 +635,7 @@ public class AetherModels {
         dispatcher.addDispatch(new BlockModelCrossedSquares<>(AetherBlocks.DEADBUSH_AETHER).setAllTextures("aether:block/deadbush_aether"));
     }
 
-    private void setBlockCloudModels(BlockModelDispatcher dispatcher) {
+    private void setBlockCloudModels(@NonNull BlockModelDispatcher dispatcher) {
         dispatcher.addDispatch(new BlockModelTransparent<>(AetherBlocks.AERCLOUD_WHITE, false).onRenderLayer(1)
             .setAllTextures("aether:block/aercloud_white"));
         dispatcher.addDispatch(new BlockModelTransparent<>(AetherBlocks.AERCLOUD_BLUE, false).onRenderLayer(1)
@@ -648,7 +647,7 @@ public class AetherModels {
             .setAllTextures("aether:block/aerogel"));
     }
 
-    private void setItemArmorModels(ItemModelDispatcher dispatcher) {
+    private void setItemArmorModels(@NonNull ItemModelDispatcher dispatcher) {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.AMMO_HAMMER_HEAD, false).setIcon("aether:item/notch_wave"));
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_SHIELD_REPULSION, false).setIcon("aether:item/tool_shield_repulsion"));
@@ -737,15 +736,15 @@ public class AetherModels {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_PINK, false).setIcon("aether:item/armor_cape_pink"));
     }
 
-    private static ItemModelStandard handheldTool(net.minecraft.core.item.Item item, String icon) {
-        return (ItemModelStandard) new ItemModelStandard(item, true).setIcon(icon)
-            .setDisplayPos(org.useless.dragonfly.DisplayPos.FIRST_PERSON_RIGHT_HAND, net.minecraft.client.render.item.model.ItemModelDispatcher.HANDHELD_FIRST_PERSON_RIGHT_HAND)
-            .setDisplayPos(org.useless.dragonfly.DisplayPos.FIRST_PERSON_LEFT_HAND, net.minecraft.client.render.item.model.ItemModelDispatcher.HANDHELD_FIRST_PERSON_LEFT_HAND)
-            .setDisplayPos(org.useless.dragonfly.DisplayPos.THIRD_PERSON_RIGHT_HAND, net.minecraft.client.render.item.model.ItemModelDispatcher.HANDHELD_THIRD_PERSON_RIGHT_HAND)
-            .setDisplayPos(org.useless.dragonfly.DisplayPos.THIRD_PERSON_LEFT_HAND, net.minecraft.client.render.item.model.ItemModelDispatcher.HANDHELD_THIRD_PERSON_LEFT_HAND);
+    private static @NonNull ItemModelStandard handheldTool(net.minecraft.core.item.Item item, String icon) {
+        return new ItemModelStandard(item, true).setIcon(icon)
+            .setDisplayPos(org.useless.dragonfly.DisplayPos.FIRST_PERSON_RIGHT_HAND, ItemModelDispatcher.HANDHELD_FIRST_PERSON_RIGHT_HAND)
+            .setDisplayPos(org.useless.dragonfly.DisplayPos.FIRST_PERSON_LEFT_HAND, ItemModelDispatcher.HANDHELD_FIRST_PERSON_LEFT_HAND)
+            .setDisplayPos(org.useless.dragonfly.DisplayPos.THIRD_PERSON_RIGHT_HAND, ItemModelDispatcher.HANDHELD_THIRD_PERSON_RIGHT_HAND)
+            .setDisplayPos(org.useless.dragonfly.DisplayPos.THIRD_PERSON_LEFT_HAND, ItemModelDispatcher.HANDHELD_THIRD_PERSON_LEFT_HAND);
     }
 
-    private void setItemToolModels(ItemModelDispatcher dispatcher) {
+    private void setItemToolModels(@NonNull ItemModelDispatcher dispatcher) {
         dispatcher.addDispatch(handheldTool(AetherItems.TOOL_SWORD_SKYROOT, "aether:item/tool_sword_skyroot"));
         dispatcher.addDispatch(handheldTool(AetherItems.TOOL_SHOVEL_SKYROOT, "aether:item/tool_shovel_skyroot"));
         dispatcher.addDispatch(handheldTool(AetherItems.TOOL_PICKAXE_SKYROOT, "aether:item/tool_pickaxe_skyroot"));
@@ -780,7 +779,7 @@ public class AetherModels {
             .setDisplayPos("thirdperson_lefthand", new org.useless.dragonfly.DisplayPos(-0.0625f, -0.125f, 0.15625f, -80f, -280f, 40f, 0.9f, 0.9f, 0.9f)));
         dispatcher.addDispatch(new ItemModelShooter(AetherItems.TOOL_SHOOTER, false).setIcon("aether:item/shooter_gold"));
 
-        dispatcher.addDispatch((ItemModelStandard) handheldTool(AetherItems.TOOL_SWORD_FLAME, "aether:item/tool_sword_element_fire").setFullBright());
+        dispatcher.addDispatch(handheldTool(AetherItems.TOOL_SWORD_FLAME, "aether:item/tool_sword_element_fire").setFullBright());
         dispatcher.addDispatch(handheldTool(AetherItems.TOOL_SWORD_HOLY, "aether:item/tool_sword_element_holy"));
         dispatcher.addDispatch(handheldTool(AetherItems.TOOL_SWORD_LIGHTNING, "aether:item/tool_sword_element_lightning"));
         dispatcher.addDispatch(handheldTool(AetherItems.TOOL_SWORD_PIG, "aether:item/tool_knife_pig"));
@@ -792,7 +791,7 @@ public class AetherModels {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_DUNGEON_COMPASS, false).setIcon("aether:item/tool_dungeon_compass"));
     }
 
-    private void setItemBlockModels(ItemModelDispatcher dispatcher) {
+    private void setItemBlockModels(@NonNull ItemModelDispatcher dispatcher) {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_DUNGEON_BRONZE, false).setIcon("aether:item/door_dungeon_bronze"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_DUNGEON_SILVER, false).setIcon("aether:item/door_dungeon_silver"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_DUNGEON_GOLD, false).setIcon("aether:item/door_dungeon_gold"));
@@ -805,7 +804,7 @@ public class AetherModels {
         dispatcher.addDispatch(new ItemModelPaintedSkyrootSign(AetherItems.SIGN_SKYROOT_PAINTED));
     }
 
-    private void setMobAnimalModels(EntityRendererDispatcher dispatcher) {
+    private void setMobAnimalModels(@NonNull EntityRendererDispatcher dispatcher) {
         dispatcher.assignRenderer(MobSheepuff.class, new MobRendererSheepuff(0.7F));
         dispatcher.assignRenderer(MobPhow.class, new MobRendererPhow(0.7F));
         dispatcher.assignRenderer(MobMoaBlue.class, new MobRendererMoa(0.7F));
@@ -817,14 +816,14 @@ public class AetherModels {
         dispatcher.assignRenderer(MobWhirly.class, new MobRendererWhirly(0.7F));
     }
 
-    private void setMobBossModels(EntityRendererDispatcher dispatcher) {
+    private void setMobBossModels(@NonNull EntityRendererDispatcher dispatcher) {
         dispatcher.assignRenderer(MobBossSlider.class, new MobRendererSlider(1.5F));
         dispatcher.assignRenderer(MobBossValkyrie.class, new MobRendererBossValkyrie(0.5F));
         dispatcher.assignRenderer(MobBossSunspirit.class, new MobRendererSunspirit());
         dispatcher.assignRenderer(MobFireMinion.class, new MobRendererFireMinion(0.4F));
     }
 
-    private void setMobEnemyModels(EntityRendererDispatcher dispatcher) {
+    private void setMobEnemyModels(@NonNull EntityRendererDispatcher dispatcher) {
         dispatcher.assignRenderer(MobSentry.class, new MobRendererSentry(0.6F));
         dispatcher.assignRenderer(MobAechorPlant.class, new MobRendererAechorPlant(0.3F));
         dispatcher.assignRenderer(MobSwet.class, new MobRendererSwet(1.0f));
@@ -836,7 +835,7 @@ public class AetherModels {
         dispatcher.assignRenderer(MobTempest.class, new MobRendererTempest(0.7F));
     }
 
-    private void setProjectileModels(EntityRendererDispatcher dispatcher) {
+    private void setProjectileModels(@NonNull EntityRendererDispatcher dispatcher) {
         dispatcher.assignRenderer(ProjectileHammerHead.class, new EntityRendererSprite<>(AetherItems.AMMO_HAMMER_HEAD).setScale(2.0f));
         dispatcher.assignRenderer(ProjectileWindball.class, new EntityRendererSprite<>(AetherItems.AMMO_WINDBALL).setScale(4.0F).setFullBright());
         dispatcher.assignRenderer(ProjectileElementFire.class, new EntityRendererSprite<>(AetherItems.PROJECTILE_FIRE).setScale(3.0F).setFullBright());

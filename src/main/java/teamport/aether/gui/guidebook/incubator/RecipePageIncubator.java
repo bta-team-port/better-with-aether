@@ -40,7 +40,7 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
         buildSlots(recipes);
     }
 
-    public void buildSlots(List<RecipeEntryIncubator> recipes) {
+    public void buildSlots(@NonNull List<RecipeEntryIncubator> recipes) {
         for (RecipeEntryIncubator recipe : recipes) {
             int yOffset = 32 * (this.map.size() + 1) - 16;
             SlotGuidebook recipeSlot = new SlotGuidebook(0, 20, 2 * yOffset, recipe.getInput(), false, recipe);
@@ -102,7 +102,7 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
         }
     }
 
-    private static @NonNull String getEntityTitle(RecipeEntryIncubator recipe) {
+    private static @NonNull String getEntityTitle(@NonNull RecipeEntryIncubator recipe) {
         EntityDispatcher.EntityDispatcherEntry<?> entry = EntityDispatcher.getInstance().entryForId(recipe.getOutput().getEntity());
         Class<? extends Entity> entity = entry == null ? null : entry.entityClass;
         MobInfoRegistry.MobInfo mobInfo = MobInfoRegistry.getMobInfo(entity);
@@ -110,7 +110,7 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
         return "Hatch " + AetherMod.TRANSLATOR.translateKey(translationKey);
     }
 
-    public boolean getIsMouseOverSlot(Slot slot, int x, int y, int mouseX, int mouseY) {
+    public boolean getIsMouseOverSlot(@NonNull Slot slot, int x, int y, int mouseX, int mouseY) {
         return mouseX >= x + slot.x - 1 && mouseX < x + slot.x + 16 + 1 && mouseY >= y + slot.y - 1 && mouseY < y + slot.y + 16 + 1;
     }
 
@@ -135,7 +135,7 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
         }
     }
 
-    public static String[] createDescLines(FontRenderer fr, String languageKey) {
+    public static String @NonNull [] createDescLines(FontRenderer fr, String languageKey) {
         String[] words = I18n.getInstance().translateKey(languageKey).split(" ");
         List<String> lines = new ArrayList<>();
         StringBuilder line = new StringBuilder();

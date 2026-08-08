@@ -18,6 +18,7 @@ public class AetherItemTags {
     public static final Tag<Item> TRINKET = Tag.of("trinket"); // only assign to vanilla items
 
     // Tags for Item immunities.
+    /// TODO Remove inplace of the vanilla item tags that do the same thing
     public static final Tag<Item> IMMUNE_TO_FIRE_DAMAGE = Tag.of("immune_to_fire_damage");
     public static final Tag<Item> IMMUNE_TO_BLAST_DAMAGE = Tag.of("immune_to_blast_damage");
     private static final Map<DamageType, Tag<Item>> DAMAGE_IMMUNITIES = new HashMap<>();

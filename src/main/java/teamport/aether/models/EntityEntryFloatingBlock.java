@@ -8,9 +8,9 @@ import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.modelviewer.ScreenModelViewer;
 import net.minecraft.client.gui.modelviewer.categories.entries.entity.EntityEntry;
 import net.minecraft.client.gui.modelviewer.elements.TextCycleElement;
-import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.floating_block.EntityFloatingBlock;
 
 import java.util.ArrayList;
@@ -24,8 +24,8 @@ public class EntityEntryFloatingBlock extends EntityEntry<EntityFloatingBlock> {
     public void onTick(EntityFloatingBlock entity) {
     }
 
-    public List<ButtonElement> getEntryButtons(Minecraft mc, Screen parentScreen, final EntityFloatingBlock gravitite) {
-        final TextCycleElement<Integer> blockIdCycle = new TextCycleElement<Integer>(parentScreen, mc.font, -120, 0, 120, 20, gravitite.getCarriedBlock().blockId) {
+    public List<ButtonElement> getEntryButtons(@NonNull Minecraft mc, Screen parentScreen, final @NonNull EntityFloatingBlock floatingBlock) {
+        final TextCycleElement<Integer> blockIdCycle = new TextCycleElement<>(parentScreen, mc.font, -120, 0, 120, 20, floatingBlock.getCarriedBlock().blockId) {
             public Integer cycleElement(Integer current, int offset) {
                 return ScreenModelViewer.cycleBlockId(current, offset);
             }
@@ -33,14 +33,12 @@ public class EntityEntryFloatingBlock extends EntityEntry<EntityFloatingBlock> {
             public Integer getElementFromString(String s) {
                 try {
                     int id = Integer.parseInt(s);
-                    if (id < 0 || id > Blocks.highestBlockId) return gravitite.getCarriedBlock().blockId;
-                    Block<?> block = Blocks.getBlock(id);
-                    if (block != null) {
-                        return block.id();
+                    if (Blocks.blocksList[id] != null) {
+                        return id;
                     }
                 } catch (Exception ignored) { /* noop */ }
 
-                return gravitite.getCarriedBlock().blockId;
+                return floatingBlock.getCarriedBlock().blockId;
             }
 
             public String getNameFromElement(Integer element) {
@@ -49,7 +47,7 @@ public class EntityEntryFloatingBlock extends EntityEntry<EntityFloatingBlock> {
         };
         blockIdCycle.textField.setPrefaceText("ID: ");
         blockIdCycle.textField.setPlaceholder("Block ID");
-        blockIdCycle.setOnValueChanged(() -> gravitite.getCarriedBlock().blockId = blockIdCycle.getCurrentElement());
+        blockIdCycle.setOnValueChanged(() -> floatingBlock.getCarriedBlock().blockId = blockIdCycle.getCurrentElement());
         List<ButtonElement> list = new ArrayList<>();
         list.add(blockIdCycle);
         return list;

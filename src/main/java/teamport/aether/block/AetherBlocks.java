@@ -2,7 +2,6 @@ package teamport.aether.block;
 
 import net.minecraft.core.Global;
 import net.minecraft.core.block.*;
-import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.Entity;

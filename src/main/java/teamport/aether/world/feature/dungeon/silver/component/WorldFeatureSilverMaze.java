@@ -3,6 +3,7 @@ package teamport.aether.world.feature.dungeon.silver.component;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.DyeColor;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherMod;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.helper.unboxed.IntPair;
@@ -149,8 +150,8 @@ public class WorldFeatureSilverMaze {
 
         boolean[] generated = new boolean[ROOM_COUNT];
         for (IntPair edge : edges) {
-            int to = edge.getFirst();
-            int from = edge.getSecond();
+            int to = edge.first();
+            int from = edge.second();
             generated[to] = true;
             this.createRoomMaze(to, from, x, y, z);
             if (!generated[from]) {
@@ -237,7 +238,7 @@ public class WorldFeatureSilverMaze {
     }
 
 
-    public void createHallway(int x, int y, int z, Direction doorDirection) {
+    public void createHallway(int x, int y, int z, @NonNull Direction doorDirection) {
         rooms.add(drawShell(random, ANGELIC_ROOM, Direction.SOUTH, 8, Direction.UP, 6, Direction.WEST, 8, x, y, z, false));
         // only generate door in horizontal direction
         switch (doorDirection) {

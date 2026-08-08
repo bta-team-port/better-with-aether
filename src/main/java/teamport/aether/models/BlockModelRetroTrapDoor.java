@@ -10,6 +10,7 @@ import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.block.BlockLogicTrapDoor;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.helper.Sides;
+import org.jspecify.annotations.NonNull;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -23,7 +24,7 @@ public class BlockModelRetroTrapDoor<T extends BlockLogic> extends BlockModelTra
     }
 
     @Override
-    public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int metadata) {
+    public IconCoordinate getBlockTextureFromSideAndMetadata(@NonNull Side side, int metadata) {
         int rotation = metadata & 3;
         Side effectiveSide;
         if (BlockLogicTrapDoor.isTrapdoorOpen(metadata)) {
@@ -38,7 +39,7 @@ public class BlockModelRetroTrapDoor<T extends BlockLogic> extends BlockModelTra
         return isRetro() && retroTexture != null ? retroTexture : super.getBlockTextureFromSideAndMetadata(side, metadata);
     }
 
-    public BlockModelRetroTrapDoor<T> setRetroTex(String texture, Side... sides) {
+    public BlockModelRetroTrapDoor<T> setRetroTex(String texture, Side @NonNull ... sides) {
         IconCoordinate coordinate = TextureRegistry.getTexture(texture);
         for (Side side : sides) retroTextures.put(side, coordinate);
         return this;

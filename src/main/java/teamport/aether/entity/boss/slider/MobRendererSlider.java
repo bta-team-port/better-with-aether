@@ -18,7 +18,7 @@ public class MobRendererSlider extends MobRenderer<MobBossSlider> {
     }
 
     @Override
-    public void renderPreview(TessellatorGeneral tessellator, MobBossSlider slider, double x, double y, double z,
+    public void renderPreview(@NonNull TessellatorGeneral tessellator, @NonNull MobBossSlider slider, double x, double y, double z,
                               float yaw, float partialTick) {
         GLRenderer.pushFrame();
         GLRenderer.modelM4f().scale(0.75F, 0.75F, 0.75F);
@@ -27,7 +27,7 @@ public class MobRendererSlider extends MobRenderer<MobBossSlider> {
         GLRenderer.popFrame();
     }
 
-    private void bindGlowTexture(MobBossSlider slider) {
+    private void bindGlowTexture(@NonNull MobBossSlider slider) {
         String state = slider.isAwake() && !slider.doingSlam() ? "awake" : "sleep";
         String anger = slider.isAngry() ? "_red" : "";
         this.bindTexture("/assets/aether/textures/entity/boss_slider/slider_" + state + anger + "_glow.png");

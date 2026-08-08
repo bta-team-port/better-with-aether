@@ -222,7 +222,7 @@ public class AetherClient implements ClientModInitializer {
             )
         );
 
-        ((HudComponentMovable) HudComponents.OXYGEN_BAR).setLayout(new LayoutSnap(HudComponents.BOOTS_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT));
+        HudComponents.OXYGEN_BAR.setLayout(new LayoutSnap(HudComponents.BOOTS_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT));
     }
 
     public static void registerTextures() {

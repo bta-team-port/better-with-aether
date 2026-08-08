@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 import java.util.Random;
 
-@Mixin(value = Item.class, remap = false)
+@Mixin(Item.class)
 public interface ItemAccessor {
     @Accessor("itemRand")
     static Random getItemRand() {

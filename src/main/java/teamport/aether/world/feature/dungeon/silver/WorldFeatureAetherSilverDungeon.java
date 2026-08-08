@@ -10,6 +10,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherMod;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.block.terrain.BlockLogicCloudBase;
@@ -156,11 +157,11 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
         this.direction = Direction.horizontal[direction & 3]; // to prevent overflow
     }
 
-    public WorldFeatureAetherSilverDungeon(Random random) {
+    public WorldFeatureAetherSilverDungeon(@NonNull Random random) {
         this(random.nextInt(4));
     }
 
-    public void placeComponent(WorldFeatureComponent component) {
+    public void placeComponent(@NonNull WorldFeatureComponent component) {
         for (WorldFeatureBlock block : component.getBlockList()) {
             block.rotateYAroundPivot(dungeonAnchor, direction);
             block.place(world);
@@ -168,7 +169,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
     }
 
     @Override
-    public boolean canPlace(World world, int x, int y, int z) {
+    public boolean canPlace(@NonNull World world, int x, int y, int z) {
         if (y + 35 >= world.getHeightBlocks()) {
             return false;
         }
@@ -182,7 +183,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
             Material blockMaterial = world.getBlockMaterial(point.getX(), point.getY(), point.getZ());
             BlockLogicCloudBase blockLogic = world.getBlockLogic(point.getX(), point.getY(), point.getZ(), BlockLogicCloudBase.class);
 
-            if (blockMaterial != null && blockMaterial != Materials.AIR && blockLogic == null) {
+            if (blockMaterial != Materials.AIR && blockLogic == null) {
                 AetherMod.LOGGER.info("Could not place a silver dungeon at {},{},{}, with blockMaterial {}", x, y, z, blockMaterial);
                 return false;
             }
@@ -198,7 +199,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
     }
 
     @Override
-    public boolean generate(DungeonLogicSilverDungeon logic, World world, long seed, int x, int y, int z) {
+    public boolean generate(@NonNull DungeonLogicSilverDungeon logic, World world, long seed, int x, int y, int z) {
         this.world = world;
         this.random = new Random(logic.seed);
         this.logic = logic;
@@ -214,7 +215,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
         return true;
     }
 
-    public static List<ItemStack> generateLoot(Random random) {
+    public static @NonNull List<ItemStack> generateLoot(@NonNull Random random) {
         List<ItemStack> loot = new ArrayList<>();
         //min 8 max 10
         int count = random.nextInt(3) + 8;
@@ -234,7 +235,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
         return loot;
     }
 
-    private List<WorldFeaturePoint> getCloudPoints(int x, int y, int z) {
+    private @NonNull List<WorldFeaturePoint> getCloudPoints(int x, int y, int z) {
         List<WorldFeaturePoint> cloud = new ArrayList<>();
         for (int i = 0; i < 120; i++) {
             cloud.add(new WorldFeaturePoint(x + 5 - random.nextInt(40), y - 2 - random.nextInt(5), z - 5 + random.nextInt(65)));
@@ -286,8 +287,8 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
             new WorldFeaturePoint(x + 2, y - 1, z - 3),
             new WorldFeaturePoint(x - 31, y + 23, z + 56)
         );
-        clearArea.getFirst().rotateYAroundPivot(this.dungeonAnchor, this.direction);
-        clearArea.getSecond().rotateYAroundPivot(this.dungeonAnchor, this.direction);
+        clearArea.first().rotateYAroundPivot(this.dungeonAnchor, this.direction);
+        clearArea.second().rotateYAroundPivot(this.dungeonAnchor, this.direction);
 
         // Entrance hole into boss room
         int entranceDoorMeta = BlockLogicRotatable.setDirection(0, this.direction);
@@ -370,7 +371,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
         this.placeComponent(drawPlane(0, 0, Direction.WEST, 2, Direction.DOWN, 1, x - 14, y, z + 3, false));
     }
 
-    private WorldFeatureComponent createPillar(int x, int y, int z) {
+    private @NonNull WorldFeatureComponent createPillar(int x, int y, int z) {
         WorldFeatureComponent pillar = new WorldFeatureComponent();
         pillar.add(drawPlane(this.random, ANGELIC, Direction.SOUTH, 3, Direction.WEST, 3, x, y, z, false));
         pillar.add(drawPlane(this.random, ANGELIC, Direction.SOUTH, 3, Direction.WEST, 3, x, y + 14, z, false));

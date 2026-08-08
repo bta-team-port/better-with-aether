@@ -2,6 +2,7 @@ package teamport.aether.world.feature.terrain;
 
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
+import org.jspecify.annotations.NonNull;
 
 import java.util.Random;
 
@@ -15,7 +16,7 @@ public class WorldFeatureAetherClouds extends WorldFeature {
     }
 
     @Override
-    public boolean place(World world, Random random, int x, int y, int z) {
+    public boolean place(World world, @NonNull Random random, int x, int y, int z) {
         int xOffset = random.nextInt(3) - 1;
         int zOffset = random.nextInt(3) - 1;
 

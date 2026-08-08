@@ -1,7 +1,7 @@
 package teamport.aether.world.feature.util;
 
-import net.minecraft.core.block.BlockLogicChest;
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.BlockLogicChest;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.Container;
@@ -33,7 +33,7 @@ public class WorldFeatureComponent {
         this.blockList = new ArrayList<>();
     }
 
-    public void add(WorldFeatureComponent component) {
+    public void add(@NonNull WorldFeatureComponent component) {
         this.blockList.addAll(component.blockList);
         this.tail = component.tail;
     }
@@ -43,7 +43,7 @@ public class WorldFeatureComponent {
         this.tail = makePoint(list.get(list.size() - 1));
     }
 
-    private WorldFeaturePoint makePoint(WorldFeatureBlock wfb) {
+    private @NonNull WorldFeaturePoint makePoint(@NonNull WorldFeatureBlock wfb) {
         return new WorldFeaturePoint(wfb.getX(), wfb.getY(), wfb.getZ());
     }
 
@@ -74,7 +74,7 @@ public class WorldFeatureComponent {
     public static void populateChest(
         World world,
         Random random,
-        WorldFeatureBlock wfb,
+        @NonNull WorldFeatureBlock wfb,
         LootGenerator lootGenerator
     ) {
         Container inventory = getOrCreateChestInventory(world, new TilePos(wfb.getX(), wfb.getY(), wfb.getZ()));
@@ -87,14 +87,13 @@ public class WorldFeatureComponent {
         }
     }
 
-    public static @Nullable Container getOrCreateChestInventory(World world, TilePos pos) {
+    public static @Nullable Container getOrCreateChestInventory(@NonNull World world, TilePos pos) {
         TileEntity tileEntity = world.getTileEntity(pos);
         if (tileEntity == null) {
-            Block<?> block = world.getBlock(pos.x, pos.y, pos.z);
-            if (block == null || block.entitySupplier == null) return null;
+            Block<?> block = world.getBlockType(pos);
+            if (block.entitySupplier == null) return null;
 
             tileEntity = block.entitySupplier.get();
-            if (tileEntity == null) return null;
             world.setTileEntity(pos, tileEntity);
         }
 
@@ -129,7 +128,7 @@ public class WorldFeatureComponent {
         inventory.setItem(index, itemstack);
     }
 
-    public static WorldFeatureComponent drawSphere(
+    public static @NonNull WorldFeatureComponent drawSphere(
         Random random, BlockPallet pallet,
         int x, int y, int z,
         int radius,
@@ -154,7 +153,7 @@ public class WorldFeatureComponent {
         return component;
     }
 
-    public static WorldFeatureComponent drawSpheroid(
+    public static @NonNull WorldFeatureComponent drawSpheroid(
         Random random, BlockPallet pallet,
         int x, int y, int z,
         int width, int height, int depth,
@@ -177,7 +176,7 @@ public class WorldFeatureComponent {
         return component;
     }
 
-    public static WorldFeatureComponent drawLine(
+    public static @NonNull WorldFeatureComponent drawLine(
         int id, int meta,
         Direction direction, int length,
         int startX, int startY, int startZ,
@@ -195,7 +194,7 @@ public class WorldFeatureComponent {
         return component;
     }
 
-    public static WorldFeatureComponent drawLine(
+    public static @NonNull WorldFeatureComponent drawLine(
         Random random, BlockPallet pallet,
         Direction direction, int length,
         int startX, int startY, int startZ,
@@ -213,7 +212,7 @@ public class WorldFeatureComponent {
         return component;
     }
 
-    public static WorldFeatureComponent drawPlane(
+    public static @NonNull WorldFeatureComponent drawPlane(
         int id, int meta,
         Direction direction1, int length1,
         Direction direction2, int length2,
@@ -241,7 +240,7 @@ public class WorldFeatureComponent {
         return component;
     }
 
-    public static WorldFeatureComponent drawPlane(
+    public static @NonNull WorldFeatureComponent drawPlane(
         Random random, BlockPallet pallet,
         Direction direction1, int length1,
         Direction direction2, int length2,
@@ -269,7 +268,7 @@ public class WorldFeatureComponent {
         return component;
     }
 
-    public static WorldFeatureComponent drawVolume(
+    public static @NonNull WorldFeatureComponent drawVolume(
         int id, int meta,
         Direction direction1, int length1,
         Direction direction2, int length2,
@@ -303,7 +302,7 @@ public class WorldFeatureComponent {
         return component;
     }
 
-    public static WorldFeatureComponent drawVolume(
+    public static @NonNull WorldFeatureComponent drawVolume(
         Random random, BlockPallet pallet,
         Direction direction1, int length1,
         Direction direction2, int length2,
@@ -338,11 +337,11 @@ public class WorldFeatureComponent {
         return component;
     }
 
-    public static WorldFeatureComponent drawShell(
+    public static @NonNull WorldFeatureComponent drawShell(
         int id, int meta,
         Direction direction1, int length1,
         Direction direction2, int length2,
-        Direction direction3, int length3,
+        @NonNull Direction direction3, int length3,
         int startX, int startY, int startZ,
         boolean withNotify
     ) {
@@ -397,11 +396,11 @@ public class WorldFeatureComponent {
         return component;
     }
 
-    public static WorldFeatureComponent drawShell(
+    public static @NonNull WorldFeatureComponent drawShell(
         Random random, BlockPallet pallet,
         Direction direction1, int length1,
         Direction direction2, int length2,
-        Direction direction3, int length3,
+        @NonNull Direction direction3, int length3,
         int startX, int startY, int startZ,
         boolean withNotify
     ) {
@@ -456,7 +455,7 @@ public class WorldFeatureComponent {
         return component;
     }
 
-    public static WorldFeatureComponent drawHollowShell(
+    public static @NonNull WorldFeatureComponent drawHollowShell(
         Random random, BlockPallet pallet,
         Direction direction1, int length1,
         Direction direction2, int length2,
@@ -484,7 +483,7 @@ public class WorldFeatureComponent {
         return hollow;
     }
 
-    public static WorldFeatureComponent drawSquareCylinder(
+    public static @NonNull WorldFeatureComponent drawSquareCylinder(
         Random random, BlockPallet pallet,
         Direction direction1, int length1,
         Direction direction2, int length2,
@@ -512,7 +511,7 @@ public class WorldFeatureComponent {
         return cylinder;
     }
 
-    public static WorldFeatureComponent drawVolume(int id, int meta, WorldFeaturePoint p1, WorldFeaturePoint p2, boolean withNotify) {
+    public static @NonNull WorldFeatureComponent drawVolume(int id, int meta, @NonNull WorldFeaturePoint p1, @NonNull WorldFeaturePoint p2, boolean withNotify) {
         int minX = Math.min(p1.getX(), p2.getX());
         int minY = Math.min(p1.getY(), p2.getY());
         int minZ = Math.min(p1.getZ(), p2.getZ());
@@ -522,7 +521,7 @@ public class WorldFeatureComponent {
         return drawVolume(id, meta, EAST, length1, UP, length2, SOUTH, length3, minX, minY, minZ, withNotify);
     }
 
-    public static WorldFeatureComponent drawVolumeWithPoint(int id, int meta, WorldFeaturePoint p1, WorldFeaturePoint p2, boolean withNotify) {
+    public static @NonNull WorldFeatureComponent drawVolumeWithPoint(int id, int meta, @NonNull WorldFeaturePoint p1, @NonNull WorldFeaturePoint p2, boolean withNotify) {
         int length1 = p1.getX() - p2.getX();
         int length2 = p1.getY() - p2.getY();
         int length3 = p1.getZ() - p2.getZ();
@@ -532,7 +531,7 @@ public class WorldFeatureComponent {
         return drawVolume(id, meta, dir1, Math.abs(length1), dir2, Math.abs(length2), dir3, Math.abs(length3), p1.getX(), p1.getY(), p1.getZ(), withNotify);
     }
 
-    public static WorldFeatureComponent drawVolumeWithPoint(Random random, BlockPallet pallet, WorldFeaturePoint p1, WorldFeaturePoint p2, boolean withNotify) {
+    public static @NonNull WorldFeatureComponent drawVolumeWithPoint(Random random, BlockPallet pallet, @NonNull WorldFeaturePoint p1, @NonNull WorldFeaturePoint p2, boolean withNotify) {
         int length1 = p1.getX() - p2.getX();
         int length2 = p1.getY() - p2.getY();
         int length3 = p1.getZ() - p2.getZ();
@@ -542,7 +541,7 @@ public class WorldFeatureComponent {
         return drawVolume(random, pallet, dir1, Math.abs(length1), dir2, Math.abs(length2), dir3, Math.abs(length3), p1.getX(), p1.getY(), p1.getZ(), withNotify);
     }
 
-    public static WorldFeatureComponent drawVolume(Random random, BlockPallet pallet, WorldFeaturePoint p1, WorldFeaturePoint p2, boolean withNotify) {
+    public static @NonNull WorldFeatureComponent drawVolume(Random random, BlockPallet pallet, @NonNull WorldFeaturePoint p1, @NonNull WorldFeaturePoint p2, boolean withNotify) {
         int minX = Math.min(p1.getX(), p2.getX());
         int minY = Math.min(p1.getY(), p2.getY());
         int minZ = Math.min(p1.getZ(), p2.getZ());
@@ -552,11 +551,11 @@ public class WorldFeatureComponent {
         return drawVolume(random, pallet, EAST, length1, UP, length2, SOUTH, length3, minX, minY, minZ, withNotify);
     }
 
-    public static void iterate3d(Pair<WorldFeaturePoint, WorldFeaturePoint> area, Consumer<WorldFeaturePoint> func) {
-        iterate3d(area.getFirst(), area.getSecond(), func);
+    public static void iterate3d(@NonNull Pair<WorldFeaturePoint, WorldFeaturePoint> area, Consumer<WorldFeaturePoint> func) {
+        iterate3d(area.first(), area.second(), func);
     }
 
-    public static void iterate3d(WorldFeaturePoint first, WorldFeaturePoint second, Consumer<WorldFeaturePoint> func) {
+    public static void iterate3d(@NonNull WorldFeaturePoint first, @NonNull WorldFeaturePoint second, Consumer<WorldFeaturePoint> func) {
         int firstX = Math.min(first.getX(), second.getX());
         int secondX = Math.max(first.getX(), second.getX());
         int firstY = Math.min(first.getY(), second.getY());

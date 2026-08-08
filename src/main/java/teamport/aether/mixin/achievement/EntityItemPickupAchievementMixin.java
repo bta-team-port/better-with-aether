@@ -13,10 +13,12 @@ import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.item.AetherItems;
 
-@Mixin(value = EntityItem.class, remap = false)
+@Mixin(EntityItem.class)
 public abstract class EntityItemPickupAchievementMixin {
+
     @Shadow
     public ItemStack item;
+
     @Inject(method = "playerTouch", at = @At("TAIL"))
     private void playerTouch(Player player, CallbackInfo ci) {
         String pickUpKey = StatList.STAT_PICKED_UP;

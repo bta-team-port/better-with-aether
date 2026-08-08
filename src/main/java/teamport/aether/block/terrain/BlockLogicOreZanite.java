@@ -1,5 +1,6 @@
 package teamport.aether.block.terrain;
 
+import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.block.entity.TileEntity;
@@ -7,30 +8,24 @@ import net.minecraft.core.block.material.Material;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
-import net.minecraft.core.world.generate.feature.WorldFeatureOre;
-import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.item.AetherItems;
 
 public class BlockLogicOreZanite extends BlockLogic {
-    public static final Int2IntArrayMap variantMap = new Int2IntArrayMap();
+    public static Int2IntArrayMap variantMap = new Int2IntArrayMap();
 
-    public BlockLogicOreZanite(Block<?> block, Block<?> parentBlock, Material material) {
+    public BlockLogicOreZanite(@NonNull Block<?> block, @NonNull Block<?> parentBlock, @NonNull Material material) {
         super(block, material);
         variantMap.put(parentBlock.id(), block.id());
     }
 
     @Override
-    public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
-        switch (dropCause) {
-            case SILK_TOUCH:
-            case PICK_BLOCK:
-                return new ItemStack[]{new ItemStack(this)};
-            case EXPLOSION:
-            case PROPER_TOOL:
-            case PISTON_CRUSH:
-                return new ItemStack[]{new ItemStack(AetherItems.ZANITE)};
-            default:
-                return null;
-        }
+    public ItemStack[] getBreakResult(@NonNull World world, @NonNull EnumDropCause dropCause, int data, @Nullable TileEntity tileEntity) {
+        return switch (dropCause) {
+            case SILK_TOUCH, PICK_BLOCK -> new ItemStack[]{new ItemStack(this)};
+            case EXPLOSION, PROPER_TOOL, PISTON_CRUSH -> new ItemStack[]{new ItemStack(AetherItems.ZANITE)};
+            default -> null;
+        };
     }
 }

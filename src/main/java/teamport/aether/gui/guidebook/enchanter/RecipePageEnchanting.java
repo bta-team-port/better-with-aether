@@ -24,7 +24,7 @@ public class RecipePageEnchanting extends RecipePageAetherMachines {
     }
 
     @Override
-    public void buildSlots(List<RecipeEntryAetherMachine> recipes) {
+    public void buildSlots(@NonNull List<RecipeEntryAetherMachine> recipes) {
         for (RecipeEntryAetherMachine recipe : recipes) {
             List<SlotGuidebook> recipeSlots = new ArrayList<>();
             RecipeSymbol varietyItem = getDamagedVariety(recipe);
@@ -80,7 +80,7 @@ public class RecipePageEnchanting extends RecipePageAetherMachines {
 
     }
 
-    public static String getTimeAsString(int data) {
+    public static @NonNull String getTimeAsString(int data) {
         StringBuilder buildTime = new StringBuilder();
         int time = Math.round(data / 20.0F);
         if (time >= 60) {
@@ -92,7 +92,7 @@ public class RecipePageEnchanting extends RecipePageAetherMachines {
         return buildTime.toString();
     }
 
-    public static @NonNull RecipeSymbol getDamagedVariety(RecipeEntryAetherMachine recipe) {
+    public static @NonNull RecipeSymbol getDamagedVariety(@NonNull RecipeEntryAetherMachine recipe) {
         RecipeSymbol varientRecipeInput = recipe.getInput();
         ItemStack input = varientRecipeInput.getStack();
         ItemStack copyInput = ItemStack.copyItemStack(input);

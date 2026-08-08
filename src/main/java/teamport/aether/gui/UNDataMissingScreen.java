@@ -8,6 +8,7 @@ import net.minecraft.client.player.controller.PlayerControllerSP;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.save.SaveFile;
+import org.jspecify.annotations.NonNull;
 import org.lwjgl.input.Keyboard;
 
 @Environment(EnvType.CLIENT)
@@ -58,7 +59,7 @@ public class UNDataMissingScreen extends Screen {
     }
 
     @Override
-    protected void buttonClicked(ButtonElement button) {
+    protected void buttonClicked(@NonNull ButtonElement button) {
         if (!button.enabled) {
             return;
         }

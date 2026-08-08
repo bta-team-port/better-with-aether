@@ -6,6 +6,7 @@ import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.renderer.GLRenderer;
 import net.minecraft.client.render.tessellator.TessellatorGeneral;
 import net.minecraft.core.util.helper.MathHelper;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.projectile.ProjectileDart;
 
 @Environment(EnvType.CLIENT)
@@ -13,7 +14,7 @@ public class EntityRendererDart extends EntityRenderer<ProjectileDart> {
     public EntityRendererDart() {}
 
     @Override
-    public void render(TessellatorGeneral tessellator, ProjectileDart dart, double x, double y, double z, float yaw, float partialTick) {
+    public void render(@NonNull TessellatorGeneral tessellator, @NonNull ProjectileDart dart, double x, double y, double z, float yaw, float partialTick) {
         this.bindTexture("/assets/aether/textures/entity/darts.png");
         GLRenderer.pushFrame();
         GLRenderer.modelM4f().translate((float) x, (float) y, (float) z);

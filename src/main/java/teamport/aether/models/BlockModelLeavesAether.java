@@ -10,6 +10,7 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.world.WorldSource;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 import org.useless.dragonfly.models.block.StaticBlockModel;
 
 @Environment(EnvType.CLIENT)
@@ -26,12 +27,12 @@ public class BlockModelLeavesAether<T extends BlockLogic> extends BlockModelGene
     }
 
     @Override
-    public StaticBlockModel getModelFromData(int data) {
+    public @NonNull StaticBlockModel getModelFromData(int data) {
         return isRetro() ? getRetroModel() : super.getModelFromData(data);
     }
 
     @Override
-    public StaticBlockModel getModel(WorldSource world, TilePosc pos) {
+    public @NonNull StaticBlockModel getModel(@NonNull WorldSource world, @NonNull TilePosc pos) {
         return isRetro() ? getRetroModel() : super.getModel(world, pos);
     }
 

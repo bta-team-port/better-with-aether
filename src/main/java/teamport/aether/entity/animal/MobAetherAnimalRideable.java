@@ -44,7 +44,7 @@ public class MobAetherAnimalRideable extends MobAetherAnimal implements AetherRi
 
     @Override
     public void controlEntity(float moveForward, float moveStrafe, boolean isJumping, float xRot, float yRot) {
-        if (EnvironmentHelper.isClientWorld()) {
+        if (EnvironmentHelper.isMultiplayerClient()) {
             NetworkHandler.sendToServer(
                 new AetherRideableNetworkMessage(moveForward, moveStrafe, isJumping, xRot, yRot)
             );

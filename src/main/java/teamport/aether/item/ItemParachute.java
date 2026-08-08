@@ -4,6 +4,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherMod;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
@@ -20,8 +21,8 @@ public class ItemParachute extends Item {
     }
 
     @Override
-    public ItemStack onUse(ItemStack itemstack, World world, Player player) {
-        if (player.fallDistance > 0 && !player.isInWater() && !EnvironmentHelper.isClientWorld()) {
+    public ItemStack onUse(@NonNull ItemStack itemstack, @NonNull World world, @NonNull Player player) {
+        if (player.fallDistance > 0 && !player.isInWater() && !EnvironmentHelper.isMultiplayerClient()) {
 
             EntityParachute cloud;
             try {
@@ -37,7 +38,7 @@ public class ItemParachute extends Item {
 
             player.startRiding(cloud);
 
-            if (!EnvironmentHelper.isServerEnvironment()) {
+            if (!EnvironmentHelper.isMultiplayerServer()) {
                 player.triggerAchievement(AetherAchievements.PARACHUTE);
             }
 

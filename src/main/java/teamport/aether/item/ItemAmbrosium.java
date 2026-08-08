@@ -4,6 +4,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemFood;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.achievements.AetherAchievements;
 
 public class ItemAmbrosium extends ItemFood {
@@ -15,7 +16,7 @@ public class ItemAmbrosium extends ItemFood {
     }
 
     @Override
-    public ItemStack onUse(ItemStack itemstack, World world, Player entityplayer) {
+    public ItemStack onUse(@NonNull ItemStack itemstack, @NonNull World world, @NonNull Player entityplayer) {
         if (entityplayer.getHealth() < entityplayer.getMaxHealth() && entityplayer.getHealth() + entityplayer.getTotalHealingRemaining() < entityplayer.getMaxHealth() && itemstack.consumeItem(entityplayer)) {
             entityplayer.eatFood(itemstack);
             entityplayer.triggerAchievement(AetherAchievements.AMBROSIUM);

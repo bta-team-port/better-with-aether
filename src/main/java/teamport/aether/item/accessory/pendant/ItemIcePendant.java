@@ -11,6 +11,7 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 import org.joml.Vector3d;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.player.PlayerUtil;
 
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
@@ -24,7 +25,7 @@ public class ItemIcePendant extends ItemPendant {
 
 
     @Override
-    public void inventoryTick(ItemStack stack, World world, Entity entity, int slotId, boolean flag) {
+    public void inventoryTick(@NonNull ItemStack stack, @NonNull World world, @NonNull Entity entity, int slotId, boolean flag) {
         Player player = (Player) entity;
         if (
             slotId < player.inventory.mainInventory.length
@@ -61,7 +62,7 @@ public class ItemIcePendant extends ItemPendant {
         }
     }
 
-    private void damagePendant(ItemStack stack, Player player) {
+    private void damagePendant(@NonNull ItemStack stack, Player player) {
         stack.damageItem(1, player);
         if (PlayerUtil.getArmorOrAccessoryItem(player, TRINKET_1_SLOT) == stack && stack.stackSize <= 0) {
             PlayerUtil.clearArmorOrAccessoryItem(player, TRINKET_1_SLOT);

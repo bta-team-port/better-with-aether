@@ -8,6 +8,7 @@ import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.util.helper.Side;
+import org.jspecify.annotations.NonNull;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -21,7 +22,7 @@ public class BlockModelRetroStandard<T extends BlockLogic> extends BlockModelSta
     }
 
     @Override
-    public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int metadata) {
+    public IconCoordinate getBlockTextureFromSideAndMetadata(@NonNull Side side, int metadata) {
         IconCoordinate retroTexture = retroTextures.get(side);
         return isRetro() && retroTexture != null ? retroTexture : super.getBlockTextureFromSideAndMetadata(side, metadata);
     }
@@ -50,7 +51,7 @@ public class BlockModelRetroStandard<T extends BlockLogic> extends BlockModelSta
         return this;
     }
 
-    public BlockModelRetroStandard<T> setRetroTex(String texture, Side... sides) {
+    public BlockModelRetroStandard<T> setRetroTex(String texture, Side @NonNull ... sides) {
         IconCoordinate coordinate = TextureRegistry.getTexture(texture);
         for (Side side : sides) retroTextures.put(side, coordinate);
         return this;

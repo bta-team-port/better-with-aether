@@ -4,6 +4,7 @@ package teamport.aether.world.feature.util;
 import net.minecraft.core.block.BlockLogicTorch;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.DyeColor;
+import org.jspecify.annotations.NonNull;
 
 import static net.minecraft.core.block.BlockLogicTrapDoor.*;
 import static net.minecraft.core.util.helper.Direction.*;
@@ -23,11 +24,11 @@ public class MetadataHelper {
         return 0;
     }
 
-    public static int getMetadataFromDyeAndDirection(DyeColor dyeColor, Direction direction) {
+    public static int getMetadataFromDyeAndDirection(@NonNull DyeColor dyeColor, Direction direction) {
         return dyeColor.blockMeta << 4 | horizontalIndex(direction);
     }
 
-    public static int getMetadataFromDyeAndLower(DyeColor dyeColor, int lowerBits) {
+    public static int getMetadataFromDyeAndLower(@NonNull DyeColor dyeColor, int lowerBits) {
         return dyeColor.blockMeta << 4 | lowerBits;
     }
 
@@ -50,7 +51,7 @@ public class MetadataHelper {
      * @implNote Sets the metadata for trapdoor using color, the block placement,
      * whether it opens and its opening direction
      */
-    public static int setMetadataTrapdoor(DyeColor dyeColor, boolean isUpper, boolean isOpen, Direction direction) {
+    public static int setMetadataTrapdoor(@NonNull DyeColor dyeColor, boolean isUpper, boolean isOpen, @NonNull Direction direction) {
         int upper = isUpper ? 1 : 0;
         int open = isOpen ? 1 : 0;
         int metadata = dyeColor.blockMeta << 4;
@@ -67,7 +68,7 @@ public class MetadataHelper {
      * @implNote Sets the metadata for trapdoor using the block placement,
      * whether it opens and its opening direction
      */
-    public static int getMetadataStairs(DyeColor dyeColor, boolean isUpper, Direction direction) {
+    public static int getMetadataStairs(@NonNull DyeColor dyeColor, boolean isUpper, Direction direction) {
         int upper = isUpper ? 1 : 0;
         int metadata = dyeColor.blockMeta << 4;
         metadata |= upper << 3;
@@ -77,100 +78,69 @@ public class MetadataHelper {
     /**
      * @implNote The direction is the ascending direction of the trapdoors.
      */
-    public static int getTrapDoorMetaForDirection(Direction direction) {
-        switch (direction) {
-            case EAST:
-                return DIRECTION_EAST;
-            case WEST:
-                return DIRECTION_WEST;
-            case SOUTH:
-                return DIRECTION_SOUTH;
-            case NORTH:
-            default:
-                return DIRECTION_NORTH;
-        }
+    public static int getTrapDoorMetaForDirection(@NonNull Direction direction) {
+        return switch (direction) {
+            case EAST -> DIRECTION_EAST;
+            case WEST -> DIRECTION_WEST;
+            case SOUTH -> DIRECTION_SOUTH;
+            default -> DIRECTION_NORTH;
+        };
     }
 
     /**
      * @implNote The direction is the ascending direction of the trapdoors.
      */
     public static Direction getTrapDoorDirectionForMeta(int metadata) {
-        switch (metadata) {
-            case DIRECTION_SOUTH:
-                return SOUTH;
-            case DIRECTION_NORTH:
-                return NORTH;
-            case DIRECTION_EAST:
-                return EAST;
-            case DIRECTION_WEST:
-                return WEST;
-            default:
-                return NONE;
-        }
+        return switch (metadata) {
+            case DIRECTION_SOUTH -> SOUTH;
+            case DIRECTION_NORTH -> NORTH;
+            case DIRECTION_EAST -> EAST;
+            case DIRECTION_WEST -> WEST;
+            default -> NONE;
+        };
     }
 
     /**
      * @implNote The direction is the ascending direction of the torches.
      */
-    public static int getTorchMetadataFromDirection(Direction direction) {
-        switch (direction) {
-            case NORTH:
-                return BlockLogicTorch.SIDE_NORTH;
-            case EAST:
-                return BlockLogicTorch.SIDE_EAST;
-            case SOUTH:
-                return BlockLogicTorch.SIDE_SOUTH;
-            case WEST:
-                return BlockLogicTorch.SIDE_WEST;
-            case DOWN:
-                return BlockLogicTorch.SIDE_BOTTOM;
-            case UP:
-                return BlockLogicTorch.SIDE_TOP;
-            case NONE:
-            default:
-                return BlockLogicTorch.SIDE_NONE;
-        }
+    public static int getTorchMetadataFromDirection(@NonNull Direction direction) {
+        return switch (direction) {
+            case NORTH -> BlockLogicTorch.SIDE_NORTH;
+            case EAST -> BlockLogicTorch.SIDE_EAST;
+            case SOUTH -> BlockLogicTorch.SIDE_SOUTH;
+            case WEST -> BlockLogicTorch.SIDE_WEST;
+            case DOWN -> BlockLogicTorch.SIDE_BOTTOM;
+            case UP -> BlockLogicTorch.SIDE_TOP;
+            default -> BlockLogicTorch.SIDE_NONE;
+        };
     }
 
     /**
      * @implNote The direction is the ascending direction of the torches.
      */
     public static Direction getTorchDirectionFromMetadata(int metadata) {
-        switch (metadata) {
-            case BlockLogicTorch.SIDE_NORTH:
-                return NORTH;
-            case BlockLogicTorch.SIDE_EAST:
-                return EAST;
-            case BlockLogicTorch.SIDE_SOUTH:
-                return SOUTH;
-            case BlockLogicTorch.SIDE_WEST:
-                return WEST;
-            case BlockLogicTorch.SIDE_BOTTOM:
-                return DOWN;
-            case BlockLogicTorch.SIDE_TOP:
-                return UP;
-            case BlockLogicTorch.SIDE_NONE:
-            default:
-                return NONE;
-        }
+        return switch (metadata) {
+            case BlockLogicTorch.SIDE_NORTH -> NORTH;
+            case BlockLogicTorch.SIDE_EAST -> EAST;
+            case BlockLogicTorch.SIDE_SOUTH -> SOUTH;
+            case BlockLogicTorch.SIDE_WEST -> WEST;
+            case BlockLogicTorch.SIDE_BOTTOM -> DOWN;
+            case BlockLogicTorch.SIDE_TOP -> UP;
+            default -> NONE;
+        };
     }
 
     /**
      * @implNote The direction is the ascending direction of the stairs.
      * Importantly this differs from how BlockLogicStairs implements direction, this due to BTA placement setting and many layers of abstraction.
      */
-    public static int getStairMetadataFromDirection(Direction direction) {
-        switch (direction) {
-            case EAST:
-                return 0;
-            case WEST:
-                return 1;
-            case SOUTH:
-                return 2;
-            case NORTH:
-            default:
-                return 3;
-        }
+    public static int getStairMetadataFromDirection(@NonNull Direction direction) {
+        return switch (direction) {
+            case EAST -> 0;
+            case WEST -> 1;
+            case SOUTH -> 2;
+            default -> 3;
+        };
     }
 
     /**
@@ -178,16 +148,11 @@ public class MetadataHelper {
      * Importantly this differs from how BlockLogicStairs implements direction, this due to BTA placement setting and many layers of abstraction.
      */
     public static Direction getStairDirectionFromMetadata(int metadata) {
-        switch (metadata) {
-            case 0:
-                return EAST;
-            case 1:
-                return WEST;
-            case 2:
-                return SOUTH;
-            case 3:
-            default:
-                return NORTH;
-        }
+        return switch (metadata) {
+            case 0 -> EAST;
+            case 1 -> WEST;
+            case 2 -> SOUTH;
+            default -> NORTH;
+        };
     }
 }

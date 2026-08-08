@@ -13,7 +13,7 @@ public class AetherDungeonMapRequestNetworkMessage implements NetworkMessage {
     public void decodeFromUniversalPacket(@NonNull UniversalPacket packet) { }
 
     @Override
-    public void handleServerEnv(NetworkContext context) {
+    public void handleServerEnv(@NonNull NetworkContext context) {
         if (context.player != null) {
             NetworkHandler.sendToPlayer(context.player, new AetherDungeonMapUpdateNetworkMessage(context.player));
         }

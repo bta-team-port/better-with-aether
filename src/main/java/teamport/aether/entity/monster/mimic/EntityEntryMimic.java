@@ -9,6 +9,7 @@ import net.minecraft.client.gui.modelviewer.categories.entries.entity.EntityEntr
 import net.minecraft.client.gui.modelviewer.elements.TextCycleElement;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
 public class EntityEntryMimic extends EntityEntry<MobMimic> {
 
     @Override
-    public List<ButtonElement> getEntryButtons(Minecraft mc, Screen parentScreen, MobMimic mimic) {
+    public List<ButtonElement> getEntryButtons(@NonNull Minecraft mc, Screen parentScreen, MobMimic mimic) {
         List<ButtonElement> buttonList = new ArrayList<>();
         I18n translator = I18n.getInstance();
         TextCycleElement<String> type = new TextCycleElementMimic(parentScreen, mc.font, -120, 0, 120, 20, "Skyroot");
@@ -28,7 +29,7 @@ public class EntityEntryMimic extends EntityEntry<MobMimic> {
         return buttonList;
     }
 
-    private static void setNextType(TextCycleElement<String> type, MobMimic mobGolem) {
+    private static void setNextType(@NonNull TextCycleElement<String> type, @NonNull MobMimic mobGolem) {
         mobGolem.setVariant(MimicRegistry.getMimicVariantByName(type.getCurrentElement()).getMimicVariant());
     }
 

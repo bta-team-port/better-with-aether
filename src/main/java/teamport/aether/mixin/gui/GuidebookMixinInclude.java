@@ -14,7 +14,7 @@ import teamport.aether.gui.guidebook.freezer.GuidebookSectionFreezer;
 import teamport.aether.gui.guidebook.incubator.GuidebookIncubatorSection;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = GuidebookSections.class, remap = false)
+@Mixin(GuidebookSections.class)
 public abstract class GuidebookMixinInclude {
     @Inject(method = "init", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/guidebook/GuidebookSections;register(Lnet/minecraft/client/gui/guidebook/GuidebookSection;)Lnet/minecraft/client/gui/guidebook/GuidebookSection;", ordinal = 6, shift = At.Shift.AFTER))
     private static void includeAetherSection(CallbackInfo ci) {

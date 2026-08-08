@@ -12,11 +12,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.SERVER)
-@Mixin(value = PlayerServer.class, remap = false)
+@Mixin(PlayerServer.class)
 public abstract class PlayerServerAddDartsMixin extends PlayerGetNextDartMixin {
     protected PlayerServerAddDartsMixin(@Nullable World world) {
         super(world);
     }
+
     @Inject(method = "onLivingUpdate", at = @At("TAIL"))
     private void syncDartId(CallbackInfo ci) {
         if (tickCount % 10 == 0) {

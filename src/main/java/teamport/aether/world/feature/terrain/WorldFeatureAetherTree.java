@@ -5,9 +5,10 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
-import teamport.aether.block.terrain.BlockLogicOreGravitite;
 
 import java.util.Random;
 
@@ -23,7 +24,7 @@ public class WorldFeatureAetherTree extends WorldFeature {
     }
 
     @Override
-    public boolean place(World world, Random random, int x, int y, int z) {
+    public boolean place(World world, @NonNull Random random, int x, int y, int z) {
         int treeHeight = random.nextInt(3) + this.heightMod;
         boolean canSpawn = true;
         if (y >= 1 && y + treeHeight + 1 <= world.getHeightBlocks()) {
@@ -96,7 +97,7 @@ public class WorldFeatureAetherTree extends WorldFeature {
         }
     }
 
-    public void placeLeaves(World world, int x, int y, int z) {
+    public void placeLeaves(@NonNull World world, int x, int y, int z) {
         world.setBlockWithNotify(x, y, z, this.leavesId);
     }
 
@@ -104,7 +105,7 @@ public class WorldFeatureAetherTree extends WorldFeature {
         return id == this.leavesId;
     }
 
-    public static void onTreeGrown(World world, int x, int y, int z) {
+    public static void onTreeGrown(@NonNull World world, int x, int y, int z) {
         Block<?> dirt = getDirtForGrass(world.getBlockId(x, y - 1, z));
         if (dirt != null) {
             world.setBlockWithNotify(x, y - 1, z, dirt.id());
@@ -113,7 +114,7 @@ public class WorldFeatureAetherTree extends WorldFeature {
     }
 
     @SuppressWarnings("java:S3358")
-    public static Block<?> getDirtForGrass(int id) {
+    public static @Nullable Block<?> getDirtForGrass(int id) {
         if (id != Blocks.GRASS.id() && id != Blocks.GRASS_RETRO.id()) {
             return id == Blocks.GRASS_SCORCHED.id() ? Blocks.DIRT_SCORCHED : id == AetherBlocks.GRASS_AETHER.id() ? AetherBlocks.DIRT_AETHER : null;
         } else {
@@ -121,7 +122,8 @@ public class WorldFeatureAetherTree extends WorldFeature {
         }
     }
 
-    public static boolean canLeavesReplace(World world, int x, int y, int z) {
-        return BlockLogicOreGravitite.canFallAbove(world, x, y, z);
+    public static boolean canLeavesReplace(@NonNull World world, int x, int y, int z) {
+        Block<?> b = world.getBlock(x, y, z);
+        return b.hasTag(BlockTags.PLACE_OVERWRITES);
     }
 }

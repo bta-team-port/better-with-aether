@@ -8,10 +8,10 @@ import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.LightLayer;
 import net.minecraft.core.item.Item;
-import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
 import org.jspecify.annotations.NonNull;
 import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.block.AetherBlockTags;
@@ -76,7 +76,7 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
     }
 
     public void doTickEffect() {
-        if (this.world != null && random.nextInt(2) == 0) {
+        if (random.nextInt(2) == 0) {
             ParticleMaker.spawnParticle(world, "splash", this.x, this.y, this.z, world.rand.nextDouble(), world.rand.nextDouble(), world.rand.nextDouble(), 0);
         }
     }
@@ -88,7 +88,6 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
     @Override
     @SuppressWarnings("java:S1192")
     public void tick() {
-        if (this.world == null) return;
         this.doTickEffect();
 
         if (this.passenger != null && (!this.passenger.isAlive() || this.passenger.removed)) {
@@ -136,7 +135,6 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
     @Override
     public void updateAI() {
         this.tryToDespawn();
-        if (this.world == null) return;
         Player entityplayer = PlayerUtil.getClosestPlayerToEntity(this.world, this, 16.0, PlayerUtil::isInvisible, PlayerUtil::isSwetty);
         boolean targetPlayer = entityplayer != null && entityplayer.getGamemode().hasHostileMobs() && this.canEntityBeSeen(entityplayer);
         if (entityplayer != null && targetPlayer && entityplayer != this.passenger) {
@@ -174,9 +172,7 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
     protected void attackEntityWithDamage(@NonNull Entity entity, float distance, int damage) {
         if (this.isAlive() && this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY && getHealth() > 0 && !dead) {
             this.attackTime = 200;
-            if (this.world != null) {
-                this.world.playSoundAtEntity(null, this, "mob.slimeattack", 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-            }
+            this.world.playSoundAtEntity(null, this, "mob.slimeattack", 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
             entity.hurt(this, damage, DamageType.COMBAT);
         }
     }
@@ -186,8 +182,8 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
         this.playerTouchWithDelay(player, 100);
     }
 
-    protected void playerTouchWithDelay(Player player, int delay){
-        if (((IHasEffects<?>)player).getContainer().hasEffect(AetherEffects.swetty)) {
+    protected void playerTouchWithDelay(Player player, int delay) {
+        if (((IHasEffects<?>) player).getContainer().hasEffect(AetherEffects.swetty)) {
             this.ejectRider();
             return;
         }
@@ -214,13 +210,12 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
 
     @Override
     public boolean canSpawnHere() {
-        if (this.world == null) return false;
-        int x = MathHelper.floor(this.x);
-        int y = MathHelper.floor(this.bb.minY);
-        int z = MathHelper.floor(this.z);
-        int id = this.world.getBlockId(x, y - 1, z);
 
-        if (this.world.getSavedLightValue(LightLayer.Block, x, y, z) > 7) {
+        TilePos blockPos = new TilePos(this.x, this.bb.minY, this.z);
+
+        int id = this.world.getBlockData(blockPos.down());
+
+        if (this.world.getSavedLightValue(LightLayer.Block, blockPos) > 7) {
             return false;
         }
 

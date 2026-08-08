@@ -15,7 +15,7 @@ import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePosc;
 import org.joml.Vector3d;
-import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.entity.monster.sentry.MobSentry;
 import teamport.aether.helper.ParticleMaker;
@@ -39,14 +39,14 @@ public class BlockLogicTrapped extends BlockLogicDungeon implements AetherBlockT
     }
 
     @Override
-    public int getPistonPushReaction(World world, TilePosc pos) {
+    public int getPistonPushReaction(@NonNull World world, @NonNull TilePosc pos) {
         return this.block.getHardness() < 0.0F
             ? Material.PISTON_CANT_PUSH
             : super.getPistonPushReaction(world, pos);
     }
 
     @Override
-    public @Nullable ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
+    public @NonNull ItemStack[] getBreakResult(@NonNull World world, @NonNull EnumDropCause dropCause, int meta, TileEntity tileEntity) {
         return breakResult.getBreakResult(world, dropCause, meta, tileEntity);
     }
 
@@ -56,7 +56,7 @@ public class BlockLogicTrapped extends BlockLogicDungeon implements AetherBlockT
     }
 
     @Override
-    public void updateTick(World world, TilePosc pos, Random rand, boolean scheduled) {
+    public void updateTick(@NonNull World world, @NonNull TilePosc pos, @NonNull Random rand, boolean scheduled) {
         int x = pos.x();
         int y = pos.y();
         int z = pos.z();
@@ -71,14 +71,11 @@ public class BlockLogicTrapped extends BlockLogicDungeon implements AetherBlockT
     }
 
     @Override
-    public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
-        if (EnvironmentHelper.isClientWorld()
-            || !(entity instanceof Player)
-            || world.getBlockMetadata(x, y, z) != 0
-        ) {
+    public void onEntityWalkedOn(@NonNull World world, @NonNull TilePosc tilePos, @NonNull Entity walker) {
+        if (EnvironmentHelper.isMultiplayerClient() || !(walker instanceof Player) || world.getBlockData(tilePos) != 0) {
             return;
         }
-        this.triggerTrap(world, x, y, z, entity);
+        this.triggerTrap(world, tilePos.x(), tilePos.y(), tilePos.z(), walker);
     }
 
     private void triggerTrap(World world, int x, int y, int z, Entity entity) {
@@ -89,9 +86,9 @@ public class BlockLogicTrapped extends BlockLogicDungeon implements AetherBlockT
         theMonster.spawnInit();
 
         int distance = 6 + world.rand.nextInt(2);
-        while (distance --> 0) {
+        while (distance-- > 0) {
             int tries = 16;
-            while (tries --> 0) {
+            while (tries-- > 0) {
                 final double angleRad = Math.toRadians(world.rand.nextInt(360));
 
                 float actualDistance = distance - ((float) world.rand.nextInt(11) / 10);
@@ -156,7 +153,7 @@ public class BlockLogicTrapped extends BlockLogicDungeon implements AetherBlockT
         }
     }
 
-    private void playSound(World world, int x, int y, int z, Entity entity, Entity theMonster) {
+    private void playSound(@NonNull World world, int x, int y, int z, Entity entity, Entity theMonster) {
         world.playSoundEffect(entity, SoundCategory.ENTITY_SOUNDS, x, y, z, "mob.ghast.fireball", 1.0f, 1.0f);
         world.playSoundAtEntity(entity, theMonster, "mob.ghast.fireball", 0.25F, 0.75F);
     }

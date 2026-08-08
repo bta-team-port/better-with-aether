@@ -4,6 +4,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 import sunsetsatellite.catalyst.effects.helper.HealthHelper;
 import teamport.aether.achievements.AetherAchievements;
 
@@ -19,7 +20,7 @@ public class ItemLifeShard extends Item {
     }
 
     @Override
-    public ItemStack onUse(ItemStack itemstack, World world, Player player) {
+    public ItemStack onUse(@NonNull ItemStack itemstack, @NonNull World world, @NonNull Player player) {
         if (world.isClientSide) return itemstack;
         int extraHealth = HealthHelper.getExtraHealth(player);
 

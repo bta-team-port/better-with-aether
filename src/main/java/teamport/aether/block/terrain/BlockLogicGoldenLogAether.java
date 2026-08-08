@@ -6,6 +6,9 @@ import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.item.AetherItems;
 import teamport.aether.item.item_tool.ItemToolAxeAether;
 import turniplabs.halplibe.helper.EnvironmentHelper;
@@ -17,13 +20,11 @@ public class BlockLogicGoldenLogAether extends BlockLogicLogAether {
     }
 
     @Override
-    public void onBlockDestroyedByPlayer(World world, int x, int y, int z, Side side, int meta, Player player, Item item) {
-        super.onBlockDestroyedByPlayer(world, x, y, z, side, meta, player, item);
+    public void onDestroyedByPlayer(@NonNull World world, @NonNull TilePosc tilePos, @NonNull Side side, int data, @NonNull Player player, @Nullable Item item) {
+        super.onDestroyedByPlayer(world, tilePos, side, data, player, item);
         ItemStack heldItem = player.getHeldItem();
-        if (heldItem != null && meta == 0 && player.getGamemode().hasBlockConsumption()) {
-            if (!EnvironmentHelper.isClientWorld() && heldItem.getItem() instanceof ItemToolAxeAether) {
-                world.dropItem(x, y, z, new ItemStack(AetherItems.AMBER, world.rand.nextInt(3) + 1));
-            }
+        if (heldItem != null && data == 0 && player.getGamemode().hasBlockConsumption() && !EnvironmentHelper.isMultiplayerClient() && heldItem.getItem() instanceof ItemToolAxeAether) {
+            world.dropItem(tilePos, new ItemStack(AetherItems.AMBER, world.rand.nextInt(3) + 1));
         }
     }
 

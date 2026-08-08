@@ -3,6 +3,7 @@ package teamport.aether.models;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.block.model.BlockModelCrossedSquares;
+import net.minecraft.client.render.tessellator.TessellatorGeneral;
 import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.block.Block;
@@ -10,6 +11,8 @@ import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.WorldSource;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
+import teamport.aether.block.terrain.BlockLogicTallGrassAether;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelAetherTallgrass<T extends BlockLogic> extends BlockModelCrossedSquares<T> {
@@ -26,9 +29,8 @@ public class BlockModelAetherTallgrass<T extends BlockLogic> extends BlockModelC
     }
 
     @Override
-    public boolean render(net.minecraft.client.render.tessellator.TessellatorGeneral tessellator,
-                          WorldSource world, TilePosc pos) {
-        if (this.block.getLogic() instanceof teamport.aether.block.terrain.BlockLogicTallGrassAether) {
+    public boolean render(@NonNull TessellatorGeneral tessellator, @NonNull WorldSource world, @NonNull TilePosc pos) {
+        if (this.block.getLogic() instanceof BlockLogicTallGrassAether) {
             long random = pos.x() * 3129871L ^ pos.z() * 116129781L ^ pos.y();
             random = random * random * 42317861L + random * 11L;
             double offsetX = (((random >> 16 & 15L) / 15.0F) - 0.5) * 0.5;

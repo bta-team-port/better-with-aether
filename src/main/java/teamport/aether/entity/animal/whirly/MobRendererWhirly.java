@@ -2,14 +2,14 @@ package teamport.aether.entity.animal.whirly;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.core.util.helper.MathHelper;
+import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.renderer.GLRenderer;
 import net.minecraft.client.render.renderer.State;
+import net.minecraft.core.util.helper.MathHelper;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.useless.dragonfly.models.entity.BoneTransform;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
-import net.minecraft.client.render.entity.MobRenderer;
 
 @Environment(EnvType.CLIENT)
 public class MobRendererWhirly extends MobRenderer<MobWhirly> {
@@ -29,8 +29,6 @@ public class MobRendererWhirly extends MobRenderer<MobWhirly> {
         } else if (layer == 2) {
             GLRenderer.textureM4f().identity();
             GLRenderer.disableState(State.BLEND);
-        } else {
-            model = null;
         }
 
         if (layer == 1) {

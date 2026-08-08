@@ -2,13 +2,15 @@ package teamport.aether.helper.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
 
 @Environment(EnvType.CLIENT)
 public final class AerbunnyClientHelper {
-    private AerbunnyClientHelper() { }
+    private AerbunnyClientHelper() {
+    }
 
-    public static double getRidingHeight(MobAerbunny bunny) {
+    public static double getRidingHeight(@NonNull MobAerbunny bunny) {
         return bunny.heightOffset + 1.0F;
     }
 }

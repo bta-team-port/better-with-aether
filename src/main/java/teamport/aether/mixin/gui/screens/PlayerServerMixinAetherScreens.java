@@ -4,6 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.core.net.packet.PacketContainerOpen;
 import net.minecraft.server.entity.player.PlayerServer;
+import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import teamport.aether.AetherConfig;
@@ -16,14 +17,14 @@ import teamport.aether.gui.machine.freezer.MenuFreezer;
 import teamport.aether.gui.machine.incubator.MenuIncubator;
 
 @Environment(EnvType.SERVER)
-@Mixin(value = PlayerServer.class, remap = false)
+@Mixin(PlayerServer.class)
 public abstract class PlayerServerMixinAetherScreens implements AetherScreens {
     @Shadow
     private int currentWindowId;
     @Shadow
     protected abstract void getNextWindowId();
     @Override
-    public void aether$displayEnchanterScreen(TileEntityEnchanter tileEntity) {
+    public void aether$displayEnchanterScreen(@NonNull TileEntityEnchanter tileEntity) {
         this.getNextWindowId();
         PlayerServer playerServer = (PlayerServer) (Object) this;
         playerServer.playerNetServerHandler.sendPacket(new PacketContainerOpen(this.currentWindowId, AetherConfig.ENCHANTER_SCREEN_ID, tileEntity.getNameTranslationKey(), tileEntity.getContainerSize()));
@@ -33,7 +34,7 @@ public abstract class PlayerServerMixinAetherScreens implements AetherScreens {
         playerServer.containerMenu.addSlotListener(playerServer);
     }
     @Override
-    public void aether$displayFreezerScreen(TileEntityFreezer tileEntity) {
+    public void aether$displayFreezerScreen(@NonNull TileEntityFreezer tileEntity) {
         this.getNextWindowId();
         PlayerServer playerServer = (PlayerServer) (Object) this;
         playerServer.playerNetServerHandler.sendPacket(new PacketContainerOpen(this.currentWindowId, AetherConfig.FREEZER_SCREEN_ID, tileEntity.getNameTranslationKey(), tileEntity.getContainerSize()));
@@ -43,7 +44,7 @@ public abstract class PlayerServerMixinAetherScreens implements AetherScreens {
         playerServer.containerMenu.addSlotListener(playerServer);
     }
     @Override
-    public void aether$displayIncubatorScreen(TileEntityIncubator tileEntity) {
+    public void aether$displayIncubatorScreen(@NonNull TileEntityIncubator tileEntity) {
         this.getNextWindowId();
         PlayerServer playerServer = (PlayerServer) (Object) this;
         playerServer.playerNetServerHandler.sendPacket(new PacketContainerOpen(this.currentWindowId, AetherConfig.INCUBATOR_SCREEN_ID, tileEntity.getNameTranslationKey(), tileEntity.getContainerSize()));

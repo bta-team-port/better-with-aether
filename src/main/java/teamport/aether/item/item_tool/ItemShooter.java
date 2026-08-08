@@ -4,6 +4,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.projectile.ProjectileDart;
 import teamport.aether.item.AetherItems;
 
@@ -15,7 +16,7 @@ public class ItemShooter extends Item {
     }
 
     @Override
-    public ItemStack onUse(ItemStack itemstack, World world, Player entityplayer) {
+    public ItemStack onUse(@NonNull ItemStack itemstack, @NonNull World world, @NonNull Player entityplayer) {
         if (entityplayer.inventory.consumeInventoryItem(AetherItems.AMMO_DART_ENCHANTED.id)) {
             itemstack.damageItem(1, entityplayer);
             world.playSoundAtEntity(entityplayer, entityplayer, "random.bow", 0.3F, 2.0F / (itemRand.nextFloat() * 0.4F + 0.8F));

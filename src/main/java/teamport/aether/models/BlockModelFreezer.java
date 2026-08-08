@@ -12,6 +12,7 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.helper.Sides;
 import net.minecraft.core.world.WorldSource;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 
 import java.util.EnumMap;
@@ -26,8 +27,8 @@ public class BlockModelFreezer<T extends BlockLogic> extends BlockModelHorizonta
     }
 
     @Override
-    public IconCoordinate getBlockTexture(WorldSource blockAccess, TilePosc pos, Side side) {
-        int data = blockAccess.getBlockMetadata(pos.x(), pos.y(), pos.z());
+    public IconCoordinate getBlockTexture(@NonNull WorldSource blockAccess, @NonNull TilePosc pos, @NonNull Side side) {
+        int data = blockAccess.getBlockData(pos);
         int index = Sides.orientationLookUpHorizontal[6 * Math.min(data, 5) + side.id];
         if (index >= Sides.orientationLookUpHorizontal.length) {
             return getSideTexture(Side.BOTTOM);
@@ -36,7 +37,7 @@ public class BlockModelFreezer<T extends BlockLogic> extends BlockModelHorizonta
         Side effectiveSide = Side.fromId(index);
         if (effectiveSide == Side.TOP) {
             IconCoordinate originalTop = getSideTexture(Side.TOP);
-            Container container = (Container) blockAccess.getTileEntity(pos.x(), pos.y(), pos.z());
+            Container container = (Container) blockAccess.getTileEntity(pos);
             if (container != null) {
                 boolean hasOutput = container.getItem(2) != null;
                 if (hasOutput) {
@@ -65,7 +66,7 @@ public class BlockModelFreezer<T extends BlockLogic> extends BlockModelHorizonta
         return standardTexture != null ? standardTexture : BLOCK_TEXTURE_UNASSIGNED;
     }
 
-    public BlockModelFreezer<T> setRetroTex(String texture, Side... sides) {
+    public BlockModelFreezer<T> setRetroTex(String texture, Side @NonNull ... sides) {
         IconCoordinate coordinate = TextureRegistry.getTexture(texture);
         for (Side side : sides) retroTextures.put(side, coordinate);
         return this;

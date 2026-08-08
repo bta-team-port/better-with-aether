@@ -3,6 +3,7 @@ package teamport.aether.item.accessory.pendant;
 import net.minecraft.core.enums.HumanArmorShape;
 import net.minecraft.core.item.IArmorItem;
 import net.minecraft.core.item.material.ArmorMaterial;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 public class ItemCombatPendant extends ItemPendant implements IArmorItem<HumanArmorShape> {
@@ -29,7 +30,7 @@ public class ItemCombatPendant extends ItemPendant implements IArmorItem<HumanAr
     }
 
     @Override
-    public HumanArmorShape getArmorShape() {
+    public @NonNull HumanArmorShape getArmorShape() {
         return HumanArmorShape.BOOTS;
     }
 }

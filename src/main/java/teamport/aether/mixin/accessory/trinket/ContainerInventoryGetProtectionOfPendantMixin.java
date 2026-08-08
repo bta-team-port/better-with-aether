@@ -17,7 +17,7 @@ import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherArmorMaterial;
 import teamport.aether.item.accessory.SlotAccessory;
 
-@Mixin(value = IArmorWearing.class, remap = false)
+@Mixin(IArmorWearing.class)
 public interface ContainerInventoryGetProtectionOfPendantMixin {
     @ModifyReturnValue(method = "getTotalProtectionAmount(Lnet/minecraft/core/util/helper/DamageType;)F", at = @At("RETURN"))
     private float includePendantProtection(float original, DamageType damageType) {
@@ -48,8 +48,8 @@ public interface ContainerInventoryGetProtectionOfPendantMixin {
     }
 
     @Inject(method = "damageArmor(I)V", at = @At("TAIL"))
-    private void damageAccessoryArmor(int amount, CallbackInfo ci) {
-        if (!((Object) this instanceof Player player) || player.world == null || player.world.isClientSide) {
+    private void damageAccessoryArmor(int damage, CallbackInfo ci) {
+        if (!((Object) this instanceof Player player) || player.world.isClientSide) {
             return;
         }
 
@@ -59,7 +59,7 @@ public interface ContainerInventoryGetProtectionOfPendantMixin {
             if (stack == null || !(stack.getItem() instanceof IArmorItem<?> armor) || armor.getArmorMaterial() == null) {
                 continue;
             }
-            PlayerUtil.damageItemArmor(player, amount, stack, SlotAccessory.GLOVES_SLOT + index);
+            PlayerUtil.damageItemArmor(player, damage, stack, SlotAccessory.GLOVES_SLOT + index);
         }
     }
 }

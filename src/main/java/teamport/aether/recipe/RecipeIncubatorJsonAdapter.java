@@ -4,12 +4,13 @@ import com.google.gson.*;
 import net.minecraft.core.data.registry.Registries;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.data.registry.recipe.adapter.RecipeJsonAdapter;
+import org.jspecify.annotations.NonNull;
 
 import java.lang.reflect.Type;
 
 public class RecipeIncubatorJsonAdapter implements RecipeJsonAdapter<RecipeEntryIncubator> {
     @Override
-    public RecipeEntryIncubator deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public RecipeEntryIncubator deserialize(@NonNull JsonElement json, Type typeOfT, @NonNull JsonDeserializationContext context) throws JsonParseException {
         JsonObject obj = json.getAsJsonObject();
         RecipeSymbol input = context.deserialize(obj.get("input").getAsJsonObject(), RecipeSymbol.class);
         RecipeEntity entity = context.deserialize(obj.get("output").getAsJsonObject(), RecipeEntity.class);
@@ -18,7 +19,7 @@ public class RecipeIncubatorJsonAdapter implements RecipeJsonAdapter<RecipeEntry
     }
 
     @Override
-    public JsonElement serialize(RecipeEntryIncubator src, Type typeOfSrc, JsonSerializationContext context) {
+    public JsonElement serialize(@NonNull RecipeEntryIncubator src, Type typeOfSrc, @NonNull JsonSerializationContext context) {
         JsonObject obj = new JsonObject();
         obj.addProperty("name", src.toString());
         obj.addProperty("type", Registries.RECIPE_TYPES.getKey(src.getClass()));

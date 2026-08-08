@@ -8,13 +8,14 @@ import net.minecraft.client.render.renderer.DrawMode;
 import net.minecraft.client.render.renderer.GLRenderer;
 import net.minecraft.client.render.renderer.State;
 import net.minecraft.client.render.tessellator.TessellatorGeneral;
+import org.jspecify.annotations.NonNull;
 
 @Environment(EnvType.CLIENT)
 public final class ClientRenderHelper {
     private ClientRenderHelper() {
     }
 
-    public static void renderShieldVignette(TextureManager textureManager, int xSize, int ySize) {
+    public static void renderShieldVignette(@NonNull TextureManager textureManager, int xSize, int ySize) {
         GLRenderer.pushFrame();
         try {
             GLRenderer.enableState(State.BLEND);

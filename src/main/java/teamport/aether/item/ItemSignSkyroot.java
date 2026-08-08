@@ -12,6 +12,7 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.gui.AetherScreens;
 
@@ -34,7 +35,7 @@ public class ItemSignSkyroot extends Item {
     }
 
     @Override
-    public boolean onUseOnBlock(ItemStack itemstack, World world, Player entityplayer, TilePosc blockPos, Side side, double xPlaced, double yPlaced) {
+    public boolean onUseOnBlock(@NonNull ItemStack itemstack, @NonNull World world, Player entityplayer, @NonNull TilePosc blockPos, @NonNull Side side, double xPlaced, double yPlaced) {
         int blockX = blockPos.x();
         int blockY = blockPos.y();
         int blockZ = blockPos.z();
@@ -72,7 +73,7 @@ public class ItemSignSkyroot extends Item {
     }
 
     @Override
-    public String getLanguageKey(ItemStack itemstack) {
+    public @NonNull String getLanguageKey(@NonNull ItemStack itemstack) {
         if (!isPainted) return super.getLanguageKey(itemstack);
         return super.getKey() + "." + DyeColor.colorFromItemMeta(itemstack.getMetadata()).colorID;
     }

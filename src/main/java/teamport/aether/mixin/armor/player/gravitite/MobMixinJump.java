@@ -7,7 +7,7 @@ import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
-import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,17 +19,21 @@ import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherArmorMaterial;
 
-@Mixin(value = Mob.class, remap = false)
+@Mixin(Mob.class)
 public abstract class MobMixinJump extends Entity {
-    protected MobMixinJump(@Nullable World world) {
+
+    @Shadow
+    public abstract boolean isJumping();
+
+    protected MobMixinJump(@NonNull World world) {
         super(world);
     }
-    @Shadow
-    protected boolean isJumping;
+
     @Unique
     private boolean usedDoubleJump = false;
     @Unique
     private boolean isJumpingPrev = false;
+
     @Inject(method = "jump", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;isSprinting()Z"))
     private void aether$jump(CallbackInfo ci) {
         if (!((Mob) (Object) this instanceof Player)) {
@@ -41,6 +45,7 @@ public abstract class MobMixinJump extends Entity {
             fallDistance = 0.0F;
         }
     }
+
     @Inject(method = "onLivingUpdate", at = @At(value = "FIELD", target = "Lnet/minecraft/core/entity/Mob;moveStrafing:F", opcode = Opcodes.PUTFIELD, ordinal = 1))
     private void aether$onLivingUpdate(CallbackInfo ci) {
         if (!((Mob) (Object) this instanceof Player)) {
@@ -52,7 +57,7 @@ public abstract class MobMixinJump extends Entity {
             return;
         }
         if (PlayerUtil.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.GRAVITITE) < 5) return;
-        if (!onGround && !isJumpingPrev && isJumping && !usedDoubleJump) {
+        if (!onGround && !isJumpingPrev && isJumping() && !usedDoubleJump) {
             yd = 1.05;
             fallDistance = 0.0F;
             ParticleMaker.spawnCloudParticles(world, x, y, z, bbHeight);
@@ -61,14 +66,14 @@ public abstract class MobMixinJump extends Entity {
         if (onGround) {
             usedDoubleJump = false;
         }
-        isJumpingPrev = isJumping;
+        isJumpingPrev = isJumping();
     }
+
     @WrapOperation(method = "causeFallDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;hurt(Lnet/minecraft/core/entity/Entity;ILnet/minecraft/core/util/helper/DamageType;)Z"))
     private boolean negateFallDamage(Mob instance, Entity attacker, int damage, DamageType type, Operation<Boolean> original) {
-        if (!(instance instanceof Player)) {
+        if (!(instance instanceof Player player)) {
             return original.call(instance, attacker, damage, type);
         }
-        Player player = (Player) instance;
         if (PlayerUtil.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.GRAVITITE) < 5) {
             return original.call(instance, attacker, damage, type);
         }

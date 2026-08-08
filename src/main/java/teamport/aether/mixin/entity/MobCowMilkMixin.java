@@ -11,14 +11,14 @@ import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.item.AetherItems;
 import teamport.aether.item.ItemBucketSkyrootEmpty;
 
-@Mixin(value = Item.class, remap = false)
+@Mixin(Item.class)
 public abstract class MobCowMilkMixin {
     @ModifyReturnValue(
         method = "useOnEntity(Lnet/minecraft/core/item/ItemStack;Lnet/minecraft/core/entity/player/Player;Lnet/minecraft/core/entity/Mob;)Z",
         at = @At(value = "RETURN")
     )
-    private boolean useOnEntity(boolean original, ItemStack itemstack, Player player, Mob mob) {
-        if (mob instanceof MobCow && itemstack.itemID == AetherItems.BUCKET_SKYROOT.id) {
+    private boolean useOnEntity(boolean original, ItemStack selfStack, Player player, Mob mob) {
+        if (mob instanceof MobCow && selfStack.itemID == AetherItems.BUCKET_SKYROOT.id) {
             ItemBucketSkyrootEmpty.useBucket(player, new ItemStack(AetherItems.BUCKET_SKYROOT_MILK));
             return true;
         } else {

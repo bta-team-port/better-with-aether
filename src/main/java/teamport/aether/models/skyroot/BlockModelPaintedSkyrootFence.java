@@ -7,6 +7,7 @@ import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicFence;
 import net.minecraft.core.util.helper.Side;
+import org.jspecify.annotations.NonNull;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelPaintedSkyrootFence<T extends BlockLogicFence> extends BlockModelFence<T> {
@@ -15,7 +16,7 @@ public class BlockModelPaintedSkyrootFence<T extends BlockLogicFence> extends Bl
     }
 
     @Override
-    public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int meta) {
+    public IconCoordinate getBlockTextureFromSideAndMetadata(@NonNull Side side, int meta) {
         return BlockModelPaintedSkyrootPlanks.TEX_COORDS[meta & 15];
     }
 }

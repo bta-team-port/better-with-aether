@@ -7,7 +7,7 @@ import net.minecraft.core.enums.EnumBlockSoundEffectType;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
-import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.AetherRideable;
 import teamport.aether.helper.ParticleMaker;
@@ -23,10 +23,11 @@ public class EntityParachute extends Mob implements AetherRideable {
     protected double xdChange = 0;
     protected double zdChange = 0;
 
-    public EntityParachute(@Nullable World world) {
+    public EntityParachute(@NonNull World world) {
         super(world);
         setSize(1.0f, 1.0f);
     }
+
     @Override
     public boolean makeStepSound() {
         return false;
@@ -110,7 +111,7 @@ public class EntityParachute extends Mob implements AetherRideable {
             ParticleMaker.spawnParticle(this.world, "block", posX - 0.5F, posY + 0.25F, posZ - 0.5F, 0, 0.005, 0, particleBlock.id());
         }
 
-        if (this.world != null) this.world.playBlockSoundEffect(null, x, y, z, particleBlock, EnumBlockSoundEffectType.MINE);
+        this.world.playBlockSoundEffect(null, x, y, z, particleBlock, EnumBlockSoundEffectType.MINE);
     }
 
     protected void handleParachuteMovement() {
@@ -167,7 +168,7 @@ public class EntityParachute extends Mob implements AetherRideable {
 
     @Override
     public void controlEntity(float moveForward, float moveStrafe, boolean isJumping, float xRot, float yRot) {
-        if (EnvironmentHelper.isClientWorld()) {
+        if (EnvironmentHelper.isMultiplayerClient()) {
             NetworkHandler.sendToServer(
                 new AetherRideableNetworkMessage(moveForward, moveStrafe, isJumping, xRot, yRot)
             );
@@ -190,6 +191,7 @@ public class EntityParachute extends Mob implements AetherRideable {
 
         this.yRotO = this.yRot = yRot;
     }
+
     public String getPathParticle() {
         return pathParticle;
     }

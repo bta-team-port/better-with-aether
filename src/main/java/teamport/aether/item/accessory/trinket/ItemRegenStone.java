@@ -5,6 +5,7 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.accessory.IAccessoryEffects;
 import teamport.aether.item.accessory.ItemTrinket;
@@ -18,7 +19,7 @@ public class ItemRegenStone extends ItemTrinket implements IAccessoryEffects {
 
 
     @Override
-    public void inventoryTick(ItemStack itemstack, World world, Entity entity, int slotId, boolean flag) {
+    public void inventoryTick(@NonNull ItemStack itemstack, @NonNull World world, @NonNull Entity entity, int slotId, boolean flag) {
         Player player = (Player) entity;
         CompoundTag tag = itemstack.getData();
         if (
@@ -43,7 +44,7 @@ public class ItemRegenStone extends ItemTrinket implements IAccessoryEffects {
     }
 
     @Override
-    public void removeEffect(Player player, ItemStack accessory) {
+    public void removeEffect(Player player, @NonNull ItemStack accessory) {
         CompoundTag tag = accessory.getData();
         tag.putInt("time", 0);
     }

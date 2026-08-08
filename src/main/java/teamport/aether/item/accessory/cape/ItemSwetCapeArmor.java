@@ -4,6 +4,7 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.effect.AetherEffects;
 import teamport.aether.item.accessory.IAccessoryEffects;
@@ -12,16 +13,16 @@ import teamport.aether.item.accessory.ItemAccessoryArmor;
 import static teamport.aether.item.accessory.SlotAccessory.CAPE_SLOT;
 
 public class ItemSwetCapeArmor extends ItemAccessoryArmor implements IAccessoryEffects {
+
     public ItemSwetCapeArmor(String translationKey, String namespaceId, int id, String name, int accessoryPiece) {
         super(translationKey, namespaceId, id, name, accessoryPiece);
     }
 
     @Override
-    public void inventoryTick(ItemStack itemstack, World world, Entity entity, int slotId, boolean flag) {
-        if(!(entity instanceof Player)){
+    public void inventoryTick(@NonNull ItemStack itemstack, @NonNull World world, @NonNull Entity entity, int slotId, boolean flag) {
+        if (!(entity instanceof Player player)) {
             return;
         }
-        Player player = (Player) entity;
         if (slotId > player.inventory.mainInventory.length
             && slotId - player.inventory.mainInventory.length == CAPE_SLOT
         ) {
@@ -31,6 +32,6 @@ public class ItemSwetCapeArmor extends ItemAccessoryArmor implements IAccessoryE
 
     @Override
     public void removeEffect(Player player, ItemStack accessory) {
-        ((IHasEffects<?>) player).getContainer().remove (AetherEffects.swetty);
+        ((IHasEffects<?>) player).getContainer().remove(AetherEffects.swetty);
     }
 }

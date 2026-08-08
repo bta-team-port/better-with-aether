@@ -7,7 +7,7 @@ import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.world.feature.util.WorldFeatureComponent.*;
 import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
 
-public class TresureOreRoom extends BaseBronzeRoom{
+public class TreasureOreRoom extends BaseBronzeRoom{
     private static final BlockPallet ORE_PALLET = new BlockPallet();
 
     static {
@@ -16,7 +16,7 @@ public class TresureOreRoom extends BaseBronzeRoom{
         ORE_PALLET.addEntry(AetherBlocks.ORE_GRAVITITE_HOLYSTONE.id(), 1);
     }
 
-    public TresureOreRoom() {
+    public TreasureOreRoom() {
         super();
         this.topAirTolerance = this.topLiquidTolerance = 0;
         addDoor(NORTH, wfp(4, 1, 0), UP, 6, EAST, 4);

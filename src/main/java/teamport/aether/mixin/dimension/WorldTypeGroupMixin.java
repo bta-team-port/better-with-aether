@@ -13,7 +13,7 @@ import teamport.aether.AetherMod;
 
 import java.util.Map;
 
-@Mixin(value = WorldTypeGroups.Group.class, remap = false)
+@Mixin(WorldTypeGroups.Group.class)
 public abstract class WorldTypeGroupMixin {
     @Shadow
     @Final
