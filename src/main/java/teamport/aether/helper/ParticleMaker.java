@@ -216,7 +216,7 @@ public class ParticleMaker {
         }
     }
 
-    public static void spawnDowningBubbles(Mob target) {
+    public static void spawnDrowningBubbles(Mob target) {
         Random random = ((EntityAccessor) target).getRandom();
         for (int i = 0; i < 30; ++i) {
             double offX = random.nextFloat() - random.nextFloat();
