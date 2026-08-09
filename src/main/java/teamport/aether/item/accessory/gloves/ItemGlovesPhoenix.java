@@ -5,7 +5,6 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ArmorMaterial;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.item.accessory.ItemGloves;
-import teamport.aether.mixin.accessors.ItemAccessor;
 
 public class ItemGlovesPhoenix extends ItemGloves {
     public ItemGlovesPhoenix(String translationKey, String namespaceId, int id, ArmorMaterial material, int accessoryPiece) {
@@ -14,8 +13,10 @@ public class ItemGlovesPhoenix extends ItemGloves {
 
     @Override
     public boolean hitEntity(@NonNull ItemStack gloves, @NonNull Mob target, @NonNull Mob attacker) {
-        if (super.hitEntity(gloves, target, attacker) && target.hurtTime == 10) {
-            ItemAccessor.getItemRand().nextInt(4);
+        if (super.hitEntity(gloves, target, attacker) && target.hurtTime == 10 && itemRand.nextInt(4) == 0) {
+            target.maxFireTicks = 200;
+            target.remainingFireTicks = 200;
+            return true;
         }
         return false;
     }

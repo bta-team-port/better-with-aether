@@ -79,7 +79,6 @@ dependencies {
     // Only required for development/launch at runtime, won't be part of any builds
     runtimeClasspath(libs.clientJar)
     localRuntime(libs.modMenu) // Optional, can be removed
-    implementation(libs.halplibe)
     val lwjglVer = libs.versions.lwjgl.get()
     localRuntime(platform("org.lwjgl:lwjgl-bom:${lwjglVer}"))
     localRuntime("org.lwjgl:lwjgl::$lwjglNatives")
