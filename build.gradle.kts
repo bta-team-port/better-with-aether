@@ -7,12 +7,17 @@ buildscript {
     dependencies {
         classpath("org.kohsuke:github-api:1.135")
     }
+
+    repositories {
+        mavenCentral()
+    }
 }
 
 plugins {
     alias(libs.plugins.loom)
     alias(libs.plugins.minotaur)
     java
+    `maven-publish`
 }
 
 val lwjglNatives = resolveLwjglNatives()
@@ -171,6 +176,26 @@ configurations.configureEach {
     exclude(group = "net.java.jinput")
     exclude(group = "net.sf.jopt-simple")
     exclude(group = "net.minecraft", module = "launchwrapper")
+}
+
+publishing {
+    repositories {
+        maven("https://maven.thesignalumproject.net/releases") {
+            name = "signalumMaven"
+            credentials(PasswordCredentials::class)
+            authentication {
+                create<BasicAuthentication>("basic")
+            }
+        }
+    }
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = modGroup.get()
+            artifactId = modName.get()
+            version = modVersion
+            from(components["java"])
+        }
+    }
 }
 
 val modrinthToken: Provider<String> = providers.gradleProperty("modrinthToken")
