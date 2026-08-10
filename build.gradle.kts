@@ -22,7 +22,7 @@ plugins {
 
 val lwjglNatives = resolveLwjglNatives()
 
-val modVersion: String = "${providers.gradleProperty("mod_version").get()}+${libs.versions.bta.get()}"
+val modVersion = "${providers.gradleProperty("mod_version").get()}+${libs.versions.bta.get()}"
 val modGroup: Provider<String> = providers.gradleProperty("mod_group")
 val modName: Provider<String> = providers.gradleProperty("mod_name")
 
@@ -35,18 +35,24 @@ version = modVersion
 loom {
     val btaChannel = libs.versions.btaChannel.get()
     val btaVersion = (if (btaChannel == "nightly") "" else "v") + libs.versions.bta.get()
-	customMinecraftMetadata.set("https://downloads.betterthanadventure.net/bta-client/${btaChannel}/${btaVersion}/manifest.json")
+    customMinecraftMetadata.set("https://downloads.betterthanadventure.net/bta-client/${btaChannel}/$btaVersion/manifest.json")
     accessWidenerPath = file("src/main/resources/aether.classtweaker")
 }
 
 repositories {
     mavenCentral()
     maven("https://maven.fabricmc.net/") { name = "Fabric" }
-    maven("https://maven.thesignalumproject.net/infrastructure") { name = "SignalumMavenInfrastructure" }
-    maven("https://maven.thesignalumproject.net/nightly") { name = "signalumMavenNightly" }
-    maven("https://maven.thesignalumproject.net/releases") { name = "SignalumMavenReleases" }
-    maven("https://maven.thesignalumproject.net/nightly") { name = "SignalumMavenNightly" }
-    maven("https://api.modrinth.com/maven") { name = "Modrinth" }
+    maven("https://maven.danygames2014.net/signalum") { name = "SignalumMavenMirror1" }
+//    maven("https://maven.thesignalumproject.net/infrastructure") { name = "SignalumMavenInfrastructure" }
+//    maven("https://maven.thesignalumproject.net/nightly") { name = "signalumMavenNightly" }
+//    maven("https://maven.thesignalumproject.net/releases") { name = "SignalumMavenReleases" }
+//    maven("https://maven.thesignalumproject.net/nightly") { name = "SignalumMavenNightly" }
+    maven("https://api.modrinth.com/maven") { name = "Modrinth"
+        content {
+            includeGroup("maven.modrinth")
+        }
+    }
+    maven("https://jitpack.io")
     ivy("https://piston-data.mojang.com") {
         patternLayout { artifact("v1/[organisation]/[revision]/[module].jar") }
         metadataSources { artifact() }
@@ -64,7 +70,7 @@ dependencies {
 //    implementation(libs.catalyst.core)
 //    implementation(libs.catalyst.effects)
 
-//    compileOnly(libs.commandly)
+    compileOnly(libs.commandly)
 
     // Only required at compilation
     // provides documentation, can be removed if that isn't needed
@@ -77,9 +83,8 @@ dependencies {
     compileOnly(libs.errorprone)
 
     // Only required for development/launch at runtime, won't be part of any builds
-    runtimeClasspath(libs.clientJar)
     localRuntime(libs.modMenu) // Optional, can be removed
-    implementation(libs.halplibe)
+    runtimeClasspath(libs.clientJar)
     val lwjglVer = libs.versions.lwjgl.get()
     localRuntime(platform("org.lwjgl:lwjgl-bom:${lwjglVer}"))
     localRuntime("org.lwjgl:lwjgl::$lwjglNatives")
@@ -125,7 +130,7 @@ tasks {
         targetCompatibility = javaVersion.get().toString()
         if (javaVersion.get() > 8) options.release = javaVersion
     }
-    withType<UpdateDaemonJvm>().configureEach {
+    named<UpdateDaemonJvm>("updateDaemonJvm") {
         languageVersion = libs.versions.gradleJava.map { JavaLanguageVersion.of(it.toInt()) }
         vendor = JvmVendorSpec.ADOPTIUM
     }

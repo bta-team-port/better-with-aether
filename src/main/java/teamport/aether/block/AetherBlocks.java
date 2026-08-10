@@ -428,7 +428,7 @@ public final class AetherBlocks {
             .setHardness(3.0f)
             .setTicking(true)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.SKATEABLE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
-            .build("icestone", "icestone", blockID("ICESTONE"), BlockLogicIceStone::new);
+            .build("icestone", "icestone", blockID("ICESTONE"), b -> new BlockLogicIceStone(b, ICESTONE));
 
 
         QUICKSOIL = blockBuilder(CreativeInventoryCategory.NATURAL)
