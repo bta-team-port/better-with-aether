@@ -35,7 +35,7 @@ halplibe = { group = "turniplabs", name = "halplibe", version.ref = "halplibe" }
 uselessNumerical = { group = "maven.modrinth", name = "dVlGo8FN", version.ref = "uselessNumerical" }
 catalyst-core = { group = "sunsetsatellite", name = "catalyst-core", version.ref = "catalyst-core" }
 catalyst-effects = { group = "sunsetsatellite", name = "catalyst-effects", version.ref = "catalyst-effects" }
-commandly = { group = "redart15", name = "commandly", version.ref = "commandly" }
+commandly = { group = "maven.modrinth", name = "commandly", version.ref = "commandly" }
 modMenu = { group = "turniplabs", name = "modmenu-bta", version.ref = "modMenu" }
 legacyLwjgl = { group = "com.github.Better-than-Adventure", name = "legacy-lwjgl3", version.ref = "legacyLwjgl" }
 slf4jApi = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4jApi" }
