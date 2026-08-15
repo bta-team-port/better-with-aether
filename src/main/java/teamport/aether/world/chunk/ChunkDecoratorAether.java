@@ -8,13 +8,8 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.chunk.Chunk;
 import net.minecraft.core.world.generate.chunk.ChunkDecorator;
 import net.minecraft.core.world.generate.feature.WorldFeatureLake;
+import net.minecraft.core.world.noise.*;
 import net.minecraft.core.world.pos.TilePos;
-import net.minecraft.core.world.noise.FractalNoise2D;
-import net.minecraft.core.world.noise.FractalNoise3D;
-import net.minecraft.core.world.noise.ImprovedPerlinNoise;
-import net.minecraft.core.world.noise.Noise2D;
-import net.minecraft.core.world.noise.Noise3D;
-import net.minecraft.core.world.noise.SimplexNoise;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
@@ -77,9 +72,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             decorateWithFlatClouds(chunk);
         }
 
-        if ((chunk.pos.x & 1) == 0 && (chunk.pos.z & 1) == 0) {
-            decorateWithDungeons(chunk, rand, minY, maxY);
-        }
+//        decorateWithDungeons(chunk, rand, minY, maxY);
 
         decorateWithFlowers(chunk, rand);
         decorateWithQuickSoil(rand, worldX, worldZ, minY, maxY);

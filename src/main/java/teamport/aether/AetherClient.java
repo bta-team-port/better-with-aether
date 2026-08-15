@@ -7,7 +7,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.achievements.data.AchievementPages;
 import net.minecraft.client.gui.hud.component.ComponentAnchor;
 import net.minecraft.client.gui.hud.component.HudComponent;
-import net.minecraft.client.gui.hud.component.HudComponentMovable;
 import net.minecraft.client.gui.hud.component.HudComponents;
 import net.minecraft.client.gui.hud.component.layout.LayoutAbsolute;
 import net.minecraft.client.gui.hud.component.layout.LayoutSnap;
@@ -20,7 +19,6 @@ import net.minecraft.client.render.texture.stitcher.AtlasStitcher;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.client.render.worldtype.WorldTypeFXDispatcher;
 import net.minecraft.client.sound.SoundRepository;
-import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.pos.TilePos;
 import sunsetsatellite.catalyst.effects.api.effect.render.EffectRenderer;
 import sunsetsatellite.catalyst.effects.api.effect.render.EffectRendererDispatcher;
@@ -83,8 +81,8 @@ public class AetherClient implements ClientModInitializer {
         dispatcher.addDispatch("tempest", (world, x, y, z, xa, ya, za, id) -> new ParticleTempestSpiral(world, x, y, z));
         dispatcher.addDispatch("fire", (world, x, y, z, xa, ya, za, id) -> new ParticleFireSpiral(world, x, y, z));
         dispatcher.addDispatch("fallingAetherLeaf", (world, x, y, z, motionX, motionY, motionZ, data) -> {
-            int id = world.getBlockId(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z));
-            return id != 0 ? (new ParticleAetherLeaf(world, x, y, z, motionX, motionY, motionX)).init(new TilePos(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z))) : null;
+            TilePos tilePos = new TilePos(x, y, z);
+            return !world.isAirBlock(tilePos) ? (new ParticleAetherLeaf(world, x, y, z, motionX, motionY, motionZ)).init(tilePos) : null;
         });
 
         SoundRepository.namespaceAdded(MOD_ID);
