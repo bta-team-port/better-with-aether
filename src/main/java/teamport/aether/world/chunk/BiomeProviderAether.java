@@ -1,6 +1,7 @@
 package teamport.aether.world.chunk;
 
 import net.minecraft.core.util.helper.MathHelper;
+import net.minecraft.core.world.World;
 import net.minecraft.core.world.biome.Biome;
 import net.minecraft.core.world.biome.data.BiomeRange;
 import net.minecraft.core.world.biome.data.BiomeRangeMap;
@@ -38,7 +39,7 @@ public final class BiomeProviderAether extends BiomeProvider {
     private final FractalNoise2D<SimplexNoise> varietyNoise;
     private final FractalNoise2D<SimplexNoise> fuzzinessNoise;
 
-    public BiomeProviderAether(net.minecraft.core.world.World world) {
+    public BiomeProviderAether(World world) {
         super(world);
         long seed = world.getRandomSeed();
         this.worldType = world.getWorldType();

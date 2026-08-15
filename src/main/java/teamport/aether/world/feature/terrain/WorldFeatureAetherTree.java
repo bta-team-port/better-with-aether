@@ -13,13 +13,13 @@ import teamport.aether.block.AetherBlocks;
 import java.util.Random;
 
 public class WorldFeatureAetherTree extends WorldFeature {
-    private final int leavesId;
-    private final int logId;
+    private final int leavesID;
+    private final int logID;
     private final int heightMod;
 
     public WorldFeatureAetherTree(int leavesId, int logId, int heightMod) {
-        this.leavesId = leavesId;
-        this.logId = logId;
+        this.leavesID = leavesId;
+        this.logID = logId;
         this.heightMod = heightMod;
     }
 
@@ -28,26 +28,21 @@ public class WorldFeatureAetherTree extends WorldFeature {
         int treeHeight = random.nextInt(3) + this.heightMod;
         boolean canSpawn = true;
         if (y >= 1 && y + treeHeight + 1 <= world.getHeightBlocks()) {
-            int iy;
-            int l1;
-            int j2;
-            int i3;
-            int ix;
-            for (iy = y; iy <= y + 1 + treeHeight; ++iy) {
-                l1 = 1;
+            for (int iy = y; iy <= y + 1 + treeHeight; ++iy) {
+                byte treeRadius = 1;
                 if (iy == y) {
-                    l1 = 0;
+                    treeRadius = 0;
                 }
 
                 if (iy >= y + 1 + treeHeight - 2) {
-                    l1 = 2;
+                    treeRadius = 2;
                 }
 
-                for (j2 = x - l1; j2 <= x + l1 && canSpawn; ++j2) {
-                    for (i3 = z - l1; i3 <= z + l1 && canSpawn; ++i3) {
+                for (int ix = x - treeRadius; ix <= x + treeRadius && canSpawn; ++ix) {
+                    for (int iz = z - treeRadius; iz <= z + treeRadius && canSpawn; ++iz) {
                         if (iy >= 0 && iy < world.getHeightBlocks()) {
-                            ix = world.getBlockId(j2, iy, i3);
-                            if (ix != 0 && ix != this.leavesId) {
+                            int blockId = world.getBlockId(ix, iy, iz);
+                            if (blockId != 0 && blockId != this.leavesID) {
                                 canSpawn = false;
                             }
                         } else {
@@ -60,30 +55,30 @@ public class WorldFeatureAetherTree extends WorldFeature {
             if (!canSpawn) {
                 return false;
             } else {
-                iy = world.getBlockId(x, y - 1, z);
-                if (Blocks.hasTag(iy, BlockTags.GROWS_TREES) || (Blocks.hasTag(iy, AetherBlockTags.GROWS_AETHER_TREES) && y < world.getHeightBlocks() - treeHeight - 1)) {
+                int idBelow = world.getBlockId(x, y - 1, z);
+                if (Blocks.hasTag(idBelow, BlockTags.GROWS_TREES) || (Blocks.hasTag(idBelow, AetherBlockTags.GROWS_AETHER_TREES) && y < world.getHeightBlocks() - treeHeight - 1)) {
                     onTreeGrown(world, x, y, z);
 
-                    for (l1 = y - 3 + treeHeight; l1 <= y + treeHeight; ++l1) {
-                        j2 = l1 - (y + treeHeight);
-                        i3 = 1 - j2 / 2;
+                    for (int iy = y - 3 + treeHeight; iy <= y + treeHeight; ++iy) {
+                        int j2 = iy - (y + treeHeight);
+                        int i3 = 1 - j2 / 2;
 
-                        for (ix = x - i3; ix <= x + i3; ++ix) {
+                        for (int ix = x - i3; ix <= x + i3; ++ix) {
                             int l3 = ix - x;
 
                             for (int iz = z - i3; iz <= z + i3; ++iz) {
                                 int j4 = iz - z;
-                                if ((Math.abs(l3) != i3 || Math.abs(j4) != i3 || random.nextInt(2) != 0 && j2 != 0) && canLeavesReplace(world, ix, l1, iz)) {
-                                    this.placeLeaves(world, ix, l1, iz);
+                                if ((Math.abs(l3) != i3 || Math.abs(j4) != i3 || random.nextInt(2) != 0 && j2 != 0) && canLeavesReplace(world, ix, iy, iz)) {
+                                    this.placeLeaves(world, ix, iy, iz, random);
                                 }
                             }
                         }
                     }
 
-                    for (l1 = 0; l1 < treeHeight; ++l1) {
-                        j2 = world.getBlockId(x, y + l1, z);
-                        if (j2 == 0 || this.isLeaf(j2)) {
-                            world.setBlockWithNotify(x, y + l1, z, this.logId);
+                    for (int l1 = 0; l1 < treeHeight; ++l1) {
+                        int id = world.getBlockId(x, y + l1, z);
+                        if (id == 0 || this.isLeaf(id)) {
+                            world.setBlockWithNotify(x, y + l1, z, this.logID);
                         }
                     }
 
@@ -97,12 +92,12 @@ public class WorldFeatureAetherTree extends WorldFeature {
         }
     }
 
-    public void placeLeaves(@NonNull World world, int x, int y, int z) {
-        world.setBlockWithNotify(x, y, z, this.leavesId);
+    public void placeLeaves(@NonNull World world, int x, int y, int z, Random rand) {
+        world.setBlockWithNotify(x, y, z, this.leavesID);
     }
 
     public boolean isLeaf(int id) {
-        return id == this.leavesId;
+        return id == this.leavesID;
     }
 
     public static void onTreeGrown(@NonNull World world, int x, int y, int z) {

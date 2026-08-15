@@ -60,8 +60,6 @@
     "fabricloader": ">=${fabricloader}",
     "uselessnumerical": ">=${uselessnumerical}",
     "halplibe": ">=${halplibe}",
-    "catalyst-core": ">=${catalystcore}",
-    "catalyst-effects": ">=${catalysteffects}",
     "minecraft": "*",
     "java": ">=${java}"
   },

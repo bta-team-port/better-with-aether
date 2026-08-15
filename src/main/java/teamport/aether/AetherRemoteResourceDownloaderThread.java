@@ -15,10 +15,7 @@ import net.minecraft.client.sound.SoundRepository;
 import net.minecraft.core.net.CertificateHelper;
 import teamport.aether.helper.Pair;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.InputStream;
+import java.io.*;
 import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -88,7 +85,7 @@ public class AetherRemoteResourceDownloaderThread extends Thread {
         for (JsonElement entry : entries) {
             if (!(entry instanceof JsonObject entryObj)) continue;
 
-			String key = entryObj.get("Key").getAsString();
+            String key = entryObj.get("Key").getAsString();
             String md5 = entryObj.get("MD5").getAsString();
 
             File soundFile = new File(resourcesFolder, key);
@@ -159,22 +156,25 @@ public class AetherRemoteResourceDownloaderThread extends Thread {
         }
     }
 
-    private void downloadSoundFile(String name, File file) throws Exception {
+    private void downloadSoundFile(String name, File file) throws IOException {
         String theUrl = this.url + name;
         theUrl = theUrl.replace(" ", "%20");
         LOGGER.info("Downloading File: {}", theUrl);
 
         StreamUtils.transferDataAndClose(
-                new BufferedInputStream(CertificateHelper.getWebsiteAsStream(theUrl)),
-                new BufferedOutputStream(Files.newOutputStream(FileUtils.createNewFile(file).toPath()))
+            new BufferedInputStream(CertificateHelper.getWebsiteAsStream(theUrl)),
+            new BufferedOutputStream(Files.newOutputStream(FileUtils.createNewFile(file).toPath()))
         );
     }
+
     public AtomicInteger getProgress() {
         return progress;
     }
+
     public int getToDownload() {
         return toDownload;
     }
+
     public State getTheState() {
         return state;
     }

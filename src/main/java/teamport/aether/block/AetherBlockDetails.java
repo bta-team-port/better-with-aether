@@ -3,6 +3,7 @@ package teamport.aether.block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.MaterialColor;
 import net.minecraft.core.crafting.LookupFuelFurnace;
+import teamport.aether.block.terrain.BlockLogicIceStone;
 import teamport.aether.item.AetherItems;
 
 import static net.minecraft.core.block.BlockLogicMoss.MOSS_TO_NO_MOSS_MAP;
@@ -19,6 +20,7 @@ public class AetherBlockDetails {
         registerNewFurnaceFuel();
         registerMapColors();
         registerMossMap();
+        BlockLogicIceStone.initFreezeMap();
     }
 
     public static void registerNewFurnaceFuel() {

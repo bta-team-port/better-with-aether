@@ -105,7 +105,9 @@ public class BlockLogicIceStone extends BlockLogic {
         }
 
         Block<?> result = NO_ICE_TO_ICE_MAP.get(block);
-        world.setBlockTypeNotify(tilePos, result);
+        if (result != null) {
+            world.setBlockTypeNotify(tilePos, result);
+        }
     }
 
 }
