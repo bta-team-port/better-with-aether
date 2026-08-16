@@ -4,11 +4,9 @@ import net.minecraft.core.Global;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
-import net.minecraft.core.enums.LightLayer;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
-import net.minecraft.core.world.pos.TilePos;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.entity.AetherDeathMessage;
@@ -144,19 +142,7 @@ public class MobCockatrice extends MobMonsterAether implements Enemy, AetherDeat
 
     @Override
     public boolean canSpawnHere() {
-        TilePos blockPos = new TilePos(this.x, this.bb.minY, this.z);
-        if (this.world.getSavedLightValue(LightLayer.Block, blockPos) > 7) {
-            return false;
-        } else if (this.world.getSavedLightValue(LightLayer.Sky, blockPos) > this.random.nextInt(32)) {
-            return false;
-        } else {
-            int blockLight = this.world.getBlockLightValue(blockPos);
-            if (this.world.getCurrentWeather() != null && this.world.getCurrentWeather().isMobDaylightSpawnAllowed()) {
-                blockLight /= 2;
-            }
-
-            return blockLight <= 4 && AetherBlockTags.PASSIVE_MOBS_SPAWN.appliesTo(this.world.getBlock(MathHelper.floor(this.x), MathHelper.floor(this.y - this.heightOffset) - 1, MathHelper.floor(this.z))) && super.canSpawnHere();
-        }
+        return AetherBlockTags.PASSIVE_MOBS_SPAWN.appliesTo(this.world.getBlock(MathHelper.floor(this.x), MathHelper.floor(this.y - this.heightOffset) - 1, MathHelper.floor(this.z))) && super.canSpawnHere();
     }
 
     public float getFlap() {

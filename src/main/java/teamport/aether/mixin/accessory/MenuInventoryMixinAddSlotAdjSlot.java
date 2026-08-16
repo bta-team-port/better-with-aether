@@ -78,8 +78,8 @@ public abstract class MenuInventoryMixinAddSlotAdjSlot {
             return original;
         }
         IntList ints = new IntArrayList();
-        if (accessory instanceof ItemAccessoryArmor) {
-            ints.add(AetherMod.ARMOR_START_INDEX + ((ItemAccessoryArmor) accessory).getSlotID());
+        if (accessory instanceof ItemAccessoryArmor accessoryArmor) {
+            ints.add(AetherMod.ARMOR_START_INDEX + accessoryArmor.getSlotID());
         }
         if (accessory.hasTag(AetherItemTags.TRINKET)) {
             ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_1_SLOT);

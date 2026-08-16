@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class RemedyEffect extends AetherEffect implements ILockInteractable {
+public class RemedyEffect extends Effect implements ILockInteractable {
 
     public RemedyEffect(String nameKey, String id, List<Modifier<?>> modifiers, EffectTimeType effectTimeType, int maxStack) {
         super(nameKey, id, modifiers, effectTimeType, maxStack);

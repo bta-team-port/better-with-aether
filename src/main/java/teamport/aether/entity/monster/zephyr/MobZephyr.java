@@ -111,7 +111,7 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
             this.remove();
         }
 
-        if (this.y < -2.0 || this.y > 256.0) {
+        if (this.y < -2.0 || this.y > world.getHeightBlocks()) {
             this.remove();
         }
 

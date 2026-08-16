@@ -99,7 +99,7 @@ public class EntityFloatingBlock extends Entity {
             this.hasRemovedBlock = true;
         }
 
-        if (this.y > 256) {
+        if (this.y > world.getHeightBlocks() + 32) {
             this.remove();
             return;
         }

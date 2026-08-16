@@ -2,7 +2,6 @@ package teamport.aether.entity.monster.fireminion;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
-import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.LightIndexHelper;
 import net.minecraft.core.world.World;
@@ -62,12 +61,6 @@ public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeat
             target.maxFireTicks = 300;
         }
 
-    }
-
-    @Override
-    protected Entity findPlayerToAttack() {
-        Player entityplayer = this.world.getClosestPlayerToEntity(this, 16.0);
-        return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().hasHostileMobs() ? entityplayer : null;
     }
 
     @Override
