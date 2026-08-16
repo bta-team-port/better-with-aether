@@ -12,6 +12,7 @@ import net.minecraft.client.render.entity.MobRendererPlayer;
 import net.minecraft.client.render.item.model.ItemModelBlock;
 import net.minecraft.client.render.item.model.ItemModelDispatcher;
 import net.minecraft.client.render.item.model.ItemModelStandard;
+import net.minecraft.client.render.tileentity.TileEntityRendererStatue;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.block.ItemBlock;
@@ -127,6 +128,11 @@ public class AetherModels {
         dispatcher.addDispatch(new BlockModelGenericPressurePlate<>(AetherBlocks.PRESSURE_PLATE_COBBLE_HOLYSTONE, "aether:block/pressure_plate/cobbled/holystone"));
 
         dispatcher.addDispatch(new BlockModelGenericButton<>(AetherBlocks.BUTTON_HOLYSTONE, "aether:block/button/stone/holystone"));
+
+        dispatcher.addDispatch((new BlockModelEmpty<>(AetherBlocks.STATUE_HOLYSTONE_LOWER)).setAllTextures("aether:block/holystone"));
+        dispatcher.addDispatch((new BlockModelEmpty<>(AetherBlocks.STATUE_HOLYSTONE_UPPER)).setAllTextures("aether:block/holystone"));
+
+        TileEntityRendererStatue.BLOCK_SKIN_MAP.put(AetherBlocks.STATUE_HOLYSTONE_LOWER, "/assets/aether/textures/entity/statue/holystone.png");
 
         dispatcher.addDispatch(new BlockModelGeneric<>(AetherBlocks.ICESTONE,
             loadDataModel("aether:block/icestone")));
@@ -525,9 +531,9 @@ public class AetherModels {
     }
 
     private void setBlockPlantModels(@NonNull BlockModelDispatcher dispatcher) {
-        dispatcher.addDispatch(new BlockModelGenericAxis<>(AetherBlocks.LOG_SKYROOT,
+        dispatcher.addDispatch(new BlockModelFixedAxis<>(AetherBlocks.LOG_SKYROOT,
             loadDataModel("aether:block/log/skyroot")));
-        dispatcher.addDispatch(new BlockModelGenericAxis<>(AetherBlocks.LOG_OAK_GOLDEN,
+        dispatcher.addDispatch(new BlockModelFixedAxis<>(AetherBlocks.LOG_OAK_GOLDEN,
             loadDataModel("aether:block/log/oak_golden")));
 
         dispatcher.addDispatch(new BlockModelGenericLeaves<>(AetherBlocks.LEAVES_SKYROOT,
@@ -612,6 +618,12 @@ public class AetherModels {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CHESTPLATE_NEPTUNE));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_LEGGINGS_NEPTUNE));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_BOOTS_NEPTUNE));
+
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_WOLF_ZANITE));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_WOLF_GRAVITITE));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_WOLF_NEPTUNE));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_WOLF_OBSIDIAN));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_WOLF_PHOENIX));
 
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_TALISMAN_REGEN));
@@ -732,6 +744,8 @@ public class AetherModels {
         dispatcher.addDispatch(new ItemModelPaintedSkyrootDoor(AetherItems.DOOR_SKYROOT_PAINTED));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.SIGN_SKYROOT));
         dispatcher.addDispatch(new ItemModelPaintedSkyrootSign(AetherItems.SIGN_SKYROOT_PAINTED));
+
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.STATUE_HOLYSTONE));
     }
 
     private void setMobAnimalModels(@NonNull EntityRendererDispatcher dispatcher) {

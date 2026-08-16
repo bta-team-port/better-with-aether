@@ -184,6 +184,21 @@ item.aether.armor.gloves.obsidian.desc=A powerful pair of obsidian gloves.
 item.aether.armor.gloves.neptune.name=Neptune Gloves
 item.aether.armor.gloves.neptune.desc=A stormy pair of neptune gloves.
 
+item.armor.wolf.zanite.name=Zanite Wolf Armor
+item.armor.wolf.zanite.desc=Keep your best friend safe with this shiny zanite shell.
+
+item.armor.wolf.gravitite.name=Gravitite Wolf Armor
+item.armor.wolf.gravitite.desc=Keep your best friend safe with this forceful gravitite shell.
+
+item.armor.wolf.obsidian.name=Obsidian Wolf Armor
+item.armor.wolf.obsidian.desc=Keep your best friend safe with this powerful obsidian shell.
+
+item.armor.wolf.phoenix.name=Phoenix Wolf Armor
+item.armor.wolf.phoenix.desc=Keep your best friend safe with this burning phoenix shell.
+
+item.armor.wolf.neptune.name=Neptune Wolf Armor
+item.armor.wolf.neptune.desc=Keep your best friend safe with this stormy neptune shell.
+
 # Dungeon Items
 item.aether.medal.victory.name=Victory Medal
 item.aether.medal.victory.desc=A prize for defeating a valkyrie. Collect 10!
@@ -390,3 +405,7 @@ item.aether.sign.skyroot.painted.red.name=Red Skyroot Sign
 item.aether.sign.skyroot.painted.red.desc=Sign your land, or put down a notice.
 item.aether.sign.skyroot.painted.black.name=Black Skyroot Sign
 item.aether.sign.skyroot.painted.black.desc=Sign your land, or put down a notice.
+
+
+item.statue.holystone.name=Holystone Statue
+item.statue.holystone.desc=A decorative statue carved out of holystone.

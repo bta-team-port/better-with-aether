@@ -7,6 +7,7 @@
   "package": "teamport.aether.mixin",
   "compatibilityLevel": "JAVA_${java}",
   "mixins": [
+    "SortCreativeInventoryMixin",
     "accessors.EntityAccessor",
     "accessors.ItemAccessor",
     "accessors.ItemToolSwordAccessor",
@@ -89,7 +90,6 @@
     "fix.NetworkHandlerMixinFixNativePackets",
     "fix.WorldGetCubesMixin",
     "fix.WorldTypeOverworldRespawnMixin",
-    "gui.MenuInventoryAddCreativeItemsMixin",
     "gui.screens.PlayerMixinAetherScreens",
     "item.ItemBlockBlacklistMixin",
     "item.ItemBlockSlabBlacklistMixin",

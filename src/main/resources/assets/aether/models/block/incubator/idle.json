@@ -4,6 +4,6 @@
     "top": "aether:block/incubator/idle_top",
     "bottom": "aether:block/incubator/bottom",
     "side": "aether:block/incubator/side",
-    "north": "aether:block/incubator/side"
+    "front": "aether:block/incubator/side"
   }
 }

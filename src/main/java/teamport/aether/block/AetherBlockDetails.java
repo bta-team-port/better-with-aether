@@ -48,6 +48,8 @@ public class AetherBlockDetails {
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.BUTTON_PLANKS_SKYROOT.id(), 75);
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.BUTTON_PLANKS_SKYROOT_PAINTED.id(), 75);
 
+        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.DEADBUSH_AETHER.id(), 100);
+
         LookupFuelFurnace.instance.addFuelEntry(Blocks.BUTTON_PLANKS_OAK.id(), 75);
         LookupFuelFurnace.instance.addFuelEntry(Blocks.BUTTON_PLANKS_PAINTED.id(), 75);
 
