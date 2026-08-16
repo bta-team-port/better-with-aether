@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "top": "aether:block/freezer/idle_top",
+    "bottom": "aether:block/freezer/bottom",
+    "side": "aether:block/freezer/side",
+    "north": "aether:block/freezer/side"
+  }
+}

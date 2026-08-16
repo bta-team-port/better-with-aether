@@ -11,13 +11,16 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.net.packet.Packet;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Side;
+import net.minecraft.core.world.ICarriable;
+import net.minecraft.core.world.ICarrySource;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import java.util.Random;
 
-public abstract class AetherTileEntityMachine extends TileEntity implements Container {
+public abstract class AetherTileEntityMachine extends TileEntity implements Container, ICarrySource {
     public final Random random = new Random();
 
     protected ItemStack[] containerItemStacks;
@@ -181,11 +184,6 @@ public abstract class AetherTileEntityMachine extends TileEntity implements Cont
         return success;
     }
 
-    @Override
-    public CarriedBlock getCarriedEntry(World world, Entity holder, Block<?> currentBlock, int currentMeta) {
-        return super.getCarriedEntry(world, holder, currentBlock, currentMeta & -8 | 2);
-    }
-
     public int getMaxEnergyTime() {
         return maxEnergyTime;
     }
@@ -216,5 +214,15 @@ public abstract class AetherTileEntityMachine extends TileEntity implements Cont
 
     public void setCurrentProcessTime(int currentProcessTime) {
         this.currentProcessTime = currentProcessTime;
+    }
+
+    @Override
+    public @NonNull ICarriable pickup(@NonNull World world, @NonNull Entity holder, @NonNull TilePosc tilePos_) {
+        return super.pickup(world, holder, tilePos_);
+    }
+
+    @Override
+    public CarriedBlock getCarriedEntry(World world, Entity holder, Block<?> currentBlock, int currentMeta) {
+        return super.getCarriedEntry(world, holder, currentBlock, currentMeta & -8 | 2);
     }
 }
