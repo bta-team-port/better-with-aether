@@ -1,7 +1,9 @@
 package teamport.aether.block.entity;
 
 
+import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.block.motion.CarriedBlock;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.EntityItem;
@@ -183,8 +185,8 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
 
     private Entity createEntity(Class<? extends Entity> entityClazz) {
         Entity entity = EntityDispatcher.getInstance().createEntityInWorld(entityClazz, this.worldObj);
-        if (entity instanceof MobMoa) {
-            ((MobMoa) entity).setTamed(true);
+        if (entity instanceof MobMoa mobMoa) {
+            mobMoa.setTamed(true);
         }
         if (entity instanceof MobSlime slime) {
             slime.setSlimeSize(random.nextInt(4) + 1);
@@ -220,6 +222,11 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
     public int getEnergyTimeFromItem(ItemStack itemStack) {
         // just in case where will be more options later
         return itemStack == null ? 0 : LookupFuelIncubator.INSTANCE.getFuelYield(itemStack.getItem().id);
+    }
+
+    @Override
+    public CarriedBlock getCarriedEntry(World world, Entity holder, Block<?> currentBlock, int currentMeta) {
+        return new CarriedBlock(holder, currentBlock, 0, this);
     }
 
     @Override

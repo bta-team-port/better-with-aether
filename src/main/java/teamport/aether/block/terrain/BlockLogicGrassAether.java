@@ -58,7 +58,7 @@ public class BlockLogicGrassAether extends BlockLogic implements IBonemealable {
                     } else if (r < 41) {
                         blockToSpawn = AetherBlocks.FLOWER_WHITE;
                     } else {
-                        blockToSpawn = Blocks.TALLGRASS;
+                        blockToSpawn = AetherBlocks.TALLGRASS_AETHER;
                     }
 
                     if (blockToSpawn != null) {

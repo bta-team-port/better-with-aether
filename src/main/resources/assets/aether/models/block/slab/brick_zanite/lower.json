@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab/lower",
+  "textures": {
+    "top": "aether:block/brick_zanite",
+    "bottom": "aether:block/brick_zanite",
+    "side": "aether:block/brick_zanite"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "renderlayer": 1,
+  "parent": "minecraft:block/door/top_left",
+  "textures": {
+    "top": "aether:block/door/glass_quicksoil/top_left"
+  }
+}

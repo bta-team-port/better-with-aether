@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button/active",
+  "textures": {
+    "texture": "aether:block/planks_skyroot/purple"
+  }
+}

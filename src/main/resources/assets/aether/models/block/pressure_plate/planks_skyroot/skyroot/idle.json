@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/pressure_plate/idle",
+  "textures": {
+    "texture": "aether:block/planks_skyroot/skyroot"
+  }
+}

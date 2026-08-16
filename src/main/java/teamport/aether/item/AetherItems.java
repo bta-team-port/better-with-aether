@@ -163,7 +163,7 @@ public final class AetherItems {
     public static Item ARMOR_SHIELD_REPULSION;
 
     public static Item ARMOR_GLOVES_LEATHER;
-    public static Item ARMOR_GLOVES_CHAIN;
+    public static Item ARMOR_GLOVES_CHAINMAIL;
     public static Item ARMOR_GLOVES_IRON;
     public static Item ARMOR_GLOVES_GOLD;
     public static Item ARMOR_GLOVES_DIAMOND;
@@ -175,7 +175,7 @@ public final class AetherItems {
     public static Item ARMOR_GLOVES_NEPTUNE;
 
     public static Item ARMOR_TALISMAN_LEATHER;
-    public static Item ARMOR_TALISMAN_CHAIN;
+    public static Item ARMOR_TALISMAN_CHAINMAIL;
     public static Item ARMOR_TALISMAN_IRON;
     public static Item ARMOR_TALISMAN_GOLD;
     public static Item ARMOR_TALISMAN_DIAMOND;
@@ -639,8 +639,8 @@ public final class AetherItems {
         ARMOR_GLOVES_LEATHER = itemBuilder(CreativeInventoryCategory.ARMOR)
             .build(new ItemGloves("armor.gloves.leather", itemKey("armor_gloves_leather"), itemID("ARMOR_GLOVES_LEATHER"), ArmorMaterial.LEATHER, 4).setDamage(2));
 
-        ARMOR_GLOVES_CHAIN = itemBuilder(CreativeInventoryCategory.ARMOR)
-            .build(new ItemGloves("armor.gloves.chainmail", itemKey("armor_gloves_chainmail"), itemID("ARMOR_GLOVES_CHAIN"), ArmorMaterial.CHAINMAIL, 4).setDamage(2));
+        ARMOR_GLOVES_CHAINMAIL = itemBuilder(CreativeInventoryCategory.ARMOR)
+            .build(new ItemGloves("armor.gloves.chainmail", itemKey("armor_gloves_chainmail"), itemID("ARMOR_GLOVES_CHAINMAIL"), ArmorMaterial.CHAINMAIL, 4).setDamage(2));
 
         ARMOR_GLOVES_IRON = itemBuilder(CreativeInventoryCategory.ARMOR)
             .build(new ItemGloves("armor.gloves.iron", itemKey("armor_gloves_iron"), itemID("ARMOR_GLOVES_IRON"), ArmorMaterial.IRON, 4).setDamage(2));
@@ -687,8 +687,8 @@ public final class AetherItems {
         ARMOR_TALISMAN_LEATHER = itemBuilder(CreativeInventoryCategory.ARMOR)
             .build(new ItemPendant("armor.talisman.leather", itemKey("armor_talisman_leather"), itemID("ARMOR_TALISMAN_LEATHER"), "cloth", ArmorMaterial.LEATHER));
 
-        ARMOR_TALISMAN_CHAIN = itemBuilder(CreativeInventoryCategory.ARMOR)
-            .build(new ItemCombatPendant("armor.talisman.chain", itemKey("armor_talisman_chainmail"), itemID("ARMOR_TALISMAN_CHAIN"), ArmorMaterial.CHAINMAIL));
+        ARMOR_TALISMAN_CHAINMAIL = itemBuilder(CreativeInventoryCategory.ARMOR)
+            .build(new ItemCombatPendant("armor.talisman.chainmail", itemKey("armor_talisman_chainmail"), itemID("ARMOR_TALISMAN_CHAINMAIL"), ArmorMaterial.CHAINMAIL));
 
         ARMOR_TALISMAN_IRON = itemBuilder(CreativeInventoryCategory.ARMOR)
             .build(new ItemPendant("armor.talisman.iron", itemKey("armor_talisman_iron"), itemID("ARMOR_TALISMAN_IRON"), "iron", ArmorMaterial.IRON));

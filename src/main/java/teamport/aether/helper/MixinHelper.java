@@ -6,7 +6,9 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.animal.MobWolf;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.item.IArmorItem;
 import net.minecraft.core.item.Item;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
@@ -65,9 +67,9 @@ public class MixinHelper {
     }
 
     public static boolean isImmuneToFire(@NonNull MobWolf mobWolf) {
-        net.minecraft.core.item.ItemStack armor = mobWolf.getArmorItem();
-        if (armor == null || !(armor.getItem() instanceof net.minecraft.core.item.IArmorItem)) return false;
-        ArmorMaterial armorMaterial = ((net.minecraft.core.item.IArmorItem<?>) armor.getItem()).getArmorMaterial();
+        ItemStack armor = mobWolf.getArmorItem();
+        if (armor == null || !(armor.getItem() instanceof IArmorItem)) return false;
+        ArmorMaterial armorMaterial = ((IArmorItem<?>) armor.getItem()).getArmorMaterial();
         return armorMaterial != null && armorMaterial.equals(AetherArmorMaterial.PHOENIX);
     }
 

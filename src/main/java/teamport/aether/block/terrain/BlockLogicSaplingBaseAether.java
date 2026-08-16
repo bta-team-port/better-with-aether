@@ -4,6 +4,7 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicSaplingBase;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.tag.BlockTags;
+import net.minecraft.core.data.gamerule.GameRules;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
@@ -40,7 +41,11 @@ public abstract class BlockLogicSaplingBaseAether extends BlockLogicSaplingBase 
                 world.setBlockTypeNotify(tilePos, AetherBlocks.DEADBUSH_AETHER);
             }
 
-            super.updateTick(world, tilePos, rand, isRandomTick);
+            this.checkAlive(world, tilePos);
+            if (this.killedByWeather && world.getGameRuleValue(GameRules.DO_SEASONAL_GROWTH) && world.getSeasonManager().getCurrentSeason() != null && !isPermanent(world.getBlockData(tilePos)) && world.getSeasonManager().getCurrentSeason().killFlowers && rand.nextInt(256) == 0) {
+                world.setBlockTypeNotify(tilePos, Blocks.AIR);
+            }
+
             int growthRate = 30;
             if (world.getSeasonManager().getCurrentSeason() != null) {
                 growthRate = MathHelper.floor_float((float) growthRate / world.getSeasonManager().getCurrentSeason().cropGrowthFactor);

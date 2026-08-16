@@ -1,0 +1,54 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"display": {
+		"gui": {
+			"rotation": [ 30, 225, 0 ],
+			"translation": [ 0, 2, 0],
+			"scale":[ 0.625, 0.625, 0.625 ]
+		},
+		"thirdperson_righthand": {
+			"rotation": [ 75, 45, 0 ],
+			"translation": [ 0, 0.5, 2],
+			"scale": [ 0.375, 0.375, 0.375 ]
+		},
+		"firstperson_righthand": {
+			"rotation": [ 0, 45, 0 ],
+			"translation": [ 0, 2.2, 0 ],
+			"scale": [ 0.40, 0.40, 0.40 ]
+		},
+		"firstperson_lefthand": {
+			"rotation": [ 0, 225, 0 ],
+			"translation": [ 0, 2.2, 0 ],
+			"scale": [ 0.40, 0.40, 0.40 ]
+		}
+	},
+	"textures": {
+		"texture": "minecraft:block/brimstone/side",
+		"top": "minecraft:block/brimstone/top",
+		"bottom": "minecraft:block/brimstone/bottom",
+		"overlay": "#texture",
+		"particle_up": "#texture",
+		"particle_down": "#texture",
+		"particle_north": "#texture",
+		"particle_south": "#texture",
+		"particle_west": "#texture",
+		"particle_east": "#texture"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 4, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-1, 0, -1]},
+			"faces": {
+				"north": {"uv": [0, 12, 16, 16], "texture": "#texture"},
+				"east": {"uv": [0, 12, 16, 16], "texture": "#texture"},
+				"south": {"uv": [0, 12, 16, 16], "texture": "#texture"},
+				"west": {"uv": [0, 12, 16, 16], "texture": "#texture"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#top"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#bottom", "cullface": "down"}
+			}
+		}
+	]
+}

@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import teamport.aether.block.AetherBlockDetails;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
+import teamport.aether.block.terrain.BlockLogicIceStone;
 import teamport.aether.effect.AetherEffects;
 import teamport.aether.entity.AetherEntities;
 import teamport.aether.entity.monster.mimic.MimicRegistry;
@@ -108,6 +109,8 @@ public class AetherMod implements ModInitializer {
 
         SILVER = register(new MobFireflyCluster.FireflyColor(10, "fireflySilver", new Biome[]{AetherBiomes.AETHER_PLAINS}, new float[]{0.5F, 1.0F, 0.88F}));
         customProtectionDamages();
+
+        BlockLogicIceStone.initFreezeMap();
 
         NetEntityHandler.registerNetworkEntry(new NetEntryLightning(), 32);
         NetEntityHandler.registerNetworkEntry(new NetEntryAetherProjectile(), 35);

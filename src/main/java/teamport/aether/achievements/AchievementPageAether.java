@@ -76,9 +76,9 @@ public class AchievementPageAether extends AchievementPage implements AetherAchi
         LEAVES_GOLDEN = TextureRegistry.getTexture("aether:block/leaves/oak_golden_retro");
         LOG_GOLDEN = TextureRegistry.getTexture("aether:block/log/oak_golden_side");
 
-        BLUE_CLOUD = TextureRegistry.getTexture("aether:block/aercloud_blue");
-        YELLOW_CLOUD = TextureRegistry.getTexture("aether:block/aercloud_gold");
-        CLOUD = TextureRegistry.getTexture("aether:block/aercloud_white");
+        BLUE_CLOUD = TextureRegistry.getTexture("aether:block/aercloud/blue");
+        YELLOW_CLOUD = TextureRegistry.getTexture("aether:block/aercloud/gold");
+        CLOUD = TextureRegistry.getTexture("aether:block/aercloud/white");
 
         AETHER_TALL_GRASS = TextureRegistry.getTexture("aether:block/tallgrass_aether_retro");
         WHITE_FLOWER = TextureRegistry.getTexture("aether:block/flower_white/0");
@@ -240,13 +240,14 @@ public class AchievementPageAether extends AchievementPage implements AetherAchi
 
     @Override
     public @NonNull String getName() {
-        return I18n.getInstance().translateKey(name);
+        return I18n.getInstance().translateKey(this.name + ".name");
     }
 
     @Override
     public @NonNull String getDescription() {
-        return I18n.getInstance().translateKey(name);
+        return I18n.getInstance().translateKey(this.name + ".desc");
     }
+
 
     @Override
     public @NonNull AchievementEntry onOpenAchievement() {

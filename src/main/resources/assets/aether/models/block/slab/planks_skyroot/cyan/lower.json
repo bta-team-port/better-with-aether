@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab/lower",
+  "textures": {
+    "top": "aether:block/planks_skyroot/cyan",
+    "bottom": "aether:block/planks_skyroot/cyan",
+    "side": "aether:block/planks_skyroot/cyan"
+  }
+}

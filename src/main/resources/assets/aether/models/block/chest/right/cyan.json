@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "up": "aether:block/chest/cyan/top_left",
+    "down": "aether:block/chest/cyan/top_left",
+    "south": "aether:block/chest/cyan/left_back",
+    "north": "aether:block/chest/cyan/right_front",
+    "west": "aether:block/chest/cyan/side",
+    "east": "aether:block/chest/cyan/side"
+  }
+}

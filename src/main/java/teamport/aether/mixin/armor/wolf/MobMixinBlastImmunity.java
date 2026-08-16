@@ -5,6 +5,8 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.animal.MobWolf;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.item.IArmorItem;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.util.helper.DamageType;
 import org.jspecify.annotations.NonNull;
@@ -22,8 +24,8 @@ public abstract class MobMixinBlastImmunity {
         if (type == null || !type.equals(DamageType.BLAST)) return original;
         Mob mob = (Mob) (Object) this;
         if (!(mob instanceof MobWolf)) return original;
-        net.minecraft.core.item.ItemStack _armor = ((MobWolf) mob).getArmorItem();
-        ArmorMaterial material = (_armor != null && _armor.getItem() instanceof net.minecraft.core.item.IArmorItem) ? ((net.minecraft.core.item.IArmorItem<?>) _armor.getItem()).getArmorMaterial() : null;
+        ItemStack _armor = ((MobWolf) mob).getArmorItem();
+        ArmorMaterial material = (_armor != null && _armor.getItem() instanceof IArmorItem<?>) ? ((IArmorItem<?>) _armor.getItem()).getArmorMaterial() : null;
         if (material == null || !material.equals(AetherArmorMaterial.OBSIDIAN)) return original;
         return 0;
     }

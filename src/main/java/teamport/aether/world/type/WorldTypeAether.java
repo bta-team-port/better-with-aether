@@ -23,7 +23,7 @@ public class WorldTypeAether extends WorldType {
         super(properties);
     }
 
-    public static WorldType.Properties defaultProperties(String translationKey) {
+    public static WorldType.@NonNull Properties defaultProperties(String translationKey) {
         return Properties.of(translationKey)
             .brightnessRamp(getLightRamp())
             .defaultWeather(Weathers.OVERWORLD_CLEAR)
@@ -74,7 +74,7 @@ public class WorldTypeAether extends WorldType {
     }
 
     @Override
-    public boolean isValidSpawn(World world, int x, int y, int z) {
+    public boolean isValidSpawn(@NonNull World world, int x, int y, int z) {
         return world.getBlockId(x, y, z) == AetherBlocks.GRASS_AETHER.id();
     }
 

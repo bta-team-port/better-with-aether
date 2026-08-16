@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "top": "aether:block/chest/black/top",
+    "front": "aether:block/chest/black/front",
+    "side": "aether:block/chest/black/side"
+  }
+}

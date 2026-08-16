@@ -45,7 +45,7 @@ public class BlockLogicEnchanter extends BlockLogicRotatable {
     public void animationTick(@NonNull World world, @NonNull TilePosc tilePos, @NonNull Random rand) {
         if (this.isActive) {
             double poxX = (double) tilePos.x() + (double) 0.5F;
-            double posY = (double) tilePos.y() + (double) 0.0F + (double) (rand.nextFloat() * 6.0F / 16.0F);
+            double posY = (double) tilePos.y() + (double) 0.5F + (double) (rand.nextFloat() * 6.0F / 16.0F);
             double posZ = (double) tilePos.z() + (double) 0.5F;
             double f3 = 0.52F;
             double f4 = rand.nextFloat() * 0.6F - 0.3F;

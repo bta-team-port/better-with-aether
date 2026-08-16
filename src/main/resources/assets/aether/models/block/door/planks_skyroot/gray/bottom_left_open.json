@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/door/bottom_left_open",
+  "textures": {
+    "bottom": "aether:block/door/skyroot_gray/bottom"
+  }
+}

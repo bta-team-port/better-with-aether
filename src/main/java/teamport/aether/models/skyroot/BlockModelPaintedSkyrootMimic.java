@@ -50,9 +50,9 @@ public class BlockModelPaintedSkyrootMimic<T extends BlockLogicChestMimic> exten
 
     static {
         for (DyeColor c : DyeColor.blockOrderedColors()) {
-            TOP_TEXTURES[c.blockMeta] = TextureRegistry.getTexture("aether:block/chest/skyroot/" + c.colorID + "/top");
-            SIDE_TEXTURES[c.blockMeta] = TextureRegistry.getTexture("aether:block/chest/skyroot/" + c.colorID + "/side");
-            FRONT_TEXTURES[c.blockMeta] = TextureRegistry.getTexture("aether:block/chest/skyroot/" + c.colorID + "/front");
+            FRONT_TEXTURES[c.blockMeta] = TextureRegistry.getTexture("aether:block/chest/" + c.colorID + "/front");
+            SIDE_TEXTURES[c.blockMeta] = TextureRegistry.getTexture("aether:block/chest/" + c.colorID + "/side");
+            TOP_TEXTURES[c.blockMeta] = TextureRegistry.getTexture("aether:block/chest/" + c.colorID + "/top");
         }
     }
 }

@@ -2,7 +2,7 @@ package teamport.aether.block.machine;
 
 import net.minecraft.core.Global;
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.BlockLogicRotatable;
+import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.entity.player.Player;
@@ -18,7 +18,7 @@ import teamport.aether.gui.AetherScreens;
 
 import java.util.Random;
 
-public class BlockLogicIncubator extends BlockLogicRotatable {
+public class BlockLogicIncubator extends BlockLogic {
     public final boolean isActive;
     private static boolean keepIncubatorInventory = false;
 
@@ -35,8 +35,7 @@ public class BlockLogicIncubator extends BlockLogicRotatable {
     @Override
     public ItemStack[] getBreakResult(@NonNull World world, @NonNull EnumDropCause dropCause, int meta, TileEntity tileEntity) {
         return switch (dropCause) {
-            case PICK_BLOCK, EXPLOSION, PROPER_TOOL, SILK_TOUCH, PISTON_CRUSH ->
-                new ItemStack[]{new ItemStack(AetherBlocks.INCUBATOR_IDLE)};
+            case PICK_BLOCK, EXPLOSION, PROPER_TOOL, SILK_TOUCH, PISTON_CRUSH -> new ItemStack[]{new ItemStack(AetherBlocks.INCUBATOR_IDLE)};
             default -> null;
         };
     }
