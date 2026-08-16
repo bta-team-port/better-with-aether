@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fencegate/template_open",
+  "textures": {
+    "texture": "aether:block/planks_skyroot/orange"
+  }
+}

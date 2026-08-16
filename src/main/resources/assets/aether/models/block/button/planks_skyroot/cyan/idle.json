@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button/idle",
+  "textures": {
+    "texture": "aether:block/planks_skyroot/cyan"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "top": "aether:block/enchanter/top",
+    "bottom": "aether:block/enchanter/bottom",
+    "front": "aether:block/enchanter/idle_front_filled",
+    "side": "aether:block/enchanter/side"
+  }
+}

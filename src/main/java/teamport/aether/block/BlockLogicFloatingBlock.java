@@ -5,11 +5,11 @@ import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.tag.BlockTags;
-import net.minecraft.core.entity.EntityFallingBlock;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
 import org.jspecify.annotations.NonNull;
+import teamport.aether.entity.floating_block.EntityFloatingBlock;
 
 import java.util.Random;
 
@@ -37,20 +37,23 @@ public class BlockLogicFloatingBlock extends BlockLogic {
 
     public void tryToFloat(@NonNull World world, @NonNull TilePosc tilePos) {
         TilePos queryPos = new TilePos();
-        if (canFloatAbove(world, tilePos.up(queryPos)) && tilePos.y() < world.getHeightBlocks()) {
+        int maxHeight = world.getHeightBlocks();
+
+        if (canFloatAbove(world, tilePos.up(queryPos)) && tilePos.y() < maxHeight) {
             byte radius = 32;
             if (!fallInstantly && world.areBlocksLoaded(tilePos.add(-radius, -radius, -radius, new TilePos()), tilePos.add(radius, radius, radius, new TilePos()))) {
-                EntityFallingBlock entityFallingBlock = new EntityFallingBlock(world, (double)tilePos.x() + (double)0.5F, (double)tilePos.y() + (double)0.5F, (double)tilePos.z() + (double)0.5F, this.block.id(), 0, null);
-                world.entityJoinedWorld(entityFallingBlock);
+                EntityFloatingBlock entityFloatingBlock = new EntityFloatingBlock(world, (double)tilePos.x() + 0.5D, (double)tilePos.y() + 0.5D, (double)tilePos.z() + 0.5D, this.block.id(), 0, null);
+                world.entityJoinedWorld(entityFloatingBlock);
+                world.setBlockTypeNotify(tilePos, Blocks.AIR);
             } else {
                 world.setBlockTypeNotify(tilePos, Blocks.AIR);
                 TilePos check = tilePos.up(new TilePos());
 
-                while(canFloatAbove(world, check) && check.y < world.getHeightBlocks()) {
+                while(canFloatAbove(world, check) && check.y < maxHeight) {
                     check.up(new TilePos());
                 }
 
-                if (check.y < world.getHeightBlocks()) {
+                if (check.y() < maxHeight) {
                     world.setBlockTypeNotify(check, this.block);
                 }
             }

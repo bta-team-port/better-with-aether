@@ -1,0 +1,7 @@
+{
+	"parent": "minecraft:block/cube_column",
+	"textures": {
+		"end": "aether:block/log/oak_golden_top",
+		"side": "aether:block/log/oak_golden_side"
+	}
+}

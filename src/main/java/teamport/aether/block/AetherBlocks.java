@@ -10,6 +10,7 @@ import net.minecraft.core.item.block.ItemBlockSlabPainted;
 import net.minecraft.core.item.block.ItemBlockStairsPainted;
 import net.minecraft.core.sound.BlockSound;
 import net.minecraft.core.sound.BlockSounds;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherMod;
 import teamport.aether.block.dungeon.*;
 import teamport.aether.block.machine.BlockLogicEnchanter;
@@ -209,11 +210,11 @@ public final class AetherBlocks {
         }
     }
 
-    private static BlockBuilder blockBuilder() {
+    private static @NonNull BlockBuilder blockBuilder() {
         return blockBuilder(CreativeInventoryCategory.MISCELLANEOUS);
     }
 
-    private static BlockBuilder blockBuilder(CreativeInventoryCategory category) {
+    private static @NonNull BlockBuilder blockBuilder(CreativeInventoryCategory category) {
         return new BlockBuilder(MOD_ID)
             .setCreativeInventoryPlacement(new CreativeInventoryPlacement.Category(category));
     }

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/tinted_cube_all",
+  "textures": {
+    "all": "aether:block/moss/holystone"
+  }
+}

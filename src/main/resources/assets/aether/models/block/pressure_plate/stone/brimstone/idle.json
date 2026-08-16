@@ -1,0 +1,27 @@
+{   "parent": "block/block_thin",
+    "textures": {
+        "texture": "minecraft:block/brimstone/side",
+        "top": "minecraft:block/brimstone/top",
+        "bottom": "minecraft:block/brimstone/bottom",
+        "overlay": "#texture",
+        "particle_up": "#texture",
+        "particle_down": "#texture",
+        "particle_north": "#texture",
+        "particle_south": "#texture",
+        "particle_west": "#texture",
+        "particle_east": "#texture"
+    },
+    "elements": [
+        {   "from": [ 1, 0, 1 ],
+            "to": [ 15, 1, 15 ],
+            "faces": {
+                "down":  { "uv": [ 1,  1, 15, 15 ], "texture": "#bottom", "cullface": "down" },
+                "up":    { "uv": [ 1,  1, 15, 15 ], "texture": "#top" },
+                "north": { "uv": [ 1, 15, 15, 16 ], "texture": "#texture" },
+                "south": { "uv": [ 1, 15, 15, 16 ], "texture": "#texture" },
+                "west":  { "uv": [ 1, 15, 15, 16 ], "texture": "#texture" },
+                "east":  { "uv": [ 1, 15, 15, 16 ], "texture": "#texture" }
+            }
+        }
+    ]
+}

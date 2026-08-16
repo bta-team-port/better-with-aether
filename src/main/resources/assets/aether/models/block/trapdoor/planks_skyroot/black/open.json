@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/trapdoor/open",
+  "textures": {
+    "texture": "aether:block/trapdoor/planks_skyroot/black/top",
+    "side": "aether:block/trapdoor/planks_skyroot/black/side"
+  }
+}
