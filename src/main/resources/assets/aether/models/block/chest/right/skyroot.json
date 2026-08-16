@@ -3,8 +3,8 @@
   "textures": {
     "up": "aether:block/chest/skyroot/top_left",
     "down": "aether:block/chest/skyroot/top_left",
-    "south": "aether:block/chest/skyroot/right_front",
-    "north": "aether:block/chest/skyroot/left_back",
+    "south": "aether:block/chest/skyroot/left_back",
+    "north": "aether:block/chest/skyroot/right_front",
     "west": "aether:block/chest/skyroot/side",
     "east": "aether:block/chest/skyroot/side"
   }

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button/inventory",
+  "textures": {
+    "texture": "aether:block/planks_skyroot/purple"
+  }
+}

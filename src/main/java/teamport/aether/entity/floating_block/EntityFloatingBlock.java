@@ -109,7 +109,7 @@ public class EntityFloatingBlock extends Entity {
             Block<?> selfBlock = this.carriedBlock.block();
             Block<?> blockAbove = this.world.getBlock(x, y + 1, z);
             double friction = selfBlock.friction;
-            friction *= blockAbove == null ? 0.98 : (double) (blockAbove.friction * 0.91F);
+            friction *= blockAbove.friction * 0.91F;
             this.xd *= friction;
             this.zd *= friction;
             this.yd *= -0.5;
@@ -160,12 +160,10 @@ public class EntityFloatingBlock extends Entity {
     public void drop() {
         Block<?> block = this.carriedBlock.block();
         int i;
-        if (block != null) {
-            ItemStack[] drops = block.getBreakResult(this.world, EnumDropCause.SILK_TOUCH, this.carriedBlock.metadata, this.carriedBlock.entity);
-            if (drops != null && drops.length > 0) {
-                for (i = 0; i < drops.length; ++i) {
-                    this.dropItem(drops[i], 0.0F);
-                }
+        ItemStack[] drops = block.getBreakResult(this.world, EnumDropCause.SILK_TOUCH, this.carriedBlock.metadata, this.carriedBlock.entity);
+        if (drops != null && drops.length > 0) {
+            for (i = 0; i < drops.length; ++i) {
+                this.dropItem(drops[i], 0.0F);
             }
         }
 

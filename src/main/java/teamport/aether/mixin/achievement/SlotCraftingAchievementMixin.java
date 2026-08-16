@@ -34,7 +34,7 @@ public abstract class SlotCraftingAchievementMixin {
         if (itemStack.itemID == AetherItems.TOOL_SHOOTER.id) {
             this.thePlayer.addStat(AetherAchievements.SHOOTER, 1);
         }
-        if (itemStack.itemID == AetherItems.ARMOR_GLOVES_CHAIN.id || itemStack.itemID == AetherItems.ARMOR_TALISMAN_CHAIN.id) {
+        if (itemStack.itemID == AetherItems.ARMOR_GLOVES_CHAINMAIL.id || itemStack.itemID == AetherItems.ARMOR_TALISMAN_CHAINMAIL.id) {
             this.thePlayer.addStat(Achievements.REPAIR_ARMOR, 1);
         }
     }

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence/post",
+  "textures": {
+    "texture": "aether:block/planks_skyroot/gray"
+  }
+}

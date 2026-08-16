@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/pressure_plate/active",
+  "textures": {
+    "texture": "minecraft:block/cobbled_granite"
+  }
+}

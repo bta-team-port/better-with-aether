@@ -20,8 +20,8 @@ import teamport.aether.item.DartInterface;
 
 @Environment(EnvType.CLIENT)
 public class ItemModelShooter extends ItemModelStandard {
-    public ItemModelShooter(Item item, boolean handheld) {
-        super(item, handheld);
+    public ItemModelShooter(@NonNull Item item, boolean defaultTextureLookup) {
+        super(item, defaultTextureLookup);
         this.setDisplayPos(DisplayPos.THIRD_PERSON_RIGHT_HAND, new DisplayPos(
             -0.0625f, -0.125f, 0.15625f, -80.0f, 260.0f, -40.0f, 0.9f, 0.9f, 0.9f
         ));
@@ -46,9 +46,10 @@ public class ItemModelShooter extends ItemModelStandard {
             if (mirrorX) {
                 GLRenderer.modelM4f().rotateZ(((float) Math.PI / 2F));
             }
+            if (!mirrorX) {
+                GLRenderer.modelM4f().translate(-0.3125f, 0.3125f, -0.0625f);
+            }
 
-            GLRenderer.modelM4f().translate(-0.3125f, 0.3125f, 0.0625f);
-            GLRenderer.modelM4f().rotateZ((float) Math.toRadians(90.0));
             this.renderCoordinate(tessellator, ItemModelDispatcher.getInstance().getDispatch(nextDart).getIcon(holder, nextDart.getDefaultStack()), lightIndex, color, items3d, !mirrorX);
             GLRenderer.popFrame();
         }

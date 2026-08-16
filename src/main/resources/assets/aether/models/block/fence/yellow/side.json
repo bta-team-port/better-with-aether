@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence/side",
+  "textures": {
+    "texture": "aether:block/planks_skyroot/yellow"
+  }
+}

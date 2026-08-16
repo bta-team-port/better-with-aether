@@ -22,7 +22,7 @@ public class LookupTrinketIcons {
 
     public void register() {
         addEntry(AetherItems.ARMOR_TALISMAN_LEATHER.namespaceID, "aether:item/trinket/armor_pendant_outline");
-        addEntry(AetherItems.ARMOR_TALISMAN_CHAIN.namespaceID, "aether:item/trinket/armor_pendant_outline");
+        addEntry(AetherItems.ARMOR_TALISMAN_CHAINMAIL.namespaceID, "aether:item/trinket/armor_pendant_outline");
         addEntry(AetherItems.ARMOR_TALISMAN_IRON.namespaceID, "aether:item/trinket/armor_pendant_outline");
         addEntry(AetherItems.ARMOR_TALISMAN_GOLD.namespaceID, "aether:item/trinket/armor_pendant_outline");
         addEntry(AetherItems.ARMOR_TALISMAN_DIAMOND.namespaceID, "aether:item/trinket/armor_pendant_outline");

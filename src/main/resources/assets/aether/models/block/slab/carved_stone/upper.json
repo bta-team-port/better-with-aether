@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab/upper",
+  "textures": {
+    "top": "aether:block/dungeon/carved",
+    "bottom": "aether:block/dungeon/carved",
+    "side": "aether:block/dungeon/carved"
+  }
+}

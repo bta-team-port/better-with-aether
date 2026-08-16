@@ -1,4 +1,0 @@
-{
-  "parent": "minecraft:block/leaves/leaves",
-  "textures": { "all": "aether:block/leaves/skyroot_retro" }
-}
