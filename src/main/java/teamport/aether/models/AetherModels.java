@@ -359,39 +359,11 @@ public class AetherModels {
         dispatcher.addDispatch(new BlockModelGenericFurnace<>(AetherBlocks.ENCHANTER_IDLE, "aether:block/enchanter/idle"));
         dispatcher.addDispatch(new BlockModelGenericFurnace<>(AetherBlocks.ENCHANTER_ACTIVE, "aether:block/enchanter/active"));
 
-        dispatcher.addDispatch(new BlockModelFreezer<>(AetherBlocks.FREEZER_IDLE)
-            .setRetroTex("aether:block/freezer/idle_top_retro", Side.TOP)
-            .setRetroTex("aether:block/freezer/bottom_retro", Side.BOTTOM)
-            .setRetroTex("aether:block/freezer/side_retro", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH)
-            .setTex("aether:block/freezer/idle_top", Side.TOP)
-            .setTex("aether:block/freezer/bottom", Side.BOTTOM)
-            .setTex("aether:block/freezer/side", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH));
-        dispatcher.addDispatch(new BlockModelFreezer<>(AetherBlocks.FREEZER_ACTIVE)
-            .setRetroTex("aether:block/freezer/active_top_retro", Side.TOP)
-            .setRetroTex("aether:block/freezer/bottom_retro", Side.BOTTOM)
-            .setRetroTex("aether:block/freezer/side_retro", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH)
-            .setTex("aether:block/freezer/active_top", Side.TOP)
-            .setTex("aether:block/freezer/bottom", Side.BOTTOM)
-            .setTex("aether:block/freezer/side", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH));
+        dispatcher.addDispatch(new BlockModelGenericFreezer<>(AetherBlocks.FREEZER_IDLE, "aether:block/freezer/idle"));
+        dispatcher.addDispatch(new BlockModelGenericFreezer<>(AetherBlocks.FREEZER_ACTIVE, "aether:block/freezer/active"));
 
-        dispatcher.addDispatch(new BlockModelIncubator<>(AetherBlocks.INCUBATOR_IDLE)
-            .setTopFilled("aether:block/incubator/idle_top_filled")
-            .setRetroTopFilled("aether:block/incubator/idle_top_retro_filled")
-            .setRetroTex("aether:block/incubator/idle_top_retro", Side.TOP)
-            .setRetroTex("aether:block/incubator/bottom_retro", Side.BOTTOM)
-            .setRetroTex("aether:block/incubator/side_retro", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH)
-            .setTex("aether:block/incubator/idle_top", Side.TOP)
-            .setTex("aether:block/incubator/bottom", Side.BOTTOM)
-            .setTex("aether:block/incubator/side", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH));
-        dispatcher.addDispatch(new BlockModelIncubator<>(AetherBlocks.INCUBATOR_ACTIVE)
-            .setTopFilled("aether:block/incubator/active_top_filled")
-            .setRetroTopFilled("aether:block/incubator/active_top_retro_filled")
-            .setRetroTex("aether:block/incubator/active_top_retro", Side.TOP)
-            .setRetroTex("aether:block/incubator/bottom_retro", Side.BOTTOM)
-            .setRetroTex("aether:block/incubator/side_retro", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH)
-            .setTex("aether:block/incubator/active_top", Side.TOP)
-            .setTex("aether:block/incubator/bottom", Side.BOTTOM)
-            .setTex("aether:block/incubator/side", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH));
+        dispatcher.addDispatch(new BlockModelGenericIncubator<>(AetherBlocks.INCUBATOR_IDLE, "aether:block/incubator/idle"));
+        dispatcher.addDispatch(new BlockModelGenericIncubator<>(AetherBlocks.INCUBATOR_ACTIVE, "aether:block/incubator/active"));
 
 
         dispatcher.addDispatch(new BlockModelDungeonDoor<>(AetherBlocks.DOOR_DUNGEON_BRONZE, 4, 4)
