@@ -46,6 +46,12 @@ tile.aether.slab.brick.holystone.desc=A slab of holystone bricks.
 tile.aether.stairs.brick.holystone.name=Holystone Brick Stairs
 tile.aether.stairs.brick.holystone.desc=Holystone brick block used for rapid vertical movement.
 
+tile.pressureplate.holystone.name=Holystone Pressure Plate
+tile.pressureplate.holystone.desc=Emits a redstone signal when living creatures step on it.
+
+tile.pressureplate.cobble.holystone.name=Cobbled Holystone Pressure Plate
+tile.pressureplate.cobble.holystone.desc=Emits a redstone signal when players step on it.
+
 # Other Stone Blocks
 tile.aether.icestone.name=Icestone
 tile.aether.icestone.desc=Frozen stone that freezes what it touches.

@@ -2,6 +2,7 @@ package teamport.aether;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import turniplabs.halplibe.util.TomlConfigHandler;
@@ -41,7 +42,7 @@ public class AetherConfig {
 
     public static volatile String REMOTE_RESOURCE_URL = getDefaultRemoteUrl();
 
-    static String getDefaultRemoteUrl() {
+    static @NonNull String getDefaultRemoteUrl() {
         FabricLoader loader = FabricLoader.getInstance();
         Optional<ModContainer> modContainerOpt = loader.getModContainer(MOD_ID);
 
@@ -114,7 +115,7 @@ public class AetherConfig {
         }
     }
 
-    private static void assembleProperties(Toml properties) {
+    private static void assembleProperties(@NonNull Toml properties) {
         properties.addCategory(GENERAL_CATEGORY)
                 .addEntry("cfgVersion", 6)
                 .addEntry("DIMENSION", DIMENSION)

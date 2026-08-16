@@ -14,21 +14,21 @@ import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.WorldSource;
 import net.minecraft.core.world.pos.TilePosc;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.useless.dragonfly.models.block.StaticBlockModel;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelGenericFreezer<T extends BlockLogic> extends BlockModelGeneric<T> {
     public final StaticBlockModel filled;
 
-    public BlockModelGenericFreezer(@NotNull Block<T> block, @NotNull String baseKey) {
+    public BlockModelGenericFreezer(@NonNull Block<T> block, @NonNull String baseKey) {
         super(block, BlockModelDispatcher.loadDataModel(baseKey));
         this.filled = BlockModelDispatcher.loadDataModel(baseKey + "_filled").asModel();
     }
 
     @Override
-    public boolean renderAttached(@NotNull TessellatorGeneral tessellator, @NotNull WorldSource worldSource, @NotNull TilePosc tilePos, boolean cullFaces, @Nullable IconCoordinate overrideTexture) {
+    public boolean renderAttached(@NonNull TessellatorGeneral tessellator, @NonNull WorldSource worldSource, @NonNull TilePosc tilePos, boolean cullFaces, @Nullable IconCoordinate overrideTexture) {
         Direction direction = BlockLogicRotatable.getDirectionFromMeta(worldSource.getBlockData(tilePos));
 
         switch (direction) {
@@ -57,7 +57,7 @@ public class BlockModelGenericFreezer<T extends BlockLogic> extends BlockModelGe
     }
 
     @Override
-    public @NotNull StaticBlockModel getModel(@NotNull WorldSource source, @NotNull TilePosc tilePosc) {
+    public @NonNull StaticBlockModel getModel(@NonNull WorldSource source, @NonNull TilePosc tilePosc) {
         TileEntity tileEntity = source.getTileEntity(tilePosc);
         if (tileEntity instanceof Container container) {
             boolean hasOutput;

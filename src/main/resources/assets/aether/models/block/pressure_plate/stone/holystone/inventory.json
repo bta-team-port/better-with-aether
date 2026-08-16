@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/pressure_plate/inventory",
   "textures": {
-    "texture": "minecraft:block/gloomstone"
+    "texture": "aether:block/holystone"
   }
 }
