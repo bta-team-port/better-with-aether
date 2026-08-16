@@ -123,6 +123,11 @@ public class AetherModels {
         dispatcher.addDispatch(new BlockModelGeneric<>(AetherBlocks.BRICK_HOLYSTONE,
             loadDataModel("aether:block/brick_holystone")));
 
+        dispatcher.addDispatch(new BlockModelGenericPressurePlate<>(AetherBlocks.PRESSURE_PLATE_HOLYSTONE, "aether:block/pressure_plate/stone/holystone"));
+        dispatcher.addDispatch(new BlockModelGenericPressurePlate<>(AetherBlocks.PRESSURE_PLATE_COBBLE_HOLYSTONE, "aether:block/pressure_plate/cobbled/holystone"));
+
+        dispatcher.addDispatch(new BlockModelGenericButton<>(AetherBlocks.BUTTON_HOLYSTONE, "aether:block/button/stone/holystone"));
+
         dispatcher.addDispatch(new BlockModelGeneric<>(AetherBlocks.ICESTONE,
             loadDataModel("aether:block/icestone")));
 

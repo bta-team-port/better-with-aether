@@ -5,6 +5,8 @@ import net.minecraft.core.block.*;
 import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.Mob;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.block.ItemBlockPainted;
 import net.minecraft.core.item.block.ItemBlockSlabPainted;
 import net.minecraft.core.item.block.ItemBlockStairsPainted;
@@ -27,6 +29,7 @@ import turniplabs.halplibe.helper.BlockBuilder;
 import turniplabs.halplibe.helper.creativeInventory.CreativeInventoryCategory;
 import turniplabs.halplibe.helper.creativeInventory.CreativeInventoryPlacement;
 
+import static net.minecraft.core.block.Blocks.register;
 import static teamport.aether.AetherConfig.blockID;
 import static teamport.aether.AetherMod.MOD_ID;
 
@@ -66,6 +69,11 @@ public final class AetherBlocks {
     public static Block<?> BRICK_HOLYSTONE;
     public static Block<BlockLogicStairs> STAIRS_BRICK_HOLYSTONE;
     public static Block<BlockLogicSlab> SLAB_BRICK_HOLYSTONE;
+
+    public static Block<?> PRESSURE_PLATE_HOLYSTONE;
+    public static Block<?> PRESSURE_PLATE_COBBLE_HOLYSTONE;
+
+    public static Block<?> BUTTON_HOLYSTONE;
 
     public static Block<?> ICESTONE;
 
@@ -217,6 +225,10 @@ public final class AetherBlocks {
     private static @NonNull BlockBuilder blockBuilder(CreativeInventoryCategory category) {
         return new BlockBuilder(MOD_ID)
             .setCreativeInventoryPlacement(new CreativeInventoryPlacement.Category(category));
+    }
+
+    public static @NonNull String blockKey(String string) {
+        return MOD_ID + ":block/" + string;
     }
 
     public static void initializeBlocks() {
@@ -421,6 +433,25 @@ public final class AetherBlocks {
             .setHardness(0.5f)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
             .build("slab.brick.holystone", "slab_brick_holystone", blockID("SLAB_BRICK_HOLYSTONE"), b -> new BlockLogicSlab(b, BRICK_HOLYSTONE));
+
+        PRESSURE_PLATE_HOLYSTONE = register("pressureplate.holystone", "aether:block/pressure_plate_holystone", blockID("PRESSURE_PLATE_HOLYSTONE"),
+            b -> new BlockLogicPressurePlate<>(b, Mob.class, Materials.MARBLE))
+            .withSound(BlockSounds.STONE)
+            .withHardness(0.5F)
+            .withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.PREVENT_MOB_SPAWNS);
+
+        PRESSURE_PLATE_COBBLE_HOLYSTONE = register("pressureplate.cobble.holystone", blockKey("pressure_plate_cobble_holystone"), blockID("PRESSURE_PLATE_COBBLE_HOLYSTONE"),
+            b -> new BlockLogicPressurePlate<>(b, Player.class, Materials.MARBLE))
+            .withSound(BlockSounds.STONE)
+            .withHardness(0.5F)
+            .withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.PREVENT_MOB_SPAWNS);
+
+        BUTTON_HOLYSTONE = register("button.holystone", blockKey("button_holystone"), blockID("BUTTON_HOLYSTONE"), BlockLogicButton::new)
+            .withSound(BlockSounds.STONE)
+            .withHardness(0.5F)
+            .withTags(BlockTags.BROKEN_BY_FLUIDS, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.PREVENT_MOB_SPAWNS);
+
+
 
 
         /// M: STONE

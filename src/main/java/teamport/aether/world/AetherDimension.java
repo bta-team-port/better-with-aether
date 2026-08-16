@@ -10,6 +10,8 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.type.WorldTypeGroups;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.AetherConfig;
 import teamport.aether.AetherMod;
 import teamport.aether.block.AetherBlocks;
@@ -43,7 +45,7 @@ public class AetherDimension {
     private static final HashMap<UUID, CompoundTag> HAS_BUNNY_MAP = new HashMap<>();
 
 
-    public static List<Integer> getDimensionBlacklist(Dimension dimension) {
+    public static List<Integer> getDimensionBlacklist(@NonNull Dimension dimension) {
         return getDimensionBlacklist(dimension.id);
     }
 
@@ -139,7 +141,7 @@ public class AetherDimension {
         }
     }
 
-    public static MobAerbunny popBunnyFromPlayer(UUID uuidPlayer, World world) {
+    public static @Nullable MobAerbunny popBunnyFromPlayer(UUID uuidPlayer, World world) {
         CompoundTag tag = HAS_BUNNY_MAP.remove(uuidPlayer);
         if (tag == null) return null;
         MobAerbunny mobAerbunny = (MobAerbunny) EntityDispatcher.getInstance().createEntityFromNBT(tag, world);
@@ -147,7 +149,7 @@ public class AetherDimension {
         return mobAerbunny;
     }
 
-    public static void addBunnyToPlayer(UUID uuidPlayer, MobAerbunny mobAerbunny) {
+    public static void addBunnyToPlayer(UUID uuidPlayer, @NonNull MobAerbunny mobAerbunny) {
         CompoundTag tag = new CompoundTag();
         mobAerbunny.save(tag);
         mobAerbunny.remove();
@@ -198,8 +200,8 @@ public class AetherDimension {
 
                     world.entityJoinedWorld(copy);
 
-                    if (copy instanceof AetherMobFallingToOverworld) {
-                        ((AetherMobFallingToOverworld) copy).onEnteredOverworld();
+                    if (copy instanceof AetherMobFallingToOverworld aetherMobFallingToOverworld) {
+                        aetherMobFallingToOverworld.onEnteredOverworld();
                     }
                 }
 
@@ -222,7 +224,7 @@ public class AetherDimension {
         DungeonMap.clear();
     }
 
-    protected static void loadFallenEntities(ListTag entitiesMoved) {
+    protected static void loadFallenEntities(@NonNull ListTag entitiesMoved) {
         ENTITIES_MOVED_TO_OVERWORLD.clear();
 
         entitiesMoved.forEach(tag -> {
@@ -273,7 +275,7 @@ public class AetherDimension {
         aetherWorldData.putCompound(AetherMod.MOD_ID + ".canReceiveParachute", canReceiveParachuteCompound);
     }
 
-    public static void loadWorldData(CompoundTag aetherWorldData) {
+    public static void loadWorldData(@NonNull CompoundTag aetherWorldData) {
         AetherMod.LOGGER.debug("Loading additional level data.");
 
         loadFallenEntities(aetherWorldData.getList(AetherMod.MOD_ID + ".overworldFallen"));
@@ -288,7 +290,7 @@ public class AetherDimension {
         bunnyCompound.getValues().forEach(it -> HAS_BUNNY_MAP.put(UUID.fromString(it.getTagName()), (CompoundTag) it));
     }
 
-    public static void loadDimensionData(CompoundTag dimensionData) {
+    public static void loadDimensionData(@NonNull CompoundTag dimensionData) {
         AetherMod.LOGGER.debug("Loading additional dimension data.");
 
         if (!dimensionData.containsKey(AetherMod.MOD_ID + ".__SCHEMA_VERSION__")
@@ -299,7 +301,7 @@ public class AetherDimension {
         SunSpiritDeath.setDead(dimensionData.getBoolean(AetherMod.MOD_ID + ".sunspiritDeathTimestamp"));
     }
 
-    public static void saveDimensionData(CompoundTag dimensionData) {
+    public static void saveDimensionData(@NonNull CompoundTag dimensionData) {
         AetherMod.LOGGER.debug("Saving additional dimension data.");
 
         dimensionData.putInt(AetherMod.MOD_ID + ".__SCHEMA_VERSION__", SCHEMA_VERSION);
