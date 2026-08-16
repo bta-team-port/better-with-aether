@@ -4,6 +4,6 @@
     "top": "aether:block/freezer/active_top_filled",
     "bottom": "aether:block/freezer/bottom",
     "side": "aether:block/freezer/side",
-    "north": "aether:block/freezer/side"
+    "front": "aether:block/freezer/side"
   }
 }

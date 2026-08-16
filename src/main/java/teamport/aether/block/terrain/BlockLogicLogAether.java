@@ -1,8 +1,8 @@
 package teamport.aether.block.terrain;
 
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.BlockLogicAxisAligned;
 import net.minecraft.core.block.BlockLogicLog;
+import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.PlacementMode;
 import net.minecraft.core.item.Item;
@@ -26,14 +26,33 @@ public class BlockLogicLogAether extends BlockLogicLog {
 
     @Override
     public int getPlacedData(@Nullable Player player, @NonNull ItemStack itemStack, @NonNull World world, @NonNull TilePosc tilePos, @NonNull Side side, double xHit, double yHit) {
-        Axis axis = player.getPlacementDirection(side, PlacementMode.SIDE).axis();
-        return BlockLogicAxisAligned.axisToMeta(axis) + 4;
+        Axis axis;
+        if (player != null) {
+            axis = player.getPlacementDirection(side, PlacementMode.SIDE).axis();
+        } else {
+            axis = side.axis();
+        }
+
+        return axisToMeta(axis) + 4;
     }
+
+    @Override
+    public void onPlacedByMob(@NonNull World world, @NonNull TilePosc tilePos, @NonNull Side side, @NonNull Mob mob, double xHit, double yHit) {
+        Axis axis = mob.getPlacementDirection(side, PlacementMode.SIDE).axis();
+        world.setBlockDataNotify(tilePos, axisToMeta(axis) + 4);
+    }
+
+    @Override
+    public void onPlacedOnSide(@NonNull World world, @NonNull TilePosc tilePos, @NonNull Side side, double xHit, double yHit) {
+        Axis axis = side.axis();
+        world.setBlockDataNotify(tilePos, axisToMeta(axis) + 4);
+    }
+
 
     @Override
     public void onDestroyedByPlayer(@NonNull World world, @NonNull TilePosc tilePos, @NonNull Side side, int data, @NonNull Player player, @Nullable Item item) {
         ItemStack heldItem = player.getHeldItem();
-        if (heldItem != null && heldItem.getItem().equals(AetherItems.TOOL_AXE_SKYROOT) && data == 0 && player.getGamemode().hasBlockConsumption()) {
+        if (heldItem != null && heldItem.getItem().equals(AetherItems.TOOL_AXE_SKYROOT) && data <= 2 && player.getGamemode().hasBlockConsumption()) {
             this.onHarvest(world, player, tilePos, 1, world.getTileEntity(tilePos));
         }
     }

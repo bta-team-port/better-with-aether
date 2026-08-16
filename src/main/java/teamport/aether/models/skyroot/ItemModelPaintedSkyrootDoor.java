@@ -13,22 +13,22 @@ import org.jspecify.annotations.NonNull;
 
 @Environment(EnvType.CLIENT)
 public class ItemModelPaintedSkyrootDoor extends ItemModelStandard {
-    private static final IconCoordinate[] DOOR_ICONS = new IconCoordinate[16];
+    public static IconCoordinate[] doorIcons = new IconCoordinate[16];
 
-    public ItemModelPaintedSkyrootDoor(@NonNull Item item) {
-        super(item);
+    public ItemModelPaintedSkyrootDoor(Item item) {
+        super(item, false);
     }
-
 
     @Override
     public @NonNull IconCoordinate getIcon(Entity entity, @NonNull ItemStack itemStack) {
         int meta = itemStack.getMetadata();
-        return DOOR_ICONS[meta & 15];
+        return doorIcons[meta & 15];
     }
 
     static {
-        for (DyeColor c : DyeColor.itemOrderedColors()) {
-            DOOR_ICONS[c.itemMeta] = TextureRegistry.getTexture("aether:item/door_skyroot/" + c.colorID);
+        for (DyeColor dyeColor : DyeColor.itemOrderedColors()) {
+            doorIcons[dyeColor.itemMeta] = TextureRegistry.getTexture("aether:item/door_skyroot/" + dyeColor.colorID);
         }
+
     }
 }

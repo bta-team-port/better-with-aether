@@ -26,8 +26,6 @@ import teamport.aether.entity.monster.valkyrie.MobValkyrie;
 import teamport.aether.item.AetherItems;
 import teamport.aether.world.AetherDimension;
 import turniplabs.halplibe.helper.BlockBuilder;
-import turniplabs.halplibe.helper.creativeInventory.CreativeInventoryCategory;
-import turniplabs.halplibe.helper.creativeInventory.CreativeInventoryPlacement;
 
 import static net.minecraft.core.block.Blocks.register;
 import static teamport.aether.AetherConfig.blockID;
@@ -74,6 +72,9 @@ public final class AetherBlocks {
     public static Block<?> PRESSURE_PLATE_COBBLE_HOLYSTONE;
 
     public static Block<?> BUTTON_HOLYSTONE;
+
+    public static Block<BlockLogicStatue> STATUE_HOLYSTONE_LOWER;
+    public static Block<BlockLogicStatue> STATUE_HOLYSTONE_UPPER;
 
     public static Block<?> ICESTONE;
 
@@ -218,22 +219,13 @@ public final class AetherBlocks {
         }
     }
 
-    private static @NonNull BlockBuilder blockBuilder() {
-        return blockBuilder(CreativeInventoryCategory.MISCELLANEOUS);
-    }
-
-    private static @NonNull BlockBuilder blockBuilder(CreativeInventoryCategory category) {
-        return new BlockBuilder(MOD_ID)
-            .setCreativeInventoryPlacement(new CreativeInventoryPlacement.Category(category));
-    }
-
     public static @NonNull String blockKey(String string) {
         return MOD_ID + ":block/" + string;
     }
 
     public static void initializeBlocks() {
 
-        BlockBuilder stone = blockBuilder(CreativeInventoryCategory.STONE)
+        BlockBuilder stone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(0.5f)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT);
@@ -242,7 +234,7 @@ public final class AetherBlocks {
             .setHardness(1.5F)
             .setInfiniburn();
 
-        BlockBuilder wood = blockBuilder(CreativeInventoryCategory.WOOD)
+        BlockBuilder wood = new BlockBuilder(MOD_ID)
             .setBlockSound(BlockSounds.WOOD)
             .setHardness(2.0f)
             .setResistance(5.0f)
@@ -255,26 +247,26 @@ public final class AetherBlocks {
             .setHardness(-1.0F)
             .setResistance(999999999F);
 
-        BlockBuilder oreBlock = blockBuilder(CreativeInventoryCategory.STORAGE)
+        BlockBuilder oreBlock = new BlockBuilder(MOD_ID)
             .setBlockSound(BlockSounds.METAL)
             .setHardness(3.0f)
             .setResistance(10.0f)
             .setTags(BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
 
-        BlockBuilder flower = blockBuilder(CreativeInventoryCategory.ORGANIC)
+        BlockBuilder flower = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
             .setHardness(0.0f)
             .setResistance(0.0f)
             .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, BlockTags.SHEARS_DO_SILK_TOUCH, BlockTags.SHEEPS_FAVOURITE_BLOCK, AetherBlockTags.PLANTABLE_IN_AETHER_JAR);
 
-        BlockBuilder log = blockBuilder(CreativeInventoryCategory.LOGS)
+        BlockBuilder log = new BlockBuilder(MOD_ID)
             .setBlockSound(BlockSounds.WOOD)
             .setHardness(2.0F)
             .setResistance(1.0f)
             .setFlammability(5, 5)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT);
 
-        BlockBuilder leaves = blockBuilder(CreativeInventoryCategory.ORGANIC)
+        BlockBuilder leaves = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
             .setHardness(0.2F)
             .setResistance(0.2F)
@@ -282,56 +274,55 @@ public final class AetherBlocks {
             .setLightOpacity(1)
             .setTags(BlockTags.MINEABLE_BY_AXE, AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.MINEABLE_BY_HOE, BlockTags.MINEABLE_BY_SWORD, AetherBlockTags.MINEABLE_BY_AETHER_SWORD, BlockTags.MINEABLE_BY_SHEARS, BlockTags.SHEARS_DO_SILK_TOUCH);
 
-        BlockBuilder sapling = blockBuilder(CreativeInventoryCategory.ORGANIC)
+        BlockBuilder sapling = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
             .setHardness(0.0f)
             .setResistance(0.0f)
             .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, AetherBlockTags.PLANTABLE_IN_AETHER_JAR);
 
-        BlockBuilder clouds = blockBuilder(CreativeInventoryCategory.NATURAL)
+        BlockBuilder clouds = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.cloth", "step.cloth", 1.0f, 1.0f))
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.CAVE_GEN_REPLACES_SURFACE, BlockTags.CAVES_CUT_THROUGH, BlockTags.PREVENT_MOB_SPAWNS)
-            .setLightOpacity(1)
+            .setLightOpacity(0)
             .setHardness(0.2f)
             .setResistance(0.2f);
 
-        BlockBuilder stoneSlab = blockBuilder(CreativeInventoryCategory.STONE)
+        BlockBuilder stoneSlab = new BlockBuilder(MOD_ID)
             .setUseInternalLight();
 
-        BlockBuilder woodSlab = blockBuilder(CreativeInventoryCategory.WOOD)
+        BlockBuilder woodSlab = new BlockBuilder(MOD_ID)
             .setUseInternalLight();
 
         BlockBuilder ores = stone
-            .setCreativeInventoryPlacement(new CreativeInventoryPlacement.Category(CreativeInventoryCategory.ORE))
             .setHardness(1.5f)
             .setResistance(5.0f);
 
-        BlockBuilder station = blockBuilder(CreativeInventoryCategory.WORKBENCHES)
+        BlockBuilder station = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
             .setHardness(2.5f)
             .setResistance(10.0f)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.FENCES_CONNECT, BlockTags.CHAINLINK_FENCES_CONNECT);
 
-        BlockBuilder woodStorage = blockBuilder(CreativeInventoryCategory.WOOD)
+        BlockBuilder woodStorage = new BlockBuilder(MOD_ID)
             .setBlockSound(BlockSounds.WOOD)
             .setHardness(2.0f)
             .setResistance(5.0f)
             .setFlammability(20, 5)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT);
 
-        BlockBuilder woodRedstone = blockBuilder(CreativeInventoryCategory.WOOD)
+        BlockBuilder woodRedstone = new BlockBuilder(MOD_ID)
             .setBlockSound(BlockSounds.WOOD)
             .setHardness(2.0f)
             .setResistance(5.0f)
             .setFlammability(20, 5)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT);
 
-        BlockBuilder stoneStorage = blockBuilder(CreativeInventoryCategory.STONE)
+        BlockBuilder stoneStorage = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(1.5F)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT);
 
-        BlockBuilder zaniteConstruction = blockBuilder(CreativeInventoryCategory.STORAGE)
+        BlockBuilder zaniteConstruction = new BlockBuilder(MOD_ID)
             .setBlockSound(BlockSounds.METAL)
             .setHardness(3.0f)
             .setResistance(10.0f)
@@ -339,7 +330,7 @@ public final class AetherBlocks {
 
         // Blocks
 
-        PORTAL_AETHER = blockBuilder()
+        PORTAL_AETHER = new BlockBuilder(MOD_ID)
             .setBlockSound(BlockSounds.GLASS)
             .setHardness(-1.0f)
             .setResistance(-1.0f)
@@ -348,7 +339,7 @@ public final class AetherBlocks {
             .build("portal.aether", "portal_aether", blockID("PORTAL_AETHER"), b -> new BlockLogicPortalAether(b, AetherDimension.getAether(), Blocks.GLOWSTONE, Blocks.FLUID_WATER_FLOWING));
 
         ///  M: GRASS
-        GRASS_AETHER = blockBuilder(CreativeInventoryCategory.NATURAL)
+        GRASS_AETHER = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
             .setHardness(0.3f)
             .setResistance(0.6f)
@@ -356,7 +347,7 @@ public final class AetherBlocks {
             .build("grass.aether", "grass_aether", blockID("GRASS_AETHER"), b -> new BlockLogicGrassAether(b, DIRT_AETHER));
 
         ///  M: DIRT
-        DIRT_AETHER = blockBuilder(CreativeInventoryCategory.NATURAL)
+        DIRT_AETHER = new BlockBuilder(MOD_ID)
             .setBlockSound(BlockSounds.GRAVEL)
             .setHardness(0.2f)
             .setResistance(0.2f)
@@ -364,7 +355,7 @@ public final class AetherBlocks {
             .build("dirt.aether", "dirt_aether", blockID("DIRT_AETHER"), BlockLogicDirtAether::new);
 
         ///  M: DIRT
-        PATH_DIRT_AETHER = blockBuilder(CreativeInventoryCategory.NATURAL)
+        PATH_DIRT_AETHER = new BlockBuilder(MOD_ID)
             .setBlockSound(BlockSounds.GRAVEL)
             .setHardness(0.2f)
             .setResistance(0.2f)
@@ -451,11 +442,23 @@ public final class AetherBlocks {
             .withHardness(0.5F)
             .withTags(BlockTags.BROKEN_BY_FLUIDS, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.PREVENT_MOB_SPAWNS);
 
+        STATUE_HOLYSTONE_LOWER = (Block<BlockLogicStatue>) (Object) register("statue.holystone.lower", blockKey("statue_holystone_lower"), blockID("statue_holystone_lower"),
+            block -> new BlockLogicStatue(block, Materials.MARBLE, true, () -> AetherItems.STATUE_HOLYSTONE))
+            .withSound(BlockSounds.STONE)
+            .withHardness(1.5F)
+            .setStatParent(() -> AetherItems.STATUE_HOLYSTONE)
+            .withTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU);
 
+        STATUE_HOLYSTONE_UPPER = (Block<BlockLogicStatue>) (Object) register("statue.holystone.upper", blockKey("statue_holystone_upper"), blockID("statue_holystone_upper"),
+            block -> new BlockLogicStatue(block, Materials.MARBLE, false, () -> AetherItems.STATUE_HOLYSTONE))
+            .withSound(BlockSounds.STONE)
+            .withHardness(1.5F)
+            .setStatParent(() -> AetherItems.STATUE_HOLYSTONE)
+            .withTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU);
 
 
         /// M: STONE
-        ICESTONE = blockBuilder(CreativeInventoryCategory.STONE)
+        ICESTONE = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
             .setHardness(3.0f)
             .setTicking(true)
@@ -463,7 +466,7 @@ public final class AetherBlocks {
             .build("icestone", "icestone", blockID("ICESTONE"), b -> new BlockLogicIceStone(b, ICESTONE));
 
 
-        QUICKSOIL = blockBuilder(CreativeInventoryCategory.NATURAL)
+        QUICKSOIL = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.sand", "step.gravel", 1.0f, 1.0f))
             .setHardness(0.5f)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
@@ -471,7 +474,7 @@ public final class AetherBlocks {
 
 
         /// M: DIRT
-        GLASS_QUICKSOIL = blockBuilder(CreativeInventoryCategory.WORKBENCHES)
+        GLASS_QUICKSOIL = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
             .setHardness(0.3f)
             .setLuminance(7)
@@ -480,7 +483,7 @@ public final class AetherBlocks {
             .build("glass.quicksoil", "glass_quicksoil", blockID("GLASS_QUICKSOIL"), BlockLogicGlassQuicksoil::new);
 
 
-        DOOR_GLASS_QUICKSOIL_BOTTOM = blockBuilder()
+        DOOR_GLASS_QUICKSOIL_BOTTOM = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
             .setHardness(0.3f)
             .setLuminance(7)
@@ -490,7 +493,7 @@ public final class AetherBlocks {
                 block -> new BlockLogicDoorGlassQuicksoil(block, Materials.GLASS, false, false, () -> AetherItems.DOOR_GLASS_AMBROSIUM))
             .setStatParent(() -> AetherItems.DOOR_GLASS_AMBROSIUM);
 
-        DOOR_GLASS_QUICKSOIL_TOP = blockBuilder()
+        DOOR_GLASS_QUICKSOIL_TOP = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
             .setHardness(0.3f)
             .setLuminance(7)
@@ -500,7 +503,7 @@ public final class AetherBlocks {
                 block -> new BlockLogicDoorGlassQuicksoil(block, Materials.GLASS, true, false, () -> AetherItems.DOOR_GLASS_AMBROSIUM))
             .setStatParent(() -> AetherItems.DOOR_GLASS_AMBROSIUM);
 
-        TRAPDOOR_GLASS_QUICKSOIL = blockBuilder(CreativeInventoryCategory.WORKBENCHES)
+        TRAPDOOR_GLASS_QUICKSOIL = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
             .setHardness(0.3f)
             .setLuminance(7)
@@ -850,7 +853,7 @@ public final class AetherBlocks {
         AERCLOUD_GOLD = clouds
             .build("aercloud.gold", "aercloud_gold", blockID("AERCLOUD_GOLD"), BlockLogicCloudBase::new);
 
-        AEROGEL = blockBuilder(CreativeInventoryCategory.STONE)
+        AEROGEL = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(1.0f)
             .setResistance(2000.0f)
@@ -858,7 +861,7 @@ public final class AetherBlocks {
             .build("aerogel", "aerogel", blockID("AEROGEL"), b -> new BlockLogicTransparent(b, Materials.STONE));
 
 
-        TORCH_AMBROSIUM = blockBuilder(CreativeInventoryCategory.WORKBENCHES)
+        TORCH_AMBROSIUM = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(0.0f)
             .setUseInternalLight()
@@ -1101,7 +1104,7 @@ public final class AetherBlocks {
             .withDisabledStats();
 
 
-        BlockBuilder mimic = blockBuilder(CreativeInventoryCategory.WOOD)
+        BlockBuilder mimic = new BlockBuilder(MOD_ID)
             .setBlockSound(BlockSounds.WOOD)
             .setHardness(2.0f)
             .setResistance(5.0f)
@@ -1143,7 +1146,7 @@ public final class AetherBlocks {
                 blockID("CHEST_MIMIC_SKYROOT_PAINTED"),
                 block -> new BlockLogicPaintedChestMimic(block, Materials.WOOD, AetherBlocks.CHEST_MIMIC_SKYROOT.id()));
 
-        BlockBuilder mimicBoss = blockBuilder(CreativeInventoryCategory.STONE)
+        BlockBuilder mimicBoss = new BlockBuilder(MOD_ID)
             .setBlockSound(BlockSounds.STONE)
             .setHardness(4.0f)
             .setResistance(5.0f)
@@ -1155,7 +1158,7 @@ public final class AetherBlocks {
         CHEST_MIMIC_GOLD = mimicBoss.build("chest.mimic.gold", "chest_mimic_gold", blockID("CHEST_MIMIC_GOLD"), block -> new BlockLogicChestMimic(block, Materials.MARBLE));
 
 
-        LANTERN_FIREFLY_SILVER = blockBuilder()
+        LANTERN_FIREFLY_SILVER = new BlockBuilder(MOD_ID)
             .setBlockSound(BlockSounds.GLASS)
             .setHardness(0.1f)
             .setResistance(0.1f)

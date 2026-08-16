@@ -410,6 +410,11 @@ public class AetherRecipes {
             .addInput('X', AetherBlocks.HOLYSTONE)
             .create("holystone_to_polished_holystone", new ItemStack(AetherBlocks.HOLYSTONE_POLISHED, 2));
 
+        RecipeBuilder.Shaped(MOD_ID, "C", "C", "S")
+            .addInput('C', AetherBlocks.HOLYSTONE)
+            .addInput('S', AetherBlocks.SLAB_HOLYSTONE_POLISHED)
+            .create("statue_holystone", new ItemStack(AetherItems.STATUE_HOLYSTONE, 1));
+
 
         RecipeBuilder.Shaped(MOD_ID, "MMM", "SES", "WWW")
             .addInput('W', Items.WHEAT)
@@ -806,6 +811,10 @@ public class AetherRecipes {
         RecipeBuilderShaped boots = new RecipeBuilderShaped(MOD_ID, "X X", "X X");
         boots.addInput('X', AetherItems.ZANITE).create("zanite_boots", new ItemStack(AetherItems.ARMOR_BOOTS_ZANITE, 1));
         boots.addInput('X', AetherBlocks.BLOCK_GRAVITITE).create("gravitite_boots", new ItemStack(AetherItems.ARMOR_BOOTS_GRAVITITE, 1));
+
+        RecipeBuilderShaped wolf = new RecipeBuilderShaped(MOD_ID, " XX", "XXX", "X X");
+        wolf.addInput('X', AetherItems.ZANITE).create("zanite_wolf_armor", new ItemStack(AetherItems.ARMOR_WOLF_ZANITE, 1));
+        wolf.addInput('X', AetherBlocks.BLOCK_GRAVITITE).create("gravitite_wolf_armor", new ItemStack(AetherItems.ARMOR_WOLF_GRAVITITE, 1));
     }
 
     public static void toolsRecipes() {

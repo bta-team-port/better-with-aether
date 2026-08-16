@@ -4,7 +4,11 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicTransparent;
 import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.entity.projectile.Projectile;
+import net.minecraft.core.item.Item;
+import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.WorldSource;
@@ -14,7 +18,9 @@ import org.joml.Vector3dc;
 import org.joml.primitives.AABBd;
 import org.joml.primitives.AABBdc;
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
+import teamport.aether.item.AetherItems;
 
 public class BlockLogicCloudBase extends BlockLogicTransparent {
     public BlockLogicCloudBase(Block<?> block) {
@@ -44,6 +50,19 @@ public class BlockLogicCloudBase extends BlockLogicTransparent {
     @Override
     public void onEntityInside(@NonNull World world, @NonNull TilePosc pos, @NonNull Entity entity, @NonNull Vector3d entityVelocity) {
         this.onEntityCollision(world, pos, entity);
+    }
+
+    @Override
+    public int getPlacedData(@Nullable Player player, @NonNull ItemStack itemStack, @NonNull World world, @NonNull TilePosc tilePos, @NonNull Side side, double xHit, double yHit) {
+        return 1;
+    }
+
+    @Override
+    public void onDestroyedByPlayer(@NonNull World world, @NonNull TilePosc tilePos, @NonNull Side side, int data, @NonNull Player player, @Nullable Item item) {
+        ItemStack heldItem = player.getHeldItem();
+        if (heldItem != null && heldItem.getItem().equals(AetherItems.TOOL_SHOVEL_SKYROOT) && data == 0 && player.getGamemode().hasBlockConsumption()) {
+            this.onHarvest(world, player, tilePos, 1, world.getTileEntity(tilePos));
+        }
     }
 
     @Override

@@ -52,6 +52,15 @@ tile.pressureplate.holystone.desc=Emits a redstone signal when living creatures 
 tile.pressureplate.cobble.holystone.name=Cobbled Holystone Pressure Plate
 tile.pressureplate.cobble.holystone.desc=Emits a redstone signal when players step on it.
 
+tile.button.holystone.name=Holystone Button
+tile.button.holystone.desc=Emits a brief redstone signal when pressed.
+
+tile.statue.holystone.upper.name=Holystone Statue (Upper)
+tile.statue.holystone.upper.desc=
+
+tile.statue.holystone.lower.name=Holystone Statue (Lower)
+tile.statue.holystone.lower.desc=
+
 # Other Stone Blocks
 tile.aether.icestone.name=Icestone
 tile.aether.icestone.desc=Frozen stone that freezes what it touches.
