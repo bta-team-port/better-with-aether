@@ -28,15 +28,15 @@ public abstract class PlayerMixinDamageTypes {
             ItemStack itemstack = player.getCurrentEquippedItem();
             if (itemstack != null) {
                 Item item = itemstack.getItem();
-                if (item instanceof AetherHasCustomDamageType) {
-                    return original.call(instance, attacker, baseDamage, ((AetherHasCustomDamageType) item).getDamageType());
+                if (item instanceof AetherHasCustomDamageType hasCustomDamageType) {
+                    return original.call(instance, attacker, baseDamage, hasCustomDamageType.getDamageType());
                 }
             }
             ItemStack maybeGlovesStack = PlayerUtil.getArmorOrAccessoryItem(player, GLOVES_SLOT);
             if (itemstack == null && maybeGlovesStack != null) {
                 Item maybeGlovesItem = maybeGlovesStack.getItem();
-                if (maybeGlovesItem instanceof ItemGloves && maybeGlovesItem instanceof AetherHasCustomDamageType) {
-                    return original.call(instance, attacker, baseDamage, ((AetherHasCustomDamageType) maybeGlovesItem).getDamageType());
+                if (maybeGlovesItem instanceof ItemGloves && maybeGlovesItem instanceof AetherHasCustomDamageType hasCustomDamageType) {
+                    return original.call(instance, attacker, baseDamage, hasCustomDamageType.getDamageType());
                 }
             }
         }

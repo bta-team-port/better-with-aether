@@ -1,8 +1,8 @@
 package teamport.aether.entity.monster.swet;
 
 import net.minecraft.core.WeightedRandomLootObject;
-import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
@@ -14,7 +14,6 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import org.jspecify.annotations.NonNull;
 import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
-import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.effect.AetherEffects;
 import teamport.aether.entity.AetherDeathMessage;
@@ -49,6 +48,11 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
         List<WeightedRandomLootObject> drops = new ArrayList<>();
         drops.add(new WeightedRandomLootObject(AetherBlocks.AERCLOUD_BLUE.getDefaultStack(), 1, 2));
         return drops;
+    }
+
+    @Override
+    public int getMaxSpawnedInChunk() {
+        return 2;
     }
 
     @Override
@@ -210,19 +214,15 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
 
     @Override
     public boolean canSpawnHere() {
-
         TilePos blockPos = new TilePos(this.x, this.bb.minY, this.z);
-
-        int id = this.world.getBlockData(blockPos.down());
+        int x = MathHelper.floor(this.x);
+        int y = MathHelper.floor(this.bb.minY);
+        int z = MathHelper.floor(this.z);
+        int id = this.world.getBlockId(x, y - 1, z);
 
         if (this.world.getSavedLightValue(LightLayer.Block, blockPos) > 7) {
             return false;
-        }
-
-        Block<?> block = Blocks.blocksList[id];
-        if (block == null) return false;
-        if (world.rand.nextInt(5) == 0) return block.hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN);
-        return false;
+        } else return (world.rand.nextInt(5) == 0) && Blocks.blocksList[id].hasTag(BlockTags.PASSIVE_MOBS_SPAWN);
     }
 
     public double getYdO() {

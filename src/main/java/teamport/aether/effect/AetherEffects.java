@@ -1,19 +1,13 @@
 package teamport.aether.effect;
 
 import net.minecraft.core.Global;
+import net.minecraft.core.data.registry.Registry;
 import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
-import net.minecraft.core.entity.player.Player;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import sunsetsatellite.catalyst.effects.api.effect.Effect;
-import sunsetsatellite.catalyst.effects.api.effect.EffectContainer;
-import sunsetsatellite.catalyst.effects.api.effect.EffectStack;
-import sunsetsatellite.catalyst.effects.api.effect.EffectTagDispatcher;
-import sunsetsatellite.catalyst.effects.api.effect.EffectTimeType;
-import sunsetsatellite.catalyst.effects.api.effect.Effects;
-import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
+import sunsetsatellite.catalyst.effects.api.effect.*;
 import teamport.aether.entity.boss.slider.MobBossSlider;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
@@ -27,7 +21,7 @@ import java.util.*;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
-public class AetherEffects {
+public class AetherEffects extends Registry<Effect> {
     public static class LookupLooks {
         public static final LookupLooks instance = new LookupLooks();
         public final Map<Effect, Effect> locker = new HashMap<>();
@@ -56,7 +50,8 @@ public class AetherEffects {
 
     private static boolean hasInit = false;
 
-    private AetherEffects(){}
+    private AetherEffects() {
+    }
 
     public static void init() {
         if (hasInit) {
@@ -160,14 +155,13 @@ public class AetherEffects {
 
 
     public static boolean add(Entity entity, EffectStack stackToAdd) {
-        if (!(entity instanceof IHasEffects)) return false;
+        if (!(entity instanceof IHasEffects<?> hasEffects)) return false;
         if (entity.world.isClientSide) return false;
         if (!stackToAdd.getEffect().canApplyTo(entity)) return false;
         if (stackToAdd.getAmount() <= 0) return false;
-        IHasEffects<?> hasEffects = (IHasEffects<?>) entity;
 
         for (EffectStack effect : hasEffects.getContainer().getEffects()) {
-            if(effect.getEffect() == stackToAdd.getEffect()){
+            if (effect.getEffect() == stackToAdd.getEffect()) {
                 int amount = Math.min(stackToAdd.getAmount(), effect.getEffect().getMaxStack() - effect.getAmount());
                 if (amount <= 0) {
                     if (effect.getEffect().getTimeType() != EffectTimeType.RESET) return false;

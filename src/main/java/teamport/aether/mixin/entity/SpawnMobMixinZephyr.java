@@ -18,6 +18,7 @@ import teamport.aether.entity.monster.zephyr.MobZephyr;
 @Mixin(SpawnerMobs.class)
 public abstract class SpawnMobMixinZephyr {
 
+    // TODO this currently just stops the zephyr from spawning so ive disabled it
     @WrapOperation(method = "performSpawning", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/world/SpawnerMobs;canCreatureTypeSpawnAtLocation(Lnet/minecraft/core/enums/MobCategory;Lnet/minecraft/core/world/World;Lnet/minecraft/core/world/pos/TilePosc;)Z"))
     private static boolean spoofSpawning(MobCategory mobCategory, World world, TilePosc tilePos, Operation<Boolean> original, @Local @NonNull SpawnListEntry spawnListEntry) {
         TilePos pos = new TilePos();

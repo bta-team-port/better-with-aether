@@ -33,7 +33,7 @@ public class AetherDimension {
 
     private static final int SCHEMA_VERSION = 3;
 
-    public static final int OVERWORLD_RETURN_HEIGHT = 270;
+    public static final int OVERWORLD_RETURN_HEIGHT = World.HEIGHT_BLOCKS + 64;
     public static final int DUNGEON_GENERATION_RADIUS = 16;
     public static final int BOSS_DETECTION_RADIUS = 80;
     public static final int BOSS_DETECTION_RANGE_SQR = 6400;

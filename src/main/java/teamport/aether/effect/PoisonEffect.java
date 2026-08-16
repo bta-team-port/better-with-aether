@@ -6,18 +6,14 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Direction;
 import org.jspecify.annotations.NonNull;
-import sunsetsatellite.catalyst.effects.api.effect.EffectContainer;
-import sunsetsatellite.catalyst.effects.api.effect.EffectStack;
-import sunsetsatellite.catalyst.effects.api.effect.EffectTimeType;
-import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
+import sunsetsatellite.catalyst.effects.api.effect.*;
 import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
-import teamport.aether.AetherMod;
 import teamport.aether.helper.ParticleMaker;
 
 import java.util.List;
 import java.util.WeakHashMap;
 
-public class PoisonEffect extends AetherEffect {
+public class PoisonEffect extends Effect {
     private final WeakHashMap<Mob, double[]> drift = new WeakHashMap<>();
 
     public PoisonEffect(String nameKey, String id, List<Modifier<?>> modifiers, EffectTimeType effectTimeType, int maxStack) {
@@ -53,8 +49,7 @@ public class PoisonEffect extends AetherEffect {
 
     @Override
     public <T> void tick(EffectStack effectStack, @NonNull EffectContainer<T> effectContainer) {
-        if (!(effectContainer.getParent() instanceof Mob)) return;
-        Mob mob = (Mob) effectContainer.getParent();
+        if (!(effectContainer.getParent() instanceof Mob mob)) return;
         if (mob.tickCount % 4 == 0) {
             if (mob instanceof Player) {
                 Direction dir = Direction.fromYaw(mob.yRot).opposite();

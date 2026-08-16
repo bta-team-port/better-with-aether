@@ -330,8 +330,8 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         BlockLogicChestMimic.setRandomDirections(world, this.random, point.getX(), point.getY(), point.getZ());
         WorldFeatureComponent.getOrCreateChestInventory(world, new TilePos(point.getX(), point.getY(), point.getZ()));
         TileEntity tileEntity = world.getTileEntity(point.getX(), point.getY(), point.getZ());
-        if (tileEntity instanceof TileEntityMimic)
-            ((TileEntityMimic) tileEntity).setCustomName(this.nickname, this.chatColor);
+        if (tileEntity instanceof TileEntityMimic tileEntityMimic)
+            tileEntityMimic.setCustomName(this.nickname, this.chatColor);
     }
 
     @SuppressWarnings("java:S3776")

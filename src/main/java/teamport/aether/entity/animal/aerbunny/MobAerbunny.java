@@ -68,7 +68,7 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
     }
 
     private boolean isVehicleSneaking() {
-        return vehicle instanceof Player && ((Player) vehicle).isSneaking();
+        return vehicle instanceof Player player && player.isSneaking();
     }
 
     @Override

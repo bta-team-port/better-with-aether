@@ -1,22 +1,53 @@
 package teamport.aether.entity.animal;
 
-import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.entity.MobPathfinder;
 import net.minecraft.core.entity.animal.Creature;
-import net.minecraft.core.entity.animal.MobAnimal;
+import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
-import teamport.aether.entity.AetherDeathMessage;
 
-public abstract class MobAetherAnimal extends MobAnimal implements Creature, AetherDeathMessage {
+public abstract class MobAetherAnimal extends MobPathfinder implements Creature {
+    public Player closestPlayer;
 
-    protected MobAetherAnimal(World world) {
+    public MobAetherAnimal(World world) {
         super(world);
         this.scoreValue = 10;
+    }
+
+    @Override
+    protected void updateAI() {
+        super.updateAI();
+        this.checkForPlayerHoldingItem();
+    }
+
+    protected void checkForPlayerHoldingItem() {
+        if (this.target == null) {
+            this.closestPlayer = this.world.getClosestPlayer(this.x, this.y, this.z, 10.0F);
+        }
+
+        if (this.closestPlayer != null) {
+            if (this.isFavouriteItem(this.closestPlayer.getHeldItem())) {
+                this.setTarget(this.closestPlayer);
+            } else {
+                this.setTarget(null);
+                this.closestPlayer = null;
+            }
+        }
+
+        if (this.target != null) {
+            float distanceToEntity = this.target.distanceTo(this);
+            if (distanceToEntity < 3.0F) {
+                this.moveForward = 0.0F;
+            }
+        }
+
     }
 
     @Override
@@ -35,11 +66,23 @@ public abstract class MobAetherAnimal extends MobAnimal implements Creature, Aet
 
     @Override
     public boolean canSpawnHere() {
-        TilePos blockPos = new TilePos(this.x, this.bb.minY, this.z);
+        int x = MathHelper.floor(this.x);
+        int y = MathHelper.floor(this.bb.minY);
+        int z = MathHelper.floor(this.z);
+        int id = this.world.getBlockId(x, y - 1, z);
+        if (Blocks.blocksList[id] == null) {
+            return false;
+        } else {
+            return Blocks.blocksList[id].hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN) && this.world.getFullBlockLightValue(x, y, z) > 8 && super.canSpawnHere();
+        }
+    }
 
-        int id = this.world.getBlockData(blockPos.down());
-        Block<?> block = Blocks.blocksList[id];
-        if (block == null) return false;
-        return block.hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN) && this.world.getFullBlockLightValue(blockPos) > 8;
+    @Override
+    public int getAmbientSoundInterval() {
+        return 120;
+    }
+
+    public boolean isFavouriteItem(ItemStack itemStack) {
+        return false;
     }
 }
