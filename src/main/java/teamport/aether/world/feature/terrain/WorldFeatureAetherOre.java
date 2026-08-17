@@ -10,7 +10,7 @@ import net.minecraft.core.world.generate.feature.WorldFeatureInterface;
 import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.block.AetherBlocks;
+import teamport.aether.block.AetherBlockTags;
 
 import java.util.Random;
 
@@ -81,7 +81,7 @@ public class WorldFeatureAetherOre implements WorldFeatureInterface {
                                             if (this.variantMap.containsKey(id)) {
                                                 world.setBlockType(queryPos, Blocks.blocksList[this.variantMap.get(id)]);
                                             }
-                                        } else if (id == AetherBlocks.COBBLE_HOLYSTONE.id() || id == AetherBlocks.HOLYSTONE.id()) {
+                                        } else if (currentBlock.hasTag(AetherBlockTags.AETHER_TERRAIN_BLOCK)) {
                                             world.setBlockType(queryPos, Blocks.blocksList[this.minableBlockId]);
                                         }
                                     }

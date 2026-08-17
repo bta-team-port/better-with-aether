@@ -953,6 +953,10 @@ public final class AetherCreativeContents {
         addBlock(list, AetherBlocks.STAIRS_BRICK_ZANITE);
         addBlock(list, AetherBlocks.SLAB_BRICK_ZANITE);
 
+        addBlock(list, AetherBlocks.BRICK_GRAVITITE);
+        addBlock(list, AetherBlocks.STAIRS_BRICK_GRAVITITE);
+        addBlock(list, AetherBlocks.SLAB_BRICK_GRAVITITE);
+
     }
 
     private static void addDungeonBlocks(@NonNull List<ItemStack> list) {

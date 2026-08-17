@@ -156,6 +156,10 @@ public final class AetherBlocks {
     public static Block<?> SLAB_BRICK_ZANITE;
     public static Block<?> STAIRS_BRICK_ZANITE;
 
+    public static Block<?> BRICK_GRAVITITE;
+    public static Block<?> SLAB_BRICK_GRAVITITE;
+    public static Block<?> STAIRS_BRICK_GRAVITITE;
+
     public static Block<?> CARVED_STONE;
     public static Block<?> SLAB_CARVED_STONE;
     public static Block<?> STAIRS_CARVED_STONE;
@@ -263,7 +267,7 @@ public final class AetherBlocks {
             b -> new BlockLogicStone(b, COBBLE_HOLYSTONE, AetherMaterials.HOLYSTONE))
             .withSound(BlockSounds.STONE)
             .withHardness(0.5F)
-            .withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT);
+            .withTags(AetherBlockTags.AETHER_TERRAIN_BLOCK, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT);
 
         HOLYSTONE_MOSSY = register("holystone.mossy", blockKey("holystone_mossy"), blockID("HOLYSTONE_MOSSY"),
             b -> new BlockLogicMoss(b, HOLYSTONE))
@@ -298,7 +302,7 @@ public final class AetherBlocks {
             b -> new BlockLogicDouble(b, AetherMaterials.HOLYSTONE, () -> Blocks.GRAVEL))
             .withSound(BlockSounds.STONE)
             .withHardness(0.5F)
-            .withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT);
+            .withTags(AetherBlockTags.AETHER_TERRAIN_BLOCK, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT);
 
         COBBLE_HOLYSTONE_MOSSY = register("cobble.holystone.mossy", blockKey("cobble_holystone_mossy"), blockID("COBBLE_HOLYSTONE_MOSSY"),
             b -> new BlockLogicDouble(b, AetherMaterials.HOLYSTONE, () -> Blocks.GRAVEL))
@@ -826,22 +830,22 @@ public final class AetherBlocks {
             .withTags(BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
 
         BLOCK_ZANITE = register("block.zanite", blockKey("block_zanite"), blockID("BLOCK_ZANITE"),
-            b -> new BlockLogic(b, Materials.METAL))
-            .withSound(BlockSounds.METAL)
+            b -> new BlockLogic(b, AetherMaterials.ZANITE))
+            .withSound(BlockSounds.CRYSTAL)
             .withHardness(3.0F)
             .withBlastResistance(10.0F)
             .withTags(BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
 
         BLOCK_GRAVITITE = register("block.gravitite", blockKey("block_gravitite"), blockID("BLOCK_GRAVITITE"),
-            b -> new BlockLogicBlockGravitite(b, Materials.METAL))
+            b -> new BlockLogicBlockGravitite(b, AetherMaterials.GRAVITITE))
             .withSound(BlockSounds.METAL)
             .withHardness(3.0F)
             .withBlastResistance(10.0F)
             .withTags(BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
 
         BRICK_ZANITE = register("brick.zanite", blockKey("brick_zanite"), blockID("BRICK_ZANITE"),
-            b -> new BlockLogic(b, Materials.METAL))
-            .withSound(BlockSounds.METAL)
+            b -> new BlockLogic(b, AetherMaterials.ZANITE))
+            .withSound(BlockSounds.CRYSTAL)
             .withHardness(3.0F)
             .withBlastResistance(10.0F)
             .withTags(BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
@@ -862,9 +866,32 @@ public final class AetherBlocks {
             .withLitInteriorSurface(true)
             .withTags(BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
 
+        BRICK_GRAVITITE = register("brick.gravitite", blockKey("brick_gravitite"), blockID("BRICK_GRAVITITE"),
+            b -> new BlockLogic(b, AetherMaterials.GRAVITITE))
+            .withSound(BlockSounds.METAL)
+            .withHardness(3.0F)
+            .withBlastResistance(10.0F)
+            .withTags(BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
+
+        SLAB_BRICK_GRAVITITE = register("slab.brick.gravitite", blockKey("slab_brick_gravitite"), blockID("SLAB_BRICK_GRAVITITE"),
+            b -> new BlockLogicSlab(b, BRICK_GRAVITITE))
+            .withSound(BlockSounds.METAL)
+            .withHardness(3.0F)
+            .withBlastResistance(10.0F)
+            .withLitInteriorSurface(true)
+            .withTags(BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
+
+        STAIRS_BRICK_GRAVITITE = register("stairs.brick.gravitite", blockKey("stairs_brick_gravitite"), blockID("STAIRS_BRICK_GRAVITITE"),
+            b -> new BlockLogicStairs(b, BRICK_GRAVITITE))
+            .withSound(BlockSounds.METAL)
+            .withHardness(3.0F)
+            .withBlastResistance(10.0F)
+            .withLitInteriorSurface(true)
+            .withTags(BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
+
 
         CARVED_STONE = register("carved.stone", blockKey("carved_stone"), blockID("CARVED_STONE"),
-            b -> new BlockLogicDungeon(b, Materials.STONE))
+            b -> new BlockLogicDungeon(b, AetherMaterials.SENTRY))
             .withSound(BlockSounds.STONE)
             .withHardness(1.5F)
             .withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT);
@@ -884,7 +911,7 @@ public final class AetherBlocks {
             .withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT);
 
         CARVED_STONE_LIGHT = register("carved.stone.light", blockKey("carved_stone_light"), blockID("CARVED_STONE_LIGHT"),
-            b -> new BlockLogic(b, Materials.STONE))
+            b -> new BlockLogic(b, AetherMaterials.SENTRY))
             .withSound(BlockSounds.STONE)
             .withHardness(1.5F)
             .withLightEmission(10)
@@ -892,7 +919,7 @@ public final class AetherBlocks {
 
 
         CARVED_ANGELIC = register("carved.angelic", blockKey("carved_angelic"), blockID("CARVED_ANGELIC"),
-            b -> new BlockLogicDungeon(b, Materials.STONE))
+            b -> new BlockLogicDungeon(b, AetherMaterials.ANGELIC))
             .withSound(BlockSounds.STONE)
             .withHardness(1.5F)
             .withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT);
@@ -912,7 +939,7 @@ public final class AetherBlocks {
             .withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT);
 
         CARVED_ANGELIC_LIGHT = register("carved.angelic.light", blockKey("carved_angelic_light"), blockID("CARVED_ANGELIC_LIGHT"),
-            b -> new BlockLogicDungeon(b, Materials.STONE))
+            b -> new BlockLogicDungeon(b, AetherMaterials.ANGELIC))
             .withSound(BlockSounds.STONE)
             .withHardness(1.5F)
             .withLightEmission(10)
@@ -920,7 +947,7 @@ public final class AetherBlocks {
 
 
         CARVED_HELLFIRE = register("carved.hellfire", blockKey("carved_hellfire"), blockID("CARVED_HELLFIRE"),
-            b -> new BlockLogicDungeon(b, Materials.STONE))
+            b -> new BlockLogicDungeon(b, AetherMaterials.HELLFIRE))
             .withSound(BlockSounds.STONE)
             .withHardness(1.5F)
             .withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.INFINITE_BURN);
@@ -940,7 +967,7 @@ public final class AetherBlocks {
             .withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.INFINITE_BURN);
 
         CARVED_HELLFIRE_LIGHT = register("carved.hellfire.light", blockKey("carved_hellfire_light"), blockID("CARVED_HELLFIRE_LIGHT"),
-            b -> new BlockLogicDungeon(b, Materials.STONE))
+            b -> new BlockLogicDungeon(b, AetherMaterials.HELLFIRE))
             .withSound(BlockSounds.STONE)
             .withHardness(1.5F)
             .withLightEmission(10)
@@ -1037,7 +1064,7 @@ public final class AetherBlocks {
 
 
         CARVED_STONE_LOCKED = register("carved.stone.locked", blockKey("carved_stone_locked"), blockID("CARVED_STONE_LOCKED"),
-            b -> new BlockLogicLocked(b, Materials.STONE, CARVED_STONE))
+            b -> new BlockLogicLocked(b, AetherMaterials.SENTRY, CARVED_STONE))
             .withSound(BlockSounds.STONE)
             .withSetUnbreakable()
             .withBlastResistance(6000000.0F)
@@ -1045,7 +1072,7 @@ public final class AetherBlocks {
             .withTags(BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.PISTON_CRUSHING, BlockTags.NOT_IN_CREATIVE_MENU);
 
         CARVED_STONE_LIGHT_LOCKED = register("carved.stone.light.locked", blockKey("carved_stone_light_locked"), blockID("CARVED_STONE_LIGHT_LOCKED"),
-            b -> new BlockLogicLocked(b, Materials.STONE, CARVED_STONE_LIGHT))
+            b -> new BlockLogicLocked(b, AetherMaterials.SENTRY, CARVED_STONE_LIGHT))
             .withSound(BlockSounds.STONE)
             .withSetUnbreakable()
             .withBlastResistance(6000000.0F)
@@ -1055,7 +1082,7 @@ public final class AetherBlocks {
 
 
         CARVED_ANGELIC_LOCKED = register("carved.angelic.locked", blockKey("carved_angelic_locked"), blockID("CARVED_ANGELIC_LOCKED"),
-            b -> new BlockLogicLocked(b, Materials.STONE, CARVED_ANGELIC))
+            b -> new BlockLogicLocked(b, AetherMaterials.ANGELIC, CARVED_ANGELIC))
             .withSound(BlockSounds.STONE)
             .withSetUnbreakable()
             .withBlastResistance(6000000.0F)
@@ -1063,7 +1090,7 @@ public final class AetherBlocks {
             .withTags(BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.PISTON_CRUSHING, BlockTags.NOT_IN_CREATIVE_MENU);
 
         CARVED_ANGELIC_LIGHT_LOCKED = register("carved.angelic.light.locked", blockKey("carved_angelic_light_locked"), blockID("CARVED_ANGELIC_LIGHT_LOCKED"),
-            b -> new BlockLogicLocked(b, Materials.STONE, CARVED_ANGELIC_LIGHT))
+            b -> new BlockLogicLocked(b, AetherMaterials.ANGELIC, CARVED_ANGELIC_LIGHT))
             .withSound(BlockSounds.STONE)
             .withSetUnbreakable()
             .withBlastResistance(6000000.0F)
@@ -1073,7 +1100,7 @@ public final class AetherBlocks {
 
 
         CARVED_HELLFIRE_LOCKED = register("carved.hellfire.locked", blockKey("carved_hellfire_locked"), blockID("CARVED_HELLFIRE_LOCKED"),
-            b -> new BlockLogicLocked(b, Materials.STONE, CARVED_HELLFIRE))
+            b -> new BlockLogicLocked(b, AetherMaterials.HELLFIRE, CARVED_HELLFIRE))
             .withSound(BlockSounds.STONE)
             .withSetUnbreakable()
             .withBlastResistance(6000000.0F)
@@ -1081,7 +1108,7 @@ public final class AetherBlocks {
             .withTags(BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.PISTON_CRUSHING, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.INFINITE_BURN);
 
         CARVED_HELLFIRE_LIGHT_LOCKED = register("carved.hellfire.light.locked", blockKey("carved_hellfire_light_locked"), blockID("CARVED_HELLFIRE_LIGHT_LOCKED"),
-            b -> new BlockLogicLocked(b, Materials.STONE, CARVED_HELLFIRE_LIGHT))
+            b -> new BlockLogicLocked(b, AetherMaterials.HELLFIRE, CARVED_HELLFIRE_LIGHT))
             .withSound(BlockSounds.STONE)
             .withSetUnbreakable()
             .withBlastResistance(6000000.0F)
@@ -1169,21 +1196,21 @@ public final class AetherBlocks {
             .withTags(new Tag[]{BlockTags.FENCES_CONNECT, AetherBlockTags.AETHER_DOES_NOT_FIT_IN_MINECART, AetherBlockTags.MINEABLE_BY_AETHER_AXE});
 
         CHEST_MIMIC_BRONZE = register("chest.mimic.bronze", blockKey("chest_mimic_bronze"), blockID("CHEST_MIMIC_BRONZE"),
-            block -> new BlockLogicChestMimic(block, Materials.MARBLE))
+            block -> new BlockLogicChestMimic(block, AetherMaterials.SENTRY))
             .withSound(BlockSounds.STONE)
             .withHardness(4.0F)
             .withBlastResistance(5.0F)
             .withTags(new Tag[]{AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, AetherBlockTags.AETHER_DOES_NOT_FIT_IN_MINECART});
 
         CHEST_MIMIC_SILVER = register("chest.mimic.silver", blockKey("chest_mimic_silver"), blockID("CHEST_MIMIC_SILVER"),
-            block -> new BlockLogicChestMimic(block, Materials.MARBLE))
+            block -> new BlockLogicChestMimic(block, AetherMaterials.ANGELIC))
             .withSound(BlockSounds.STONE)
             .withHardness(4.0F)
             .withBlastResistance(5.0F)
             .withTags(new Tag[]{AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, AetherBlockTags.AETHER_DOES_NOT_FIT_IN_MINECART});
 
         CHEST_MIMIC_GOLD = register("chest.mimic.gold", blockKey("chest_mimic_gold"), blockID("CHEST_MIMIC_GOLD"),
-            block -> new BlockLogicChestMimic(block, Materials.MARBLE))
+            block -> new BlockLogicChestMimic(block, AetherMaterials.HELLFIRE))
             .withSound(BlockSounds.STONE)
             .withHardness(4.0F)
             .withBlastResistance(5.0F)

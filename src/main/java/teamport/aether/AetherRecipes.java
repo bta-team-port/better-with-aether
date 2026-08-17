@@ -398,6 +398,10 @@ public class AetherRecipes {
             .create("zanite_bricks", new ItemStack(AetherBlocks.BRICK_ZANITE, 4));
 
         RecipeBuilder.Shaped(MOD_ID, "XX", "XX")
+            .addInput('X', AetherBlocks.BLOCK_GRAVITITE)
+            .create("gravitite_bricks", new ItemStack(AetherBlocks.BRICK_GRAVITITE, 4));
+
+        RecipeBuilder.Shaped(MOD_ID, "XX", "XX")
             .addInput('X', AetherBlocks.HOLYSTONE)
             .create("holystone_bricks", new ItemStack(AetherBlocks.BRICK_HOLYSTONE, 4));
 
@@ -680,6 +684,7 @@ public class AetherRecipes {
         templateStairs.addInput('X', AetherBlocks.CARVED_ANGELIC).create("angelic_stone_stairs", new ItemStack(AetherBlocks.STAIRS_CARVED_ANGELIC, 6));
         templateStairs.addInput('X', AetherBlocks.CARVED_HELLFIRE).create("hellfire_stone_stairs", new ItemStack(AetherBlocks.STAIRS_CARVED_HELLFIRE, 6));
         templateStairs.addInput('X', AetherBlocks.BRICK_ZANITE).create("zanite_brick_stairs", new ItemStack(AetherBlocks.STAIRS_BRICK_ZANITE, 6));
+        templateStairs.addInput('X', AetherBlocks.BRICK_GRAVITITE).create("gravitite_brick_stairs", new ItemStack(AetherBlocks.STAIRS_BRICK_GRAVITITE, 6));
         templateStairs.addInput('X', AetherBlocks.BRICK_HOLYSTONE).create("holystone_brick_stairs", new ItemStack(AetherBlocks.STAIRS_BRICK_HOLYSTONE, 6));
 
         templateStairs.addInput('X', AetherBlocks.PLANKS_SKYROOT).create("skyroot_wooden_stairs", new ItemStack(AetherBlocks.STAIRS_PLANKS_SKYROOT, 6));
@@ -786,6 +791,7 @@ public class AetherRecipes {
         templateSlab.addInput('X', AetherBlocks.CARVED_ANGELIC).create("angelic_stone_slab", new ItemStack(AetherBlocks.SLAB_CARVED_ANGELIC, 6));
         templateSlab.addInput('X', AetherBlocks.CARVED_HELLFIRE).create("hellfire_stone_slab", new ItemStack(AetherBlocks.SLAB_CARVED_HELLFIRE, 6));
         templateSlab.addInput('X', AetherBlocks.BRICK_ZANITE).create("zanite_brick_slab", new ItemStack(AetherBlocks.SLAB_BRICK_ZANITE, 6));
+        templateSlab.addInput('X', AetherBlocks.BRICK_GRAVITITE).create("gravitite_brick_slab", new ItemStack(AetherBlocks.STAIRS_BRICK_GRAVITITE, 6));
         templateSlab.addInput('X', AetherBlocks.BRICK_HOLYSTONE).create("holystone_brick_slab", new ItemStack(AetherBlocks.SLAB_BRICK_HOLYSTONE, 6));
         templateSlab.addInput('X', AetherBlocks.HOLYSTONE_POLISHED).create("polished_holystone_slab", new ItemStack(AetherBlocks.SLAB_HOLYSTONE_POLISHED, 6));
 
@@ -885,6 +891,21 @@ public class AetherRecipes {
         RecipeBuilder.BlastFurnace(MOD_ID)
             .setInput(AetherBlocks.COBBLE_HOLYSTONE)
             .create("cobble_holystone_to_holystone", AetherBlocks.HOLYSTONE.getDefaultStack());
+
+        RecipeBuilder.BlastFurnace(MOD_ID)
+            .setInput(0, AetherBlocks.HOLYSTONE)
+            .setInput(1, "aether:ambrosium_ores")
+            .create("ore_ambrosium_holystone", AetherBlocks.ORE_AMBROSIUM_HOLYSTONE.getDefaultStack());
+
+        RecipeBuilder.BlastFurnace(MOD_ID)
+            .setInput(0, AetherBlocks.HOLYSTONE)
+            .setInput(1, "aether:zanite_ores")
+            .create("ore_zanite_holystone", AetherBlocks.ORE_ZANITE_HOLYSTONE.getDefaultStack());
+
+        RecipeBuilder.BlastFurnace(MOD_ID)
+            .setInput(0, AetherBlocks.HOLYSTONE)
+            .setInput(1, "aether:gravitite_ores")
+            .create("ore_gravitite_holystone", AetherBlocks.ORE_GRAVITITE_HOLYSTONE.getDefaultStack());
     }
 
     public static void trommelRecipes() {

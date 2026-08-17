@@ -86,6 +86,9 @@ public class ItemToolPickaxeAether extends ItemTool {
 
         aetherMiningLevels.put(BLOCK_GRAVITITE, 2);
         aetherMiningLevels.put(ORE_GRAVITITE_HOLYSTONE, 2);
+        aetherMiningLevels.put(BRICK_GRAVITITE, 2);
+        aetherMiningLevels.put(SLAB_BRICK_GRAVITITE, 2);
+        aetherMiningLevels.put(STAIRS_BRICK_GRAVITITE, 2);
 
         aetherMiningLevels.put(AEROGEL, 3);
     }
