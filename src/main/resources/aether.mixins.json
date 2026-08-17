@@ -83,6 +83,7 @@
     "entity.MobAnimalFollowNatureStaffMixin",
     "entity.MobCowMilkMixin",
     "entity.MobDeerFollowNatureStaffMixin",
+    "entity.SpawnMobMixinZephyr",
     "fix.CommandHealMixin",
     "fix.MapFixMixin",
     "fix.MinecartCarriablesFix",

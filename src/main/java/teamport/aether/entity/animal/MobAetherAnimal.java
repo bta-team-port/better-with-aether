@@ -1,6 +1,6 @@
 package teamport.aether.entity.animal;
 
-import net.minecraft.core.block.Blocks;
+import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.MobPathfinder;
 import net.minecraft.core.entity.animal.Creature;
 import net.minecraft.core.entity.player.Player;
@@ -66,15 +66,10 @@ public abstract class MobAetherAnimal extends MobPathfinder implements Creature 
 
     @Override
     public boolean canSpawnHere() {
-        int x = MathHelper.floor(this.x);
-        int y = MathHelper.floor(this.bb.minY);
-        int z = MathHelper.floor(this.z);
-        int id = this.world.getBlockId(x, y - 1, z);
-        if (Blocks.blocksList[id] == null) {
-            return false;
-        } else {
-            return Blocks.blocksList[id].hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN) && this.world.getFullBlockLightValue(x, y, z) > 8 && super.canSpawnHere();
-        }
+        TilePosc blockPos = new TilePos(MathHelper.floor(this.x), MathHelper.floor(this.bb.minY), MathHelper.floor(this.z));
+        Block<?> block = this.world.getBlockType(blockPos.down(new TilePos()));
+
+        return block.hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN) && this.world.getFullBlockLightValue(blockPos) > 8 && super.canSpawnHere();
     }
 
     @Override

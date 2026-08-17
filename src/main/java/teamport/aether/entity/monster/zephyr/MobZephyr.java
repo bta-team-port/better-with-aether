@@ -267,7 +267,7 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
 
         if (tooManyZephyrs) return false;
 
-        TilePos blockPos = new TilePos(this.x, this.bb.minY, this.z);
+        TilePos blockPos = new TilePos(this.x, this.bb.minY - 0.5, this.z);
 
         return this.world.getDifficulty().canHostileMobsSpawn()
             && this.world.checkIfAABBIsClear(this.bb)

@@ -1,8 +1,6 @@
 package teamport.aether.entity.monster.swet;
 
 import net.minecraft.core.WeightedRandomLootObject;
-import net.minecraft.core.block.Blocks;
-import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
@@ -14,6 +12,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import org.jspecify.annotations.NonNull;
 import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
+import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.effect.AetherEffects;
 import teamport.aether.entity.AetherDeathMessage;
@@ -214,15 +213,13 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
 
     @Override
     public boolean canSpawnHere() {
-        TilePos blockPos = new TilePos(this.x, this.bb.minY, this.z);
-        int x = MathHelper.floor(this.x);
-        int y = MathHelper.floor(this.bb.minY);
-        int z = MathHelper.floor(this.z);
-        int id = this.world.getBlockId(x, y - 1, z);
+        TilePos blockPos = new TilePos(MathHelper.floor(this.x), MathHelper.floor(this.bb.minY - 1), MathHelper.floor(this.z));
 
         if (this.world.getSavedLightValue(LightLayer.Block, blockPos) > 7) {
             return false;
-        } else return (world.rand.nextInt(5) == 0) && Blocks.blocksList[id].hasTag(BlockTags.PASSIVE_MOBS_SPAWN);
+        }
+
+        return AetherBlockTags.PASSIVE_MOBS_SPAWN.appliesTo(this.world.getBlockType(blockPos));
     }
 
     public double getYdO() {

@@ -318,10 +318,10 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
 
     private boolean isSafe(@Nullable World world, WorldFeaturePoint point) {
         if (world == null) return true;
-        Block<?> block = world.getBlock(point.getX(), point.getY(), point.getZ());
-        int blockID = block.id();
-        Material blockMaterial = blockID == Blocks.AIR.id() ? Materials.AIR : block.getMaterial();
-        return blockID == Blocks.AIR.id() || blockMaterial.isLiquid();
+        TilePos blockPos = new TilePos(point.getX(), point.getY(), point.getZ());
+        Block<?> block = world.getBlockType(blockPos);
+        Material blockMaterial = block == Blocks.AIR ? Materials.AIR : block.getMaterial();
+        return block == Blocks.AIR || blockMaterial.isLiquid();
     }
 
     private void placeChest(WorldFeaturePoint point) {

@@ -22,13 +22,13 @@ public final class AetherCreativeContents {
     }
 
     public static void populate(List<ItemStack> list) {
+        addNaturalTypes(list);
+
         addStoneTypes(list);
 
         addWoodTypes(list);
 
         addPaintedTypes(list);
-
-        addNaturalTypes(list);
 
         addLogTypes(list);
         addLeafTypes(list);
@@ -562,8 +562,6 @@ public final class AetherCreativeContents {
         addBlock(list, AetherBlocks.AERCLOUD_WHITE);
         addBlock(list, AetherBlocks.AERCLOUD_BLUE);
         addBlock(list, AetherBlocks.AERCLOUD_GOLD);
-
-        addBlock(list, AetherBlocks.AERCLOUD_WHITE);
 
     }
 

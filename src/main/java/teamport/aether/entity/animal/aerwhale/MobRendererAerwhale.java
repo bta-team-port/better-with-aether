@@ -36,7 +36,7 @@ public class MobRendererAerwhale extends MobRenderer<MobAerwhale> {
     }
 
     @Override
-    protected float getBodyYaw(MobAerwhale entity, float partialTick) {
+    protected float getBodyYaw(@NonNull MobAerwhale entity, float partialTick) {
         return entity.getRenderYaw(partialTick) * MathHelper.DEG_TO_RAD;
     }
 

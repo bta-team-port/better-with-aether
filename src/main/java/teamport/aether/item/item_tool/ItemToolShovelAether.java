@@ -38,7 +38,7 @@ public class ItemToolShovelAether extends ItemTool{
     public boolean shovelBlock(ItemStack itemstack, @Nullable Player entityplayer, @NonNull World world, int blockX, int blockY, int blockZ, Side side) {
         int blockId = world.getBlockId(blockX, blockY, blockZ);
         int blockAbove = world.getBlockId(blockX, blockY + 1, blockZ);
-        if (side != Side.BOTTOM && blockAbove == 0 && (blockId == Blocks.GRASS.id() || blockId == Blocks.DIRT.id() || blockId == Blocks.GRASS_RETRO.id() || blockId == Blocks.FARMLAND_DIRT.id())) {
+        if (side != Side.BOTTOM && blockAbove == Blocks.AIR.id() && (blockId == Blocks.GRASS.id() || blockId == Blocks.DIRT.id() || blockId == Blocks.GRASS_RETRO.id() || blockId == Blocks.FARMLAND_DIRT.id())) {
             world.playBlockSoundEffect(entityplayer, blockX + 0.5F, blockY + 0.5F, blockZ + 0.5F, Blocks.blocksList[blockId], EnumBlockSoundEffectType.PLACE);
             if (!world.isClientSide) {
                 world.setBlockWithNotify(blockX, blockY, blockZ, Blocks.PATH_DIRT.id());
@@ -46,7 +46,7 @@ public class ItemToolShovelAether extends ItemTool{
             }
             return true;
         }
-        if (side != Side.BOTTOM && blockAbove == 0 && (blockId == AetherBlocks.GRASS_AETHER.id() || blockId == AetherBlocks.DIRT_AETHER.id())) {
+        if (side != Side.BOTTOM && blockAbove == Blocks.AIR.id() && (blockId == AetherBlocks.GRASS_AETHER.id() || blockId == AetherBlocks.DIRT_AETHER.id())) {
             world.playBlockSoundEffect(entityplayer, blockX + 0.5F, blockY + 0.5F, blockZ + 0.5F, Blocks.blocksList[blockId], EnumBlockSoundEffectType.PLACE);
             if (!world.isClientSide) {
                 world.setBlockWithNotify(blockX, blockY, blockZ, AetherBlocks.PATH_DIRT_AETHER.id());
