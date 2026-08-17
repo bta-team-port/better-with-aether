@@ -269,15 +269,15 @@ public final class AetherItems {
 
 
         KEY_BRONZE = new ItemBuilder(MOD_ID)
-            .addTags(AetherItemTags.IMMUNE_TO_FIRE_DAMAGE, AetherItemTags.IMMUNE_TO_BLAST_DAMAGE)
+            .addTags(ItemTags.IS_FIRE_PROOF, ItemTags.IS_BLAST_PROOF)
             .build(new Item("key.bronze", itemKey("key_bronze"), itemID("KEY_BRONZE")));
 
         KEY_SILVER = new ItemBuilder(MOD_ID)
-            .addTags(AetherItemTags.IMMUNE_TO_FIRE_DAMAGE, AetherItemTags.IMMUNE_TO_BLAST_DAMAGE)
+            .addTags(ItemTags.IS_FIRE_PROOF, ItemTags.IS_BLAST_PROOF)
             .build(new Item("key.silver", itemKey("key_silver"), itemID("KEY_SILVER")));
 
         KEY_GOLD = new ItemBuilder(MOD_ID)
-            .addTags(AetherItemTags.IMMUNE_TO_FIRE_DAMAGE, AetherItemTags.IMMUNE_TO_BLAST_DAMAGE)
+            .addTags(ItemTags.IS_FIRE_PROOF, ItemTags.IS_BLAST_PROOF)
             .build(new Item("key.gold", itemKey("key_gold"), itemID("KEY_GOLD")));
 
 
@@ -383,7 +383,7 @@ public final class AetherItems {
             .build(new Item("ammo.windball", itemKey("ammo_windball"), itemID("AMMO_WINDBALL")));
 
         PROJECTILE_FIRE = new ItemBuilder(MOD_ID)
-            .setTags(ItemTags.NOT_IN_CREATIVE_MENU, AetherItemTags.IMMUNE_TO_FIRE_DAMAGE)
+            .setTags(ItemTags.NOT_IN_CREATIVE_MENU, ItemTags.IS_FIRE_PROOF)
             .build(new Item("projectile.fire", itemKey("projectile_fire"), itemID("PROJECTILE_FIRE")));
 
         PROJECTILE_ICE = new ItemBuilder(MOD_ID)
@@ -506,7 +506,7 @@ public final class AetherItems {
 
 
         TOOL_BOW_PHOENIX = new ItemBuilder(MOD_ID)
-            .addTags(AetherItemTags.IMMUNE_TO_FIRE_DAMAGE)
+            .addTags(ItemTags.IS_FIRE_PROOF)
             .build(new ItemBowPhoenix("tool.bow.phoenix", itemKey("tool_bow_phoenix"), itemID("TOOL_BOW_PHOENIX")));
 
 
@@ -593,36 +593,36 @@ public final class AetherItems {
 
 
         ARMOR_HELMET_OBSIDIAN = new ItemBuilder(MOD_ID)
-            .addTags(AetherItemTags.IMMUNE_TO_BLAST_DAMAGE)
+            .addTags(ItemTags.IS_BLAST_PROOF)
             .build(new ItemArmor<>("armor.helmet.obsidian", itemKey("armor_helmet_obsidian"), itemID("ARMOR_HELMET_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN, HumanArmorShape.HEAD));
 
         ARMOR_CHESTPLATE_OBSIDIAN = new ItemBuilder(MOD_ID)
-            .addTags(AetherItemTags.IMMUNE_TO_BLAST_DAMAGE)
+            .addTags(ItemTags.IS_BLAST_PROOF)
             .build(new ItemArmor<>("armor.chestplate.obsidian", itemKey("armor_chestplate_obsidian"), itemID("ARMOR_CHESTPLATE_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN, HumanArmorShape.CHEST));
 
         ARMOR_LEGGINGS_OBSIDIAN = new ItemBuilder(MOD_ID)
-            .addTags(AetherItemTags.IMMUNE_TO_BLAST_DAMAGE)
+            .addTags(ItemTags.IS_BLAST_PROOF)
             .build(new ItemArmor<>("armor.leggings.obsidian", itemKey("armor_leggings_obsidian"), itemID("ARMOR_LEGGINGS_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN, HumanArmorShape.LEGS));
 
         ARMOR_BOOTS_OBSIDIAN = new ItemBuilder(MOD_ID)
-            .addTags(AetherItemTags.IMMUNE_TO_BLAST_DAMAGE)
+            .addTags(ItemTags.IS_BLAST_PROOF)
             .build(new ItemArmor<>("armor.boots.obsidian", itemKey("armor_boots_obsidian"), itemID("ARMOR_BOOTS_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN, HumanArmorShape.BOOTS));
 
 
         ARMOR_HELMET_PHOENIX = new ItemBuilder(MOD_ID)
-            .addTags(AetherItemTags.IMMUNE_TO_FIRE_DAMAGE)
+            .addTags(ItemTags.IS_FIRE_PROOF)
             .build(new ItemArmor<>("armor.helmet.phoenix", itemKey("armor_helmet_phoenix"), itemID("ARMOR_HELMET_PHOENIX"), AetherArmorMaterial.PHOENIX, HumanArmorShape.HEAD));
 
         ARMOR_CHESTPLATE_PHOENIX = new ItemBuilder(MOD_ID)
-            .addTags(AetherItemTags.IMMUNE_TO_FIRE_DAMAGE)
+            .addTags(ItemTags.IS_FIRE_PROOF)
             .build(new ItemArmor<>("armor.chestplate.phoenix", itemKey("armor_chestplate_phoenix"), itemID("ARMOR_CHESTPLATE_PHOENIX"), AetherArmorMaterial.PHOENIX, HumanArmorShape.CHEST));
 
         ARMOR_LEGGINGS_PHOENIX = new ItemBuilder(MOD_ID)
-            .addTags(AetherItemTags.IMMUNE_TO_FIRE_DAMAGE)
+            .addTags(ItemTags.IS_FIRE_PROOF)
             .build(new ItemArmor<>("armor.leggings.phoenix", itemKey("armor_leggings_phoenix"), itemID("ARMOR_LEGGINGS_PHOENIX"), AetherArmorMaterial.PHOENIX, HumanArmorShape.LEGS));
 
         ARMOR_BOOTS_PHOENIX = new ItemBuilder(MOD_ID)
-            .addTags(AetherItemTags.IMMUNE_TO_FIRE_DAMAGE)
+            .addTags(ItemTags.IS_FIRE_PROOF)
             .build(new ItemArmor<>("armor.boots.phoenix", itemKey("armor_boots_phoenix"), itemID("ARMOR_BOOTS_PHOENIX"), AetherArmorMaterial.PHOENIX, HumanArmorShape.BOOTS));
 
 

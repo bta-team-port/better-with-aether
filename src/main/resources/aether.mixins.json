@@ -76,7 +76,6 @@
     "dimension.WorldTypeGroupMixin",
     "dimension.bump_to_overworld.EntityBumpToOverworldMixin",
     "entity.EntityItemFallUpwardsMixin",
-    "entity.EntityItemMixinImmunities",
     "entity.EntityLightningBoltMixin",
     "entity.EntityMixin",
     "entity.LightningBoltSoundMixin",
