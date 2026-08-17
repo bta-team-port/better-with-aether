@@ -73,8 +73,8 @@ public final class AetherBlocks {
 
     public static Block<?> BUTTON_HOLYSTONE;
 
-    public static Block<BlockLogicStatue> STATUE_HOLYSTONE_LOWER;
-    public static Block<BlockLogicStatue> STATUE_HOLYSTONE_UPPER;
+    public static Block<?> STATUE_HOLYSTONE_LOWER;
+    public static Block<?> STATUE_HOLYSTONE_UPPER;
 
     public static Block<?> ICESTONE;
 
@@ -442,14 +442,14 @@ public final class AetherBlocks {
             .withHardness(0.5F)
             .withTags(BlockTags.BROKEN_BY_FLUIDS, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.PREVENT_MOB_SPAWNS);
 
-        STATUE_HOLYSTONE_LOWER = (Block<BlockLogicStatue>) (Object) register("statue.holystone.lower", blockKey("statue_holystone_lower"), blockID("statue_holystone_lower"),
+        STATUE_HOLYSTONE_LOWER = register("statue.holystone.lower", blockKey("statue_holystone_lower"), blockID("statue_holystone_lower"),
             block -> new BlockLogicStatue(block, Materials.MARBLE, true, () -> AetherItems.STATUE_HOLYSTONE))
             .withSound(BlockSounds.STONE)
             .withHardness(1.5F)
             .setStatParent(() -> AetherItems.STATUE_HOLYSTONE)
             .withTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU);
 
-        STATUE_HOLYSTONE_UPPER = (Block<BlockLogicStatue>) (Object) register("statue.holystone.upper", blockKey("statue_holystone_upper"), blockID("statue_holystone_upper"),
+        STATUE_HOLYSTONE_UPPER = register("statue.holystone.upper", blockKey("statue_holystone_upper"), blockID("statue_holystone_upper"),
             block -> new BlockLogicStatue(block, Materials.MARBLE, false, () -> AetherItems.STATUE_HOLYSTONE))
             .withSound(BlockSounds.STONE)
             .withHardness(1.5F)
