@@ -3,7 +3,6 @@ package teamport.aether.mixin.dimension;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.option.GameSettings;
 import net.minecraft.client.render.PostProcessingManager;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -11,12 +10,12 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.world.AetherDimension;
+import teamport.aether.option.AetherGameSettingsHolder;
+import teamport.aether.world.type.AetherWorldTypes;
 
 @Environment(EnvType.CLIENT)
 @Mixin(PostProcessingManager.class)
 public abstract class AetherColorCorrectionMixin {
-
     @Shadow
     @Final
     private Minecraft mc;
@@ -30,9 +29,11 @@ public abstract class AetherColorCorrectionMixin {
             target = "Lnet/minecraft/client/render/PostProcessingManager;reset()V",
             shift = At.Shift.AFTER))
     private void applyDimensionColorCorrections(CallbackInfo ci) {
-        if (mc.currentWorld == null || mc.thePlayer == null) return;
+        if (this.mc.currentWorld == null || this.mc.thePlayer == null) return;
 
-        if (GameSettings.COLOR_CORRECTION_OVERWORLD.get() != 0.0F && mc.currentWorld.dimension.id == AetherDimension.getAether().id) {
+        float ccValue = AetherGameSettingsHolder.COLOR_CORRECTION_AETHER.value;
+
+        if (ccValue != 0.0F && this.mc.currentWorld.getWorldType().hasTag(AetherWorldTypes.AETHER)) {
             this.current.gMod += 0.15F;
             this.current.bMod += 0.15F;
             this.current.saturation += 0.125F;
