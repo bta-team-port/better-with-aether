@@ -17,9 +17,9 @@ public class DensityGeneratorAether implements DensityGenerator {
     public DensityGeneratorAether(@NonNull World world) {
         this.world = world;
 
-        minLimitNoise = new FractalNoise3D<>(ImprovedPerlinNoise.genOctaves(world.getRandomSeed(), 16, 0, ImprovedPerlinNoise.LegacyNoiseType.BETA));
-        maxLimitNoise = new FractalNoise3D<>(ImprovedPerlinNoise.genOctaves(world.getRandomSeed(), 16, 16, ImprovedPerlinNoise.LegacyNoiseType.BETA));
-        mainNoise = new FractalNoise3D<>(ImprovedPerlinNoise.genOctaves(world.getRandomSeed(), 8, 16, ImprovedPerlinNoise.LegacyNoiseType.BETA));
+        minLimitNoise = new FractalNoise3D<>(ImprovedPerlinNoise.genOctaves(world.getRandomSeed(), 16, 0));
+        maxLimitNoise = new FractalNoise3D<>(ImprovedPerlinNoise.genOctaves(world.getRandomSeed(), 16, 16));
+        mainNoise = new FractalNoise3D<>(ImprovedPerlinNoise.genOctaves(world.getRandomSeed(), 8, 16));
     }
 
     @Override
@@ -35,9 +35,9 @@ public class DensityGeneratorAether implements DensityGenerator {
 
         double[] densityMapArray = new double[xSize * ySize * zSize];
 
-        double mainNoiseScaleX = 60.0;
-        double mainNoiseScaleY = 60.0;
-        double mainNoiseScaleZ = 60.0;
+        double mainNoiseScaleX = 80.0;
+        double mainNoiseScaleY = 80.0;
+        double mainNoiseScaleZ = 80.0;
 
         final double coordScale = 684.412D / 4;
         final double heightScale = 684.412D / 2;
@@ -69,7 +69,7 @@ public class DensityGeneratorAether implements DensityGenerator {
                     } else {
                         density = minDensity + (maxDensity - minDensity) * mainDensity;
                     }
-                    density -= 32.0;
+                    density -= 16.0;
 
                     // Modulate density based on Y level to make islands smaller and thinner higher up
                     // Higher Y reduces density, making islands sparser and smaller

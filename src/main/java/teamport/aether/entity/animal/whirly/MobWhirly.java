@@ -3,10 +3,8 @@ package teamport.aether.entity.animal.whirly;
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityLightning;
-import net.minecraft.core.entity.animal.Creature;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
@@ -20,7 +18,7 @@ import teamport.aether.item.AetherItems;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
-public class MobWhirly extends MobAetherAnimal implements Creature {
+public class MobWhirly extends MobAetherAnimal {
     private int lootTimer;
     private final int maxLifetime;
     private static final WeightedRandomBag<WeightedRandomLootObject> LOOT_BAG = new WeightedRandomBag<>();
@@ -53,7 +51,7 @@ public class MobWhirly extends MobAetherAnimal implements Creature {
     @Override
     public void tick() {
         super.tick();
-        if (this.getHealth() > 0) {
+        if (this.isAlive()) {
             ParticleMaker.spawnWhirlyParticles(world, this, 4, "whirly");
         }
     }
@@ -91,9 +89,9 @@ public class MobWhirly extends MobAetherAnimal implements Creature {
     @Override
     public boolean canSpawnHere() {
         TilePos blockPos = new TilePos(this.x, this.bb.minY, this.z);
+        Block<?> block = this.world.getBlockType(blockPos.down());
 
-        Block<?> block = Blocks.blocksList[this.world.getBlockData(blockPos.down())];
-        return block != null && block.hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN);
+        return block.hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN);
     }
 
     @Override

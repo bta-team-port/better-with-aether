@@ -7,6 +7,7 @@ import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.entity.AetherDeathMessage;
@@ -142,7 +143,9 @@ public class MobCockatrice extends MobMonsterAether implements Enemy, AetherDeat
 
     @Override
     public boolean canSpawnHere() {
-        return AetherBlockTags.PASSIVE_MOBS_SPAWN.appliesTo(this.world.getBlock(MathHelper.floor(this.x), MathHelper.floor(this.y - this.heightOffset) - 1, MathHelper.floor(this.z))) && super.canSpawnHere();
+        TilePos blockPos = new TilePos(MathHelper.floor(this.x), MathHelper.floor((this.y - this.heightOffset) - 1), MathHelper.floor(this.z));
+
+        return AetherBlockTags.PASSIVE_MOBS_SPAWN.appliesTo(this.world.getBlockType(blockPos)) && super.canSpawnHere();
     }
 
     public float getFlap() {

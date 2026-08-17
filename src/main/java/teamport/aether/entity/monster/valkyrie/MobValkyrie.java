@@ -165,12 +165,8 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
     }
 
     public boolean isAirySpace(TilePosc tilePos) {
-
-        int p = this.world.getBlockData(tilePos);
         Block<?> block = world.getBlockType(tilePos);
-        Block<?> blockTwo = Blocks.blocksList[p];
-
-        return p == 0 || blockTwo == null || blockTwo.getCollisionAABB(this.world, tilePos) == null || block.getMaterial() == Materials.WATER;
+        return block == Blocks.AIR || block.getCollisionAABB(this.world, tilePos) == null || block.getMaterial() == Materials.WATER;
     }
 
     @Override

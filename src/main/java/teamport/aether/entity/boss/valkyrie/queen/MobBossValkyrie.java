@@ -361,7 +361,7 @@ public class MobBossValkyrie extends MobBoss implements IItemHolding {
         Block<?> block = this.world.getBlock(x, y, z);
         Block<?> blockTwo = Blocks.blocksList[p];
 
-        return p == 0 || blockTwo == null || blockTwo.getCollisionBoundingBoxFromPool(this.world, x, y, z) == null || block != null && block.getMaterial() == Materials.WATER;
+        return p == 0 || blockTwo == null || blockTwo.getCollisionBoundingBoxFromPool(this.world, x, y, z) == null || block.getMaterial() == Materials.WATER;
     }
 
     public void swingArm() {

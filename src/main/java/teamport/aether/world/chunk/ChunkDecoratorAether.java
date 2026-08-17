@@ -265,9 +265,9 @@ public class ChunkDecoratorAether implements ChunkDecorator {
                 for (xPosition = worldX; xPosition < worldX + 16; ++xPosition) {
                     for (zPosition = worldZ; zPosition < worldZ + 16; ++zPosition) {
                         if (
-                            this.world.getBlockId(xPosition, yPosition, zPosition) == 0
+                            this.world.getBlockId(xPosition, yPosition, zPosition) == Blocks.AIR.id()
                                 && this.world.getBlockId(xPosition, yPosition + 1, zPosition) == AetherBlocks.GRASS_AETHER.id()
-                                && this.world.getBlockId(xPosition, yPosition + 2, zPosition) == 0
+                                && this.world.getBlockId(xPosition, yPosition + 2, zPosition) == Blocks.AIR.id()
                         ) {
                             QUICKSOIL.place(this.world, rand, xPosition, yPosition, zPosition);
                             continue yLoop;

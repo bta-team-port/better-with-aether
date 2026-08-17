@@ -187,18 +187,8 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
     }
 
     @Override
-    public void spawnInit() {
-        if (this.world.getBlockId((int) (this.x + 0.5), (int) (this.y + 25), (int) (this.z + 0.5)) == 0) {
-            this.moveTo(this.x, this.y + 25, this.z, this.yRot, 0.0F);
-        }
-    }
-
-    @Override
     public boolean canSpawnHere() {
-        int x = MathHelper.floor(this.x);
-        int y = MathHelper.floor(this.bb.minY);
-        int z = MathHelper.floor(this.z);
-        return this.world.checkIfAABBIsClear(this.bb) && this.world.getCollidingSolidBlockBoundingBoxes(this, this.bb).isEmpty() && !this.world.isAABBInMaterial(this.bb, Materials.WATER) && this.world.getFullBlockLightValue(x, y, z) > 8;
+        return this.world.checkIfAABBIsClear(this.bb) && this.world.getCollidingSolidBlockBoundingBoxes(this, this.bb).isEmpty() && !this.world.isAABBInMaterial(this.bb, Materials.WATER);
     }
 
     public double openSpace(float rotationyRotOffset, float rotationPitchOffset) {

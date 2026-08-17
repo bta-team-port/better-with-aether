@@ -67,9 +67,13 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
 
     @Override
     public boolean canSpawnHere() {
-        TilePos blockPos = new TilePos(this.x, this.bb.minY, this.z);
+        TilePos blockPos = new TilePos(MathHelper.floor(this.x), MathHelper.floor(this.bb.minY), MathHelper.floor(this.z));
 
-        if (this.world.getBlockData(blockPos.down()) != AetherBlocks.GRASS_AETHER.id()) {
+        if (this.world.getBlockType(blockPos.down(new TilePos())) != AetherBlocks.GRASS_AETHER) {
+            return false;
+        }
+
+        if (this.world.canBlockSeeSky(blockPos.down(new TilePos()))) {
             return false;
         }
 
@@ -82,9 +86,10 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         for (int i = 0; i < 8; i++) {
             int offsetX = adjacentOffsets[i * 2];
             int offsetZ = adjacentOffsets[i * 2 + 1];
-            int blockId = this.world.getBlockId(blockPos.x() + offsetX, blockPos.y(), blockPos.z() + offsetZ);
-            Block<?> block = Blocks.blocksList[blockId];
-            if (block != null && block.isCubeShaped()) {
+
+            TilePos offset = new TilePos(blockPos.x() + offsetX, blockPos.y(), blockPos.z() + offsetZ);
+            Block<?> block = this.world.getBlockType(offset);
+            if (block.isCubeShaped()) {
                 return false;
             }
         }
@@ -131,11 +136,11 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
 
         TilePos below = new TilePos(this.x, this.bb.minY - 1, this.z);
 
-        int belowId = this.world.getBlockData(below);
-        Block<?> belowBlock = Blocks.blocksList[belowId];
+        Block<?> belowId = this.world.getBlockType(below);
+        Block<?> belowBlock = Blocks.blocksList[belowId.id()];
         double blockTopY = (belowBlock != null) ? (belowY + belowBlock.getBoundsFromState(this.world, new TilePos(below)).maxY()) : (belowY + 1.0);
         double gap = this.bb.minY - blockTopY;
-        this.onGround = (belowId != 0) && (gap <= 0.001D);
+        this.onGround = (belowId != Blocks.AIR) && (gap <= 0.001D);
 
         if (!this.isAlive()) {
             this.target = null;
@@ -183,7 +188,7 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
             ++this.smokeTime;
             if (this.smokeTime >= (this.hasTarget ? 3 : 8)) {
                 this.smokeTime = 0;
-                if (this.world.getBlockData(below) != AetherBlocks.GRASS_AETHER.id()) {
+                if (this.world.getBlockType(below) != AetherBlocks.GRASS_AETHER) {
                     MobUtil.killMob(this);
                 }
             }

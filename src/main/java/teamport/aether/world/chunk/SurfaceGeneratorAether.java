@@ -1,5 +1,6 @@
 package teamport.aether.world.chunk;
 
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.biome.Biome;
 import org.jspecify.annotations.NonNull;
@@ -71,7 +72,7 @@ public class SurfaceGeneratorAether implements SurfaceGenerator {
                         || topBlock == -1
                         || fillerBlock == -1
                     )
-                        && block == 0
+                        && block == Blocks.AIR.id()
                     ) {
                         if (biome instanceof BiomeAether) {
                             topBlock = AetherBlocks.GRASS_AETHER.id();
@@ -84,7 +85,7 @@ public class SurfaceGeneratorAether implements SurfaceGenerator {
 
                     lastBiome = biome;
 
-                    if (block == 0) {
+                    if (block == Blocks.AIR.id()) {
                         currentLayerDepth = -1;
                         continue;
                     }

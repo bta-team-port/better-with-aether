@@ -37,7 +37,7 @@ public abstract class BlockLogicSaplingBaseAether extends BlockLogicSaplingBase 
     public void updateTick(@NonNull World world, @NonNull TilePosc tilePos, @NonNull Random rand, boolean isRandomTick) {
         if (!world.isClientSide) {
             TilePos queryPos = new TilePos();
-            if (!this.canGrowOnSand && world.getBlockType(tilePos.down(queryPos)) == Blocks.SAND || world.getBlockType(tilePos.down(queryPos)) == AetherBlocks.QUICKSOIL) {
+            if (!this.canGrowOnSand && (world.getBlockType(tilePos.down(queryPos)) == Blocks.SAND || world.getBlockType(tilePos.down(queryPos)) == AetherBlocks.QUICKSOIL)) {
                 world.setBlockTypeNotify(tilePos, AetherBlocks.DEADBUSH_AETHER);
             }
 
