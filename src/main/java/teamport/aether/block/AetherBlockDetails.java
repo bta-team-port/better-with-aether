@@ -6,6 +6,7 @@ import net.minecraft.core.crafting.LookupFuelFurnace;
 import teamport.aether.block.terrain.BlockLogicIceStone;
 import teamport.aether.item.AetherItems;
 
+import static net.minecraft.core.block.BlockLogicFire.setFlammable;
 import static net.minecraft.core.block.BlockLogicMoss.MOSS_TO_NO_MOSS_MAP;
 import static net.minecraft.core.block.BlockLogicMoss.NO_MOSS_TO_MOSS_MAP;
 import static net.minecraft.core.block.BlockLogicNote.Instrument.CELESTA;
@@ -18,6 +19,7 @@ public class AetherBlockDetails {
     public static void initializeBlockDetails() {
         registerBlockInstruments();
         registerNewFurnaceFuel();
+        registerFlammableBlocks();
         registerMapColors();
         registerMossMap();
         BlockLogicIceStone.initFreezeMap();
@@ -70,6 +72,25 @@ public class AetherBlockDetails {
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.TOOL_AXE_SKYROOT.id, 500);
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.TOOL_SHOVEL_SKYROOT.id, 500);
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.TOOL_SHOOTER.id, 300);
+    }
+
+    public static void registerFlammableBlocks() {
+        setFlammable(AetherBlocks.PLANKS_SKYROOT, 5, 20);
+        setFlammable(AetherBlocks.PLANKS_SKYROOT_PAINTED, 5, 20);
+        setFlammable(AetherBlocks.FENCE_PLANKS_SKYROOT, 5, 20);
+        setFlammable(AetherBlocks.FENCE_PLANKS_SKYROOT_PAINTED, 5, 20);
+        setFlammable(AetherBlocks.SLAB_PLANKS_SKYROOT, 5, 20);
+        setFlammable(AetherBlocks.SLAB_PLANKS_SKYROOT_PAINTED, 5, 20);
+        setFlammable(AetherBlocks.STAIRS_PLANKS_SKYROOT, 5, 20);
+        setFlammable(AetherBlocks.STAIRS_PLANKS_SKYROOT_PAINTED, 5, 20);
+
+        setFlammable(AetherBlocks.LOG_SKYROOT, 15, 10);
+        setFlammable(AetherBlocks.LOG_OAK_GOLDEN, 15, 10);
+
+        setFlammable(AetherBlocks.LEAVES_SKYROOT, 30, 60);
+        setFlammable(AetherBlocks.LEAVES_OAK_GOLDEN, 30, 60);
+
+        setFlammable(AetherBlocks.HOLYSTONE_MOSSY, 100, 30);
     }
 
     public static void registerBlockInstruments() {
