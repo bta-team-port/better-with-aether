@@ -177,6 +177,8 @@ public class AetherModels {
 
         dispatcher.addDispatch(new BlockModelGeneric<>(AetherBlocks.BRICK_ZANITE,
             loadDataModel("aether:block/brick_zanite")));
+        dispatcher.addDispatch(new BlockModelGeneric<>(AetherBlocks.BRICK_GRAVITITE,
+            loadDataModel("aether:block/brick_gravitite")));
 
         dispatcher.addDispatch(new BlockModelGenericStairs<>(AetherBlocks.STAIRS_COBBLE_HOLYSTONE,
             loadDataModel("aether:block/stairs/cobbled_holystone")));
@@ -184,6 +186,8 @@ public class AetherModels {
             loadDataModel("aether:block/stairs/brick_holystone")));
         dispatcher.addDispatch(new BlockModelGenericStairs<>(AetherBlocks.STAIRS_BRICK_ZANITE,
             loadDataModel("aether:block/stairs/brick_zanite")));
+        dispatcher.addDispatch(new BlockModelGenericStairs<>(AetherBlocks.STAIRS_BRICK_GRAVITITE,
+            loadDataModel("aether:block/stairs/brick_gravitite")));
 
         dispatcher.addDispatch(new BlockModelGenericSlab<>(AetherBlocks.SLAB_COBBLE_HOLYSTONE,
             loadDataModel("aether:block/slab/cobbled_holystone/lower"),
@@ -204,6 +208,11 @@ public class AetherModels {
             loadDataModel("aether:block/slab/brick_zanite/lower"),
             loadDataModel("aether:block/slab/brick_zanite/upper"),
             loadDataModel("aether:block/slab/brick_zanite/full")));
+
+        dispatcher.addDispatch(new BlockModelGenericSlab<>(AetherBlocks.SLAB_BRICK_GRAVITITE,
+            loadDataModel("aether:block/slab/brick_gravitite/lower"),
+            loadDataModel("aether:block/slab/brick_gravitite/upper"),
+            loadDataModel("aether:block/slab/brick_gravitite/full")));
 
 
         dispatcher.addDispatch(new BlockModelGenericTorch<>(AetherBlocks.TORCH_AMBROSIUM,
