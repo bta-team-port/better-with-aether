@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.PlayerLocal;
 import net.minecraft.client.net.handler.PacketHandlerClient;
 import net.minecraft.core.net.packet.PacketContainerOpen;
+import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -25,7 +26,7 @@ public abstract class PacketHandlerClientMixinAetherMachines {
     @Shadow
     private Minecraft mc;
     @Inject(method = "handleContainerOpen(Lnet/minecraft/core/net/packet/PacketContainerOpen;)V", at = @At("TAIL"))
-    private void handleAetherMachines(PacketContainerOpen packetContainerOpen, CallbackInfo ci) {
+    private void handleAetherMachines(@NonNull PacketContainerOpen packetContainerOpen, CallbackInfo ci) {
         PlayerLocal playerLocal = this.mc.thePlayer;
         AetherScreens playerScreen = (AetherScreens) playerLocal;
         if (packetContainerOpen.inventoryType == AetherConfig.ENCHANTER_SCREEN_ID) {

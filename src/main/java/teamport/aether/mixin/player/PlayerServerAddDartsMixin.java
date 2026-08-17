@@ -5,7 +5,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.world.World;
 import net.minecraft.server.entity.player.PlayerServer;
-import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -14,7 +14,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.SERVER)
 @Mixin(PlayerServer.class)
 public abstract class PlayerServerAddDartsMixin extends PlayerGetNextDartMixin {
-    protected PlayerServerAddDartsMixin(@Nullable World world) {
+
+    protected PlayerServerAddDartsMixin(@NonNull World world) {
         super(world);
     }
 

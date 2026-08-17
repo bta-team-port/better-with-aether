@@ -20,9 +20,6 @@ import teamport.aether.world.AetherDimension;
 public abstract class WorldBunnyMixin {
 
     @Shadow
-    public abstract void sendPacketToPlayersAroundPoint(double x, double y, double z, double radius, int dimension, Packet packet);
-
-    @Shadow
     public abstract void sendPacketToAllPlayers(Packet packet);
 
     @WrapMethod(method = "playerLoggedIn")
@@ -42,8 +39,8 @@ public abstract class WorldBunnyMixin {
 
     @WrapMethod(method = "playerLoggedOut")
     public void removeBunny(@NonNull PlayerServer entityplayermp, Operation<Void> original) {
-        if (entityplayermp.passenger instanceof MobAerbunny) {
-            AetherDimension.addBunnyToPlayer(entityplayermp.uuid, (MobAerbunny) entityplayermp.passenger);
+        if (entityplayermp.passenger instanceof MobAerbunny aerbunny) {
+            AetherDimension.addBunnyToPlayer(entityplayermp.uuid, aerbunny);
         }
         original.call(entityplayermp);
     }

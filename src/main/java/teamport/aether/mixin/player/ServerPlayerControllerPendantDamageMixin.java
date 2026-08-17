@@ -1,5 +1,7 @@
 package teamport.aether.mixin.player;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Side;
@@ -15,6 +17,7 @@ import teamport.aether.item.accessory.pendant.ItemPendant;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
 
+@Environment(EnvType.SERVER)
 @Mixin(ServerPlayerController.class)
 public class ServerPlayerControllerPendantDamageMixin {
 

@@ -12,6 +12,7 @@ import net.minecraft.core.net.PropertyManager;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.WorldServer;
+import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -31,7 +32,7 @@ public abstract class MinecraftServerMixinExcludeAether {
             target = "Lnet/minecraft/core/world/Dimension;getDimensionList()Lit/unimi/dsi/fastutil/ints/Int2ObjectMap;"
         )
     )
-    private Int2ObjectMap<Dimension> loadOverworldFirst(Int2ObjectMap<Dimension> dimensions) {
+    private @NonNull Int2ObjectMap<Dimension> loadOverworldFirst(@NonNull Int2ObjectMap<Dimension> dimensions) {
         Dimension overworld = dimensions.get(Dimension.OVERWORLD.id);
         if (overworld == null || dimensions.values().iterator().next() == overworld) {
             return dimensions;

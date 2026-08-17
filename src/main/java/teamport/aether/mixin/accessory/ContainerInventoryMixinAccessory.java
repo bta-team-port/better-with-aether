@@ -199,7 +199,7 @@ public abstract class ContainerInventoryMixinAccessory implements IContainerInve
     }
 
     @Unique
-    private @org.jspecify.annotations.Nullable ItemStack aether$removeAccessoryItem(int index, int takeAmount) {
+    private @Nullable ItemStack aether$removeAccessoryItem(int index, int takeAmount) {
         ItemStack itemStack = aether$accessorySlots[index];
         if (itemStack == null) {
             return null;

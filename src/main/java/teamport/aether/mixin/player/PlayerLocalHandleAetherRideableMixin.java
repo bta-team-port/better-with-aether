@@ -25,10 +25,10 @@ public abstract class PlayerLocalHandleAetherRideableMixin extends Player {
 
     @Inject(method = "handleSpecialVehicleControl", at = @At("HEAD"))
     private void handleAetherRideableControl(CallbackInfo ci) {
-        if (vehicle instanceof AetherRideable) {
-            ((AetherRideable) vehicle).controlEntity(input.moveForward, input.moveStrafe, isJumping, xRot, yRot);
-        } else if (passenger instanceof AetherRideable) {
-            ((AetherRideable) passenger).controlEntity(input.moveForward, input.moveStrafe, isJumping, xRot, yRot);
+        if (vehicle instanceof AetherRideable aetherRideable) {
+            aetherRideable.controlEntity(input.moveForward, input.moveStrafe, isJumping, xRot, yRot);
+        } else if (passenger instanceof AetherRideable aetherRideable) {
+            aetherRideable.controlEntity(input.moveForward, input.moveStrafe, isJumping, xRot, yRot);
         }
     }
 }

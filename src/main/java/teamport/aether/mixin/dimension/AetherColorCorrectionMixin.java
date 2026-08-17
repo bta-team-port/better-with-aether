@@ -33,16 +33,15 @@ public abstract class AetherColorCorrectionMixin {
 
         float ccValue = AetherGameSettingsHolder.COLOR_CORRECTION_AETHER.value;
 
-        if (ccValue != 0.0F && this.mc.currentWorld.getWorldType().hasTag(AetherWorldTypes.AETHER)) {
-            this.current.gMod += 0.15F;
-            this.current.bMod += 0.15F;
-            this.current.saturation += 0.125F;
-            this.current.exposure += 0.0625F;
-            this.current.contrast -= 0.05F;
-            this.current.brightness += 0.05F;
+        if (ccValue > 0.0F && this.mc.currentWorld.getWorldType().hasTag(AetherWorldTypes.AETHER)) {
+            this.current.gMod += 0.15F * ccValue;
+            this.current.bMod += 0.15F * ccValue;
+            this.current.saturation += 0.125F * ccValue;
+            this.current.exposure += 0.0625F * ccValue;
+            this.current.contrast -= 0.05F * ccValue;
+            this.current.brightness += 0.05F * ccValue;
             this.current.heatHaze = 0.0F;
         }
-
     }
 
 }

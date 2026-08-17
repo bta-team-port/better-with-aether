@@ -34,13 +34,14 @@ public abstract class PlayerBossListMixin extends Mob implements AetherBossList 
     public List<Mob> aether$getBossList() {
         List<Mob> bosses = new ArrayList<>(bossList);
         for (Mob boss : bossList) {
-            if (boss instanceof EnemyBoss && !((EnemyBoss) boss).canFight() || !boss.isAlive() || boss.world.dimension != world.dimension || boss.distanceTo(this) > AetherDimension.BOSS_DETECTION_RADIUS) {
+            if (boss instanceof EnemyBoss enemyBoss && !enemyBoss.canFight() || !boss.isAlive() || boss.world.dimension != world.dimension || boss.distanceTo(this) > AetherDimension.BOSS_DETECTION_RADIUS) {
                 bosses.remove(boss);
             }
         }
         bossList = bosses;
         return bossList;
     }
+
     @Override
     public void aether$TryAddBossList(Mob mob) {
         if (!bossList.contains(mob)) {
@@ -53,6 +54,7 @@ public abstract class PlayerBossListMixin extends Mob implements AetherBossList 
             }
         }
     }
+
     @Override
     public void aether$clearBossList() {
         bossList.clear();
@@ -63,6 +65,7 @@ public abstract class PlayerBossListMixin extends Mob implements AetherBossList 
             );
         }
     }
+
     @Override
     public void aether$removeFromBossList(Mob mob) {
         bossList.remove(mob);
@@ -73,12 +76,14 @@ public abstract class PlayerBossListMixin extends Mob implements AetherBossList 
             );
         }
     }
+
     @Inject(method = "attackTargetEntityWithCurrentItem", at = @At("HEAD"))
     private void attackTargetEntityWithCurrentItem(Entity entity, CallbackInfo ci) {
         if ((entity instanceof EnemyBoss && entity instanceof Mob) && !bossList.contains(entity)) {
             aether$TryAddBossList((Mob) entity);
         }
     }
+
     @Inject(method = "onDeath", at = @At("HEAD"))
     private void onDeath(CallbackInfo ci) {
         bossList.clear();
