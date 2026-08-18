@@ -10,24 +10,15 @@ import teamport.aether.lookup.LookupTrinketIcons;
 public class ItemTrinket extends ItemAccessory<HumanAccessoryShape> {
     private final String name;
 
-    public ItemTrinket(@NonNull String translationKey, @NonNull String namespaceId, int id, @NonNull HumanAccessoryShape armorShape, String name) {
-        super(translationKey, namespaceId, id, armorShape);
+    public ItemTrinket(@NonNull String translationKey, @NonNull String namespaceId, int id, String name) {
+        super(translationKey, namespaceId, id, HumanAccessoryShape.TRINKET_1);
         this.name = name;
         this.maxStackSize = 1;
         this.withTags(AetherItemTags.tags(AetherItemTags.TRINKET));
     }
-
-    public ItemTrinket(@NonNull String translationKey, @NonNull String namespaceId, int id, @NonNull HumanAccessoryShape armorShape, String name, String path) {
-        super(translationKey, namespaceId, id, armorShape);
-        this.name = name;
-        this.maxStackSize = 1;
-        LookupTrinketIcons.INSTANCE.addEntry(this.namespaceID, path);
-        this.withTags(AetherItemTags.tags(AetherItemTags.TRINKET));
-    }
-
 
     public static void setIcon(@NonNull Item item, String path) {
-        LookupTrinketIcons.INSTANCE.addEntry(item.namespaceID, path);
+        LookupTrinketIcons.INSTANCE.addEntry(item, path);
         item.withTags(AetherItemTags.tags(AetherItemTags.TRINKET));
     }
 

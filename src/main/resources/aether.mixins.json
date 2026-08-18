@@ -30,7 +30,6 @@
     "accessory.trinket.BlockLogicFarmlandLeatherPendantMixin",
     "accessory.trinket.BlockLogicHarvestBlockGoldPendant",
     "accessory.trinket.BlockLogicSlipperyNegationMixin",
-    "accessory.trinket.ContainerInventoryGetProtectionOfPendantMixin",
     "accessory.trinket.ContainerInventoryGetStrVsBlockPendantsMixin",
     "accessory.trinket.ContainerInventoryZanitePendantDamageMixin",
     "accessory.trinket.ItemStackPreventDamage",

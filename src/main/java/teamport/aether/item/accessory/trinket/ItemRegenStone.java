@@ -7,22 +7,13 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.helper.ParticleMaker;
-import teamport.aether.item.AetherItemTags;
-import teamport.aether.item.accessory.HumanAccessoryShape;
 import teamport.aether.item.accessory.IAccessoryEffects;
-import teamport.aether.item.accessory.ItemAccessory;
 
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 
-public class ItemRegenStone extends ItemAccessory<HumanAccessoryShape> implements IAccessoryEffects {
+public class ItemRegenStone extends ItemTrinket implements IAccessoryEffects {
     public ItemRegenStone(String translationKey, String namespaceId, int id, String name) {
-        super(translationKey, namespaceId, id, HumanAccessoryShape.TRINKET_1);
-        this.withTags(AetherItemTags.tags(AetherItemTags.TRINKET));
-    }
-
-    @Override
-    public boolean fitsInShape(@NonNull HumanAccessoryShape shape) {
-        return shape == HumanAccessoryShape.TRINKET_1 || shape == HumanAccessoryShape.TRINKET_2;
+        super(translationKey, namespaceId, id, name);
     }
 
     @Override

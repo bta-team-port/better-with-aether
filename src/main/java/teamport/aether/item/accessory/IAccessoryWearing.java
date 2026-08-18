@@ -6,8 +6,10 @@ import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.util.helper.DamageType;
+import net.minecraft.core.util.helper.MathHelper;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
+import teamport.aether.item.AetherArmorMaterial;
 
 import java.util.Objects;
 
@@ -31,7 +33,14 @@ public interface IAccessoryWearing<T extends IAccessoryShape> {
                 if (item instanceof IAccessoryItem<?> accessory) {
                     ArmorMaterial material = accessory.getArmorMaterial();
                     if (material != null) {
-                        protectionPercentage += material.getProtection(damageType) * accessory.getArmorPieceProtectionPercentage();
+                        float materialProtection = material.getProtection(damageType);
+
+                        if (material == AetherArmorMaterial.ZANITE && itemStack.isItemStackDamageable()) {
+                            float durabilityProgress = (float) itemStack.getMetadata() / (float) itemStack.getMaxDamage();
+                            materialProtection = MathHelper.lerp(materialProtection, AetherArmorMaterial.ZANITE_BROKEN.getProtection(damageType), durabilityProgress);
+                        }
+
+                        protectionPercentage += materialProtection * accessory.getArmorPieceProtectionPercentage();
                     }
                 }
             }
