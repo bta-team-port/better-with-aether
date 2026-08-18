@@ -741,7 +741,6 @@ public final class AetherCreativeContents {
         list.add(new ItemStack(AetherItems.ARMOR_CHESTPLATE_NEPTUNE));
         list.add(new ItemStack(AetherItems.ARMOR_LEGGINGS_NEPTUNE));
         list.add(new ItemStack(AetherItems.ARMOR_BOOTS_NEPTUNE));
-        list.add(new ItemStack(AetherItems.ARMOR_BOOTS_NEPTUNE));
         list.add(new ItemStack(AetherItems.ARMOR_WOLF_NEPTUNE));
 
         list.add(new ItemStack(Items.ARMOR_QUIVER));
