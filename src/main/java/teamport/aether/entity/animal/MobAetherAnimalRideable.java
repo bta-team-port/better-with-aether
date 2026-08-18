@@ -20,6 +20,9 @@ public class MobAetherAnimalRideable extends MobAetherAnimal implements AetherRi
     protected double zdChange = 0;
     protected boolean playerUsedJump = false;
 
+    public float lookFadeAlpha = 1.0F;
+    public long lookFadeLastRenderNanos = 0L;
+
     public MobAetherAnimalRideable(World world) {
         super(world);
         this.jumpsRemaining = getJumpMaxAmount();

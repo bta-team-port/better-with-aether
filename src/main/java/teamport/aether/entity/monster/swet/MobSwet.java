@@ -26,7 +26,7 @@ import java.util.List;
 
 @SuppressWarnings("java:S110")
 public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessage {
-    private double ydO;
+    public double ydO;
     protected int jumpDelay;
     protected int grabDelay;
 

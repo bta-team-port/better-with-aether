@@ -26,7 +26,7 @@ public class ItemGloves extends ItemAccessoryArmor implements IArmorItem<HumanAr
         this.damageType = DamageType.COMBAT;
     }
 
-    public ItemGloves setDamageType(DamageType damageType){
+    public ItemGloves setDamageType(DamageType damageType) {
         this.damageType = damageType;
         return this;
     }
@@ -62,7 +62,7 @@ public class ItemGloves extends ItemAccessoryArmor implements IArmorItem<HumanAr
 
     @Override
     public boolean hitEntity(@NonNull ItemStack gloves, @NonNull Mob target, @NonNull Mob attacker) {
-        if(!(attacker instanceof Player player)){
+        if (!(attacker instanceof Player player)) {
             return super.hitEntity(gloves, target, attacker);
         }
         ItemStack hold = player.getHeldItem();
@@ -72,6 +72,7 @@ public class ItemGloves extends ItemAccessoryArmor implements IArmorItem<HumanAr
         }
         return false;
     }
+
     public int getDamage() {
         return damage;
     }

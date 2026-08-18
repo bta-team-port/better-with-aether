@@ -108,6 +108,7 @@
     "player.PlayerMixinDevDrops"
   ],
   "client": [
+    "StaticEntityModelMojangMixin",
     "accessors.ScreenContainerAbstractAccessor",
     "accessory.MobRendererPlayerMixinAccessoryRender",
     "accessory.PacketHandlerClientMixinAccessoryEquipment",
