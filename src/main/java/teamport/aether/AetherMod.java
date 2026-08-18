@@ -26,7 +26,7 @@ import teamport.aether.entity.AetherEntities;
 import teamport.aether.entity.monster.mimic.MimicRegistry;
 import teamport.aether.item.AetherItemTags;
 import teamport.aether.item.AetherItems;
-import teamport.aether.item.accessory.ItemTrinket;
+import teamport.aether.item.accessory.trinket.ItemTrinket;
 import teamport.aether.net.*;
 import teamport.aether.net.message.*;
 import teamport.aether.recipe.RecipeEntryAetherMachine;

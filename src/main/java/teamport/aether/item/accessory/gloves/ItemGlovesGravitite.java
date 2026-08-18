@@ -6,14 +6,14 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ArmorMaterial;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.MobUtil;
-import teamport.aether.item.accessory.ItemGloves;
+import teamport.aether.item.accessory.HumanAccessoryShape;
 
 public class ItemGlovesGravitite extends ItemGloves {
     private final float knockbackStrength;
     private final float lift;
 
-    public ItemGlovesGravitite(String translationKey, String namespaceId, int id, ArmorMaterial material, int accessoryPiece) {
-        super(translationKey, namespaceId, id, material, accessoryPiece);
+    public ItemGlovesGravitite(String translationKey, String namespaceId, int id, @NonNull ArmorMaterial material, HumanAccessoryShape humanAccessoryShape) {
+        super(translationKey, namespaceId, id, material, humanAccessoryShape);
         this.knockbackStrength = this.lift = 2.0f / 5.0f;
     }
 

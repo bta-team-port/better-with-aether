@@ -19,10 +19,9 @@ import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
 
 public class ItemIcePendant extends ItemPendant {
 
-    public ItemIcePendant(String translationKey, String namespaceId, int id, String name) {
-        super(translationKey, namespaceId, id, name, ArmorMaterial.IRON);
+    public ItemIcePendant(@NonNull String translationKey, @NonNull String namespaceId, int id, String name) {
+        super(translationKey, namespaceId, id, ArmorMaterial.IRON, name);
     }
-
 
     @Override
     public void inventoryTick(@NonNull ItemStack stack, @NonNull World world, @NonNull Entity entity, int slotId, boolean flag) {

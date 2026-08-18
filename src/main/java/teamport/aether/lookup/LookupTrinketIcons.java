@@ -5,7 +5,7 @@ import net.minecraft.core.util.collection.NamespaceID;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.item.AetherItemTags;
 import teamport.aether.item.AetherItems;
-import teamport.aether.item.accessory.IAccessory;
+import teamport.aether.item.accessory.ItemAccessory;
 
 import java.util.*;
 
@@ -42,7 +42,7 @@ public class LookupTrinketIcons {
     }
 
     public @Nullable String getEntry(Item item) {
-        if (item instanceof IAccessory) {
+        if (item instanceof ItemAccessory<?>) {
             return this.idOutlineTextures.getOrDefault(item.namespaceID, null);
         }
 
