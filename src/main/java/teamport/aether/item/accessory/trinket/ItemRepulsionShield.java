@@ -8,27 +8,18 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.joml.primitives.AABBd;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.item.AetherItemTags;
-import teamport.aether.item.AetherRepulsion;
-import teamport.aether.item.accessory.HumanAccessoryShape;
-import teamport.aether.item.accessory.IAccessoryEffects;
 import teamport.aether.entity.player.PlayerUtil;
-import teamport.aether.item.accessory.ItemAccessory;
+import teamport.aether.item.AetherRepulsion;
+import teamport.aether.item.accessory.IAccessoryEffects;
 
 import java.util.List;
 
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
 
-public class ItemRepulsionShield extends ItemAccessory<HumanAccessoryShape> implements IAccessoryEffects {
+public class ItemRepulsionShield extends ItemTrinket implements IAccessoryEffects {
     public ItemRepulsionShield(String translationKey, String namespaceId, int id, String name) {
-        super(translationKey, namespaceId, id, HumanAccessoryShape.TRINKET_1);
-        this.withTags(AetherItemTags.tags(AetherItemTags.TRINKET));
-    }
-
-    @Override
-    public boolean fitsInShape(@NonNull HumanAccessoryShape shape) {
-        return shape == HumanAccessoryShape.TRINKET_1 || shape == HumanAccessoryShape.TRINKET_2;
+        super(translationKey, namespaceId, id, name);
     }
 
     @Override
@@ -61,6 +52,7 @@ public class ItemRepulsionShield extends ItemAccessory<HumanAccessoryShape> impl
             ((AetherRepulsion) player).aether$setRepulsion(false);
         }
     }
+
     @Override
     public void removeEffect(Player player, ItemStack accessory) {
         ((AetherRepulsion) player).aether$setRepulsion(false);

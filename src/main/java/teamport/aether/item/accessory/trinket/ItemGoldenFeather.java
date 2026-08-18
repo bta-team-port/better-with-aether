@@ -5,22 +5,12 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.item.AetherItemTags;
-import teamport.aether.item.accessory.ItemAccessory;
-import teamport.aether.item.accessory.HumanAccessoryShape;
 
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 
-public class ItemGoldenFeather extends ItemAccessory<HumanAccessoryShape> {
-
+public class ItemGoldenFeather extends ItemTrinket {
     public ItemGoldenFeather(String translationKey, String namespaceId, int id, String name) {
-        super(translationKey, namespaceId, id, HumanAccessoryShape.TRINKET_1);
-        this.withTags(AetherItemTags.tags(AetherItemTags.TRINKET));
-    }
-
-    @Override
-    public boolean fitsInShape(@NonNull HumanAccessoryShape shape) {
-        return shape == HumanAccessoryShape.TRINKET_1 || shape == HumanAccessoryShape.TRINKET_2;
+        super(translationKey, namespaceId, id, name);
     }
 
     @Override

@@ -16,13 +16,11 @@ import teamport.aether.item.accessory.ItemAccessory;
 import static teamport.aether.item.accessory.SlotAccessory.GLOVES_SLOT;
 
 public class ItemGloves extends ItemAccessory<HumanAccessoryShape> implements IAccessoryItem<HumanAccessoryShape>, AetherHasCustomDamageType {
-    private final ArmorMaterial material;
     private int damage;
     private DamageType damageType;
 
     public ItemGloves(String translationKey, String namespaceId, int id, @NonNull ArmorMaterial material, HumanAccessoryShape humanAccessoryShape) {
         super(translationKey, namespaceId, id, material, humanAccessoryShape);
-        this.material = material;
         float maxDurability = HumanArmorShape.BOOTS.getDurabilityModifier() * material.durability;
         this.setMaxDamage((int) Math.ceil(maxDurability));
         this.damageType = DamageType.COMBAT;

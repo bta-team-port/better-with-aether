@@ -481,7 +481,7 @@ public final class AetherItems {
         TOOL_STAFF_CLOUD = new ItemStaffCloud("tool.staff.cloud", itemKey("tool_staff_cloud"), itemID("TOOL_STAFF_CLOUD"));
 
 
-        TOOL_DUNGEON_COMPASS = new ItemTrinket("tool.dungeon_compass", itemKey("tool_dungeon_compass"), itemID("TOOL_DUNGEON_COMPASS"), HumanAccessoryShape.TRINKET_1, "dungeon_compass");
+        TOOL_DUNGEON_COMPASS = new ItemTrinket("tool.dungeon_compass", itemKey("tool_dungeon_compass"), itemID("TOOL_DUNGEON_COMPASS"), "dungeon_compass");
 
     }
 
