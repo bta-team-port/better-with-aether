@@ -9,13 +9,13 @@ import org.jspecify.annotations.NonNull;
 
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 
-public class ItemGravititePendant extends ItemCombatPendant {
-    public ItemGravititePendant(String translationKey, String namespaceId, int id, ArmorMaterial material) {
-        super(translationKey, namespaceId, id, material);
+public class ItemGravititePendant extends ItemPendant {
+    public ItemGravititePendant(@NonNull String translationKey, @NonNull String namespaceId, int id, @NonNull ArmorMaterial material, String name) {
+        super(translationKey, namespaceId, id, material, name);
     }
 
     @Override
-    public void inventoryTick(@NonNull ItemStack itemstack, @NonNull World world, @NonNull Entity entity, int slotId, boolean flag) {
+    public void inventoryTick(@NonNull ItemStack itemstack, @NonNull World world, @NonNull Entity entity, int slotId, boolean isHeld) {
         Player player = (Player) entity;
         if (
             slotId < player.inventory.mainInventory.length
@@ -31,8 +31,4 @@ public class ItemGravititePendant extends ItemCombatPendant {
         player.yd += 0.025F;
     }
 
-    @Override
-    public int armorPieceProtection() {
-        return 0;
-    }
 }

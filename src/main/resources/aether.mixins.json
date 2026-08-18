@@ -105,7 +105,9 @@
     "player.PlayerDeathMessageMixin",
     "player.PlayerFixArmorMixin",
     "player.PlayerGetNextDartMixin",
-    "player.PlayerMixinDevDrops"
+    "accessory.PlayerMixinAccessoryWearing",
+    "player.PlayerMixinDevDrops",
+    "accessory.PlayerProtectionMixin"
   ],
   "client": [
     "StaticEntityModelMojangMixin",

@@ -8,14 +8,12 @@ import org.jspecify.annotations.NonNull;
 import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.effect.AetherEffects;
 import teamport.aether.item.accessory.IAccessoryEffects;
-import teamport.aether.item.accessory.ItemAccessoryArmor;
 
 import static teamport.aether.item.accessory.SlotAccessory.CAPE_SLOT;
 
-public class ItemInvisibilityCapeArmor extends ItemAccessoryArmor implements IAccessoryEffects {
-
-    public ItemInvisibilityCapeArmor(String translationKey, String namespaceId, int id, String name, int accessoryPiece) {
-        super(translationKey, namespaceId, id, name, accessoryPiece);
+public class ItemCapeInvisibility extends ItemCape implements IAccessoryEffects {
+    public ItemCapeInvisibility(@NonNull String translationKey, @NonNull String namespaceId, int id, String name) {
+        super(translationKey, namespaceId, id, name);
     }
 
     @Override

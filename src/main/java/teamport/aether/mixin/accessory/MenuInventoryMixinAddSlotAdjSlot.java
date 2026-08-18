@@ -13,7 +13,6 @@ import net.minecraft.core.player.inventory.container.ContainerCrafting;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.player.inventory.menu.MenuInventory;
 import net.minecraft.core.player.inventory.slot.Slot;
-import net.minecraft.core.player.inventory.slot.SlotArmor;
 import net.minecraft.core.player.inventory.slot.SlotResult;
 import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,19 +22,18 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.AetherMod;
 import teamport.aether.item.AetherItemTags;
-import teamport.aether.item.accessory.IAccessory;
-import teamport.aether.item.accessory.ItemAccessoryArmor;
+import teamport.aether.item.accessory.HumanAccessoryShape;
+import teamport.aether.item.accessory.ItemAccessory;
 import teamport.aether.item.accessory.SlotAccessory;
 import teamport.aether.mixin.accessors.MenuAbstractAccessor;
-import teamport.aether.mixin.accessors.SlotAccessor;
-import teamport.aether.mixin.accessors.SlotArmorAccessor;
 
 import static teamport.aether.item.accessory.SlotAccessory.*;
 
-@Mixin(value = MenuInventory.class)
+@Mixin(MenuInventory.class)
 public abstract class MenuInventoryMixinAddSlotAdjSlot {
     @Shadow
     public ContainerInventory inventory;
+
     @Inject(method = "<init>(Lnet/minecraft/core/player/inventory/container/ContainerInventory;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/player/inventory/menu/MenuInventory;slotsChanged(Lnet/minecraft/core/player/inventory/container/Container;)V"))
     private void addingAndAdjustingSlots(ContainerInventory inventory, CallbackInfo ci) {
         MenuInventory menu = (MenuInventory) (Object) this;
@@ -49,20 +47,14 @@ public abstract class MenuInventoryMixinAddSlotAdjSlot {
             if (slot instanceof SlotResult) {
                 slot.x += 9;
             }
-            //because getContainerSize now returns 44, both slot and index need to be adjusted for armor slot to work.
-            if (slot instanceof SlotArmor) {
-                SlotArmor newArmorSlot = new SlotArmor(menu, slot.getContainer(), ((SlotAccessor) slot).getSlot(), slot.x, slot.y, ((SlotArmorAccessor) slot).getArmorShape());
-                newArmorSlot.index = i;
-                menu.slots.set(menu.slots.indexOf(slot), newArmorSlot);
-            }
         }
         // adding new accessories
         for (int i = 0; i < 4; ++i) {
-            int armorPiece = 4 + i;
             // staring where armor ends
-            ((MenuAbstractAccessor) menu).invokeAddSlot(new SlotAccessory(menu, inventory, inventory.getContainerSize() - 4 + i, 80, 8 + i * 18, armorPiece));
+            ((MenuAbstractAccessor) menu).invokeAddSlot(new SlotAccessory(menu, inventory, inventory.getContainerSize() - 4 + i, 80, 8 + i * 18, HumanAccessoryShape.values()[i]));
         }
     }
+
     /**
      * in the MAIN inventory (not including armor or crafting slots)
      * IDK what target does, but it always seems to be 0 for me - Colin
@@ -74,22 +66,32 @@ public abstract class MenuInventoryMixinAddSlotAdjSlot {
      */
     @ModifyReturnValue(method = "getTargetSlots", at = @At("RETURN"))
     private IntList accessoryTargets(IntList original, InventoryAction action, @NonNull Slot slot, int target, Player player) {
-        if (slot.index < 9 || slot.index > 44 || target == 1 || slot.getItemStack() == null || !(slot.getItemStack().getItem() instanceof IAccessory || slot.getItemStack().getItem().hasTag(AetherItemTags.TRINKET))) {
+        if (slot.index < 9 || slot.index > 44 || target == 1 || slot.getItemStack() == null) {
             return original;
         }
         Item accessory = slot.getItemStack().getItem();
-        if (target == 2 && (accessory instanceof ItemQuiver || accessory instanceof ItemQuiverEndless)) {
+        if ((accessory instanceof ItemQuiver || accessory instanceof ItemQuiverEndless)) {
             original.add(AetherMod.ARMOR_START_INDEX + CAPE_SLOT);
             return original;
         }
-        if (!(accessory instanceof IAccessory || accessory.hasTag(AetherItemTags.TRINKET))) {
+
+        if (!(accessory instanceof ItemAccessory<?> || accessory.hasTag(AetherItemTags.TRINKET))) {
             return original;
         }
         IntList ints = new IntArrayList();
-        if (accessory instanceof ItemAccessoryArmor accessoryArmor) {
-            ints.add(AetherMod.ARMOR_START_INDEX + accessoryArmor.getSlotID());
-        }
-        if (accessory.hasTag(AetherItemTags.TRINKET)) {
+
+        if (accessory instanceof ItemAccessory<?> itemAccessory) {
+            Object shape = itemAccessory.getArmorShape();
+
+            if (shape == HumanAccessoryShape.GLOVES) {
+                ints.add(AetherMod.ARMOR_START_INDEX + GLOVES_SLOT);
+            } else if (shape == HumanAccessoryShape.CAPE) {
+                ints.add(AetherMod.ARMOR_START_INDEX + CAPE_SLOT);
+            } else {
+                ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_1_SLOT);
+                ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_2_SLOT);
+            }
+        } else if (accessory.hasTag(AetherItemTags.TRINKET)) {
             ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_1_SLOT);
             ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_2_SLOT);
         }

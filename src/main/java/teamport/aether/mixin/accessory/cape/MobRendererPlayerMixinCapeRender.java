@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.ducks.IContainerInventoryAether;
 import teamport.aether.entity.player.PlayerUtil;
-import teamport.aether.item.accessory.ItemAccessoryArmor;
+import teamport.aether.item.accessory.cape.ItemCape;
 
 @Environment(EnvType.CLIENT)
 @Mixin(MobRendererPlayer.class)
@@ -50,9 +50,9 @@ public abstract class MobRendererPlayerMixinCapeRender extends MobRenderer<Playe
     @WrapOperation(method = "renderAdditional(Lnet/minecraft/client/render/tessellator/TessellatorGeneral;Lnet/minecraft/core/entity/player/Player;F)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/MobRendererPlayer;bindDownloadableTexture(Ljava/lang/String;Ljava/lang/String;Lnet/minecraft/client/render/ImageParser;)Z", ordinal = 0))
     private boolean bindAetherCape(MobRendererPlayer renderer, String url, String fallback, ImageParser parser, Operation<Boolean> original, TessellatorGeneral tessellator, @NonNull Player player, float partialTick) {
         ItemStack itemStack = ((IContainerInventoryAether) player.inventory).aether$getAccessoryInventory()[1];
-        if (itemStack != null && itemStack.getItem() instanceof ItemAccessoryArmor) {
+        if (itemStack != null && itemStack.getItem() instanceof ItemCape) {
             Item item = itemStack.getItem();
-            String path = String.format("/assets/%s/textures/armor/cape/%s.png", item.namespaceID.namespace(), ((ItemAccessoryArmor) item).name());
+            String path = String.format("/assets/%s/textures/armor/cape/%s.png", item.namespaceID.namespace(), ((ItemCape) item).name());
             this.renderDispatcher.textureManager.loadTexture(path).bind();
             return true;
         }

@@ -1,36 +1,23 @@
 package teamport.aether.item.accessory.pendant;
 
 import net.minecraft.core.enums.HumanArmorShape;
-import net.minecraft.core.item.IArmorItem;
 import net.minecraft.core.item.material.ArmorMaterial;
 import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
 
-public class ItemCombatPendant extends ItemPendant implements IArmorItem<HumanArmorShape> {
+public class ItemCombatPendant extends ItemPendant {
 
+    public ItemCombatPendant(@NonNull String translationKey, @NonNull String namespaceId, int id, @NonNull ArmorMaterial material, String name) {
+        super(translationKey, namespaceId, id, material, name);
+    }
 
-    public ItemCombatPendant(String translationKey, String namespaceId, int id, ArmorMaterial material) {
-        super(translationKey, namespaceId, id, material);
+    @Override
+    public int armorPieceProtection() {
+        return HumanArmorShape.BOOTS.getProtectionValue();
     }
 
     @Override
     public float getArmorPieceProtectionPercentage() {
-        return this.armorPieceProtection() / 20.0F;
+        return (float) this.armorPieceProtection() / 80.0f;
     }
 
-    @Override
-    public @Nullable ArmorMaterial getArmorMaterial() {
-        return this.material;
-    }
-
-
-    @Override
-    public int armorPieceProtection() {
-        return 1;
-    }
-
-    @Override
-    public @NonNull HumanArmorShape getArmorShape() {
-        return HumanArmorShape.BOOTS;
-    }
 }

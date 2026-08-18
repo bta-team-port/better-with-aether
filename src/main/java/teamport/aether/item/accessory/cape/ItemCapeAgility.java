@@ -5,17 +5,13 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
-import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
-import teamport.aether.effect.AetherEffects;
 import teamport.aether.item.accessory.IAccessoryEffects;
-import teamport.aether.item.accessory.ItemAccessoryArmor;
 
 import static teamport.aether.item.accessory.SlotAccessory.CAPE_SLOT;
 
-public class ItemSwetCapeArmor extends ItemAccessoryArmor implements IAccessoryEffects {
-
-    public ItemSwetCapeArmor(String translationKey, String namespaceId, int id, String name, int accessoryPiece) {
-        super(translationKey, namespaceId, id, name, accessoryPiece);
+public class ItemCapeAgility extends ItemCape implements IAccessoryEffects {
+    public ItemCapeAgility(@NonNull String translationKey, @NonNull String namespaceId, int id, String name) {
+        super(translationKey, namespaceId, id, name);
     }
 
     @Override
@@ -26,12 +22,15 @@ public class ItemSwetCapeArmor extends ItemAccessoryArmor implements IAccessoryE
         if (slotId > player.inventory.mainInventory.length
             && slotId - player.inventory.mainInventory.length == CAPE_SLOT
         ) {
-            AetherEffects.add(player, AetherEffects.swetty, 1);
+            player.footSize = 1.0f;
+            return;
         }
+        player.footSize = 0.5f;
     }
 
     @Override
-    public void removeEffect(Player player, ItemStack accessory) {
-        ((IHasEffects<?>) player).getContainer().remove(AetherEffects.swetty);
+    public void removeEffect(@NonNull Player player, ItemStack accessory) {
+        player.footSize = 0.5F;
     }
+
 }

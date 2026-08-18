@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherArmorMaterial;
-import teamport.aether.item.accessory.ItemGloves;
+import teamport.aether.item.accessory.gloves.ItemGloves;
 
 import static teamport.aether.AetherMod.ZANITE_MULTIPLIER;
 import static teamport.aether.item.accessory.SlotAccessory.GLOVES_SLOT;

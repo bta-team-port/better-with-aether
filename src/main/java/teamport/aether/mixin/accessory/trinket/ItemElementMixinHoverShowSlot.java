@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.item.AetherItemTags;
-import teamport.aether.item.accessory.IAccessory;
+import teamport.aether.item.accessory.ItemAccessory;
 import teamport.aether.lookup.LookupTrinketIcons;
 import teamport.aether.option.AetherGameSettingsHolder;
 
@@ -73,7 +73,7 @@ public abstract class ItemElementMixinHoverShowSlot {
                 ItemStack hoverStack = ((MenuInventory) ((ScreenInventory) this.mc.currentScreen).inventorySlots).inventory.getHeldItemStack();
                 if (hoverStack != null) {
                     Item item = hoverStack.getItem();
-                    if (item instanceof IAccessory || item.hasTag(AetherItemTags.TRINKET)) {
+                    if (item instanceof ItemAccessory<?> || item.hasTag(AetherItemTags.TRINKET)) {
                         String iconPath = LookupTrinketIcons.INSTANCE.getEntry(item);
                         IconCoordinate displayIcon = iconPath != null ? TextureRegistry.getTexture(iconPath) : defaultIcon;
                         instance.drawTexturedIcon(x, y, 16, 16, displayIcon);
@@ -86,7 +86,7 @@ public abstract class ItemElementMixinHoverShowSlot {
                 ItemStack hoverStack = slot.getItemStack();
                 if (hoverStack != null) {
                     Item item = hoverStack.getItem();
-                    if (item instanceof IAccessory || item.hasTag(AetherItemTags.TRINKET)) {
+                    if (item instanceof ItemAccessory<?> || item.hasTag(AetherItemTags.TRINKET)) {
                         String iconPath = LookupTrinketIcons.INSTANCE.getEntry(item);
                         IconCoordinate displayIcon = iconPath != null ? TextureRegistry.getTexture(iconPath) : defaultIcon;
                         instance.drawTexturedIcon(x, y, 16, 16, displayIcon);
