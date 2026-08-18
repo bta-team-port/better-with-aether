@@ -2,19 +2,100 @@ package teamport.aether.entity.animal.moa;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.option.GameSettings;
+import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.renderer.GLRenderer;
+import net.minecraft.client.render.tessellator.TessellatorGeneral;
+import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.MathHelper;
+import org.jetbrains.annotations.NotNull;
+import org.joml.Vector3d;
+import org.joml.Vector3dc;
+import org.joml.primitives.AABBd;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.useless.dragonfly.models.entity.BoneTransform;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
-import net.minecraft.client.render.entity.MobRenderer;
+import teamport.aether.item.AetherItemTags;
 
 @Environment(EnvType.CLIENT)
 public class MobRendererMoa extends MobRenderer<MobMoa> {
+    private static final float LOOK_FADE_TARGET = 0.2F;
+    private static final float LOOK_FADE_RATE = 16.0F;
+
+    @Override
+    protected void renderSpecials(@NotNull TessellatorGeneral tessellator, @NotNull MobMoa entity, double x, double y, double z) {
+        if (entity.passenger == null) {
+            super.renderSpecials(tessellator, entity, x, y, z);
+        }
+    }
 
     public MobRendererMoa(float shadowSize) {
         super(shadowSize);
+    }
+
+    @Override
+    protected float getRenderAlpha(@NotNull MobMoa entity, float partialTick) {
+        long now = System.nanoTime();
+        float dt = entity.lookFadeLastRenderNanos == 0L ? 0.0F : (float)(now - entity.lookFadeLastRenderNanos) / 1.0E9F;
+        entity.lookFadeLastRenderNanos = now;
+        dt = MathHelper.clamp(dt, 0.0F, 0.1F);
+        if (!this.isRiderLookingAtOwnPig(entity, partialTick)) {
+            entity.lookFadeAlpha = 1.0F;
+            return 1.0F;
+        } else {
+            float t = 1.0F - (float)Math.exp(-LOOK_FADE_RATE * dt);
+            entity.lookFadeAlpha += (LOOK_FADE_TARGET - entity.lookFadeAlpha) * t;
+            if (Math.abs(entity.lookFadeAlpha - LOOK_FADE_TARGET) < 0.01F) {
+                entity.lookFadeAlpha = LOOK_FADE_TARGET;
+            }
+
+            return entity.lookFadeAlpha;
+        }
+    }
+
+    @Override
+    public float getShadowSize(@NotNull MobMoa entity) {
+        return entity.lookFadeAlpha < 0.9F ? 0.0F : super.getShadowSize(entity);
+    }
+
+    private boolean isRiderLookingAtOwnPig(@NotNull MobMoa entity, float partialTick) {
+        if (GameSettings.THIRD_PERSON_VIEW.value != 0) {
+            return false;
+        } else {
+            Minecraft mc = Minecraft.getMinecraft();
+            Player player = mc.thePlayer;
+            if (player != null && entity == player.vehicle) {
+                ItemStack held = player.inventory.getCurrentItem();
+                if (held == null || held.getItem().hasTag(AetherItemTags.MOAS_FAVOURITE_ITEM)) {
+                    Vector3dc eye = player.getPosition(partialTick, true);
+                    Vector3dc look = player.getViewVector(partialTick);
+                    if (look == null) {
+                        return false;
+                    } else {
+                        double reach = (double)player.getGamemode().getEntityReachDistance() + (double)1.0F;
+                        Vector3d end = (new Vector3d(look)).mul(reach).add(eye);
+                        double offX = (entity.xo - entity.x) * ((double)1.0F - (double)partialTick);
+                        double offY = (entity.yo - entity.y) * ((double)1.0F - (double)partialTick);
+                        double offZ = (entity.zo - entity.z) * ((double)1.0F - (double)partialTick);
+                        AABBd renderedBox = entity.bb.translate(offX, offY, offZ, new AABBd());
+                        return MathHelper.aabbClip(renderedBox, eye, end) != null;
+                    }
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+    }
+
+    @Override
+    protected void preRenderTransform(@NotNull MobMoa entity, double x, double y, double z, float yaw, float partialTick) {
+        super.preRenderTransform(entity, x, y, z, yaw, partialTick);
+        GLRenderer.modelM4f().scale(0.85F, 0.85F, 0.85F);
     }
 
     @Override
@@ -23,10 +104,8 @@ public class MobRendererMoa extends MobRenderer<MobMoa> {
         if (layer == 1) {
             this.bindTexture(entity.getSaddleTexturePath());
             model = this.getModel("saddle");
-            GLRenderer.modelM4f().scale(0.85F, 0.85F, 0.85F);
         } else {
             model = this.getModel("main");
-            GLRenderer.modelM4f().scale(0.85F, 0.85F, 0.85F);
         }
 
         model.resetBones();

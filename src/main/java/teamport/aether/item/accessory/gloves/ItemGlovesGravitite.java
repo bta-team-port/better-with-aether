@@ -14,15 +14,15 @@ public class ItemGlovesGravitite extends ItemGloves {
 
     public ItemGlovesGravitite(String translationKey, String namespaceId, int id, ArmorMaterial material, int accessoryPiece) {
         super(translationKey, namespaceId, id, material, accessoryPiece);
-        this.knockbackStrength = this.lift = 2.0f/5.0f;
+        this.knockbackStrength = this.lift = 2.0f / 5.0f;
     }
 
     @Override
     public boolean hitEntity(@NonNull ItemStack gloves, @NonNull Mob target, @NonNull Mob attacker) {
-        if (target instanceof Mob && target.hurtTime == 10)  {
-            if(super.hitEntity(gloves, target, attacker) && attacker.isSneaking() && attacker instanceof Player){
-                MobUtil.knockback(target, attacker,knockbackStrength, 0.4f);
-            }else{
+        if (super.hitEntity(gloves, target, attacker)) {
+            if (attacker.isSneaking() && attacker instanceof Player) {
+                MobUtil.knockback(target, attacker, knockbackStrength, 0.4f);
+            } else {
                 MobUtil.knockback(target, attacker, 0.4f, lift);
             }
             return true;

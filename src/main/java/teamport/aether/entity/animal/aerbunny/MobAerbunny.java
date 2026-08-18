@@ -133,7 +133,7 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
         if (EnvironmentHelper.isMultiplayerClient()) {
             return AerbunnyClientHelper.getRidingHeight(this);
         }
-        return this.heightOffset + 1.0F;
+        return this.heightOffset + 0.5F;
     }
 
     @Override
