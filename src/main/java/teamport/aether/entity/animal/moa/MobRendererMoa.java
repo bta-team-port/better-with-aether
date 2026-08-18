@@ -10,7 +10,6 @@ import net.minecraft.client.render.tessellator.TessellatorGeneral;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.MathHelper;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3d;
 import org.joml.Vector3dc;
 import org.joml.primitives.AABBd;
@@ -26,7 +25,7 @@ public class MobRendererMoa extends MobRenderer<MobMoa> {
     private static final float LOOK_FADE_RATE = 16.0F;
 
     @Override
-    protected void renderSpecials(@NotNull TessellatorGeneral tessellator, @NotNull MobMoa entity, double x, double y, double z) {
+    protected void renderSpecials(@NonNull TessellatorGeneral tessellator, @NonNull MobMoa entity, double x, double y, double z) {
         if (entity.passenger == null) {
             super.renderSpecials(tessellator, entity, x, y, z);
         }
@@ -37,7 +36,7 @@ public class MobRendererMoa extends MobRenderer<MobMoa> {
     }
 
     @Override
-    protected float getRenderAlpha(@NotNull MobMoa entity, float partialTick) {
+    protected float getRenderAlpha(@NonNull MobMoa entity, float partialTick) {
         long now = System.nanoTime();
         float dt = entity.lookFadeLastRenderNanos == 0L ? 0.0F : (float)(now - entity.lookFadeLastRenderNanos) / 1.0E9F;
         entity.lookFadeLastRenderNanos = now;
@@ -57,11 +56,11 @@ public class MobRendererMoa extends MobRenderer<MobMoa> {
     }
 
     @Override
-    public float getShadowSize(@NotNull MobMoa entity) {
+    public float getShadowSize(@NonNull MobMoa entity) {
         return entity.lookFadeAlpha < 0.9F ? 0.0F : super.getShadowSize(entity);
     }
 
-    private boolean isRiderLookingAtOwnPig(@NotNull MobMoa entity, float partialTick) {
+    private boolean isRiderLookingAtOwnPig(@NonNull MobMoa entity, float partialTick) {
         if (GameSettings.THIRD_PERSON_VIEW.value != 0) {
             return false;
         } else {
@@ -93,7 +92,7 @@ public class MobRendererMoa extends MobRenderer<MobMoa> {
     }
 
     @Override
-    protected void preRenderTransform(@NotNull MobMoa entity, double x, double y, double z, float yaw, float partialTick) {
+    protected void preRenderTransform(@NonNull MobMoa entity, double x, double y, double z, float yaw, float partialTick) {
         super.preRenderTransform(entity, x, y, z, yaw, partialTick);
         GLRenderer.modelM4f().scale(0.85F, 0.85F, 0.85F);
     }

@@ -25,6 +25,20 @@ public class MobRendererAerbunny extends MobRenderer<MobAerbunny> {
     }
 
     @Override
+    protected void preRenderTransform(@NonNull MobAerbunny entity, double x, double y, double z, float yaw, float partialTick) {
+        super.preRenderTransform(entity, x, y, z, yaw, partialTick);
+        if (!entity.onGround && entity.vehicle == null) {
+            if (entity.yd > 0.5) {
+                GLRenderer.modelM4f().rotate((float) Math.toRadians(15.0F), -1.0F, 0.0F, 0.0F);
+            } else if (entity.yd < -0.5) {
+                GLRenderer.modelM4f().rotate((float) Math.toRadians(-15.0F), -1.0F, 0.0F, 0.0F);
+            } else {
+                GLRenderer.modelM4f().rotate((float) Math.toRadians(entity.yd * 30.0), -1.0F, 0.0F, 0.0F);
+            }
+        }
+    }
+
+    @Override
     protected @Nullable StaticEntityModel getAndSetupModelForLayer(@NonNull MobAerbunny entity, float brightness, float partialTick, int layer) {
         StaticEntityModel model = this.getModel("main");
         model.resetBones();

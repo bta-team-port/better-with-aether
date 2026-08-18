@@ -2,14 +2,13 @@ package teamport.aether.entity.animal.aerwhale;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.tessellator.TessellatorGeneral;
+import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.renderer.GLRenderer;
+import net.minecraft.client.render.tessellator.TessellatorGeneral;
 import net.minecraft.core.util.helper.MathHelper;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import org.useless.dragonfly.models.entity.BoneTransform;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
-import net.minecraft.client.render.entity.MobRenderer;
 
 @Environment(EnvType.CLIENT)
 public class MobRendererAerwhale extends MobRenderer<MobAerwhale> {
@@ -19,19 +18,18 @@ public class MobRendererAerwhale extends MobRenderer<MobAerwhale> {
     }
 
     @Override
+    protected void preRenderTransform(@NonNull MobAerwhale entity, double x, double y, double z, float yaw, float partialTick) {
+        super.preRenderTransform(entity, x, y, z, yaw, partialTick);
+        GLRenderer.modelM4f().scale(5.0f, 5.0f, 5.0f);
+
+        GLRenderer.modelM4f().rotateX(-entity.getRenderPitch(partialTick) * MathHelper.DEG_TO_RAD);
+
+    }
+
+    @Override
     protected @Nullable StaticEntityModel getAndSetupModelForLayer(@NonNull MobAerwhale entity, float brightness, float partialTick, int layer) {
         StaticEntityModel model = this.getModel("main");
-
         model.resetBones();
-
-        BoneTransform head = model.getTransform("head");
-        head.rotY = 0.0F;
-        head.rotX = -entity.getRenderPitch(partialTick) * MathHelper.DEG_TO_RAD;
-
-        head.scaleX = 5.0f;
-        head.scaleY = 5.0f;
-        head.scaleZ = 5.0f;
-
         return model;
     }
 
