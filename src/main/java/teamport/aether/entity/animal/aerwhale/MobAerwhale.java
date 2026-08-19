@@ -1,14 +1,17 @@
 package teamport.aether.entity.animal.aerwhale;
 
+import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.MobFlying;
 import net.minecraft.core.entity.animal.AmbientCreature;
+import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 import org.joml.Vector3d;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.MobUtil;
 
 public class MobAerwhale extends MobFlying implements AmbientCreature {
@@ -20,6 +23,10 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
     private static final float MAX_PITCH = 30.0F;
     private static final int PROBE_INTERVAL = 5;
     private static final int PROGRESS_INTERVAL = 80;
+
+    private static final int DATA_MOTION_YAW = 16;
+    private static final int DATA_MOTION_PITCH = 17;
+    private static final int DATA_SCALE = 18;
 
     private double waypointX;
     private double waypointY;
@@ -41,7 +48,7 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
 
     public MobAerwhale(World world) {
         super(world);
-        this.setSize(0.1F, 0.1F);
+        this.setSize(1.0F, 1.0F);
         this.viewScale = 100.0f;
         this.setTextureIdentifier("aether", "aerwhale");
         this.fireImmune = true;
@@ -49,6 +56,42 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
         this.yRot = 360.0F * this.random.nextFloat();
         this.xRot = 90.0F * this.random.nextFloat() - 45.0F;
         this.ignoreFrustumCheck = true;
+    }
+
+    @Override
+    public void spawnInit() {
+        this.setAerwhaleScale(0.5F + this.random.nextFloat() * 0.5F);
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_MOTION_YAW, 0, Integer.class);
+        this.entityData.define(DATA_MOTION_PITCH, 0, Integer.class);
+        this.entityData.define(DATA_SCALE, Float.floatToIntBits(1.0F), Integer.class);
+    }
+
+    public float getAerwhaleScale() {
+        int bits = this.entityData.getInt(DATA_SCALE);
+        return bits == 0 ? 1.0F : Float.intBitsToFloat(bits);
+    }
+
+    public void setAerwhaleScale(float scale) {
+        this.entityData.set(DATA_SCALE, Float.floatToIntBits(scale));
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NonNull CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putFloat("AerwhaleScale", this.getAerwhaleScale());
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NonNull CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        if (tag.containsKey("AerwhaleScale")) {
+            this.setAerwhaleScale(tag.getFloat("AerwhaleScale"));
+        }
     }
 
     @Override
@@ -86,16 +129,6 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
         this.xRot = approach(this.xRot, targetPitch, MAX_PITCH_STEP);
     }
 
-    private static final int DATA_MOTION_YAW = 16;
-    private static final int DATA_MOTION_PITCH = 17;
-
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_MOTION_YAW, 0, Integer.class);
-        this.entityData.define(DATA_MOTION_PITCH, 0, Integer.class);
-    }
-
     public void lerpPosAndRot() {
         if (this.newPosRotationIncrements > 0) {
             double lerpXD = this.x + (this.newPosX - this.x) / this.newPosRotationIncrements;
@@ -122,8 +155,17 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
     }
 
     @Override
-    public void tick() {
+    public void baseTick() {
         super.baseTick();
+        if (this.random.nextInt(10000) < this.livingSoundTime++) {
+            this.livingSoundTime = -this.getAmbientSoundInterval();
+            this.world.playSoundEffect(null, SoundCategory.WEATHER_SOUNDS, this.x, this.y, this.z, this.getLivingSound(), 1000.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F + this.getPitchModifier());
+        }
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
 
         if (this.world.isClientSide) {
             this.lerpPosAndRot();
