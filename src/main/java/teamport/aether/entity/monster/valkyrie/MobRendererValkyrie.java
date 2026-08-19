@@ -4,6 +4,7 @@ import net.minecraft.client.render.entity.MobRendererBiped;
 import net.minecraft.client.render.renderer.BlendFactor;
 import net.minecraft.client.render.renderer.GLRenderer;
 import net.minecraft.client.render.renderer.State;
+import net.minecraft.core.util.helper.MathHelper;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.useless.dragonfly.models.entity.BoneTransform;
@@ -26,7 +27,7 @@ public class MobRendererValkyrie extends MobRendererBiped<MobValkyrie> {
         }
 
         StaticEntityModel model = this.setupAnimations(entity, this.getModel(layer == 0 ? "main" : "halo"), partialTick, layer);
-        setupValkyrieAnimation(model, entity.wingSpeed, entity.onGround);
+        setupValkyrieAnimation(model, MathHelper.lerp(entity.prevWingSpeed, entity.wingSpeed, partialTick), entity.onGround);
         if (layer == 0) {
             model.getTransform("halo").visible = false;
             model.getTransform("headOverlay").visible = false;
