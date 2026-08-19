@@ -10,6 +10,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
 import org.jspecify.annotations.NonNull;
+import teamport.aether.entity.player.PlayerUtil;
 
 public abstract class MobMonsterAether extends MobPathfinder implements Enemy {
     protected int attackStrength = 2;
@@ -34,7 +35,7 @@ public abstract class MobMonsterAether extends MobPathfinder implements Enemy {
 
     @Override
     protected Entity findPlayerToAttack() {
-        Player entityplayer = this.world.getClosestPlayerToEntity(this, 16.0F);
+        Player entityplayer = PlayerUtil.getClosestNonInvisPlayerToEntity(this.world, this, 16.0F);
         return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().hasHostileMobs() ? entityplayer : null;
     }
 
