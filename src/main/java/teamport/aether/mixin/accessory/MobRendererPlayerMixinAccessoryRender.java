@@ -258,9 +258,9 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 StaticEntityModel modelHeart = this.better_with_aether$setupAccessoryModel("aether.accessory.heart", entity, partialTick, layer);
                 String path;
                 if (slot == TRINKET_1_SLOT) {
-                    path = "/assets/aether/textures/armor/trinkets/regen_trinket_right.png";
-                } else {
                     path = "/assets/aether/textures/armor/trinkets/regen_trinket_left.png";
+                } else {
+                    path = "/assets/aether/textures/armor/trinkets/regen_trinket_right.png";
                 }
                 this.better_with_aether$setVisible(modelHeart, true, false, false, false, false);
                 renderDispatcher.textureManager.loadTexture(path).bind();
@@ -320,14 +320,21 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     private void setUpFeatherOnHelmet() {
         StaticEntityModel modelFeather = this.getModel("aether.accessory.feather");
         modelFeather.getTransform("head").visible = true;
-        modelFeather.getTransform("leftLeg").visible = false;
+        modelFeather.getTransform("chest").visible = false;
+        modelFeather.getTransform("rightArm").visible = false;
+        modelFeather.getTransform("leftArm").visible = false;
         modelFeather.getTransform("rightLeg").visible = false;
+        modelFeather.getTransform("leftLeg").visible = false;
     }
 
     @Unique
     private void setUpFeathersOnBoots() {
         StaticEntityModel modelFeather = this.getModel("aether.accessory.feather");
         modelFeather.getTransform("head").visible = false;
+        modelFeather.getTransform("chest").visible = false;
+        modelFeather.getTransform("rightArm").visible = false;
+        modelFeather.getTransform("leftArm").visible = false;
+        modelFeather.getTransform("rightLeg").visible = false;
         modelFeather.getTransform("leftLeg").visible = true;
         modelFeather.getTransform("rightLeg").visible = true;
     }
