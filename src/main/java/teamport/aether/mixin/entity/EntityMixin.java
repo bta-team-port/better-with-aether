@@ -18,8 +18,7 @@ import teamport.aether.block.terrain.BlockLogicCloudBase;
 public abstract class EntityMixin {
     @Shadow
     public float fallDistance;
-    @Shadow
-    protected boolean wasInWater;
+
     @Shadow
     public World world;
 
@@ -28,24 +27,23 @@ public abstract class EntityMixin {
     @NonNull
     public AABBd bb;
 
-    @Inject(method = "checkOnWater", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Entity;checkAndHandleWater(Z)Z"))
+    @Inject(method = "checkOnWater", at = @At("TAIL"))
     private void checkOnCloud(boolean addVelocity, CallbackInfo ci) {
-        if (world == null) return;
+        if (this.world == null) return;
 
-        int minX = MathHelper.floor(bb.minX);
-        int minY = MathHelper.floor(bb.minY);
-        int minZ = MathHelper.floor(bb.minZ);
-        int maxX = MathHelper.floor(bb.maxX);
-        int maxY = MathHelper.floor(bb.maxY);
-        int maxZ = MathHelper.floor(bb.maxZ);
+        int minX = MathHelper.floor(this.bb.minX + 0.001);
+        int minY = MathHelper.floor(this.bb.minY + 0.001);
+        int minZ = MathHelper.floor(this.bb.minZ + 0.001);
+        int maxX = MathHelper.floor(this.bb.maxX - 0.001);
+        int maxY = MathHelper.floor(this.bb.maxY - 0.001);
+        int maxZ = MathHelper.floor(this.bb.maxZ - 0.001);
 
         for (int x = minX; x <= maxX; x++) {
             for (int y = minY; y <= maxY; y++) {
                 for (int z = minZ; z <= maxZ; z++) {
-                    Block<?> block = world.getBlock(x, y, z);
+                    Block<?> block = this.world.getBlock(x, y, z);
                     if (Block.hasLogicClass(block, BlockLogicCloudBase.class)) {
                         this.fallDistance = 0.0F;
-                        this.wasInWater = false;
                         return;
                     }
                 }

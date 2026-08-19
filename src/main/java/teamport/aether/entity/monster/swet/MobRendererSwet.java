@@ -35,7 +35,8 @@ public class MobRendererSwet extends MobRenderer<MobSwet> {
         }
         baseScale = MathHelper.clamp(baseScale, 0.1F, 10.0F);
 
-        float squishStrength = (float) (MathHelper.lerp(entity.ydO, entity.yd, partialTick) / (baseScale * 0.5F + 1.0F));
+        float squishStrength = (float) (MathHelper.lerp(entity.getYdO(), entity.yd, partialTick) / (baseScale * 0.5F + 1.0F));
+        squishStrength = MathHelper.clamp(squishStrength, -0.5F, 0.5F);
         float scale = 1.0F / (squishStrength + 1.0F);
 
         BoneTransform cube = model.getTransform("cube");

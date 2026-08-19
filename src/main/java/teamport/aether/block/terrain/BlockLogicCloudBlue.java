@@ -6,6 +6,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.WorldSource;
 import net.minecraft.core.world.pos.TilePosc;
+import org.joml.Vector3d;
 import org.joml.primitives.AABBdc;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.achievements.AetherAchievements;
@@ -18,31 +19,42 @@ public class BlockLogicCloudBlue extends BlockLogicCloudBase {
     }
 
     @Override
-    public AABBdc getCollisionAABB(@NonNull WorldSource world, TilePosc pos) {
+    public AABBdc getCollisionAABB(@NonNull WorldSource world, @NonNull TilePosc pos) {
         return null;
     }
 
     @Override
+    public void onEntityWalkedOn(@NonNull World world, @NonNull TilePosc pos, @NonNull Entity entity) {
+        this.onEntityCollision(world, pos, entity);
+    }
+
+    @Override
+    public void onEntityInside(@NonNull World world, @NonNull TilePosc pos, @NonNull Entity entity, @NonNull Vector3d entityVelocity) {
+        this.onEntityCollision(world, pos, entity);
+    }
+
+    @Override
     public void onEntityCollision(@NonNull World world, @NonNull TilePosc pos, @NonNull Entity entity) {
-        int y = pos.y();
-        //don't reference particles on the server. It will crash.
-        if (!EnvironmentHelper.isMultiplayerServer()) {
-            if (entity instanceof Player player) {
-                player.addStat(AetherAchievements.BOUNCE, 1);
-            }
-
-            ParticleMaker.spawnParticle(entity.world, "splash", entity.x, entity.y, entity.z, world.rand.nextFloat(), world.rand.nextFloat(), world.rand.nextFloat(), 0);
-        }
-
         entity.fallDistance = 0.0F;
-        entity.yd *= 0.005;
 
-        if (entity.y > y && !entity.isSneaking()) {
-            this.jump(entity);
+        if (!entity.isSneaking()) {
+            if (entity.yd <= 0.0) {
+                this.jump(entity);
+                //don't reference particles on the server. It will crash.
+                if (!EnvironmentHelper.isMultiplayerServer()) {
+                    if (entity instanceof Player player) {
+                        player.addStat(AetherAchievements.BOUNCE, 1);
+                    }
+
+                    ParticleMaker.spawnParticle(entity.world, "splash", entity.x, entity.y, entity.z, world.rand.nextFloat(), world.rand.nextFloat(), world.rand.nextFloat(), 0);
+                }
+            }
+        } else {
+            entity.yd *= 0.005;
         }
     }
 
-    public void jump(Entity entity) {
+    public void jump(@NonNull Entity entity) {
         entity.fallDistance = 0.0F;
         entity.yd = 2.0f;
     }
