@@ -18,9 +18,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
 import teamport.aether.ducks.IContainerInventoryAether;
+import teamport.aether.item.accessory.SlotAccessory;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = MobRendererPlayer.class, priority = 1100)
+@Mixin(value = MobRendererPlayer.class, priority = 900)
 public abstract class MobRendererPlayerMixinCapeQuiver extends MobRenderer<Player> {
     protected MobRendererPlayerMixinCapeQuiver(float shadowSize) {
         super(shadowSize);
@@ -45,27 +46,23 @@ public abstract class MobRendererPlayerMixinCapeQuiver extends MobRenderer<Playe
     private void setQuiverModel(@NonNull Player player, float brightness, float partialTick, int renderLayer, CallbackInfoReturnable<StaticEntityModel> info) {
         if (renderLayer != 6) return;
 
-        StaticEntityModel quiver = this.better_with_aether$getQuiverModel(player, partialTick);
-
-        ItemStack armorStack = ((IContainerInventoryAether) player.inventory).aether$getAccessoryInventory()[1];
+        ItemStack armorStack = ((IContainerInventoryAether) player.inventory).aether$getAccessoryInventory()[SlotAccessory.CAPE_SLOT - SlotAccessory.GLOVES_SLOT];
         if (armorStack == null) return;
         Item item = armorStack.getItem();
-        ItemStack chestplate = player.inventory.armorInventory[2];
-        if (item instanceof ItemQuiver) {
-            String path = "/assets/minecraft/textures/armor/quiver.png";
-            if (chestplate != null && (chestplate.getItem() instanceof ItemQuiver || chestplate.getItem() instanceof ItemQuiverEndless)) {
-                path = "/assets/aether/textures/armor/quiver_flipped.png";
-            }
-            this.bindTexture(path);
-            info.setReturnValue(quiver);
-            return;
-        }
-        if (item instanceof ItemQuiverEndless) {
-            String path = "/assets/minecraft/textures/armor/quiver_golden.png";
-            if (chestplate != null && (chestplate.getItem() instanceof ItemQuiver || chestplate.getItem() instanceof ItemQuiverEndless)) {
-                path = "/assets/aether/textures/armor/quiver_golden_flipped.png";
-            }
-            this.bindTexture(path);
+        ItemStack chestplate = player.inventory.armorInventory[1];
+
+        if (item instanceof ItemQuiver || item instanceof ItemQuiverEndless) {
+            StaticEntityModel quiver = this.better_with_aether$getQuiverModel(player, partialTick);
+            boolean isEndless = item instanceof ItemQuiverEndless;
+            boolean isFlipped = chestplate != null && (chestplate.getItem() instanceof ItemQuiver || chestplate.getItem() instanceof ItemQuiverEndless);
+
+            String path = String.format("/assets/%s/textures/armor/%s%s.png",
+                isFlipped ? "aether" : "minecraft",
+                isEndless ? "quiver_golden" : "quiver",
+                isFlipped ? "_flipped" : ""
+            );
+
+            this.renderDispatcher.textureManager.loadTexture(path).bind();
             info.setReturnValue(quiver);
         }
     }

@@ -20,6 +20,7 @@ import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherArmorMaterial;
+import teamport.aether.item.AetherItems;
 import teamport.aether.mixin.accessors.EntityAccessor;
 
 import java.util.ArrayList;
@@ -50,6 +51,7 @@ public class MixinHelper {
         TRINKET_TEXTURES.put(Items.TOOL_COMPASS, "compass_trinket");
         TRINKET_TEXTURES.put(Items.TOOL_CLOCK, "clock_trinket");
         TRINKET_TEXTURES.put(Items.TOOL_CALENDAR, "calendar_trinket");
+        TRINKET_TEXTURES.put(AetherItems.TOOL_DUNGEON_COMPASS, "compass_dungeon_trinket");
     }
 
     public static int fireResistanceCount(ContainerInventory inventory) {
