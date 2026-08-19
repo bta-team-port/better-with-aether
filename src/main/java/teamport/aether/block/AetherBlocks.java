@@ -34,7 +34,7 @@ import static teamport.aether.AetherMod.MOD_ID;
 
 @SuppressWarnings({"java:S6539", "java:S1104", "java:S1444", "java:S3008", "unchecked", "java:S3878"})
 public final class AetherBlocks {
-    public static final @NonNull Block<BlockLogicPortalAether> PORTAL_AETHER;
+    public static Block<BlockLogicPortalAether> PORTAL_AETHER;
 
     public static Block<?> GRASS_AETHER;
     public static Block<?> DIRT_AETHER;
@@ -220,7 +220,7 @@ public final class AetherBlocks {
     public static void init() {
         if (!hasInit) {
             hasInit = true;
-
+            initializeBlocks();
         }
     }
 
@@ -228,7 +228,7 @@ public final class AetherBlocks {
         return MOD_ID + ":block/" + string;
     }
 
-    static {
+    public static void initializeBlocks() {
 
         PORTAL_AETHER = register("portal.aether", blockKey("portal_aether"), blockID("PORTAL_AETHER"),
             b -> new BlockLogicPortalAether(b, AetherDimension.getAether(), Blocks.GLOWSTONE, Blocks.FLUID_WATER_FLOWING))
@@ -430,8 +430,7 @@ public final class AetherBlocks {
             .withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
 
 
-        //TODO Had to change this id because minecraft:block/flower_purple already existed, figure out what to do
-        FLOWER_PURPLE = register("flower.aether.purple", blockKey("flower_aether_purple"), blockID("FLOWER_PURPLE"),
+        FLOWER_PURPLE = register("flower.aether.purple", blockKey("flower_aether_purple"), blockID("FLOWER_AETHER_PURPLE"),
             b -> new BlockLogicFlowerAether(b)
                 .setKilledByWeather()
                 .setBonemealable())
@@ -440,7 +439,7 @@ public final class AetherBlocks {
             .withOverrideColor(MaterialColor.paintedPurple)
             .withTags(new Tag[]{BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, BlockTags.SHEARS_DO_SILK_TOUCH, BlockTags.SHEEPS_FAVOURITE_BLOCK, AetherBlockTags.PLANTABLE_IN_AETHER_JAR});
 
-        FLOWER_WHITE = register("flower.white", blockKey("flower_white"), blockID("FLOWER_WHITE"),
+        FLOWER_WHITE = register("flower.aether.white", blockKey("flower_aether_white"), blockID("FLOWER_AETHER_WHITE"),
             b -> new BlockLogicFlowerAether(b)
                 .setKilledByWeather()
                 .setBonemealable())

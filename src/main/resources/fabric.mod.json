@@ -49,7 +49,7 @@
     "main": ["teamport.aether.AetherMod"],
     "client": ["teamport.aether.AetherClient"],
     "server": ["teamport.aether.AetherServer"],
-    "uselessNumerical": ["teamport.aether.compat.uselessnumerical.Allias"],
+    "uselessNumerical": ["teamport.aether.compat.uselessnumerical.Alias"],
     "commandly": ["teamport.aether.compat.commandly.AetherCommandlyPlugin"],
     "preLaunch": []
   },
