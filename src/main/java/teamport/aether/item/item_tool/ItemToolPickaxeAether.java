@@ -1,5 +1,7 @@
 package teamport.aether.item.item_tool;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
@@ -16,22 +18,19 @@ import teamport.aether.block.AetherBlockTags;
 import teamport.aether.compat.commandly.AetherCommandlyRules;
 import teamport.aether.entity.player.PlayerUtil;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static teamport.aether.block.AetherBlocks.*;
 
 public class ItemToolPickaxeAether extends ItemTool {
-    public static Map<Block<?>, Integer> aetherMiningLevels = new HashMap<>();
+    public static final Object2IntMap<Block<?>> aetherMiningLevels = new Object2IntOpenHashMap<>();
 
     public ItemToolPickaxeAether(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
         super(name, namespaceId, id, 2, enumtoolmaterial, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
     }
 
     @Override
-    public boolean canHarvestBlock(@NonNull ItemStack itemStack, @NonNull Mob mob, @NonNull Block<?> block) {
-        Integer miningLevel = aetherMiningLevels.get(block);
-        if (miningLevel != null) {
+    public boolean canHarvestBlock(@NonNull ItemStack selfStack, @NonNull Mob mob, @NonNull Block<?> block) {
+        int miningLevel = aetherMiningLevels.getOrDefault(block, -1);
+        if (miningLevel != -1) {
             return this.material.getMiningLevel() >= miningLevel;
         } else {
             return block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
@@ -86,6 +85,9 @@ public class ItemToolPickaxeAether extends ItemTool {
 
         aetherMiningLevels.put(BLOCK_GRAVITITE, 2);
         aetherMiningLevels.put(ORE_GRAVITITE_HOLYSTONE, 2);
+        aetherMiningLevels.put(BRICK_GRAVITITE, 2);
+        aetherMiningLevels.put(SLAB_BRICK_GRAVITITE, 2);
+        aetherMiningLevels.put(STAIRS_BRICK_GRAVITITE, 2);
 
         aetherMiningLevels.put(AEROGEL, 3);
     }

@@ -1,6 +1,5 @@
 package teamport.aether.block.terrain;
 
-import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.block.Blocks;
@@ -16,15 +15,12 @@ import java.util.Map;
 import java.util.Random;
 
 public class BlockLogicIceStone extends BlockLogic {
-
-    public static Int2IntArrayMap variantMap = new Int2IntArrayMap();
     public static final @NonNull Map<@NonNull Block<?>, @NonNull Block<?>> NO_ICE_TO_ICE_MAP = new HashMap<>();
     public static final @NonNull Map<@NonNull Block<?>, @NonNull Block<?>> ICE_TO_NO_ICE_MAP = new HashMap<>();
 
-    public BlockLogicIceStone(@NonNull Block<?> block, @NonNull Block<?> parentBlock) {
+    public BlockLogicIceStone(@NonNull Block<?> block) {
         super(block, Materials.STONE);
         block.setTicking(true);
-        variantMap.put(parentBlock.id(), block.id());
     }
 
     public static @Nullable Block<?> getIceBlock(@NonNull Block<?> noMossBlock) {

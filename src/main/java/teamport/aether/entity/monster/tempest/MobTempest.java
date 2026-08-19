@@ -2,7 +2,6 @@ package teamport.aether.entity.monster.tempest;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
-import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
@@ -11,7 +10,6 @@ import teamport.aether.AetherMod;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.animal.whirly.MobWhirly;
 import teamport.aether.entity.monster.MobMonsterAether;
-import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.entity.projectile.ProjectileElementLightning;
 import teamport.aether.helper.ParticleMaker;
 
@@ -73,12 +71,6 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
             this.world.entityJoinedWorld(elementLightning);
             this.cooldown = 0;
         }
-    }
-
-    @Override
-    protected Entity findPlayerToAttack() {
-        Player entityplayer = PlayerUtil.getClosestNonInvisPlayerToEntity(this.world, this, 16.0);
-        return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().hasHostileMobs() ? entityplayer : null;
     }
 
     @Override

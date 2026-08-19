@@ -4,8 +4,12 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.MaterialColor;
 import net.minecraft.core.crafting.LookupFuelFurnace;
 import teamport.aether.block.terrain.BlockLogicIceStone;
+import teamport.aether.block.terrain.BlockLogicOreAmbrosium;
+import teamport.aether.block.terrain.BlockLogicOreGravitite;
+import teamport.aether.block.terrain.BlockLogicOreZanite;
 import teamport.aether.item.AetherItems;
 
+import static net.minecraft.core.block.BlockLogicFire.setFlammable;
 import static net.minecraft.core.block.BlockLogicMoss.MOSS_TO_NO_MOSS_MAP;
 import static net.minecraft.core.block.BlockLogicMoss.NO_MOSS_TO_MOSS_MAP;
 import static net.minecraft.core.block.BlockLogicNote.Instrument.CELESTA;
@@ -18,9 +22,14 @@ public class AetherBlockDetails {
     public static void initializeBlockDetails() {
         registerBlockInstruments();
         registerNewFurnaceFuel();
+        registerFlammableBlocks();
         registerMapColors();
         registerMossMap();
         BlockLogicIceStone.initFreezeMap();
+
+        BlockLogicOreAmbrosium.variantMap.put(AetherBlocks.HOLYSTONE.id(), AetherBlocks.ORE_AMBROSIUM_HOLYSTONE.id());
+        BlockLogicOreZanite.variantMap.put(AetherBlocks.HOLYSTONE.id(), AetherBlocks.ORE_ZANITE_HOLYSTONE.id());
+        BlockLogicOreGravitite.variantMap.put(AetherBlocks.HOLYSTONE.id(), AetherBlocks.ORE_GRAVITITE_HOLYSTONE.id());
     }
 
     public static void registerNewFurnaceFuel() {
@@ -48,6 +57,8 @@ public class AetherBlockDetails {
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.BUTTON_PLANKS_SKYROOT.id(), 75);
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.BUTTON_PLANKS_SKYROOT_PAINTED.id(), 75);
 
+        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.DEADBUSH_AETHER.id(), 100);
+
         LookupFuelFurnace.instance.addFuelEntry(Blocks.BUTTON_PLANKS_OAK.id(), 75);
         LookupFuelFurnace.instance.addFuelEntry(Blocks.BUTTON_PLANKS_PAINTED.id(), 75);
 
@@ -68,6 +79,25 @@ public class AetherBlockDetails {
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.TOOL_AXE_SKYROOT.id, 500);
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.TOOL_SHOVEL_SKYROOT.id, 500);
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.TOOL_SHOOTER.id, 300);
+    }
+
+    public static void registerFlammableBlocks() {
+        setFlammable(AetherBlocks.PLANKS_SKYROOT, 5, 20);
+        setFlammable(AetherBlocks.PLANKS_SKYROOT_PAINTED, 5, 20);
+        setFlammable(AetherBlocks.FENCE_PLANKS_SKYROOT, 5, 20);
+        setFlammable(AetherBlocks.FENCE_PLANKS_SKYROOT_PAINTED, 5, 20);
+        setFlammable(AetherBlocks.SLAB_PLANKS_SKYROOT, 5, 20);
+        setFlammable(AetherBlocks.SLAB_PLANKS_SKYROOT_PAINTED, 5, 20);
+        setFlammable(AetherBlocks.STAIRS_PLANKS_SKYROOT, 5, 20);
+        setFlammable(AetherBlocks.STAIRS_PLANKS_SKYROOT_PAINTED, 5, 20);
+
+        setFlammable(AetherBlocks.LOG_SKYROOT, 15, 10);
+        setFlammable(AetherBlocks.LOG_OAK_GOLDEN, 15, 10);
+
+        setFlammable(AetherBlocks.LEAVES_SKYROOT, 30, 60);
+        setFlammable(AetherBlocks.LEAVES_OAK_GOLDEN, 30, 60);
+
+        setFlammable(AetherBlocks.HOLYSTONE_MOSSY, 100, 30);
     }
 
     public static void registerBlockInstruments() {
@@ -107,6 +137,9 @@ public class AetherBlockDetails {
         BLOCK_INSTRUMENTS.put(AetherBlocks.GLASS_QUICKSOIL.id(), SITAR);
 
         BLOCK_INSTRUMENTS.put(AetherBlocks.BLOCK_GRAVITITE.id(), XYLOPHONE);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.BRICK_GRAVITITE.id(), XYLOPHONE);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.SLAB_BRICK_GRAVITITE.id(), XYLOPHONE);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.STAIRS_BRICK_GRAVITITE.id(), XYLOPHONE);
 
         BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_HELLFIRE.id(), ORGAN);
         BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_HELLFIRE_LIGHT.id(), ORGAN);
@@ -204,6 +237,9 @@ public class AetherBlockDetails {
         registerManualBlockColor(AetherBlocks.BRICK_ZANITE, 0, MaterialColor.paintedPurple);
         registerManualBlockColor(AetherBlocks.STAIRS_BRICK_ZANITE, 0, MaterialColor.paintedPurple);
         registerManualBlockColor(AetherBlocks.SLAB_BRICK_ZANITE, 0, MaterialColor.paintedPurple);
+        registerManualBlockColor(AetherBlocks.BRICK_GRAVITITE, 0, MaterialColor.paintedPink);
+        registerManualBlockColor(AetherBlocks.STAIRS_BRICK_GRAVITITE, 0, MaterialColor.paintedPink);
+        registerManualBlockColor(AetherBlocks.SLAB_BRICK_GRAVITITE, 0, MaterialColor.paintedPink);
 
 
         registerManualBlockColor(AetherBlocks.CARVED_STONE, 0, MaterialColor.stone);

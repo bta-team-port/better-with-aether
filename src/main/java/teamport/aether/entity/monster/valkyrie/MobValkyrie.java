@@ -12,6 +12,7 @@ import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.DamageType;
+import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
@@ -29,8 +30,8 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
     private boolean isSwinging;
     private int teleportTimer;
     private int chatTime;
-    protected float wingSpeed;
-
+    public float wingSpeed;
+    public float prevWingSpeed;
 
     public MobValkyrie(World world) {
         super(world);
@@ -87,23 +88,23 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
         }
 
         if (this.isSwinging) {
-            this.prevSwingProgress += 0.15F;
+            this.prevSwingProgress = this.swingProgress;
             this.swingProgress += 0.15F;
-            if (this.prevSwingProgress > 1.0F || this.swingProgress > 1.0F) {
+            if (this.swingProgress >= 1.0F) {
                 this.isSwinging = false;
                 this.prevSwingProgress = 0.0F;
                 this.swingProgress = 0.0F;
             }
+        } else {
+            this.prevSwingProgress = 0.0F;
+            this.swingProgress = 0.0F;
         }
 
+        this.prevWingSpeed = this.wingSpeed;
         if (!this.onGround) {
             this.wingSpeed += 0.75F;
         } else {
             this.wingSpeed += 0.15F;
-        }
-
-        if (this.wingSpeed > 6.283186F) {
-            this.wingSpeed -= 6.283186F;
         }
     }
 
@@ -165,12 +166,8 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
     }
 
     public boolean isAirySpace(TilePosc tilePos) {
-
-        int p = this.world.getBlockData(tilePos);
         Block<?> block = world.getBlockType(tilePos);
-        Block<?> blockTwo = Blocks.blocksList[p];
-
-        return p == 0 || blockTwo == null || blockTwo.getCollisionAABB(this.world, tilePos) == null || block.getMaterial() == Materials.WATER;
+        return block == Blocks.AIR || block.getCollisionAABB(this.world, tilePos) == null || block.getMaterial() == Materials.WATER;
     }
 
     @Override
@@ -310,6 +307,16 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
             world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
             return false;
         }
+    }
+
+    @Override
+    public void knockBack(Entity entity, int i, double d, double d1) {
+        float f = MathHelper.sqrt(d * d + d1 * d1);
+        float f1 = 0.4F;
+        this.xd /= 2.0F;
+        this.zd /= 2.0F;
+        this.xd -= d / (double) f * (double) f1;
+        this.zd -= d1 / (double) f * (double) f1;
     }
 
     @Override

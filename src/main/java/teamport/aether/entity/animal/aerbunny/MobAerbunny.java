@@ -10,9 +10,9 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.util.helper.DamageType;
-import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.IVehicle;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
 import org.joml.primitives.AABBd;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.AetherRideable;
@@ -68,7 +68,7 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
     }
 
     private boolean isVehicleSneaking() {
-        return vehicle instanceof Player && ((Player) vehicle).isSneaking();
+        return vehicle instanceof Player player && player.isSneaking();
     }
 
     @Override
@@ -133,7 +133,7 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
         if (EnvironmentHelper.isMultiplayerClient()) {
             return AerbunnyClientHelper.getRidingHeight(this);
         }
-        return this.heightOffset + 1.0F;
+        return this.heightOffset + 0.5F;
     }
 
     @Override
@@ -184,11 +184,9 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
             if (this.vehicle.isRemoved()) this.startRiding(this.vehicle);
         } else if (!grab) {
             if (this.moveForward != 0.0F) {
-                int x = MathHelper.floor(this.x);
-                int y = MathHelper.floor(this.bb.minY);
-                int z = MathHelper.floor(this.z);
+                TilePos blockPos = new TilePos(this.x, this.bb.minY, this.z);
 
-                if ((this.world.getBlockId(x, y - 1, z) != 0 || this.world.getBlockId(x, y - 2, z) != 0) && this.world.getBlockId(x, y + 1, z) == 0 && this.world.getBlockId(x, y + 2, z) == 0) {
+                if ((this.world.getBlockType(blockPos.down()) != Blocks.AIR || this.world.getBlockType(blockPos.down().down()) != Blocks.AIR) && this.world.getBlockType(blockPos.up()) == Blocks.AIR || this.world.getBlockType(blockPos.up().up()) == Blocks.AIR) {
                     if (this.yd < 0.0) {
                         this.cloudPoop();
                         this.setPuffiness(0.9F);

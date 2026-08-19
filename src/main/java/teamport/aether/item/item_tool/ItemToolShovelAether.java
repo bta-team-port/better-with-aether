@@ -12,6 +12,7 @@ import net.minecraft.core.item.tool.ItemTool;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -20,46 +21,54 @@ import teamport.aether.block.AetherBlocks;
 
 import java.util.Random;
 
-public class ItemToolShovelAether extends ItemTool{
+public class ItemToolShovelAether extends ItemTool {
     public ItemToolShovelAether(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
         super(name, namespaceId, id, 1, enumtoolmaterial, AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL);
     }
 
     @Override
-    public boolean canHarvestBlock(@NonNull ItemStack itemStack, @NonNull Mob mob, Block<?> block) {
+    public boolean canHarvestBlock(@NonNull ItemStack itemStack, @NonNull Mob mob, @NonNull Block<?> block) {
         return block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL);
     }
 
     @Override
-    public boolean onUseOnBlock(@NonNull ItemStack itemstack, @NonNull World world, Player player, @NonNull TilePosc blockPos, @NonNull Side side, double xPlaced, double yPlaced) {
-        return this.shovelBlock(itemstack, player, world, blockPos.x(), blockPos.y(), blockPos.z(), side);
-    }
-
-    public boolean shovelBlock(ItemStack itemstack, @Nullable Player entityplayer, @NonNull World world, int blockX, int blockY, int blockZ, Side side) {
-        int blockId = world.getBlockId(blockX, blockY, blockZ);
-        int blockAbove = world.getBlockId(blockX, blockY + 1, blockZ);
-        if (side != Side.BOTTOM && blockAbove == 0 && (blockId == Blocks.GRASS.id() || blockId == Blocks.DIRT.id() || blockId == Blocks.GRASS_RETRO.id() || blockId == Blocks.FARMLAND_DIRT.id())) {
-            world.playBlockSoundEffect(entityplayer, blockX + 0.5F, blockY + 0.5F, blockZ + 0.5F, Blocks.blocksList[blockId], EnumBlockSoundEffectType.PLACE);
-            if (!world.isClientSide) {
-                world.setBlockWithNotify(blockX, blockY, blockZ, Blocks.PATH_DIRT.id());
-                itemstack.damageItem(1, entityplayer);
-            }
-            return true;
-        }
-        if (side != Side.BOTTOM && blockAbove == 0 && (blockId == AetherBlocks.GRASS_AETHER.id() || blockId == AetherBlocks.DIRT_AETHER.id())) {
-            world.playBlockSoundEffect(entityplayer, blockX + 0.5F, blockY + 0.5F, blockZ + 0.5F, Blocks.blocksList[blockId], EnumBlockSoundEffectType.PLACE);
-            if (!world.isClientSide) {
-                world.setBlockWithNotify(blockX, blockY, blockZ, AetherBlocks.PATH_DIRT_AETHER.id());
-                itemstack.damageItem(1, entityplayer);
-            }
-            return true;
-        } else {
-            return false;
-        }
+    public boolean onUseOnBlock(@NonNull ItemStack selfStack, @NonNull World world, @Nullable Player player, @NonNull TilePosc blockPos, @NonNull Side side, double xHit, double yHit) {
+        return this.shovelBlock(selfStack, world, player, blockPos, side);
     }
 
     @Override
-    public void onUseByActivator(@NonNull ItemStack itemStack, @NonNull World world, @NonNull TileEntityActivator activatorBlock, @NonNull Random random, @NonNull TilePosc blockPos, @NonNull Direction direction, double offX, double offY, double offZ) {
-        this.shovelBlock(itemStack, null, world, blockPos.x() + direction.offsetX(), blockPos.y() + direction.offsetY(), blockPos.z() + direction.offsetZ(), direction.side());
+    public void onUseByActivator(@NonNull ItemStack selfStack, @NonNull World world, @NonNull TileEntityActivator activator, @NonNull Random random, @NonNull TilePosc blockPos, @NonNull Direction direction, double offX, double offY, double offZ) {
+        this.shovelBlock(selfStack, world, null, blockPos.add(direction, new TilePos()), direction.side());
+    }
+
+    public boolean shovelBlock(@NonNull ItemStack selfStack, @NonNull World world, @Nullable Player entityplayer, @NonNull TilePosc blockPos, @NonNull Side side) {
+        if (side == Side.BOTTOM) {
+            return false;
+        }
+
+        Block<?> blockAbove = world.getBlockType(blockPos.up(new TilePos()));
+        if (blockAbove != Blocks.AIR) {
+            return false;
+        }
+
+        Block<?> block = world.getBlockType(blockPos);
+        Block<?> targetPathBlock;
+
+        if (block == Blocks.GRASS || block == Blocks.DIRT || block == Blocks.GRASS_RETRO || block == Blocks.FARMLAND_DIRT) {
+            targetPathBlock = Blocks.PATH_DIRT;
+        } else if (block == AetherBlocks.GRASS_AETHER || block == AetherBlocks.DIRT_AETHER) {
+            targetPathBlock = AetherBlocks.PATH_DIRT_AETHER;
+        } else {
+            return false;
+        }
+
+        world.playBlockSoundEffect(entityplayer, blockPos.x() + 0.5F, blockPos.y() + 0.5F, blockPos.z() + 0.5F, block, EnumBlockSoundEffectType.PLACE);
+
+        if (!world.isClientSide) {
+            world.setBlockTypeNotify(blockPos, targetPathBlock);
+            selfStack.damageItem(1, entityplayer);
+        }
+
+        return true;
     }
 }

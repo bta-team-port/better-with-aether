@@ -25,6 +25,20 @@ public class MobRendererAerbunny extends MobRenderer<MobAerbunny> {
     }
 
     @Override
+    protected void preRenderTransform(@NonNull MobAerbunny entity, double x, double y, double z, float yaw, float partialTick) {
+        super.preRenderTransform(entity, x, y, z, yaw, partialTick);
+        if (!entity.onGround && entity.vehicle == null) {
+            if (entity.yd > 0.5) {
+                GLRenderer.modelM4f().rotate((float) Math.toRadians(15.0F), -1.0F, 0.0F, 0.0F);
+            } else if (entity.yd < -0.5) {
+                GLRenderer.modelM4f().rotate((float) Math.toRadians(-15.0F), -1.0F, 0.0F, 0.0F);
+            } else {
+                GLRenderer.modelM4f().rotate((float) Math.toRadians(entity.yd * 30.0), -1.0F, 0.0F, 0.0F);
+            }
+        }
+    }
+
+    @Override
     protected @Nullable StaticEntityModel getAndSetupModelForLayer(@NonNull MobAerbunny entity, float brightness, float partialTick, int layer) {
         StaticEntityModel model = this.getModel("main");
         model.resetBones();
@@ -51,28 +65,15 @@ public class MobRendererAerbunny extends MobRenderer<MobAerbunny> {
         puff.scaleX = puffiness;
         puff.scaleY = puffiness;
         puff.scaleZ = puffiness;
-        puff.posY = -5f * (puffiness - 1.0F);
-
-        if (!entity.onGround && entity.vehicle == null) {
-            if (entity.yd > 0.5) {
-                GLRenderer.modelM4f().rotate((float) Math.toRadians(15.0F), -1.0F, 0.0F, 0.0F);
-            } else if (entity.yd < -0.5) {
-                GLRenderer.modelM4f().rotate((float) Math.toRadians(-15.0F), -1.0F, 0.0F, 0.0F);
-            } else {
-                GLRenderer.modelM4f().rotate((float) Math.toRadians(entity.yd * 30.0), -1.0F, 0.0F, 0.0F);
-            }
-        }
 
         BoneTransform eyeGlow = model.getTransform("eye_glow");
-        if (eyeGlow != null) {
-            eyeGlow.rotX = headPitch;
-            eyeGlow.rotY = headYaw;
-        }
+        eyeGlow.rotX = headPitch;
+        eyeGlow.rotY = headYaw;
         if (layer == 0) {
-            if (eyeGlow != null) eyeGlow.visible = false;
+            eyeGlow.visible = false;
         } else {
             hideAllExceptEyeGlow(model);
-            if (eyeGlow != null) eyeGlow.visible = true;
+            eyeGlow.visible = true;
             GLRenderer.setLightmapCoord2i(15, 15);
             GLRenderer.setBlendFunc(BlendFactor.SRC_ALPHA, BlendFactor.ONE_MINUS_SRC_ALPHA);
             GLRenderer.enableState(State.BLEND);
@@ -85,7 +86,7 @@ public class MobRendererAerbunny extends MobRenderer<MobAerbunny> {
         String[] bones = {"body", "tail", "puff", "head", "ear", "leg0", "leg1", "leg2", "leg3"};
         for (String name : bones) {
             BoneTransform t = model.getTransform(name);
-            if (t != null) t.visible = false;
+            t.visible = false;
         }
     }
 }

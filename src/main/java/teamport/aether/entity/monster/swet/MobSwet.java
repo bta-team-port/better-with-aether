@@ -1,8 +1,6 @@
 package teamport.aether.entity.monster.swet;
 
 import net.minecraft.core.WeightedRandomLootObject;
-import net.minecraft.core.block.Block;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
@@ -28,7 +26,7 @@ import java.util.List;
 
 @SuppressWarnings("java:S110")
 public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessage {
-    private double ydO;
+    protected double ydO;
     protected int jumpDelay;
     protected int grabDelay;
 
@@ -49,6 +47,11 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
         List<WeightedRandomLootObject> drops = new ArrayList<>();
         drops.add(new WeightedRandomLootObject(AetherBlocks.AERCLOUD_BLUE.getDefaultStack(), 1, 2));
         return drops;
+    }
+
+    @Override
+    public int getMaxSpawnedInChunk() {
+        return 2;
     }
 
     @Override
@@ -210,19 +213,13 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
 
     @Override
     public boolean canSpawnHere() {
-
-        TilePos blockPos = new TilePos(this.x, this.bb.minY, this.z);
-
-        int id = this.world.getBlockData(blockPos.down());
+        TilePos blockPos = new TilePos(MathHelper.floor(this.x), MathHelper.floor(this.bb.minY - 1), MathHelper.floor(this.z));
 
         if (this.world.getSavedLightValue(LightLayer.Block, blockPos) > 7) {
             return false;
         }
 
-        Block<?> block = Blocks.blocksList[id];
-        if (block == null) return false;
-        if (world.rand.nextInt(5) == 0) return block.hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN);
-        return false;
+        return AetherBlockTags.PASSIVE_MOBS_SPAWN.appliesTo(this.world.getBlockType(blockPos));
     }
 
     public double getYdO() {

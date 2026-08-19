@@ -2,18 +2,23 @@ package teamport.aether.entity.monster.sentry;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.renderer.GLRenderer;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import org.useless.dragonfly.models.entity.BoneTransform;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
-import net.minecraft.client.render.entity.MobRenderer;
 
 @Environment(EnvType.CLIENT)
 public class MobRendererSentry extends MobRenderer<MobSentry> {
 
     public MobRendererSentry(float shadowSize) {
         super(shadowSize);
+    }
+
+    @Override
+    protected void preRenderTransform(@NonNull MobSentry entity, double x, double y, double z, float yaw, float partialTick) {
+        super.preRenderTransform(entity, x, y, z, yaw, partialTick);
+        GLRenderer.modelM4f().scale(1.75F, 1.75F, 1.75F);
     }
 
     @Override
@@ -27,11 +32,6 @@ public class MobRendererSentry extends MobRenderer<MobSentry> {
 
         StaticEntityModel model = this.getModel("main");
         model.resetBones();
-        BoneTransform head = model.getTransform("head");
-
-        head.scaleX = 1.75F;
-        head.scaleY = 1.75F;
-        head.scaleZ = 1.75F;
 
         return model;
     }

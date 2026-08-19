@@ -2,6 +2,7 @@ package teamport.aether.block.dungeon;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicRotatable;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.material.Materials;
@@ -68,7 +69,7 @@ public class BlockLogicDungeonDoor extends BlockLogicRotatable {
         int destZ = z + dirOpposite.offsetZ();
 
 
-        while (destY > 0 && world.getBlockId(destX, destY - 1, destZ) == 0) --destY;
+        while (destY > 0 && world.getBlockId(destX, destY - 1, destZ) == Blocks.AIR.id()) --destY;
 
         if (world.isBlockNormalCube(destX, destY, destZ)
             || world.isBlockNormalCube(destX, destY + 1, destZ)) {

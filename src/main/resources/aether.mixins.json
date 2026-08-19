@@ -7,6 +7,7 @@
   "package": "teamport.aether.mixin",
   "compatibilityLevel": "JAVA_${java}",
   "mixins": [
+    "SortCreativeInventoryMixin",
     "accessors.EntityAccessor",
     "accessors.ItemAccessor",
     "accessors.ItemToolSwordAccessor",
@@ -75,7 +76,6 @@
     "dimension.WorldTypeGroupMixin",
     "dimension.bump_to_overworld.EntityBumpToOverworldMixin",
     "entity.EntityItemFallUpwardsMixin",
-    "entity.EntityItemMixinImmunities",
     "entity.EntityLightningBoltMixin",
     "entity.EntityMixin",
     "entity.LightningBoltSoundMixin",
@@ -89,7 +89,6 @@
     "fix.NetworkHandlerMixinFixNativePackets",
     "fix.WorldGetCubesMixin",
     "fix.WorldTypeOverworldRespawnMixin",
-    "gui.MenuInventoryAddCreativeItemsMixin",
     "gui.screens.PlayerMixinAetherScreens",
     "item.ItemBlockBlacklistMixin",
     "item.ItemBlockSlabBlacklistMixin",
@@ -109,6 +108,7 @@
     "player.PlayerMixinDevDrops"
   ],
   "client": [
+    "StaticEntityModelMojangMixin",
     "accessors.ScreenContainerAbstractAccessor",
     "accessory.MobRendererPlayerMixinAccessoryRender",
     "accessory.PacketHandlerClientMixinAccessoryEquipment",
@@ -136,6 +136,7 @@
     "dimension.bump_to_overworld.SPWorldMixin",
     "dimension.dungeon_map.WorldSpMixin",
     "entity.EntityRendererBobDownMixin",
+    "entity.MobRendererSlimeMixin",
     "entity.RenderSliderBoundingBoxMixin",
     "entity.ViewerCategoryEntityMixin",
     "fix.RenderGlobalMixin",

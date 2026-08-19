@@ -318,10 +318,10 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
 
     private boolean isSafe(@Nullable World world, WorldFeaturePoint point) {
         if (world == null) return true;
-        Block<?> block = world.getBlock(point.getX(), point.getY(), point.getZ());
-        int blockID = block.id();
-        Material blockMaterial = blockID == Blocks.AIR.id() ? Materials.AIR : block.getMaterial();
-        return blockID == Blocks.AIR.id() || blockMaterial.isLiquid();
+        TilePos blockPos = new TilePos(point.getX(), point.getY(), point.getZ());
+        Block<?> block = world.getBlockType(blockPos);
+        Material blockMaterial = block == Blocks.AIR ? Materials.AIR : block.getMaterial();
+        return block == Blocks.AIR || blockMaterial.isLiquid();
     }
 
     private void placeChest(WorldFeaturePoint point) {
@@ -330,8 +330,8 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         BlockLogicChestMimic.setRandomDirections(world, this.random, point.getX(), point.getY(), point.getZ());
         WorldFeatureComponent.getOrCreateChestInventory(world, new TilePos(point.getX(), point.getY(), point.getZ()));
         TileEntity tileEntity = world.getTileEntity(point.getX(), point.getY(), point.getZ());
-        if (tileEntity instanceof TileEntityMimic)
-            ((TileEntityMimic) tileEntity).setCustomName(this.nickname, this.chatColor);
+        if (tileEntity instanceof TileEntityMimic tileEntityMimic)
+            tileEntityMimic.setCustomName(this.nickname, this.chatColor);
     }
 
     @SuppressWarnings("java:S3776")

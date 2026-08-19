@@ -23,6 +23,8 @@ public class AetherBlockTags {
 
     public static Tag<Block<?>> PLANTABLE_IN_AETHER_JAR = Tag.of("plantable_in_aether_jar");
 
+    public static Tag<Block<?>> AETHER_TERRAIN_BLOCK = Tag.of("aether_terrain_block");
+
     static {
         for (Field field : AetherBlockTags.class.getDeclaredFields()) {
             if (field.getType().equals(Tag.class)) {

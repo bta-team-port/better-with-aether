@@ -251,8 +251,7 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
                     if (hitEntity instanceof MobCockatrice || hitEntity instanceof MobAechorPlant) {
                         hitEntity.hurt(this.owner, 12, AetherMod.HOLY);
                     }
-                    if (hitEntity instanceof IHasEffects) {
-                        IHasEffects<?> entity = (IHasEffects<?>) hitEntity;
+                    if (hitEntity instanceof IHasEffects<?> entity) {
                         AetherEffects.add(hitEntity, new EffectStack(entity, AetherEffects.remedyEffect, 2 * Global.TICKS_PER_SECOND, 1));
                     }
                     // slight weaker remedy than the usual one

@@ -122,6 +122,7 @@ public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMes
     }
 
     ///  Sentries have true sight.
+    @Override
     protected Entity findPlayerToAttack() {
         Player entityplayer = this.world.getClosestPlayerToEntity(this, 16.0F);
         return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().hasHostileMobs() ? entityplayer : null;

@@ -13,9 +13,11 @@ public class ItemGlovesPhoenix extends ItemGloves {
 
     @Override
     public boolean hitEntity(@NonNull ItemStack gloves, @NonNull Mob target, @NonNull Mob attacker) {
-        if (super.hitEntity(gloves, target, attacker) && target.hurtTime == 10 && itemRand.nextInt(4) == 0) {
-            target.maxFireTicks = 200;
-            target.remainingFireTicks = 200;
+        if (super.hitEntity(gloves, target, attacker)) {
+            if (itemRand.nextInt(4) == 0) {
+                target.maxFireTicks = 200;
+                target.remainingFireTicks = 200;
+            }
             return true;
         }
         return false;

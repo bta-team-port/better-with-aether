@@ -1,30 +1,31 @@
 package teamport.aether.world.chunk;
 
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.biome.Biome;
-import org.jspecify.annotations.NonNull;
-import teamport.aether.block.AetherBlocks;
-import teamport.aether.world.biome.BiomeAether;
 import net.minecraft.core.world.chunk.Chunk;
 import net.minecraft.core.world.generate.chunk.ChunkGeneratorResult;
 import net.minecraft.core.world.generate.chunk.perlin.SurfaceGenerator;
 import net.minecraft.core.world.noise.FractalNoise3D;
 import net.minecraft.core.world.noise.ImprovedPerlinNoise;
-import net.minecraft.core.world.noise.Noise3D;
+import org.jspecify.annotations.NonNull;
+import teamport.aether.block.AetherBlocks;
+import teamport.aether.world.biome.AetherBiomes;
 
 import java.util.Random;
 
 public class SurfaceGeneratorAether implements SurfaceGenerator {
-    private final World world;
-    private final Noise3D soilNoise;
+    private final @NonNull World world;
+    private final @NonNull FractalNoise3D<ImprovedPerlinNoise> soilNoise;
+    private final short cobbleHolystoneId;
+    private final short holystoneId;
 
-    public SurfaceGeneratorAether(World world, Noise3D soilNoise) {
+    public SurfaceGeneratorAether(@NonNull World world) {
+        super();
         this.world = world;
-        this.soilNoise = soilNoise;
-    }
-
-    public SurfaceGeneratorAether(World world) {
-        this(world, new FractalNoise3D<>(ImprovedPerlinNoise.genOctaves(world.getRandomSeed(), 4, 44)));
+        this.soilNoise = new FractalNoise3D<>(ImprovedPerlinNoise.genOctaves(world.getRandomSeed(), 4, 44));
+        this.cobbleHolystoneId = (short) AetherBlocks.COBBLE_HOLYSTONE.id();
+        this.holystoneId = (short) AetherBlocks.HOLYSTONE.id();
     }
 
     @Override
@@ -52,7 +53,7 @@ public class SurfaceGeneratorAether implements SurfaceGenerator {
 
         for (int z = 0; z < 16; ++z) {
             for (int x = 0; x < 16; ++x) {
-                int soilThickness = (int)(soilThicknessNoise[z + x * 16] / 3.0 + 3.0 + (rand.nextInt(2500) / 10000.0));
+                int soilThickness = (int) (soilThicknessNoise[z + x * 16] / 3.0 + 3.0 + (rand.nextDouble() * 0.25));
                 int currentLayerDepth = -1;
                 int topBlock = -1;
                 int fillerBlock = -1;
@@ -67,24 +68,14 @@ public class SurfaceGeneratorAether implements SurfaceGenerator {
 
                     int block = result.getBlock(x, y, z);
 
-                    if ((biome != lastBiome
-                        || topBlock == -1
-                        || fillerBlock == -1
-                    )
-                        && block == 0
-                    ) {
-                        if (biome instanceof BiomeAether) {
-                            topBlock = AetherBlocks.GRASS_AETHER.id();
-                            fillerBlock = AetherBlocks.DIRT_AETHER.id();
-                        } else {
-                            topBlock = biome.getSurfaceProperties().getTopBlock().id();
-                            fillerBlock = biome.getSurfaceProperties().getFillerBlock().id();
-                        }
+                    if ((biome != lastBiome || topBlock == -1 || fillerBlock == -1) && block == Blocks.AIR.id()) {
+                        topBlock = biome.getSurfaceProperties().getTopBlock().id();
+                        fillerBlock = biome.getSurfaceProperties().getFillerBlock().id();
                     }
 
                     lastBiome = biome;
 
-                    if (block == 0) {
+                    if (block == Blocks.AIR.id()) {
                         currentLayerDepth = -1;
                         continue;
                     }
@@ -92,13 +83,7 @@ public class SurfaceGeneratorAether implements SurfaceGenerator {
                     if (block != worldFillBlock) continue;
 
                     if (currentLayerDepth == -1) {
-                        if (soilThickness <= 0) {
-                            topBlock = 0;
-                            fillerBlock = (short) worldFillBlock;
-                        }
-
                         currentLayerDepth = soilThickness;
-
                         result.setBlock(x, y, z, topBlock);
                         continue;
                     }
@@ -106,9 +91,22 @@ public class SurfaceGeneratorAether implements SurfaceGenerator {
                     if (currentLayerDepth > 0) {
                         --currentLayerDepth;
                         result.setBlock(x, y, z, fillerBlock);
+                    } else {
+                        int stoneBlockId = this.getStoneBlockForBiome(biome, rand);
+                        result.setBlock(x, y, z, stoneBlockId);
                     }
                 }
             }
         }
     }
+
+    private int getStoneBlockForBiome(Biome biome, Random rand) {
+        if (biome == AetherBiomes.AETHER_PLAINS) {
+            return rand.nextInt(2) == 0 ? holystoneId : cobbleHolystoneId;
+        }
+
+
+        return rand.nextInt(2) == 0 ? this.holystoneId : this.cobbleHolystoneId;
+    }
+
 }

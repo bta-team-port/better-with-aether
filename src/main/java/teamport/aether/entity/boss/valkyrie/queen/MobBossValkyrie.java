@@ -11,6 +11,7 @@ import net.minecraft.core.entity.IItemHolding;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.DamageType;
+import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import org.jspecify.annotations.NonNull;
@@ -44,7 +45,8 @@ public class MobBossValkyrie extends MobBoss implements IItemHolding {
 
     private int teleportTimer;
     private int chatTime;
-    protected float wingSpeed;
+    public float wingSpeed;
+    public float prevWingSpeed;
 
     private static final int ATTACK_STRENGTH = 10;
 
@@ -132,23 +134,23 @@ public class MobBossValkyrie extends MobBoss implements IItemHolding {
         }
 
         if (this.isSwinging) {
-            this.prevSwingProgress += 0.15F;
+            this.prevSwingProgress = this.swingProgress;
             this.swingProgress += 0.15F;
-            if (this.prevSwingProgress > 1.0F || this.swingProgress > 1.0F) {
+            if (this.swingProgress >= 1.0F) {
                 this.isSwinging = false;
                 this.prevSwingProgress = 0.0F;
                 this.swingProgress = 0.0F;
             }
+        } else {
+            this.prevSwingProgress = 0.0F;
+            this.swingProgress = 0.0F;
         }
 
+        this.prevWingSpeed = this.wingSpeed;
         if (!this.onGround) {
             this.wingSpeed += 0.75F;
         } else {
             this.wingSpeed += 0.15F;
-        }
-
-        if (this.wingSpeed > 6.283186F) {
-            this.wingSpeed -= 6.283186F;
         }
     }
 
@@ -361,7 +363,7 @@ public class MobBossValkyrie extends MobBoss implements IItemHolding {
         Block<?> block = this.world.getBlock(x, y, z);
         Block<?> blockTwo = Blocks.blocksList[p];
 
-        return p == 0 || blockTwo == null || blockTwo.getCollisionBoundingBoxFromPool(this.world, x, y, z) == null || block != null && block.getMaterial() == Materials.WATER;
+        return p == 0 || blockTwo == null || blockTwo.getCollisionBoundingBoxFromPool(this.world, x, y, z) == null || block.getMaterial() == Materials.WATER;
     }
 
     public void swingArm() {
@@ -473,6 +475,16 @@ public class MobBossValkyrie extends MobBoss implements IItemHolding {
             return super.hurt(attacker, damage / 2, type);
         }
         return super.hurt(attacker, damage, type);
+    }
+
+    @Override
+    public void knockBack(Entity entity, int i, double d, double d1) {
+        float f = MathHelper.sqrt(d * d + d1 * d1);
+        float f1 = 0.4F;
+        this.xd /= 2.0F;
+        this.zd /= 2.0F;
+        this.xd -= d / (double) f * (double) f1;
+        this.zd -= d1 / (double) f * (double) f1;
     }
 
 
