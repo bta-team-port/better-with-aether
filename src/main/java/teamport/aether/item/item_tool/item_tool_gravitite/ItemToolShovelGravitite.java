@@ -14,6 +14,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.floating_block.EntityFloatingBlock;
@@ -22,7 +23,7 @@ import teamport.aether.item.item_tool.ItemToolShovelAether;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 public class ItemToolShovelGravitite extends ItemToolShovelAether implements AetherHasCustomDamageType {
-    private static final float KNOCKBACK_STRENGTH = 3.0F/4.0F;
+    private static final float KNOCKBACK_STRENGTH = 3.0F / 4.0F;
     private static final float LIFT = KNOCKBACK_STRENGTH;
 
     public ItemToolShovelGravitite(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
@@ -32,9 +33,9 @@ public class ItemToolShovelGravitite extends ItemToolShovelAether implements Aet
     @Override
     public boolean hitEntity(@NonNull ItemStack itemstack, @NonNull Mob target, @NonNull Mob attacker) {
         if (target instanceof Mob && target.hurtTime == 10) {
-            if(attacker.isSneaking() && attacker instanceof Player){
-                MobUtil.knockback(target, attacker,KNOCKBACK_STRENGTH, 0.4f);
-            }else{
+            if (attacker.isSneaking() && attacker instanceof Player) {
+                MobUtil.knockback(target, attacker, KNOCKBACK_STRENGTH, 0.4f);
+            } else {
                 MobUtil.knockback(target, attacker, 0.4f, LIFT);
             }
         }
@@ -42,7 +43,21 @@ public class ItemToolShovelGravitite extends ItemToolShovelAether implements Aet
     }
 
     @Override
-    public boolean onUseOnBlock(@NonNull ItemStack itemstack, @NonNull World world, Player player, @NonNull TilePosc blockPos, @NonNull Side side, double xPlaced, double yPlaced) {
+    public boolean onUseOnBlock(@NonNull ItemStack selfStack, @NonNull World world, @Nullable Player player, @NonNull TilePosc blockPos, @NonNull Side side, double xHit, double yHit) {
+        if (player != null && player.isSneaking()) {
+            Block<?> block = world.getBlockType(blockPos);
+            if (!block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL)) {
+                return block.onInteracted(world, blockPos, player, side, xHit, yHit);
+            }
+
+            return this.floatBlock(selfStack, world, player, blockPos);
+        }
+
+        return super.onUseOnBlock(selfStack, world, player, blockPos, side, xHit, yHit);
+    }
+
+
+    public boolean floatBlock(@NonNull ItemStack itemstack, @NonNull World world, Player player, @NonNull TilePosc blockPos) {
         Block<?> block = world.getBlockType(blockPos);
         Block<?> blockAbove = world.getBlockType(blockPos.up(new TilePos()));
         // because otherwise it not possible to open chests
@@ -57,7 +72,7 @@ public class ItemToolShovelGravitite extends ItemToolShovelAether implements Aet
         TileEntity tileEntity = world.getTileEntity(blockPos);
         int metadata = world.getBlockData(blockPos);
         world.removeTileEntity(blockPos);
-        world.setBlockType(blockPos, Blocks.AIR);
+        world.setBlockTypeNotify(blockPos, Blocks.AIR);
         EntityFloatingBlock entityFloatingBlock = new EntityFloatingBlock(world, (double) blockPos.x() + 0.5F, (double) blockPos.y() + 0.5F, (double) blockPos.z() + 0.5F, block.id(), metadata, tileEntity);
         entityFloatingBlock.setHasRemovedBlock(true);
         world.entityJoinedWorld(entityFloatingBlock);
@@ -66,7 +81,7 @@ public class ItemToolShovelGravitite extends ItemToolShovelAether implements Aet
     }
 
     @Override
-    public DamageType getDamageType(){
+    public DamageType getDamageType() {
         return DamageType.FALL;
     }
 }
