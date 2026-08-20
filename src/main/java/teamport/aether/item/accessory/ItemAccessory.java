@@ -1,5 +1,6 @@
 package teamport.aether.item.accessory;
 
+import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
@@ -15,8 +16,8 @@ public class ItemAccessory<T extends IAccessoryShape> extends Item implements IA
     private final @NonNull T armorShape;
     public final @Nullable ArmorMaterial material;
 
-    public ItemAccessory(@NonNull String name, @NonNull String namespaceId, int id, @NonNull T armorShape) {
-        this(name, namespaceId, id, null, armorShape);
+    public ItemAccessory(@NonNull String translationKey, @NonNull String namespaceId, int id, @NonNull T armorShape) {
+        this(translationKey, namespaceId, id, null, armorShape);
     }
 
     public ItemAccessory(@NonNull String name, @NonNull String namespaceId, int id, @Nullable ArmorMaterial material, @NonNull T armorShape) {
@@ -27,17 +28,17 @@ public class ItemAccessory<T extends IAccessoryShape> extends Item implements IA
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public @Nullable ItemStack onUse(@NonNull ItemStack selfStack, @NonNull World world, @NonNull Player player) {
         if (!(player instanceof IAccessoryWearing<?> wearing)) {
             return selfStack;
         }
         IAccessoryWearing<HumanAccessoryShape> accessoryPlayer = (IAccessoryWearing<HumanAccessoryShape>) wearing;
 
-        List<HumanAccessoryShape> validSlots = new ArrayList<>();
+        List<Integer> validSlots = new ArrayList<>();
         for (int i = 0; i < accessoryPlayer.getNumAccessorySlots(); i++) {
-            HumanAccessoryShape slot = accessoryPlayer.getAccessorySlotByIndex(i);
-            if (slot != null && accessoryPlayer.canItemGoInAccessorySlot(slot, selfStack)) {
-                validSlots.add(slot);
+            if (accessoryPlayer.canItemGoInAccessorySlot(i, selfStack)) {
+                validSlots.add(i);
             }
         }
 
@@ -45,16 +46,16 @@ public class ItemAccessory<T extends IAccessoryShape> extends Item implements IA
             return selfStack;
         }
 
-        HumanAccessoryShape targetSlot = null;
+        int targetSlot = -1;
 
-        for (HumanAccessoryShape slot : validSlots) {
-            if (accessoryPlayer.getAccessoryInSlot(slot) == null) {
-                targetSlot = slot;
+        for (int slotIndex : validSlots) {
+            if (accessoryPlayer.getAccessoryInSlot(slotIndex) == null) {
+                targetSlot = slotIndex;
                 break;
             }
         }
 
-        if (targetSlot == null) {
+        if (targetSlot == -1) {
             if (player.isSneaking() && validSlots.size() > 1) {
                 targetSlot = validSlots.get(1);
             } else {
@@ -63,12 +64,40 @@ public class ItemAccessory<T extends IAccessoryShape> extends Item implements IA
         }
         ItemStack currentStack = accessoryPlayer.getAccessoryInSlot(targetSlot);
         accessoryPlayer.setAccessoryInSlot(targetSlot, selfStack.splitStack(1));
+        player.world.playSoundAtEntity(player, player, "random.equip", 1.0F, 1.0F);
 
         if (currentStack != null) {
             return currentStack;
         }
-
         return selfStack;
+    }
+
+    @Override
+    public void inventoryTick(@NonNull ItemStack stack, @NonNull World world, @NonNull Entity entity, int slotId, boolean flag) {
+        if (!(entity instanceof Player player)) return;
+
+        int relativeSlot = slotId - player.inventory.mainInventory.length;
+        if (!isEquipped(relativeSlot)) {
+            return;
+        }
+
+        tickAccessory(stack, world, player, slotId, flag);
+    }
+
+    public boolean isEquipped(int relativeSlot) {
+        int accessoryIndex = relativeSlot - 4;
+        if (accessoryIndex < 0 || accessoryIndex >= 4) {
+            return false;
+        }
+
+        if (this.armorShape.getSlotIndex() == 2) {
+            return accessoryIndex == 2 || accessoryIndex == 3;
+        }
+
+        return accessoryIndex == this.armorShape.getSlotIndex();
+    }
+
+    protected void tickAccessory(@NonNull ItemStack stack, @NonNull World world, @NonNull Player player, int slotId, boolean flag) {
     }
 
     @Override
@@ -89,7 +118,6 @@ public class ItemAccessory<T extends IAccessoryShape> extends Item implements IA
     public String getTextureName() {
         if (this.material != null && this.material.identifier != null) {
             return this.material.identifier.value();
-        }
-        return this.namespaceID.value();
+        } else return this.namespaceID.value();
     }
 }

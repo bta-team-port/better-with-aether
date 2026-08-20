@@ -15,6 +15,7 @@ import teamport.aether.item.accessory.HumanAccessoryShape;
 import teamport.aether.item.accessory.cape.ItemCape;
 import teamport.aether.item.accessory.cape.ItemCapeAgility;
 import teamport.aether.item.accessory.cape.ItemCapeInvisibility;
+import teamport.aether.item.accessory.cape.ItemCapeSwet;
 import teamport.aether.item.accessory.gloves.*;
 import teamport.aether.item.accessory.pendant.ItemCombatPendant;
 import teamport.aether.item.accessory.pendant.ItemGravititePendant;
@@ -603,7 +604,7 @@ public final class AetherItems {
 
         ARMOR_CAPE_AGILITY = new ItemCapeAgility("armor.cape.agility", itemKey("armor_cape_agility"), itemID("ARMOR_CAPE_AGILITY"), "agility");
 
-        ARMOR_CAPE_SWET = new ItemCapeAgility("armor.cape.swet", itemKey("armor_cape_swet"), itemID("ARMOR_CAPE_SWET"), "swet");
+        ARMOR_CAPE_SWET = new ItemCapeSwet("armor.cape.swet", itemKey("armor_cape_swet"), itemID("ARMOR_CAPE_SWET"), "swet");
 
         ARMOR_CAPE_INVISIBILITY = new ItemCapeInvisibility("armor.cape.invisibility", itemKey("armor_cape_invisibility"), itemID("ARMOR_CAPE_INVISIBILITY"), "invisibility");
 

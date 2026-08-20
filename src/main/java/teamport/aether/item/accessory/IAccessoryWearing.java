@@ -2,7 +2,6 @@ package teamport.aether.item.accessory;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.item.IItemConvertible;
-import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.util.helper.DamageType;
@@ -11,64 +10,48 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.item.AetherArmorMaterial;
 
-import java.util.Objects;
-
 public interface IAccessoryWearing<T extends IAccessoryShape> {
-    @Nullable ItemStack getAccessoryInSlot(@NonNull T slot);
+    @Nullable ItemStack getAccessoryInSlot(int slotIndex);
 
-    void setAccessoryInSlot(@NonNull T slot, @Nullable ItemStack stack);
+    void setAccessoryInSlot(int slotIndex, @Nullable ItemStack stack);
 
     int getNumAccessorySlots();
 
-    @Nullable T getAccessorySlotByIndex(int index);
+    @Nullable T getSlotShape(int slotIndex);
 
     default float getTotalAccessoryProtectionAmount(@NonNull DamageType damageType) {
         float protectionPercentage = 0.0F;
 
         for (int i = 0; i < this.getNumAccessorySlots(); ++i) {
-            T slot = Objects.requireNonNull(this.getAccessorySlotByIndex(i));
-            ItemStack itemStack = this.getAccessoryInSlot(slot);
-            if (itemStack != null) {
-                Item item = itemStack.getItem();
-                if (item instanceof IAccessoryItem<?> accessory) {
-                    ArmorMaterial material = accessory.getArmorMaterial();
-                    if (material != null) {
-                        float materialProtection = material.getProtection(damageType);
+            ItemStack itemStack = this.getAccessoryInSlot(i);
+            if (itemStack != null && itemStack.getItem() instanceof IAccessoryItem<?> accessory) {
+                ArmorMaterial material = accessory.getArmorMaterial();
+                if (material != null) {
+                    float materialProtection = material.getProtection(damageType);
 
-                        if (material == AetherArmorMaterial.ZANITE && itemStack.isItemStackDamageable()) {
-                            float durabilityProgress = (float) itemStack.getMetadata() / (float) itemStack.getMaxDamage();
-                            materialProtection = MathHelper.lerp(materialProtection, AetherArmorMaterial.ZANITE_BROKEN.getProtection(damageType), durabilityProgress);
-                        }
-
-                        protectionPercentage += materialProtection * accessory.getArmorPieceProtectionPercentage();
+                    if (material == AetherArmorMaterial.ZANITE && itemStack.isItemStackDamageable()) {
+                        float durabilityProgress = (float) itemStack.getMetadata() / (float) itemStack.getMaxDamage();
+                        materialProtection = MathHelper.lerp(materialProtection, AetherArmorMaterial.ZANITE_BROKEN.getProtection(damageType), durabilityProgress);
                     }
+
+                    protectionPercentage += materialProtection * accessory.getArmorPieceProtectionPercentage();
                 }
             }
         }
-
         return protectionPercentage;
     }
 
-    default void damageAccessories(int damage, @NonNull T slot) {
-        ItemStack itemStack = this.getAccessoryInSlot(slot);
-        if (itemStack != null) {
-            Item item = itemStack.getItem();
-            if (item instanceof IAccessoryItem<?> accessory) {
-                if (!accessory.takesArmorDamage()) {
-                    return;
-                }
+    default void damageAccessories(int damage, int slotIndex) {
+        ItemStack itemStack = this.getAccessoryInSlot(slotIndex);
+        if (itemStack != null && itemStack.getItem() instanceof IAccessoryItem<?> accessory) {
+            if (!accessory.takesArmorDamage()) return;
 
-                ArmorMaterial material = accessory.getArmorMaterial();
-                if (material != null) {
-                    if (this instanceof Entity entity) {
-                        itemStack.damageItem(damage, entity);
-                    } else {
-                        itemStack.damageItem(damage, null);
-                    }
+            if (accessory.getArmorMaterial() != null) {
+                Entity entity = (this instanceof Entity e) ? e : null;
+                itemStack.damageItem(damage, entity);
 
-                    if (itemStack.stackSize <= 0) {
-                        this.setAccessoryInSlot(slot, null);
-                    }
+                if (itemStack.stackSize <= 0) {
+                    this.setAccessoryInSlot(slotIndex, null);
                 }
             }
         }
@@ -76,26 +59,20 @@ public interface IAccessoryWearing<T extends IAccessoryShape> {
 
     default void damageAccessories(int damage) {
         for (int i = 0; i < this.getNumAccessorySlots(); ++i) {
-            T slot = Objects.requireNonNull(this.getAccessorySlotByIndex(i));
-            this.damageAccessories(damage, slot);
+            this.damageAccessories(damage, i);
         }
     }
 
-    default boolean canItemGoInAccessorySlot(@NonNull T slot, @Nullable ItemStack item) {
-        return item == null || this.canItemGoInAccessorySlot(slot, item.getItem());
+    default boolean canItemGoInAccessorySlot(int slotIndex, @Nullable ItemStack item) {
+        return item == null || this.canItemGoInAccessorySlot(slotIndex, item.getItem());
     }
 
     @SuppressWarnings("unchecked")
-    default boolean canItemGoInAccessorySlot(@NonNull T slot, @Nullable IItemConvertible item) {
-        if (item == null) {
+    default boolean canItemGoInAccessorySlot(int slotIndex, @Nullable IItemConvertible item) {
+        if (item == null || !(item.asItem() instanceof IAccessoryItem<?> accessory)) {
             return false;
-        } else {
-            Item realItem = item.asItem();
-            if (!(realItem instanceof IAccessoryItem<?> accessory)) {
-                return false;
-            } else {
-                return ((IAccessoryItem<T>) accessory).fitsInShape(slot);
-            }
         }
+        T slotShape = this.getSlotShape(slotIndex);
+        return slotShape != null && ((IAccessoryItem<T>) accessory).fitsInShape(slotShape);
     }
 }

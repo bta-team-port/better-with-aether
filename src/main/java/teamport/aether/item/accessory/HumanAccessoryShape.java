@@ -3,8 +3,7 @@ package teamport.aether.item.accessory;
 public enum HumanAccessoryShape implements IAccessoryShape {
     GLOVES(),
     CAPE(),
-    TRINKET_1(),
-    TRINKET_2();
+    TRINKET();
 
     HumanAccessoryShape() {
     }

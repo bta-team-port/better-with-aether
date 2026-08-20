@@ -24,8 +24,7 @@ public class SlotAccessory extends Slot {
     private static final String[] accessoryOutlines = new String[]{
         "aether:item/armor_gloves_outline",
         "aether:item/armor_capes_outline",
-        "aether:item/armor_wildcard_outline",
-        "aether:item/armor_wildcard_outline",
+        "aether:item/armor_wildcard_outline"
     };
 
     public final HumanAccessoryShape accessoryShape;
@@ -55,7 +54,7 @@ public class SlotAccessory extends Slot {
             return true;
         }
 
-        if (item.hasTag(AetherItemTags.TRINKET) && this.accessoryShape == HumanAccessoryShape.TRINKET_1 || this.accessoryShape == HumanAccessoryShape.TRINKET_2) {
+        if (item.hasTag(AetherItemTags.TRINKET) && this.accessoryShape == HumanAccessoryShape.TRINKET) {
             return true;
         }
 

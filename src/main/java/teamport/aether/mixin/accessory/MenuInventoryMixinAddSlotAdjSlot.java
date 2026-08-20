@@ -17,6 +17,7 @@ import net.minecraft.core.player.inventory.slot.SlotResult;
 import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -34,13 +35,20 @@ public abstract class MenuInventoryMixinAddSlotAdjSlot {
     @Shadow
     public ContainerInventory inventory;
 
+    @Unique
+    private static final HumanAccessoryShape[] SLOT_SHAPES = {
+        HumanAccessoryShape.GLOVES,
+        HumanAccessoryShape.CAPE,
+        HumanAccessoryShape.TRINKET,
+        HumanAccessoryShape.TRINKET
+    };
+
     @Inject(method = "<init>(Lnet/minecraft/core/player/inventory/container/ContainerInventory;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/player/inventory/menu/MenuInventory;slotsChanged(Lnet/minecraft/core/player/inventory/container/Container;)V"))
     private void addingAndAdjustingSlots(ContainerInventory inventory, CallbackInfo ci) {
         MenuInventory menu = (MenuInventory) (Object) this;
         for (int i = 0; i < menu.slots.size(); i++) {
             Slot slot = menu.slots.get(i);
             Container contain = slot.getContainer();
-            // fixing the crafting inventory
             if (contain instanceof ContainerCrafting) {
                 slot.x += 12;
             }
@@ -50,8 +58,7 @@ public abstract class MenuInventoryMixinAddSlotAdjSlot {
         }
         // adding new accessories
         for (int i = 0; i < 4; ++i) {
-            // staring where armor ends
-            ((MenuAbstractAccessor) menu).invokeAddSlot(new SlotAccessory(menu, inventory, inventory.getContainerSize() - 4 + i, 80, 8 + i * 18, HumanAccessoryShape.values()[i]));
+            ((MenuAbstractAccessor) menu).invokeAddSlot(new SlotAccessory(menu, inventory, inventory.getContainerSize() - 4 + i, 80, 8 + i * 18, SLOT_SHAPES[i]));
         }
     }
 
