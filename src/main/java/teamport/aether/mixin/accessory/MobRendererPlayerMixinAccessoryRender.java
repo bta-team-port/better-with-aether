@@ -236,13 +236,13 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 return;
             }
 
-            if (item instanceof ItemPendant) {
+            if (item instanceof ItemPendant itemPendant) {
                 StaticEntityModel modelAccessories = this.better_with_aether$setupAccessoryModel("aether.accessory.base", entity, partialTick, layer);
                 int variant = 0;
                 if (slot == TRINKET_2_SLOT && itemTrinketSlot1 != null && itemTrinketSlot1.getItem() instanceof ItemPendant) {
                     variant = 1;
                 }
-                String path = String.format("/assets/%s/textures/armor/pendants/%s_pendant_%d.png", item.namespaceID.namespace(), ((ItemAccessory<?>) item).getTextureName(), variant);
+                String path = String.format("/assets/%s/textures/armor/pendants/%s_pendant_%d.png", item.namespaceID.namespace(), itemPendant.name(), variant);
                 this.better_with_aether$setVisible(modelAccessories, false, true, false, false, false);
                 renderDispatcher.textureManager.loadTexture(path).bind();
                 cir.setReturnValue(modelAccessories);

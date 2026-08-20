@@ -112,6 +112,7 @@ public abstract class ContainerInventoryMixinAccessory implements IContainerInve
             }
         }
     }
+
     /**
      * @reason 7.3_04 currently handles left click and drop differently from shift clicking.
      * To guarantee that the effect of the accessories is correctly remove on left click and drop
@@ -119,19 +120,16 @@ public abstract class ContainerInventoryMixinAccessory implements IContainerInve
      */
     @Inject(method = "removeItem", at = @At("HEAD"), cancellable = true)
     private void updateEffects(int slot, int takeAmount, CallbackInfoReturnable<ItemStack> cir) {
-        if (slot < this.mainInventory.length) {
+        int accessoryIndex = aether$getAccessoryIndex(slot);
+        if (accessoryIndex < 0) {
             return;
         }
-        int accessoryIndex = aether$getAccessoryIndex(slot);
-        ItemStack itemStack = accessoryIndex >= 0
-            ? aether$accessorySlots[accessoryIndex]
-            : this.armorInventory[slot - this.mainInventory.length];
+
+        ItemStack itemStack = aether$accessorySlots[accessoryIndex];
         if (itemStack != null && itemStack.getItem() instanceof IAccessoryEffects) {
             ((IAccessoryEffects) itemStack.getItem()).removeEffect(player, itemStack);
         }
-        if (accessoryIndex >= 0) {
-            cir.setReturnValue(aether$removeAccessoryItem(accessoryIndex, takeAmount));
-        }
+        cir.setReturnValue(aether$removeAccessoryItem(accessoryIndex, takeAmount));
     }
 
 
@@ -142,21 +140,17 @@ public abstract class ContainerInventoryMixinAccessory implements IContainerInve
      */
     @Inject(method = "setItem", at = @At("HEAD"), cancellable = true)
     private void updateEffects(int slot, ItemStack stack, CallbackInfo ci) {
-        if (slot < this.mainInventory.length) {
+        int accessoryIndex = aether$getAccessoryIndex(slot);
+        if (accessoryIndex < 0) {
             return;
         }
-        int accessoryIndex = aether$getAccessoryIndex(slot);
-        ItemStack oldItem = accessoryIndex >= 0
-            ? aether$accessorySlots[accessoryIndex]
-            : this.armorInventory[slot - this.mainInventory.length];
-        // this is only called when we SWAP an item
+
+        ItemStack oldItem = aether$accessorySlots[accessoryIndex];
         if (oldItem != null && oldItem.getItem() instanceof IAccessoryEffects) {
             ((IAccessoryEffects) oldItem.getItem()).removeEffect(player, oldItem);
         }
-        if (accessoryIndex >= 0) {
-            aether$accessorySlots[accessoryIndex] = stack;
-            ci.cancel();
-        }
+        aether$accessorySlots[accessoryIndex] = stack;
+        ci.cancel();
     }
 
     @Inject(method = "dropAllItems", at = @At("TAIL"))
