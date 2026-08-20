@@ -23,7 +23,7 @@ import teamport.aether.entity.AetherRideable;
 import teamport.aether.entity.animal.MobAetherAnimal;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItemTags;
-import teamport.aether.mixins.mixin.accessors.EntityAccessor;
+import teamport.aether.mixin.accessors.EntityAccessor;
 import teamport.aether.net.message.AetherRideableNetworkMessage;
 import teamport.aether.net.message.EjectRiderNetworkMessage;
 import turniplabs.halplibe.helper.EnvironmentHelper;

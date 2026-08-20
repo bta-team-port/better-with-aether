@@ -4,7 +4,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
 import teamport.aether.entity.AetherJumpAmount;
 import teamport.aether.entity.AetherRideable;
-import teamport.aether.mixins.mixin.accessors.EntityAccessor;
+import teamport.aether.mixin.accessors.EntityAccessor;
 import teamport.aether.net.message.AetherRideableNetworkMessage;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 import turniplabs.halplibe.helper.network.NetworkHandler;

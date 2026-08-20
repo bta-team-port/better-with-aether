@@ -14,7 +14,7 @@ import net.minecraft.core.world.pos.TilePosc;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.item.AetherItems;
-import teamport.aether.mixins.mixin.accessors.ItemAccessor;
+import teamport.aether.mixin.accessors.ItemAccessor;
 
 import java.util.Random;
 

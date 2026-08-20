@@ -39,7 +39,7 @@ import teamport.aether.item.item_tool.item_tool_zanite.ItemToolAxeZanite;
 import teamport.aether.item.item_tool.item_tool_zanite.ItemToolPickaxeZanite;
 import teamport.aether.item.item_tool.item_tool_zanite.ItemToolShovelZanite;
 import teamport.aether.item.item_tool.item_tool_zanite.ItemToolSwordZanite;
-import teamport.aether.mixins.mixin.accessors.ItemAccessor;
+import teamport.aether.mixin.accessors.ItemAccessor;
 
 import static teamport.aether.AetherConfig.itemID;
 import static teamport.aether.AetherMod.MOD_ID;

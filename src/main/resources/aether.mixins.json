@@ -1,10 +1,10 @@
 {
-  "plugin": "teamport.aether.mixins.mixin.AetherMixinPlugin",
+  "plugin": "teamport.aether.mixin.AetherMixinPlugin",
   "required": true,
   "mixinextras": {
     "minVersion": "0.5.0"
   },
-  "package": "teamport.aether.mixins.mixin",
+  "package": "teamport.aether.mixin",
   "compatibilityLevel": "JAVA_${java}",
   "mixins": [
     "SortCreativeInventoryMixin",
