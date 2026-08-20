@@ -39,7 +39,7 @@ public abstract class MobRendererPlayerMixinCapeRender extends MobRendererBipedA
             original.call(red, green, blue, alpha);
             return;
         }
-        original.call(red, green, blue, 0.0F);
+        original.call(red, green, blue, 0.15F);
         GLRenderer.enableState(State.BLEND);
     }
 
