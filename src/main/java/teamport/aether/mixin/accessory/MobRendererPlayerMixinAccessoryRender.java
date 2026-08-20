@@ -1,5 +1,7 @@
 package teamport.aether.mixin.accessory;
 
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -18,8 +20,8 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -35,8 +37,8 @@ import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.helper.MixinHelper;
 import teamport.aether.item.AetherItemTags;
 import teamport.aether.item.AetherRepulsion;
-import teamport.aether.item.accessory.ItemAccessory;
-import teamport.aether.item.accessory.gloves.ItemGloves;
+import teamport.aether.item.accessory.IAccessory;
+import teamport.aether.item.accessory.ItemGloves;
 import teamport.aether.item.accessory.pendant.ItemPendant;
 import teamport.aether.item.accessory.trinket.ItemGoldenFeather;
 import teamport.aether.item.accessory.trinket.ItemIronBubble;
@@ -65,30 +67,24 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     @Inject(method = "drawFirstPersonHand(Lnet/minecraft/client/render/tessellator/TessellatorGeneral;Lnet/minecraft/core/entity/player/Player;Z)V", at = @At("TAIL"))
     private void callDrawFirstPersonHandAfter(TessellatorGeneral tessellator, @NonNull Player player, boolean isLeft, CallbackInfo ci) {
         ItemStack held = player.inventory.getCurrentItem();
-
         if ((held == null || !held.getItem().equals(Items.MAP)) && isLeft) {
             return;
         }
-
         ItemStack glovesStack = this.better_with_aether$getAccessory(player, GLOVES_SLOT);
-        if (glovesStack == null || !(glovesStack.getItem() instanceof ItemGloves gloves)) {
+        if (glovesStack == null || !(glovesStack.getItem() instanceof ItemGloves)) {
             return;
         }
-
-        String path = String.format("/assets/%s/textures/armor/gloves/%s_gloves.png", gloves.namespaceID.namespace(), gloves.getTextureName());
-
+        Item item = glovesStack.getItem();
+        String path = String.format("/assets/%s/textures/armor/gloves/%s_gloves.png", item.namespaceID.namespace(), ((IAccessory) item).name());
         TextureManager textureManager = this.renderDispatcher.textureManager;
-
         int previousTexture = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
         GLRenderer.pushFrame();
         try {
             textureManager.loadTexture(path).bind();
             GLRenderer.disableState(State.CULL_FACE);
-
             StaticEntityModel modelArmorChestplate = this.getModel("aether.accessory.gloves");
             modelArmorChestplate.resetBones();
             this.better_with_aether$setVisible(modelArmorChestplate, false, false, false, false, false);
-
             if (isLeft) {
                 modelArmorChestplate.getTransform("leftArm").visible = true;
             } else {
@@ -114,59 +110,65 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
         if (entity == Minecraft.getMinecraft().thePlayer) {
             Screen currScreen = Minecraft.getMinecraft().currentScreen;
             final boolean isInInventory = currScreen instanceof ScreenInventory || currScreen instanceof ScreenInventoryCreative;
-
-            if (entity.passenger instanceof MobAerbunny bunny && isInInventory) {
-                boolean hasHelmet = entity.inventory.armorInventory[3] != null;
-
-                GLRenderer.pushFrame();
-                try {
-                    GLRenderer.setColor4f(1F, 1F, 1F, 1F);
-                    GLRenderer.modelM4f().scale(0.80F, 0.80F, 0.80F);
-                    if (hasHelmet) {
-                        GLRenderer.modelM4f().translate(0, 0.1875F, 0);
-                    } else {
-                        GLRenderer.modelM4f().translate(0, 0.0625F, 0);
-                    }
-                    float renderYaw = entity.yRotO + (entity.yRot - entity.yRotO) * this.better_with_aether$partialTick;
-                    EntityRendererDispatcher.instance.renderEntityWithPosYaw(tessellator, bunny, x, y + 0.25F, z, renderYaw, this.better_with_aether$partialTick);
-                } finally {
-                    GLRenderer.popFrame();
+            if (!(entity.passenger instanceof MobAerbunny bunny) || !isInInventory) {
+                return;
+            }
+            boolean hasHelmet = entity.inventory.armorInventory[3] != null;
+            GLRenderer.pushFrame();
+            try {
+                GLRenderer.setColor4f(1F, 1F, 1F, 1F);
+                GLRenderer.modelM4f().scale(0.80F, 0.80F, 0.80F);
+                if (hasHelmet) {
+                    GLRenderer.modelM4f().translate(0, 0.1875F, 0);
+                } else {
+                    GLRenderer.modelM4f().translate(0, 0.0625F, 0);
                 }
+                float renderYaw = entity.yRotO + (entity.yRot - entity.yRotO) * this.better_with_aether$partialTick;
+                EntityRendererDispatcher.instance.renderEntityWithPosYaw(tessellator, bunny, x, y + 0.25F, z, renderYaw, this.better_with_aether$partialTick);
+            } finally {
+                GLRenderer.popFrame();
             }
         }
     }
 
 
-    @Inject(method = "getAndSetupModelForLayer(Lnet/minecraft/core/entity/player/Player;FFI)Lorg/useless/dragonfly/models/entity/StaticEntityModel;", at = @At("HEAD"), cancellable = true)
-    private void getAccessoryModel(Player entity, float brightness, float partialTick, int layer, CallbackInfoReturnable<StaticEntityModel> cir) {
-        if (layer <= 4) {
-            return;
-        }
 
+    @WrapMethod(
+        method = "getAndSetupModelForLayer(Lnet/minecraft/core/entity/player/Player;FFI)Lorg/useless/dragonfly/models/entity/StaticEntityModel;"
+    )
+    private StaticEntityModel getAccessoryModel(
+        Player entity,
+        float brightness,
+        float partialTick,
+        int layer,
+        Operation<StaticEntityModel> original
+    ) {
+        if (layer <= 4) {
+            return original.call(entity, brightness, partialTick, layer);
+        }
         int slot = layer - 1;
         ItemStack armorStack = this.better_with_aether$getAccessory(entity, slot);
         if (armorStack == null) {
-            cir.setReturnValue(null);
-            return;
+            return null;
         }
-
-        if (armorStack.getItem() instanceof ItemAccessory<?> || armorStack.getItem().hasTag(AetherItemTags.TRINKET)) {
+        if (armorStack.getItem() instanceof IAccessory || armorStack.getItem().hasTag(AetherItemTags.TRINKET)) {
             Item item = armorStack.getItem();
-
             if (item instanceof ItemGloves) {
                 StaticEntityModel modelArmorChestplate = this.better_with_aether$setupAccessoryModel("aether.accessory.gloves", entity, partialTick, layer);
-                String path = String.format("/assets/%s/textures/armor/gloves/%s_gloves.png", item.namespaceID.namespace(), ((ItemAccessory<?>) item).getTextureName());
+                String path = String.format("/assets/%s/textures/armor/gloves/%s_gloves.png", item.namespaceID.namespace(), ((IAccessory) item).name());
                 this.better_with_aether$setVisible(modelArmorChestplate, false, false, slot == GLOVES_SLOT, false, false);
                 renderDispatcher.textureManager.loadTexture(path).bind();
-                cir.setReturnValue(modelArmorChestplate);
-                return;
+                return modelArmorChestplate;
             }
             if ((item instanceof ItemRepulsionShield && (slot == TRINKET_2_SLOT || this.better_with_aether$getAccessory(entity, TRINKET_2_SLOT) == null)) || this.shield6) {
                 StaticEntityModel shield = this.better_with_aether$setupAccessoryModel("aether.accessory.shield", entity, partialTick, layer);
                 this.shield6 = false;
-                String path = ((AetherRepulsion) entity).aether$isRepulse()
-                    ? "/assets/aether/textures/armor/energyGlow.png"
-                    : "/assets/aether/textures/armor/energyNotGlow.png";
+                String path;
+                if (((AetherRepulsion) entity).aether$isRepulse()) {
+                    path = "/assets/aether/textures/armor/energyGlow.png";
+                } else {
+                    path = "/assets/aether/textures/armor/energyNotGlow.png";
+                }
 
                 renderDispatcher.textureManager.loadTexture(path).bind();
                 GLRenderer.enableState(State.CULL_FACE);
@@ -178,16 +180,14 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                     GLRenderer.setColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                     GLRenderer.setBlendFunc(BlendFactor.SRC_ALPHA, BlendFactor.ONE_MINUS_SRC_ALPHA);
                 }
-                cir.setReturnValue(shield);
-                return;
+                return shield;
             }
 
             ///  redirect the render to next item
             if (item instanceof ItemRepulsionShield && slot == TRINKET_1_SLOT) {
                 ItemStack nextSlot = this.better_with_aether$getAccessory(entity, slot + 1);
                 if (nextSlot == null) {
-                    cir.setReturnValue(null);
-                    return;
+                    return null;
                 }
                 this.shield6 = true;
                 item = nextSlot.getItem();
@@ -213,15 +213,13 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 modelFeather.getTransform("leftArm").visible = false;
                 modelFeather.getTransform("rightArm").visible = false;
                 renderDispatcher.textureManager.loadTexture(path).bind();
-                cir.setReturnValue(modelFeather);
-                return;
+                return modelFeather;
             }
 
             String textureKey = MixinHelper.TRINKET_TEXTURES.get(item);
             if (textureKey != null) {
                 if (slot != TRINKET_1_SLOT && slot != TRINKET_2_SLOT) {
-                    cir.setReturnValue(null);
-                    return;
+                    return null;
                 }
 
                 boolean leftSlot = (slot == TRINKET_1_SLOT);
@@ -232,32 +230,32 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 this.better_with_aether$setVisible(modelAccessories, false, false, false, !leftSlot, leftSlot);
 
                 renderDispatcher.textureManager.loadTexture(path).bind();
-                cir.setReturnValue(modelAccessories);
-                return;
+                return modelAccessories;
             }
 
-            if (item instanceof ItemPendant itemPendant) {
+            if (item instanceof ItemPendant) {
                 StaticEntityModel modelAccessories = this.better_with_aether$setupAccessoryModel("aether.accessory.base", entity, partialTick, layer);
                 int variant = 0;
                 if (slot == TRINKET_2_SLOT && itemTrinketSlot1 != null && itemTrinketSlot1.getItem() instanceof ItemPendant) {
                     variant = 1;
                 }
-                String path = String.format("/assets/%s/textures/armor/pendants/%s_pendant_%d.png", item.namespaceID.namespace(), itemPendant.name(), variant);
+                String path = String.format("/assets/%s/textures/armor/pendants/%s_pendant_%d.png", item.namespaceID.namespace(), ((IAccessory) item).name(), variant);
                 this.better_with_aether$setVisible(modelAccessories, false, true, false, false, false);
                 renderDispatcher.textureManager.loadTexture(path).bind();
-                cir.setReturnValue(modelAccessories);
-                return;
+                return modelAccessories;
             }
 
             if (item instanceof ItemRegenStone) {
                 StaticEntityModel modelHeart = this.better_with_aether$setupAccessoryModel("aether.accessory.heart", entity, partialTick, layer);
-                String path = (slot == TRINKET_1_SLOT)
-                    ? "/assets/aether/textures/armor/trinkets/regen_trinket_right.png"
-                    : "/assets/aether/textures/armor/trinkets/regen_trinket_left.png";
+                String path;
+                if (slot == TRINKET_1_SLOT) {
+                    path = "/assets/aether/textures/armor/trinkets/regen_trinket_left.png";
+                } else {
+                    path = "/assets/aether/textures/armor/trinkets/regen_trinket_right.png";
+                }
                 this.better_with_aether$setVisible(modelHeart, true, false, false, false, false);
                 renderDispatcher.textureManager.loadTexture(path).bind();
-                cir.setReturnValue(modelHeart);
-                return;
+                return modelHeart;
             }
 
             if (item instanceof ItemIronBubble) {
@@ -280,12 +278,11 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                         GLRenderer.setColor4f(1.0F, 1.0F, 1.0F, 0.5F);
                         GLRenderer.setBlendFunc(BlendFactor.SRC_ALPHA, BlendFactor.ONE_MINUS_SRC_ALPHA);
                     }
-                    cir.setReturnValue(modelBubble);
-                    return;
+                    return modelBubble;
                 }
             }
         }
-        cir.setReturnValue(null);
+        return null;
     }
 
     @Unique
