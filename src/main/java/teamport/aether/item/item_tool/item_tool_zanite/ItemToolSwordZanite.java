@@ -8,7 +8,7 @@ import net.minecraft.core.util.helper.MathHelper;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.item.item_tool.ItemToolSwordAether;
-import teamport.aether.mixins.mixin.accessors.ItemToolSwordAccessor;
+import teamport.aether.mixin.accessors.ItemToolSwordAccessor;
 
 import static teamport.aether.AetherMod.ZANITE_MULTIPLIER;
 

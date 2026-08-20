@@ -12,7 +12,7 @@ import net.minecraft.core.player.inventory.slot.Slot;
 import net.minecraft.core.player.inventory.slot.SlotCreative;
 import net.minecraft.core.player.inventory.slot.SlotResult;
 import org.lwjgl.glfw.GLFW;
-import teamport.aether.mixins.mixin.accessors.ScreenContainerAbstractAccessor;
+import teamport.aether.mixin.accessors.ScreenContainerAbstractAccessor;
 
 public abstract class ScreenAetherMachine extends ScreenContainerAbstract {
 

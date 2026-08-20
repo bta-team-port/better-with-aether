@@ -29,7 +29,7 @@ import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherArmorMaterial;
 import teamport.aether.item.AetherItems;
-import teamport.aether.mixins.mixin.accessors.EntityAccessor;
+import teamport.aether.mixin.accessors.EntityAccessor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
