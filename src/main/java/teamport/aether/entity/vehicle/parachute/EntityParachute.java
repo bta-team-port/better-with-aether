@@ -11,7 +11,7 @@ import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.AetherRideable;
 import teamport.aether.helper.ParticleMaker;
-import teamport.aether.mixin.accessors.EntityAccessor;
+import teamport.aether.mixins.mixin.accessors.EntityAccessor;
 import teamport.aether.net.message.AetherRideableNetworkMessage;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 import turniplabs.halplibe.helper.network.NetworkHandler;

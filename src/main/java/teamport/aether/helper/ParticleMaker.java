@@ -11,7 +11,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.server.MinecraftServer;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import teamport.aether.mixin.accessors.EntityAccessor;
+import teamport.aether.mixins.mixin.accessors.EntityAccessor;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.Random;

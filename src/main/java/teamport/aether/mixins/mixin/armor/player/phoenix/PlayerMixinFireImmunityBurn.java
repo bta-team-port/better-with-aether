@@ -1,0 +1,56 @@
+package teamport.aether.mixins.mixin.armor.player.phoenix;
+
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import net.minecraft.core.block.Block;
+import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.EntityLightning;
+import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.util.helper.DamageType;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import teamport.aether.helper.MixinHelper;
+
+@Mixin(Entity.class)
+public abstract class PlayerMixinFireImmunityBurn {
+    @Shadow
+    public double x;
+    @Shadow
+    public double y;
+    @Shadow
+    public double z;
+    @Shadow
+    public float bbHeight;
+    @Shadow
+    public float bbWidth;
+    @Shadow
+    public abstract boolean hurt(Entity attacker, int baseDamage, DamageType type);
+    @WrapMethod(method = "burn(ILnet/minecraft/core/block/Block;)V")
+    private void burn(int damage, Block<?> fireSource, Operation<Void> original) {
+        if (!((Entity) (Object) this instanceof Player)) {
+            original.call(damage, fireSource);
+            return;
+        }
+        Player player = (Player) (Object) this;
+        if (MixinHelper.fireResistanceCount(player.inventory) >= 3) {
+            MixinHelper.damageArmourWithEffect(1, player, x, y, z, bbHeight, bbWidth);
+            return;
+        }
+        original.call(damage, fireSource);
+    }
+    @WrapMethod(method = "thunderHit")
+    private void thunderHit(EntityLightning bolt, Operation<Void> original) {
+        if (!((Entity) (Object) this instanceof Player)) {
+            original.call(bolt);
+            return;
+        }
+        Player player = (Player) (Object) this;
+        if (MixinHelper.fireResistanceCount(player.inventory) >= 5) {
+            // we only negate the burn but the player takes the lightning damage
+            hurt(null, 5, DamageType.FIRE);
+            MixinHelper.damageArmourWithEffect(1, player, x, y, z, bbHeight, bbWidth);
+            return;
+        }
+        original.call(bolt);
+    }
+}

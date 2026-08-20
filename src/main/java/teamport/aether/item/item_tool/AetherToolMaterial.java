@@ -6,7 +6,7 @@ import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemTool;
 import net.minecraft.core.item.tool.ItemToolSword;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.mixin.accessors.ItemToolSwordAccessor;
+import teamport.aether.mixins.mixin.accessors.ItemToolSwordAccessor;
 
 public class AetherToolMaterial {
     public static final ToolMaterial skyroot = new ToolMaterial().setDurability(64).setEfficiency(2.0F, 4.0f).setMiningLevel(0);
