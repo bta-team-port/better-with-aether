@@ -29,7 +29,6 @@ import teamport.aether.entity.boss.AetherBossList;
 import teamport.aether.entity.boss.MobBoss;
 import teamport.aether.entity.player.MessageMaker;
 import teamport.aether.helper.ParticleMaker;
-import teamport.aether.helper.client.BossMusicClientHelper;
 import teamport.aether.item.item_tool.ItemToolPickaxeAether;
 import teamport.aether.world.AetherDimension;
 import turniplabs.halplibe.helper.EnvironmentHelper;
@@ -296,7 +295,7 @@ public class MobBossSlider extends MobBoss {
         this.world.playSoundAtEntity(null, this, "aether:achievement.bronze", 0.5f, 1.0f);
 
         if (!EnvironmentHelper.isMultiplayerServer()) {
-            BossMusicClientHelper.stop();
+            MobBoss.stop();
         }
 
         super.onDeath(entityKilledBy);
@@ -382,7 +381,7 @@ public class MobBossSlider extends MobBoss {
             this.world.playSoundAtEntity(null, this, "aether:mob.slider.awaken", 1F, 1F);
 
             if (!EnvironmentHelper.isMultiplayerServer()) {
-                BossMusicClientHelper.play("aether:aether_music_boss.sliderboss", this.x, this.y, this.z);
+                MobBoss.play("aether:aether_music_boss.sliderboss", this.x, this.y, this.z);
             }
 
             this.wakeUpTimer = WAKEUP_TIMER;

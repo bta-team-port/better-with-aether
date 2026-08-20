@@ -2,6 +2,11 @@ package teamport.aether.entity.monster.mimic;
 
 import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.ListTag;
+import it.unimi.dsi.fastutil.ints.IntIntImmutablePair;
+import it.unimi.dsi.fastutil.ints.IntIntPair;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.entity.ClientSkinVariantList;
 import net.minecraft.core.Global;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Block;
@@ -36,8 +41,6 @@ import teamport.aether.block.entity.TileEntityMimic;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.entity.player.PlayerUtil;
-import teamport.aether.helper.client.MimicClientHelper;
-import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.item.item_tool.ItemToolAxeAether;
 import teamport.aether.item.item_tool.ItemToolPickaxeAether;
 import teamport.aether.world.feature.util.WorldFeatureComponent;
@@ -111,7 +114,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
 
     @Override
     public boolean cycleVariant() {
-        return !EnvironmentHelper.isMultiplayerServer() && MimicClientHelper.cycleVariant(this);
+        return !EnvironmentHelper.isMultiplayerServer() && cycleVariant(this);
     }
 
     public int getMimicVariant() {
@@ -325,7 +328,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
     }
 
     private void placeChest(WorldFeaturePoint point) {
-        IntPair blockAndMeta = getTarget(world, point);
+        IntIntPair blockAndMeta = getTarget(world, point);
         world.setBlockAndMetadataWithNotify(point.getX(), point.getY(), point.getZ(), blockAndMeta.first(), blockAndMeta.second());
         BlockLogicChestMimic.setRandomDirections(world, this.random, point.getX(), point.getY(), point.getZ());
         WorldFeatureComponent.getOrCreateChestInventory(world, new TilePos(point.getX(), point.getY(), point.getZ()));
@@ -335,7 +338,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
     }
 
     @SuppressWarnings("java:S3776")
-    private IntPair getTarget(World world, WorldFeaturePoint point) {
+    private IntIntPair getTarget(World world, WorldFeaturePoint point) {
         Map<WorldFeaturePoint, Integer> distance = new HashMap<>();
         Queue<WorldFeaturePoint> queue = new ArrayDeque<>();
         Direction[] check = new Direction[]{NORTH, EAST, SOUTH, WEST, UP, DOWN};
@@ -353,17 +356,17 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
                 int metadata = world.getBlockMetadata(to.getX(), to.getY(), to.getZ());
                 BlockLogic blockLogic = block.getLogic();
                 if (blockLogic instanceof BlockLogicChestMimic) {
-                    return new IntPair(block.id(), metadata);
+                    return new IntIntImmutablePair(block.id(), metadata);
                 }
                 if (blockLogic instanceof BlockLogicChest) {
                     MimicEntry variant = MimicRegistry.getMimicVariantByChest(block.id(), metadata & 240);
-                    return new IntPair(variant.getMimicChestID(), variant.getMimicChestMetadata());
+                    return new IntIntImmutablePair(variant.getMimicChestID(), variant.getMimicChestMetadata());
                 }
                 queue.add(to);
             }
         }
         MimicEntry variant = MimicRegistry.getMimicVariantByID(this.getSkinVariant());
-        return new IntPair(variant.getMimicChestID(), variant.getMimicChestMetadata());
+        return new IntIntImmutablePair(variant.getMimicChestID(), variant.getMimicChestMetadata());
     }
 
     private void populateChest(@NonNull WorldFeaturePoint point) {
@@ -398,5 +401,21 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
     @Override
     public boolean canSpawnHere() {
         return this.world.getDifficulty().canHostileMobsSpawn() && this.world.checkIfAABBIsClear(this.bb) && this.world.getCubes(this, this.bb).isEmpty();
+    }
+
+    @Environment(EnvType.CLIENT)
+    public static boolean cycleVariant(@NonNull MobMimic mimic) {
+        ClientSkinVariantList variants = (ClientSkinVariantList) Global.accessor.getSkinVariantList();
+        String variantsPath = mimic.getMimicTextureBasePath() + "variants.json";
+        int skinVariant = mimic.getSkinVariant();
+
+        if (skinVariant >= variants.getSkinTextureLength(variantsPath) - 1) {
+            mimic.setVariant(MimicRegistry.getNextValue(mimic.getMimicVariant()));
+            skinVariant = 0;
+            variantsPath = mimic.getMimicTextureBasePath() + "variants.json";
+        }
+
+        mimic.setSkinVariant(variants.nextSkinVariant(variantsPath, skinVariant));
+        return MimicRegistry.getLength() > 1;
     }
 }

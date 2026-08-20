@@ -1,5 +1,6 @@
 package teamport.aether.achievements;
 
+import it.unimi.dsi.fastutil.ints.IntIntPair;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.achievements.ScreenAchievements;
@@ -11,7 +12,6 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.util.helper.Color;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.helper.unboxed.IntPair;
 
 import java.util.List;
 import java.util.Objects;
@@ -163,9 +163,9 @@ public class AchievementPageAether extends AchievementPage implements AetherAchi
         List<List<Integer>> structLayer = null;
 
         if (layer == 0 && origY > 0) {
-            List<IntPair> water = BACKGROUND.waterSources;
-            for (IntPair w : water) {
-                if (w.first() == tileX && w.second() <= origY)
+            List<IntIntPair> water = BACKGROUND.waterSources;
+            for (IntIntPair w : water) {
+                if (w.firstInt() == tileX && w.secondInt() <= origY)
                     return WATER_FLOWING;
             }
         }

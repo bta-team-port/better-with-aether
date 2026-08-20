@@ -1,10 +1,10 @@
 package teamport.aether.world.feature.dungeon.bronze.component;
 
+import it.unimi.dsi.fastutil.objects.ObjectObjectMutablePair;
 import net.minecraft.core.block.BlockLogicRotatable;
 import teamport.aether.AetherMod;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.boss.slider.MobBossSlider;
-import teamport.aether.helper.Pair;
 import teamport.aether.item.AetherItems;
 import teamport.aether.world.feature.chest.WorldFeatureAetherBronzeChest;
 import teamport.aether.world.feature.dungeon.bronze.DungeonLogicBronzeDungeon;
@@ -59,7 +59,7 @@ public class BossRoom extends BaseBronzeRoom {
         dungeon = DungeonMap.register(DungeonLogicBronzeDungeon.class, world, world.getRandomSeed() + random.nextInt(), x + 8, y + 2, z + 8);
         dungeon.setGenerated(true);
 
-        dungeon.setClearArea(new Pair<>(wfp(x, y - 2, z), wfp(x + 16, y + 14, z + 16)));
+        dungeon.setClearArea(new ObjectObjectMutablePair<>(wfp(x, y - 2, z), wfp(x + 16, y + 14, z + 16)));
         new WorldFeatureAetherBronzeChest().place(world, random, x + 7 + random.nextInt(2), y - 1, z + 7 + random.nextInt(2));
         List<WorldFeaturePoint> treasureDoor = new ArrayList<>();
         treasureDoor.add(wfp(x + 7, y + 1, z + 7));

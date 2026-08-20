@@ -1,5 +1,7 @@
 package teamport.aether.world.feature.dungeon.silver;
 
+import it.unimi.dsi.fastutil.Pair;
+import it.unimi.dsi.fastutil.objects.ObjectObjectMutablePair;
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.BlockLogicRotatable;
@@ -16,7 +18,6 @@ import teamport.aether.block.AetherBlocks;
 import teamport.aether.block.terrain.BlockLogicCloudBase;
 import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
 import teamport.aether.helper.AetherMathHelper;
-import teamport.aether.helper.Pair;
 import teamport.aether.item.AetherItems;
 import teamport.aether.world.feature.chest.WorldFeatureAetherSilverChest;
 import teamport.aether.world.feature.dungeon.silver.component.WorldFeatureSilverMaze;
@@ -284,7 +285,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
     }
 
     private void createBossAndTreasure(int x, int y, int z) {
-        Pair<WorldFeaturePoint, WorldFeaturePoint> clearArea = new Pair<>(
+        Pair<WorldFeaturePoint, WorldFeaturePoint> clearArea = new ObjectObjectMutablePair<>(
             new WorldFeaturePoint(x + 2, y - 1, z - 3),
             new WorldFeaturePoint(x - 31, y + 23, z + 56)
         );

@@ -1,14 +1,17 @@
 package teamport.aether.helper;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
+import net.minecraft.core.net.packet.PacketAddParticle;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
+import net.minecraft.server.MinecraftServer;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.mixin.accessors.EntityAccessor;
-import teamport.aether.helper.server.ParticleMakerServer;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.Random;
@@ -20,7 +23,7 @@ public class ParticleMaker {
         if (EnvironmentHelper.isMultiplayerClient()) return;
 
         if (EnvironmentHelper.isMultiplayerServer()) {
-            ParticleMakerServer.spawnParticle(world, particleKey, x, y, z, motionX, motionY, motionZ, data, maxDistance);
+            spawnParticleServer(world, particleKey, x, y, z, motionX, motionY, motionZ, data, maxDistance);
             return;
         }
 
@@ -224,5 +227,14 @@ public class ParticleMaker {
             double offZ = random.nextFloat() - random.nextFloat();
             spawnParticle(target.world, "bubble", target.x + offX, target.y + offY + 1, target.z + offZ, target.xd, target.yd, target.zd, 0);
         }
+    }
+
+    @Environment(EnvType.SERVER)
+    public static void spawnParticleServer(@NonNull World world, String particleKey, double x, double y, double z,
+                                           double motionX, double motionY, double motionZ, int data, double maxDistance) {
+        MinecraftServer.getInstance().playerList.sendPacketToAllPlayersInDimension(
+            new PacketAddParticle(particleKey, x, y, z, motionX, motionY, motionZ, data, maxDistance),
+            world.dimension.id
+        );
     }
 }

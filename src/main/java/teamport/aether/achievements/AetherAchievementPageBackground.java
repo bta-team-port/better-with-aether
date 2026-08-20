@@ -1,8 +1,9 @@
 package teamport.aether.achievements;
 
+import it.unimi.dsi.fastutil.ints.IntIntMutablePair;
+import it.unimi.dsi.fastutil.ints.IntIntPair;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherMod;
-import teamport.aether.helper.unboxed.IntPair;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -14,7 +15,7 @@ import java.util.Objects;
 
 public class AetherAchievementPageBackground {
 
-    public final List<IntPair> waterSources;
+    public final List<IntIntPair> waterSources;
     public final List<List<Integer>> specials;
     public final List<List<Integer>> terrainLayer1;
     public final List<List<Integer>> terrainLayer2;
@@ -79,7 +80,7 @@ public class AetherAchievementPageBackground {
         for (int y = 0; y < specials.size(); y++) {
             List<Integer> row = specials.get(y);
             for (int x = 0; x < row.size(); x++) {
-                if (row.get(x) == 1) this.waterSources.add(new IntPair(x, y));
+                if (row.get(x) == 1) this.waterSources.add(new IntIntMutablePair(x, y));
             }
         }
     }

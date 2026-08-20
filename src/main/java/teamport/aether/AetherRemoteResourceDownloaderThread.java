@@ -7,13 +7,14 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import it.unimi.dsi.fastutil.Pair;
+import it.unimi.dsi.fastutil.objects.ObjectObjectImmutablePair;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.sound.SoundEngine;
 import net.minecraft.client.sound.SoundRepository;
 import net.minecraft.core.net.CertificateHelper;
-import teamport.aether.helper.Pair;
 
 import java.io.*;
 import java.math.BigInteger;
@@ -123,7 +124,7 @@ public class AetherRemoteResourceDownloaderThread extends Thread {
             if (fileAlreadyDownloaded) {
                 LOGGER.info("File Already Downloaded: {}", soundFile);
             } else {
-                entriesToDownload.add(new Pair<>(soundFile, key));
+                entriesToDownload.add(new ObjectObjectImmutablePair<>(soundFile, key));
             }
         }
 

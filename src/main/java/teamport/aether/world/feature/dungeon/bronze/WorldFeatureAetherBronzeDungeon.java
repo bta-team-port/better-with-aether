@@ -15,7 +15,7 @@ import teamport.aether.AetherMod;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.compat.AetherPlugin;
 import teamport.aether.helper.AetherMathHelper;
-import teamport.aether.helper.unboxed.PriorityEntry;
+import teamport.aether.helper.PriorityEntry;
 import teamport.aether.item.AetherItems;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.feature.dungeon.bronze.component.*;
@@ -29,7 +29,7 @@ import java.util.*;
 import java.util.function.Supplier;
 
 import static net.minecraft.core.util.helper.Direction.*;
-import static teamport.aether.helper.unboxed.PriorityEntry.Entry;
+import static teamport.aether.helper.PriorityEntry.Entry;
 import static teamport.aether.world.feature.dungeon.bronze.component.BaseBronzeRoom.ClosingType.*;
 import static teamport.aether.world.feature.dungeon.bronze.component.BaseBronzeRoom.Door.door;
 import static teamport.aether.world.feature.util.WorldFeatureComponent.drawVolume;

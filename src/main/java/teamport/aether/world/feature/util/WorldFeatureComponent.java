@@ -1,5 +1,6 @@
 package teamport.aether.world.feature.util;
 
+import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicChest;
 import net.minecraft.core.block.entity.TileEntity;
@@ -10,7 +11,6 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import teamport.aether.helper.Pair;
 
 import java.util.ArrayList;
 import java.util.List;

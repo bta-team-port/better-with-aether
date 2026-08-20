@@ -1,5 +1,8 @@
 package teamport.aether.world.feature.dungeon.gold;
 
+import it.unimi.dsi.fastutil.Pair;
+import it.unimi.dsi.fastutil.ints.IntIntPair;
+import it.unimi.dsi.fastutil.objects.ObjectObjectMutablePair;
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.BlockLogicRotatable;
@@ -15,8 +18,6 @@ import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 import teamport.aether.helper.AetherMathHelper;
-import teamport.aether.helper.Pair;
-import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.item.AetherItems;
 import teamport.aether.world.feature.chest.WorldFeatureAetherGoldChest;
 import teamport.aether.world.feature.terrain.WorldFeatureAetherTreeGoldenOak;
@@ -252,7 +253,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeatureMap<DungeonLogicG
         int zRoomLength = 19;
         WorldFeatureComponent main = new WorldFeatureComponent();
 
-        Pair<WorldFeaturePoint, WorldFeaturePoint> clearArea = new Pair<>(
+        Pair<WorldFeaturePoint, WorldFeaturePoint> clearArea = new ObjectObjectMutablePair<>(
             new WorldFeaturePoint(x + 1 + RADIUS / 2 + 8, y + RADIUS / 2, z + 1 + RADIUS / 2),
             new WorldFeaturePoint(x + 1 + RADIUS / 2 - xRoomLength, y + RADIUS / 2 + yRoomHeight, z + 1 + RADIUS / 2 - zRoomLength)
         );
@@ -348,7 +349,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeatureMap<DungeonLogicG
         treasureDoor.forEach(p -> p.rotateYAroundPivot(anchor, direction));
         logic.setTreasureDoor(treasureDoor);
 
-        Pair<WorldFeaturePoint, WorldFeaturePoint> clearArea = new Pair<>(
+        Pair<WorldFeaturePoint, WorldFeaturePoint> clearArea = new ObjectObjectMutablePair<>(
             new WorldFeaturePoint(x - RADIUS - 8, y - 5, z - RADIUS - 8),
             new WorldFeaturePoint(x + RADIUS + 8, y + RADIUS + 8, z + RADIUS + 8)
         );
@@ -359,7 +360,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeatureMap<DungeonLogicG
 
     public void createHeightMap(int x, int y, int z) {
         int diameter = RADIUS << 1;
-        Set<Integer> hell = HELLFIRE.getPallet().getEntries().stream().map(IntPair::first).collect(Collectors.toSet());
+        Set<Integer> hell = HELLFIRE.getPallet().getEntries().stream().map(IntIntPair::firstInt).collect(Collectors.toSet());
         for (int ix = -diameter; ix < diameter; ix++) {
             for (int iz = -diameter; iz < diameter; iz++) {
                 if (diameter * diameter >= ix * ix + iz * iz) {

@@ -1,12 +1,15 @@
 package teamport.aether.world.feature.util;
 
+import it.unimi.dsi.fastutil.ints.IntIntMutablePair;
+import it.unimi.dsi.fastutil.ints.IntIntPair;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.helper.unboxed.IntPair;
 
 import java.util.*;
 
 /// Implements a random maze using kruskal
 public class MazeHelper {
+    private MazeHelper(){}
+
     public static class Dsu {
         int[] parent;
         int[] rank;
@@ -49,18 +52,18 @@ public class MazeHelper {
         }
     }
 
-    public static @NonNull List<IntPair> randomMazeKruskal(Map<Integer, List<Integer>> graph, int size) {
-        List<IntPair> edges = makeEdgeList(graph);
+    public static @NonNull List<IntIntPair> randomMazeKruskal(Map<Integer, List<Integer>> graph, int size) {
+        List<IntIntPair> edges = makeEdgeList(graph);
         Collections.shuffle(edges);
         return randomMazeKruskal(edges, size);
     }
 
-    public static @NonNull List<IntPair> randomMazeKruskal(@NonNull List<IntPair> edges, int size) {
-        List<IntPair> mst = new ArrayList<>();
+    public static @NonNull List<IntIntPair> randomMazeKruskal(@NonNull List<IntIntPair> edges, int size) {
+        List<IntIntPair> mst = new ArrayList<>();
         Dsu uf = new Dsu(size);
 
-        for (IntPair edge : edges) {
-            if (uf.union(edge.first(), edge.second())) {
+        for (IntIntPair edge : edges) {
+            if (uf.union(edge.firstInt(), edge.secondInt())) {
                 mst.add(edge);
             }
             if (mst.size() == size - 1) {
@@ -70,26 +73,26 @@ public class MazeHelper {
         return mst;
     }
 
-    public static List<IntPair> makeEdgeList(@NonNull Map<Integer, List<Integer>> graph) {
-        Set<IntPair> edgeSet = new HashSet<>();
+    public static List<IntIntPair> makeEdgeList(@NonNull Map<Integer, List<Integer>> graph) {
+        Set<IntIntPair> edgeSet = new HashSet<>();
 
         for (Map.Entry<Integer, List<Integer>> node : graph.entrySet()) {
             int currentNode = node.getKey();
             for (Integer next : node.getValue()) {
                 int to = Math.min(next, currentNode);
                 int from = Math.max(next, currentNode);
-                edgeSet.add(new IntPair(to, from));
+                edgeSet.add(new IntIntMutablePair(to, from));
             }
         }
         return new ArrayList<>(edgeSet);
     }
 
-    public static @NonNull Map<Integer, List<Integer>> makeGraph(@NonNull List<IntPair> edgeList) {
+    public static @NonNull Map<Integer, List<Integer>> makeGraph(@NonNull List<IntIntPair> edgeList) {
         Map<Integer, List<Integer>> graph = new HashMap<>();
 
-        for (IntPair edge : edgeList) {
-            Integer u = edge.first();
-            Integer v = edge.second();
+        for (IntIntPair edge : edgeList) {
+            Integer u = edge.firstInt();
+            Integer v = edge.secondInt();
             graph.computeIfAbsent(u, k -> new ArrayList<>()).add(v);
             graph.computeIfAbsent(v, k -> new ArrayList<>()).add(u);
         }
