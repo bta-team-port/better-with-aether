@@ -22,12 +22,12 @@ import org.jspecify.annotations.Nullable;
 import sunsetsatellite.catalyst.core.util.vector.Vec2f;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.entity.boss.AetherBossList;
+import teamport.aether.entity.boss.MobBoss;
 import teamport.aether.entity.monster.fireminion.MobFireMinion;
 import teamport.aether.entity.player.MessageMaker;
 import teamport.aether.entity.projectile.ProjectileElementFire;
 import teamport.aether.entity.projectile.ProjectileElementIce;
 import teamport.aether.helper.ParticleMaker;
-import teamport.aether.helper.client.BossMusicClientHelper;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.feature.util.map.DungeonMap;
 import turniplabs.halplibe.helper.EnvironmentHelper;
@@ -155,16 +155,17 @@ public class MobBossSunspirit extends MobBossFlying {
 
     @Override
     public void tick() {
-        if (!this.world.getDifficulty().canHostileMobsSpawn() && this.isAgro) {
-            if (!EnvironmentHelper.isMultiplayerServer()) {
-                BossMusicClientHelper.stop();
+        if (!this.world.getDifficulty().canHostileMobsSpawn()) {
+            if (this.isAgro) {
+                if (!EnvironmentHelper.isMultiplayerServer()) {
+                    MobBoss.stop();
+                }
+                this.isAgro = false;
+                this.chatLog = 0;
+                this.returnToOriginalState();
+                this.evaporateMaterialWithEffect(Materials.FIRE);
             }
-            this.isAgro = false;
-            this.chatLog = 0;
-            this.returnToOriginalState();
-            this.evaporateMaterialWithEffect(Materials.FIRE);
         }
-
         super.tick();
         this.syncAggroState();
         this.evaporateMaterialWithEffect(Materials.WATER);
@@ -278,7 +279,7 @@ public class MobBossSunspirit extends MobBossFlying {
                 DungeonMap.runWithDungeon(dungeonID, d -> d.lock(this.world));
 
                 if (!EnvironmentHelper.isMultiplayerServer()) {
-                    BossMusicClientHelper.play("aether:aether_music_boss.fireboss", this.x, this.y, this.z);
+                    MobBoss.play("aether:aether_music_boss.fireboss", this.x, this.y, this.z);
                 }
 
                 return true;
@@ -320,7 +321,7 @@ public class MobBossSunspirit extends MobBossFlying {
         this.world.playSoundAtEntity(null, this, "aether:achievement.gold", 0.5f, 1.0f);
 
         if (!EnvironmentHelper.isMultiplayerServer()) {
-            BossMusicClientHelper.stop();
+            MobBoss.stop();
         }
 
         super.onDeath(entityKilledBy);
@@ -439,7 +440,7 @@ public class MobBossSunspirit extends MobBossFlying {
             DungeonMap.runWithDungeon(dungeonID, d -> d.lock(this.world));
 
             if (!EnvironmentHelper.isMultiplayerServer()) {
-                BossMusicClientHelper.play("aether:aether_music_boss.fireboss", this.x, this.y, this.z);
+                MobBoss.play("aether:aether_music_boss.fireboss", this.x, this.y, this.z);
             }
         }
 

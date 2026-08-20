@@ -1,4 +1,4 @@
-package teamport.aether.helper.unboxed;
+package teamport.aether.helper;
 
 import org.jspecify.annotations.NonNull;
 

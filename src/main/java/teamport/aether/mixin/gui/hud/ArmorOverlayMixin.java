@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.ducks.IContainerInventoryAether;
-import teamport.aether.helper.ClientRenderHelper;
+import teamport.aether.helper.MixinHelper;
 import teamport.aether.item.AetherItems;
 
 @Environment(EnvType.CLIENT)
@@ -86,7 +86,7 @@ public abstract class ArmorOverlayMixin extends Gui {
                 (trinketTwoSlotItem != null && trinketTwoSlotItem.itemID == AetherItems.ARMOR_SHIELD_REPULSION.id)) &&
             (this.mc.thePlayer.isSneaking() ||
                 (this.mc.thePlayer.onGround && velocity < 0.075D))) {
-            ClientRenderHelper.renderShieldVignette(mc.textureManager, width, height);
+            MixinHelper.renderShieldVignette(mc.textureManager, width, height);
         }
     }
 }

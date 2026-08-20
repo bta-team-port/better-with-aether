@@ -2,6 +2,8 @@ package teamport.aether.world;
 
 import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.ListTag;
+import it.unimi.dsi.fastutil.ints.IntIntMutablePair;
+import it.unimi.dsi.fastutil.ints.IntIntPair;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
@@ -18,7 +20,6 @@ import teamport.aether.block.AetherBlocks;
 import teamport.aether.compat.AetherPlugin;
 import teamport.aether.entity.AetherMobFallingToOverworld;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
-import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.net.message.SunspiritDeathNetworkMessage;
 import teamport.aether.world.biome.AetherBiomes;
 import teamport.aether.world.chunk.BiomeProviderAether;
@@ -164,13 +165,13 @@ public class AetherDimension {
         HAS_RECEIVED_PARACHUTE_MAP.put(uuid, true);
     }
 
-    private static final Map<IntPair, List<CompoundTag>> ENTITIES_MOVED_TO_OVERWORLD = new HashMap<>();
+    private static final Map<IntIntPair, List<CompoundTag>> ENTITIES_MOVED_TO_OVERWORLD = new HashMap<>();
 
     public static synchronized void addEntityToFallen(Entity target) {
         if (AetherMod.LOGGER.isInfoEnabled())
             AetherMod.LOGGER.debug("Sending {} to overworld", Entity.getNameFromEntity(target, true));
 
-        IntPair chunk = new IntPair(
+        IntIntPair chunk = new IntIntMutablePair(
             ((int) target.x) / 16,
             ((int) target.z) / 16
         );
@@ -184,9 +185,9 @@ public class AetherDimension {
     }
 
     public static synchronized void loadEntitiesNearPlayer(Player player, World world) {
-        List<IntPair> toRemove = new ArrayList<>();
-        for (IntPair pos : ENTITIES_MOVED_TO_OVERWORLD.keySet()) {
-            if (player.distanceTo(pos.first() * 16.0, player.y, pos.second() * 16.0) < 100) {
+        List<IntIntPair> toRemove = new ArrayList<>();
+        for (IntIntPair pos : ENTITIES_MOVED_TO_OVERWORLD.keySet()) {
+            if (player.distanceTo(pos.firstInt() * 16.0, player.y, pos.secondInt() * 16.0) < 100) {
                 List<CompoundTag> entities = ENTITIES_MOVED_TO_OVERWORLD.computeIfAbsent(pos, intPair -> new ArrayList<>());
 
                 while (!entities.isEmpty()) {
@@ -229,7 +230,7 @@ public class AetherDimension {
 
         entitiesMoved.forEach(tag -> {
             ListTag entities = ((CompoundTag) tag).getList("entities");
-            IntPair chunk = new IntPair(
+            IntIntPair chunk = new IntIntMutablePair(
                 ((CompoundTag) tag).getInteger("x"),
                 ((CompoundTag) tag).getInteger("z")
             );
@@ -242,7 +243,7 @@ public class AetherDimension {
 
     public static void saveWorldData(CompoundTag aetherWorldData) {
         ListTag entitiesToMoveMap = new ListTag();
-        for (Map.Entry<IntPair, List<CompoundTag>> entry : ENTITIES_MOVED_TO_OVERWORLD.entrySet()) {
+        for (Map.Entry<IntIntPair, List<CompoundTag>> entry : ENTITIES_MOVED_TO_OVERWORLD.entrySet()) {
             CompoundTag entryCompound = new CompoundTag();
 
             ListTag entities = new ListTag();
@@ -250,10 +251,10 @@ public class AetherDimension {
                 entities.addTag(entity);
             }
 
-            IntPair chunkPos = entry.getKey();
+            IntIntPair chunkPos = entry.getKey();
 
-            entryCompound.putInt("x", chunkPos.first());
-            entryCompound.putInt("z", chunkPos.second());
+            entryCompound.putInt("x", chunkPos.firstInt());
+            entryCompound.putInt("z", chunkPos.secondInt());
 
             entryCompound.put("entities", entities);
             entitiesToMoveMap.addTag(entryCompound);
