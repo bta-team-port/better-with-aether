@@ -46,7 +46,7 @@ public class ItemToolAxeGravitite extends ItemToolAxeAether implements AetherHas
         TileEntity tileEntity = world.getTileEntity(blockPos);
         int metadata = world.getBlockData(blockPos);
         world.removeTileEntity(blockPos);
-        world.setBlockType(blockPos, Blocks.AIR);
+        world.setBlockTypeNotify(blockPos, Blocks.AIR);
         EntityFloatingBlock entityFloatingBlock = new EntityFloatingBlock(world, (double) blockPos.x() + 0.5F, (double) blockPos.y() + 0.5F, (double) blockPos.z() + 0.5F, block.id(), metadata, tileEntity);
         entityFloatingBlock.setHasRemovedBlock(true);
         world.entityJoinedWorld(entityFloatingBlock);

@@ -25,20 +25,30 @@ import teamport.aether.item.AetherItems;
 import teamport.aether.item.ItemBucketSkyrootEmpty;
 
 public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDeathMessage {
+    private static final int DATA_HAS_TARGET = 16;
+
     private int attackCooldown;
     private int smokeTime;
     private boolean hasTarget;
     private float sinage;
+    private float sinageO;
 
     public MobAechorPlant(World world1) {
         super(world1);
         this.setTextureIdentifier("aether", "aechorplant");
         this.sinage = this.random.nextFloat() * 6.0F;
+        this.sinageO = this.sinage;
         this.smokeTime = this.attackCooldown = 0;
         this.hasTarget = false;
         this.setSize(0.9F, 0.9F);
         this.scoreValue = 200;
         this.mobDrops.add(new WeightedRandomLootObject(AetherItems.PETAL_AECHOR.getDefaultStack(), 1, 4));
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_HAS_TARGET, (byte) 0, Byte.class);
     }
 
     @Override
@@ -151,16 +161,21 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         ++this.entityAge;
         this.tryToDespawn();
 
+        this.sinageO = this.sinage;
+
+        if (!this.world.isClientSide) {
+            this.hasTarget = this.target != null;
+            this.entityData.set(DATA_HAS_TARGET, (byte) (this.hasTarget ? 1 : 0));
+        } else {
+            this.hasTarget = this.entityData.getByte(DATA_HAS_TARGET) != 0;
+        }
+
         if (this.hurtTime > 0) {
             this.sinage += 0.9F;
         } else if (this.hasTarget) {
             this.sinage += 0.3F;
         } else {
             this.sinage += 0.1F;
-        }
-
-        if (this.sinage > 6.283186F) {
-            this.sinage -= 6.283186F;
         }
 
         if (this.target == null) {
@@ -193,8 +208,6 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
                 }
             }
         }
-
-        this.hasTarget = this.target != null;
 
         this.xd = 0.0D;
         this.yd = 0.0D;
@@ -295,5 +308,9 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
 
     public float getSinage() {
         return sinage;
+    }
+
+    public float getSinageO() {
+        return sinageO;
     }
 }

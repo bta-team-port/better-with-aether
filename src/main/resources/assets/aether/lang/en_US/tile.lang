@@ -13,10 +13,10 @@ tile.tallgrass.aether.name=Tall Aether Grass
 tile.tallgrass.aether.desc=Cold, sprouting aether grass.
 tile.deadbush.aether.name=Dead Aether Bush
 tile.deadbush.aether.desc=A wilted and faded plant.
-tile.flower.white.name=Argyony
-tile.flower.white.desc=A majestic white flower.
-tile.flower.purple.name=Porlea
-tile.flower.purple.desc=A gorgeous purple flower.
+tile.flower.aether.white.name=Argyony
+tile.flower.aether.white.desc=A majestic white flower.
+tile.flower.aether.purple.name=Porlea
+tile.flower.aether.purple.desc=A gorgeous purple flower.
 tile.quicksoil.name=Quicksoil
 tile.quicksoil.desc=Yellow soil that speeds up anything on it.
 

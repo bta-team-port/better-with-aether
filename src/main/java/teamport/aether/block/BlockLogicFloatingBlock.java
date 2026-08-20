@@ -14,7 +14,7 @@ import teamport.aether.entity.floating_block.EntityFloatingBlock;
 import java.util.Random;
 
 public class BlockLogicFloatingBlock extends BlockLogic {
-    public static boolean fallInstantly = false;
+    public static boolean floatInstantly = false;
 
     public BlockLogicFloatingBlock(@NonNull Block<?> block, @NonNull Material material) {
         super(block, material);
@@ -41,16 +41,17 @@ public class BlockLogicFloatingBlock extends BlockLogic {
 
         if (canFloatAbove(world, tilePos.up(queryPos)) && tilePos.y() < maxHeight) {
             byte radius = 32;
-            if (!fallInstantly && world.areBlocksLoaded(tilePos.add(-radius, -radius, -radius, new TilePos()), tilePos.add(radius, radius, radius, new TilePos()))) {
-                EntityFloatingBlock entityFloatingBlock = new EntityFloatingBlock(world, (double)tilePos.x() + 0.5D, (double)tilePos.y() + 0.5D, (double)tilePos.z() + 0.5D, this.block.id(), 0, null);
+            if (!floatInstantly && world.areBlocksLoaded(tilePos.add(-radius, -radius, -radius, new TilePos()), tilePos.add(radius, radius, radius, new TilePos()))) {
+                EntityFloatingBlock entityFloatingBlock = new EntityFloatingBlock(world, (double) tilePos.x() + 0.5D, (double) tilePos.y() + 0.5D, (double) tilePos.z() + 0.5D, this.block.id(), 0, null);
+                entityFloatingBlock.setHasRemovedBlock(true);
                 world.entityJoinedWorld(entityFloatingBlock);
                 world.setBlockTypeNotify(tilePos, Blocks.AIR);
             } else {
                 world.setBlockTypeNotify(tilePos, Blocks.AIR);
                 TilePos check = tilePos.up(new TilePos());
 
-                while(canFloatAbove(world, check) && check.y < maxHeight) {
-                    check.up(new TilePos());
+                while (canFloatAbove(world, check) && check.y < maxHeight) {
+                    check.down();
                 }
 
                 if (check.y() < maxHeight) {

@@ -312,14 +312,21 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     private void setUpFeatherOnHelmet() {
         StaticEntityModel modelFeather = this.getModel("aether.accessory.feather");
         modelFeather.getTransform("head").visible = true;
-        modelFeather.getTransform("leftLeg").visible = false;
+        modelFeather.getTransform("chest").visible = false;
+        modelFeather.getTransform("rightArm").visible = false;
+        modelFeather.getTransform("leftArm").visible = false;
         modelFeather.getTransform("rightLeg").visible = false;
+        modelFeather.getTransform("leftLeg").visible = false;
     }
 
     @Unique
     private void setUpFeathersOnBoots() {
         StaticEntityModel modelFeather = this.getModel("aether.accessory.feather");
         modelFeather.getTransform("head").visible = false;
+        modelFeather.getTransform("chest").visible = false;
+        modelFeather.getTransform("rightArm").visible = false;
+        modelFeather.getTransform("leftArm").visible = false;
+        modelFeather.getTransform("rightLeg").visible = false;
         modelFeather.getTransform("leftLeg").visible = true;
         modelFeather.getTransform("rightLeg").visible = true;
     }
