@@ -21,7 +21,6 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
 import org.lwjgl.opengl.GL11;
@@ -142,8 +141,8 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
         StaticEntityModel model,
         float partialTick, int layer,
         Operation<StaticEntityModel> original
-    ){
-        if(layer == 0 && PlayerUtil.isInvisible(player)){
+    ) {
+        if (layer == 0 && PlayerUtil.isInvisible(player)) {
             return null;
         }
         return original.call(mobRendererPlayer, player, model, partialTick, layer);
@@ -163,10 +162,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
         if (layer <= 4) {
             return original.call(entity, brightness, partialTick, layer);
         }
-        if(PlayerUtil.isInvisible(entity)){
-            GLRenderer.enableState(State.BLEND);
-            GLRenderer.setColor4f(1.0F, 1.0F, 1.0F, 0.15F);
-        }
+        MixinHelper.setUpInvisibility(entity);
         int slot = layer - 1;
         ItemStack armorStack = this.getAccessory(entity, slot);
         if (armorStack == null
@@ -261,7 +257,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     private @Nullable StaticEntityModel setUpGoldenFeather(Player entity, float partialTick, int layer, int slot) {
         StaticEntityModel modelFeather = this.setupAccessoryModel("aether.accessory.feather", entity, partialTick, layer);
         StaticEntityModel modelFeatherPos = this.getModel("aether.accessory.feather");
-        if(modelFeather == null || modelFeatherPos == null){
+        if (modelFeather == null || modelFeatherPos == null) {
             return null;
         }
         StringBuilder path = new StringBuilder("/assets/aether/textures/armor/trinkets/");
@@ -348,7 +344,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
 
     @Unique
     private void setVisible(StaticEntityModel model, boolean head, boolean chest, boolean arms, boolean rightLeg, boolean leftLeg) {
-        if(model == null){
+        if (model == null) {
             return;
         }
         model.getTransform("head").visible = head;

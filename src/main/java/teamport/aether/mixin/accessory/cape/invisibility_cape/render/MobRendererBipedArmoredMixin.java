@@ -4,8 +4,6 @@ package teamport.aether.mixin.accessory.cape.invisibility_cape.render;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.render.entity.MobRendererBipedArmored;
-import net.minecraft.client.render.renderer.GLRenderer;
-import net.minecraft.client.render.renderer.State;
 import net.minecraft.core.entity.IArmorWearing;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.enums.HumanArmorShape;
@@ -14,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
-import teamport.aether.entity.player.PlayerUtil;
+import teamport.aether.helper.MixinHelper;
 
 @Mixin(MobRendererBipedArmored.class)
 public class MobRendererBipedArmoredMixin<T extends Mob & IArmorWearing<HumanArmorShape>> {
@@ -27,10 +25,7 @@ public class MobRendererBipedArmoredMixin<T extends Mob & IArmorWearing<HumanArm
         float partialTick, int layer,
         Operation<StaticEntityModel> original
     ){
-        if(PlayerUtil.isInvisible(entity)){
-            GLRenderer.enableState(State.BLEND);
-            GLRenderer.setColor4f(1.0F, 1.0F, 1.0F, 0.15F);
-        }
+        MixinHelper.setUpInvisibility(entity);
         return original.call(instance, entity, model, partialTick, layer);
     }
 
