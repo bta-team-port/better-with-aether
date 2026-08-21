@@ -45,6 +45,19 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
     }
 
     @Override
+    public boolean isPushable() {
+        return false;
+    }
+
+    @Override
+    public void push(@NonNull Entity entity) {
+    }
+
+    @Override
+    public void push(double x, double y, double z) {
+    }
+
+    @Override
     public void setTrophy(@Nullable ItemStack itemStack) {
         trophy = itemStack;
     }

@@ -39,6 +39,7 @@ import static teamport.aether.AetherMod.TRANSLATOR;
 public class MobBossValkyrie extends MobBoss implements IItemHolding {
     private static final int DATA_READY_TO_DUEL = 17;
     private static final int DATA_AGGRO = 18;
+    protected static final int FLAG_LEFT_HANDED = 5;
     private boolean isSwinging;
     private boolean isReadyToDuel;
     private boolean isAgro;
@@ -87,11 +88,6 @@ public class MobBossValkyrie extends MobBoss implements IItemHolding {
     @Override
     public void jump() {
         this.yd = 0.72;
-    }
-
-    @Override
-    public boolean collidesWith(Entity entity) {
-        return this.isAgro;
     }
 
     @Override
@@ -238,6 +234,7 @@ public class MobBossValkyrie extends MobBoss implements IItemHolding {
     @Override
     public void spawnInit() {
         this.teleportTimer = this.random.nextInt(125);
+        this.setSharedFlag(FLAG_LEFT_HANDED, this.random.nextInt(10) == 0);
     }
 
     @Override
@@ -265,8 +262,8 @@ public class MobBossValkyrie extends MobBoss implements IItemHolding {
 
         newTarget = currTargetIsBetter ? this.target : newTarget;
 
-        if (newTarget instanceof AetherBossList) {
-            ((AetherBossList) newTarget).aether$TryAddBossList(this);
+        if (newTarget instanceof AetherBossList aetherBossList) {
+            aetherBossList.aether$TryAddBossList(this);
         }
 
         return newTarget;
@@ -393,6 +390,7 @@ public class MobBossValkyrie extends MobBoss implements IItemHolding {
         tag.putShort("teleportTimer", (short) this.teleportTimer);
         tag.putBoolean("isReadyToDuel", this.isReadyToDuel);
         tag.putBoolean("isAgro", this.isAgro);
+        tag.putBoolean("LeftHanded", this.getSharedFlag(FLAG_LEFT_HANDED));
     }
 
     @Override
@@ -401,6 +399,7 @@ public class MobBossValkyrie extends MobBoss implements IItemHolding {
         this.teleportTimer = tag.getShort("teleportTimer");
         this.isReadyToDuel = tag.getBoolean("isReadyToDuel");
         this.isAgro = tag.getBoolean("isAgro");
+        this.setSharedFlag(FLAG_LEFT_HANDED, tag.getBoolean("LeftHanded"));
     }
 
     @Override
@@ -559,6 +558,7 @@ public class MobBossValkyrie extends MobBoss implements IItemHolding {
 
     @Override
     public boolean isLeftHanded() {
-        return false;
+        return this.getSharedFlag(FLAG_LEFT_HANDED);
     }
+
 }

@@ -10,12 +10,10 @@ import net.minecraft.core.entity.EntityLightning;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.net.command.TextFormatting;
 import net.minecraft.core.sound.SoundCategory;
-import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.LightIndexHelper;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.HitResult;
-import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import org.joml.Vector3d;
 import org.joml.Vector3dc;
@@ -73,7 +71,6 @@ public class MobBossSunspirit extends MobBossFlying {
     }
 
     private void syncAggroState() {
-        if (this.world == null) return;
         if (this.world.isClientSide) {
             this.isAgro = this.entityData.getInt(DATA_AGGRO) != 0;
         } else {
@@ -99,7 +96,7 @@ public class MobBossSunspirit extends MobBossFlying {
             if (target != null) {
                 this.lookAt(this.target, 20.0F, 20.0F);
                 this.attackEntity();
-            } else if (this.world != null && this.world.getClosestPlayerToEntity(this, AetherDimension.BOSS_DETECTION_RADIUS) == null) {
+            } else if (this.world.getClosestPlayerToEntity(this, AetherDimension.BOSS_DETECTION_RADIUS) == null) {
                 this.returnToOriginalState();
             }
         }
@@ -110,7 +107,7 @@ public class MobBossSunspirit extends MobBossFlying {
         int iy = (int) Math.floor(this.y - 1);
         int iz = (int) Math.floor(this.z);
         Block<?> block = this.world.getBlock(ix, iy, iz);
-        if (block == null || block.id() == 0) {
+        if (block.id() == Blocks.AIR.id()) {
             this.world.setBlockWithNotify(ix, iy, iz, Blocks.FIRE.id());
         }
     }
@@ -118,9 +115,6 @@ public class MobBossSunspirit extends MobBossFlying {
 
     @SuppressWarnings("java:S131")
     protected void moveSunspirit() {
-        if (this.world == null) {
-            return;
-        }
         double speed = DEFAULT_SPEED + MathHelper.lerp(0.0f, ADDED_MAX_SPEED, 1.0f - this.getHealth() / (double) this.getMaxHealth());
         Vector3d currentPos = new Vector3d(x, y, z);
         Vector3d nextPos = new Vector3d(
@@ -161,20 +155,16 @@ public class MobBossSunspirit extends MobBossFlying {
 
     @Override
     public void tick() {
-        if (this.world == null) {
-            return;
-        }
-        if (!this.world.getDifficulty().canHostileMobsSpawn()) {
-            if (this.isAgro) {
-                if (!EnvironmentHelper.isMultiplayerServer()) {
-                    BossMusicClientHelper.stop();
-                }
-                this.isAgro = false;
-                this.chatLog = 0;
-                this.returnToOriginalState();
-                this.evaporateMaterialWithEffect(Materials.FIRE);
+        if (!this.world.getDifficulty().canHostileMobsSpawn() && this.isAgro) {
+            if (!EnvironmentHelper.isMultiplayerServer()) {
+                BossMusicClientHelper.stop();
             }
+            this.isAgro = false;
+            this.chatLog = 0;
+            this.returnToOriginalState();
+            this.evaporateMaterialWithEffect(Materials.FIRE);
         }
+
         super.tick();
         this.syncAggroState();
         this.evaporateMaterialWithEffect(Materials.WATER);
@@ -236,7 +226,7 @@ public class MobBossSunspirit extends MobBossFlying {
 
                 for (int i = 0; i < 9; ++i) {
                     int y = (int) (this.yo - 2 + i);
-                    if (this.world != null && this.world.getBlockMaterial(x, y, z) == material) {
+                    if (this.world.getBlockMaterial(x, y, z) == material) {
                         this.world.setBlockWithNotify(x, y, z, 0);
                         this.world.playSoundEffect(this, SoundCategory.ENTITY_SOUNDS, x + 0.5, y + 0.5, z + 0.5F, "random.fizz", 0.125F, 2.6F + (this.random.nextFloat() - this.random.nextFloat()) * 0.8F);
                         for (int l = 0; l < 8; ++l) {
@@ -254,12 +244,12 @@ public class MobBossSunspirit extends MobBossFlying {
     }
 
     public boolean chatWithMe(Player player) {
-        if (this.world == null || isAgro && target != null) {
+        if (isAgro && target != null) {
             return false;
         }
 
         if (this.chatCooldown <= 0) {
-            if(!this.world.getDifficulty().canHostileMobsSpawn()){
+            if (!this.world.getDifficulty().canHostileMobsSpawn()) {
                 MessageMaker.sendMessage(player, ORANGE + TRANSLATOR.translateKey("boss_sunspirit.peaceful_" + this.random.nextInt(4)));
                 this.world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 1.0f);
                 this.chatCooldown = 40;
@@ -314,7 +304,6 @@ public class MobBossSunspirit extends MobBossFlying {
 
     @Override
     public void onDeath(Entity entityKilledBy) {
-        if (this.world == null) return;
         DungeonMap.runWithDungeon(dungeonID, d -> d.unlock(world));
 
         if (!this.world.isClientSide && world.dimension == AetherDimension.getAether()) {
@@ -343,7 +332,6 @@ public class MobBossSunspirit extends MobBossFlying {
     }
 
     public Entity findPlayerToAttack() {
-        if (this.world == null) return null;
         Player player = this.world.getClosestPlayerToEntity(this, 32.0);
         if (player != null && canEntityBeSeen(player) && player.gamemode.hasHostileMobs()) {
             ((AetherBossList) player).aether$TryAddBossList(this);
@@ -354,7 +342,7 @@ public class MobBossSunspirit extends MobBossFlying {
 
     @Override
     public boolean canFight() {
-        boolean active = this.world != null && this.world.isClientSide
+        boolean active = this.world.isClientSide
             ? this.entityData.getInt(DATA_AGGRO) != 0
             : this.isAgro;
         return isAlive() && active;
@@ -378,7 +366,7 @@ public class MobBossSunspirit extends MobBossFlying {
         float fireballSpeed = 0.5f + (1.0f - healthPercentage) * 0.5f;
         float iceballSpeed = 0.1f + (1.0f - healthPercentage) * 0.2f;
 
-        if (this.attackTime != 0 || this.world == null) {
+        if (this.attackTime != 0) {
             return;
         }
         if (!this.world.isClientSide) {
@@ -428,7 +416,7 @@ public class MobBossSunspirit extends MobBossFlying {
         if (attacker == null && type == null && damage == 100) {
             return killCommand();
         }
-        if(!this.world.getDifficulty().canHostileMobsSpawn()){
+        if (!this.world.getDifficulty().canHostileMobsSpawn()) {
             return false;
         }
         if (attacker instanceof ProjectileElementIce) {
@@ -466,7 +454,7 @@ public class MobBossSunspirit extends MobBossFlying {
     }
 
     private void spawnMinions() {
-        if (this.getHealth() <= 0 || this.world == null) {
+        if (this.getHealth() <= 0) {
             return;
         }
         if (this.getHealth() <= (this.getMaxHealth() / 2)) {
@@ -490,8 +478,8 @@ public class MobBossSunspirit extends MobBossFlying {
     }
 
     private void triggerAchievement() {
-        if (target instanceof Player) {
-            ((Player) target).triggerAchievement(AetherAchievements.ICE_DEFLECT);
+        if (target instanceof Player player) {
+            player.triggerAchievement(AetherAchievements.ICE_DEFLECT);
         }
     }
 
@@ -518,7 +506,7 @@ public class MobBossSunspirit extends MobBossFlying {
     }
 
     @Override
-    public String getEntityTexture() {
+    public @NonNull String getEntityTexture() {
         if (this.hurtTime > 0) {
             return "/assets/aether/textures/entity/boss_sunspirit/sunspirit_hurt.png";
         }

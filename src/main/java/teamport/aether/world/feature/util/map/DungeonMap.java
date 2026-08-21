@@ -29,7 +29,8 @@ import static teamport.aether.world.feature.util.WorldFeaturePoint.wfpoint;
 public class DungeonMap {
     protected static final HashMap<Integer, DungeonLogic> DUNGEON_MAP = new HashMap<>();
 
-    protected DungeonMap() {}
+    protected DungeonMap() {
+    }
 
     private static final HashMap<String, Class<? extends DungeonLogic>> KEY_TYPE_MAP = new HashMap<>();
     private static final HashMap<Class<? extends DungeonLogic>, String> TYPE_KEY_MAP = new HashMap<>();
@@ -81,7 +82,7 @@ public class DungeonMap {
             dungeons.addTag(dungeonData);
         });
 
-        data.put(AetherMod.MOD_ID+".dungeon", dungeons);
+        data.put(AetherMod.MOD_ID + ".dungeon", dungeons);
         return data;
     }
 
@@ -92,7 +93,7 @@ public class DungeonMap {
     public static void load(@NonNull CompoundTag data) {
         DUNGEON_MAP.clear();
 
-        Tag<?> dungeons = data.getTagOrDefault(AetherMod.MOD_ID+".dungeon", null);
+        Tag<?> dungeons = data.getTagOrDefault(AetherMod.MOD_ID + ".dungeon", null);
 
         if (dungeons instanceof ListTag listTag) {
             listTag.forEach(tag -> {
@@ -124,9 +125,7 @@ public class DungeonMap {
             dungeonEntry = KEY_TYPE_MAP.get(type)
                 .getConstructor(int.class, int.class, long.class)
                 .newInstance(dimensionID, id, seed);
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             AetherMod.LOGGER.error("Failed to load dungeon {} from map!", id);
             AetherMod.LOGGER.error("This world might be outdated or corrupted!");
             AetherMod.LOGGER.error(String.valueOf(e));
@@ -177,7 +176,7 @@ public class DungeonMap {
     public static void updateListCache(@NonNull ListTag dungeons) {
         entryListCache.clear();
 
-        dungeons.forEach( tag -> {
+        dungeons.forEach(tag -> {
             DungeonLogic dungeon = loadDungeonFromNBT((CompoundTag) tag);
             if (dungeon != null) entryListCache.add(dungeon);
         });
@@ -210,13 +209,15 @@ public class DungeonMap {
             DUNGEON_MAP.remove(id);
         }
 
+        List<DungeonLogic> currentDungeons = new ArrayList<>(DUNGEON_MAP.values());
+
         for (Player player : world.players) {
-            for (DungeonLogic dungeonLogic : DUNGEON_MAP.values()) {
+            for (DungeonLogic dungeonLogic : currentDungeons) {
                 if (
                     dungeonLogic != null
-                    && dungeonLogic.getDimensionID() == world.dimension.id
-                    && !dungeonLogic.isGenerated()
-                    && chunkWithinRadius(
+                        && dungeonLogic.getDimensionID() == world.dimension.id
+                        && !dungeonLogic.isGenerated()
+                        && chunkWithinRadius(
                         player,
                         Math.floorDiv(dungeonLogic.position.getX(), Chunk.CHUNK_SIZE_X),
                         Math.floorDiv(dungeonLogic.position.getZ(), Chunk.CHUNK_SIZE_Z)
@@ -227,7 +228,7 @@ public class DungeonMap {
             }
         }
 
-        for (DungeonLogic logic : DUNGEON_MAP.values()) {
+        for (DungeonLogic logic : new ArrayList<>(DUNGEON_MAP.values())) {
             if (logic == null || logic.getDimensionID() != world.dimension.id) continue;
 
             logic.tick(world);
@@ -262,9 +263,7 @@ public class DungeonMap {
             dungeon = dungeonClass
                 .getConstructor(int.class, int.class, long.class)
                 .newInstance(world.dimension.id, id, seed);
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             AetherMod.LOGGER.error("Failed to register dungeon!");
             throw new RuntimeException(e);
         }
