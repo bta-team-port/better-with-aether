@@ -41,15 +41,15 @@ public class ChunkDecoratorSkyblockAether implements ChunkDecorator {
 
         if (rand.nextInt(24) == 0) {
             yPosition = rand.nextInt(32) + 224;
-            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_GOLD.id(), 4)).place(this.world, rand, xPosition, yPosition, zPosition);
+            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_GOLD.id(), 4, false)).place(this.world, rand, xPosition, yPosition, zPosition);
         }
         if (rand.nextInt(24) == 0) {
             yPosition = rand.nextInt(64) + 128;
-            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_BLUE.id(), 8)).place(this.world, rand, xPosition, yPosition, zPosition);
+            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_BLUE.id(), 8, false)).place(this.world, rand, xPosition, yPosition, zPosition);
         }
         if (rand.nextInt(12) == 0) {
             yPosition = rand.nextInt(256);
-            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), 16)).place(this.world, rand, xPosition, yPosition, zPosition);
+            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), 16, false)).place(this.world, rand, xPosition, yPosition, zPosition);
         }
 
 

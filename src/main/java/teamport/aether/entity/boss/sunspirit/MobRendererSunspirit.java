@@ -27,7 +27,7 @@ public class MobRendererSunspirit extends MobRendererBiped<MobBossSunspirit> {
     @Override
     protected void preRenderTransform(MobBossSunspirit sunspirit, double x, double y, double z, float yaw, float partialTick) {
         super.preRenderTransform(sunspirit, x, y, z, yaw, partialTick);
-        GLRenderer.modelM4f().scale(2.25F, 2.25F, 2.25F).translate(0.0F, -0.25F, 0.0F);
+        GLRenderer.modelM4f().scale(2.25F, 2.25F, 2.25F).translate(0.0F, -10.0F, 0.0F);
     }
 
     @Override
