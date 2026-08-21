@@ -108,7 +108,7 @@
     "player.PlayerMixinDevDrops"
   ],
   "client": [
-    "StaticEntityModelMojangMixin",
+    "client.DiscordRichPresenceMixin",
     "accessors.ScreenContainerAbstractAccessor",
     "accessory.MobRendererPlayerMixinAccessoryRender",
     "accessory.PacketHandlerClientMixinAccessoryEquipment",
@@ -140,6 +140,7 @@
     "entity.RenderSliderBoundingBoxMixin",
     "entity.ViewerCategoryEntityMixin",
     "fix.RenderGlobalMixin",
+    "fix.StaticEntityModelMojangMixin",
     "gui.AchievementScreenShadowMixin",
     "gui.GuidebookMixinInclude",
     "gui.MinecraftMixinAddNewAchievements",

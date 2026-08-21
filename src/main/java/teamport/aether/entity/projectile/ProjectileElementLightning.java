@@ -59,7 +59,7 @@ public class ProjectileElementLightning extends ProjectileElementBase implements
             ParticleMaker.spawnParticle(world, "lightning", this.x, this.y + 0.5, this.z, world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), world.rand.nextFloat() * 0.25F * -1, world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), 0);
         }
 
-        if (ticksInAir > 100) {
+        if (ticksInAir > 50) {
             remove();
             ParticleMaker.spawnParticle(this.world, "explode", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
             ParticleMaker.spawnParticle(this.world, "smoke", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);

@@ -18,7 +18,6 @@ import teamport.aether.block.terrain.BlockLogicOreAmbrosium;
 import teamport.aether.block.terrain.BlockLogicOreGravitite;
 import teamport.aether.block.terrain.BlockLogicOreZanite;
 import teamport.aether.noise.Worley;
-import teamport.aether.world.feature.dungeon.bronze.WorldFeatureAetherBronzeDungeon;
 import teamport.aether.world.feature.dungeon.gold.WorldFeatureAetherGoldDungeon;
 import teamport.aether.world.feature.dungeon.silver.WorldFeatureAetherSilverDungeon;
 import teamport.aether.world.feature.terrain.*;
@@ -205,7 +204,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         for (int x = 0; x < 16; ++x) {
             for (int z = 0; z < 16; ++z) {
                 double noise = MathHelper.clamp(
-                    Math.abs(FLOWER_DENSITY_NOISE_BUFFER[z + x * 16]) / 16.0,
+                    Math.abs(FLOWER_DENSITY_NOISE_BUFFER[z + x * 8]) / 16.0,
                     0.0, 1.0
                 );
 
@@ -218,14 +217,9 @@ public class ChunkDecoratorAether implements ChunkDecorator {
                     -clumpRadius, clumpRadius
                 ) / clumpRadius;
 
-                double flowerDensityFloat;
-                if (Math.abs(influence) < 1e-5) {
-                    flowerDensityFloat = 0.0;
-                } else {
-                    flowerDensityFloat = noise / influence;
-                }
-
-                int flowerDensity = (int) (MathHelper.clamp(flowerDensityFloat, 0.0, 1.0) * 16) - 8;
+                double flowerDensityFloat = ((noise * -1) / influence) * -1;
+                int flowerDensity = (int) (MathHelper.clamp(flowerDensityFloat, 0, 1) * 16);
+                flowerDensity -= 8;
 
                 int blockY = chunk.getHeightValue(x, z);
                 if (blockY <= minY + 1 || blockY >= maxY) continue;
@@ -476,7 +470,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             }
 
             int dungeonY = Math.max(0, (maxDepthStart + maxDepth / 2) - (int) (5.0F / 256.0F * rangeY));
-            new WorldFeatureAetherBronzeDungeon().place(this.world, rand, dungeonX, dungeonY, dungeonZ);
+//            new WorldFeatureAetherBronzeDungeon().place(this.world, rand, dungeonX, dungeonY, dungeonZ);
         }
     }
 }

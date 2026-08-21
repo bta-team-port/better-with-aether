@@ -27,6 +27,7 @@ import turniplabs.halplibe.helper.EnvironmentHelper;
 
 public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMessage, IItemHolding {
     private static final int ATTACK_STRENGTH = 7;
+    protected static final int FLAG_LEFT_HANDED = 5;
     private boolean isSwinging;
     private int teleportTimer;
     private int chatTime;
@@ -256,12 +257,14 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
     public void addAdditionalSaveData(@NonNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putShort("teleportTimer", (short) this.teleportTimer);
+        tag.putBoolean("LeftHanded", this.getSharedFlag(FLAG_LEFT_HANDED));
     }
 
     @Override
     public void readAdditionalSaveData(@NonNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.teleportTimer = tag.getShort("teleportTimer");
+        this.setSharedFlag(FLAG_LEFT_HANDED, tag.getBoolean("LeftHanded"));
     }
 
     @Override
@@ -368,7 +371,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
 
     @Override
     public boolean isLeftHanded() {
-        return false;
+        return this.getSharedFlag(FLAG_LEFT_HANDED);
     }
 
 }

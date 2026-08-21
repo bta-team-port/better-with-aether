@@ -17,7 +17,7 @@ public class MobRendererSunspirit extends MobRendererBiped<MobBossSunspirit> {
     }
 
     @Override
-    public void renderPreview(TessellatorGeneral tessellator, MobBossSunspirit sunspirit, double x, double y, double z, float yaw, float partialTick) {
+    public void renderPreview(@NonNull TessellatorGeneral tessellator, @NonNull MobBossSunspirit sunspirit, double x, double y, double z, float yaw, float partialTick) {
         GLRenderer.pushFrame();
         GLRenderer.modelM4f().scale(0.5F, 0.5F, 0.5F);
         super.renderPreview(tessellator, sunspirit, x, y + 1, z, yaw, partialTick);
@@ -25,7 +25,7 @@ public class MobRendererSunspirit extends MobRendererBiped<MobBossSunspirit> {
     }
 
     @Override
-    protected void preRenderTransform(MobBossSunspirit sunspirit, double x, double y, double z, float yaw, float partialTick) {
+    protected void preRenderTransform(@NonNull MobBossSunspirit sunspirit, double x, double y, double z, float yaw, float partialTick) {
         super.preRenderTransform(sunspirit, x, y, z, yaw, partialTick);
         GLRenderer.modelM4f().scale(2.25F, 2.25F, 2.25F).translate(0.0F, -10.0F, 0.0F);
     }
@@ -36,8 +36,7 @@ public class MobRendererSunspirit extends MobRendererBiped<MobBossSunspirit> {
     }
 
     @Override
-    protected @NonNull StaticEntityModel getAndSetupModelForLayer(@NonNull MobBossSunspirit entity,
-                                                                    float brightness, float partialTick, int layer) {
+    protected @NonNull StaticEntityModel getAndSetupModelForLayer(@NonNull MobBossSunspirit entity, float brightness, float partialTick, int layer) {
         StaticEntityModel model = this.getModel("main");
         model.resetBones();
 
