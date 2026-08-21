@@ -62,6 +62,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
     @Override
     public void spawnInit() {
         this.teleportTimer = this.random.nextInt(250);
+        this.setSharedFlag(FLAG_LEFT_HANDED, this.random.nextInt(10) == 0);
     }
 
     @Override
