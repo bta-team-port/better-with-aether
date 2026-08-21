@@ -10,6 +10,7 @@ import net.minecraft.core.world.generate.chunk.ChunkDecorator;
 import net.minecraft.core.world.generate.feature.WorldFeatureLake;
 import net.minecraft.core.world.noise.*;
 import net.minecraft.core.world.pos.TilePos;
+import net.minecraft.core.world.type.tag.WorldTypeTags;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
@@ -39,7 +40,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         this.world = world;
 
         this.flowerVeinNoise = new FractalNoise3D<>(ImprovedPerlinNoise.genOctaves(world.getRandomSeed(), 4, 44));
-        this.flowerDensityNoise = new FractalNoise3D<>(ImprovedPerlinNoise.genOctaves(world.getRandomSeed(), 4, 44));
+        this.flowerDensityNoise = new FractalNoise3D<>(ImprovedPerlinNoise.genOctaves(world.getRandomSeed() * 31 ^ 13, 4, 44));
 
         this.cloudNoise = new FractalNoise2D<>(SimplexNoise.genOctaves(world.getRandomSeed(), 4));
         this.cloudNoise2 = new FractalNoise3D<>(ImprovedPerlinNoise.genOctaves(world.getRandomSeed() * 31 ^ 7, 4, 44));
@@ -72,7 +73,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             decorateWithFlatClouds(chunk);
         }
 
-//        decorateWithDungeons(chunk, rand, minY, maxY);
+        decorateWithDungeons(chunk, rand, minY, maxY);
 
         decorateWithFlowers(chunk, rand);
         decorateWithQuickSoil(rand, worldX, worldZ, minY, maxY);
@@ -84,17 +85,19 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         this.world.scheduledUpdatesAreImmediate = false;
     }
 
-    private static final double[] CLOUD_NOISE_BUFFER = new double[16 * 16];
-    private static final double[] CLOUD_NOISE_2_BUFFER = new double[16 * 16];
-    private static final double[] CLOUD_NOISE_TOP_BUFFER = new double[16 * 16];
-    private static final double[] CLOUD_NOISE_TOP_2_BUFFER = new double[16 * 16];
+    private final double[] CLOUD_NOISE_BUFFER = new double[16 * 16];
+    private final double[] CLOUD_NOISE_2_BUFFER = new double[16 * 16];
+    private final double[] CLOUD_NOISE_TOP_BUFFER = new double[16 * 16];
+    private final double[] CLOUD_NOISE_TOP_2_BUFFER = new double[16 * 16];
 
     public void decorateWithFlatClouds(@NonNull Chunk chunk) {
         double scale = 0.38;
+        double chunkX = chunk.pos.x * 16.0;
+        double chunkZ = chunk.pos.z * 16.0;
 
         this.cloudNoise.getRegion(
             CLOUD_NOISE_BUFFER,
-            chunk.pos.x * 16.0, chunk.pos.z * 16.0,
+            chunkX, chunkZ,
             16, 16,
             scale * 0.627,
             scale * 2
@@ -102,7 +105,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
 
         this.cloudNoise2.getRegion(
             CLOUD_NOISE_2_BUFFER,
-            chunk.pos.x * 16.0, chunk.pos.z * 16.0 - 32.0,
+            chunkX, chunkZ - 32.0,
             0.0,
             16, 16, 1,
             scale * 0.627,
@@ -112,7 +115,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
 
         this.cloudNoise.getRegion(
             CLOUD_NOISE_TOP_BUFFER,
-            chunk.pos.x * 16.0 + 32.0, chunk.pos.z * 16.0 + 32.0,
+            chunkX + 32.0, chunkZ + 32.0,
             16, 16,
             scale * 0.627,
             scale * 2
@@ -120,7 +123,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
 
         this.cloudNoise2.getRegion(
             CLOUD_NOISE_TOP_2_BUFFER,
-            chunk.pos.x * 16.0 + 48.0, chunk.pos.z * 16.0 + 32.0,
+            chunkX + 48.0, chunkZ + 32.0,
             0.0,
             16, 16, 1,
             scale * 0.627,
@@ -130,28 +133,32 @@ public class ChunkDecoratorAether implements ChunkDecorator {
 
         for (int x = 0; x < 16; ++x) {
             for (int z = 0; z < 16; ++z) {
+                int index = z + x * 16;
+
                 int cloudDensity = (int) Math.min(
-                    Math.abs(CLOUD_NOISE_2_BUFFER[z + x * 16] + CLOUD_NOISE_BUFFER[z + x * 16]) * 6 - 32, 2
+                    Math.abs(CLOUD_NOISE_2_BUFFER[index] + CLOUD_NOISE_BUFFER[index]) * 6 - 32, 2
                 );
 
                 for (int y = 0; y < cloudDensity; y++) {
-                    if (chunk.getBlockID(x, 24 + y, z) != 0) continue;
-                    chunk.setBlockID(x, 24 + y, z, AetherBlocks.AERCLOUD_WHITE.id());
+                    if (chunk.getBlockID(x, 24 + y, z) == Blocks.AIR.id()) {
+                        chunk.setBlockID(x, 24 + y, z, AetherBlocks.AERCLOUD_WHITE.id());
+                    }
                 }
 
                 int cloudDensity2 = (int) Math.min(
-                    Math.abs(CLOUD_NOISE_TOP_2_BUFFER[z + x * 16] + CLOUD_NOISE_TOP_BUFFER[z + x * 16]) * 6 - 40, 1
+                    Math.abs(CLOUD_NOISE_TOP_2_BUFFER[index] + CLOUD_NOISE_TOP_BUFFER[index]) * 6 - 40, 1
                 );
 
                 for (int y = 0; y < cloudDensity2; y++) {
-                    if (chunk.getBlockID(x, 14 + y, z) != 0) continue;
-                    chunk.setBlockID(x, 14 + y, z, AetherBlocks.AERCLOUD_WHITE.id());
+                    if (chunk.getBlockID(x, 14 + y, z) == Blocks.AIR.id()) {
+                        chunk.setBlockID(x, 14 + y, z, AetherBlocks.AERCLOUD_WHITE.id());
+                    }
                 }
             }
         }
     }
 
-    private static final int[] FLOWERS = new int[]{
+    public static final int[] FLOWERS = new int[]{
         AetherBlocks.FLOWER_WHITE.id(),
         AetherBlocks.FLOWER_PURPLE.id()
     };
@@ -160,16 +167,18 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         0, 32, 64, 96
     };
 
-    private static final double[] FLOWER_DENSITY_NOISE_BUFFER = new double[16 * 16];
-    private static final double[] FLOWER_VEIN_NOISE_BUFFER = new double[8 * 8];
+    private final double[] FLOWER_DENSITY_NOISE_BUFFER = new double[16 * 16];
+    private final double[] FLOWER_VEIN_NOISE_BUFFER = new double[8 * 8];
 
     public void decorateWithFlowers(@NonNull Chunk chunk, Random rand) {
         double beachScale = 0.03125;
+        int chunkX = chunk.pos.x * 16;
+        int chunkZ = chunk.pos.z * 16;
 
         this.flowerDensityNoise.getRegion(
             FLOWER_DENSITY_NOISE_BUFFER,
-            chunk.pos.x * 16.0,
-            chunk.pos.z * 16.0,
+            chunkX,
+            chunkZ,
             0.0,
             16, 16, 1,
             beachScale * 1.5,
@@ -179,8 +188,8 @@ public class ChunkDecoratorAether implements ChunkDecorator {
 
         this.flowerVeinNoise.getRegion(
             FLOWER_VEIN_NOISE_BUFFER,
-            chunk.pos.x * 16.0,
-            chunk.pos.z * 16.0,
+            chunkX,
+            chunkZ,
             0.0,
             8, 8, 1,
             beachScale * 0.627,
@@ -188,32 +197,38 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             beachScale * 0.627
         );
 
-        int flowerID;
-        int flowerMeta;
+        boolean isRetro = world.getWorldType().hasTag(WorldTypeTags.RETRO);
+        int minY = world.getWorldType().getMinY(world);
+        int maxY = world.getWorldType().getMaxY(world);
+        double clumpRadius = 64.0;
+
         for (int x = 0; x < 16; ++x) {
             for (int z = 0; z < 16; ++z) {
                 double noise = MathHelper.clamp(
-                    Math.abs(FLOWER_DENSITY_NOISE_BUFFER[z + x * 8]) / 16D,
-                    0, 1
+                    Math.abs(FLOWER_DENSITY_NOISE_BUFFER[z + x * 16]) / 16.0,
+                    0.0, 1.0
                 );
-
-                int clumpRadius = 8 * 8;
 
                 double influence = MathHelper.clamp(
                     Worley.sampleAt(
-                        chunk.pos.x * 16 + x, chunk.pos.z * 16 + z,
+                        chunkX + x, chunkZ + z,
                         16,
                         Worley.mix((int) (world.getRandomSeed() >>> 32), (int) (world.getRandomSeed() & 0xFFFFFFFFL), 0)
                     ),
                     -clumpRadius, clumpRadius
                 ) / clumpRadius;
 
-                double flowerDensityFloat = ((noise * -1) / influence) * -1;
-                int flowerDensity = (int) (MathHelper.clamp(flowerDensityFloat, 0, 1) * 16);
-                flowerDensity -= 8;
+                double flowerDensityFloat;
+                if (Math.abs(influence) < 1e-5) {
+                    flowerDensityFloat = 0.0;
+                } else {
+                    flowerDensityFloat = noise / influence;
+                }
+
+                int flowerDensity = (int) (MathHelper.clamp(flowerDensityFloat, 0.0, 1.0) * 16) - 8;
 
                 int blockY = chunk.getHeightValue(x, z);
-                if (blockY >= world.getWorldType().getMaxY(world)) continue;
+                if (blockY <= minY + 1 || blockY >= maxY) continue;
 
                 Block<?> blk = Blocks.getBlock(chunk.getBlockID(x, blockY - 1, z));
                 if (!blk.hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS)) continue;
@@ -223,7 +238,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
                         chunk.setBlockIDWithMetadataRaw(x, blockY, z, FLOWERS[rand.nextInt(FLOWERS.length)], META_ID[rand.nextInt(META_ID.length)]);
                     }
 
-                    if (world.getWorldType() != AetherWorldTypes.AETHER_RETRO && rand.nextInt(16) == 0) {
+                    if (!isRetro && rand.nextInt(16) == 0) {
                         chunk.setBlockID(x, blockY, z, AetherBlocks.TALLGRASS_AETHER.id());
                     }
 
@@ -231,19 +246,20 @@ public class ChunkDecoratorAether implements ChunkDecorator {
                 }
 
                 if (rand.nextInt(3 * (9 - flowerDensity)) == 0) {
+                    int flowerID;
+                    int flowerMeta;
+
                     if (rand.nextInt(2) == 0) {
                         flowerID = FLOWERS[(int) Math.abs(FLOWER_VEIN_NOISE_BUFFER[z / 2 + (x / 2) * 8] * 8) % FLOWERS.length];
                         flowerMeta = META_ID[rand.nextInt(META_ID.length)];
                     } else {
-                        if (world.getWorldType() != AetherWorldTypes.AETHER_RETRO) {
-                            flowerID = AetherBlocks.TALLGRASS_AETHER.id();
-                        } else {
-                            flowerID = 0;
-                        }
+                        flowerID = !isRetro ? AetherBlocks.TALLGRASS_AETHER.id() : 0;
                         flowerMeta = 0;
                     }
 
-                    chunk.setBlockIDWithMetadataRaw(x, blockY, z, flowerID, flowerMeta);
+                    if (flowerID != 0) {
+                        chunk.setBlockIDWithMetadataRaw(x, blockY, z, flowerID, flowerMeta);
+                    }
                 }
             }
         }
@@ -281,35 +297,38 @@ public class ChunkDecoratorAether implements ChunkDecorator {
     public static final WorldFeatureAetherTreeGoldenOak TREE_GOLDEN = new WorldFeatureAetherTreeGoldenOak();
     public static final WorldFeatureAetherTree TREE_SKYROOT = new WorldFeatureAetherTree(AetherBlocks.LEAVES_SKYROOT.id(), AetherBlocks.LOG_SKYROOT.id(), 4);
     public static final WorldFeatureAetherLiquid WATERFALL = new WorldFeatureAetherLiquid(Blocks.FLUID_WATER_FLOWING.id());
+    public static final WorldFeatureLake LAKE_WATER = new WorldFeatureLake(Blocks.FLUID_WATER_STILL.id());
 
-    public void decorateWithLakesAndTrees(@NonNull Random rand, int minY, int maxY, int x, int z) {
+    public void decorateWithLakesAndTrees(@NonNull Random rand, int minY, int maxY, int chunkX, int chunkZ) {
         int rangeY = maxY + 1 - minY;
 
-        int y;
-        x += rand.nextInt(12) + 2;
-        z += rand.nextInt(12) + 2;
-
-        int generateChance;
         if (rand.nextInt(8) == 0) {
-            y = rand.nextInt(rangeY);
-            (new WorldFeatureLake(Blocks.FLUID_WATER_STILL.id())).place(this.world, rand, new TilePos(x, y, z));
+            int x = chunkX + rand.nextInt(16);
+            int z = chunkZ + rand.nextInt(16);
+            int y = rand.nextInt(rangeY);
+            LAKE_WATER.place(this.world, rand, new TilePos(x, y, z));
         }
 
-        for (generateChance = 0; generateChance < 2; ++generateChance) {
+        for (int generateChance = 0; generateChance < 2; ++generateChance) {
+            int x = chunkX + rand.nextInt(16);
+            int z = chunkZ + rand.nextInt(16);
+            int y = this.world.getHeightValue(x, z);
             (rand.nextInt(18) == 0 ? TREE_GOLDEN : TREE_SKYROOT)
-                .place(this.world, rand, x, this.world.getHeightValue(x, z), z);
+                .place(this.world, rand, new TilePos(x, y, z));
         }
 
-        for (generateChance = 0; generateChance < 50; ++generateChance) {
-            y = rand.nextInt(rangeY - 1);
+        for (int generateChance = 0; generateChance < 50; ++generateChance) {
+            int x = chunkX + rand.nextInt(16);
+            int z = chunkZ + rand.nextInt(16);
+            int y = rand.nextInt(rangeY - 1);
             WATERFALL.place(this.world, rand, new TilePos(x, y, z));
         }
     }
 
-    public static final WorldFeatureAetherClouds AERCLOUD_WHITE = new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), 16);
-    public static final WorldFeatureAetherClouds AERCLOUD_BLUE = new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_BLUE.id(), 8);
-    public static final WorldFeatureAetherClouds AERCLOUD_GOLD = new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_GOLD.id(), 4);
-    public static final WorldFeatureAetherCloudsFlat AERCLOUD_FLAT = new WorldFeatureAetherCloudsFlat(AetherBlocks.AERCLOUD_WHITE.id(), 48);
+    public static final WorldFeatureAetherClouds AERCLOUD_WHITE = new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), 16, false);
+    public static final WorldFeatureAetherClouds AERCLOUD_BLUE = new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_BLUE.id(), 8, false);
+    public static final WorldFeatureAetherClouds AERCLOUD_GOLD = new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_GOLD.id(), 4, false);
+    public static final WorldFeatureAetherClouds AERCLOUD_FLAT = new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), 48, true);
 
     public void decorateWithClouds(@NonNull Random rand, int minY, int maxY, int worldX, int worldZ) {
         int rangeY = maxY + 1 - minY;
@@ -412,9 +431,9 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         int bronzeSeed = Worley.isSeed(gridX, gridZ, BRONZE_CHANCES, transformedSeed, 1, 0); // 8 - 0
 
         if (goldSeed > -1) {
-            int dungeonX = x + rand.nextInt(16);
+            int dungeonX = x + 8;
             int dungeonY = (rangeY / 2) + rand.nextInt(rangeY / 8);
-            int dungeonZ = z + rand.nextInt(16);
+            int dungeonZ = z + 8;
 
             WorldFeatureAetherGoldDungeon goldDungeon = new WorldFeatureAetherGoldDungeon(rand);
 
