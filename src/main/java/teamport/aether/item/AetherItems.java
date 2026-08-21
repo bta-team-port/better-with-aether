@@ -11,24 +11,17 @@ import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
 import teamport.aether.entity.vehicle.parachute.EntityParachuteGold;
-import teamport.aether.item.accessory.ItemAccessoryArmor;
-import teamport.aether.item.accessory.ItemGloves;
-import teamport.aether.item.accessory.ItemTrinket;
-import teamport.aether.item.accessory.cape.ItemAgilityCapeArmor;
-import teamport.aether.item.accessory.cape.ItemInvisibilityCapeArmor;
-import teamport.aether.item.accessory.cape.ItemSwetCapeArmor;
-import teamport.aether.item.accessory.gloves.ItemGlovesGravitite;
-import teamport.aether.item.accessory.gloves.ItemGlovesNeptune;
-import teamport.aether.item.accessory.gloves.ItemGlovesObsidian;
-import teamport.aether.item.accessory.gloves.ItemGlovesPhoenix;
+import teamport.aether.item.accessory.HumanAccessoryShape;
+import teamport.aether.item.accessory.cape.ItemCape;
+import teamport.aether.item.accessory.cape.ItemCapeAgility;
+import teamport.aether.item.accessory.cape.ItemCapeInvisibility;
+import teamport.aether.item.accessory.cape.ItemCapeSwet;
+import teamport.aether.item.accessory.gloves.*;
 import teamport.aether.item.accessory.pendant.ItemCombatPendant;
 import teamport.aether.item.accessory.pendant.ItemGravititePendant;
 import teamport.aether.item.accessory.pendant.ItemIcePendant;
 import teamport.aether.item.accessory.pendant.ItemPendant;
-import teamport.aether.item.accessory.trinket.ItemGoldenFeather;
-import teamport.aether.item.accessory.trinket.ItemIronBubble;
-import teamport.aether.item.accessory.trinket.ItemRegenStone;
-import teamport.aether.item.accessory.trinket.ItemRepulsionShield;
+import teamport.aether.item.accessory.trinket.*;
 import teamport.aether.item.item_tool.*;
 import teamport.aether.item.item_tool.item_tool_gravitite.ItemToolAxeGravitite;
 import teamport.aether.item.item_tool.item_tool_gravitite.ItemToolPickaxeGravitite;
@@ -489,7 +482,7 @@ public final class AetherItems {
         TOOL_STAFF_CLOUD = new ItemStaffCloud("tool.staff.cloud", itemKey("tool_staff_cloud"), itemID("TOOL_STAFF_CLOUD"));
 
 
-        TOOL_DUNGEON_COMPASS = new ItemTrinket("tool.dungeon_compass", itemKey("tool_dungeon_compass"), itemID("TOOL_DUNGEON_COMPASS"), "dungeon_compass", "aether:item/trinket/armor_dungeon_compass_outline");
+        TOOL_DUNGEON_COMPASS = new ItemTrinket("tool.dungeon_compass", itemKey("tool_dungeon_compass"), itemID("TOOL_DUNGEON_COMPASS"), "dungeon_compass");
 
     }
 
@@ -554,27 +547,27 @@ public final class AetherItems {
         ARMOR_WOLF_NEPTUNE = new ItemArmor<>("armor.wolf.neptune", itemKey("armor_wolf_neptune"), itemID("ARMOR_WOLF_NEPTUNE"), AetherArmorMaterial.NEPTUNE, WolfArmorShape.BODY);
 
 
-        ARMOR_GLOVES_LEATHER = new ItemGloves("armor.gloves.leather", itemKey("armor_gloves_leather"), itemID("ARMOR_GLOVES_LEATHER"), ArmorMaterial.LEATHER, 4).setDamage(2);
+        ARMOR_GLOVES_LEATHER = new ItemGloves("armor.gloves.leather", itemKey("armor_gloves_leather"), itemID("ARMOR_GLOVES_LEATHER"), ArmorMaterial.LEATHER, HumanAccessoryShape.GLOVES).setDamage(2);
 
-        ARMOR_GLOVES_CHAINMAIL = new ItemGloves("armor.gloves.chainmail", itemKey("armor_gloves_chainmail"), itemID("ARMOR_GLOVES_CHAINMAIL"), ArmorMaterial.CHAINMAIL, 4).setDamage(2);
+        ARMOR_GLOVES_CHAINMAIL = new ItemGloves("armor.gloves.chainmail", itemKey("armor_gloves_chainmail"), itemID("ARMOR_GLOVES_CHAINMAIL"), ArmorMaterial.CHAINMAIL, HumanAccessoryShape.GLOVES).setDamage(2);
 
-        ARMOR_GLOVES_IRON = new ItemGloves("armor.gloves.iron", itemKey("armor_gloves_iron"), itemID("ARMOR_GLOVES_IRON"), ArmorMaterial.IRON, 4).setDamage(2);
+        ARMOR_GLOVES_IRON = new ItemGloves("armor.gloves.iron", itemKey("armor_gloves_iron"), itemID("ARMOR_GLOVES_IRON"), ArmorMaterial.IRON, HumanAccessoryShape.GLOVES).setDamage(2);
 
-        ARMOR_GLOVES_GOLD = new ItemGloves("armor.gloves.gold", itemKey("armor_gloves_gold"), itemID("ARMOR_GLOVES_GOLD"), ArmorMaterial.GOLD, 4).setDamage(2);
+        ARMOR_GLOVES_GOLD = new ItemGloves("armor.gloves.gold", itemKey("armor_gloves_gold"), itemID("ARMOR_GLOVES_GOLD"), ArmorMaterial.GOLD, HumanAccessoryShape.GLOVES).setDamage(2);
 
-        ARMOR_GLOVES_DIAMOND = new ItemGloves("armor.gloves.diamond", itemKey("armor_gloves_diamond"), itemID("ARMOR_GLOVES_DIAMOND"), ArmorMaterial.DIAMOND, 4).setDamage(4);
+        ARMOR_GLOVES_DIAMOND = new ItemGloves("armor.gloves.diamond", itemKey("armor_gloves_diamond"), itemID("ARMOR_GLOVES_DIAMOND"), ArmorMaterial.DIAMOND, HumanAccessoryShape.GLOVES).setDamage(4);
 
-        ARMOR_GLOVES_STEEL = new ItemGloves("armor.gloves.steel", itemKey("armor_gloves_steel"), itemID("ARMOR_GLOVES_STEEL"), ArmorMaterial.STEEL, 4).setDamage(3);
+        ARMOR_GLOVES_STEEL = new ItemGloves("armor.gloves.steel", itemKey("armor_gloves_steel"), itemID("ARMOR_GLOVES_STEEL"), ArmorMaterial.STEEL, HumanAccessoryShape.GLOVES).setDamage(3);
 
-        ARMOR_GLOVES_ZANITE = new ItemGloves("armor.gloves.zanite", itemKey("armor_gloves_zanite"), itemID("ARMOR_GLOVES_ZANITE"), AetherArmorMaterial.ZANITE, 4).setDamage(2);
+        ARMOR_GLOVES_ZANITE = new ItemGloves("armor.gloves.zanite", itemKey("armor_gloves_zanite"), itemID("ARMOR_GLOVES_ZANITE"), AetherArmorMaterial.ZANITE, HumanAccessoryShape.GLOVES).setDamage(2);
 
-        ARMOR_GLOVES_GRAVITITE = new ItemGlovesGravitite("armor.gloves.gravitite", itemKey("armor_gloves_gravitite"), itemID("ARMOR_GLOVES_GRAVITITE"), AetherArmorMaterial.GRAVITITE, 4).setDamage(3).setDamageType(DamageType.FALL);
+        ARMOR_GLOVES_GRAVITITE = new ItemGlovesGravitite("armor.gloves.gravitite", itemKey("armor_gloves_gravitite"), itemID("ARMOR_GLOVES_GRAVITITE"), AetherArmorMaterial.GRAVITITE, HumanAccessoryShape.GLOVES).setDamage(3).setDamageType(DamageType.FALL);
 
-        ARMOR_GLOVES_OBSIDIAN = new ItemGlovesObsidian("armor.gloves.obsidian", itemKey("armor_gloves_obsidian"), itemID("ARMOR_GLOVES_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN, 4).setDamage(3).setDamageType(DamageType.BLAST);
+        ARMOR_GLOVES_OBSIDIAN = new ItemGlovesObsidian("armor.gloves.obsidian", itemKey("armor_gloves_obsidian"), itemID("ARMOR_GLOVES_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN, HumanAccessoryShape.GLOVES).setDamage(3).setDamageType(DamageType.BLAST);
 
-        ARMOR_GLOVES_PHOENIX = new ItemGlovesPhoenix("armor.gloves.phoenix", itemKey("armor_gloves_phoenix"), itemID("ARMOR_GLOVES_PHOENIX"), AetherArmorMaterial.PHOENIX, 4).setDamage(3).setDamageType(DamageType.FIRE);
+        ARMOR_GLOVES_PHOENIX = new ItemGlovesPhoenix("armor.gloves.phoenix", itemKey("armor_gloves_phoenix"), itemID("ARMOR_GLOVES_PHOENIX"), AetherArmorMaterial.PHOENIX, HumanAccessoryShape.GLOVES).setDamage(3).setDamageType(DamageType.FIRE);
 
-        ARMOR_GLOVES_NEPTUNE = new ItemGlovesNeptune("armor.gloves.neptune", itemKey("armor_gloves_neptune"), itemID("ARMOR_GLOVES_NEPTUNE"), AetherArmorMaterial.NEPTUNE, 4).setDamage(3).setDamageType(DamageType.DROWN);
+        ARMOR_GLOVES_NEPTUNE = new ItemGlovesNeptune("armor.gloves.neptune", itemKey("armor_gloves_neptune"), itemID("ARMOR_GLOVES_NEPTUNE"), AetherArmorMaterial.NEPTUNE, HumanAccessoryShape.GLOVES).setDamage(3).setDamageType(DamageType.DROWN);
 
 
         ARMOR_TALISMAN_REGEN = new ItemRegenStone("armor.talisman.regen", itemKey("armor_talisman_regen"), itemID("ARMOR_TALISMAN_REGEN"), "regen_trinket");
@@ -587,66 +580,66 @@ public final class AetherItems {
         ARMOR_SHIELD_REPULSION = new ItemRepulsionShield("armor.shield.repulsion", itemKey("armor_shield_repulsion"), itemID("ARMOR_SHIELD_REPULSION"), "shield");
 
 
-        ARMOR_TALISMAN_LEATHER = new ItemPendant("armor.talisman.leather", itemKey("armor_talisman_leather"), itemID("ARMOR_TALISMAN_LEATHER"), "cloth", ArmorMaterial.LEATHER);
+        ARMOR_TALISMAN_LEATHER = new ItemPendant("armor.talisman.leather", itemKey("armor_talisman_leather"), itemID("ARMOR_TALISMAN_LEATHER"), ArmorMaterial.LEATHER, "cloth");
 
-        ARMOR_TALISMAN_CHAINMAIL = new ItemCombatPendant("armor.talisman.chainmail", itemKey("armor_talisman_chainmail"), itemID("ARMOR_TALISMAN_CHAINMAIL"), ArmorMaterial.CHAINMAIL);
+        ARMOR_TALISMAN_CHAINMAIL = new ItemCombatPendant("armor.talisman.chainmail", itemKey("armor_talisman_chainmail"), itemID("ARMOR_TALISMAN_CHAINMAIL"), ArmorMaterial.CHAINMAIL, "chain");
 
-        ARMOR_TALISMAN_IRON = new ItemPendant("armor.talisman.iron", itemKey("armor_talisman_iron"), itemID("ARMOR_TALISMAN_IRON"), "iron", ArmorMaterial.IRON);
+        ARMOR_TALISMAN_IRON = new ItemPendant("armor.talisman.iron", itemKey("armor_talisman_iron"), itemID("ARMOR_TALISMAN_IRON"), ArmorMaterial.IRON, "iron");
 
         ///  we treat gold differently when harvesting as such we don't make it take damage when harvesting the way other pendant might
-        ARMOR_TALISMAN_GOLD = new ItemPendant("armor.talisman.gold", itemKey("armor_talisman_gold"), itemID("ARMOR_TALISMAN_GOLD"), "gold", ArmorMaterial.GOLD);
+        ARMOR_TALISMAN_GOLD = new ItemPendant("armor.talisman.gold", itemKey("armor_talisman_gold"), itemID("ARMOR_TALISMAN_GOLD"), ArmorMaterial.GOLD, "gold");
 
-        ARMOR_TALISMAN_DIAMOND = new ItemPendant("armor.talisman.diamond", itemKey("armor_talisman_diamond"), itemID("ARMOR_TALISMAN_DIAMOND"), "diamond", ArmorMaterial.DIAMOND)
+        ARMOR_TALISMAN_DIAMOND = new ItemPendant("armor.talisman.diamond", itemKey("armor_talisman_diamond"), itemID("ARMOR_TALISMAN_DIAMOND"), ArmorMaterial.DIAMOND, "diamond")
             .setHarvestDamageable();
 
-        ARMOR_TALISMAN_STEEL = new ItemPendant("armor.talisman.steel", itemKey("armor_talisman_steel"), itemID("ARMOR_TALISMAN_STEEL"), "steel", ArmorMaterial.STEEL);
+        ARMOR_TALISMAN_STEEL = new ItemPendant("armor.talisman.steel", itemKey("armor_talisman_steel"), itemID("ARMOR_TALISMAN_STEEL"), ArmorMaterial.STEEL, "steel");
 
-        ARMOR_TALISMAN_ZANITE = new ItemPendant("armor.talisman.zanite", itemKey("armor_talisman_zanite"), itemID("ARMOR_TALISMAN_ZANITE"), "zanite", AetherArmorMaterial.ZANITE)
+        ARMOR_TALISMAN_ZANITE = new ItemPendant("armor.talisman.zanite", itemKey("armor_talisman_zanite"), itemID("ARMOR_TALISMAN_ZANITE"), AetherArmorMaterial.ZANITE, "zanite")
             .setHarvestDamageable();
 
-        ARMOR_TALISMAN_GRAVITITE = new ItemGravititePendant("armor.talisman.gravitite", itemKey("armor_talisman_gravitite"), itemID("ARMOR_TALISMAN_GRAVITITE"), AetherArmorMaterial.GRAVITITE);
+        ARMOR_TALISMAN_GRAVITITE = new ItemGravititePendant("armor.talisman.gravitite", itemKey("armor_talisman_gravitite"), itemID("ARMOR_TALISMAN_GRAVITITE"), AetherArmorMaterial.GRAVITITE, "gravitite");
 
         ARMOR_TALISMAN_ICE = new ItemIcePendant("armor.talisman.ice", itemKey("armor_talisman_ice"), itemID("ARMOR_TALISMAN_ICE"), "ice");
 
 
-        ARMOR_CAPE_AGILITY = new ItemAgilityCapeArmor("armor.cape.agility", itemKey("armor_cape_agility"), itemID("ARMOR_CAPE_AGILITY"), "agility", 5);
+        ARMOR_CAPE_AGILITY = new ItemCapeAgility("armor.cape.agility", itemKey("armor_cape_agility"), itemID("ARMOR_CAPE_AGILITY"), "agility");
 
-        ARMOR_CAPE_SWET = new ItemSwetCapeArmor("armor.cape.swet", itemKey("armor_cape_swet"), itemID("ARMOR_CAPE_SWET"), "swet", 5);
+        ARMOR_CAPE_SWET = new ItemCapeSwet("armor.cape.swet", itemKey("armor_cape_swet"), itemID("ARMOR_CAPE_SWET"), "swet");
 
-        ARMOR_CAPE_INVISIBILITY = new ItemInvisibilityCapeArmor("armor.cape.invisibility", itemKey("armor_cape_invisibility"), itemID("ARMOR_CAPE_INVISIBILITY"), "invisibility", 5);
+        ARMOR_CAPE_INVISIBILITY = new ItemCapeInvisibility("armor.cape.invisibility", itemKey("armor_cape_invisibility"), itemID("ARMOR_CAPE_INVISIBILITY"), "invisibility");
 
 
-        ARMOR_CAPE_BLACK = new ItemAccessoryArmor("armor.cape.black", itemKey("armor_cape_black"), itemID("ARMOR_CAPE_BLACK"), "black", 5);
+        ARMOR_CAPE_BLACK = new ItemCape("armor.cape.black", itemKey("armor_cape_black"), itemID("ARMOR_CAPE_BLACK"), "black");
 
-        ARMOR_CAPE_RED = new ItemAccessoryArmor("armor.cape.red", itemKey("armor_cape_red"), itemID("ARMOR_CAPE_RED"), "red", 5);
+        ARMOR_CAPE_RED = new ItemCape("armor.cape.red", itemKey("armor_cape_red"), itemID("ARMOR_CAPE_RED"), "red");
 
-        ARMOR_CAPE_GREEN = new ItemAccessoryArmor("armor.cape.green", itemKey("armor_cape_green"), itemID("ARMOR_CAPE_GREEN"), "green", 5);
+        ARMOR_CAPE_GREEN = new ItemCape("armor.cape.green", itemKey("armor_cape_green"), itemID("ARMOR_CAPE_GREEN"), "green");
 
-        ARMOR_CAPE_BROWN = new ItemAccessoryArmor("armor.cape.brown", itemKey("armor_cape_brown"), itemID("ARMOR_CAPE_BROWN"), "brown", 5);
+        ARMOR_CAPE_BROWN = new ItemCape("armor.cape.brown", itemKey("armor_cape_brown"), itemID("ARMOR_CAPE_BROWN"), "brown");
 
-        ARMOR_CAPE_BLUE = new ItemAccessoryArmor("armor.cape.blue", itemKey("armor_cape_blue"), itemID("ARMOR_CAPE_BLUE"), "blue", 5);
+        ARMOR_CAPE_BLUE = new ItemCape("armor.cape.blue", itemKey("armor_cape_blue"), itemID("ARMOR_CAPE_BLUE"), "blue");
 
-        ARMOR_CAPE_PURPLE = new ItemAccessoryArmor("armor.cape.purple", itemKey("armor_cape_purple"), itemID("ARMOR_CAPE_PURPLE"), "purple", 5);
+        ARMOR_CAPE_PURPLE = new ItemCape("armor.cape.purple", itemKey("armor_cape_purple"), itemID("ARMOR_CAPE_PURPLE"), "purple");
 
-        ARMOR_CAPE_CYAN = new ItemAccessoryArmor("armor.cape.cyan", itemKey("armor_cape_cyan"), itemID("ARMOR_CAPE_CYAN"), "cyan", 5);
+        ARMOR_CAPE_CYAN = new ItemCape("armor.cape.cyan", itemKey("armor_cape_cyan"), itemID("ARMOR_CAPE_CYAN"), "cyan");
 
-        ARMOR_CAPE_SILVER = new ItemAccessoryArmor("armor.cape.silver", itemKey("armor_cape_silver"), itemID("ARMOR_CAPE_SILVER"), "silver", 5);
+        ARMOR_CAPE_SILVER = new ItemCape("armor.cape.silver", itemKey("armor_cape_silver"), itemID("ARMOR_CAPE_SILVER"), "silver");
 
-        ARMOR_CAPE_GRAY = new ItemAccessoryArmor("armor.cape.gray", itemKey("armor_cape_gray"), itemID("ARMOR_CAPE_GRAY"), "gray", 5);
+        ARMOR_CAPE_GRAY = new ItemCape("armor.cape.gray", itemKey("armor_cape_gray"), itemID("ARMOR_CAPE_GRAY"), "gray");
 
-        ARMOR_CAPE_PINK = new ItemAccessoryArmor("armor.cape.pink", itemKey("armor_cape_pink"), itemID("ARMOR_CAPE_PINK"), "pink", 5);
+        ARMOR_CAPE_PINK = new ItemCape("armor.cape.pink", itemKey("armor_cape_pink"), itemID("ARMOR_CAPE_PINK"), "pink");
 
-        ARMOR_CAPE_LIME = new ItemAccessoryArmor("armor.cape.lime", itemKey("armor_cape_lime"), itemID("ARMOR_CAPE_LIME"), "lime", 5);
+        ARMOR_CAPE_LIME = new ItemCape("armor.cape.lime", itemKey("armor_cape_lime"), itemID("ARMOR_CAPE_LIME"), "lime");
 
-        ARMOR_CAPE_YELLOW = new ItemAccessoryArmor("armor.cape.yellow", itemKey("armor_cape_yellow"), itemID("ARMOR_CAPE_YELLOW"), "yellow", 5);
+        ARMOR_CAPE_YELLOW = new ItemCape("armor.cape.yellow", itemKey("armor_cape_yellow"), itemID("ARMOR_CAPE_YELLOW"), "yellow");
 
-        ARMOR_CAPE_LIGHTBLUE = new ItemAccessoryArmor("armor.cape.lightblue", itemKey("armor_cape_lightblue"), itemID("ARMOR_CAPE_LIGHTBLUE"), "lightblue", 5);
+        ARMOR_CAPE_LIGHTBLUE = new ItemCape("armor.cape.lightblue", itemKey("armor_cape_lightblue"), itemID("ARMOR_CAPE_LIGHTBLUE"), "lightblue");
 
-        ARMOR_CAPE_MAGENTA = new ItemAccessoryArmor("armor.cape.magenta", itemKey("armor_cape_magenta"), itemID("ARMOR_CAPE_MAGENTA"), "magenta", 5);
+        ARMOR_CAPE_MAGENTA = new ItemCape("armor.cape.magenta", itemKey("armor_cape_magenta"), itemID("ARMOR_CAPE_MAGENTA"), "magenta");
 
-        ARMOR_CAPE_ORANGE = new ItemAccessoryArmor("armor.cape.orange", itemKey("armor_cape_orange"), itemID("ARMOR_CAPE_ORANGE"), "orange", 5);
+        ARMOR_CAPE_ORANGE = new ItemCape("armor.cape.orange", itemKey("armor_cape_orange"), itemID("ARMOR_CAPE_ORANGE"), "orange");
 
-        ARMOR_CAPE_WHITE = new ItemAccessoryArmor("armor.cape.white", itemKey("armor_cape_white"), itemID("ARMOR_CAPE_WHITE"), "white", 5);
+        ARMOR_CAPE_WHITE = new ItemCape("armor.cape.white", itemKey("armor_cape_white"), itemID("ARMOR_CAPE_WHITE"), "white");
 
     }
 

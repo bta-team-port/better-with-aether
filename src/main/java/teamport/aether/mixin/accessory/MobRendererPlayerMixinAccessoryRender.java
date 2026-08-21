@@ -18,8 +18,8 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
-import org.jspecify.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -35,8 +35,8 @@ import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.helper.MixinHelper;
 import teamport.aether.item.AetherItemTags;
 import teamport.aether.item.AetherRepulsion;
-import teamport.aether.item.accessory.IAccessory;
-import teamport.aether.item.accessory.ItemGloves;
+import teamport.aether.item.accessory.ItemAccessory;
+import teamport.aether.item.accessory.gloves.ItemGloves;
 import teamport.aether.item.accessory.pendant.ItemPendant;
 import teamport.aether.item.accessory.trinket.ItemGoldenFeather;
 import teamport.aether.item.accessory.trinket.ItemIronBubble;
@@ -71,13 +71,11 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
         }
 
         ItemStack glovesStack = this.better_with_aether$getAccessory(player, GLOVES_SLOT);
-        if (glovesStack == null || !(glovesStack.getItem() instanceof ItemGloves)) {
+        if (glovesStack == null || !(glovesStack.getItem() instanceof ItemGloves gloves)) {
             return;
         }
 
-        Item item = glovesStack.getItem();
-        String path = String.format("/assets/%s/textures/armor/gloves/%s_gloves.png", item.namespaceID.namespace(), ((IAccessory) item).name()
-        );
+        String path = String.format("/assets/%s/textures/armor/gloves/%s_gloves.png", gloves.namespaceID.namespace(), gloves.getTextureName());
 
         TextureManager textureManager = this.renderDispatcher.textureManager;
 
@@ -152,12 +150,12 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
             return;
         }
 
-        if (armorStack.getItem() instanceof IAccessory || armorStack.getItem().hasTag(AetherItemTags.TRINKET)) {
+        if (armorStack.getItem() instanceof ItemAccessory<?> || armorStack.getItem().hasTag(AetherItemTags.TRINKET)) {
             Item item = armorStack.getItem();
 
             if (item instanceof ItemGloves) {
                 StaticEntityModel modelArmorChestplate = this.better_with_aether$setupAccessoryModel("aether.accessory.gloves", entity, partialTick, layer);
-                String path = String.format("/assets/%s/textures/armor/gloves/%s_gloves.png", item.namespaceID.namespace(), ((IAccessory) item).name());
+                String path = String.format("/assets/%s/textures/armor/gloves/%s_gloves.png", item.namespaceID.namespace(), ((ItemAccessory<?>) item).getTextureName());
                 this.better_with_aether$setVisible(modelArmorChestplate, false, false, slot == GLOVES_SLOT, false, false);
                 renderDispatcher.textureManager.loadTexture(path).bind();
                 cir.setReturnValue(modelArmorChestplate);
@@ -166,12 +164,9 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
             if ((item instanceof ItemRepulsionShield && (slot == TRINKET_2_SLOT || this.better_with_aether$getAccessory(entity, TRINKET_2_SLOT) == null)) || this.shield6) {
                 StaticEntityModel shield = this.better_with_aether$setupAccessoryModel("aether.accessory.shield", entity, partialTick, layer);
                 this.shield6 = false;
-                String path;
-                if (((AetherRepulsion) entity).aether$isRepulse()) {
-                    path = "/assets/aether/textures/armor/energyGlow.png";
-                } else {
-                    path = "/assets/aether/textures/armor/energyNotGlow.png";
-                }
+                String path = ((AetherRepulsion) entity).aether$isRepulse()
+                    ? "/assets/aether/textures/armor/energyGlow.png"
+                    : "/assets/aether/textures/armor/energyNotGlow.png";
 
                 renderDispatcher.textureManager.loadTexture(path).bind();
                 GLRenderer.enableState(State.CULL_FACE);
@@ -241,13 +236,13 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 return;
             }
 
-            if (item instanceof ItemPendant) {
+            if (item instanceof ItemPendant itemPendant) {
                 StaticEntityModel modelAccessories = this.better_with_aether$setupAccessoryModel("aether.accessory.base", entity, partialTick, layer);
                 int variant = 0;
                 if (slot == TRINKET_2_SLOT && itemTrinketSlot1 != null && itemTrinketSlot1.getItem() instanceof ItemPendant) {
                     variant = 1;
                 }
-                String path = String.format("/assets/%s/textures/armor/pendants/%s_pendant_%d.png", item.namespaceID.namespace(), ((IAccessory) item).name(), variant);
+                String path = String.format("/assets/%s/textures/armor/pendants/%s_pendant_%d.png", item.namespaceID.namespace(), itemPendant.name(), variant);
                 this.better_with_aether$setVisible(modelAccessories, false, true, false, false, false);
                 renderDispatcher.textureManager.loadTexture(path).bind();
                 cir.setReturnValue(modelAccessories);
@@ -256,12 +251,9 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
 
             if (item instanceof ItemRegenStone) {
                 StaticEntityModel modelHeart = this.better_with_aether$setupAccessoryModel("aether.accessory.heart", entity, partialTick, layer);
-                String path;
-                if (slot == TRINKET_1_SLOT) {
-                    path = "/assets/aether/textures/armor/trinkets/regen_trinket_left.png";
-                } else {
-                    path = "/assets/aether/textures/armor/trinkets/regen_trinket_right.png";
-                }
+                String path = (slot == TRINKET_1_SLOT)
+                    ? "/assets/aether/textures/armor/trinkets/regen_trinket_right.png"
+                    : "/assets/aether/textures/armor/trinkets/regen_trinket_left.png";
                 this.better_with_aether$setVisible(modelHeart, true, false, false, false, false);
                 renderDispatcher.textureManager.loadTexture(path).bind();
                 cir.setReturnValue(modelHeart);

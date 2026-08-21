@@ -8,16 +8,16 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.joml.primitives.AABBd;
 import org.jspecify.annotations.NonNull;
+import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherRepulsion;
 import teamport.aether.item.accessory.IAccessoryEffects;
-import teamport.aether.entity.player.PlayerUtil;
 
 import java.util.List;
 
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
 
-public class ItemRepulsionShield extends ItemShield implements IAccessoryEffects {
+public class ItemRepulsionShield extends ItemTrinket implements IAccessoryEffects {
     public ItemRepulsionShield(String translationKey, String namespaceId, int id, String name) {
         super(translationKey, namespaceId, id, name);
     }
@@ -52,6 +52,7 @@ public class ItemRepulsionShield extends ItemShield implements IAccessoryEffects
             ((AetherRepulsion) player).aether$setRepulsion(false);
         }
     }
+
     @Override
     public void removeEffect(Player player, ItemStack accessory) {
         ((AetherRepulsion) player).aether$setRepulsion(false);

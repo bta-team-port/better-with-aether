@@ -30,7 +30,6 @@
     "accessory.trinket.BlockLogicFarmlandLeatherPendantMixin",
     "accessory.trinket.BlockLogicHarvestBlockGoldPendant",
     "accessory.trinket.BlockLogicSlipperyNegationMixin",
-    "accessory.trinket.ContainerInventoryGetProtectionOfPendantMixin",
     "accessory.trinket.ContainerInventoryGetStrVsBlockPendantsMixin",
     "accessory.trinket.ContainerInventoryZanitePendantDamageMixin",
     "accessory.trinket.ItemStackPreventDamage",
@@ -105,7 +104,9 @@
     "player.PlayerDeathMessageMixin",
     "player.PlayerFixArmorMixin",
     "player.PlayerGetNextDartMixin",
-    "player.PlayerMixinDevDrops"
+    "accessory.PlayerMixinAccessoryWearing",
+    "player.PlayerMixinDevDrops",
+    "accessory.PlayerProtectionMixin"
   ],
   "client": [
     "StaticEntityModelMojangMixin",
