@@ -90,11 +90,6 @@ public class MobBossValkyrie extends MobBoss implements IItemHolding {
     }
 
     @Override
-    public boolean collidesWith(Entity entity) {
-        return this.isAgro;
-    }
-
-    @Override
     public void tick() {
         this.syncFightState();
         if (!this.world.getDifficulty().canHostileMobsSpawn() && this.isAgro) {

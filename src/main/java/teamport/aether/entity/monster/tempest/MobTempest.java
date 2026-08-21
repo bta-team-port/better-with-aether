@@ -88,7 +88,7 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
     @SuppressWarnings("java:S131")
     public boolean collidesWith(Entity entity) {
         float launchSpeed = 0.75F;
-        if (!(entity instanceof MobWhirly)) {
+        if (!(entity instanceof MobTempest)) {
             float launchHeightSpeed = launchSpeed / 2.0f;
             entity.fling(world.rand.nextGaussian(), launchHeightSpeed, world.rand.nextGaussian(), 0);
             return false;
