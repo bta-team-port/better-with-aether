@@ -1,5 +1,7 @@
 package teamport.aether.mixin.accessory;
 
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.net.handler.PacketHandlerClient;
@@ -21,12 +23,15 @@ public abstract class PacketHandlerClientMixinAccessoryEquipment {
     @Shadow
     protected abstract Entity getEntityByID(int entityID);
 
-    @Inject(method = "handleSetEquippedItem", at = @At("HEAD"), cancellable = true)
-    private void handleAccessoryEquipment(@NonNull PacketSetEquippedItem packetSetEquippedItem, CallbackInfo ci) {
+    @WrapMethod(method = "handleSetEquippedItem")
+    private void handleAccessoryEquipment(
+        PacketSetEquippedItem packetSetEquippedItem,
+        Operation<Void> original
+    ) {
         if (packetSetEquippedItem.slot < 5 || packetSetEquippedItem.slot >= 9) {
+            original.call(packetSetEquippedItem);
             return;
         }
-
         Entity entity = this.getEntityByID(packetSetEquippedItem.entityID);
         if (entity instanceof Player) {
             ItemStack stack = packetSetEquippedItem.itemID < 0
@@ -34,6 +39,5 @@ public abstract class PacketHandlerClientMixinAccessoryEquipment {
                 : new ItemStack(packetSetEquippedItem.itemID, 1, packetSetEquippedItem.itemMeta, packetSetEquippedItem.itemData);
             ((IContainerInventoryAether) ((Player) entity).inventory).aether$getAccessoryInventory()[packetSetEquippedItem.slot - 5] = stack;
         }
-        ci.cancel();
     }
 }

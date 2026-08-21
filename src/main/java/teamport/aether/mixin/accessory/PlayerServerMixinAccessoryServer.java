@@ -1,6 +1,8 @@
 package teamport.aether.mixin.accessory;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.core.item.ItemStack;
@@ -14,7 +16,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.ducks.IContainerInventoryAether;
 
 import java.util.UUID;
@@ -33,11 +34,12 @@ public abstract class PlayerServerMixinAccessoryServer {
         return original + 4;
     }
 
-    @Inject(method = "getEquipmentInSlot", at = @At("HEAD"), cancellable = true)
-    private void getAccessoryEquipment(int slot, CallbackInfoReturnable<ItemStack> cir) {
+    @WrapMethod(method = "getEquipmentInSlot")
+    private ItemStack getAccessoryEquipment(int slot, Operation<ItemStack> original) {
         if (slot >= 5 && slot < 9) {
             Player player = (Player) (Object) this;
-            cir.setReturnValue(((IContainerInventoryAether) player.inventory).aether$getAccessoryInventory()[slot - 5]);
+            return  (((IContainerInventoryAether) player.inventory).aether$getAccessoryInventory()[slot - 5]);
         }
+        return original.call(slot);
     }
 }
