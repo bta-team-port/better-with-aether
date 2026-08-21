@@ -35,8 +35,8 @@ public interface AetherProjectileDeathMessages extends AetherDeathMessage {
                 .replace("[PLAYER]", RESET + player.getDisplayName() + RESET + RED)
                 .replace("[BOSS]", boss.getBossTitle());
         }
-        return owner instanceof AetherDeathMessage
-            ? ((AetherDeathMessage) owner).deathMessage(player)
+        return owner instanceof AetherDeathMessage aetherDeathMessage
+            ? aetherDeathMessage.deathMessage(player)
             : AetherDeathMessage.super.deathMessage(player);
     }
 
