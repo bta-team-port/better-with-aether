@@ -12,7 +12,7 @@ import org.jspecify.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemAccessory<T extends IAccessoryShape> extends Item implements IAccessoryItem<T> {
+public class ItemAccessory<T extends IAccessoryShape> extends Item implements IAccessoryItem<T>, IAccessoryEffects {
     private final @NonNull T armorShape;
     public final @Nullable ArmorMaterial material;
 
@@ -63,7 +63,18 @@ public class ItemAccessory<T extends IAccessoryShape> extends Item implements IA
             }
         }
         ItemStack currentStack = accessoryPlayer.getAccessoryInSlot(targetSlot);
-        accessoryPlayer.setAccessoryInSlot(targetSlot, selfStack.splitStack(1));
+
+        if (currentStack != null && currentStack.getItem() instanceof IAccessoryEffects oldEffects) {
+            oldEffects.removeEffect(player, currentStack);
+        }
+
+        ItemStack equippedStack = selfStack.splitStack(1);
+        accessoryPlayer.setAccessoryInSlot(targetSlot, equippedStack);
+
+        if (equippedStack.getItem() instanceof IAccessoryEffects newEffects) {
+            newEffects.addEffect(player, equippedStack);
+        }
+
         player.world.playSoundAtEntity(player, player, "random.equip", 1.0F, 1.0F);
 
         if (currentStack != null) {
