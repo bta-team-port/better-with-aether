@@ -7,6 +7,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.option.GameSettings;
 import net.minecraft.client.render.item.model.ItemModelStandard;
+import net.minecraft.client.render.renderer.GLRenderer;
 import net.minecraft.client.render.tessellator.TessellatorGeneral;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
@@ -21,9 +22,10 @@ public abstract class MakeHeldItemInvisible {
     @SuppressWarnings("java:S107")
     private void makeItemInvisible(TessellatorGeneral tessellator, Entity holder, ItemStack itemStack, String displayPosId, boolean items3d, int clusterSize, byte lightIndex, float partialTick, boolean leftHanded, Operation<Void> original) {
         if (holder instanceof Player
-            && (holder != Minecraft.getMinecraft().thePlayer || GameSettings.THIRD_PERSON_VIEW.value != 0)
-            && PlayerUtil.isInvisible(holder)) {
-            return;
+            && ("thirdperson_lefthand".equals(displayPosId) || "thirdperson_righthand".equals(displayPosId))
+            && PlayerUtil.isInvisible(holder)
+        ) {
+            GLRenderer.setColor4f(1.0f, 1.0f, 1.0f, 0.15f);
         }
         original.call(tessellator, holder, itemStack, displayPosId, items3d, clusterSize, lightIndex, partialTick, leftHanded);
     }

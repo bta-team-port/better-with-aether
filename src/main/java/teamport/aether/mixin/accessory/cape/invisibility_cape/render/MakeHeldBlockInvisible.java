@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.item.model.ItemModelBlock;
+import net.minecraft.client.render.renderer.GLRenderer;
 import net.minecraft.client.render.tessellator.TessellatorGeneral;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
@@ -20,8 +21,9 @@ public abstract class MakeHeldBlockInvisible {
     private void makeItemInvisible(TessellatorGeneral tessellator, Entity holder, ItemStack itemStack, String displayPosId, boolean items3d, int clusterSize, byte lightIndex, float partialTick, boolean leftHanded, Operation<Void> original) {
         if (holder instanceof Player
             && ("thirdperson_lefthand".equals(displayPosId) || "thirdperson_righthand".equals(displayPosId))
-            && PlayerUtil.isInvisible(holder)) {
-            return;
+            && PlayerUtil.isInvisible(holder)
+        ) {
+            GLRenderer.setColor4f(1.0f, 1.0f, 1.0f, 0.15f);
         }
         original.call(tessellator, holder, itemStack, displayPosId, items3d, clusterSize, lightIndex, partialTick, leftHanded);
     }
