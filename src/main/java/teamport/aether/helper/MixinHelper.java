@@ -1,6 +1,8 @@
 package teamport.aether.helper;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import net.minecraft.client.render.renderer.GLRenderer;
+import net.minecraft.client.render.renderer.State;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
@@ -31,6 +33,7 @@ import java.util.Map;
 import static teamport.aether.AetherMod.LOGGER;
 
 public class MixinHelper {
+
     private MixinHelper() {
     }
 
@@ -132,5 +135,12 @@ public class MixinHelper {
         int greenRes = (int) (greenA * ratio + greenB * (1 - ratio));
 
         return Color.intToIntARGB(alphaRes, redRes, blueRes, greenRes);
+    }
+
+    public static void setUpInvisibility(Entity entity) {
+        if(PlayerUtil.isInvisible(entity)){
+            GLRenderer.enableState(State.BLEND);
+            GLRenderer.setColor4f(1.0F, 1.0F, 1.0F, 0.15F);
+        }
     }
 }

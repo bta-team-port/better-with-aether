@@ -7,6 +7,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.ImageParser;
 import net.minecraft.client.render.entity.MobRenderer;
+import net.minecraft.client.render.entity.MobRendererBipedArmored;
 import net.minecraft.client.render.entity.MobRendererPlayer;
 import net.minecraft.client.render.renderer.GLRenderer;
 import net.minecraft.client.render.renderer.State;
@@ -18,13 +19,16 @@ import net.minecraft.core.player.gamemode.Gamemode;
 import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.useless.dragonfly.models.entity.StaticEntityModel;
 import teamport.aether.ducks.IContainerInventoryAether;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.accessory.cape.ItemCape;
 
 @Environment(EnvType.CLIENT)
 @Mixin(MobRendererPlayer.class)
-public abstract class MobRendererPlayerMixinCapeRender extends MobRenderer<Player> {
+public abstract class MobRendererPlayerMixinCapeRender extends MobRendererBipedArmored<Player> {
     protected MobRendererPlayerMixinCapeRender(float shadowSize) {
         super(shadowSize);
     }
@@ -35,7 +39,7 @@ public abstract class MobRendererPlayerMixinCapeRender extends MobRenderer<Playe
             original.call(red, green, blue, alpha);
             return;
         }
-        original.call(red, green, blue, 0.0F);
+        original.call(red, green, blue, 0.15F);
         GLRenderer.enableState(State.BLEND);
     }
 

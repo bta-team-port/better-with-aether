@@ -23,7 +23,6 @@ import teamport.aether.entity.boss.MobBoss;
 import teamport.aether.entity.player.MessageMaker;
 import teamport.aether.entity.projectile.ProjectileElementLightning;
 import teamport.aether.helper.ParticleMaker;
-import teamport.aether.helper.client.BossMusicClientHelper;
 import teamport.aether.item.AetherItems;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
@@ -95,7 +94,7 @@ public class MobBossValkyrie extends MobBoss implements IItemHolding {
         this.syncFightState();
         if (!this.world.getDifficulty().canHostileMobsSpawn() && this.isAgro) {
             if (!EnvironmentHelper.isMultiplayerServer()) {
-                BossMusicClientHelper.stop();
+                MobBoss.stop();
             }
             this.isAgro = false;
             this.returnToOriginalState();
@@ -281,7 +280,7 @@ public class MobBossValkyrie extends MobBoss implements IItemHolding {
         this.world.playSoundAtEntity(null, this, "aether:achievement.silver", 0.5f, 1.0f);
 
         if (!EnvironmentHelper.isMultiplayerServer()) {
-            BossMusicClientHelper.stop();
+            MobBoss.stop();
         }
 
         super.onDeath(entityKilledBy);
@@ -451,7 +450,7 @@ public class MobBossValkyrie extends MobBoss implements IItemHolding {
             MessageMaker.sendMessage(playerAttacker, TRANSLATOR.translateKey("boss_valkyrie.target"));
 
             if (!EnvironmentHelper.isMultiplayerServer()) {
-                BossMusicClientHelper.play("aether:aether_music_boss.valkyrieboss", this.x, this.y, this.z);
+                MobBoss.play("aether:aether_music_boss.valkyrieboss", this.x, this.y, this.z);
             }
 
             ((AetherBossList) attacker).aether$TryAddBossList(this);

@@ -2,6 +2,8 @@ package teamport.aether.world.feature.util.map;
 
 import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.ListTag;
+import it.unimi.dsi.fastutil.Pair;
+import it.unimi.dsi.fastutil.objects.ObjectObjectMutablePair;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.entity.Entity;
@@ -13,7 +15,6 @@ import teamport.aether.block.dungeon.BlockLogicDungeonDoor;
 import teamport.aether.block.dungeon.BlockLogicLocked;
 import teamport.aether.block.dungeon.BlockLogicTrapped;
 import teamport.aether.entity.boss.EnemyBoss;
-import teamport.aether.helper.Pair;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.feature.util.WorldFeatureBlock;
@@ -97,7 +98,7 @@ public abstract class DungeonLogic {
     public void setClearArea(@NonNull WorldFeaturePoint p1, @NonNull WorldFeaturePoint p2) {
         WorldFeaturePoint lowest = WorldFeaturePoint.wfp(Math.min(p1.getX(), p2.getX()), Math.min(p1.getY(), p2.getY()), Math.min(p1.getZ(), p2.getZ()));
         WorldFeaturePoint highest = WorldFeaturePoint.wfp(Math.max(p1.getX(), p2.getX()), Math.max(p1.getY(), p2.getY()), Math.max(p1.getZ(), p2.getZ()));
-        this.clearArea = new Pair<>(lowest, highest);
+        this.clearArea = new ObjectObjectMutablePair<>(lowest, highest);
     }
 
     public void setTreasureDoor(List<WorldFeaturePoint> doorBlocks) {
@@ -213,7 +214,7 @@ public abstract class DungeonLogic {
 
         this.position = WorldFeaturePoint.fromCompoundTag(data.getCompound("position"));
 
-        this.clearArea = new Pair<>(
+        this.clearArea = new ObjectObjectMutablePair<>(
             WorldFeaturePoint.fromCompoundTag(data.getCompound("clearPos1")),
             WorldFeaturePoint.fromCompoundTag(data.getCompound("clearPos2"))
         );

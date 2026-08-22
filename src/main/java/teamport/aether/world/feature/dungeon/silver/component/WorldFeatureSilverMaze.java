@@ -1,12 +1,12 @@
 package teamport.aether.world.feature.dungeon.silver.component;
 
+import it.unimi.dsi.fastutil.ints.IntIntPair;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.DyeColor;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherMod;
 import teamport.aether.block.AetherBlocks;
-import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.world.feature.util.BlockPallet;
 import teamport.aether.world.feature.util.MazeHelper;
 import teamport.aether.world.feature.util.WorldFeatureComponent;
@@ -145,13 +145,13 @@ public class WorldFeatureSilverMaze {
         this.chests = new WorldFeatureComponent();
         this.graph = new HashMap<>(STATIC_GRAPH);
         this.addAdditionalStaircase(random);
-        List<IntPair> edges = MazeHelper.randomMazeKruskal(STATIC_GRAPH, 27);
+        List<IntIntPair> edges = MazeHelper.randomMazeKruskal(STATIC_GRAPH, 27);
         this.spanningTree = MazeHelper.makeGraph(edges);
 
         boolean[] generated = new boolean[ROOM_COUNT];
-        for (IntPair edge : edges) {
-            int to = edge.first();
-            int from = edge.second();
+        for (IntIntPair edge : edges) {
+            int to = edge.firstInt();
+            int from = edge.secondInt();
             generated[to] = true;
             this.createRoomMaze(to, from, x, y, z);
             if (!generated[from]) {

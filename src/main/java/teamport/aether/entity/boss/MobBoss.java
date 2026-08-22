@@ -3,6 +3,9 @@ package teamport.aether.entity.boss;
 import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.IntTag;
 import com.mojang.nbt.tags.StringTag;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.MobPathfinder;
@@ -171,7 +174,8 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
 
     @Override
     public String deathMessage(@NonNull Player player) {
-        String key = EntityDispatcher.getInstance().entryForClass(this.getClass()).nameKey + ".death_message";
+        EntityDispatcher.EntityDispatcherEntry<?> entry = EntityDispatcher.getInstance().entryForClass(((Entity) this).getClass());
+        String key = (entry == null ? "" : entry.nameKey) + ".death_message";
         String name = key + "_" + random.nextInt(9);
 
         String theBossName = BOLD.toString() + TextFormatting.get(this.chatColor).toString() + this.getBossTitle() + RESET + RED;
@@ -189,6 +193,18 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
         returnToHome();
         runWithDungeon(dungeonID, d -> d.unlock(world));
         this.setHealthRaw(this.getMaxHealth());
+    }
+
+    @Environment(EnvType.CLIENT)
+    public static void stop() {
+        Minecraft.getMinecraft().sndManager.stopMusic();
+    }
+
+    @Environment(EnvType.CLIENT)
+    public static void play(String sound, double x, double y, double z) {
+        Minecraft minecraft = Minecraft.getMinecraft();
+        minecraft.sndManager.stopMusic();
+        minecraft.sndManager.playMusic(sound, (float) x, (float) y, (float) z, 1.0F, 1.0F);
     }
 
 }

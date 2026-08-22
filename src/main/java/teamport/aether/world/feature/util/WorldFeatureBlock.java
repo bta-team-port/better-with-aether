@@ -1,6 +1,8 @@
 package teamport.aether.world.feature.util;
 
 import com.mojang.nbt.tags.CompoundTag;
+import it.unimi.dsi.fastutil.Pair;
+import it.unimi.dsi.fastutil.ints.IntIntPair;
 import net.minecraft.core.block.*;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.util.helper.Axis;
@@ -8,8 +10,6 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.helper.Pair;
-import teamport.aether.helper.unboxed.IntPair;
 
 import static net.minecraft.core.util.helper.Direction.NORTH;
 import static teamport.aether.world.feature.util.MetadataHelper.*;
@@ -27,17 +27,10 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
         this.withNotify = withNotify;
     }
 
-    WorldFeatureBlock(int x, int y, int z, @NonNull Pair<Integer, Integer> blockAndMeta, boolean withNotify) {
+    WorldFeatureBlock(int x, int y, int z, @NonNull IntIntPair blockAndMeta, boolean withNotify) {
         super(x, y, z);
-        this.blockId = blockAndMeta.first();
-        this.metadata = blockAndMeta.second();
-        this.withNotify = withNotify;
-    }
-
-    WorldFeatureBlock(int x, int y, int z, @NonNull IntPair blockAndMeta, boolean withNotify) {
-        super(x, y, z);
-        this.blockId = blockAndMeta.first();
-        this.metadata = blockAndMeta.second();
+        this.blockId = blockAndMeta.firstInt();
+        this.metadata = blockAndMeta.secondInt();
         this.withNotify = withNotify;
     }
 
@@ -73,11 +66,7 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
         return new WorldFeatureBlock(x, y, z, blockID, metadata, withNotify);
     }
 
-    public static @NonNull WorldFeatureBlock wfb(int x, int y, int z, IntPair blockAndMeta, boolean withNotify) {
-        return new WorldFeatureBlock(x, y, z, blockAndMeta, withNotify);
-    }
-
-    public static @NonNull WorldFeatureBlock wfb(int x, int y, int z, Pair<Integer, Integer> blockAndMeta, boolean withNotify) {
+    public static @NonNull WorldFeatureBlock wfb(int x, int y, int z, IntIntPair blockAndMeta, boolean withNotify) {
         return new WorldFeatureBlock(x, y, z, blockAndMeta, withNotify);
     }
 

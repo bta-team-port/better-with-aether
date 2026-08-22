@@ -17,8 +17,12 @@ public interface AetherProjectileDeathMessages extends AetherDeathMessage {
     default String deathMessage(@NonNull Player player) {
         Projectile proj = (Projectile) this;
         Entity owner = proj.owner;
+        EntityDispatcher.EntityDispatcherEntry<?> entry = EntityDispatcher.getInstance().entryForClass(proj.getClass());
         if (owner instanceof Player killer) {
-            String keys = EntityDispatcher.getInstance().entryForClass(proj.getClass()).nameKey + ".death_message";
+            if(entry == null){
+                return TRANSLATOR.translateKey("messages.death.player.generic");
+            }
+            String keys = entry.nameKey + ".death_message";
             if ((killer).uuid.equals(player.uuid)) {
                 return RED + TRANSLATOR.translateKey(keys + ".suicide")
                     .replace("[PLAYER]", RESET + player.getDisplayName() + RESET + RED);
@@ -29,14 +33,18 @@ public interface AetherProjectileDeathMessages extends AetherDeathMessage {
             }
         }
         if (owner instanceof EnemyBoss boss) {
-            String bossName = EntityDispatcher.getInstance().entryForClass(owner.getClass()).nameKey + ".death_message";
-            String projectileName = TRANSLATOR.translateKey(EntityDispatcher.getInstance().entryForClass(proj.getClass()).nameKey);
+            EntityDispatcher.EntityDispatcherEntry<?> ownerEntry = EntityDispatcher.getInstance().entryForClass(owner.getClass());
+            if(entry == null || ownerEntry == null){
+                return TRANSLATOR.translateKey("messages.death.player.generic");
+            }
+            String bossName = ownerEntry.nameKey + ".death_message";
+            String projectileName = TRANSLATOR.translateKey(entry.nameKey);
             return RED + TRANSLATOR.translateKey(bossName + "." + projectileName)
                 .replace("[PLAYER]", RESET + player.getDisplayName() + RESET + RED)
                 .replace("[BOSS]", boss.getBossTitle());
         }
-        return owner instanceof AetherDeathMessage aetherDeathMessage
-            ? aetherDeathMessage.deathMessage(player)
+        return owner instanceof AetherDeathMessage deathMessage
+            ? deathMessage.deathMessage(player)
             : AetherDeathMessage.super.deathMessage(player);
     }
 

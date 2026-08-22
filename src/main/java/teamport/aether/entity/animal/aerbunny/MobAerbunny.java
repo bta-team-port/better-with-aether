@@ -1,5 +1,7 @@
 package teamport.aether.entity.animal.aerbunny;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
@@ -9,17 +11,17 @@ import net.minecraft.core.entity.monster.MobMonster;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
+import net.minecraft.core.net.packet.PacketSetRiding;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.IVehicle;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
+import net.minecraft.server.MinecraftServer;
 import org.joml.primitives.AABBd;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.AetherRideable;
 import teamport.aether.entity.animal.MobAetherAnimal;
 import teamport.aether.helper.ParticleMaker;
-import teamport.aether.helper.client.AerbunnyClientHelper;
-import teamport.aether.helper.server.AerbunnyServerHelper;
 import teamport.aether.item.AetherItemTags;
 import teamport.aether.mixin.accessors.EntityAccessor;
 import teamport.aether.net.message.AetherRideableNetworkMessage;
@@ -131,7 +133,7 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
     @Override
     public double getRidingHeight() {
         if (EnvironmentHelper.isMultiplayerClient()) {
-            return AerbunnyClientHelper.getRidingHeight(this);
+            return getRidingHeight(this);
         }
         return this.heightOffset + 0.5F;
     }
@@ -218,7 +220,7 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
 
         if (EnvironmentHelper.isMultiplayerServer() && this.ridingSyncCooldown-- <= 0 && this.vehicle != null) {
             this.ridingSyncCooldown = 40;
-            AerbunnyServerHelper.syncRiding(this);
+            syncRiding(this);
         }
 
         this.setNoPhysics(beingRidden());
@@ -326,9 +328,23 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
     @Override
     public void startRiding(IVehicle vehicle) {
         super.startRiding(vehicle);
-
         if (EnvironmentHelper.isMultiplayerServer()) {
-            AerbunnyServerHelper.syncRiding(this);
+            syncRiding(this);
         }
     }
+
+    @Environment(EnvType.CLIENT)
+    public static double getRidingHeight(@NonNull MobAerbunny bunny) {
+        return bunny.heightOffset + 1.0F;
+    }
+
+    @Environment(EnvType.SERVER)
+    public static void syncRiding(@NonNull MobAerbunny bunny) {
+        if (bunny.vehicle == null) return;
+        MinecraftServer.getInstance().playerList.sendPacketToPlayersAroundPoint(
+            bunny.x, bunny.y, bunny.z, 32, bunny.world.dimension.id,
+            new PacketSetRiding(bunny, (Entity) bunny.vehicle)
+        );
+    }
+
 }

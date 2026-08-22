@@ -1,7 +1,7 @@
 package teamport.aether.world.feature.dungeon.bronze.component;
 
+import it.unimi.dsi.fastutil.ints.IntIntPair;
 import teamport.aether.block.AetherBlocks;
-import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.world.feature.util.BlockPallet;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
 
@@ -54,15 +54,15 @@ public class StorageRoom extends BaseBronzeRoom {
         for (int i = 0; i < 2; i++) {
             WorldFeaturePoint[] points = pointList.get(i);
             for (WorldFeaturePoint point : points) {
-                IntPair idMeta = DISPLAY.getRandom(random);
-                chest.add(wfb(point.getX(), point.getY(), point.getZ(), idMeta.first(), idMeta.second(), true));
+                IntIntPair idMeta = DISPLAY.getRandom(random);
+                chest.add(wfb(point.getX(), point.getY(), point.getZ(), idMeta.firstInt(), idMeta.secondInt(), true));
             }
         }
         for (int i = 2; i < pointList.size(); i++) {
             WorldFeaturePoint[] points = pointList.get(i);
             for (WorldFeaturePoint point : points) {
-                IntPair idMeta = CHEST_OR_MIMIC.getRandom(random);
-                chest.add(wfb(point.getX(), point.getY(), point.getZ(), idMeta.first(), idMeta.second(), false));
+                IntIntPair idMeta = CHEST_OR_MIMIC.getRandom(random);
+                chest.add(wfb(point.getX(), point.getY(), point.getZ(), idMeta.firstInt(), idMeta.secondInt(), false));
             }
         }
     }
