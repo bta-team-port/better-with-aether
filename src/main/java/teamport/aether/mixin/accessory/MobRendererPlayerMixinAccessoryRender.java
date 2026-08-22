@@ -37,6 +37,7 @@ import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.helper.MixinHelper;
 import teamport.aether.item.AetherItemTags;
 import teamport.aether.item.AetherRepulsion;
+import teamport.aether.item.accessory.ItemAccessory;
 import teamport.aether.item.accessory.gloves.ItemGloves;
 import teamport.aether.item.accessory.pendant.ItemPendant;
 import teamport.aether.item.accessory.trinket.ItemGoldenFeather;
@@ -50,14 +51,13 @@ import static teamport.aether.item.accessory.SlotAccessory.*;
 @Mixin(MobRendererPlayer.class)
 public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<Player> {
 
-
     @Shadow
     protected abstract @Nullable StaticEntityModel setupAnimations(@NonNull Player player, @Nullable StaticEntityModel model, float partialTick, int layer);
 
     @Unique
     private boolean shield6 = false;
     @Unique
-    private float better_with_aether$partialTick;
+    private float partialTick;
 
     protected MobRendererPlayerMixinAccessoryRender(float shadowSize) {
         super(shadowSize);
@@ -66,20 +66,24 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     @Inject(method = "drawFirstPersonHand(Lnet/minecraft/client/render/tessellator/TessellatorGeneral;Lnet/minecraft/core/entity/player/Player;Z)V", at = @At("TAIL"))
     private void callDrawFirstPersonHandAfter(TessellatorGeneral tessellator, @NonNull Player player, boolean isLeft, CallbackInfo ci) {
         ItemStack glovesStack = this.getAccessory(player, GLOVES_SLOT);
-        if (glovesStack == null || !(glovesStack.getItem() instanceof ItemGloves)) {
+        if (glovesStack == null || !(glovesStack.getItem() instanceof ItemGloves gloves)) {
             return;
         }
-        Item item = glovesStack.getItem();
-        String path = String.format("/assets/%s/textures/armor/gloves/%s_gloves.png", item.namespaceID.namespace(), ((IAccessory) item).name());
+
+        String path = String.format("/assets/%s/textures/armor/gloves/%s_gloves.png", gloves.namespaceID.namespace(), gloves.getTextureName());
+
         TextureManager textureManager = this.renderDispatcher.textureManager;
+
         int previousTexture = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
         GLRenderer.pushFrame();
         try {
             textureManager.loadTexture(path).bind();
             GLRenderer.disableState(State.CULL_FACE);
+
             StaticEntityModel modelArmorChestplate = this.getModel("aether.accessory.gloves");
             modelArmorChestplate.resetBones();
             this.setVisible(modelArmorChestplate, false, false, false, false, false);
+
             if (isLeft) {
                 modelArmorChestplate.getTransform("leftArm").visible = true;
             } else {
@@ -95,7 +99,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     @Inject(method = "getAndSetupModelForLayer(Lnet/minecraft/core/entity/player/Player;FFI)Lorg/useless/dragonfly/models/entity/StaticEntityModel;", at = @At("HEAD"))
     private void capturePartialTick(Player entity, float brightness, float partialTick, int layer, CallbackInfoReturnable<StaticEntityModel> cir) {
         if (layer == 0) {
-            this.better_with_aether$partialTick = partialTick;
+            this.partialTick = partialTick;
         }
     }
 
@@ -118,8 +122,8 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 } else {
                     GLRenderer.modelM4f().translate(0, 0.0625F, 0);
                 }
-                float renderYaw = entity.yRotO + (entity.yRot - entity.yRotO) * this.better_with_aether$partialTick;
-                EntityRendererDispatcher.instance.renderEntityWithPosYaw(tessellator, bunny, x, y + 0.25F, z, renderYaw, this.better_with_aether$partialTick);
+                float renderYaw = entity.yRotO + (entity.yRot - entity.yRotO) * this.partialTick;
+                EntityRendererDispatcher.instance.renderEntityWithPosYaw(tessellator, bunny, x, y + 0.25F, z, renderYaw, this.partialTick);
             } finally {
                 GLRenderer.popFrame();
             }
@@ -129,7 +133,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     @WrapOperation(method = "getAndSetupModelForLayer(Lnet/minecraft/core/entity/player/Player;FFI)Lorg/useless/dragonfly/models/entity/StaticEntityModel;",
         at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/MobRendererPlayer;setupAnimations(Lnet/minecraft/core/entity/player/Player;Lorg/useless/dragonfly/models/entity/StaticEntityModel;FI)Lorg/useless/dragonfly/models/entity/StaticEntityModel;")
     )
-    private StaticEntityModel prePrepareAnimations(
+    private @Nullable StaticEntityModel prePrepareAnimations(
         MobRendererPlayer mobRendererPlayer,
         Player player,
         StaticEntityModel model,
@@ -146,7 +150,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     @WrapMethod(
         method = "getAndSetupModelForLayer(Lnet/minecraft/core/entity/player/Player;FFI)Lorg/useless/dragonfly/models/entity/StaticEntityModel;"
     )
-    private StaticEntityModel getAccessoryModel(
+    private @Nullable StaticEntityModel getAccessoryModel(
         Player entity,
         float brightness,
         float partialTick,
@@ -160,15 +164,17 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
         int slot = layer - 1;
         ItemStack armorStack = this.getAccessory(entity, slot);
         if (armorStack == null
-            || !(armorStack.getItem() instanceof IAccessory)
+            || !(armorStack.getItem() instanceof ItemAccessory<?>)
             && !armorStack.getItem().hasTag(AetherItemTags.TRINKET)
         ) {
             return null;
         }
+
         Item item = armorStack.getItem();
         if (item instanceof ItemGloves) {
             return this.setUpGloves(entity, partialTick, layer, item, slot);
         }
+
         if ((item instanceof ItemRepulsionShield && (slot == TRINKET_2_SLOT || this.getAccessory(entity, TRINKET_2_SLOT) == null)) || this.shield6) {
             return this.setUpShield(entity, partialTick, layer);
         }
@@ -182,27 +188,33 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
             item = nextSlot.getItem();
             slot += 1;
         }
+
         ItemStack itemTrinketSlot1 = this.getAccessory(entity, TRINKET_1_SLOT);
         ItemStack itemTrinketSlot2 = this.getAccessory(entity, TRINKET_2_SLOT);
         if (item instanceof ItemGoldenFeather) {
             return this.setUpGoldenFeather(entity, partialTick, layer, slot);
         }
+
         String textureKey = MixinHelper.TRINKET_TEXTURES.get(item);
         if (textureKey != null) {
             return setUpTrinkets(entity, partialTick, layer, slot, textureKey);
         }
+
         if (item instanceof ItemPendant) {
             return setUpPendant(entity, partialTick, layer, slot, itemTrinketSlot1, item);
         }
+
         if (item instanceof ItemRegenStone) {
             return setUpRegenStone(entity, partialTick, layer, slot);
         }
+
         if (item instanceof ItemIronBubble) {
             return setUpIronBubble(entity, partialTick, layer, itemTrinketSlot1, itemTrinketSlot2, slot);
         }
         return null;
     }
 
+    @Unique
     private @Nullable StaticEntityModel setUpTrinkets(Player entity, float partialTick, int layer, int slot, String textureKey) {
         if (slot != TRINKET_1_SLOT && slot != TRINKET_2_SLOT) {
             return null;
@@ -216,9 +228,9 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     }
 
     @Unique
-    private @Nullable StaticEntityModel setUpGloves(Player entity, float partialTick, int layer, Item item, int slot) {
+    private @Nullable StaticEntityModel setUpGloves(Player entity, float partialTick, int layer, @NonNull Item item, int slot) {
         StaticEntityModel modelArmorChestplate = this.setupAccessoryModel("aether.accessory.gloves", entity, partialTick, layer);
-        String path = String.format("/assets/%s/textures/armor/gloves/%s_gloves.png", item.namespaceID.namespace(), ((IAccessory) item).name());
+        String path = String.format("/assets/%s/textures/armor/gloves/%s_gloves.png", item.namespaceID.namespace(), ((ItemAccessory<?>) item).name());
         this.setVisible(modelArmorChestplate, false, false, slot == GLOVES_SLOT, false, false);
         renderDispatcher.textureManager.loadTexture(path).bind();
         return modelArmorChestplate;
@@ -251,7 +263,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     private @Nullable StaticEntityModel setUpGoldenFeather(Player entity, float partialTick, int layer, int slot) {
         StaticEntityModel modelFeather = this.setupAccessoryModel("aether.accessory.feather", entity, partialTick, layer);
         StaticEntityModel modelFeatherPos = this.getModel("aether.accessory.feather");
-        if (modelFeather == null || modelFeatherPos == null) {
+        if (modelFeather == null) {
             return null;
         }
         StringBuilder path = new StringBuilder("/assets/aether/textures/armor/trinkets/");
@@ -283,7 +295,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
         if (slot == TRINKET_2_SLOT && itemTrinketSlot1 != null && itemTrinketSlot1.getItem() instanceof ItemPendant) {
             variant = 1;
         }
-        String path = String.format("/assets/%s/textures/armor/pendants/%s_pendant_%d.png", item.namespaceID.namespace(), ((IAccessory) item).name(), variant);
+        String path = String.format("/assets/%s/textures/armor/pendants/%s_pendant_%d.png", item.namespaceID.namespace(), ((ItemAccessory<?>) item).name(), variant);
         this.setVisible(modelAccessories, false, true, false, false, false);
         renderDispatcher.textureManager.loadTexture(path).bind();
         return modelAccessories;
