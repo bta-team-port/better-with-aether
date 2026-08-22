@@ -11,6 +11,7 @@ import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemQuiver;
 import net.minecraft.core.item.ItemQuiverEndless;
 import net.minecraft.core.item.ItemStack;
+import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -19,7 +20,7 @@ import teamport.aether.ducks.IContainerInventoryAether;
 import teamport.aether.item.accessory.SlotAccessory;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = MobRendererPlayer.class, priority = 900)
+@Mixin(value = MobRendererPlayer.class, priority = 1100)
 public abstract class MobRendererPlayerMixinCapeQuiver extends MobRenderer<Player> {
     protected MobRendererPlayerMixinCapeQuiver(float shadowSize) {
         super(shadowSize);
@@ -41,7 +42,7 @@ public abstract class MobRendererPlayerMixinCapeQuiver extends MobRenderer<Playe
     }
 
     @WrapMethod(method = "getAndSetupModelForLayer(Lnet/minecraft/core/entity/player/Player;FFI)Lorg/useless/dragonfly/models/entity/StaticEntityModel;")
-    private StaticEntityModel setQuiverModel(Player player, float brightness, float partialTick, int layer, Operation<StaticEntityModel> original) {
+    private @Nullable StaticEntityModel setQuiverModel(Player player, float brightness, float partialTick, int layer, Operation<StaticEntityModel> original) {
         if (layer == 6) {
             ItemStack armorStack = ((IContainerInventoryAether) player.inventory).aether$getAccessoryInventory()[SlotAccessory.CAPE_SLOT - SlotAccessory.GLOVES_SLOT];
             if (armorStack == null) {
