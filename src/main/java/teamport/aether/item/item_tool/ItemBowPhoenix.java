@@ -25,7 +25,8 @@ public class ItemBowPhoenix extends ItemBow {
             shootArrow(itemstack, world, entityplayer);
         } else if ((quiverSlot != null && quiverSlot.itemID == Items.ARMOR_QUIVER_GOLD.id) ||
             entityplayer.inventory.consumeInventoryItem(Items.AMMO_ARROW_GOLD.id)
-            || entityplayer.inventory.consumeInventoryItem(Items.AMMO_ARROW.id)) {
+            || entityplayer.inventory.consumeInventoryItem(Items.AMMO_ARROW.id)
+            || entityplayer.inventory.consumeInventoryItem(Items.AMMO_ARROW_FLAMING.id)) {
             shootArrow(itemstack, world, entityplayer);
         }
         return itemstack;

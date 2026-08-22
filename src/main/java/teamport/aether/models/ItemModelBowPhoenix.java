@@ -53,12 +53,11 @@ public class ItemModelBowPhoenix extends ItemModelStandard {
             int id = player.getArrowId();
             if (id < 0 || id > Item.highestItemId) return null;
             Item arrow = Item.getItem(id);
-            return arrow == Items.AMMO_ARROW || arrow == Items.AMMO_ARROW_GOLD || arrow == AetherItems.AMMO_ARROW_FLAMING
-                ? AetherItems.AMMO_ARROW_FLAMING
-                : null;
+            return arrow == Items.AMMO_ARROW || arrow == Items.AMMO_ARROW_GOLD || arrow == Items.AMMO_ARROW_FLAMING
+                ? AetherItems.AMMO_ARROW_FLAMING : null;
         } else {
-            if (PlayerUtil.getActiveQuiver(player) != null || player.hasItem(Items.AMMO_ARROW_GOLD) ||
-                player.hasItem(Items.AMMO_ARROW)) {
+            if (PlayerUtil.getActiveQuiver(player) != null
+                || player.hasItem(Items.AMMO_ARROW) || player.hasItem(Items.AMMO_ARROW_GOLD) || player.hasItem(Items.AMMO_ARROW_FLAMING)) {
                 return AetherItems.AMMO_ARROW_FLAMING;
             }
             return null;
