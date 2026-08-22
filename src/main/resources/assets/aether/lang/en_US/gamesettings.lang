@@ -6,3 +6,27 @@ options.aether.flickAccessorySpeed=Cycle Inventory Trinkets Speed
 options.colorCorrectionAether=Aether Color Correction
 
 options.selectedSoundtrack.aether=Aether
+
+options.hideGlovesBar=Hide
+options.hideGlovesBar.never=Never
+options.hideGlovesBar.when_not_wearing=When Not Wearing
+options.hideGlovesBar.always=Always
+options.flipGlovesBar=Flip
+
+options.hideCapeBar=Hide
+options.hideCapeBar.never=Never
+options.hideCapeBar.when_not_wearing=When Not Wearing
+options.hideCapeBar.always=Always
+options.flipCapeBar=Flip
+
+options.hideTrinket1Bar=Hide
+options.hideTrinket1Bar.never=Never
+options.hideTrinket1Bar.when_not_wearing=When Not Wearing
+options.hideTrinket1Bar.always=Always
+options.flipTrinket1Bar=Flip
+
+options.hideTrinket2Bar=Hide
+options.hideTrinket2Bar.never=Never
+options.hideTrinket2Bar.when_not_wearing=When Not Wearing
+options.hideTrinket2Bar.always=Always
+options.flipTrinket2Bar=Flip

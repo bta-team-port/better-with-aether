@@ -580,11 +580,11 @@ public final class AetherItems {
         ARMOR_SHIELD_REPULSION = new ItemRepulsionShield("armor.shield.repulsion", itemKey("armor_shield_repulsion"), itemID("ARMOR_SHIELD_REPULSION"), "shield");
 
 
-        ARMOR_TALISMAN_LEATHER = new ItemPendant("armor.talisman.leather", itemKey("armor_talisman_leather"), itemID("ARMOR_TALISMAN_LEATHER"), ArmorMaterial.LEATHER, "cloth");
+        ARMOR_TALISMAN_LEATHER = new ItemPendant("armor.talisman.leather", itemKey("armor_talisman_leather"), itemID("ARMOR_TALISMAN_LEATHER"), "cloth");
 
         ARMOR_TALISMAN_CHAINMAIL = new ItemCombatPendant("armor.talisman.chainmail", itemKey("armor_talisman_chainmail"), itemID("ARMOR_TALISMAN_CHAINMAIL"), ArmorMaterial.CHAINMAIL, "chain");
 
-        ARMOR_TALISMAN_IRON = new ItemPendant("armor.talisman.iron", itemKey("armor_talisman_iron"), itemID("ARMOR_TALISMAN_IRON"), ArmorMaterial.IRON, "iron");
+        ARMOR_TALISMAN_IRON = new ItemPendant("armor.talisman.iron", itemKey("armor_talisman_iron"), itemID("ARMOR_TALISMAN_IRON"), "iron");
 
         ///  we treat gold differently when harvesting as such we don't make it take damage when harvesting the way other pendant might
         ARMOR_TALISMAN_GOLD = new ItemPendant("armor.talisman.gold", itemKey("armor_talisman_gold"), itemID("ARMOR_TALISMAN_GOLD"), ArmorMaterial.GOLD, "gold");
@@ -597,7 +597,7 @@ public final class AetherItems {
         ARMOR_TALISMAN_ZANITE = new ItemPendant("armor.talisman.zanite", itemKey("armor_talisman_zanite"), itemID("ARMOR_TALISMAN_ZANITE"), AetherArmorMaterial.ZANITE, "zanite")
             .setHarvestDamageable();
 
-        ARMOR_TALISMAN_GRAVITITE = new ItemGravititePendant("armor.talisman.gravitite", itemKey("armor_talisman_gravitite"), itemID("ARMOR_TALISMAN_GRAVITITE"), AetherArmorMaterial.GRAVITITE, "gravitite");
+        ARMOR_TALISMAN_GRAVITITE = new ItemGravititePendant("armor.talisman.gravitite", itemKey("armor_talisman_gravitite"), itemID("ARMOR_TALISMAN_GRAVITITE"), "gravitite");
 
         ARMOR_TALISMAN_ICE = new ItemIcePendant("armor.talisman.ice", itemKey("armor_talisman_ice"), itemID("ARMOR_TALISMAN_ICE"), "ice");
 

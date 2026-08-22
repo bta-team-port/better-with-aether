@@ -96,7 +96,7 @@ public abstract class ContainerInventoryMixinAccessory implements IContainerInve
         }
     }
 
-    @Inject(method = "clear", at = @At("TAIL"))
+    @Inject(method = "clear", at = @At("HEAD"))
     private void clearAccessories(CallbackInfo ci) {
         Arrays.fill(accessoryInventory, null);
     }
@@ -168,6 +168,9 @@ public abstract class ContainerInventoryMixinAccessory implements IContainerInve
         for (int slot = 0; slot < accessoryInventory.length; ++slot) {
             ItemStack itemStack = accessoryInventory[slot];
             if (itemStack != null) {
+                if (itemStack.getItem() instanceof IAccessoryEffects effects) {
+                    effects.removeEffect(player, itemStack);
+                }
                 player.dropItem(itemStack, true);
                 accessoryInventory[slot] = null;
             }

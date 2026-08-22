@@ -10,6 +10,8 @@ import net.minecraft.client.gui.hud.component.HudComponent;
 import net.minecraft.client.gui.hud.component.HudComponents;
 import net.minecraft.client.gui.hud.component.layout.LayoutAbsolute;
 import net.minecraft.client.gui.hud.component.layout.LayoutSnap;
+import net.minecraft.client.gui.options.components.BooleanOptionComponent;
+import net.minecraft.client.gui.options.components.ToggleableOptionComponent;
 import net.minecraft.client.holiday.Holiday;
 import net.minecraft.client.render.colorizer.Colorizer;
 import net.minecraft.client.render.colorizer.Colorizers;
@@ -31,10 +33,13 @@ import teamport.aether.effect.AetherEffects;
 import teamport.aether.effect.render.PoisonEffectRenderer;
 import teamport.aether.effect.render.RemedyEffectRenderer;
 import teamport.aether.entity.AetherMobInfoRegistry;
+import teamport.aether.gui.HudComponentAccessoryBar;
 import teamport.aether.gui.HudComponentBossBar;
 import teamport.aether.gui.HudComponentJumpBar;
+import teamport.aether.item.accessory.HumanAccessoryShape;
 import teamport.aether.models.AetherModels;
 import teamport.aether.option.AetherGameSettings;
+import teamport.aether.option.AetherGameSettingsHolder;
 import teamport.aether.particle.*;
 import teamport.aether.world.type.AetherWorldTypes;
 import teamport.aether.world.type.WorldTypeFXAether;
@@ -52,6 +57,10 @@ import static teamport.aether.AetherMod.MOD_ID;
 public class AetherClient implements ClientModInitializer {
     public static HudComponent BOSS_BAR;
     public static HudComponent JUMP_BAR;
+    public static HudComponentAccessoryBar GLOVES_BAR;
+    public static HudComponentAccessoryBar CAPES_BAR;
+    public static HudComponentAccessoryBar TRINKET_1_BAR;
+    public static HudComponentAccessoryBar TRINKET_2_BAR;
 
     public static final Holiday ANNIVERSARY_AETHER = new Holiday(Month.JULY, 22);
 
@@ -206,6 +215,28 @@ public class AetherClient implements ClientModInitializer {
     }
 
     public static void registerHUDComponents() {
+
+        TRINKET_2_BAR = HudComponents.register((new HudComponentAccessoryBar("trinket_2_bar",
+            new LayoutSnap(HudComponents.BOOTS_BAR, ComponentAnchor.TOP_RIGHT, ComponentAnchor.BOTTOM_RIGHT, 0, -2), HumanAccessoryShape.TRINKET, 3))
+            .addAttachedOption(AetherGameSettingsHolder.HIDE_TRINKET_2_BAR, () -> new ToggleableOptionComponent<>(AetherGameSettingsHolder.HIDE_TRINKET_2_BAR))
+            .addAttachedOption(AetherGameSettingsHolder.FLIP_TRINKET_2_BAR, () -> new BooleanOptionComponent(AetherGameSettingsHolder.FLIP_TRINKET_2_BAR)));
+
+        TRINKET_1_BAR = HudComponents.register((new HudComponentAccessoryBar("trinket_1_bar",
+            new LayoutSnap(TRINKET_2_BAR, ComponentAnchor.CENTER_LEFT, ComponentAnchor.CENTER_RIGHT, -3, 0), HumanAccessoryShape.TRINKET, 2))
+            .addAttachedOption(AetherGameSettingsHolder.HIDE_TRINKET_1_BAR, () -> new ToggleableOptionComponent<>(AetherGameSettingsHolder.HIDE_TRINKET_1_BAR))
+            .addAttachedOption(AetherGameSettingsHolder.FLIP_TRINKET_1_BAR, () -> new BooleanOptionComponent(AetherGameSettingsHolder.FLIP_TRINKET_1_BAR)));
+
+        CAPES_BAR = HudComponents.register((new HudComponentAccessoryBar("capes_bar",
+            new LayoutSnap(TRINKET_1_BAR, ComponentAnchor.CENTER_LEFT, ComponentAnchor.CENTER_RIGHT, -3, 0), HumanAccessoryShape.CAPE))
+            .addAttachedOption(AetherGameSettingsHolder.HIDE_CAPE_BAR, () -> new ToggleableOptionComponent<>(AetherGameSettingsHolder.HIDE_CAPE_BAR))
+            .addAttachedOption(AetherGameSettingsHolder.FLIP_CAPE_BAR, () -> new BooleanOptionComponent(AetherGameSettingsHolder.FLIP_CAPE_BAR)));
+
+        GLOVES_BAR = HudComponents.register((new HudComponentAccessoryBar("gloves_bar",
+            new LayoutSnap(CAPES_BAR, ComponentAnchor.CENTER_LEFT, ComponentAnchor.CENTER_RIGHT, -3, 0), HumanAccessoryShape.GLOVES))
+            .addAttachedOption(AetherGameSettingsHolder.HIDE_GLOVES_BAR, () -> new ToggleableOptionComponent<>(AetherGameSettingsHolder.HIDE_GLOVES_BAR))
+            .addAttachedOption(AetherGameSettingsHolder.FLIP_GLOVES_BAR, () -> new BooleanOptionComponent(AetherGameSettingsHolder.FLIP_GLOVES_BAR)));
+
+
         BOSS_BAR = HudComponents.register(
             new HudComponentBossBar(
                 "boss_bar",
@@ -216,11 +247,11 @@ public class AetherClient implements ClientModInitializer {
         JUMP_BAR = HudComponents.register(
             new HudComponentJumpBar(
                 "wing_bar",
-                new LayoutSnap(HudComponents.HEALTH_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT)
+                new LayoutSnap(HudComponents.VEHICLE_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT)
             )
         );
 
-        HudComponents.OXYGEN_BAR.setLayout(new LayoutSnap(HudComponents.BOOTS_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT));
+        HudComponents.OXYGEN_BAR.setLayout(new LayoutSnap(JUMP_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT));
     }
 
     public static void registerTextures() {

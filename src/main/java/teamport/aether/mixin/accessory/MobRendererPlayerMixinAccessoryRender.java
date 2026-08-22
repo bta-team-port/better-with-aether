@@ -20,9 +20,8 @@ import net.minecraft.client.render.tessellator.TessellatorGeneral;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.item.Items;
-import org.jspecify.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -38,8 +37,7 @@ import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.helper.MixinHelper;
 import teamport.aether.item.AetherItemTags;
 import teamport.aether.item.AetherRepulsion;
-import teamport.aether.item.accessory.IAccessory;
-import teamport.aether.item.accessory.ItemGloves;
+import teamport.aether.item.accessory.gloves.ItemGloves;
 import teamport.aether.item.accessory.pendant.ItemPendant;
 import teamport.aether.item.accessory.trinket.ItemGoldenFeather;
 import teamport.aether.item.accessory.trinket.ItemIronBubble;
@@ -67,10 +65,6 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
 
     @Inject(method = "drawFirstPersonHand(Lnet/minecraft/client/render/tessellator/TessellatorGeneral;Lnet/minecraft/core/entity/player/Player;Z)V", at = @At("TAIL"))
     private void callDrawFirstPersonHandAfter(TessellatorGeneral tessellator, @NonNull Player player, boolean isLeft, CallbackInfo ci) {
-        ItemStack held = player.inventory.getCurrentItem();
-        if ((held == null || !held.getItem().equals(Items.MAP)) && isLeft) {
-            return;
-        }
         ItemStack glovesStack = this.getAccessory(player, GLOVES_SLOT);
         if (glovesStack == null || !(glovesStack.getItem() instanceof ItemGloves)) {
             return;
