@@ -1,12 +1,4 @@
-<<<<<<<< HEAD:src/main/java/teamport/aether/mixin/fix/StaticEntityModelMojangMixin.java
-<<<<<<<< HEAD:src/main/java/teamport/aether/mixins/mixin/fix/StaticEntityModelMojangMixin.java
 package teamport.aether.mixin.fix;
-========
-package teamport.aether.mixins.mixin;
->>>>>>>> 8f1ad33e (sank mixin into mixins):src/main/java/teamport/aether/mixins/mixin/StaticEntityModelMojangMixin.java
-========
-package teamport.aether.mixin;
->>>>>>>> 91ae3217 (Revert "sank mixin into mixins"):src/main/java/teamport/aether/mixin/StaticEntityModelMojangMixin.java
 
 import org.joml.Math;
 import org.joml.Matrix4f;
