@@ -174,7 +174,8 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
 
     @Override
     public String deathMessage(@NonNull Player player) {
-        String key = EntityDispatcher.getInstance().entryForClass(this.getClass()).nameKey + ".death_message";
+        EntityDispatcher.EntityDispatcherEntry<?> entry = EntityDispatcher.getInstance().entryForClass(((Entity) this).getClass());
+        String key = (entry == null ? "" : entry.nameKey) + ".death_message";
         String name = key + "_" + random.nextInt(9);
 
         String theBossName = BOLD.toString() + TextFormatting.get(this.chatColor).toString() + this.getBossTitle() + RESET + RED;
