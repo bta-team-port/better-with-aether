@@ -152,7 +152,6 @@ public final class AetherCreativeContents {
 
         list.add(new ItemStack(Items.TOOL_FISHINGROD));
 
-        list.add(new ItemStack(Items.MAP));
         list.add(new ItemStack(Items.LABEL));
 
         list.add(new ItemStack(Items.TOOL_COMPASS));
@@ -741,6 +740,7 @@ public final class AetherCreativeContents {
         list.add(new ItemStack(AetherItems.ARMOR_CHESTPLATE_NEPTUNE));
         list.add(new ItemStack(AetherItems.ARMOR_LEGGINGS_NEPTUNE));
         list.add(new ItemStack(AetherItems.ARMOR_BOOTS_NEPTUNE));
+        list.add(new ItemStack(AetherItems.ARMOR_GLOVES_NEPTUNE));
         list.add(new ItemStack(AetherItems.ARMOR_WOLF_NEPTUNE));
 
         list.add(new ItemStack(Items.ARMOR_QUIVER));

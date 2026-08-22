@@ -669,7 +669,7 @@ public class AetherModels {
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_AGILITY));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_SWET));
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_INVISIBILITY));
+        dispatcher.addDispatch(new ItemModelTransparent(AetherItems.ARMOR_CAPE_INVISIBILITY));
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_WHITE));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_SILVER));

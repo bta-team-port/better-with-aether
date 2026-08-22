@@ -17,7 +17,6 @@ import net.minecraft.client.render.tessellator.TessellatorGeneral;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.item.Items;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.lwjgl.opengl.GL11;
@@ -64,12 +63,6 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
 
     @Inject(method = "drawFirstPersonHand(Lnet/minecraft/client/render/tessellator/TessellatorGeneral;Lnet/minecraft/core/entity/player/Player;Z)V", at = @At("TAIL"))
     private void callDrawFirstPersonHandAfter(TessellatorGeneral tessellator, @NonNull Player player, boolean isLeft, CallbackInfo ci) {
-        ItemStack held = player.inventory.getCurrentItem();
-
-        if ((held == null || !held.getItem().equals(Items.MAP)) && isLeft) {
-            return;
-        }
-
         ItemStack glovesStack = this.better_with_aether$getAccessory(player, GLOVES_SLOT);
         if (glovesStack == null || !(glovesStack.getItem() instanceof ItemGloves gloves)) {
             return;
