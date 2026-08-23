@@ -15,12 +15,10 @@ import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.ducks.IContainerInventoryAether;
 import teamport.aether.effect.AetherEffects;
 import teamport.aether.item.AetherItems;
+import teamport.aether.item.accessory.gloves.ItemGloves;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
-import static teamport.aether.item.accessory.SlotAccessory.CAPE_SLOT;
-import static teamport.aether.item.accessory.SlotAccessory.GLOVES_SLOT;
-import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
-import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
+import static teamport.aether.item.accessory.SlotAccessory.*;
 
 public class PlayerUtil {
     private PlayerUtil() {/* no need to initiate*/}
@@ -35,37 +33,22 @@ public class PlayerUtil {
         int count = 0;
         for (int i = 0; i < inventory.armorInventory.length; ++i) {
             ItemStack itemStack = inventory.armorInventory[i];
-            if (itemStack == null || !(itemStack.getItem() instanceof IArmorItem<?> armor)) {
-                continue;
-            }
-            if (armor.getArmorShape().getSlotIndex() != i) {
-                continue;
-            }
-            if (hasArmorMaterial(armor, material)) count++;
-        }
-
-        ItemStack[] accessories = ((IContainerInventoryAether) inventory).aether$getAccessoryInventory();
-        for (int logicalSlot = GLOVES_SLOT; logicalSlot <= CAPE_SLOT; logicalSlot++) {
-            ItemStack itemStack = accessories[logicalSlot - GLOVES_SLOT];
-            if (itemStack != null && itemStack.getItem() instanceof IArmorItem<?> armor && hasArmorMaterial(armor, material)) {
+            if (itemStack != null && itemStack.getItem() instanceof IArmorItem<?> armor && armor.getArmorShape().getSlotIndex() == i && hasArmorMaterial(armor, material)) {
                 count++;
             }
-        }
-        return count;
-    }
 
-    /// Counts the accessories of a specific material.
-    @SuppressWarnings("java:S135")
-    public static int countAccessoriesOfMaterial(ContainerInventory inventory, ArmorMaterial material) {
-        int count = 0;
-        ItemStack[] accessories = ((IContainerInventoryAether) inventory).aether$getAccessoryInventory();
-        for (int slot = TRINKET_1_SLOT - GLOVES_SLOT; slot <= TRINKET_2_SLOT - GLOVES_SLOT; slot++) {
-            ItemStack itemStack = accessories[slot];
-            if (itemStack == null || !(itemStack.getItem() instanceof IArmorItem<?> armor)) {
-                continue;
-            }
-            if (hasArmorMaterial(armor, material)) count++;
         }
+
+        if (inventory instanceof IContainerInventoryAether aetherInv) {
+            ItemStack[] accessories = aetherInv.aether$getAccessoryInventory();
+            if (accessories != null && 0 < accessories.length) {
+                ItemStack glovesStack = accessories[0];
+                if (glovesStack != null && glovesStack.getItem() instanceof ItemGloves gloves && gloves.getArmorMaterial() != null && gloves.getArmorMaterial().equals(material)) {
+                    count++;
+                }
+            }
+        }
+
         return count;
     }
 
@@ -239,24 +222,24 @@ public class PlayerUtil {
 
     ///  To check if the player can be attacked by Swets
     @SuppressWarnings("java:S1172")
-    public static boolean isSwetty(Entity entity, double distance){
+    public static boolean isSwetty(Entity entity, double distance) {
         return PlayerUtil.isSwetty(entity);
     }
 
     ///  The interface requires the distance but either call is fine, as long it not used to figure out targeting
     public static boolean isSwetty(Entity entity) {
-        return entity instanceof IHasEffects
-            &&((IHasEffects<?>) entity).getContainer().hasEffect(AetherEffects.swetty);
+        return entity instanceof IHasEffects<?> iHasEffects
+            && iHasEffects.getContainer().hasEffect(AetherEffects.swetty);
     }
 
     ///  To check if the player is Invisible for targeting
-    public static boolean isInvisible(Entity entity, double distance){
+    public static boolean isInvisible(Entity entity, double distance) {
         return PlayerUtil.isInvisible(entity) && distance > 2.0f;
     }
 
     ///  To check if the player is Invisible
     public static boolean isInvisible(Entity entity) {
-        return entity instanceof IHasEffects
-            &&((IHasEffects<?>) entity).getContainer().hasEffect(AetherEffects.invisibility);
+        return entity instanceof IHasEffects<?> iHasEffects
+            && iHasEffects.getContainer().hasEffect(AetherEffects.invisibility);
     }
 }

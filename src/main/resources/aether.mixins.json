@@ -95,6 +95,7 @@
     "item.ItemBlockSlabBlacklistMixin",
     "item.ItemFireStrikerMixin",
     "item.ItemJarMixin",
+    "item.ItemQuiverCapeMixin",
     "item.ItemSaddleMixin",
     "item.ItemShearsMixin",
     "item.ItemStatueMixin",

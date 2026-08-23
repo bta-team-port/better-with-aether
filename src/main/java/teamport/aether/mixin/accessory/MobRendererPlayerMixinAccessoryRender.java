@@ -138,12 +138,13 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
         Player player,
         StaticEntityModel model,
         float partialTick, int layer,
-        Operation<StaticEntityModel> original
+        @NonNull Operation<StaticEntityModel> original
     ) {
+        StaticEntityModel setupModel = original.call(mobRendererPlayer, player, model, partialTick, layer);
         if (layer == 0 && PlayerUtil.isInvisible(player)) {
             return null;
         }
-        return original.call(mobRendererPlayer, player, model, partialTick, layer);
+        return setupModel;
     }
 
 
@@ -171,8 +172,8 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
         }
 
         Item item = armorStack.getItem();
-        if (item instanceof ItemGloves) {
-            return this.setUpGloves(entity, partialTick, layer, item, slot);
+        if (item instanceof ItemGloves itemGloves) {
+            return this.setUpGloves(entity, partialTick, layer, itemGloves, slot);
         }
 
         if ((item instanceof ItemRepulsionShield && (slot == TRINKET_2_SLOT || this.getAccessory(entity, TRINKET_2_SLOT) == null)) || this.shield6) {
@@ -228,9 +229,9 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     }
 
     @Unique
-    private @Nullable StaticEntityModel setUpGloves(Player entity, float partialTick, int layer, @NonNull Item item, int slot) {
+    private @Nullable StaticEntityModel setUpGloves(Player entity, float partialTick, int layer, @NonNull ItemGloves item, int slot) {
         StaticEntityModel modelArmorChestplate = this.setupAccessoryModel("aether.accessory.gloves", entity, partialTick, layer);
-        String path = String.format("/assets/%s/textures/armor/gloves/%s_gloves.png", item.namespaceID.namespace(), ((ItemAccessory<?>) item).name());
+        String path = String.format("/assets/%s/textures/armor/gloves/%s_gloves.png", item.namespaceID.namespace(), item.getTextureName());
         this.setVisible(modelArmorChestplate, false, false, slot == GLOVES_SLOT, false, false);
         renderDispatcher.textureManager.loadTexture(path).bind();
         return modelArmorChestplate;
