@@ -391,6 +391,7 @@ public final class AetherCreativeContents {
         addBlock(list, Blocks.LOG_SCORCHED);
         addBlock(list, AetherBlocks.LOG_SKYROOT);
         addBlock(list, AetherBlocks.LOG_OAK_GOLDEN);
+        addBlock(list, AetherBlocks.LOG_AETHER_SCORCHED);
     }
 
     private static void addLeafTypes(List<ItemStack> list) {

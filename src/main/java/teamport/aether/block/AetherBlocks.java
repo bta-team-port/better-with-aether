@@ -97,6 +97,7 @@ public final class AetherBlocks {
 
     public static Block<?> LOG_SKYROOT;
     public static Block<?> LOG_OAK_GOLDEN;
+    public static Block<?> LOG_AETHER_SCORCHED;
 
     public static Block<?> LEAVES_SKYROOT;
     public static Block<?> LEAVES_OAK_GOLDEN;
@@ -670,6 +671,12 @@ public final class AetherBlocks {
             BlockLogicGoldenLogAether::new)
             .withSound(BlockSounds.WOOD)
             .withHardness(2.0F)
+            .withTags(BlockTags.FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+
+        LOG_AETHER_SCORCHED = register("log.aether.scorched", blockKey("log_aether_scorched"), blockID("LOG_AETHER_SCORCHED"),
+            BlockLogicLogAether::new)
+            .withSound(BlockSounds.WOOD)
+            .withHardness(1.5F)
             .withTags(BlockTags.FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_AXE);
 
 

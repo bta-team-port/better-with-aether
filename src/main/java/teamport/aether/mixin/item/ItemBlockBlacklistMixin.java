@@ -48,7 +48,7 @@ public interface ItemBlockBlacklistMixin {
             return false;
         }
 
-        int replacementId = block == Blocks.COBBLE_NETHERRACK_CRYSTALLINE || block == Blocks.PUMICE_WET && !SunSpiritDeath.isDead()
+        int replacementId = block == Blocks.PUMICE_WET && !SunSpiritDeath.isDead()
             ? -2
             : MixinHelper.BLOCK_TO_BECOME.getOrDefault(block.id(), -2);
         if (player != null) player.swingItem();

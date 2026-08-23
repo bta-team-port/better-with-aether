@@ -2,17 +2,21 @@ package teamport.aether.block.terrain;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicLog;
+import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.enums.PlacementMode;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.Items;
 import net.minecraft.core.util.helper.Axis;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePosc;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
+import teamport.aether.block.AetherBlocks;
 import teamport.aether.item.AetherItems;
 import teamport.aether.mixin.accessors.ItemAccessor;
 
@@ -22,6 +26,22 @@ public class BlockLogicLogAether extends BlockLogicLog {
 
     public BlockLogicLogAether(Block<?> block) {
         super(block);
+    }
+
+    @Override
+    public @NonNull ItemStack @Nullable [] getBreakResult(@NonNull World world, @NonNull EnumDropCause dropCause, int data, @Nullable TileEntity tileEntity) {
+        if (this.block == AetherBlocks.LOG_AETHER_SCORCHED) {
+            ItemStack[] var10000;
+            if (dropCause == EnumDropCause.PISTON_CRUSH) {
+                var10000 = new ItemStack[]{new ItemStack(Items.COAL, 1, 1)};
+            } else {
+                var10000 = new ItemStack[]{new ItemStack(this.block)};
+            }
+
+            return var10000;
+        } else {
+            return super.getBreakResult(world, dropCause, data, tileEntity);
+        }
     }
 
     @Override
