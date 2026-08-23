@@ -3,7 +3,6 @@ package teamport.aether.item.accessory.pendant;
 import net.minecraft.core.enums.HumanArmorShape;
 import net.minecraft.core.item.material.ArmorMaterial;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.item.AetherItemTags;
 import teamport.aether.item.accessory.HumanAccessoryShape;
 import teamport.aether.item.accessory.IAccessoryItem;
 import teamport.aether.item.accessory.ItemAccessory;
@@ -19,7 +18,6 @@ public class ItemPendant extends ItemAccessory<HumanAccessoryShape> implements I
         this.maxStackSize = 1;
         float maxDurability = HumanArmorShape.BOOTS.getDurabilityModifier() * material.durability;
         this.setMaxDamage((int) Math.ceil(maxDurability));
-        this.withTags(AetherItemTags.tags(AetherItemTags.TRINKET));
         this.canHarvestDamage = false;
     }
 
@@ -27,7 +25,6 @@ public class ItemPendant extends ItemAccessory<HumanAccessoryShape> implements I
         super(translationKey, namespaceId, id, HumanAccessoryShape.TRINKET);
         this.name = name;
         this.maxStackSize = 1;
-        this.withTags(AetherItemTags.tags(AetherItemTags.TRINKET));
         this.canHarvestDamage = false;
     }
 
