@@ -1,0 +1,7 @@
+{
+	"parent": "minecraft:block/cube_column",
+	"textures": {
+		"end": "aether:block/log/aether_scorched_top",
+		"side": "aether:block/log/aether_scorched_side"
+	}
+}

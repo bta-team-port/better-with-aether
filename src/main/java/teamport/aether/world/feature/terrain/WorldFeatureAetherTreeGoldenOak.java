@@ -2,16 +2,19 @@ package teamport.aether.world.feature.terrain;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
+import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
 
 import java.util.Random;
 
 public class WorldFeatureAetherTreeGoldenOak extends WorldFeature {
-    public WorldFeatureAetherTreeGoldenOak() {}
+    public WorldFeatureAetherTreeGoldenOak() {
+    }
 
     private void branch(World world, @NonNull Random random, int i, int j, int k, int slant) {
         int directionX = random.nextInt(3) - 1;
@@ -30,38 +33,33 @@ public class WorldFeatureAetherTreeGoldenOak extends WorldFeature {
 
     @Override
     public boolean place(@NonNull World world, Random random, int i, int j, int k) {
-        if (world.getBlockId(i, j - 1, k) != AetherBlocks.GRASS_AETHER.id() &&
-            world.getBlockId(i, j - 1, k) != AetherBlocks.DIRT_AETHER.id() &&
-            world.getBlockId(i, j - 1, k) != Blocks.GRASS.id() &&
-            world.getBlockId(i, j - 1, k) != Blocks.GRASS_RETRO.id() &&
-            world.getBlockId(i, j - 1, k) != Blocks.DIRT.id() &&
-            world.getBlockId(i, j - 1, k) != Blocks.GRASS_SCORCHED.id() &&
-            world.getBlockId(i, j - 1, k) != Blocks.DIRT_SCORCHED.id()) {
+        Block<?> groundBlock = world.getBlock(i, j - 1, k);
+        if (!groundBlock.hasTag(BlockTags.GROWS_TREES) && !groundBlock.hasTag(AetherBlockTags.GROWS_AETHER_TREES)) {
             return false;
-        } else {
-            int height = random.nextInt(5) + 6;
-            onTreeGrown(world, i, j, k);
-            int x;
-            for (x = i - 3; x < i + 4; ++x) {
-                for (int y = j + 5; y < j + 12; ++y) {
-                    for (int z = k - 3; z < k + 4; ++z) {
-                        if ((x - i) * (x - i) + (y - j - 8) * (y - j - 8) + (z - k) * (z - k) < 12 + random.nextInt(5) && world.getBlockId(x, y, z) == 0) {
-                            world.setBlockWithNotify(x, y, z, AetherBlocks.LEAVES_OAK_GOLDEN.id());
-                        }
+        }
+
+        int height = random.nextInt(5) + 6;
+        onTreeGrown(world, i, j, k);
+        int x;
+        for (x = i - 3; x < i + 4; ++x) {
+            for (int y = j + 5; y < j + 12; ++y) {
+                for (int z = k - 3; z < k + 4; ++z) {
+                    if ((x - i) * (x - i) + (y - j - 8) * (y - j - 8) + (z - k) * (z - k) < 12 + random.nextInt(5) && world.getBlockId(x, y, z) == 0) {
+                        world.setBlockWithNotify(x, y, z, AetherBlocks.LEAVES_OAK_GOLDEN.id());
                     }
                 }
             }
+        }
 
-            for (x = 0; x < height; ++x) {
-                if (x > 4 && random.nextInt(3) > 0) {
-                    this.branch(world, random, i, j + x, k, x / 4 - 1);
-                }
-
-                world.setBlockAndMetadataWithNotify(i, j + x, k, AetherBlocks.LOG_OAK_GOLDEN.id(), 0);
+        for (x = 0; x < height; ++x) {
+            if (x > 4 && random.nextInt(3) > 0) {
+                this.branch(world, random, i, j + x, k, x / 4 - 1);
             }
 
-            return true;
+            world.setBlockAndMetadataWithNotify(i, j + x, k, AetherBlocks.LOG_OAK_GOLDEN.id(), 0);
         }
+
+        return true;
     }
 
     private static void onTreeGrown(@NonNull World world, int x, int y, int z) {

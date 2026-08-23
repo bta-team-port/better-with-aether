@@ -42,7 +42,13 @@ public abstract class BlockLogicSaplingBaseAether extends BlockLogicSaplingBase 
             }
 
             this.checkAlive(world, tilePos);
-            if (this.killedByWeather && world.getGameRuleValue(GameRules.DO_SEASONAL_GROWTH) && world.getSeasonManager().getCurrentSeason() != null && !isPermanent(world.getBlockData(tilePos)) && world.getSeasonManager().getCurrentSeason().killFlowers && rand.nextInt(256) == 0) {
+            if (this.killedByWeather
+                && world.getGameRuleValue(GameRules.DO_SEASONAL_GROWTH)
+                && world.getSeasonManager().getCurrentSeason() != null
+                && !isPermanent(world.getBlockData(tilePos))
+                && world.getSeasonManager().getCurrentSeason().killFlowers
+                && rand.nextInt(256) == 0) {
+
                 world.setBlockTypeNotify(tilePos, Blocks.AIR);
             }
 

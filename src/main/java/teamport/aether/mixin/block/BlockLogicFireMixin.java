@@ -1,5 +1,6 @@
 package teamport.aether.mixin.block;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.core.block.Block;
@@ -13,6 +14,9 @@ import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
 import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import teamport.aether.block.AetherBlocks;
+import teamport.aether.block.terrain.BlockLogicLogAether;
 import teamport.aether.world.AetherDimension;
 
 @Mixin(BlockLogicFire.class)
@@ -34,5 +38,14 @@ public abstract class BlockLogicFireMixin extends BlockLogic {
         }
 
         original.call(world, tilePos);
+    }
+
+    @ModifyReturnValue(method = "getBurnResult", at = @At("RETURN"))
+    private Block<?> getAetherBurnResult(Block<?> original, @NonNull World world, TilePosc tilePos) {
+        Block<?> blockAtPos = world.getBlockType(tilePos);
+        if (blockAtPos.getLogic() instanceof BlockLogicLogAether) {
+            return AetherBlocks.LOG_AETHER_SCORCHED;
+        }
+        return original;
     }
 }

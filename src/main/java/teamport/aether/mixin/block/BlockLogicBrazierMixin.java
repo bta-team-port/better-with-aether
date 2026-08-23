@@ -36,8 +36,7 @@ public abstract class BlockLogicBrazierMixin extends BlockLogic {
         ItemStack heldItem = player.getHeldItem();
         if (world.dimension == AetherDimension.getAether() && heldItem != null && heldItem.getItem() instanceof ItemFireStriker && !this.burning) {
             TilePos neighborPos = new TilePos();
-            Block<?> b;
-            if (((b = world.getBlockType(tilePos.add(Direction.EAST, neighborPos))) == null || !(b.getLogic() instanceof BlockLogicFluid)) && ((b = world.getBlockType(tilePos.add(Direction.WEST, neighborPos))) == null || !(b.getLogic() instanceof BlockLogicFluid)) && ((b = world.getBlockType(tilePos.add(Direction.SOUTH, neighborPos))) == null || !(b.getLogic() instanceof BlockLogicFluid)) && ((b = world.getBlockType(tilePos.add(Direction.NORTH, neighborPos))) == null || !(b.getLogic() instanceof BlockLogicFluid))) {
+            if (!(world.getBlockType(tilePos.add(Direction.EAST, neighborPos)).getLogic() instanceof BlockLogicFluid) && !(world.getBlockType(tilePos.add(Direction.WEST, neighborPos)).getLogic() instanceof BlockLogicFluid) && !(world.getBlockType(tilePos.add(Direction.SOUTH, neighborPos)).getLogic() instanceof BlockLogicFluid) && !(world.getBlockType(tilePos.add(Direction.NORTH, neighborPos)).getLogic() instanceof BlockLogicFluid)) {
                 world.setBlockTypeNotify(tilePos, Blocks.BRAZIER_INACTIVE);
                 heldItem.damageItem(1, player);
                 for (int l = 0; l < 8; ++l) {
