@@ -2,7 +2,6 @@ package teamport.aether.item.accessory.trinket;
 
 import net.minecraft.core.item.Item;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.item.AetherItemTags;
 import teamport.aether.item.accessory.HumanAccessoryShape;
 import teamport.aether.item.accessory.IAccessoryItem;
 import teamport.aether.item.accessory.ItemAccessory;
@@ -16,12 +15,10 @@ public class ItemTrinket extends ItemAccessory<HumanAccessoryShape> implements I
         super(translationKey, namespaceId, id, HumanAccessoryShape.TRINKET);
         this.name = name;
         this.maxStackSize = 1;
-        this.withTags(AetherItemTags.tags(AetherItemTags.TRINKET));
     }
 
     public static void setIcon(@NonNull Item item, String path) {
         LookupTrinketIcons.INSTANCE.addEntry(item, path);
-        item.withTags(AetherItemTags.tags(AetherItemTags.TRINKET));
     }
 
     @Override
