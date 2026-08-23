@@ -130,6 +130,9 @@ public class AetherRecipes {
 
         Registries.ITEM_GROUPS.register("aether:all_sticks", Registries.stackListOf(Items.STICK.getDefaultStack()));
         Registries.ITEM_GROUPS.getItem("aether:all_sticks").add(AetherItems.STICK_SKYROOT.getDefaultStack());
+
+        Registries.ITEM_GROUPS.register("aether:overworld_logs", Registries.stackListOf(Blocks.LOG_OAK, Blocks.LOG_OAK_MOSSY, Blocks.LOG_BIRCH, Blocks.LOG_PINE, Blocks.LOG_THORN, Blocks.LOG_PALM, Blocks.LOG_CHERRY, Blocks.LOG_EUCALYPTUS));
+        Registries.ITEM_GROUPS.register("aether:aether_logs", Registries.stackListOf(AetherBlocks.LOG_SKYROOT, AetherBlocks.LOG_OAK_GOLDEN));
     }
 
     public static void oreGemGroups() {
@@ -168,6 +171,8 @@ public class AetherRecipes {
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("rail");
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("repeater");
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("torch_redstone_active");
+
+        RecipeBuilder.ModifyBlastFurnace("minecraft").removeRecipe("log_to_scorched_log");
 
         Registries.ITEM_GROUPS.getItem("minecraft:logs").add(AetherBlocks.LOG_SKYROOT.getDefaultStack());
         Registries.ITEM_GROUPS.getItem("minecraft:logs").add(AetherBlocks.LOG_OAK_GOLDEN.getDefaultStack());
@@ -738,6 +743,7 @@ public class AetherRecipes {
         RecipeBuilderShaped templateLogtoPlank = new RecipeBuilderShaped(MOD_ID, "X");
         templateLogtoPlank.addInput('X', AetherBlocks.LOG_SKYROOT).create("skyroot_log_to_skyroot_planks", new ItemStack(AetherBlocks.PLANKS_SKYROOT, 4));
         templateLogtoPlank.addInput('X', AetherBlocks.LOG_OAK_GOLDEN).create("golden_oak_log_to_yellow_wooden_planks", new ItemStack(AetherBlocks.PLANKS_SKYROOT_PAINTED, 4, 4));
+        templateLogtoPlank.addInput('X', AetherBlocks.LOG_AETHER_SCORCHED).create("scorched_aether_log_to_black_wooden_planks", new ItemStack(AetherBlocks.PLANKS_SKYROOT_PAINTED, 4, 15));
 
         RecipeBuilderShaped templateFences = new RecipeBuilderShaped(MOD_ID, "PSP", "PSP");
         templateFences.addInput('P', AetherBlocks.PLANKS_SKYROOT).addInput('S', AetherItems.STICK_SKYROOT).create("skyroot_fence", new ItemStack(AetherBlocks.FENCE_PLANKS_SKYROOT, 6));
@@ -906,6 +912,16 @@ public class AetherRecipes {
             .setInput(0, AetherBlocks.HOLYSTONE)
             .setInput(1, "aether:gravitite_ores")
             .create("ore_gravitite_holystone", AetherBlocks.ORE_GRAVITITE_HOLYSTONE.getDefaultStack());
+
+        RecipeBuilder.BlastFurnace(MOD_ID)
+            .setInput(0, "aether:overworld_logs")
+            .setInput(1, Blocks.BLOCK_ASH)
+            .create("log_to_scorched_log", Blocks.LOG_SCORCHED.getDefaultStack());
+
+        RecipeBuilder.BlastFurnace(MOD_ID)
+            .setInput(0, "aether:aether_logs")
+            .setInput(1, Blocks.BLOCK_ASH)
+            .create("aether_log_to_scorched_log", AetherBlocks.LOG_AETHER_SCORCHED.getDefaultStack());
     }
 
     public static void trommelRecipes() {

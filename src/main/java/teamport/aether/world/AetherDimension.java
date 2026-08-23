@@ -94,9 +94,10 @@ public class AetherDimension {
     public static void addBannedBlocks(BannedBlock aetherBlacklist) {
         aetherBlacklist.add(Blocks.PORTAL_NETHER.id());
         aetherBlacklist.add(Blocks.FIRE.id());
+        aetherBlacklist.add(Blocks.FIRE_SULFURIC.id());
+        aetherBlacklist.add(Blocks.FIRE_COLD.id());
         aetherBlacklist.add(Blocks.TORCH_COAL.id());
         /// these blocks are replaced on placement.
-        aetherBlacklist.add(Blocks.COBBLE_NETHERRACK_CRYSTALLINE.id());
         aetherBlacklist.add(Blocks.PUMICE_WET.id(), Blocks.PUMICE_DRY.id());
         aetherBlacklist.add(Blocks.BRAZIER_ACTIVE.id(), Blocks.BRAZIER_INACTIVE.id());
         aetherBlacklist.add(Blocks.PUMPKIN_CARVED_ACTIVE.id());
@@ -119,8 +120,37 @@ public class AetherDimension {
         aetherBlacklist.add(Blocks.SLAB_BRICK_NETHERRACK.id(), true);
         aetherBlacklist.add(Blocks.STAIRS_BRICK_NETHERRACK.id(), true);
 
-        aetherBlacklist.add(Blocks.ORE_NETHERCOAL_NETHERRACK.id(), true);
-        aetherBlacklist.add(Blocks.BLOCK_NETHER_COAL.id(), true);
+        aetherBlacklist.add(Blocks.BUTTON_NETHERRACK.id());
+            aetherBlacklist.add(Blocks.PRESSURE_PLATE_NETHERRACK.id());
+            aetherBlacklist.add(Blocks.PRESSURE_PLATE_COBBLE_NETHERRACK.id());
+
+            aetherBlacklist.add(Blocks.STATUE_NETHERRACK_LOWER.id());
+            aetherBlacklist.add(Blocks.STATUE_NETHERRACK_UPPER.id());
+
+            aetherBlacklist.add(Blocks.ORE_NETHERCOAL_NETHERRACK.id(), true);
+
+            // Gloomstone
+            aetherBlacklist.add(Blocks.GLOOMSTONE.id());
+            aetherBlacklist.add(Blocks.GLOOMSTONE_CARVED.id());
+            aetherBlacklist.add(Blocks.GLOOMSTONE_POLISHED.id());
+            aetherBlacklist.add(Blocks.SLAB_GLOOMSTONE_POLISHED.id());
+
+            aetherBlacklist.add(Blocks.COBBLE_GLOOMSTONE.id());
+            aetherBlacklist.add(Blocks.STAIRS_COBBLE_GLOOMSTONE.id());
+            aetherBlacklist.add(Blocks.SLAB_COBBLE_GLOOMSTONE.id());
+
+            aetherBlacklist.add(Blocks.BRICK_GLOOMSTONE.id());
+            aetherBlacklist.add(Blocks.SLAB_BRICK_GLOOMSTONE.id());
+            aetherBlacklist.add(Blocks.STAIRS_BRICK_GLOOMSTONE.id());
+
+            aetherBlacklist.add(Blocks.BUTTON_GLOOMSTONE.id());
+            aetherBlacklist.add(Blocks.PRESSURE_PLATE_GLOOMSTONE.id());
+            aetherBlacklist.add(Blocks.PRESSURE_PLATE_COBBLE_GLOOMSTONE.id());
+
+            aetherBlacklist.add(Blocks.STATUE_GLOOMSTONE_LOWER.id());
+            aetherBlacklist.add(Blocks.STATUE_GLOOMSTONE_UPPER.id());
+
+            aetherBlacklist.add(Blocks.ORE_NETHERCOAL_GLOOMSTONE.id(), true);
     }
 
 

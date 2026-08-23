@@ -117,6 +117,9 @@ tile.leaves.oak.golden.desc=Leaves from a golden oak tree. Drops golden apples r
 tile.sapling.oak.golden.name=Golden Oak Sapling
 tile.sapling.oak.golden.desc=Plant to grow a golden oak tree.
 
+tile.log.aether.scorched.name=Scorched Aether Log
+tile.log.aether.scorched.desc=An aether log burnt to a crisp.
+
 # Painted Skyroot Blocks (Grouped by Type)
 # Skyroot Planks (Colored)
 tile.planks.skyroot.painted.name=Mystery Skyroot Planks
