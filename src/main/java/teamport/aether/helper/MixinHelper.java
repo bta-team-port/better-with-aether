@@ -3,6 +3,7 @@ package teamport.aether.helper;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.client.render.renderer.GLRenderer;
 import net.minecraft.client.render.renderer.State;
+import net.minecraft.core.achievement.Achievements;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
@@ -14,6 +15,9 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
+import net.minecraft.core.player.inventory.menu.MenuInventory;
+import net.minecraft.core.player.inventory.slot.Slot;
+import net.minecraft.core.player.inventory.slot.SlotArmor;
 import net.minecraft.core.util.helper.Color;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
@@ -23,6 +27,7 @@ import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherArmorMaterial;
 import teamport.aether.item.AetherItems;
+import teamport.aether.item.accessory.SlotAccessory;
 import teamport.aether.mixin.accessors.EntityAccessor;
 
 import java.util.ArrayList;
@@ -141,6 +146,32 @@ public class MixinHelper {
         if(PlayerUtil.isInvisible(entity)){
             GLRenderer.enableState(State.BLEND);
             GLRenderer.setColor4f(1.0F, 1.0F, 1.0F, 0.15F);
+        }
+    }
+
+    public static void checkChainmailAchievement(@NonNull MenuInventory menu) {
+        int chainCount = 0;
+
+        for (int i = 0; i < menu.slots.size(); ++i) {
+            Slot slot = menu.slots.get(i);
+            if (slot instanceof SlotArmor || slot instanceof SlotAccessory) {
+                ItemStack stack = slot.getItemStack();
+                if (stack != null && stack.getMetadata() == 0) {
+                    int id = stack.itemID;
+                    if (id == Items.ARMOR_BOOTS_CHAINMAIL.id ||
+                        id == Items.ARMOR_HELMET_CHAINMAIL.id ||
+                        id == Items.ARMOR_CHESTPLATE_CHAINMAIL.id ||
+                        id == Items.ARMOR_LEGGINGS_CHAINMAIL.id ||
+                        id == AetherItems.ARMOR_GLOVES_CHAINMAIL.id ||
+                        id == AetherItems.ARMOR_TALISMAN_CHAINMAIL.id) {
+                        chainCount++;
+                    }
+                }
+            }
+        }
+
+        if (chainCount >= 7) {
+            menu.inventory.player.triggerAchievement(Achievements.GET_CHAINMAIL);
         }
     }
 }
