@@ -18,7 +18,6 @@
     "accessory.MenuInventoryMixinAddSlotAdjSlotTwo",
     "accessory.PlayerMixinAccessoryWearing",
     "accessory.PlayerProtectionMixin",
-    "accessory.SlotArmorMixin",
     "accessory.WorldFeatureLabyrinthMixin",
     "accessory.cape.MobSlimeMixinSweatyAndInvisibility",
     "accessory.cape.invisibility_cape.target.MobGhastMixinInvisiblePlayer",
@@ -39,6 +38,7 @@
     "accessory.trinket.PlayerMixinRepulsion",
     "achievement.EntityItemPickupAchievementMixin",
     "achievement.HostileParadiseMixin",
+    "achievement.SlotArmorWearChainmailAchievementMixin",
     "achievement.SlotCraftingAchievementMixin",
     "armor.EntityMixinIgnitionImmunity",
     "armor.player.gravitite.MobMixinJump",
@@ -108,7 +108,8 @@
     "player.PlayerDeathMessageMixin",
     "player.PlayerFixArmorMixin",
     "player.PlayerGetNextDartMixin",
-    "player.PlayerMixinDevDrops"
+    "player.PlayerMixinDevDrops",
+    "player.SaveRidingMobPlayerMixin"
   ],
   "client": [
     "accessors.ScreenContainerAbstractAccessor",
@@ -136,6 +137,7 @@
     "dimension.AetherColorCorrectionMixin",
     "dimension.AetherMusicMixin",
     "dimension.ClearLevelDataMixin",
+    "dimension.RideableUsePortalMinecraftMixin",
     "dimension.bump_to_overworld.SPBumpToOverworldMixin",
     "dimension.bump_to_overworld.SPWorldMixin",
     "dimension.dungeon_map.WorldSpMixin",
@@ -164,7 +166,8 @@
     "net.PacketHandlerClientMixinAetherMachines",
     "player.PlayerLocalHandleAetherRideableMixin",
     "player.PlayerLocalPortalNoiseMixin",
-    "player.PlayerRespawnExtraHealthMixin"
+    "player.PlayerRespawnExtraHealthMixin",
+    "player.RideablePlayerLocalMultiplayerMixin"
   ],
   "server": [
     "accessory.PlayerServerMixinAccessoryServer",
