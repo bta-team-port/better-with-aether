@@ -10,17 +10,6 @@ public class MobMoaBlue extends MobMoa {
     @SuppressWarnings("unused")
     public MobMoaBlue(@Nullable World world) {
         super(world);
-        setupAppearance();
-    }
-
-    @SuppressWarnings("unused")
-    public MobMoaBlue(@Nullable World world, boolean tamed) {
-        super(world, tamed);
-        setupAppearance();
-    }
-
-    @Override
-    protected void setupAppearance() {
         this.setTextureIdentifier("aether", "moa_blue");
         this.eggColor = AetherItems.EGG_MOA_BLUE;
     }

@@ -2,12 +2,10 @@ package teamport.aether.entity.animal.moa;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.WeightedRandomLootObject;
-import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
-import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -16,6 +14,7 @@ import teamport.aether.item.AetherItemTags;
 import teamport.aether.item.AetherItems;
 
 public abstract class MobMoa extends MobAetherAnimalRideable {
+    public static final int DATA_TAMED_ID = 18;
     protected float flap = 0.0F;
     protected float flapSpeed = 0.0F;
     protected float oFlapSpeed;
@@ -23,34 +22,26 @@ public abstract class MobMoa extends MobAetherAnimalRideable {
     protected float flapping = 1.0F;
     protected int eggTimer;
     protected Item eggColor;
-    protected boolean tamed;
 
     protected MobMoa(@Nullable World world) {
         super(world);
         this.setSize(1.0F, 2.0F);
         this.eggTimer = this.random.nextInt(6000) + 6000;
-        this.rideFootSize = 1.5f;
+        this.jumpHeight = 1.2f;
+        this.stepDownSize = 1.5F;
+        this.footSize = 1.5F;
+        this.accelerationRate = 100.0F;
         this.mobDrops.add(new WeightedRandomLootObject(Items.FEATHER_CHICKEN.getDefaultStack(), 0, 2));
-    }
-
-    protected MobMoa(@Nullable World world, boolean tamed) {
-        this(world);
-        this.tamed = tamed;
-    }
-
-    @Override
-    public boolean hurt(Entity attacker, int damage, DamageType type) {
-        if (attacker != null && attacker == this.passenger) return false;
-        return super.hurt(attacker, damage, type);
-    }
-
-    public void setTamed(boolean tamed) {
-        this.tamed = tamed;
     }
 
     @Override
     public int getMaxHealth() {
-        return this.tamed ? 40 : 16;
+        return this.getTamed() ? 40 : 16;
+    }
+
+    @Override
+    public void onGround() {
+        if (this.onGround) this.jumpsRemaining = getJumpMaxAmount();
     }
 
     @Override
@@ -59,23 +50,29 @@ public abstract class MobMoa extends MobAetherAnimalRideable {
     }
 
     @Override
-    public void defineSynchedData() {
+    protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(16, (byte) 0, Byte.class);
+        this.entityData.define(DATA_TAMED_ID, (byte) 0, Byte.class);
     }
 
     @Override
     public void addAdditionalSaveData(@NonNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
-        tag.putBoolean("Saddle", this.getSaddled());
-        tag.putBoolean("Tamed", this.tamed);
+        tag.putBoolean("Tamed", this.getTamed());
     }
 
     @Override
     public void readAdditionalSaveData(@NonNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
-        this.setSaddled(tag.getBoolean("Saddle"));
-        this.tamed = tag.getBoolean("Tamed");
+        this.setTamed(tag.getBoolean("Tamed"));
+    }
+
+    public boolean getTamed() {
+        return (this.entityData.getByte(DATA_TAMED_ID) & 1) != 0;
+    }
+
+    public void setTamed(boolean flag) {
+        this.entityData.set(DATA_TAMED_ID, flag ? (byte) 1 : (byte) 0);
     }
 
     @Override
@@ -105,11 +102,6 @@ public abstract class MobMoa extends MobAetherAnimalRideable {
     }
 
     @Override
-    protected void jump() {
-        this.yd = 0.6;
-    }
-
-    @Override
     protected void causeFallDamage(float distance) {
     }
 
@@ -130,44 +122,52 @@ public abstract class MobMoa extends MobAetherAnimalRideable {
 
     @Override
     public boolean interact(@NonNull Player player) {
-        if (super.interact(player)) return true;
+        if (super.interact(player)) {
+            return true;
+        } else {
+            ItemStack heldItem = player.getHeldItem();
+            if (heldItem != null && (isFeedableItem(heldItem)) && this.getHealth() < this.getMaxHealth() && heldItem.consumeItem(player) && this.getTamed()) {
+                if (heldItem.stackSize <= 0) {
+                    player.setHeldItem(null);
+                }
 
-        if (player.getHeldItem() != null && player.getHeldItem().itemID == AetherItems.PETAL_AECHOR.id && tamed
-            && player.isSneaking() && this.getHealth() < this.getMaxHealth()) {
-            if (player.getGamemode().hasBlockConsumption()) {
-                player.swingItem();
-                player.getHeldItem().stackSize--;
+                this.heal(4);
+                this.world.playSoundAtEntity(player, this, "random.bite", 0.2F + (this.random.nextFloat() - this.random.nextFloat()) * 0.1F, 0.8F + (this.random.nextFloat() - this.random.nextFloat()) * 0.1F);
+                return true;
+            } else if (this.passenger == player) {
+                return false;
+            } else if (!this.getSaddled()) {
+                return false;
+            } else if (this.passenger != null) {
+                return false;
+            } else if (this.world.isClientSide && this.getTamed()) {
+                return true;
+            } else {
+                if (player.isSneaking()) {
+                    this.setSaddled(false);
+                    this.setSitting(false);
+                    ItemStack toInsert = new ItemStack(Items.SADDLE);
+                    player.inventory.insertItem(toInsert, true);
+                    if (toInsert.stackSize > 0) {
+                        this.dropItem(toInsert, 0.0F);
+                    }
+                } else {
+                    player.startRiding(this);
+                }
+
+                return true;
             }
-            this.heal(6);
         }
-
-        if (player.isSneaking()) return false;
-        if (!this.getSaddled() || this.world.isClientSide) return false;
-        if (this.passenger != null && this.passenger != player) return false;
-
-        player.startRiding(this);
-        return true;
-    }
-
-    @Override
-    public void dropDeathItems() {
-        if (this.getSaddled()) {
-            this.dropItem(Items.SADDLE.id, 1);
-        }
-        super.dropDeathItems();
-    }
-
-    public boolean getSaddled() {
-        return (this.entityData.getByte(16) & 1) != 0;
-    }
-
-    public void setSaddled(boolean flag) {
-        this.entityData.set(16, flag ? (byte) 1 : (byte) 0);
     }
 
     @Override
     public boolean isFavouriteItem(ItemStack itemStack) {
         return itemStack != null && itemStack.getItem().hasTag(AetherItemTags.MOAS_FAVOURITE_ITEM);
+    }
+
+    @Override
+    public boolean isFeedableItem(ItemStack itemStack) {
+        return itemStack != null && (itemStack.itemID == AetherItems.PETAL_AECHOR.id);
     }
 
     public float getFlap() {
@@ -186,15 +186,9 @@ public abstract class MobMoa extends MobAetherAnimalRideable {
         return oFlap;
     }
 
-    public boolean isTamed() {
-        return tamed;
-    }
-
     public String getSaddleTexturePath() {
         return String.format("/assets/%s/textures/entity/%s/saddle.png", this.textureIdentifier.namespace(), this.textureIdentifier.value());
-    }
-
-    protected abstract void setupAppearance();
+    };
 
     @Override
     public abstract int getJumpMaxAmount();
