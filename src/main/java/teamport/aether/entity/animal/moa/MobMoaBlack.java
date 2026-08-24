@@ -9,17 +9,6 @@ public class MobMoaBlack extends MobMoa {
     @SuppressWarnings("unused")
     public MobMoaBlack(@Nullable World world) {
         super(world);
-        setupAppearance();
-    }
-
-    @SuppressWarnings("unused")
-    public MobMoaBlack(@Nullable World world, boolean tamed) {
-        super(world, tamed);
-        setupAppearance();
-    }
-
-    @Override
-    protected void setupAppearance() {
         this.setTextureIdentifier("aether", "moa_black");
         this.eggColor = AetherItems.EGG_MOA_BLACK;
     }
@@ -29,8 +18,4 @@ public class MobMoaBlack extends MobMoa {
         return 7;
     }
 
-    @Override
-    public void onGround() {
-        if (this.onGround) this.jumpsRemaining = getJumpMaxAmount();
-    }
 }

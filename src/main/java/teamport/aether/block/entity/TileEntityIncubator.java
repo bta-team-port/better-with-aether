@@ -187,6 +187,7 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
         Entity entity = EntityDispatcher.getInstance().createEntityInWorld(entityClazz, this.worldObj);
         if (entity instanceof MobMoa mobMoa) {
             mobMoa.setTamed(true);
+            mobMoa.heal(100);
         }
         if (entity instanceof MobSlime slime) {
             slime.setSlimeSize(random.nextInt(4) + 1);

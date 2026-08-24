@@ -67,7 +67,7 @@ public abstract class SkyrootSwordDropMultiplier {
                 this.mobDrops.add(new WeightedRandomLootObject(Items.LEATHER.getDefaultStack(), 1, 5));
                 this.mobDrops.add(new WeightedRandomLootObject(Items.FEATHER_CHICKEN.getDefaultStack(), 0, 2));
 
-            } else if (self instanceof MobMoa && ((MobMoa) self).getSaddled()) {
+            } else if (self instanceof MobMoa mobMoa && mobMoa.getSaddled()) {
                 this.mobDrops.add(new WeightedRandomLootObject(Items.FEATHER_CHICKEN.getDefaultStack(), 0, 2));
             } else {
                 dropDeathItems();
