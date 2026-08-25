@@ -1,4 +1,4 @@
-package teamport.aether.entity;
+package teamport.aether.entity.interfaces;
 
 public interface AetherMobOtherImmunities {
     default boolean canTakeDamageFromSpikes() {

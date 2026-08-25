@@ -5,6 +5,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.block.BlockLogicNote;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.data.registry.Registries;
+import net.minecraft.core.data.registry.Registry;
 import net.minecraft.core.entity.EntityPainting;
 import net.minecraft.core.entity.animal.MobFireflyCluster;
 import net.minecraft.core.item.Items;
@@ -22,8 +23,13 @@ import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.block.terrain.BlockLogicIceStone;
 import teamport.aether.effect.AetherEffects;
+import teamport.aether.effect.DeathCauseEffects;
 import teamport.aether.entity.AetherEntities;
+import teamport.aether.entity.DeathCauseEnvironment;
+import teamport.aether.entity.boss.DeathCauseBoss;
+import teamport.aether.entity.monster.mimic.DeathCauseMimic;
 import teamport.aether.entity.monster.mimic.MimicRegistry;
+import teamport.aether.entity.monster.swet.DeathCauseKilledSecondary;
 import teamport.aether.item.AetherItemTags;
 import teamport.aether.item.AetherItems;
 import teamport.aether.item.accessory.trinket.ItemTrinket;
@@ -37,10 +43,13 @@ import teamport.aether.world.feature.AetherWorldFeatures;
 import turniplabs.halplibe.HalpLibe;
 import turniplabs.halplibe.event.defs.CommonEvents;
 import turniplabs.halplibe.helper.network.NetworkHandler;
+import turniplabs.halplibe.util.deathcause.DeathCause;
+import turniplabs.halplibe.util.deathcause.DeathCauseRegistry;
 import turniplabs.halplibe.util.dependency.Key;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
 import static net.minecraft.core.entity.animal.MobFireflyCluster.FireflyColor.register;
 
@@ -69,11 +78,8 @@ public class AetherMod implements ModInitializer {
     public static final BlockLogicNote.Instrument TRANCE = new BlockLogicNote.Instrument(18, "trance");
     public static final BlockLogicNote.Instrument SAXOPHONE = new BlockLogicNote.Instrument(19, "saxophone");
     public static final BlockLogicNote.Instrument MUSICBOX = new BlockLogicNote.Instrument(20, "musicbox");
-
     public static final byte ARMOR_START_INDEX = 41;
-
     public static final float ZANITE_MULTIPLIER = 2.0F;
-
     public static final byte BRONZE_CHANCES = 4;
     public static final byte SILVER_CHANCES = 10;
     public static final byte GOLD_CHANCES = 11;
@@ -117,6 +123,14 @@ public class AetherMod implements ModInitializer {
         NetEntityHandler.registerNetworkEntry(new NetEntryParachute(), 36);
         NetEntityHandler.registerNetworkEntry(new NetEntryFloatingBlock(), 37);
         NetEntityHandler.registerNetworkEntry(new NetEntrySlider());
+
+        // register the death message "network messages"
+        Registry<Supplier<DeathCause>> registry = DeathCauseRegistry.getInstance();
+        registry.register("aether:boss", DeathCauseBoss::new);
+        registry.register("aether:swet", DeathCauseKilledSecondary::new);
+        registry.register("aether:effect", DeathCauseEffects::new);
+        registry.register("aether:mimic", DeathCauseMimic::new);
+        registry.register("aether:environment", DeathCauseEnvironment::new);
 
         SoundTypes.loadSoundsJson(MOD_ID);
     }

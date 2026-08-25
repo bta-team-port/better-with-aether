@@ -8,6 +8,7 @@ import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.MobFlying;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.lang.I18n;
+import net.minecraft.core.net.command.TextFormatting;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -56,10 +57,25 @@ public class MobBossFlying extends MobFlying implements EnemyBoss {
         dungeonID = id;
     }
 
+
     @Override
-    public String getBossTitle() {
-        final String translationKey = EntityDispatcher.getInstance().entryForClass(this.getClass()).nameKey;
-        return String.format(I18n.getInstance().translateKey(translationKey + ".title"), getBossName());
+    public String getTranslatedBossTitle() {
+        return String.format(I18n.getInstance().translateKey(this.getBossTitleKey()), getBossName());
+    }
+
+    @Override
+    public byte getBossColor() {
+        return this.chatColor;
+    }
+
+    @Override
+    public String getBossTitleKey() {
+        EntityDispatcher.EntityDispatcherEntry<? extends MobBossFlying> entityDispatcherEntry =
+            EntityDispatcher.getInstance().entryForClass(this.getClass());
+        if(entityDispatcherEntry == null){
+            return "no.boss.yes.boss";
+        }
+        return entityDispatcherEntry.nameKey + ".title";
     }
 
     @Override

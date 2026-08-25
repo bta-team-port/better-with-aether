@@ -9,23 +9,19 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.MobPathfinder;
-import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.net.command.TextFormatting;
+import net.minecraft.core.lang.I18n;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.AetherMod;
-import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
 import teamport.aether.world.feature.util.map.DungeonMap;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
-import static net.minecraft.core.net.command.TextFormatting.*;
-import static teamport.aether.AetherMod.TRANSLATOR;
 import static teamport.aether.world.feature.util.map.DungeonMap.runWithDungeon;
 
-public abstract class MobBoss extends MobPathfinder implements EnemyBoss, AetherDeathMessage {
+public abstract class MobBoss extends MobPathfinder implements EnemyBoss {
 
     @Nullable
     protected Integer dungeonID = null;
@@ -76,9 +72,23 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
     }
 
     @Override
-    public String getBossTitle() {
-        final String translationKey = EntityDispatcher.getInstance().entryForClass(this.getClass()).nameKey;
-        return String.format(TRANSLATOR.translateKey(translationKey + ".title"), getBossName());
+    public String getTranslatedBossTitle() {
+        return String.format(I18n.getInstance().translateKey(this.getBossTitleKey()), getBossName());
+    }
+
+    @Override
+    public byte getBossColor() {
+        return this.chatColor;
+    }
+
+    @Override
+    public String getBossTitleKey() {
+        EntityDispatcher.EntityDispatcherEntry<? extends MobBoss> entityDispatcherEntry =
+            EntityDispatcher.getInstance().entryForClass(this.getClass());
+        if(entityDispatcherEntry == null){
+            return "no.boss.yes.boss";
+        }
+        return entityDispatcherEntry.nameKey + ".title";
     }
 
     @Override
@@ -117,7 +127,6 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
                 }
             }
         }
-
         super.onDeath(entityKilledBy);
     }
 
@@ -170,22 +179,6 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
     public void setReturnPoint(@Nullable WorldFeaturePoint returnPoint) {
         this.returnPoint = returnPoint;
         this.hasHadReturnPointSet = true;
-    }
-
-    @Override
-    public String deathMessage(@NonNull Player player) {
-        EntityDispatcher.EntityDispatcherEntry<?> entry = EntityDispatcher.getInstance().entryForClass(((Entity) this).getClass());
-        String key = (entry == null ? "" : entry.nameKey) + ".death_message";
-        String name = key + "_" + random.nextInt(9);
-
-        String theBossName = BOLD.toString() + TextFormatting.get(this.chatColor).toString() + this.getBossTitle() + RESET + RED;
-        String playerName = player.getDisplayName() + RESET + RED;
-
-        String deathMessage = TRANSLATOR.translateKey(name)
-            .replace("[PLAYER]", playerName)
-            .replace("[BOSS]", theBossName);
-
-        return RED + deathMessage;
     }
 
     public void returnToOriginalState() {

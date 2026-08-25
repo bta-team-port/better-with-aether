@@ -5,7 +5,6 @@ import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.entity.projectile.Projectile;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.boss.EnemyBoss;
 
 import static net.minecraft.core.net.command.TextFormatting.RED;
@@ -41,7 +40,7 @@ public interface AetherProjectileDeathMessages extends AetherDeathMessage {
             String projectileName = TRANSLATOR.translateKey(entry.nameKey);
             return RED + TRANSLATOR.translateKey(bossName + "." + projectileName)
                 .replace("[PLAYER]", RESET + player.getDisplayName() + RESET + RED)
-                .replace("[BOSS]", boss.getBossTitle());
+                .replace("[BOSS]", boss.getTranslatedBossTitle());
         }
         return owner instanceof AetherDeathMessage deathMessage
             ? deathMessage.deathMessage(player)

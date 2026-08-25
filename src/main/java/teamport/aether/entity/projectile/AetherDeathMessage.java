@@ -1,4 +1,4 @@
-package teamport.aether.entity;
+package teamport.aether.entity.projectile;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
@@ -6,8 +6,6 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.net.command.TextFormatting;
 import org.jspecify.annotations.NonNull;
 
-import static net.minecraft.core.net.command.TextFormatting.RED;
-import static net.minecraft.core.net.command.TextFormatting.RESET;
 import static teamport.aether.AetherMod.TRANSLATOR;
 
 public interface AetherDeathMessage {
@@ -17,10 +15,8 @@ public interface AetherDeathMessage {
 
         EntityDispatcher.EntityDispatcherEntry<?> entry = EntityDispatcher.getInstance().entryForClass(((Entity) this).getClass());
         String key = (entry == null ? "" : entry.nameKey) + ".death_message";
-        String deathMessage = TRANSLATOR
-            .translateKey(key)
-            .replace("[PLAYER]", RESET + player.getDisplayName() + RESET + RED);
-        return RED + deathMessage;
+        String deathMessage = TRANSLATOR.translateKeyAndFormat(key, TextFormatting.scoped(player.getDisplayName()));
+        return deathMessage;
     }
 
 

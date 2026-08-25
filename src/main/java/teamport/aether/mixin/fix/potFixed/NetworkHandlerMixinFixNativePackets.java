@@ -1,4 +1,4 @@
-package teamport.aether.mixin.fix;
+package teamport.aether.mixin.fix.potFixed;
 
 import org.spongepowered.asm.mixin.Mixin;
 import turniplabs.halplibe.helper.network.NetworkHandler;

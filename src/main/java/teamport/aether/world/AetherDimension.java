@@ -18,7 +18,7 @@ import teamport.aether.AetherConfig;
 import teamport.aether.AetherMod;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.compat.AetherPlugin;
-import teamport.aether.entity.AetherMobFallingToOverworld;
+import teamport.aether.entity.interfaces.AetherMobFallingToOverworld;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
 import teamport.aether.net.message.SunspiritDeathNetworkMessage;
 import teamport.aether.world.biome.AetherBiomes;

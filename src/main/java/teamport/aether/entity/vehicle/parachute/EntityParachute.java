@@ -9,7 +9,7 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
-import teamport.aether.entity.AetherRideable;
+import teamport.aether.entity.interfaces.AetherRideable;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.mixin.accessors.EntityAccessor;
 import teamport.aether.net.message.AetherRideableNetworkMessage;

@@ -15,7 +15,7 @@ import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.effect.AetherEffects;
-import teamport.aether.entity.AetherDeathMessage;
+import teamport.aether.entity.projectile.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.helper.ParticleMaker;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("java:S110")
-public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessage {
+public class MobSwet extends MobMonsterAether implements Enemy {
     protected double ydO;
     protected int jumpDelay;
     protected int grabDelay;

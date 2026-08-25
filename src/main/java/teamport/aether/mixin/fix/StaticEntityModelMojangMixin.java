@@ -38,21 +38,15 @@ public abstract class StaticEntityModelMojangMixin {
         if (parent != null) {
             hidden |= this.boneTransform(parent, dest);
         }
-
         BoneTransform transform = this.transformMap.get(bone.name);
         hidden |= !transform.visible;
-
         dest.translate((float) bone.pivot[0], (float) bone.pivot[1], (float) bone.pivot[2]);
         dest.translate((float) transform.posX, (float) transform.posY, (float) transform.posZ);
-
         dest.scale((float) transform.scaleX, (float) transform.scaleY, (float) transform.scaleZ);
-
         dest.rotateZ((float) (-transform.rotZ - Math.toRadians(bone.rotation[2])));
         dest.rotateY((float) (transform.rotY + Math.toRadians(bone.rotation[1])));
         dest.rotateX((float) (-transform.rotX - Math.toRadians(bone.rotation[0])));
-
         dest.translate((float) (-bone.pivot[0]), (float) (-bone.pivot[1]), (float) (-bone.pivot[2]));
-
         return hidden;
     }
 }

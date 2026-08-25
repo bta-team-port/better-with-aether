@@ -17,7 +17,6 @@ import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.entity.Entity;
-import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.SkinVariantList;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
@@ -38,7 +37,6 @@ import teamport.aether.block.AetherBlocks;
 import teamport.aether.block.dungeon.BlockLogicChestMimic;
 import teamport.aether.block.dungeon.BlockLogicPaintedChestMimic;
 import teamport.aether.block.entity.TileEntityMimic;
-import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.item_tool.ItemToolAxeAether;
@@ -49,15 +47,12 @@ import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.*;
 
-import static net.minecraft.core.net.command.TextFormatting.RED;
-import static net.minecraft.core.net.command.TextFormatting.RESET;
 import static net.minecraft.core.util.helper.Direction.*;
-import static teamport.aether.AetherMod.TRANSLATOR;
 import static teamport.aether.entity.monster.mimic.MimicRegistry.DEFAULT;
 import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
 
 @SuppressWarnings("java:S110")
-public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMessage {
+public class MobMimic extends MobMonsterAether implements Enemy {
     private int mimicTime;
     int mimicChestID = AetherBlocks.CHEST_MIMIC_SKYROOT.id();
     int mimicChestMetadata = 0;
@@ -285,16 +280,6 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
             place();
         }
         super.remove();
-    }
-
-    @Override
-    public String deathMessage(@NonNull Player player) {
-        EntityDispatcher.EntityDispatcherEntry<?> entry = EntityDispatcher.getInstance().entryForClass(((Entity) this).getClass());
-        String key = (entry == null ? "" : entry.nameKey) + ".death_message";
-        String deathMessage = TRANSLATOR
-            .translateKey(key)
-            .replace("[PLAYER]", RESET + String.format("<%s>", player.getDisplayName()) + RESET + RED);
-        return RED + deathMessage;
     }
 
     @Override

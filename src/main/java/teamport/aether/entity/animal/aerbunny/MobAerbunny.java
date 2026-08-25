@@ -19,7 +19,7 @@ import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.server.MinecraftServer;
 import org.joml.primitives.AABBd;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.entity.AetherRideable;
+import teamport.aether.entity.interfaces.AetherRideable;
 import teamport.aether.entity.animal.MobAetherAnimal;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItemTags;

@@ -87,7 +87,7 @@ public class HudComponentBossBar extends HudComponentMovable {
         int textY = barY + TEXT_OFFSET;
 
         drawProgressBar(mc, gui, barX, barY, mob.getHealth(), mob.getMaxHealth());
-        String entityName = (mob instanceof EnemyBoss) ? ((EnemyBoss) mob).getBossTitle() : mob.getDisplayName();
+        String entityName = (mob instanceof EnemyBoss) ? ((EnemyBoss) mob).getTranslatedBossTitle() : mob.getDisplayName();
         gui.drawStringCenteredShadow(mc.font, entityName, textX, textY, 0xFFFFFFFF);
     }
 

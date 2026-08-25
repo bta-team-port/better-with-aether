@@ -2,8 +2,8 @@ package teamport.aether.entity.animal;
 
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
-import teamport.aether.entity.AetherJumpAmount;
-import teamport.aether.entity.AetherRideable;
+import teamport.aether.entity.interfaces.AetherJumpAmount;
+import teamport.aether.entity.interfaces.AetherRideable;
 import teamport.aether.mixin.accessors.EntityAccessor;
 import teamport.aether.net.message.AetherRideableNetworkMessage;
 import turniplabs.halplibe.helper.EnvironmentHelper;

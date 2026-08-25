@@ -12,7 +12,7 @@ import net.minecraft.client.render.renderer.State;
 import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.entity.AetherJumpAmount;
+import teamport.aether.entity.interfaces.AetherJumpAmount;
 
 @Environment(EnvType.CLIENT)
 public class HudComponentJumpBar extends HudComponentMovable {
