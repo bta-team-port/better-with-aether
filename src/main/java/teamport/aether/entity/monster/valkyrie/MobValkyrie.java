@@ -18,14 +18,14 @@ import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherMod;
-import teamport.aether.entity.AetherDeathMessage;
+import teamport.aether.entity.projectile.AetherDeathMessage;
 import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.player.MessageMaker;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItems;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
-public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMessage, IItemHolding {
+public class MobValkyrie extends MobPathfinder implements Enemy, IItemHolding {
     private static final int ATTACK_STRENGTH = 7;
     protected static final int FLAG_LEFT_HANDED = 5;
     private boolean isSwinging;

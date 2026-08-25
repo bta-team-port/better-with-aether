@@ -16,7 +16,7 @@ import net.minecraft.core.world.pos.TilePos;
 import org.joml.Vector3d;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
-import teamport.aether.entity.AetherDeathMessage;
+import teamport.aether.entity.projectile.AetherDeathMessage;
 import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.entity.projectile.ProjectileNeedle;
@@ -24,7 +24,7 @@ import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItems;
 import teamport.aether.item.ItemBucketSkyrootEmpty;
 
-public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDeathMessage {
+public class MobAechorPlant extends MobMonsterAether implements Enemy {
     private static final int DATA_HAS_TARGET = 16;
 
     private int attackCooldown;
