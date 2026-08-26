@@ -3,7 +3,7 @@ package teamport.aether.achievements;
 import it.unimi.dsi.fastutil.ints.IntIntMutablePair;
 import it.unimi.dsi.fastutil.ints.IntIntPair;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.AetherMod;
+import teamport.aether.AetherGlobals;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -46,7 +46,7 @@ public class AetherAchievementPageBackground {
             heightTemp = terrainLayer1Temp.size() - 1;
             widthTemp = terrainLayer1Temp.get(0).size() - 1;
         } catch (NullPointerException e) {
-            AetherMod.LOGGER.error("Failed to load background files for the achievements screen!", e);
+            AetherGlobals.LOGGER.error("Failed to load background files for the achievements screen!", e);
 
             terrainLayer1Temp = Collections.singletonList(
                 Collections.singletonList(0)

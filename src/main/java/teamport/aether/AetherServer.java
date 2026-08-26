@@ -9,7 +9,7 @@ import teamport.aether.net.message.SunspiritDeathNetworkMessage;
 import teamport.aether.world.SunSpiritDeath;
 import turniplabs.halplibe.helper.network.NetworkHandler;
 
-import static teamport.aether.AetherMod.LOGGER;
+import static teamport.aether.AetherGlobals.LOGGER;
 
 @Environment(EnvType.SERVER)
 public class AetherServer implements DedicatedServerModInitializer {

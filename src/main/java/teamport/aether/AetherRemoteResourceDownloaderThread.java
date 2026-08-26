@@ -26,7 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static teamport.aether.AetherMod.LOGGER;
+import static teamport.aether.AetherGlobals.LOGGER;
 
 @Environment(EnvType.CLIENT)
 public class AetherRemoteResourceDownloaderThread extends Thread {

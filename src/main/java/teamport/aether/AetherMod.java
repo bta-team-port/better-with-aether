@@ -16,8 +16,6 @@ import net.minecraft.core.sound.SoundTypes;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.biome.Biome;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import teamport.aether.block.AetherBlockDetails;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
@@ -40,6 +38,7 @@ import teamport.aether.recipe.RecipeEntryIncubator;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.biome.AetherBiomes;
 import teamport.aether.world.feature.AetherWorldFeatures;
+import teamport.aether.world.feature.util.map.DungeonMap;
 import turniplabs.halplibe.HalpLibe;
 import turniplabs.halplibe.event.defs.CommonEvents;
 import turniplabs.halplibe.helper.network.NetworkHandler;
@@ -56,7 +55,6 @@ import static net.minecraft.core.entity.animal.MobFireflyCluster.FireflyColor.re
 @SuppressWarnings({"java:S1104", "java:S1444", "java:S3008"})
 public class AetherMod implements ModInitializer {
     public static final String MOD_ID = HalpLibe.registerMod("aether", true);
-    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     @SuppressWarnings("OptionalGetWithoutIsPresent")
     public static final String VERSION_STRING = FabricLoader.getInstance().getModContainer(MOD_ID).get().getMetadata().getVersion().getFriendlyString();
     public static final String STATE = "release";
@@ -88,12 +86,15 @@ public class AetherMod implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        LOGGER.info("Aether initialized, welcome to a hostile paradise. Version {} {}", STATE, VERSION_STRING);
+        AetherGlobals.LOGGER.info("Aether initialized, welcome to a hostile paradise. Version {} {}", STATE, VERSION_STRING);
         Key key = Key.of(MOD_ID);
         CommonEvents.BEFORE_GAME_START.listen(key, this::beforeGameStart);
         CommonEvents.AFTER_GAME_START.listen(key, this::afterGameStart);
         CommonEvents.RECIPES_NAMESPACE_INIT.listen(key, recipes::initNamespaces);
         CommonEvents.RECIPES_READY.listen(key, recipes::onRecipesReady);
+
+        AetherEvents.DUNGEON_REGISTER.listen(Key.of(MOD_ID), DungeonMap::registerDungeons);
+        AetherEvents.DIMENSION_BLACKLIST.listen(Key.of(MOD_ID), AetherDimension::addBannedBlocks);
 
         NetworkHandler.registerNetworkMessage(SunspiritDeathNetworkMessage::new);
         NetworkHandler.registerNetworkMessage(AetherRideableNetworkMessage::new);

@@ -19,7 +19,6 @@ import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.helper.MixinHelper;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.SunSpiritDeath;
@@ -50,7 +49,7 @@ public interface ItemBlockBlacklistMixin {
 
         int replacementId = block == Blocks.COBBLE_NETHERRACK_CRYSTALLINE || block == Blocks.PUMICE_WET && !SunSpiritDeath.isDead()
             ? -2
-            : MixinHelper.BLOCK_TO_BECOME.getOrDefault(block.id(), -2);
+            : AetherDimension.getToBecomeBlockID(block.id(), -2);
         if (player != null) player.swingItem();
         if (replacementId == -2) {
             ParticleMaker.spawnBlockBreakParticles(world, blockPos.x(), blockPos.y(), blockPos.z(), block.id());
@@ -62,7 +61,7 @@ public interface ItemBlockBlacklistMixin {
     @WrapOperation(method = "placeDirectly", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/world/World;setBlockTypeDataRaw(Lnet/minecraft/core/world/pos/TilePosc;Lnet/minecraft/core/block/Block;I)Z"))
     private boolean banBlocksFromDimensionsThree(@NonNull World world, TilePosc tilePos, @NonNull Block<?> block, int data, @NonNull Operation<Boolean> original) {
         int replacementId = AetherDimension.getDimensionBlacklist(world.dimension).contains(block.id())
-            ? MixinHelper.BLOCK_TO_BECOME.getOrDefault(block.id(), -2)
+            ? AetherDimension.getToBecomeBlockID(block.id(), -2)
             : -1;
         Block<?> placedBlock = replacementId == -1 ? block : Blocks.getBlock(replacementId);
         boolean condition = original.call(world, tilePos, placedBlock, data);

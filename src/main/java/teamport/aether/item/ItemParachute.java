@@ -5,7 +5,7 @@ import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.AetherMod;
+import teamport.aether.AetherGlobals;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
 import teamport.aether.helper.ParticleMaker;
@@ -28,7 +28,7 @@ public class ItemParachute extends Item {
             try {
                 cloud = entity.getConstructor(World.class).newInstance(world);
             } catch (Exception e) {
-                AetherMod.LOGGER.error("Failed to spawn parachute cloud!");
+                AetherGlobals.LOGGER.error("Failed to spawn parachute cloud!");
                 throw new RuntimeException(e);
             }
 

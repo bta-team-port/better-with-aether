@@ -19,7 +19,6 @@ import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.helper.MixinHelper;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.world.AetherDimension;
 
@@ -56,7 +55,7 @@ public interface ItemBlockSlabBlacklistMixin {
         }
 
         if (player != null) player.swingItem();
-        int replacementId = MixinHelper.BLOCK_TO_BECOME.getOrDefault(itemBlock.id(), -2);
+        int replacementId = AetherDimension.getToBecomeBlockID(itemBlock.id(), -2);
         if (replacementId == -2) {
             ParticleMaker.spawnBlockBreakParticles(world, pos.x(), pos.y(), pos.z(), itemBlock.id());
             return false;

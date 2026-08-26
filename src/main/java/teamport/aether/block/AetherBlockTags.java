@@ -3,7 +3,7 @@ package teamport.aether.block;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.data.tag.Tag;
-import teamport.aether.AetherMod;
+import teamport.aether.AetherGlobals;
 
 import java.lang.reflect.Field;
 
@@ -33,7 +33,7 @@ public class AetherBlockTags {
                     Tag<Block<?>> tag = (Tag<Block<?>>) field.get(null);
                     BlockTags.TAG_LIST.add(tag);
                 } catch (Exception e) {
-                    AetherMod.LOGGER.error("Failed to add tag '{}'!", field.getName(), e);
+                    AetherGlobals.LOGGER.error("Failed to add tag '{}'!", field.getName(), e);
                 }
             }
         }

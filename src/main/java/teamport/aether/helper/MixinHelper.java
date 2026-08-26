@@ -4,7 +4,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.client.render.renderer.GLRenderer;
 import net.minecraft.client.render.renderer.State;
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.animal.MobWolf;
 import net.minecraft.core.entity.player.Player;
@@ -19,7 +18,6 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import org.joml.primitives.AABBdc;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherArmorMaterial;
 import teamport.aether.item.AetherItems;
@@ -30,26 +28,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static teamport.aether.AetherMod.LOGGER;
+import static teamport.aether.AetherGlobals.LOGGER;
 
 public class MixinHelper {
 
     private MixinHelper() {
     }
-
     public static final int ANIMATION_LENGTH = 30;
-    public static final Map<Integer, Integer> BLOCK_TO_BECOME = new HashMap<>();
-
-    static {
-        BLOCK_TO_BECOME.put(Blocks.PUMPKIN_CARVED_ACTIVE.id(), Blocks.PUMPKIN_CARVED_IDLE.id());
-        BLOCK_TO_BECOME.put(Blocks.BRAZIER_ACTIVE.id(), Blocks.BRAZIER_INACTIVE.id());
-        BLOCK_TO_BECOME.put(Blocks.PUMICE_WET.id(), Blocks.PUMICE_DRY.id());
-        BLOCK_TO_BECOME.put(Blocks.FLUID_LAVA_FLOWING.id(), AetherBlocks.AEROGEL.id());
-        BLOCK_TO_BECOME.put(Blocks.FLUID_LAVA_STILL.id(), AetherBlocks.AEROGEL.id());
-    }
-
     public static final Map<Item, String> TRINKET_TEXTURES = new HashMap<>();
-
     static {
         TRINKET_TEXTURES.put(Items.TOOL_COMPASS, "compass_trinket");
         TRINKET_TEXTURES.put(Items.TOOL_CLOCK, "clock_trinket");

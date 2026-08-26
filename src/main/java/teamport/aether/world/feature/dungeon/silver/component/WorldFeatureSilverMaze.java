@@ -5,7 +5,7 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.DyeColor;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.AetherMod;
+import teamport.aether.AetherGlobals;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.world.feature.util.BlockPallet;
 import teamport.aether.world.feature.util.MazeHelper;
@@ -176,7 +176,7 @@ public class WorldFeatureSilverMaze {
         Direction doorDirection = this.getDoorDirection(to, from);
 
         if (doorDirection == Direction.NONE) {
-            AetherMod.LOGGER.error("SilverMazeRoom failed to generate a room at x:{}, y:{},  z:{},INDEX:{}, LEVEl:{}, COLUMN:{}, ROW:{}", x, y, z, to, levelCurrent, columnCurrent, rowCurrent);
+            AetherGlobals.LOGGER.error("SilverMazeRoom failed to generate a room at x:{}, y:{},  z:{},INDEX:{}, LEVEl:{}, COLUMN:{}, ROW:{}", x, y, z, to, levelCurrent, columnCurrent, rowCurrent);
             return;
         }
         if (doorDirection == Direction.UP) {

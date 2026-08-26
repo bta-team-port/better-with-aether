@@ -11,7 +11,7 @@ import turniplabs.halplibe.helper.network.UniversalPacket;
 
 import java.util.Optional;
 
-import static teamport.aether.AetherMod.LOGGER;
+import static teamport.aether.AetherGlobals.LOGGER;
 
 public class BossListNetworkMessage implements NetworkMessage {
     private Type type;

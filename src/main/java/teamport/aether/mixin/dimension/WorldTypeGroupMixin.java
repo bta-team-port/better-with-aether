@@ -8,7 +8,7 @@ import net.minecraft.core.world.type.WorldTypeGroups;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import teamport.aether.AetherMod;
+import teamport.aether.AetherGlobals;
 
 import java.util.Map;
 
@@ -23,7 +23,7 @@ public abstract class WorldTypeGroupMixin {
         if (dimension == null || this.worldTypes.containsKey(dimension)) {
             return original.call(dimension);
         }
-        AetherMod.LOGGER.warn("World type group is missing dimension {} (id {}); using default", dimension.languageKey, dimension.id);
+        AetherGlobals.LOGGER.warn("World type group is missing dimension {} (id {}); using default", dimension.languageKey, dimension.id);
         return dimension.defaultWorldType;
     }
 }

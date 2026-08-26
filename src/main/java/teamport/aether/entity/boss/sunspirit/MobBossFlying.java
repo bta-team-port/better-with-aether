@@ -8,11 +8,10 @@ import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.MobFlying;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.lang.I18n;
-import net.minecraft.core.net.command.TextFormatting;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import teamport.aether.AetherMod;
+import teamport.aether.AetherGlobals;
 import teamport.aether.entity.boss.EnemyBoss;
 import teamport.aether.entity.boss.NameGenerator;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
@@ -90,7 +89,7 @@ public class MobBossFlying extends MobFlying implements EnemyBoss {
 
     @Override
     public void onDeath(Entity entityKilledBy) {
-        AetherMod.LOGGER.info("{} of ID {} has been slain!", bossName, dungeonID);
+        AetherGlobals.LOGGER.info("{} of ID {} has been slain!", bossName, dungeonID);
 
         if (trophy != null) {
             if (!EnvironmentHelper.isMultiplayerClient()) world.dropItem((int) x, (int) y, (int) z, trophy);

@@ -46,11 +46,12 @@
   "environment": "*",
 
   "entrypoints": {
-    "main": ["teamport.aether.AetherMod"],
-    "client": ["teamport.aether.AetherClient"],
-    "server": ["teamport.aether.AetherServer"],
+    "main":             ["teamport.aether.AetherMod"],
+    "client":           ["teamport.aether.AetherClient"],
+    "server":           ["teamport.aether.AetherServer"],
     "uselessNumerical": ["teamport.aether.compat.uselessnumerical.Alias"],
-    "commandly": ["teamport.aether.compat.commandly.AetherCommandlyPlugin"],
+    "commandly":        ["teamport.aether.compat.commandly.AetherCommandlyPlugin"],
+    "btwaila" :         ["teamport.aether.compat.waila.AetherWailaPlugin"],
     "preLaunch": []
   },
 

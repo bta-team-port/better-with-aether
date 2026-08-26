@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.AetherMod;
+import teamport.aether.AetherGlobals;
 import teamport.aether.world.AetherDimension;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
@@ -37,7 +37,7 @@ public abstract class SPBumpToOverworldMixin extends Mob {
             if (EnvironmentHelper.isSingleplayerClient()) {
                 Minecraft mc = Minecraft.getMinecraft();
 
-                AetherMod.LOGGER.info("Sending {} to overworld", getDisplayName());
+                AetherGlobals.LOGGER.info("Sending {} to overworld", getDisplayName());
 
                 CompoundTag passengerNBT = null;
                 CompoundTag vehicleNBT = null;

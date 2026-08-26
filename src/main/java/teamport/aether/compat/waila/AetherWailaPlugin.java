@@ -1,5 +1,3 @@
-// TODO: restore btwaila compat once upstream mod lands on BTA 8.0
-/*
 package teamport.aether.compat.waila;
 
 import net.minecraft.core.block.Blocks;
@@ -38,27 +36,28 @@ public class AetherWailaPlugin implements BTWailaCustomTooltipPlugin {
         tooltipRegistry.register(new EnchanterTooltip());
         tooltipRegistry.register(new FreezerTooltip());
         tooltipRegistry.register(new IncubatorTooltip());
-
+        // unclear if all mobs re covered
+        // animals
         addEntityIcon(MobPhyg.class, Items.FOOD_PORKCHOP_RAW);
         addEntityIcon(MobSheepuff.class, Blocks.WOOL);
-
-        addEntityIcon(MobAerwhale.class, Items.BUCKET_ICECREAM);
-
+        // replaced the default by the aether version
+        addEntityIcon(MobAerwhale.class, AetherItems.BUCKET_SKYROOT_ICECREAM);
+        // minions
         addEntityIcon(MobWhirly.class, AetherItems.AMMO_WINDBALL);
         addEntityIcon(MobTempest.class, AetherItems.PROJECTILE_LIGHTNING);
         addEntityIcon(MobFireMinion.class, Blocks.FIRE);
-
+        // mimic
         addEntityIcon(MobMimic.class, AetherBlocks.CHEST_MIMIC_SKYROOT);
-
+        // zephyr
         addEntityIcon(MobZephyr.class, AetherItems.AMMO_WINDBALL);
-
+        // moa
         addEntityIcon(MobMoaBlue.class, AetherItems.EGG_MOA_BLUE);
         addEntityIcon(MobMoaWhite.class, AetherItems.EGG_MOA_WHITE);
         addEntityIcon(MobMoaBlack.class, AetherItems.EGG_MOA_BLACK);
-
+        // bosses
         addEntityIcon(MobBossSlider.class, AetherItems.KEY_BRONZE);
         addEntityIcon(MobBossValkyrie.class, AetherItems.KEY_SILVER);
         addEntityIcon(MobBossSunspirit.class, AetherItems.KEY_GOLD);
     }
 }
-*/
+

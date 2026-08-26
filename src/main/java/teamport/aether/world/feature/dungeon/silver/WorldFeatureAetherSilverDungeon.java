@@ -13,7 +13,7 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.AetherMod;
+import teamport.aether.AetherGlobals;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.block.terrain.BlockLogicCloudBase;
 import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
@@ -186,7 +186,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
             BlockLogicCloudBase blockLogic = world.getBlockLogic(point.getX(), point.getY(), point.getZ(), BlockLogicCloudBase.class);
 
             if (blockMaterial != Materials.AIR && blockLogic == null) {
-                AetherMod.LOGGER.info("Could not place a silver dungeon at {},{},{}, with blockMaterial {}", x, y, z, blockMaterial);
+                AetherGlobals.LOGGER.info("Could not place a silver dungeon at {},{},{}, with blockMaterial {}", x, y, z, blockMaterial);
                 return false;
             }
         }
