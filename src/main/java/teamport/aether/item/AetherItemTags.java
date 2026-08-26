@@ -3,7 +3,7 @@ package teamport.aether.item;
 import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.tag.ItemTags;
-import teamport.aether.AetherMod;
+import teamport.aether.AetherGlobals;
 
 import java.lang.reflect.Field;
 
@@ -29,7 +29,7 @@ public class AetherItemTags {
                 Tag<Item> tag = (Tag<Item>) field.get(null);
                 ItemTags.TAG_LIST.add(tag);
             } catch (Exception e) {
-                AetherMod.LOGGER.error("Failed to add tag '{}'!", field.getName(), e);
+                AetherGlobals.LOGGER.error("Failed to add tag '{}'!", field.getName(), e);
             }
         }
     }

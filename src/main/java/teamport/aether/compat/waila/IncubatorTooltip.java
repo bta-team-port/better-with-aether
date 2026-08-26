@@ -1,5 +1,3 @@
-// TODO: restore btwaila compat once upstream mod lands on BTA 8.0
-/*
 package teamport.aether.compat.waila;
 
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
@@ -19,7 +17,7 @@ import static toufoumaster.btwaila.BTWaila.translator;
 public class IncubatorTooltip extends TileTooltip<TileEntityIncubator> {
     @Override
     public void initTooltip() {
-        addClass(TileEntityIncubator.class);
+        this.addClass(TileEntityIncubator.class);
     }
 
     @Override
@@ -37,4 +35,3 @@ public class IncubatorTooltip extends TileTooltip<TileEntityIncubator> {
         advancedInfoComponent.drawItemList(stacks, 0);
     }
 }
-*/

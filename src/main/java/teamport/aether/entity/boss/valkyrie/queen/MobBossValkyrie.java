@@ -15,6 +15,7 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import org.jspecify.annotations.NonNull;
+import teamport.aether.AetherGlobals;
 import teamport.aether.AetherMod;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.entity.MobUtil;
@@ -300,7 +301,7 @@ public class MobBossValkyrie extends MobBoss implements IItemHolding {
         boolean flag = false;
 
         if (returnPoint == null) {
-            AetherMod.LOGGER.info("Queen Valkyrie at {}, {}, {} has no return point!", x, y, z);
+            AetherGlobals.LOGGER.info("Queen Valkyrie at {}, {}, {} has no return point!", x, y, z);
             return;
         }
         WorldFeaturePoint p1 = new WorldFeaturePoint(this.returnPoint.getX() - 9, this.returnPoint.getY() - 3, this.returnPoint.getZ() - 16);

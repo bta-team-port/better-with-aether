@@ -49,7 +49,7 @@ import turniplabs.halplibe.util.dependency.Key;
 
 import java.time.Month;
 
-import static teamport.aether.AetherMod.LOGGER;
+import static teamport.aether.AetherGlobals.LOGGER;
 import static teamport.aether.AetherMod.MOD_ID;
 
 @Environment(EnvType.CLIENT)
@@ -259,7 +259,7 @@ public class AetherClient implements ClientModInitializer {
             try {
                 TextureHelper.initializeAllFiles(MOD_ID, stitcher, true);
             } catch (Exception e) {
-                AetherMod.LOGGER.error("Failed to initialize texture files!", e);
+                AetherGlobals.LOGGER.error("Failed to initialize texture files!", e);
             }
         }
     }

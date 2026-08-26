@@ -2,7 +2,7 @@ package teamport.aether.world.feature.dungeon.bronze.component;
 
 import it.unimi.dsi.fastutil.objects.ObjectObjectMutablePair;
 import net.minecraft.core.block.BlockLogicRotatable;
-import teamport.aether.AetherMod;
+import teamport.aether.AetherGlobals;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.boss.slider.MobBossSlider;
 import teamport.aether.item.AetherItems;
@@ -95,7 +95,7 @@ public class BossRoom extends BaseBronzeRoom {
         if (closingType != ClosingType.PLACED && door.getMark() != ClosingType.PLACED) return;
         doors.forEach(d -> d.setMark(ClosingType.ROOM_LOCKED));
         if (door == null) {
-            AetherMod.LOGGER.warn("Bronze dungeon door at: {}, {}, {} does not exist. Thus the slider door was not registered.", x, y, z);
+            AetherGlobals.LOGGER.warn("Bronze dungeon door at: {}, {}, {} does not exist. Thus the slider door was not registered.", x, y, z);
             return;
         }
         int meta = BlockLogicRotatable.setDirection(0, door.getHeading());

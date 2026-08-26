@@ -435,7 +435,7 @@ public class MobBossSlider extends MobBoss {
         this.world.playSoundAtEntity(null, this, "aether:mob.slider.move", 1.60F + this.random.nextFloat(), .45F + this.random.nextFloat());
     }
 
-    protected void stateAsleep() { /* ZZZ... */}
+    protected void stateAsleep() {/* ZZZ... */}
 
     @SuppressWarnings("java:S131")
     protected void stateSlam() {
