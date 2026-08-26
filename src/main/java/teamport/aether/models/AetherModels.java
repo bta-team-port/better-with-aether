@@ -421,6 +421,9 @@ public class AetherModels {
     }
 
     private void setBlockDungeonModels(@NonNull BlockModelDispatcher dispatcher) {
+
+        // =============================================================================================================
+        // TODO: make them use generic model
         dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.CHEST_DUNGEON_BRONZE)
             .setTex("aether:block/chest/dungeon_bronze/front", Side.NORTH)
             .setTex("aether:block/chest/dungeon_bronze/side", Side.EAST, Side.WEST, Side.SOUTH)
@@ -468,7 +471,7 @@ public class AetherModels {
 
         dispatcher.addDispatch(new BlockModelPaintedSkyrootMimic<>(AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED));
         dispatcher.addDispatch(new BlockModelPaintedOakMimic<>(AetherBlocks.CHEST_MIMIC_OAK_PAINTED));
-
+        // =============================================================================================================
 
         dispatcher.addDispatch(new BlockModelGeneric<>(AetherBlocks.CARVED_STONE_LOCKED,
             loadDataModel("aether:block/dungeon/carved")));
