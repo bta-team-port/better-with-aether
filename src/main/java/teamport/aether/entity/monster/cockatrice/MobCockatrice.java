@@ -10,11 +10,11 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlockTags;
-import teamport.aether.entity.AetherDeathMessage;
+import teamport.aether.entity.projectile.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.entity.projectile.ProjectileNeedle;
 
-public class MobCockatrice extends MobMonsterAether implements Enemy, AetherDeathMessage {
+public class MobCockatrice extends MobMonsterAether implements Enemy {
     private float flap = 0.0F;
     private float flapSpeed = 0.0F;
     private float oFlapSpeed;

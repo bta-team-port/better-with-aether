@@ -15,11 +15,11 @@ import org.joml.primitives.AABBd;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.block.AetherBlocks;
-import teamport.aether.entity.AetherDeathMessage;
+import teamport.aether.entity.projectile.AetherDeathMessage;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.entity.projectile.ProjectileWindball;
 
-public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
+public class MobZephyr extends MobFlying implements Enemy {
     private int courseChangeCooldown = 0;
     private double waypointX;
     private double waypointY;

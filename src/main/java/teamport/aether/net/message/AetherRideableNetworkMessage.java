@@ -2,7 +2,7 @@ package teamport.aether.net.message;
 
 import net.minecraft.core.entity.player.Player;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.entity.AetherRideable;
+import teamport.aether.entity.interfaces.AetherRideable;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 import turniplabs.halplibe.helper.network.NetworkMessage;
 import turniplabs.halplibe.helper.network.UniversalPacket;

@@ -1,4 +1,4 @@
-package teamport.aether.mixin;
+package teamport.aether.mixin.gui;
 
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.menu.MenuInventoryCreative;

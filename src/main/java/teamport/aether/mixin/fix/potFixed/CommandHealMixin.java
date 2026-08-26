@@ -1,4 +1,4 @@
-package teamport.aether.mixin.fix;
+package teamport.aether.mixin.fix.potFixed;
 
 import com.llamalad7.mixinextras.expression.Expression;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
