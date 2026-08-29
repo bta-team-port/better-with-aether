@@ -67,4 +67,7 @@ public class AetherEvents {
      * */
     public static final SortedSingleEvent<Runnable> DUNGEON_REGISTER = new SortedSingleEvent<>("aether:dungenRegistry");
 
+
+    public static final SortedSingleEvent<Runnable> AFTER_DIM_INIT = new SortedSingleEvent<>("aethr:after_dim");
+
 }

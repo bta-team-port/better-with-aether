@@ -71,6 +71,7 @@
     "block.EntityMixinBlockStandOn",
     "block.SpikeImmunitiesMixin",
     "dimension.AetherBedMixin",
+    "dimension.MinecraftMixinAfterDim",
     "dimension.ParachuteMixin",
     "dimension.SaveHandlerMixin",
     "dimension.WorldTypeGroupMixin",
