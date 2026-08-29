@@ -20,6 +20,7 @@ import teamport.aether.block.AetherBlockDetails;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.block.terrain.BlockLogicIceStone;
+import teamport.aether.compat.AetherApiEvents;
 import teamport.aether.effect.AetherEffects;
 import teamport.aether.effect.DeathCauseEffects;
 import teamport.aether.entity.AetherEntities;
@@ -41,6 +42,7 @@ import teamport.aether.world.feature.AetherWorldFeatures;
 import teamport.aether.world.feature.util.map.DungeonMap;
 import turniplabs.halplibe.HalpLibe;
 import turniplabs.halplibe.event.defs.CommonEvents;
+import turniplabs.halplibe.event.impl.SortedSingleEvent;
 import turniplabs.halplibe.helper.network.NetworkHandler;
 import turniplabs.halplibe.util.deathcause.DeathCause;
 import turniplabs.halplibe.util.deathcause.DeathCauseRegistry;
@@ -82,6 +84,12 @@ public class AetherMod implements ModInitializer {
     public static final byte SILVER_CHANCES = 10;
     public static final byte GOLD_CHANCES = 11;
 
+    /**
+     * @deprecated Will be deprecated in the next HalpLibe release (6.2.1).
+     */
+    @Deprecated(forRemoval = true)
+    public static final SortedSingleEvent<Runnable> DIMENSION_REGISTRY = new SortedSingleEvent<>("Aether:DimensionRegistry");
+
     private final AetherRecipes recipes = new AetherRecipes();
 
     @Override
@@ -93,9 +101,9 @@ public class AetherMod implements ModInitializer {
         CommonEvents.RECIPES_NAMESPACE_INIT.listen(key, recipes::initNamespaces);
         CommonEvents.RECIPES_READY.listen(key, recipes::onRecipesReady);
 
-        AetherEvents.AFTER_DIM_INIT.listen(Key.of(MOD_ID), this::afterDimensionInit);
-        AetherEvents.DUNGEON_REGISTER.listen(Key.of(MOD_ID), DungeonMap::registerDungeons);
-        AetherEvents.DIMENSION_BLACKLIST.listen(Key.of(MOD_ID), AetherDimension::addBannedBlocks);
+        DIMENSION_REGISTRY.listen(Key.of(MOD_ID), this::afterDimensionInit);
+        AetherApiEvents.DUNGEON_REGISTER.listen(Key.of(MOD_ID), DungeonMap::registerDungeons);
+        AetherApiEvents.DIMENSION_BLACKLIST.listen(Key.of(MOD_ID), AetherDimension::addBannedBlocks);
 
         NetworkHandler.registerNetworkMessage(SunspiritDeathNetworkMessage::new);
         NetworkHandler.registerNetworkMessage(AetherRideableNetworkMessage::new);

@@ -69,7 +69,11 @@ public class AetherClient implements ClientModInitializer {
     public static Colorizer skyroot;
     public static Colorizer oakGolden;
 
-    public static final SortedSingleEvent<Runnable> AFTER_ITEM_INIT = new SortedSingleEvent<>("Aether:AfterItemInit");
+    /**
+     * @deprecated Will be deprecated in the next HalpLibe release (6.2.1).
+     */
+    @Deprecated(forRemoval = true)
+    public static final SortedSingleEvent<Runnable> HUD_INIT = new SortedSingleEvent<>("Aether:HudInit");
 
     private static final AetherModels MODELS = new AetherModels();
 
@@ -84,7 +88,7 @@ public class AetherClient implements ClientModInitializer {
         ClientEvents.ENTITY_RENDERER_RELOAD.listen(key, MODELS::initEntityModels);
         ClientEvents.BLOCK_COLOR_RELOAD.listen(key, MODELS::initBlockColors);
 
-        AetherClient.AFTER_ITEM_INIT.listen(key, this::registerHUDComponents);
+        AetherClient.HUD_INIT.listen(key, this::registerHUDComponents);
 
         LOGGER.info("AetherMod client initialized.");
     }
