@@ -2,6 +2,7 @@ package teamport.aether.entity.boss.slider;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.MaterialLiquid;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
@@ -580,14 +581,14 @@ public class MobBossSlider extends MobBoss {
             return blocksBroken;
         }
         int y = (this.moveDirection == Direction.DOWN && this.currentState != State.SLAM) ? -1 : 0;
-        for (int x = -2; x <= 1; x++) {
-            for (int z = -2; z <= 1; z++) {
+        for (int x = 0; x <= 3; x++) {
+            for (int z = 0; z <= 3; z++) {
                 for (; y <= 2 && blocksBroken < 9; y++) {
                     int x1 = (int) (this.x + x);
                     int y1 = (int) (this.y + y);
                     int z1 = (int) (this.z + z);
                     Block<?> block = this.world.getBlock(x1, y1, z1);
-                    if (!this.breakBlock(this.world, x1, y1, z1)) {
+                    if (block == Blocks.AIR || !this.breakBlock(this.world, x1, y1, z1)) {
                         continue;
                     }
                     this.blocksToMove -= 0.5F * Math.min(block.getHardness() / 3f, 1);
