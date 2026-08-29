@@ -2,10 +2,19 @@ package teamport.aether.world.feature.util.map;
 
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
+import net.minecraft.core.world.generate.feature.WorldFeatureInterface;
+import net.minecraft.core.world.pos.TilePosc;
+import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.Random;
 
-public abstract class WorldFeatureMap<T extends DungeonLogic> extends WorldFeature {
+public abstract class WorldFeatureMap<T extends DungeonLogic> extends WorldFeature implements WorldFeatureInterface {
+
+    @Override
+    public boolean place(@NonNull World world, @NotNull Random random, @NotNull TilePosc pos){
+        return this.place(world, random, pos.x(), pos.y(), pos.z());
+    }
 
     @Override
     public boolean place(World world, Random random, int i, int j, int k) {

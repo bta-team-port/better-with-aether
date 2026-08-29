@@ -19,7 +19,7 @@ import org.jspecify.annotations.Nullable;
 import teamport.aether.AetherConfig;
 import teamport.aether.AetherGlobals;
 import teamport.aether.block.AetherBlocks;
-import teamport.aether.AetherEvents;
+import teamport.aether.compat.AetherApiEvents;
 import teamport.aether.compat.AetherPlugin;
 import teamport.aether.entity.interfaces.AetherMobFallingToOverworld;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
@@ -127,7 +127,7 @@ public class AetherDimension {
     public static void initDimensionBlackList() {
         DIMENSION_PLACEMENT_BLACKLIST.clear();
         List<Integer> aetherBlacklist = getDimensionBlacklist(AETHER);
-        AetherEvents.DIMENSION_BLACKLIST.emit(mod -> {
+        AetherApiEvents.DIMENSION_BLACKLIST.emit(mod -> {
                 BannedBlock banned = new BannedBlock();
                 mod.accept(banned);
                 for (IntBooleanPair pair : banned.getList()) {
