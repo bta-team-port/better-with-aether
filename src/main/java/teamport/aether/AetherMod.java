@@ -93,6 +93,7 @@ public class AetherMod implements ModInitializer {
         CommonEvents.RECIPES_NAMESPACE_INIT.listen(key, recipes::initNamespaces);
         CommonEvents.RECIPES_READY.listen(key, recipes::onRecipesReady);
 
+        AetherEvents.AFTER_DIM_INIT.listen(Key.of(MOD_ID), this::afterDimensionInit);
         AetherEvents.DUNGEON_REGISTER.listen(Key.of(MOD_ID), DungeonMap::registerDungeons);
         AetherEvents.DIMENSION_BLACKLIST.listen(Key.of(MOD_ID), AetherDimension::addBannedBlocks);
 
@@ -110,7 +111,6 @@ public class AetherMod implements ModInitializer {
         registerNewRecipeTypes();
         AetherEntities.init();
         AetherBlocks.init();
-        AetherDimension.init();
         AetherItems.init();
         AetherWorldFeatures.init();
 
@@ -134,6 +134,10 @@ public class AetherMod implements ModInitializer {
         registry.register("aether:environment", DeathCauseEnvironment::new);
 
         SoundTypes.loadSoundsJson(MOD_ID);
+    }
+
+    public void afterDimensionInit(){
+        AetherDimension.init();
     }
 
     public void afterGameStart() {
