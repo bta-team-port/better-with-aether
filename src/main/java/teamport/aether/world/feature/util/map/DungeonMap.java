@@ -9,7 +9,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.chunk.Chunk;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import teamport.aether.AetherEvents;
+import teamport.aether.compat.AetherApiEvents;
 import teamport.aether.AetherGlobals;
 import teamport.aether.AetherMod;
 import teamport.aether.compat.AetherPlugin;
@@ -34,7 +34,7 @@ public class DungeonMap {
     private static final HashMap<Class<? extends DungeonLogic>, String> TYPE_KEY_MAP = new HashMap<>();
 
     static {
-        AetherEvents.DUNGEON_REGISTER.emit(Runnable::run);
+        AetherApiEvents.DUNGEON_REGISTER.emit(Runnable::run);
         FabricLoader.getInstance()
             .getEntrypointContainers("aether", AetherPlugin.class)
             .forEach(plugin -> plugin.getEntrypoint().registerDungeonType());
