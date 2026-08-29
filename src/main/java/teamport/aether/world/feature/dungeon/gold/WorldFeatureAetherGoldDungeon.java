@@ -14,6 +14,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import net.minecraft.core.world.generate.feature.WorldFeatureFlowers;
 import net.minecraft.core.world.generate.feature.WorldFeatureTallGrass;
+import net.minecraft.core.world.pos.TilePos;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
@@ -332,7 +333,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeatureMap<DungeonLogicG
 
         WorldFeaturePoint chestPoint = new WorldFeaturePoint(x, y + 2 + RADIUS / 2, z - 4 + RADIUS);
         chestPoint.rotateYAroundPivot(dungeonAnchor, direction);
-        new WorldFeatureAetherGoldChest().place(world, random, chestPoint.getX(), chestPoint.getY(), chestPoint.getZ());
+        new WorldFeatureAetherGoldChest().place(world, random, new TilePos(chestPoint.getX(), chestPoint.getY(), chestPoint.getZ()));
         world.setBlockMetadataWithNotify(chestPoint.getX(), chestPoint.getY(), chestPoint.getZ(), BlockLogicRotatable.setDirection(0, direction));
 
         WorldFeaturePoint anchor = wfp(x, y, z);

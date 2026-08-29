@@ -3,11 +3,15 @@ package teamport.aether.world.feature.chest;
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
+import net.minecraft.core.world.generate.feature.WorldFeatureInterface;
 import net.minecraft.core.world.pos.TilePos;
+import net.minecraft.core.world.pos.TilePosc;
+import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.block.dungeon.BlockLogicChestLocked;
 import teamport.aether.helper.AetherMathHelper;
@@ -19,39 +23,38 @@ import static teamport.aether.world.feature.util.WorldFeatureComponent.LootGener
 import static teamport.aether.world.feature.util.WorldFeatureComponent.getOrCreateChestInventory;
 import static teamport.aether.world.feature.util.WorldFeatureComponent.placeItemInChest;
 
-public class WorldFeatureAetherTreasureChest extends WorldFeature {
+public class WorldFeatureAetherTreasureChest implements WorldFeatureInterface {
     private final int chestMetadata;
-    private final int chestID;
+    private final Block<?> chest;
     private final LootGenerator lootGenerator;
     private final WeightedRandomBag<WeightedRandomLootObject> lootRare;
     protected int guaranteedRare;
 
-    public WorldFeatureAetherTreasureChest(int chestID, int chestMetadata, LootGenerator lootGenerator, WeightedRandomBag<WeightedRandomLootObject> lootRare) {
-        this.chestID = chestID;
+
+    public WorldFeatureAetherTreasureChest(Block<?> chest, int chestMetadata, LootGenerator lootGenerator, WeightedRandomBag<WeightedRandomLootObject> lootRare) {
+        this.chest = chest;
         this.lootGenerator = lootGenerator;
         this.lootRare = lootRare;
         this.chestMetadata = chestMetadata;
     }
 
-    @Override
-    public boolean place(@NonNull World world, Random random, int ix, int iy, int iz) {
-        TilePos pos = new TilePos(ix, iy, iz);
-        Block<?> block = world.getBlock(ix, iy, iz);
+    public boolean place(@NonNull World world, @NotNull Random random, @NotNull TilePosc pos) {
+        Block<?> block = world.getBlockType(pos);
         Container inventory = getOrCreateChestInventory(world, pos);
         if (inventory != null && block.getLogic() instanceof BlockLogicChestLocked) {
             for (int i = 0; i < inventory.getContainerSize(); i++) {
                 inventory.setItem(i, null);
             }
         }
-        if (block.id() != chestID) {
-            world.setBlockAndMetadataWithNotify(ix, iy, iz, chestID, chestMetadata);
+        if (block != chest) {
+            world.setBlockTypeDataNotify(pos, chest, chestMetadata);
         }
-        this.setTreasure(world, random, ix, iy, iz);
+        this.setTreasure(world, random, pos);
         return true;
     }
 
-    public void setTreasure(World world, Random random, int ix, int iy, int iz) {
-        Container inventory = getOrCreateChestInventory(world, new TilePos(ix, iy, iz));
+    public void setTreasure(World world, Random random, TilePosc tilePosc) {
+        Container inventory = getOrCreateChestInventory(world, tilePosc);
         if (inventory == null) return;
         int quantity = AetherMathHelper.invertedExponentialCapped(random, 1, 9);
         List<ItemStack> normalLoot = lootGenerator.generate(random);

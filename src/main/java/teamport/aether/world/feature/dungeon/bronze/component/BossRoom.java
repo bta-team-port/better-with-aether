@@ -2,6 +2,7 @@ package teamport.aether.world.feature.dungeon.bronze.component;
 
 import it.unimi.dsi.fastutil.objects.ObjectObjectMutablePair;
 import net.minecraft.core.block.BlockLogicRotatable;
+import net.minecraft.core.world.pos.TilePos;
 import teamport.aether.AetherGlobals;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.boss.slider.MobBossSlider;
@@ -60,7 +61,7 @@ public class BossRoom extends BaseBronzeRoom {
         dungeon.setGenerated(true);
 
         dungeon.setClearArea(new ObjectObjectMutablePair<>(wfp(x, y - 2, z), wfp(x + 16, y + 14, z + 16)));
-        new WorldFeatureAetherBronzeChest().place(world, random, x + 7 + random.nextInt(2), y - 1, z + 7 + random.nextInt(2));
+        new WorldFeatureAetherBronzeChest().place(world, random, new TilePos(x + 7 + random.nextInt(2), y - 1, z + 7 + random.nextInt(2)));
         List<WorldFeaturePoint> treasureDoor = new ArrayList<>();
         treasureDoor.add(wfp(x + 7, y + 1, z + 7));
         treasureDoor.add(wfp(x + 8, y + 1, z + 7));
