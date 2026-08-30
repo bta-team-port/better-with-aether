@@ -164,8 +164,8 @@ tasks {
             "fabricloader" to libs.versions.loader.get(),
             "halplibe" to libs.versions.halplibe.get(),
             "uselessnumerical" to libs.versions.uselessNumerical.get(),
-//            "catalystcore" to libs.versions.catalyst.core.get(),
-//            "catalysteffects" to libs.versions.catalyst.effects.get(),
+            "catalystcore" to libs.versions.catalyst.core.get(),
+            "catalysteffects" to libs.versions.catalyst.effects.get(),
             "java" to libs.versions.java.get(),
             "modmenu" to libs.versions.modMenu.get()
         )
