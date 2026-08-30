@@ -18,7 +18,6 @@ import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherGlobals;
 import teamport.aether.AetherMod;
 import teamport.aether.achievements.AetherAchievements;
-import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.boss.AetherBossList;
 import teamport.aether.entity.boss.MobBoss;
 import teamport.aether.entity.player.MessageMaker;
@@ -46,8 +45,8 @@ public class MobBossValkyrie extends MobBoss implements IItemHolding {
 
     private int teleportTimer;
     private int chatTime;
-    public float wingSpeed;
-    public float prevWingSpeed;
+    private float wingSpeed;
+    private float prevWingSpeed;
 
     private static final int ATTACK_STRENGTH = 10;
 
@@ -90,6 +89,7 @@ public class MobBossValkyrie extends MobBoss implements IItemHolding {
         this.yd = 0.72;
     }
 
+    @SuppressWarnings({"java:S3776"})
     @Override
     public void tick() {
         this.syncFightState();
@@ -229,6 +229,7 @@ public class MobBossValkyrie extends MobBoss implements IItemHolding {
 
     @Override
     public void causeFallDamage(float distance) {
+        /* won't fall for any men so easily */
     }
 
     @Override
@@ -287,6 +288,7 @@ public class MobBossValkyrie extends MobBoss implements IItemHolding {
         super.onDeath(entityKilledBy);
     }
 
+    @SuppressWarnings({"java:S3776"})
     public void teleport(double x, double y, double z, int rad) {
         int ax = this.random.nextInt(rad + 1) * (this.random.nextInt(2) * 2 - 1);
         int ay = this.random.nextInt(rad / 2) * (this.random.nextInt(2) * 2 - 1);
@@ -311,23 +313,24 @@ public class MobBossValkyrie extends MobBoss implements IItemHolding {
             int iz = newZ + (this.random.nextInt(6) - this.random.nextInt(6));
 
             for (int searchY = iy; searchY >= p1.getY(); --searchY) {
-                if (searchY < 0 || searchY + 1 >= Objects.requireNonNull(this.world).getHeightBlocks()) continue;
+                if (searchY >= 0 && searchY + 1 < Objects.requireNonNull(this.world).getHeightBlocks()) {
+                    boolean isAirAbove = this.isAirySpace(new TilePos(ix, searchY, iz));
+                    boolean isAirHead = this.isAirySpace(new TilePos(ix, searchY + 1, iz));
+                    boolean isGroundBelow = !this.isAirySpace(new TilePos(ix, searchY - 1, iz));
 
-                boolean isAirAbove = this.isAirySpace(ix, searchY, iz);
-                boolean isAirHead = this.isAirySpace(ix, searchY + 1, iz);
-                boolean isGroundBelow = !this.isAirySpace(ix, searchY - 1, iz);
-
-                if (isAirAbove && isAirHead && isGroundBelow
-                    && ix >= p1.getX() && ix <= p1.getX() + 16
-                    && searchY >= p1.getY() && searchY <= p1.getY() + 16
-                    && iz >= p1.getZ() && iz <= p1.getZ() + 16
-                ) {
-                    newX = ix;
-                    newY = searchY;
-                    newZ = iz;
-                    flag = true;
-                    break;
+                    if (isAirAbove && isAirHead && isGroundBelow
+                        && ix >= p1.getX() && ix <= p1.getX() + 16
+                        && searchY >= p1.getY() && searchY <= p1.getY() + 16
+                        && iz >= p1.getZ() && iz <= p1.getZ() + 16
+                    ) {
+                        newX = ix;
+                        newY = searchY;
+                        newZ = iz;
+                        flag = true;
+                        break;
+                    }
                 }
+
             }
         }
 
@@ -355,12 +358,9 @@ public class MobBossValkyrie extends MobBoss implements IItemHolding {
         }
     }
 
-    public boolean isAirySpace(int x, int y, int z) {
-        int p = this.world.getBlockId(x, y, z);
-        Block<?> block = this.world.getBlock(x, y, z);
-        Block<?> blockTwo = Blocks.blocksList[p];
-
-        return p == 0 || blockTwo == null || blockTwo.getCollisionBoundingBoxFromPool(this.world, x, y, z) == null || block.getMaterial() == Materials.WATER;
+    public boolean isAirySpace(TilePos tilePos) {
+        Block<?> block = this.world.getBlockType(tilePos);
+        return block == Blocks.AIR ||  block.getCollisionAABB(this.world, tilePos) == null || block.getMaterial() == Materials.WATER;
     }
 
     public void swingArm() {
@@ -410,12 +410,9 @@ public class MobBossValkyrie extends MobBoss implements IItemHolding {
         return isAlive() && ready && this.world.getDifficulty().canHostileMobsSpawn();
     }
 
+    @SuppressWarnings({"java:S3776"})
     @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
-        /// if /kill (jank!)
-        if (attacker == null && type == null && damage == 100) {
-            return MobUtil.killMob(this);
-        }
         /// need to acquire more medals
         if (!this.isReadyToDuel) {
             if (!(attacker instanceof Player) || this.chatTime > 0) {
@@ -482,8 +479,8 @@ public class MobBossValkyrie extends MobBoss implements IItemHolding {
         float f1 = 0.4F;
         this.xd /= 2.0F;
         this.zd /= 2.0F;
-        this.xd -= d / (double) f * (double) f1;
-        this.zd -= d1 / (double) f * (double) f1;
+        this.xd -= d / f * f1;
+        this.zd -= d1 / f * f1;
     }
 
 
@@ -554,11 +551,20 @@ public class MobBossValkyrie extends MobBoss implements IItemHolding {
 
     @Override
     public void setHeldItem(ItemStack itemStack) {
+        /* your gifts cannot sway her stands */
     }
 
     @Override
     public boolean isLeftHanded() {
         return this.getSharedFlag(FLAG_LEFT_HANDED);
+    }
+
+    public float wingSpeed(){
+        return this.wingSpeed;
+    }
+
+    public float preWingSpeed(){
+        return this.prevWingSpeed;
     }
 
 }

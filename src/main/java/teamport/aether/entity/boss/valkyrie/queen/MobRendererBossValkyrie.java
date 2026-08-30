@@ -7,6 +7,7 @@ import net.minecraft.client.render.renderer.State;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
+import teamport.aether.AetherGlobals;
 import teamport.aether.entity.monster.valkyrie.MobRendererValkyrie;
 
 public class MobRendererBossValkyrie extends MobRendererBiped<MobBossValkyrie> {
@@ -24,20 +25,23 @@ public class MobRendererBossValkyrie extends MobRendererBiped<MobBossValkyrie> {
         if (layer > 1) {
             return null;
         }
-
         StaticEntityModel model = this.setupAnimations(entity, this.getModel(layer == 0 ? "main" : "halo"), partialTick, layer);
-        MobRendererValkyrie.setupValkyrieAnimation(model, entity.wingSpeed, entity.onGround);
+        if (model == null) {
+            AetherGlobals.LOGGER.error("Skip rendering the rest because Valkyrie Queen's model is null.");
+            return null;
+        }
+        MobRendererValkyrie.setupValkyrieAnimation(model, entity.wingSpeed(), entity.onGround);
         if (layer == 0) {
             model.getTransform("halo").visible = false;
             model.getTransform("headOverlay").visible = false;
-        } else {
-            MobRendererValkyrie.hideAllExceptHalo(model);
-            model.getTransform("waist").visible = true;
-            model.getTransform("halo").visible = true;
-            GLRenderer.setLightmapCoord2i(15, 15);
-            GLRenderer.setBlendFunc(BlendFactor.SRC_ALPHA, BlendFactor.ONE_MINUS_SRC_ALPHA);
-            GLRenderer.enableState(State.BLEND);
+            return model;
         }
+        MobRendererValkyrie.hideAllExceptHalo(model);
+        model.getTransform("waist").visible = true;
+        model.getTransform("halo").visible = true;
+        GLRenderer.setLightmapCoord2i(15, 15);
+        GLRenderer.setBlendFunc(BlendFactor.SRC_ALPHA, BlendFactor.ONE_MINUS_SRC_ALPHA);
+        GLRenderer.enableState(State.BLEND);
         return model;
     }
 
