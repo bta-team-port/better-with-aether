@@ -25,7 +25,7 @@ public class DeathCauseKilledSecondary extends DeathCauseKilledBy {
 
 
     @Override
-    public void serialize(CompoundTag tag) {
+    public void serializeAdditional(CompoundTag tag) {
         super.serialize(tag);
         if(this.hasSecondary) {
             tag.putString("aether:second_keyShard", this.keyShard);
@@ -33,7 +33,7 @@ public class DeathCauseKilledSecondary extends DeathCauseKilledBy {
     }
 
     @Override
-    public void deserialize(CompoundTag tag) {
+    public void deserializeAdditional(CompoundTag tag) {
         super.deserialize(tag);
         this.hasSecondary = tag.containsKey("aether:second_keyShard");
         if(this.hasSecondary){

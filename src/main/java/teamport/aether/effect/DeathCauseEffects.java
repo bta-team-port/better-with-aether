@@ -44,7 +44,7 @@ public class DeathCauseEffects extends DeathCause {
     }
 
     @Override
-    public void serialize(CompoundTag tag) {
+    public void serializeAdditional(CompoundTag tag) {
         super.serialize(tag);
         tag.putString("aether:effectsID", this.effectsID);
         if(this.hasSecondary) {
@@ -53,7 +53,7 @@ public class DeathCauseEffects extends DeathCause {
     }
 
     @Override
-    public void deserialize(CompoundTag tag) {
+    public void deserializeAdditional(CompoundTag tag) {
         super.deserialize(tag);
         this.effectsID = tag.getString("aether:effectsID");
         this.hasSecondary = tag.containsKey("aether:poison_keyShard");
