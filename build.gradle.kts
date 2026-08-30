@@ -74,12 +74,12 @@ dependencies {
     implementation(libs.loader)
     implementation(libs.halplibe)
     implementation(libs.uselessNumerical)
-//    implementation(libs.catalyst.core)
-//    implementation(libs.catalyst.effects)
+    implementation(libs.catalyst.core)
+    implementation(libs.catalyst.effects)
 
     // keep them around just in case
-    implementation(files("libs/catalyst-core-3.0.0-beta.2+8.0.1.jar"))
-    implementation(files("libs/catalyst-effects-3.0.0-beta.2+8.0.1.jar"))
+//    implementation(files("libs/catalyst-core-3.0.0-beta.2+8.0.1.jar"))
+//    implementation(files("libs/catalyst-effects-3.0.0-beta.2+8.0.1.jar"))
 
     compileOnly(libs.btwaila)
     compileOnly(libs.commandly)
