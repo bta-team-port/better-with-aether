@@ -216,6 +216,8 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             if (currentRoom == null) continue;
             currentRoom.markDoor(door, NO_SPACE);
         }
+        ///  All this is just for the tunnels that so far cause more issue and do not work.
+        /*
         PriorityQueue<PriorityEntry<Door>> tunnels = new PriorityQueue<>();
         for (BaseBronzeRoom room : seenRooms) {
             List<Door> listDoor = room.getAdjustedDoors();
@@ -259,6 +261,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             AetherGlobals.LOGGER.debug("Tunnel distance:{}, p1:{}, p2:{}, direction:{}.", entry.getWeight(), door.getP1(), door.getP2(), door.getHeading());
             createTunnel(door.getP1(), door.getP2(), door.getHeading());
         }
+        */
         return true;
     }
 
