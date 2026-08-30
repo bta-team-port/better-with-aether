@@ -275,10 +275,6 @@ public class MobValkyrie extends MobPathfinder implements Enemy, IItemHolding {
 
     @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
-        if (attacker == null && type == null && damage == 100) {
-            return MobUtil.killMob(this);
-        }
-
         if (type == AetherMod.HOLY) {
             super.hurt(attacker, damage / 2, type);
         }

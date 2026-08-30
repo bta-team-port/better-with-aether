@@ -108,9 +108,6 @@ public class MobWhirly extends MobAetherAnimal {
 
     @Override
     public boolean hurt(Entity entity, int damage, DamageType type) {
-        if (entity == null && type == null && damage == 100) {
-            return MobUtil.killMob(this);
-        }
         return false;
     }
 

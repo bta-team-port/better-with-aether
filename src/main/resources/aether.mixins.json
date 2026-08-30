@@ -84,6 +84,7 @@
     "entity.MobDeerFollowNatureStaffMixin",
     "entity.MobMessageMixin",
     "entity.SpawnMobMixinZephyr",
+    "fix.CommandKillMixinFix",
     "fix.MapFixMixin",
     "fix.MinecartCarriablesFix",
     "fix.NetworkHandlerMixinFixNativePackets",
@@ -91,7 +92,6 @@
     "fix.WorldTypeOverworldRespawnMixin",
     "fix.halplibe.MinecraftMixinEvents",
     "fix.halplibe.SaveConversionFix",
-    "fix.potFixed.CommandHealMixin",
     "gui.SortCreativeInventoryMixin",
     "gui.screens.PlayerMixinAetherScreens",
     "item.ItemBlockBlacklistMixin",
@@ -106,7 +106,6 @@
     "item.SkyrootSwordDropMultiplier",
     "item.TreeCapitatorAetherAxeMixin",
     "player.PlayerBossListMixin",
-    "player.PlayerDeathMessageMixin",
     "player.PlayerFixArmorMixin",
     "player.PlayerGetNextDartMixin",
     "player.PlayerMixinDevDrops"
