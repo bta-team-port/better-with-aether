@@ -305,9 +305,6 @@ public class MobBossSlider extends MobBoss {
     @Override
     @SuppressWarnings("java:S6541")
     public boolean hurt(Entity attacker, int damage, DamageType type) {
-        if (attacker == null && type == null && damage == 100) {
-            return MobUtil.killMob(this);
-        }
         if (!this.world.getDifficulty().canHostileMobsSpawn()) {
             return false;
         }
@@ -318,6 +315,10 @@ public class MobBossSlider extends MobBoss {
             return false;
         }
         ItemStack item = ((Player) attacker).inventory.getCurrentItem();
+
+        if(this.isDeapSleep()){
+            return false;
+        }
         if (item == null || (!(item.getItem() instanceof ItemToolPickaxe) && !(item.getItem() instanceof ItemToolPickaxeAether))) {
             if (!this.isAwake()) {
                 String message = "<" + ((Player) attacker).getDisplayName() + "> " + I18n.getInstance().translateKey("boss_slider.hit_fail");
@@ -334,6 +335,11 @@ public class MobBossSlider extends MobBoss {
         this.performDeformation(attacker);
         this.createDamageParticle(damage);
         return super.hurt(attacker, (int) item.getStrVsBlock(AetherBlocks.COBBLE_HOLYSTONE), type);
+    }
+
+    //temporary disable the waking up.
+    private boolean isDeapSleep(){
+        return true;
     }
 
     private void performDeformation(@NonNull Entity attacker) {
