@@ -5,14 +5,9 @@ import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.helper.MathHelper;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherArmorMaterial;
-
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.List;
 
 public class MobUtil {
 
