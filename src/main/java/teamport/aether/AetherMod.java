@@ -24,11 +24,11 @@ import teamport.aether.compat.AetherApiEvents;
 import teamport.aether.effect.AetherEffects;
 import teamport.aether.effect.DeathCauseEffects;
 import teamport.aether.entity.AetherEntities;
-import teamport.aether.entity.DeathCauseEnvironment;
 import teamport.aether.entity.boss.DeathCauseBoss;
 import teamport.aether.entity.monster.mimic.DeathCauseMimic;
 import teamport.aether.entity.monster.mimic.MimicRegistry;
 import teamport.aether.entity.monster.swet.DeathCauseKilledSecondary;
+import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherItemTags;
 import teamport.aether.item.AetherItems;
 import teamport.aether.item.accessory.trinket.ItemTrinket;
@@ -45,6 +45,7 @@ import turniplabs.halplibe.event.defs.CommonEvents;
 import turniplabs.halplibe.event.impl.SortedSingleEvent;
 import turniplabs.halplibe.helper.network.NetworkHandler;
 import turniplabs.halplibe.util.deathcause.DeathCause;
+import turniplabs.halplibe.util.deathcause.DeathCauseEvents;
 import turniplabs.halplibe.util.deathcause.DeathCauseRegistry;
 import turniplabs.halplibe.util.dependency.Key;
 
@@ -101,9 +102,11 @@ public class AetherMod implements ModInitializer {
         CommonEvents.RECIPES_NAMESPACE_INIT.listen(key, recipes::initNamespaces);
         CommonEvents.RECIPES_READY.listen(key, recipes::onRecipesReady);
 
-        DIMENSION_REGISTRY.listen(Key.of(MOD_ID), this::afterDimensionInit);
-        AetherApiEvents.DUNGEON_REGISTER.listen(Key.of(MOD_ID), DungeonMap::registerDungeons);
-        AetherApiEvents.DIMENSION_BLACKLIST.listen(Key.of(MOD_ID), AetherDimension::addBannedBlocks);
+        AetherMod.DIMENSION_REGISTRY.listen(key, this::afterDimensionInit);
+        AetherApiEvents.DUNGEON_REGISTER.listen(key, DungeonMap::registerDungeons);
+        AetherApiEvents.DIMENSION_BLACKLIST.listen(key, AetherDimension::addBannedBlocks);
+
+        DeathCauseEvents.PLAYER_DEATH_HANDLER.listen(key, PlayerUtil::deathCause);
 
         NetworkHandler.registerNetworkMessage(SunspiritDeathNetworkMessage::new);
         NetworkHandler.registerNetworkMessage(AetherRideableNetworkMessage::new);
@@ -139,7 +142,6 @@ public class AetherMod implements ModInitializer {
         registry.register("aether:swet", DeathCauseKilledSecondary::new);
         registry.register("aether:effect", DeathCauseEffects::new);
         registry.register("aether:mimic", DeathCauseMimic::new);
-        registry.register("aether:environment", DeathCauseEnvironment::new);
 
         SoundTypes.loadSoundsJson(MOD_ID);
     }
