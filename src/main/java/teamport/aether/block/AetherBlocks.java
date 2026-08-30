@@ -34,6 +34,9 @@ import static teamport.aether.AetherMod.MOD_ID;
 
 @SuppressWarnings({"java:S6539", "java:S1104", "java:S1444", "java:S3008", "unchecked", "java:S3878"})
 public final class AetherBlocks {
+
+    private AetherBlocks(){}
+
     public static Block<BlockLogicPortalAether> PORTAL_AETHER;
 
     public static Block<?> GRASS_AETHER;
