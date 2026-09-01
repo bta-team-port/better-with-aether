@@ -14,7 +14,7 @@ import net.minecraft.core.lang.I18n;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import teamport.aether.AetherMod;
+import teamport.aether.AetherGlobals;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
 import teamport.aether.world.feature.util.map.DungeonMap;
 import turniplabs.halplibe.helper.EnvironmentHelper;
@@ -103,7 +103,7 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss {
 
     @Override
     public void onDeath(Entity entityKilledBy) {
-        AetherMod.LOGGER.info("{} of ID {} has been slain!", bossName, dungeonID);
+        AetherGlobals.LOGGER.info("{} of ID {} has been slain!", bossName, dungeonID);
 
 
         if (trophy != null) {
@@ -186,6 +186,10 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss {
         returnToHome();
         runWithDungeon(dungeonID, d -> d.unlock(world));
         this.setHealthRaw(this.getMaxHealth());
+        // not sure how to stop the music otherwise, gonna have to look up how 7.3_04 did it.
+        if (!EnvironmentHelper.isMultiplayerServer()) {
+            MobBoss.stop();
+        }
     }
 
     @Environment(EnvType.CLIENT)

@@ -6,9 +6,11 @@ import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectObjectMutablePair;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.block.dungeon.BlockLogicDungeonDoor;
@@ -127,7 +129,7 @@ public abstract class DungeonLogic {
         if (entranceDoor == null) return;
         for (WorldFeatureBlock block : entranceDoor) {
             world.playSoundEffect(null, SoundCategory.ENTITY_SOUNDS, block.getX(), block.getY(), block.getZ(), "random.door_open", 0.025f, 0.5f);
-            world.setBlockWithNotify(block.getX(), block.getY(), block.getZ(), 0);
+            world.setBlockTypeNotify(new TilePos(block.getX(), block.getY(), block.getZ()), Blocks.AIR);
         }
     }
 
@@ -160,21 +162,21 @@ public abstract class DungeonLogic {
                 for (WorldFeaturePoint coordinate : treasureDoor) {
                     ParticleMaker.spawnParticle(world, "smoke", coordinate.getX(), coordinate.getY() + 0.8F, coordinate.getZ(), 0.0, 0.0, 0.0, 0);
                     ParticleMaker.spawnParticle(world, "largesmoke", coordinate.getX(), coordinate.getY() + 0.8F, coordinate.getZ(), 0.0, 0.0, 0.0, 0);
-                    world.setBlockAndMetadataWithNotify(coordinate.getX(), coordinate.getY(), coordinate.getZ(), doorReplacementID, doorReplacementMeta);
+                    world.setBlockTypeDataNotify(new TilePos(coordinate.getX(), coordinate.getY(), coordinate.getZ()), Blocks.getBlock(doorReplacementID), doorReplacementMeta);
                 }
             }
 
             if (clearArea != null) {
                 iterate3d(clearArea, p -> {
-                    Block<?> block = world.getBlock(p.getX(), p.getY(), p.getZ());
-
+                    TilePos tilePos = new TilePos(p.getX(), p.getY(), p.getZ());
+                    Block<?> block = world.getBlockType(tilePos);
                     BlockLogic logic = block.getLogic();
-                    if (logic instanceof BlockLogicLocked) {
-                        world.setBlockWithNotify(p.getX(), p.getY(), p.getZ(), ((BlockLogicLocked) logic).getReplacement().id());
-                    } else if (logic instanceof BlockLogicTrapped) {
-                        world.setBlockWithNotify(p.getX(), p.getY(), p.getZ(), ((BlockLogicTrapped) logic).getReplaceOnClear().id());
+                    if (logic instanceof BlockLogicLocked logicLocked) {
+                        world.setBlockTypeNotify(tilePos, logicLocked.getReplacement());
+                    } else if (logic instanceof BlockLogicTrapped logicTrapped) {
+                        world.setBlockTypeNotify(tilePos, logicTrapped.getReplaceOnClear());
                     } else if (logic instanceof BlockLogicDungeonDoor) {
-                        world.setBlockWithNotify(p.getX(), p.getY(), p.getZ(), 0);
+                        world.setBlockTypeNotify(tilePos, Blocks.AIR);
                     }
                 });
             }

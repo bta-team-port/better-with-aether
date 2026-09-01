@@ -16,20 +16,19 @@ import net.minecraft.core.sound.SoundTypes;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.biome.Biome;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import teamport.aether.block.AetherBlockDetails;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.block.terrain.BlockLogicIceStone;
+import teamport.aether.compat.AetherApiEvents;
 import teamport.aether.effect.AetherEffects;
 import teamport.aether.effect.DeathCauseEffects;
 import teamport.aether.entity.AetherEntities;
-import teamport.aether.entity.DeathCauseEnvironment;
 import teamport.aether.entity.boss.DeathCauseBoss;
 import teamport.aether.entity.monster.mimic.DeathCauseMimic;
 import teamport.aether.entity.monster.mimic.MimicRegistry;
 import teamport.aether.entity.monster.swet.DeathCauseKilledSecondary;
+import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherItemTags;
 import teamport.aether.item.AetherItems;
 import teamport.aether.item.accessory.trinket.ItemTrinket;
@@ -40,10 +39,13 @@ import teamport.aether.recipe.RecipeEntryIncubator;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.biome.AetherBiomes;
 import teamport.aether.world.feature.AetherWorldFeatures;
+import teamport.aether.world.feature.util.map.DungeonMap;
 import turniplabs.halplibe.HalpLibe;
 import turniplabs.halplibe.event.defs.CommonEvents;
+import turniplabs.halplibe.event.impl.SortedSingleEvent;
 import turniplabs.halplibe.helper.network.NetworkHandler;
 import turniplabs.halplibe.util.deathcause.DeathCause;
+import turniplabs.halplibe.util.deathcause.DeathCauseEvents;
 import turniplabs.halplibe.util.deathcause.DeathCauseRegistry;
 import turniplabs.halplibe.util.dependency.Key;
 
@@ -56,7 +58,6 @@ import static net.minecraft.core.entity.animal.MobFireflyCluster.FireflyColor.re
 @SuppressWarnings({"java:S1104", "java:S1444", "java:S3008"})
 public class AetherMod implements ModInitializer {
     public static final String MOD_ID = HalpLibe.registerMod("aether", true);
-    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     @SuppressWarnings("OptionalGetWithoutIsPresent")
     public static final String VERSION_STRING = FabricLoader.getInstance().getModContainer(MOD_ID).get().getMetadata().getVersion().getFriendlyString();
     public static final String STATE = "release";
@@ -84,16 +85,28 @@ public class AetherMod implements ModInitializer {
     public static final byte SILVER_CHANCES = 10;
     public static final byte GOLD_CHANCES = 11;
 
+    /**
+     * @deprecated Will be deprecated in the next HalpLibe release (6.2.1).
+     */
+    @Deprecated(forRemoval = true)
+    public static final SortedSingleEvent<Runnable> DIMENSION_REGISTRY = new SortedSingleEvent<>("Aether:DimensionRegistry");
+
     private final AetherRecipes recipes = new AetherRecipes();
 
     @Override
     public void onInitialize() {
-        LOGGER.info("Aether initialized, welcome to a hostile paradise. Version {} {}", STATE, VERSION_STRING);
+        AetherGlobals.LOGGER.info("Aether initialized, welcome to a hostile paradise. Version {} {}", STATE, VERSION_STRING);
         Key key = Key.of(MOD_ID);
         CommonEvents.BEFORE_GAME_START.listen(key, this::beforeGameStart);
         CommonEvents.AFTER_GAME_START.listen(key, this::afterGameStart);
         CommonEvents.RECIPES_NAMESPACE_INIT.listen(key, recipes::initNamespaces);
         CommonEvents.RECIPES_READY.listen(key, recipes::onRecipesReady);
+
+        AetherMod.DIMENSION_REGISTRY.listen(key, this::afterDimensionInit);
+        AetherApiEvents.DUNGEON_REGISTER.listen(key, DungeonMap::registerDungeons);
+        AetherApiEvents.DIMENSION_BLACKLIST.listen(key, AetherDimension::addBannedBlocks);
+
+        DeathCauseEvents.PLAYER_DEATH_HANDLER.listen(key, PlayerUtil::deathCause);
 
         NetworkHandler.registerNetworkMessage(SunspiritDeathNetworkMessage::new);
         NetworkHandler.registerNetworkMessage(AetherRideableNetworkMessage::new);
@@ -109,7 +122,6 @@ public class AetherMod implements ModInitializer {
         registerNewRecipeTypes();
         AetherEntities.init();
         AetherBlocks.init();
-        AetherDimension.init();
         AetherItems.init();
         AetherWorldFeatures.init();
 
@@ -130,9 +142,12 @@ public class AetherMod implements ModInitializer {
         registry.register("aether:swet", DeathCauseKilledSecondary::new);
         registry.register("aether:effect", DeathCauseEffects::new);
         registry.register("aether:mimic", DeathCauseMimic::new);
-        registry.register("aether:environment", DeathCauseEnvironment::new);
 
         SoundTypes.loadSoundsJson(MOD_ID);
+    }
+
+    public void afterDimensionInit(){
+        AetherDimension.init();
     }
 
     public void afterGameStart() {

@@ -44,12 +44,13 @@ import teamport.aether.particle.*;
 import teamport.aether.world.type.AetherWorldTypes;
 import teamport.aether.world.type.WorldTypeFXAether;
 import turniplabs.halplibe.event.defs.ClientEvents;
+import turniplabs.halplibe.event.impl.SortedSingleEvent;
 import turniplabs.halplibe.helper.TextureHelper;
 import turniplabs.halplibe.util.dependency.Key;
 
 import java.time.Month;
 
-import static teamport.aether.AetherMod.LOGGER;
+import static teamport.aether.AetherGlobals.LOGGER;
 import static teamport.aether.AetherMod.MOD_ID;
 
 @Environment(EnvType.CLIENT)
@@ -68,9 +69,30 @@ public class AetherClient implements ClientModInitializer {
     public static Colorizer skyroot;
     public static Colorizer oakGolden;
 
+    /**
+     * @deprecated Will be deprecated in the next HalpLibe release (6.2.1).
+     */
+    @Deprecated(forRemoval = true)
+    public static final SortedSingleEvent<Runnable> HUD_INIT = new SortedSingleEvent<>("Aether:HudInit");
+
     private static final AetherModels MODELS = new AetherModels();
 
     public static AetherRemoteResourceDownloaderThread resourceDownloaderThread;
+    @Override
+    public void onInitializeClient() {
+        Key key = Key.of(MOD_ID);
+        ClientEvents.BEFORE_CLIENT_START.listen(key, this::beforeClientStart);
+        ClientEvents.AFTER_CLIENT_START.listen(key, this::afterClientStart);
+        ClientEvents.BLOCK_MODEL_RELOAD.listen(key, MODELS::initBlockModels);
+        ClientEvents.ITEM_MODEL_RELOAD.listen(key, MODELS::initItemModels);
+        ClientEvents.ENTITY_RENDERER_RELOAD.listen(key, MODELS::initEntityModels);
+        ClientEvents.BLOCK_COLOR_RELOAD.listen(key, MODELS::initBlockColors);
+
+        AetherClient.HUD_INIT.listen(key, this::registerHUDComponents);
+
+        LOGGER.info("AetherMod client initialized.");
+    }
+
     @SuppressWarnings("unused")
     public static AtlasStitcher extras = TextureRegistry.register(new AtlasStitcher(true, false).addDirectory("extras", "textures/extras"));
 
@@ -156,19 +178,6 @@ public class AetherClient implements ClientModInitializer {
         IBlockAether.of(AetherBlocks.CARVED_HELLFIRE_LIGHT_LOCKED).better_with_aether$setEmissionOverride(0);
     }
 
-    @Override
-    public void onInitializeClient() {
-        Key key = Key.of(MOD_ID);
-        ClientEvents.BEFORE_CLIENT_START.listen(key, this::beforeClientStart);
-        ClientEvents.AFTER_CLIENT_START.listen(key, this::afterClientStart);
-        ClientEvents.BLOCK_MODEL_RELOAD.listen(key, MODELS::initBlockModels);
-        ClientEvents.ITEM_MODEL_RELOAD.listen(key, MODELS::initItemModels);
-        ClientEvents.ENTITY_RENDERER_RELOAD.listen(key, MODELS::initEntityModels);
-        ClientEvents.BLOCK_COLOR_RELOAD.listen(key, MODELS::initBlockColors);
-
-        LOGGER.info("AetherMod client initialized.");
-    }
-
     public static void initAchievementsPage() {
         AchievementPageAether page = new AchievementPageAether(MOD_ID, AetherBlocks.GRASS_AETHER.getDefaultStack());
         page.addAchievement(AetherAchievements.HOSTILE_PARADISE, 0, 0);
@@ -214,7 +223,7 @@ public class AetherClient implements ClientModInitializer {
         AchievementPages.register(page);
     }
 
-    public static void registerHUDComponents() {
+    public void registerHUDComponents() {
 
         TRINKET_2_BAR = HudComponents.register((new HudComponentAccessoryBar("trinket_2_bar",
             new LayoutSnap(HudComponents.BOOTS_BAR, ComponentAnchor.TOP_RIGHT, ComponentAnchor.BOTTOM_RIGHT, 0, -2), HumanAccessoryShape.TRINKET, 3))
@@ -259,7 +268,7 @@ public class AetherClient implements ClientModInitializer {
             try {
                 TextureHelper.initializeAllFiles(MOD_ID, stitcher, true);
             } catch (Exception e) {
-                AetherMod.LOGGER.error("Failed to initialize texture files!", e);
+                AetherGlobals.LOGGER.error("Failed to initialize texture files!", e);
             }
         }
     }

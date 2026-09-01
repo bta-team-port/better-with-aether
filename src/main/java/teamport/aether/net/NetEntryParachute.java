@@ -13,7 +13,7 @@ import org.jspecify.annotations.Nullable;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
 import teamport.aether.entity.vehicle.parachute.EntityParachuteGold;
 
-import static teamport.aether.AetherMod.LOGGER;
+import static teamport.aether.AetherGlobals.LOGGER;
 
 public class NetEntryParachute implements IVehicleEntry<EntityParachute>, ITrackedEntry<EntityParachute> {
     @Override

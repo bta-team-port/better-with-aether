@@ -41,12 +41,15 @@ loom {
 
 repositories {
     mavenCentral()
+    ivy("https://piston-data.mojang.com") {
+        patternLayout { artifact("v1/[organisation]/[revision]/[module].jar") }
+        metadataSources { artifact() }
+    }
     maven("https://maven.fabricmc.net/") { name = "Fabric" }
     maven("https://maven.danygames2014.net/signalum") { name = "SignalumMavenMirror1" }
-//    maven("https://maven.thesignalumproject.net/infrastructure") { name = "SignalumMavenInfrastructure" }
-//    maven("https://maven.thesignalumproject.net/nightly") { name = "signalumMavenNightly" }
-//    maven("https://maven.thesignalumproject.net/releases") { name = "SignalumMavenReleases" }
-//    maven("https://maven.thesignalumproject.net/nightly") { name = "SignalumMavenNightly" }
+    maven("https://maven.thesignalumproject.net/infrastructure") { name = "SignalumMavenInfrastructure" }
+    maven("https://maven.thesignalumproject.net/releases") { name = "SignalumMavenReleases" }
+    maven("https://maven.thesignalumproject.net/nightly") { name = "SignalumMavenNightly" }
     maven("https://api.modrinth.com/maven") { name = "Modrinth"
         content {
             includeGroup("maven.modrinth")
@@ -55,6 +58,10 @@ repositories {
     maven("https://jitpack.io")
     ivy("https://piston-data.mojang.com") {
         patternLayout { artifact("v1/[organisation]/[revision]/[module].jar") }
+        metadataSources { artifact() }
+    }
+    ivy("https://github.com/Better-than-Adventure") {
+        patternLayout { artifact("[organisation]/releases/download/[revision]/[module]-bta-[revision].jar") }
         metadataSources { artifact() }
     }
 }
@@ -67,13 +74,17 @@ dependencies {
     implementation(libs.loader)
     implementation(libs.halplibe)
     implementation(libs.uselessNumerical)
-//    implementation(libs.catalyst.core)
-//    implementation(libs.catalyst.effects)
+    implementation(libs.catalyst.core)
+    implementation(libs.catalyst.effects)
 
-    implementation(files("libs/catalyst-core-3.0.0-beta.2+8.0.1.jar"))
-    implementation(files("libs/catalyst-effects-3.0.0-beta.2+8.0.1.jar"))
+    // keep them around just in case
+//    implementation(files("libs/catalyst-core-3.0.0-beta.2+8.0.1.jar"))
+//    implementation(files("libs/catalyst-effects-3.0.0-beta.2+8.0.1.jar"))
 
+    compileOnly(libs.btwaila)
     compileOnly(libs.commandly)
+
+//    compileOnly(libs.legacyLwjgl)
 
     // Only required at compilation
     // provides documentation, can be removed if that isn't needed
@@ -153,8 +164,8 @@ tasks {
             "fabricloader" to libs.versions.loader.get(),
             "halplibe" to libs.versions.halplibe.get(),
             "uselessnumerical" to libs.versions.uselessNumerical.get(),
-//            "catalystcore" to libs.versions.catalyst.core.get(),
-//            "catalysteffects" to libs.versions.catalyst.effects.get(),
+            "catalystcore" to libs.versions.catalyst.core.get(),
+            "catalysteffects" to libs.versions.catalyst.effects.get(),
             "java" to libs.versions.java.get(),
             "modmenu" to libs.versions.modMenu.get()
         )

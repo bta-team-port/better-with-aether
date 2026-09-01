@@ -12,8 +12,9 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.AetherMod;
+import teamport.aether.AetherGlobals;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.block.terrain.BlockLogicCloudBase;
 import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
@@ -186,7 +187,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
             BlockLogicCloudBase blockLogic = world.getBlockLogic(point.getX(), point.getY(), point.getZ(), BlockLogicCloudBase.class);
 
             if (blockMaterial != Materials.AIR && blockLogic == null) {
-                AetherMod.LOGGER.info("Could not place a silver dungeon at {},{},{}, with blockMaterial {}", x, y, z, blockMaterial);
+                AetherGlobals.LOGGER.info("Could not place a silver dungeon at {},{},{}, with blockMaterial {}", x, y, z, blockMaterial.getClass());
                 return false;
             }
         }
@@ -310,7 +311,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
         boss.setDungeonID(this.logic.id);
         boss.setTrophy(AetherItems.KEY_SILVER.getDefaultStack());
 
-        new WorldFeatureAetherSilverChest().place(this.world, this.random, this.bossPosition.getX(), y, this.bossPosition.getZ());
+        new WorldFeatureAetherSilverChest().place(this.world, this.random, new TilePos(this.bossPosition.getX(), y, this.bossPosition.getZ()));
         List<WorldFeaturePoint> treasureDoor = new ArrayList<>();
         treasureDoor.add(new WorldFeaturePoint(x - 14, y + 2, z + 42));
         treasureDoor.add(new WorldFeaturePoint(x - 14, y + 2, z + 43));

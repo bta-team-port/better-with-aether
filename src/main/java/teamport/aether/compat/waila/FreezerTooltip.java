@@ -1,5 +1,3 @@
-// TODO: restore btwaila compat once upstream mod lands on BTA 8.0
-/*
 package teamport.aether.compat.waila;
 
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
@@ -19,7 +17,7 @@ import static toufoumaster.btwaila.BTWaila.translator;
 public class FreezerTooltip extends TileTooltip<TileEntityFreezer> {
     @Override
     public void initTooltip() {
-        addClass(TileEntityFreezer.class);
+        this.addClass(TileEntityFreezer.class);
     }
 
     @Override
@@ -39,4 +37,4 @@ public class FreezerTooltip extends TileTooltip<TileEntityFreezer> {
         advancedInfoComponent.drawItemList(stacks, 0);
     }
 }
-*/
+

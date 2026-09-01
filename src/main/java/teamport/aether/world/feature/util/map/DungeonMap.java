@@ -9,6 +9,8 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.chunk.Chunk;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
+import teamport.aether.compat.AetherApiEvents;
+import teamport.aether.AetherGlobals;
 import teamport.aether.AetherMod;
 import teamport.aether.compat.AetherPlugin;
 import teamport.aether.net.message.AetherDungeonMapRequestNetworkMessage;
@@ -23,45 +25,29 @@ import turniplabs.halplibe.helper.network.NetworkHandler;
 import java.util.*;
 import java.util.function.Consumer;
 
-import static teamport.aether.AetherMod.LOGGER;
+import static teamport.aether.AetherGlobals.LOGGER;
 import static teamport.aether.world.feature.util.WorldFeaturePoint.wfpoint;
 
 public class DungeonMap {
     protected static final HashMap<Integer, DungeonLogic> DUNGEON_MAP = new HashMap<>();
-
-    protected DungeonMap() {
-    }
-
     private static final HashMap<String, Class<? extends DungeonLogic>> KEY_TYPE_MAP = new HashMap<>();
     private static final HashMap<Class<? extends DungeonLogic>, String> TYPE_KEY_MAP = new HashMap<>();
 
     static {
-        DungeonMap.registerDungeonType("SUNSPIRIT", DungeonLogicGoldDungeon.class);
-        DungeonMap.registerDungeonType("VALKYRIE", DungeonLogicSilverDungeon.class);
-        DungeonMap.registerDungeonType("SLIDER", DungeonLogicBronzeDungeon.class);
-        DungeonMap.registerDungeonType("BASE", DungeonLogicBase.class);
-
+        AetherApiEvents.DUNGEON_REGISTER.emit(Runnable::run);
         FabricLoader.getInstance()
             .getEntrypointContainers("aether", AetherPlugin.class)
             .forEach(plugin -> plugin.getEntrypoint().registerDungeonType());
     }
 
-    /// This is here for compatibility reasons. You could remove it but old alpha/beta worlds will probably crash.
-    protected static class DungeonLogicBase extends DungeonLogic {
+    protected DungeonMap() {
+    }
 
-        public DungeonLogicBase(int dimensionID, int id, long seed) {
-            super(dimensionID, id, seed);
-        }
-
-        @Override
-        protected boolean placeDungeon(World world, Random random) {
-            return false;
-        }
-
-        @Override
-        protected boolean canPlaceDungeon(World world) {
-            return false;
-        }
+    public static void registerDungeons(){
+        DungeonMap.registerDungeonType("SUNSPIRIT", DungeonLogicGoldDungeon.class);
+        DungeonMap.registerDungeonType("VALKYRIE", DungeonLogicSilverDungeon.class);
+        DungeonMap.registerDungeonType("SLIDER", DungeonLogicBronzeDungeon.class);
+        DungeonMap.registerDungeonType("BASE", DungeonLogicBase.class);
     }
 
     public static void registerDungeonType(String key, Class<? extends DungeonLogic> type) {
@@ -92,16 +78,13 @@ public class DungeonMap {
 
     public static void load(@NonNull CompoundTag data) {
         DUNGEON_MAP.clear();
-
         Tag<?> dungeons = data.getTagOrDefault(AetherMod.MOD_ID + ".dungeon", null);
-
         if (dungeons instanceof ListTag listTag) {
             listTag.forEach(tag -> {
                 DungeonLogic dungeon = loadDungeonFromNBT((CompoundTag) tag);
                 if (dungeon != null) DUNGEON_MAP.put(dungeon.id, dungeon);
             });
         }
-
         /// for backwards compatibility with alpha.
         else if (dungeons instanceof CompoundTag compoundTag) {
             for (Tag<?> tag : compoundTag.getValues()) {
@@ -119,20 +102,18 @@ public class DungeonMap {
         int dimensionID = tag.getInteger("dimensionID");
         long seed = tag.getLong("seed");
         int id = tag.getInteger("id");
-
         DungeonLogic dungeonEntry;
         try {
             dungeonEntry = KEY_TYPE_MAP.get(type)
                 .getConstructor(int.class, int.class, long.class)
                 .newInstance(dimensionID, id, seed);
         } catch (Exception e) {
-            AetherMod.LOGGER.error("Failed to load dungeon {} from map!", id);
-            AetherMod.LOGGER.error("This world might be outdated or corrupted!");
-            AetherMod.LOGGER.error(String.valueOf(e));
+            AetherGlobals.LOGGER.error("Failed to load dungeon {} from map!", id);
+            AetherGlobals.LOGGER.error("This world might be outdated or corrupted!");
+            AetherGlobals.LOGGER.error(String.valueOf(e));
             Thread.dumpStack();
             return null;
         }
-
         dungeonEntry.load(tag);
         return dungeonEntry;
     }
@@ -140,7 +121,6 @@ public class DungeonMap {
     private static final List<DungeonLogic> entryListCache = new ArrayList<>();
     private static final int MP_LIST_UPDATE_COOLDOWN = 3000;
     private static long lastListUpdateStamp = 0;
-
     public static Collection<DungeonLogic> getDungeonList() {
         if (EnvironmentHelper.isMultiplayerClient()) {
             long time = System.currentTimeMillis();
@@ -244,12 +224,10 @@ public class DungeonMap {
     /// Marks dungeon for removal.
     public static void remove(Integer id) {
         DungeonLogic dungeon = DUNGEON_MAP.get(id);
-
         if (dungeon == null) {
             LOGGER.error("Couldn't find dungeon of id {}", id);
             return;
         }
-
         DUNGEON_MAP.get(id).markedRemoved = true;
         DEAD_DUNGEONS.push(id);
     }
@@ -264,12 +242,30 @@ public class DungeonMap {
                 .getConstructor(int.class, int.class, long.class)
                 .newInstance(world.dimension.id, id, seed);
         } catch (Exception e) {
-            AetherMod.LOGGER.error("Failed to register dungeon!");
+            AetherGlobals.LOGGER.error("Failed to register dungeon!");
             throw new RuntimeException(e);
         }
 
         dungeon.setPosition(new WorldFeaturePoint(x, y, z));
         DUNGEON_MAP.put(id, dungeon);
         return dungeon;
+    }
+
+    /// This is here for compatibility reasons. You could remove it but old alpha/beta worlds will probably crash.
+    protected static class DungeonLogicBase extends DungeonLogic {
+
+        public DungeonLogicBase(int dimensionID, int id, long seed) {
+            super(dimensionID, id, seed);
+        }
+
+        @Override
+        protected boolean placeDungeon(World world, Random random) {
+            return false;
+        }
+
+        @Override
+        protected boolean canPlaceDungeon(World world) {
+            return false;
+        }
     }
 }

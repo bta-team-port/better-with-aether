@@ -12,7 +12,7 @@ import teamport.aether.helper.MixinHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import static teamport.aether.AetherMod.LOGGER;
+import static teamport.aether.AetherGlobals.LOGGER;
 
 @Mixin(value = World.class, priority = 0)
 public abstract class WorldGetCubesMixin {

@@ -96,9 +96,6 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
 
     @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
-        if (attacker == null && type == null && damage == 100) {
-            return MobUtil.killMob(this);
-        }
         return false;
     }
 

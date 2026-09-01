@@ -18,52 +18,55 @@ import java.util.List;
 public final class AetherCreativeContents {
     private static final DyeColor[] RAINBOW_ORDER;
 
+    static {
+        RAINBOW_ORDER = new DyeColor[]{
+            DyeColor.RED,
+            DyeColor.ORANGE,
+            DyeColor.YELLOW,
+            DyeColor.LIME,
+            DyeColor.GREEN,
+            DyeColor.CYAN,
+            DyeColor.LIGHT_BLUE,
+            DyeColor.BLUE,
+            DyeColor.PURPLE,
+            DyeColor.MAGENTA,
+            DyeColor.PINK,
+            DyeColor.BROWN,
+            DyeColor.WHITE,
+            DyeColor.SILVER,
+            DyeColor.GRAY,
+            DyeColor.BLACK};
+    }
+
     public AetherCreativeContents() {
     }
 
     public static void populate(List<ItemStack> list) {
-        addNaturalTypes(list);
-
-        addStoneTypes(list);
-
-        addWoodTypes(list);
-
-        addPaintedTypes(list);
-
-        addLogTypes(list);
-        addLeafTypes(list);
-        addSaplingTypes(list);
-
-        addOrganicTypes(list);
-
-        addWorkstationsAndGlass(list);
-
-        addRedstoneTypes(list);
-
-        addOreTypes(list);
-
-        addStorageTypes(list);
-
-        addDungeonBlocks(list);
-
-        addPlaceables(list);
-
-        addTools(list);
-        addArmor(list);
-        addAccessories(list);
-        addMiscTools(list);
-
-        addFood(list);
-
-        addDyes(list);
-
-        addOreProducts(list);
-        addBasics(list);
-        addMobDrops(list);
-        addMisc(list);
-
-        addRecords(list);
-
+        AetherCreativeContents.addNaturalTypes(list);
+        AetherCreativeContents.addStoneTypes(list);
+        AetherCreativeContents.addWoodTypes(list);
+        AetherCreativeContents.addPaintedTypes(list);
+        AetherCreativeContents.addLogTypes(list);
+        AetherCreativeContents.addLeafTypes(list);
+        AetherCreativeContents.addSaplingTypes(list);
+        AetherCreativeContents.addOrganicTypes(list);
+        AetherCreativeContents.addWorkstationsAndGlass(list);
+        AetherCreativeContents.addRedstoneTypes(list);
+        AetherCreativeContents.addOreTypes(list);
+        AetherCreativeContents.addStorageTypes(list);
+        AetherCreativeContents.addDungeonBlocks(list);
+        AetherCreativeContents.addPlaceables(list);
+        AetherCreativeContents.addTools(list);
+        AetherCreativeContents.addArmor(list);
+        AetherCreativeContents.addAccessories(list);
+        AetherCreativeContents.addMiscTools(list);
+        AetherCreativeContents.addFood(list);
+        AetherCreativeContents.addDyes(list);
+        AetherCreativeContents.addOreProducts(list);
+        AetherCreativeContents.addBasics(list);
+        AetherCreativeContents.addMobDrops(list);
+        AetherCreativeContents.addMisc(list);
+        AetherCreativeContents.addRecords(list);
     }
 
     private static void addTools(@NonNull List<ItemStack> list) {
@@ -1110,26 +1113,6 @@ public final class AetherCreativeContents {
 
     private static @NonNull IPainted painted(@NonNull Block<?> block) {
         return (IPainted) block.getLogic();
-    }
-
-    static {
-        RAINBOW_ORDER = new DyeColor[]{
-            DyeColor.RED,
-            DyeColor.ORANGE,
-            DyeColor.YELLOW,
-            DyeColor.LIME,
-            DyeColor.GREEN,
-            DyeColor.CYAN,
-            DyeColor.LIGHT_BLUE,
-            DyeColor.BLUE,
-            DyeColor.PURPLE,
-            DyeColor.MAGENTA,
-            DyeColor.PINK,
-            DyeColor.BROWN,
-            DyeColor.WHITE,
-            DyeColor.SILVER,
-            DyeColor.GRAY,
-            DyeColor.BLACK};
     }
 
 }

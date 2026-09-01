@@ -9,6 +9,7 @@ import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
+import net.minecraft.core.world.pos.TilePosc;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -87,7 +88,7 @@ public class WorldFeatureComponent {
         }
     }
 
-    public static @Nullable Container getOrCreateChestInventory(@NonNull World world, TilePos pos) {
+    public static @Nullable Container getOrCreateChestInventory(@NonNull World world, TilePosc pos) {
         TileEntity tileEntity = world.getTileEntity(pos);
         if (tileEntity == null) {
             Block<?> block = world.getBlockType(pos);

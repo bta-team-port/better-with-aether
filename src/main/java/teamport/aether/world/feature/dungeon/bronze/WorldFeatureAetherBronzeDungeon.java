@@ -1,6 +1,5 @@
 package teamport.aether.world.feature.dungeon.bronze;
 
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Block;
@@ -11,9 +10,8 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.AetherMod;
+import teamport.aether.AetherGlobals;
 import teamport.aether.block.AetherBlocks;
-import teamport.aether.compat.AetherPlugin;
 import teamport.aether.helper.AetherMathHelper;
 import teamport.aether.helper.PriorityEntry;
 import teamport.aether.item.AetherItems;
@@ -127,11 +125,6 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
     private static final WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> TREASURE_ROOMS;
 
     static {
-        FabricLoader.getInstance()
-            .getEntrypointContainers("aether", AetherPlugin.class)
-            .forEach(plugin -> plugin.getEntrypoint().registerBronzeDungeonRoom(MANAGER));
-
-
         WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> boss = new WeightedRandomBag<>();
         boss.addEntry(BossRoom::new, 1);
         TREASURE_ROOMS = new WeightedRandomBag<>();
@@ -223,6 +216,8 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             if (currentRoom == null) continue;
             currentRoom.markDoor(door, NO_SPACE);
         }
+        ///  All this is just for the tunnels that so far cause more issue and do not work.
+        /*
         PriorityQueue<PriorityEntry<Door>> tunnels = new PriorityQueue<>();
         for (BaseBronzeRoom room : seenRooms) {
             List<Door> listDoor = room.getAdjustedDoors();
@@ -237,7 +232,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                 if (door.getMark() != OPEN && door.getMark() != NO_SPACE && !(room instanceof BossRoom)) {
                     continue;
                 }
-                AetherMod.LOGGER.debug("door type:{}, door heading:{}", door.getMark(), door.getHeading());
+                AetherGlobals.LOGGER.debug("door type:{}, door heading:{}", door.getMark(), door.getHeading());
                 WorldFeaturePoint p1 = door.getP1().copy();
                 WorldFeaturePoint p2 = door.getP2().copy();
                 while (!this.breaksSurface(p1, p2)
@@ -254,7 +249,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             }
         }
         if (tunnels.isEmpty()) {
-            AetherMod.LOGGER.debug("No exit tunnels are generating for this bronze dungeon at {} {} {}", x, y, z);
+            AetherGlobals.LOGGER.debug("No exit tunnels are generating for this bronze dungeon at {} {} {}", x, y, z);
             return true;
         }
         int tunnelAmount = tunnels.size() > 4 ? TUNNEL_COUNT : tunnels.size();
@@ -263,9 +258,10 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             tunnels.remove(entry);
             if (entry == null) continue;
             Door door = entry.getData();
-            AetherMod.LOGGER.debug("Tunnel distance:{}, p1:{}, p2:{}, direction:{}.", entry.getWeight(), door.getP1(), door.getP2(), door.getHeading());
+            AetherGlobals.LOGGER.debug("Tunnel distance:{}, p1:{}, p2:{}, direction:{}.", entry.getWeight(), door.getP1(), door.getP2(), door.getHeading());
             createTunnel(door.getP1(), door.getP2(), door.getHeading());
         }
+        */
         return true;
     }
 

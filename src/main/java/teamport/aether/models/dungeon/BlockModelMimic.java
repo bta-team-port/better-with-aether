@@ -2,6 +2,7 @@ package teamport.aether.models.dungeon;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.render.block.model.BlockModelHorizontalRotation;
 import net.minecraft.client.render.block.model.BlockModelRotatable;
 import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
@@ -14,7 +15,7 @@ import org.jspecify.annotations.NonNull;
 import teamport.aether.block.dungeon.BlockLogicChestMimic;
 
 @Environment(EnvType.CLIENT)
-public class BlockModelMimic<T extends BlockLogicChestMimic> extends BlockModelRotatable<T> {
+public class BlockModelMimic<T extends BlockLogicChestMimic> extends BlockModelHorizontalRotation<T> {
     private final IconCoordinate frontTexture;
     private final IconCoordinate sideTexture;
     private final IconCoordinate topTexture;

@@ -1,6 +1,6 @@
 // TODO: restore btwaila compat once upstream mod lands on BTA 8.0
-/*
-package teamport.aether.compat.waila.mixins;
+
+package teamport.aether.mixin.compat;
 
 import com.llamalad7.mixinextras.expression.Definition;
 import com.llamalad7.mixinextras.expression.Expression;
@@ -18,22 +18,21 @@ import toufoumaster.btwaila.gui.components.BaseInfoComponent;
 
 @Mixin(BaseInfoComponent.class)
 public abstract class WallaceMixin {
-    @Definition(id = "translateNameKey", method = "Lnet/minecraft/core/lang/I18n;translateNameKey(Ljava/lang/String;)Ljava/lang/String;")
-    @Expression("? = ?.translateNameKey(?)")
-    @Inject(method = "baseBlockInfo", at = @At(value = "MIXINEXTRAS:EXPRESSION", shift = At.Shift.AFTER))
+    @Definition(id = "translateKey", method = "Lnet/minecraft/core/lang/I18n;translateKey(Ljava/lang/String;)Ljava/lang/String;")
+    @Expression("? = ?.translateKey(?)")
+    @Inject(method = "baseBlockInfo", at = @At(value = "MIXINEXTRAS:EXPRESSION", ordinal = 0, shift = At.Shift.AFTER))
     public void injectMimicName(
         Block<?> block, int blockMetadata,
         ItemStack[] blockDrops, CallbackInfo ci,
         @Local(name = "renderItem") ItemStack renderItem,
         @Local(name = "blockName") LocalRef<String> blockName
     ) {
-        if (renderItem.getItem() instanceof ItemBlock) {
-            ItemBlock<?> itemBlock = (ItemBlock<?>) renderItem.getItem();
-            if (itemBlock.getBlock().getLogic() instanceof BlockLogicChestMimic) {
-                String name = renderItem.getData().getString("name");
-                if (!name.isEmpty()) blockName.set(name);
-            }
+        if (renderItem.getItem() instanceof ItemBlock<?> itemBlock
+            && itemBlock.getBlock().getLogic() instanceof BlockLogicChestMimic
+        ) {
+            String name = renderItem.getData().getString("name");
+            if (!name.isEmpty()) blockName.set(name);
         }
     }
 }
-*/
+

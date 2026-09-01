@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.AetherMod;
+import teamport.aether.AetherGlobals;
 import teamport.aether.world.AetherDimension;
 
 import static teamport.aether.world.AetherDimension.OVERWORLD_RETURN_HEIGHT;
@@ -38,7 +38,7 @@ public abstract class MPBumpToOverworldMixin extends Player {
     @Inject(method = "onUpdateEntity()V", at = @At("HEAD"))
     private void bumpPlayerToOverworld(CallbackInfo ci) {
         if (dimension == AetherDimension.getAether().id && this.y < this.world.getWorldType().getMinY(world) - 10) {
-            AetherMod.LOGGER.debug("Sending {} to overworld", getDisplayName());
+            AetherGlobals.LOGGER.debug("Sending {} to overworld", getDisplayName());
             MinecraftServer server = MinecraftServer.getInstance();
 
             CompoundTag passengerNBT = null;
