@@ -10,7 +10,7 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.entity.AetherJumpAmount;
+import teamport.aether.entity.interfaces.AetherJumpAmount;
 
 public class MobAetherAnimalRideable extends MobAetherAnimal implements AetherJumpAmount {
     public static final int DATA_SADDLE_ID = 16;
