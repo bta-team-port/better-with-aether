@@ -154,7 +154,7 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
     @Override
     public void baseTick() {
         super.baseTick();
-        if (this.random.nextInt(10000) < this.livingSoundTime++) {
+        if (this.random.nextInt(100000) < this.livingSoundTime++) {
             this.livingSoundTime = -this.getAmbientSoundInterval();
             this.world.playSoundEffect(null, SoundCategory.WEATHER_SOUNDS, this.x, this.y, this.z, this.getLivingSound(), 1000.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F + this.getPitchModifier());
         }

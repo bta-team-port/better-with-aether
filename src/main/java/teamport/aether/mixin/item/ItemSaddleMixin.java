@@ -17,16 +17,19 @@ public abstract class ItemSaddleMixin {
     private boolean callOnItemUse(boolean original, ItemStack selfStack, Player player, Mob mob) {
         if (mob instanceof MobPhyg entity && selfStack.consumeItem(player) && !entity.getSaddled()) {
             entity.setSaddled(true);
+            entity.setSitting(true);
             return true;
         }
 
         if (mob instanceof MobPhow entity && selfStack.consumeItem(player) && !entity.getSaddled()) {
             entity.setSaddled(true);
+            entity.setSitting(true);
             return true;
         }
 
-        if (mob instanceof MobMoa entity && selfStack.consumeItem(player) && !entity.getSaddled() && entity.isTamed()) {
+        if (mob instanceof MobMoa entity && !entity.getSaddled() && entity.getTamed() && selfStack.consumeItem(player)) {
             entity.setSaddled(true);
+            entity.setSitting(true);
             return true;
         }
 

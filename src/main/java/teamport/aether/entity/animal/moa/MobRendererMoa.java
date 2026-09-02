@@ -38,14 +38,14 @@ public class MobRendererMoa extends MobRenderer<MobMoa> {
     @Override
     protected float getRenderAlpha(@NonNull MobMoa entity, float partialTick) {
         long now = System.nanoTime();
-        float dt = entity.lookFadeLastRenderNanos == 0L ? 0.0F : (float)(now - entity.lookFadeLastRenderNanos) / 1.0E9F;
+        float dt = entity.lookFadeLastRenderNanos == 0L ? 0.0F : (float) (now - entity.lookFadeLastRenderNanos) / 1.0E9F;
         entity.lookFadeLastRenderNanos = now;
         dt = MathHelper.clamp(dt, 0.0F, 0.1F);
         if (!this.isRiderLookingAtOwnPig(entity, partialTick)) {
             entity.lookFadeAlpha = 1.0F;
             return 1.0F;
         } else {
-            float t = 1.0F - (float)Math.exp(-LOOK_FADE_RATE * dt);
+            float t = 1.0F - (float) Math.exp(-LOOK_FADE_RATE * dt);
             entity.lookFadeAlpha += (LOOK_FADE_TARGET - entity.lookFadeAlpha) * t;
             if (Math.abs(entity.lookFadeAlpha - LOOK_FADE_TARGET) < 0.01F) {
                 entity.lookFadeAlpha = LOOK_FADE_TARGET;
@@ -74,11 +74,11 @@ public class MobRendererMoa extends MobRenderer<MobMoa> {
                     if (look == null) {
                         return false;
                     } else {
-                        double reach = (double)player.getGamemode().getEntityReachDistance() + (double)1.0F;
+                        double reach = (double) player.getGamemode().getEntityReachDistance() + (double) 1.0F;
                         Vector3d end = (new Vector3d(look)).mul(reach).add(eye);
-                        double offX = (entity.xo - entity.x) * ((double)1.0F - (double)partialTick);
-                        double offY = (entity.yo - entity.y) * ((double)1.0F - (double)partialTick);
-                        double offZ = (entity.zo - entity.z) * ((double)1.0F - (double)partialTick);
+                        double offX = (entity.xo - entity.x) * ((double) 1.0F - (double) partialTick);
+                        double offY = (entity.yo - entity.y) * ((double) 1.0F - (double) partialTick);
+                        double offZ = (entity.zo - entity.z) * ((double) 1.0F - (double) partialTick);
                         AABBd renderedBox = entity.bb.translate(offX, offY, offZ, new AABBd());
                         return MathHelper.aabbClip(renderedBox, eye, end) != null;
                     }
@@ -99,6 +99,7 @@ public class MobRendererMoa extends MobRenderer<MobMoa> {
 
     @Override
     protected @Nullable StaticEntityModel getAndSetupModelForLayer(@NonNull MobMoa entity, float brightness, float partialTick, int layer) {
+        boolean sitting = entity.getSitting();
         StaticEntityModel model;
         if (layer == 1) {
             this.bindTexture(entity.getSaddleTexturePath());
@@ -116,18 +117,36 @@ public class MobRendererMoa extends MobRenderer<MobMoa> {
         float headPitch = this.getHeadPitch(entity, partialTick);
 
         BoneTransform head = model.getTransform("head");
-        head.rotX = headPitch;
-        head.rotY = headYaw;
+        BoneTransform body = model.getTransform("body");
         BoneTransform neck = model.getTransform("neck");
-        neck.rotY = headYaw;
-
         BoneTransform leg0 = model.getTransform("leg0");
         BoneTransform leg1 = model.getTransform("leg1");
-        leg0.rotX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbYaw;
-        leg1.rotX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbYaw;
-
         BoneTransform wing0 = model.getTransform("wing0");
         BoneTransform wing1 = model.getTransform("wing1");
+
+        if (sitting && entity.onGround) {
+            body.posY = -17.7F;
+
+            neck.posY = -17.7F;
+            head.posY = -17.7F;
+
+            wing0.posY = -17.7F;
+            wing1.posY = -17.7F;
+
+            leg0.visible = false;
+            leg1.visible = false;
+
+            head.rotX += headPitch;
+            head.rotY += headYaw;
+        } else {
+            head.rotX = headPitch;
+            head.rotY = headYaw;
+
+            neck.rotY = headYaw;
+
+            leg0.rotX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbYaw;
+            leg1.rotX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbYaw;
+        }
 
 
         if (limbPitch <= 0.0000000001F) {

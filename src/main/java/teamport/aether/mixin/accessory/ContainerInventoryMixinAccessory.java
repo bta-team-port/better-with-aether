@@ -84,11 +84,6 @@ public abstract class ContainerInventoryMixinAccessory implements IContainerInve
                 accessoryInventory[slot] = ItemStack.readItemStackFromNbt(itemTag);
             }
         }
-        for (ItemStack item : armorInventory) {
-            if (item != null && item.getItem() instanceof IAccessoryEffects iAccessoryEffects) {
-                iAccessoryEffects.addEffect(player, item);
-            }
-        }
         for (ItemStack item : accessoryInventory) {
             if (item != null && item.getItem() instanceof IAccessoryEffects iAccessoryEffects) {
                 iAccessoryEffects.addEffect(player, item);
@@ -125,13 +120,11 @@ public abstract class ContainerInventoryMixinAccessory implements IContainerInve
     private ItemStack updateEffects(int slot, int takeAmount, Operation<ItemStack> original) {
         if (slot >= this.mainInventory.length) {
             int accessoryIndex = getAccessoryIndex(slot);
-            ItemStack itemStack = accessoryIndex >= 0
-                ? accessoryInventory[accessoryIndex]
-                : this.armorInventory[slot - this.mainInventory.length];
-            if (itemStack != null && itemStack.getItem() instanceof IAccessoryEffects iAccessoryEffects) {
-                iAccessoryEffects.removeEffect(player, itemStack);
-            }
             if (accessoryIndex >= 0) {
+                ItemStack itemStack = accessoryInventory[accessoryIndex];
+                if (itemStack != null && itemStack.getItem() instanceof IAccessoryEffects iAccessoryEffects) {
+                    iAccessoryEffects.removeEffect(player, itemStack);
+                }
                 return removeAccessoryItem(accessoryIndex, takeAmount);
             }
         }
@@ -148,14 +141,11 @@ public abstract class ContainerInventoryMixinAccessory implements IContainerInve
     private void updateEffects(int slot, ItemStack stack, Operation<Void> original) {
         if (slot >= this.mainInventory.length) {
             int accessoryIndex = getAccessoryIndex(slot);
-            ItemStack oldItem = accessoryIndex >= 0
-                ? accessoryInventory[accessoryIndex]
-                : this.armorInventory[slot - this.mainInventory.length];
-            // this is only called when we SWAP an item
-            if (oldItem != null && oldItem.getItem() instanceof IAccessoryEffects iAccessoryEffects) {
-                iAccessoryEffects.removeEffect(player, oldItem);
-            }
             if (accessoryIndex >= 0) {
+                ItemStack oldItem = accessoryInventory[accessoryIndex];
+                if (oldItem != null && oldItem.getItem() instanceof IAccessoryEffects iAccessoryEffects) {
+                    iAccessoryEffects.removeEffect(player, oldItem);
+                }
                 accessoryInventory[accessoryIndex] = stack;
                 return;
             }

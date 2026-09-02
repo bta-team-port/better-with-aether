@@ -550,6 +550,8 @@ public class AetherModels {
             loadDataModel("aether:block/log/skyroot")));
         dispatcher.addDispatch(new BlockModelFixedAxis<>(AetherBlocks.LOG_OAK_GOLDEN,
             loadDataModel("aether:block/log/oak_golden")));
+        dispatcher.addDispatch(new BlockModelFixedAxis<>(AetherBlocks.LOG_AETHER_SCORCHED,
+            loadDataModel("aether:block/log/aether_scorched")));
 
         dispatcher.addDispatch(new BlockModelGenericLeaves<>(AetherBlocks.LEAVES_SKYROOT,
             "aether:block/leaves/skyroot"));
