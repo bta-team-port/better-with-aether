@@ -107,6 +107,21 @@
     }
   },
   {
+    "name": "aether:freezer/phoenix_to_obsidian_wolf",
+    "type": "aether:machine",
+    "time": 5000,
+    "input": {
+      "stack": {
+        "id": "aether:item/armor_wolf_phoenix",
+        "meta": -1
+      }
+    },
+    "output": {
+      "id": "aether:item/armor_wolf_obsidian",
+      "meta": -1
+    }
+  },
+  {
     "name": "aether:freezer/aercloud_to_blue_aercloud",
     "type": "aether:machine",
     "time": 50,

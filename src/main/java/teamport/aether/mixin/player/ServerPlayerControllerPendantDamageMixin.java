@@ -19,7 +19,7 @@ import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
 
 @Environment(EnvType.SERVER)
 @Mixin(ServerPlayerController.class)
-public class ServerPlayerControllerPendantDamageMixin {
+public abstract class ServerPlayerControllerPendantDamageMixin {
 
     @Shadow
     public Player player;

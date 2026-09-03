@@ -12,7 +12,7 @@ import teamport.aether.world.AetherDimension;
 
 @Environment(EnvType.CLIENT)
 @Mixin(Minecraft.class)
-public class ClearLevelDataMixin {
+public abstract class ClearLevelDataMixin {
     @Inject(method = "startWorld(Ljava/lang/String;)V", at = @At("HEAD"))
     public void clearDataStartWorld(String worldDirName, CallbackInfo ci) {
         AetherDimension.setDimensionDataDefaults();

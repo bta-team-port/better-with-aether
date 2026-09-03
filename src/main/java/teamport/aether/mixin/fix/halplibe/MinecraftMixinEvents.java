@@ -13,7 +13,7 @@ import teamport.aether.AetherMod;
  */
 @Deprecated(forRemoval = true)
 @Mixin(Minecraft.class)
-public class MinecraftMixinEvents {
+public abstract class MinecraftMixinEvents {
 
     @Inject(method = "startGame", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/net/command/util/CommandHelper;init()V"))
     public void hudInitializationEntrypoint(CallbackInfo ci) {
