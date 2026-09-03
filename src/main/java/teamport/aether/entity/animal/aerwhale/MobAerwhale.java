@@ -1,7 +1,6 @@
 package teamport.aether.entity.animal.aerwhale;
 
 import com.mojang.nbt.tags.CompoundTag;
-import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.MobFlying;
 import net.minecraft.core.entity.animal.AmbientCreature;
@@ -12,7 +11,6 @@ import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 import org.joml.Vector3d;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.entity.MobUtil;
 
 public class MobAerwhale extends MobFlying implements AmbientCreature {
     private static final double CRUISE_SPEED = 0.22;
@@ -227,7 +225,7 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
 
     @Override
     public boolean canSpawnHere() {
-        return this.world.checkIfAABBIsClear(this.bb) && this.world.getCollidingSolidBlockBoundingBoxes(this, this.bb).isEmpty() && !this.world.isAABBInMaterial(this.bb, Materials.WATER);
+        return this.world.areBlocksLoaded(this.bb) && this.world.getCubes(this, this.bb).isEmpty() && super.canSpawnHere();
     }
 
     public double openSpace(float rotationyRotOffset, float rotationPitchOffset) {
