@@ -10,8 +10,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.useless.dragonfly.models.entity.BoneTransform;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
 
-@Mixin(value = MobRendererSlime.class, remap = false)
-public class MobRendererSlimeMixin {
+@Mixin(MobRendererSlime.class)
+public abstract class MobRendererSlimeMixin {
 
     @Inject(method = "getAndSetupModelForLayer(Lnet/minecraft/core/entity/monster/MobSlime;FFI)Lorg/useless/dragonfly/models/entity/StaticEntityModel;", at = @At("TAIL"))
     private void fixSlimeFloorOffset(MobSlime entity, float brightness, float partialTick, int layer, @NonNull CallbackInfoReturnable<StaticEntityModel> cir) {

@@ -40,11 +40,6 @@ public abstract class MobMoa extends MobAetherAnimalRideable {
     }
 
     @Override
-    public void onGround() {
-        if (this.onGround) this.jumpsRemaining = getJumpMaxAmount();
-    }
-
-    @Override
     public float getSoundVolume() {
         return 0.5F;
     }
@@ -188,7 +183,7 @@ public abstract class MobMoa extends MobAetherAnimalRideable {
 
     public String getSaddleTexturePath() {
         return String.format("/assets/%s/textures/entity/%s/saddle.png", this.textureIdentifier.namespace(), this.textureIdentifier.value());
-    };
+    }
 
     @Override
     public abstract int getJumpMaxAmount();
