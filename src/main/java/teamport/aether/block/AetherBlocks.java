@@ -714,7 +714,7 @@ public final class AetherBlocks {
         AERCLOUD_WHITE = register("aercloud.white", blockKey("aercloud_white"), blockID("AERCLOUD_WHITE"),
             BlockLogicCloudBase::new)
             .withSound(BlockSounds.CLOTH)
-            .withLightBlock(0)
+            .withLightBlock(1)
             .withHardness(0.2f)
             .withBlastResistance(0.2f)
             .withTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.CAVE_GEN_REPLACES_SURFACE, BlockTags.CAVES_CUT_THROUGH, BlockTags.PREVENT_MOB_SPAWNS);
@@ -722,7 +722,7 @@ public final class AetherBlocks {
         AERCLOUD_BLUE = register("aercloud.blue", blockKey("aercloud_blue"), blockID("AERCLOUD_BLUE"),
             BlockLogicCloudBlue::new)
             .withSound(BlockSounds.CLOTH)
-            .withLightBlock(0)
+            .withLightBlock(1)
             .withHardness(0.2f)
             .withBlastResistance(0.2f)
             .withTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.CAVE_GEN_REPLACES_SURFACE, BlockTags.CAVES_CUT_THROUGH, BlockTags.PREVENT_MOB_SPAWNS);
@@ -730,7 +730,7 @@ public final class AetherBlocks {
         AERCLOUD_GOLD = register("aercloud.gold", blockKey("aercloud_gold"), blockID("AERCLOUD_GOLD"),
             BlockLogicCloudBase::new)
             .withSound(BlockSounds.CLOTH)
-            .withLightBlock(0)
+            .withLightBlock(1)
             .withHardness(0.2f)
             .withBlastResistance(0.2f)
             .withTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.CAVE_GEN_REPLACES_SURFACE, BlockTags.CAVES_CUT_THROUGH, BlockTags.PREVENT_MOB_SPAWNS);

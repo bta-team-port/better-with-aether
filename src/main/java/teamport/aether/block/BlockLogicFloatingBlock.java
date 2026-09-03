@@ -44,17 +44,18 @@ public class BlockLogicFloatingBlock extends BlockLogic {
             if (!floatInstantly && world.areBlocksLoaded(tilePos.add(-radius, -radius, -radius, new TilePos()), tilePos.add(radius, radius, radius, new TilePos()))) {
                 EntityFloatingBlock entityFloatingBlock = new EntityFloatingBlock(world, (double) tilePos.x() + 0.5D, (double) tilePos.y() + 0.5D, (double) tilePos.z() + 0.5D, this.block.id(), 0, null);
                 entityFloatingBlock.setHasRemovedBlock(true);
-                world.entityJoinedWorld(entityFloatingBlock);
                 world.setBlockTypeNotify(tilePos, Blocks.AIR);
+                world.entityJoinedWorld(entityFloatingBlock);
             } else {
                 world.setBlockTypeNotify(tilePos, Blocks.AIR);
                 TilePos check = tilePos.up(new TilePos());
 
                 while (canFloatAbove(world, check) && check.y < maxHeight) {
-                    check.down();
+                    check.up();
                 }
 
-                if (check.y() < maxHeight) {
+                check.down();
+                if (check.y() < maxHeight && check.y() != tilePos.y()) {
                     world.setBlockTypeNotify(check, this.block);
                 }
             }

@@ -9,13 +9,13 @@ import net.minecraft.core.world.chunk.Chunk;
 import net.minecraft.core.world.generate.chunk.ChunkDecorator;
 import net.minecraft.core.world.generate.feature.WorldFeatureLake;
 import net.minecraft.core.world.noise.*;
-import net.minecraft.core.world.pos.ChunkPos;
 import net.minecraft.core.world.pos.ChunkTilePos;
 import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.type.tag.WorldTypeTags;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
+import teamport.aether.block.BlockLogicFloatingBlock;
 import teamport.aether.block.terrain.BlockLogicOreAmbrosium;
 import teamport.aether.block.terrain.BlockLogicOreGravitite;
 import teamport.aether.block.terrain.BlockLogicOreZanite;
@@ -58,20 +58,23 @@ public class ChunkDecoratorAether implements ChunkDecorator {
     public void decorate(@NonNull Chunk chunk) {
         this.world.scheduledUpdatesAreImmediate = true;
         BlockLogicFallingBlock.fallInstantly = true;
+        BlockLogicFloatingBlock.floatInstantly = true;
+
         int minY = this.world.getWorldType().getMinY(world);
         int maxY = this.world.getWorldType().getMaxY(world);
         int worldX = chunk.pos.x * 16;
         int worldZ = chunk.pos.z * 16;
         Random rand = ChunkDecoratorAether.deriveRandomFromWorld(chunk, this.world.getRandomSeed());
+
         this.decorateWithClouds(rand, minY, maxY, worldX, worldZ);
-        if (world.getWorldType() == AetherWorldTypes.AETHER_EXTENDED) {
-            this.decorateWithFlatClouds(chunk);
-        }
+        if (world.getWorldType() == AetherWorldTypes.AETHER_EXTENDED) this.decorateWithFlatClouds(chunk);
         this.decorateWithDungeons(chunk, rand, minY, maxY);
         this.decorateWithFlowers(chunk, rand);
         this.decorateWithQuickSoil(rand, worldX, worldZ, minY, maxY);
         this.decorateWithLakesAndTrees(rand, minY, maxY, worldX, worldZ);
         this.decorateWithOres(rand, minY, maxY, worldX, worldZ);
+
+        BlockLogicFloatingBlock.floatInstantly = false;
         BlockLogicFallingBlock.fallInstantly = false;
         this.world.scheduledUpdatesAreImmediate = false;
     }

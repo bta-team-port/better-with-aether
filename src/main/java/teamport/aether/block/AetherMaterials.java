@@ -2,7 +2,7 @@ package teamport.aether.block;
 
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.material.MaterialColor;
-import net.minecraft.core.block.material.MaterialGas;
+import net.minecraft.core.block.material.MaterialDecoration;
 import org.jspecify.annotations.NonNull;
 
 public final class AetherMaterials {
@@ -20,7 +20,7 @@ public final class AetherMaterials {
     }
 
     static {
-        AERCLOUD = new MaterialGas(MaterialColor.none);
+        AERCLOUD = new MaterialDecoration(MaterialColor.none);
 
 
         HOLYSTONE = (new Material(MaterialColor.paintedSilver))
