@@ -4,11 +4,11 @@ import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectObjectMutablePair;
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
-import net.minecraft.core.block.BlockLogicRotatable;
-import net.minecraft.core.block.Blocks;
+import net.minecraft.core.block.*;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.lang.I18n;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
@@ -183,11 +183,13 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
         for (WorldFeaturePoint point : clear.getBlockList()) {
 
             point.rotateYAroundPivot(theDungeonAnchor, this.direction);
-            Material blockMaterial = world.getBlockMaterial(point.getX(), point.getY(), point.getZ());
-            BlockLogicCloudBase blockLogic = world.getBlockLogic(point.getX(), point.getY(), point.getZ(), BlockLogicCloudBase.class);
+            Block<?> block = world.getBlockType(new TilePos(point.getX(), point.getY(), point.getZ()));
+            int data = world.getBlockData(new TilePos(point.getX(), point.getY(), point.getZ()));
+            Material blockMaterial = block.getMaterial();
+            BlockLogic blockLogic = block.getLogic();
 
-            if (blockMaterial != Materials.AIR && blockLogic == null) {
-                AetherGlobals.LOGGER.info("Could not place a silver dungeon at {},{},{}, with blockMaterial {}", x, y, z, blockMaterial.getClass());
+            if (blockMaterial != Materials.AIR && !(blockLogic instanceof BlockLogicAir)) {
+                AetherGlobals.LOGGER.info("Could not place a silver dungeon at {},{},{}, because of block {}", x, y, z, I18n.getInstance().translateKey(blockLogic.getLanguageKey(data) + ".name"));
                 return false;
             }
         }
