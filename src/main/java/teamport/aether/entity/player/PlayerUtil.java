@@ -23,6 +23,7 @@ import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.ducks.IContainerInventoryAether;
 import teamport.aether.effect.AetherEffects;
 import teamport.aether.effect.DeathCauseEffects;
+import teamport.aether.entity.DeathCauseKeyed;
 import teamport.aether.entity.PreVehicle;
 import teamport.aether.entity.boss.DeathCauseBoss;
 import teamport.aether.entity.boss.EnemyBoss;
@@ -36,7 +37,6 @@ import teamport.aether.item.accessory.gloves.ItemGloves;
 import teamport.aether.item.accessory.pendant.ItemIcePendant;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 import turniplabs.halplibe.util.deathcause.DeathCause;
-import turniplabs.halplibe.util.deathcause.vanilla.DeathCauseGeneric;
 import turniplabs.halplibe.util.deathcause.vanilla.DeathCauseKilledBy;
 import turniplabs.halplibe.util.deathcause.vanilla.DeathCauseProjectile;
 
@@ -295,12 +295,12 @@ public class PlayerUtil {
         if ((pendant1 != null && pendant1.getItem() instanceof ItemIcePendant)
             || (pendant2 != null && pendant2.getItem() instanceof ItemIcePendant)
         ) {
+            TilePos tilePos = new TilePos(victim);
+            Block<?> block = victim.world.getBlockType(tilePos.down());
+            if (block == Blocks.OBSIDIAN || block == Blocks.ICE) {
+                return new DeathCauseKeyed(victim, "ice_pendant");
+            }
             return null;
-        }
-        TilePos tilePos = new TilePos(victim);
-        Block<?> block = victim.world.getBlockType(tilePos);
-        if (block == Blocks.OBSIDIAN || block == Blocks.ICE) {
-            return new DeathCauseGeneric(victim, "ice_pendant");
         }
         return null;
     }
