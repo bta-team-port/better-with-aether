@@ -60,7 +60,8 @@ public class AetherMod implements ModInitializer {
     public static final String MOD_ID = HalpLibe.registerMod("aether", true);
     @SuppressWarnings("OptionalGetWithoutIsPresent")
     public static final String VERSION_STRING = FabricLoader.getInstance().getModContainer(MOD_ID).get().getMetadata().getVersion().getFriendlyString();
-    public static final String STATE = "release";
+//    public static final String STATE = "release";
+    public static final String STATE = "pre1";
     public static I18n TRANSLATOR = null;
     public static MobFireflyCluster.FireflyColor SILVER;
 

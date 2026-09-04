@@ -22,7 +22,8 @@ plugins {
 
 val lwjglNatives = resolveLwjglNatives()
 
-val modVersion = "${providers.gradleProperty("mod_version").get()}+${libs.versions.bta.get()}"
+val modVersion = "${providers.gradleProperty("mod_version").get()}"
+//val modVersion = "${providers.gradleProperty("mod_version").get()}+${libs.versions.bta.get()}"
 val modGroup: Provider<String> = providers.gradleProperty("mod_group")
 val modName: Provider<String> = providers.gradleProperty("mod_name")
 

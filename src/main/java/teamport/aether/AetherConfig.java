@@ -58,7 +58,6 @@ public class AetherConfig {
                     .getFriendlyString()
                     .substring(0, 5);
 
-            if (version.endsWith(".0")) version = version.substring(0, 3);
             result = String.format(
                 "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/tags/%s-%s/remoteAssets/",
                 version,
