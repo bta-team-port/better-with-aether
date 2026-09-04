@@ -8,7 +8,9 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.util.helper.MathHelper;
+import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
+import org.joml.Vector3d;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.player.PlayerUtil;
 
@@ -51,25 +53,29 @@ public class ItemIcePendant extends ItemPendant {
             return;
         }
 
-        int playerX = MathHelper.floor(player.x);
-        int playerY = MathHelper.floor(player.y - 0.5);
-        int playerZ = MathHelper.floor(player.z);
+        Vector3d playerPos = new Vector3d(player.x, player.y - 1, player.z);
+        Vector3d playerNextPos = new Vector3d(player.x + player.xd, player.y - 1 + player.yd - 1, player.z + player.zd);
+        HitResult hits = world.checkBlockCollisionBetweenPoints(playerPos, playerNextPos, true);
+        if (!(hits instanceof HitResult.Tile)) return;
+        int x = MathHelper.ceil(hits.location.x());
+        int y = MathHelper.ceil(hits.location.y());
+        int z = MathHelper.ceil(hits.location.z());
 
         int proc = 0;
         int radius = pendantCount;
 
         for (int xOffset = -radius; xOffset <= radius; xOffset++) {
             for (int zOffset = -radius; zOffset <= radius; zOffset++) {
-                int xPos = playerX + xOffset;
-                int zPos = playerZ + zOffset;
+                int xPos = x + xOffset;
+                int zPos = z + zOffset;
 
-                Material material = world.getBlockMaterial(xPos, playerY, zPos);
+                Material material = world.getBlockMaterial(xPos, y, zPos);
                 if (material == Materials.WATER) {
                     proc++;
-                    world.setBlockWithNotify(xPos, playerY, zPos, Blocks.ICE.id());
+                    world.setBlockWithNotify(xPos, y, zPos, Blocks.ICE.id());
                 } else if (material == Materials.LAVA) {
                     proc++;
-                    world.setBlockWithNotify(xPos, playerY, zPos, Blocks.OBSIDIAN.id());
+                    world.setBlockWithNotify(xPos, y, zPos, Blocks.OBSIDIAN.id());
                 }
             }
         }
