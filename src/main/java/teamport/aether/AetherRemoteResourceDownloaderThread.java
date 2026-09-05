@@ -3,10 +3,7 @@ package teamport.aether;
 import com.b100.utils.FileUtils;
 import com.b100.utils.StreamUtils;
 import com.b100.utils.StringUtils;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectObjectImmutablePair;
 import net.fabricmc.api.EnvType;
@@ -19,6 +16,7 @@ import net.minecraft.core.net.CertificateHelper;
 import java.io.*;
 import java.math.BigInteger;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.util.ArrayList;
@@ -69,14 +67,29 @@ public class AetherRemoteResourceDownloaderThread extends Thread {
     public void run() {
         JsonArray manifest;
 
+        String manifestURL = url + "manifest.json";
         try {
-            String manifestURL = url + "manifest.json";
-            manifest = JsonParser.parseString(StringUtils.getWebsiteContentAsString(manifestURL)).getAsJsonArray();
-            LOGGER.info("Manifest Downloaded");
-
-        } catch (Exception except) {
+            LOGGER.info("Fetching resource manifest from {}", manifestURL);
+            String content = StringUtils.getWebsiteContentAsString(manifestURL);
+            JsonElement jsonElement = JsonParser.parseString(content);
+            if (!jsonElement.isJsonArray()) {
+                this.state = State.ERROR;
+                LOGGER.error("Resource manifest does not contain a JSON array. URL: {}, Content: {}", manifestURL, content);
+                return;
+            }
+            manifest = jsonElement.getAsJsonArray();
+            LOGGER.info("Manifest downloaded successfully from {}", manifestURL);
+        } catch (JsonSyntaxException exception) {
             this.state = State.ERROR;
-            LOGGER.error("Failed to fetch resource manifest.");
+            LOGGER.error("Failed to parse resource manifest as JSON. URL: {}", manifestURL, exception);
+            return;
+        } catch (IllegalStateException exception) {
+            this.state = State.ERROR;
+            LOGGER.error("Resource manifest has an unexpected JSON structure. URL: {}", manifestURL, exception);
+            return;
+        } catch (Exception exception) {
+            this.state = State.ERROR;
+            LOGGER.error("Failed to fetch resource manifest from {}", manifestURL, exception);
             return;
         }
 
