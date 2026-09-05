@@ -51,7 +51,6 @@ public class AetherConfig {
             result = "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/heads/7.3/remoteAssets/";
         } else {
             ModContainer modContainer = modContainerOpt.get();
-
             String version = modContainer
                     .getMetadata()
                     .getVersion()
