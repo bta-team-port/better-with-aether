@@ -125,6 +125,7 @@ public class AetherMod implements ModInitializer {
         AetherBlocks.init();
         AetherItems.init();
         AetherWorldFeatures.init();
+        AetherDimension.init();
 
         registerNewTagForBlocks();
 
@@ -150,7 +151,7 @@ public class AetherMod implements ModInitializer {
     }
 
     public void afterDimensionInit(){
-        AetherDimension.init();
+        AetherDimension.register();
     }
 
     public void afterGameStart() {

@@ -235,7 +235,7 @@ public final class AetherBlocks {
     public static void initializeBlocks() {
 
         PORTAL_AETHER = register("portal.aether", blockKey("portal_aether"), blockID("PORTAL_AETHER"),
-            b -> new BlockLogicPortalAether(b, AetherDimension.getAether(), Blocks.GLOWSTONE, Blocks.FLUID_WATER_FLOWING))
+            b -> new BlockLogicPortalAether(b, AetherDimension.AETHER, Blocks.GLOWSTONE, Blocks.FLUID_WATER_FLOWING))
             .withSound(BlockSounds.GLASS)
             .withHardness(-1.0F)
             .withLightEmission(15)
