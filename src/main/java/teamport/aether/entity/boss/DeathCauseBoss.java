@@ -32,6 +32,7 @@ public class DeathCauseBoss extends DeathCauseKilledBy {
 
     @Override
     public void serializeAdditional(CompoundTag tag) {
+        super.serializeAdditional(tag);
         tag.putString("aether:bossName", this.bossName);
         tag.putString("aether:bossTitle", this.bossTile);
         tag.putByte("aether:bossColor", this.bossColor);
@@ -40,6 +41,7 @@ public class DeathCauseBoss extends DeathCauseKilledBy {
 
     @Override
     public void deserializeAdditional(CompoundTag tag) {
+        super.deserializeAdditional(tag);
         this.bossName = tag.getString("aether:bossName");
         this.bossTile = tag.getString("aether:bossTitle");
         this.bossColor = tag.getByte("aether:bossColor");
