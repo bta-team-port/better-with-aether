@@ -5,7 +5,6 @@ import net.minecraft.core.block.BlockLogicSaplingBase;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.data.gamerule.GameRules;
-import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
@@ -53,9 +52,6 @@ public abstract class BlockLogicSaplingBaseAether extends BlockLogicSaplingBase 
             }
 
             int growthRate = 30;
-            if (world.getSeasonManager().getCurrentSeason() != null) {
-                growthRate = MathHelper.floor_float((float) growthRate / world.getSeasonManager().getCurrentSeason().cropGrowthFactor);
-            }
 
             if (world.getBlockLightValue(tilePos.up(queryPos)) >= 9 && rand.nextInt(growthRate) == 0) {
                 int l = world.getBlockData(tilePos);

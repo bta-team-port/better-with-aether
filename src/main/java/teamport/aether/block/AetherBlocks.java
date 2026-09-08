@@ -277,7 +277,7 @@ public final class AetherBlocks {
             b -> new BlockLogicMoss(b, HOLYSTONE))
             .withSound(BlockSounds.STONE)
             .withHardness(0.5F)
-            .withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, AetherBlockTags.GROWS_AETHER_FLOWERS);
+            .withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, AetherBlockTags.GROWS_AETHER_FLOWERS, BlockTags.CHAINLINK_FENCES_CONNECT);
 
 
         HOLYSTONE_POLISHED = register("holystone.polished", blockKey("holystone_polished"), blockID("HOLYSTONE_POLISHED"),
