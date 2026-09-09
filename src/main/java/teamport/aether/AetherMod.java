@@ -179,9 +179,9 @@ public class AetherMod implements ModInitializer {
     public static void registerNewRecipeTypes() {
         Registries.RECIPE_TYPES.register("aether:machine", RecipeEntryAetherMachine.class);
         Registries.RECIPE_TYPES.register("aether:incubator", RecipeEntryIncubator.class);
-        if (AetherConfig.INCLUDE_REPAIR_RECIPES) {
+//        if (AetherConfig.INCLUDE_REPAIR_RECIPES) {
             Registries.RECIPE_TYPES.register("aether:repair", RecipeEntryAetherMachine.class);
-        }
+//        }
     }
 
     public static void registerNewTagForBlocks() {
