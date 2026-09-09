@@ -12,7 +12,7 @@ import teamport.aether.AetherMod;
  */
 @Deprecated(forRemoval = true)
 @Mixin(MinecraftServer.class)
-public class MinecraftServerMixinDimensionRegistry {
+public abstract class MinecraftServerMixinDimensionRegistry {
 
     @Inject(method = "startServer", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/world/Dimension;init()V", shift = At.Shift.AFTER))
     public void dimensionRegistry(CallbackInfoReturnable<Boolean> cir) {

@@ -2,7 +2,6 @@ package teamport.aether.block.terrain;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicTransparent;
-import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.entity.projectile.Projectile;
@@ -19,13 +18,14 @@ import org.joml.primitives.AABBd;
 import org.joml.primitives.AABBdc;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
+import teamport.aether.block.AetherMaterials;
 import teamport.aether.entity.animal.aerwhale.MobAerwhale;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
 import teamport.aether.item.AetherItems;
 
 public class BlockLogicCloudBase extends BlockLogicTransparent {
     public BlockLogicCloudBase(Block<?> block) {
-        super(block, Materials.AIR);
+        super(block, AetherMaterials.AERCLOUD);
     }
 
     @Override

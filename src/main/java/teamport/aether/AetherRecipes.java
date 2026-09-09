@@ -11,6 +11,7 @@ import net.minecraft.core.data.registry.recipe.entry.RecipeEntryDyeing;
 import net.minecraft.core.data.registry.recipe.entry.RecipeEntryRepairable;
 import net.minecraft.core.data.registry.recipe.entry.RecipeEntryScrap;
 import net.minecraft.core.data.registry.recipe.entry.RecipeEntryUndyeing;
+import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.util.helper.DyeColor;
@@ -65,7 +66,7 @@ public class AetherRecipes {
         AetherRecipes.oreGemGroups();
         AetherRecipes.enchanterGroups();
 
-        Registries.ITEM_GROUPS.register("aether:milk_buckets", Registries.stackListOf(AetherItems.BUCKET_SKYROOT_MILK, bucket("minecraft:milk")));
+        Registries.ITEM_GROUPS.register("aether:milk_buckets", Registries.stackListOf(AetherItems.BUCKET_SKYROOT_MILK, bucket("minecraft:milk", Items.BUCKET_IRON), bucket("minecraft:milk", Items.BUCKET_STEEL)));
         Registries.ITEM_GROUPS.register("aether:all_eggs", Registries.stackListOf(AetherItems.EGG_MOA_BLACK, AetherItems.EGG_MOA_BLUE, AetherItems.EGG_MOA_WHITE, Items.EGG_CHICKEN));
 
         ENCHANTER = new RecipeGroupAetherMachine(new RecipeSymbol(new ItemStack(AetherBlocks.ENCHANTER_ACTIVE.getDefaultStack())));
@@ -205,7 +206,8 @@ public class AetherRecipes {
 
     public static void freezerGroups() {
         Registries.ITEM_GROUPS.register("aether:water_buckets", Registries.stackListOf(
-            bucket("minecraft:water"),
+            bucket("minecraft:water", Items.BUCKET_IRON),
+            bucket("minecraft:water", Items.BUCKET_STEEL),
             new ItemStack(AetherItems.BUCKET_SKYROOT_WATER)
         ));
 
@@ -226,10 +228,10 @@ public class AetherRecipes {
         ));
     }
 
-    private static ItemStack bucket(String state) {
+    private static ItemStack bucket(String state, Item item) {
         CompoundTag tag = new CompoundTag();
         tag.putString("State", state);
-        return new ItemStack(Items.BUCKET_IRON, 1, 0, tag);
+        return new ItemStack(item, 1, 0, tag);
     }
 
     public static void enchanterGroups() {
@@ -426,14 +428,14 @@ public class AetherRecipes {
 
 
         RecipeBuilder.Shaped(MOD_ID, "MMM", "SES", "WWW")
-            .addInput('W', Items.WHEAT)
+            .addInput('W', Items.DOUGH)
             .addInput('S', Items.DUST_SUGAR)
             .addInput('E', "aether:all_eggs")
             .addInput('M', "aether:milk_buckets")
             .create("cake", new ItemStack(Items.FOOD_CAKE, 1));
 
         RecipeBuilder.Shaped(MOD_ID, "MMM", "SES", "WWW")
-            .addInput('W', Items.WHEAT)
+            .addInput('W', Items.DOUGH)
             .addInput('S', Items.DUST_SUGAR)
             .addInput('E', Blocks.PUMPKIN)
             .addInput('M', "aether:milk_buckets")
@@ -830,7 +832,7 @@ public class AetherRecipes {
     }
 
     public static void toolsRecipes() {
-        RecipeBuilderShaped sword = new RecipeBuilderShaped(MOD_ID, " X ", " X ", " S ");
+        RecipeBuilderShaped sword = new RecipeBuilderShaped(MOD_ID, "X", "X", "S");
         sword.addInput('X', "aether:skyroot_planks").addInput('S', AetherItems.STICK_SKYROOT).create("skyroot_sword", new ItemStack(AetherItems.TOOL_SWORD_SKYROOT, 1));
         sword.addInput('X', AetherBlocks.COBBLE_HOLYSTONE).addInput('S', AetherItems.STICK_SKYROOT).create("holystone_sword", new ItemStack(AetherItems.TOOL_SWORD_HOLYSTONE, 1));
         sword.addInput('X', AetherItems.ZANITE).addInput('S', AetherItems.STICK_SKYROOT).create("zanite_sword", new ItemStack(AetherItems.TOOL_SWORD_ZANITE, 1));
@@ -842,13 +844,13 @@ public class AetherRecipes {
         pick.addInput('X', AetherItems.ZANITE).addInput('S', AetherItems.STICK_SKYROOT).create("zanite_pick", new ItemStack(AetherItems.TOOL_PICKAXE_ZANITE, 1));
         pick.addInput('X', AetherBlocks.BLOCK_GRAVITITE).addInput('S', AetherItems.STICK_SKYROOT).create("gravitite_pick", new ItemStack(AetherItems.TOOL_PICKAXE_GRAVITITE, 1));
 
-        RecipeBuilderShaped shovel = new RecipeBuilderShaped(MOD_ID, " X ", " S ", " S ");
+        RecipeBuilderShaped shovel = new RecipeBuilderShaped(MOD_ID, "X", "S", "S");
         shovel.addInput('X', "aether:skyroot_planks").addInput('S', AetherItems.STICK_SKYROOT).create("skyroot_shovel", new ItemStack(AetherItems.TOOL_SHOVEL_SKYROOT, 1));
         shovel.addInput('X', AetherBlocks.COBBLE_HOLYSTONE).addInput('S', AetherItems.STICK_SKYROOT).create("holystone_shovel", new ItemStack(AetherItems.TOOL_SHOVEL_HOLYSTONE, 1));
         shovel.addInput('X', AetherItems.ZANITE).addInput('S', AetherItems.STICK_SKYROOT).create("zanite_shovel", new ItemStack(AetherItems.TOOL_SHOVEL_ZANITE, 1));
         shovel.addInput('X', AetherBlocks.BLOCK_GRAVITITE).addInput('S', AetherItems.STICK_SKYROOT).create("gravitite_shovel", new ItemStack(AetherItems.TOOL_SHOVEL_GRAVITITE, 1));
 
-        RecipeBuilderShaped axe = new RecipeBuilderShaped(MOD_ID, "XX ", "XS ", " S ");
+        RecipeBuilderShaped axe = new RecipeBuilderShaped(MOD_ID, "XX", "XS", " S");
         axe.addInput('X', "aether:skyroot_planks").addInput('S', AetherItems.STICK_SKYROOT).create("skyroot_axe", new ItemStack(AetherItems.TOOL_AXE_SKYROOT, 1));
         axe.addInput('X', AetherBlocks.COBBLE_HOLYSTONE).addInput('S', AetherItems.STICK_SKYROOT).create("holystone_axe", new ItemStack(AetherItems.TOOL_AXE_HOLYSTONE, 1));
         axe.addInput('X', AetherItems.ZANITE).addInput('S', AetherItems.STICK_SKYROOT).create("zanite_axe", new ItemStack(AetherItems.TOOL_AXE_ZANITE, 1));
@@ -867,7 +869,7 @@ public class AetherRecipes {
     }
 
     public static void pendantRecipes() {
-        RecipeBuilderShaped pendant = new RecipeBuilderShaped(MOD_ID, "SSS", "S S", " X ");
+        RecipeBuilderShaped pendant = new RecipeBuilderShaped(MOD_ID, " S ", "S S", " X ");
         pendant.addInput('X', Items.LEATHER).addInput('S', Items.STRING).create("leather_pendant", new ItemStack(AetherItems.ARMOR_TALISMAN_LEATHER, 1));
         pendant.addInput('X', Items.INGOT_IRON).addInput('S', Items.STRING).create("iron_pendant", new ItemStack(AetherItems.ARMOR_TALISMAN_IRON, 1));
         pendant.addInput('X', Items.INGOT_GOLD).addInput('S', Items.STRING).create("gold_pendant", new ItemStack(AetherItems.ARMOR_TALISMAN_GOLD, 1));

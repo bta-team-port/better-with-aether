@@ -82,7 +82,7 @@ public class MobRendererAerwhale extends MobRenderer<MobAerwhale> {
     public void renderPreview(@NonNull TessellatorGeneral tessellator, @NonNull MobAerwhale aerwhale, double x, double y, double z, float yaw, float partialTick) {
         GLRenderer.pushFrame();
         GLRenderer.modelM4f().scale(0.1F, 0.1F, 0.1F);
-        super.renderPreview(tessellator, aerwhale, x - 2, y + 10, z, yaw, partialTick);
+        super.renderPreview(tessellator, aerwhale, x, y + 10, z, yaw, partialTick);
         GLRenderer.popFrame();
     }
 }

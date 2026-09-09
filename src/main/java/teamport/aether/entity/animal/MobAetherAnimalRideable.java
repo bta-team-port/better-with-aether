@@ -32,7 +32,7 @@ public class MobAetherAnimalRideable extends MobAetherAnimal implements AetherJu
     public long lookFadeLastRenderNanos = 0L;
 
     protected int jumpsRemaining;
-    protected int maxJumps = 3;
+    protected int maxJumps;
     protected boolean jumpPressed;
 
     public MobAetherAnimalRideable(World world) {
@@ -61,6 +61,7 @@ public class MobAetherAnimalRideable extends MobAetherAnimal implements AetherJu
         super.addAdditionalSaveData(tag);
         tag.putBoolean("Saddle", this.getSaddled());
         tag.putBoolean("Sit", this.getSitting());
+        tag.putInt("JumpsRemaining", this.jumpsRemaining);
     }
 
     @Override
@@ -68,6 +69,9 @@ public class MobAetherAnimalRideable extends MobAetherAnimal implements AetherJu
         super.readAdditionalSaveData(tag);
         this.setSaddled(tag.getBoolean("Saddle"));
         this.setSitting(tag.getBoolean("Sit"));
+        if (tag.containsKey("JumpsRemaining")) {
+            this.jumpsRemaining = tag.getInteger("JumpsRemaining");
+        }
     }
 
     @Override

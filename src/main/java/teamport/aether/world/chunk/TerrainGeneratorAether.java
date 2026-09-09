@@ -1,5 +1,6 @@
 package teamport.aether.world.chunk;
 
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.chunk.Chunk;
 import net.minecraft.core.world.generate.chunk.perlin.DensityGenerator;
@@ -8,9 +9,9 @@ import net.minecraft.core.world.type.WorldType;
 import org.jspecify.annotations.NonNull;
 
 public class TerrainGeneratorAether extends TerrainGeneratorLerp {
-    private final DensityGenerator densityGenerator;
+    private final @NonNull DensityGenerator densityGenerator;
 
-    public TerrainGeneratorAether(World world) {
+    public TerrainGeneratorAether(@NonNull World world) {
         super(world);
         this.densityGenerator = new DensityGeneratorAether(world);
     }
@@ -22,6 +23,6 @@ public class TerrainGeneratorAether extends TerrainGeneratorLerp {
     @Override
     protected int getBlockAt(@NonNull Chunk chunk, int x, int y, int z, double density) {
         WorldType type = this.world.getWorldType();
-        return density > 1.0 ? type.getFillerBlockId() : 0;
+        return density > (double) 1.0F ? type.getFillerBlockId() : Blocks.AIR.id();
     }
 }
