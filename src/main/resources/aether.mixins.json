@@ -78,6 +78,7 @@
     "entity.EntityItemFallUpwardsMixin",
     "entity.EntityLightningBoltMixin",
     "entity.EntityMixin",
+    "entity.EntityRideableDriftMixin",
     "entity.LightningBoltSoundMixin",
     "entity.MobAnimalFollowNatureStaffMixin",
     "entity.MobCowMilkMixin",
@@ -184,7 +185,9 @@
     "net.MinecraftServerMixinExcludeAether",
     "net.PlayerLoginMixin",
     "net.PlayerServerMixinExcludeAether",
+    "player.PlayerListRideableMixin",
     "player.PlayerServerAddDartsMixin",
+    "player.PlayerServerRideableMixin",
     "player.ServerPlayerControllerPendantDamageMixin",
     "player.WorldBunnyMixin"
   ],

@@ -8,8 +8,7 @@ import net.minecraft.client.render.renderer.GLRenderer;
 import net.minecraft.core.entity.IArmorWearing;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.enums.HumanArmorShape;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,7 +22,7 @@ public abstract class MobRendererBipedArmoredMixin<T extends Mob & IArmorWearing
     @WrapOperation(method = "getAndSetupModelForLayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/MobRendererBipedArmored;setupAnimations(Lnet/minecraft/core/entity/Mob;Lorg/useless/dragonfly/models/entity/StaticEntityModel;FI)Lorg/useless/dragonfly/models/entity/StaticEntityModel;"))
     private @Nullable StaticEntityModel adjustPlayerVisibility(
         MobRendererBipedArmored<T> instance,
-        @NotNull T entity,
+        @NonNull T entity,
         @Nullable StaticEntityModel model,
         float partialTick, int layer,
         @NonNull Operation<StaticEntityModel> original
@@ -35,7 +34,7 @@ public abstract class MobRendererBipedArmoredMixin<T extends Mob & IArmorWearing
     @WrapOperation(method = "getAndSetupModelForLayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/MobRendererBiped;getAndSetupModelForLayer(Lnet/minecraft/core/entity/Mob;FFI)Lorg/useless/dragonfly/models/entity/StaticEntityModel;"))
     private @Nullable StaticEntityModel makeMobInvisible(
         MobRendererBipedArmored<T> instance,
-        @NotNull T entity,
+        @NonNull T entity,
         float brightness,
         float partialTick,
         int layer,

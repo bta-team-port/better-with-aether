@@ -25,7 +25,7 @@ public abstract class RideableUsePortalMinecraftMixin {
     @Nullable
     public WorldClient currentWorld;
     @Unique
-    private MobAetherAnimalRideable aetherMount;
+    private @Nullable MobAetherAnimalRideable aetherMount;
 
     @Inject(method = "usePortal", at = @At("HEAD"))
     private void captureAndDespawnAetherMount(int dim, DyeColor portalColor, CallbackInfo ci) {
@@ -39,15 +39,15 @@ public abstract class RideableUsePortalMinecraftMixin {
         }
     }
 
-    @Inject(method = "usePortal", at = @At("TAIL"))
+    @Inject(method = "usePortal", at = @At("RETURN"))
     private void respawnAetherMountInNewWorld(int dim, DyeColor portalColor, CallbackInfo ci) {
         if (this.aetherMount != null) {
-            if (this.thePlayer != null && this.thePlayer.isAlive() && this.currentWorld != null) {
+            if (this.thePlayer != null && this.thePlayer.isAlive()) {
                 this.thePlayer.clearPendingVehicleTag();
                 this.aetherMount.removed = false;
-                this.aetherMount.world = this.currentWorld;
+                this.aetherMount.world = this.thePlayer.world;
                 this.aetherMount.moveTo(this.thePlayer.x, this.thePlayer.y, this.thePlayer.z, this.aetherMount.yRot, this.aetherMount.xRot);
-                this.currentWorld.entityJoinedWorld(this.aetherMount);
+                this.thePlayer.world.entityJoinedWorld(this.aetherMount);
                 this.thePlayer.startRiding(this.aetherMount);
             }
             this.aetherMount = null;

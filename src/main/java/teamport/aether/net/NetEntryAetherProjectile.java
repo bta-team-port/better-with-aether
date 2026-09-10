@@ -26,7 +26,6 @@ public class NetEntryAetherProjectile implements IVehicleEntry<ProjectileAether>
         register(1, ProjectileDart::getEntity, ProjectileDart.class);
         register(2, ProjectileKnifeLightning::getEntity, ProjectileKnifeLightning.class);
         register(3, ProjectileHammerHead::getEntity, ProjectileHammerHead.class);
-        register(4, ProjectileWindball::getEntity, ProjectileWindball.class);
         register(5, ProjectileNeedle::getEntity, ProjectileNeedle.class);
         register(6, ProjectileElementLightning::getEntity, ProjectileElementLightning.class);
         register(7, ProjectileElementFire::getEntity, ProjectileElementFire.class);

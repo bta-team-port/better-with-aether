@@ -29,6 +29,7 @@ import teamport.aether.entity.monster.mimic.DeathCauseMimic;
 import teamport.aether.entity.monster.mimic.MimicRegistry;
 import teamport.aether.entity.monster.swet.DeathCauseKilledSecondary;
 import teamport.aether.entity.player.PlayerUtil;
+import teamport.aether.entity.projectile.windball.NetEntryWindball;
 import teamport.aether.item.AetherItemTags;
 import teamport.aether.item.AetherItems;
 import teamport.aether.item.accessory.trinket.ItemTrinket;
@@ -139,6 +140,7 @@ public class AetherMod implements ModInitializer {
         NetEntityHandler.registerNetworkEntry(new NetEntryParachute(), 36);
         NetEntityHandler.registerNetworkEntry(new NetEntryFloatingBlock(), 37);
         NetEntityHandler.registerNetworkEntry(new NetEntrySlider());
+        NetEntityHandler.registerNetworkEntry(new NetEntryWindball(), 120);
 
         // register the death message "network messages"
         Registry<Supplier<DeathCause>> registry = DeathCauseRegistry.getInstance();
