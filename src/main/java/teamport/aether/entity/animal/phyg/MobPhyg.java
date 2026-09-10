@@ -32,6 +32,7 @@ public class MobPhyg extends MobAetherAnimalRideable {
         this.setSize(0.9F, 0.9F);
         this.stepDownSize = 0.5F;
         this.footSize = 0.5F;
+        this.accelerationRate = 1.0F;
         this.mobDrops.add(new WeightedRandomLootObject(Items.FOOD_PORKCHOP_RAW.getDefaultStack(), 1, 2));
         this.mobDrops.add(new WeightedRandomLootObject(Items.FEATHER_CHICKEN.getDefaultStack(), 0, 2));
         this.burningMobDrops.add(new WeightedRandomLootObject(Items.FOOD_PORKCHOP_COOKED.getDefaultStack(), 1, 2));
@@ -70,11 +71,13 @@ public class MobPhyg extends MobAetherAnimalRideable {
 
     @Override
     public boolean interact(@NonNull Player player) {
-        if (super.interact(player) && this.passenger == player) {
+        boolean interacted = super.interact(player);
+
+        if (interacted && this.passenger == player) {
             player.triggerAchievement(AetherAchievements.PHYG);
         }
 
-        return super.interact(player);
+        return interacted;
     }
 
     @Override

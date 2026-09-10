@@ -8,14 +8,14 @@ import net.minecraft.core.net.entity.ITrackedEntry;
 import net.minecraft.core.net.entity.IVehicleEntry;
 import net.minecraft.core.net.packet.PacketAddEntity;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 public class NetEntryWindball implements IVehicleEntry<ProjectileWindball>, ITrackedEntry<ProjectileWindball> {
     public NetEntryWindball() {
     }
 
-    public @NotNull Class<ProjectileWindball> getAppliedClass() {
+    public @NonNull Class<ProjectileWindball> getAppliedClass() {
         return ProjectileWindball.class;
     }
 

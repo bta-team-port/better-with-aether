@@ -274,6 +274,33 @@ public class MobAetherAnimalRideable extends MobAetherAnimal implements AetherJu
     }
 
     @Override
+    public void positionRider() {
+        super.positionRider();
+        if (this.passenger instanceof Player player) {
+            player.yBodyRotO = this.yBodyRotO;
+            player.yBodyRot = this.yBodyRot;
+            player.walkDist = this.walkDist;
+            player.walkDistO = this.walkDistO;
+            double velocity = MathHelper.sqrt(this.xd * this.xd + this.yd * this.yd + this.zd * this.zd);
+            double pitch = (float) Math.atan(-this.yd * 0.2) * 15.0F;
+
+            if (velocity > 0.1D) {
+                velocity = 0.1D;
+            }
+
+            if (this.getHealth() <= 0) {
+                velocity = 0.0D;
+                pitch = 0.0D;
+            }
+
+            if (this.onGround) {
+                player.cameraVelocity += (float) ((velocity - player.cameraVelocity) * 0.4D);
+                player.cameraPitch += (float) ((pitch - player.cameraPitch) * 0.8D);
+            }
+        }
+    }
+
+    @Override
     public boolean interact(@NonNull Player player) {
         if (super.interact(player)) {
             return true;
