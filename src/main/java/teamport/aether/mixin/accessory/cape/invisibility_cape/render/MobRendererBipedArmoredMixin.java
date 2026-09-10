@@ -8,7 +8,7 @@ import net.minecraft.client.render.renderer.GLRenderer;
 import net.minecraft.core.entity.IArmorWearing;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.enums.HumanArmorShape;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
