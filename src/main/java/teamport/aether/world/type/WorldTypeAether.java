@@ -54,6 +54,12 @@ public class WorldTypeAether extends WorldType {
     }
 
     @Override
+    public void onWorldCreation(World world) {
+        super.onWorldCreation(world);
+        world.setWorldTime(72000L);
+    }
+
+    @Override
     public int getOceanY() {
         return 0;
     }

@@ -4,6 +4,7 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.Materials;
+import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
@@ -23,12 +24,12 @@ public class BlockLogicIceStone extends BlockLogic {
         block.setTicking(true);
     }
 
-    public static @Nullable Block<?> getIceBlock(@NonNull Block<?> noMossBlock) {
-        return NO_ICE_TO_ICE_MAP.get(noMossBlock);
+    public static @Nullable Block<?> getIceBlock(@NonNull Block<?> noIceBlock) {
+        return NO_ICE_TO_ICE_MAP.get(noIceBlock);
     }
 
-    public static @Nullable Block<?> getNoIceBlock(@NonNull Block<?> mossBlock) {
-        return ICE_TO_NO_ICE_MAP.get(mossBlock);
+    public static @Nullable Block<?> getNoIceBlock(@NonNull Block<?> iceBlock) {
+        return ICE_TO_NO_ICE_MAP.get(iceBlock);
     }
 
     public static void initFreezeMap() {
@@ -37,6 +38,7 @@ public class BlockLogicIceStone extends BlockLogic {
 
         NO_ICE_TO_ICE_MAP.put(Blocks.FLUID_WATER_STILL, Blocks.ICE);
         NO_ICE_TO_ICE_MAP.put(Blocks.FLUID_LAVA_STILL, Blocks.OBSIDIAN);
+        NO_ICE_TO_ICE_MAP.put(Blocks.FLUID_ACID_STILL, Blocks.BRIMTHAW);
         NO_ICE_TO_ICE_MAP.put(Blocks.STONE, Blocks.PERMAFROST);
 
         NO_ICE_TO_ICE_MAP.put(Blocks.COBBLE_STONE, Blocks.COBBLE_PERMAFROST);
@@ -49,61 +51,51 @@ public class BlockLogicIceStone extends BlockLogic {
     }
 
     @Override
-    public int tickDelay() {
-        return 50;
-    }
-
-    @Override
     public void updateTick(@NonNull World world, @NonNull TilePosc pos, @NonNull Random rand, boolean scheduled) {
-        attemptFreeze(world, pos);
-        super.updateTick(world, pos, rand, scheduled);
+        if (world.isClientSide) return;
+
+        if (rand.nextInt(20) == 0) {
+            attemptFreeze(world, pos, rand);
+        }
     }
 
     @Override
     public void onPlacedByWorld(@NonNull World world, @NonNull TilePosc tilePos) {
-        attemptFreeze(world, tilePos);
-        attemptFreeze(world, tilePos);
-        attemptFreeze(world, tilePos);
-        attemptFreeze(world, tilePos);
-        attemptFreeze(world, tilePos);
+        for (int i = 0; i < 4; i++) {
+            attemptFreeze(world, tilePos, world.rand);
+        }
         world.scheduleBlockUpdate(tilePos, this.block, this.tickDelay());
     }
 
-    public void attemptFreeze(World world, TilePosc tilePos) {
-        int l = 0;
-        while (l < 32) {
-            int x1 = tilePos.x() + world.rand.nextInt(8) - world.rand.nextInt(8);
-            int y1 = tilePos.y() + world.rand.nextInt(4) - world.rand.nextInt(4);
-            int z1 = tilePos.z() + world.rand.nextInt(8) - world.rand.nextInt(8);
+    private void attemptFreeze(World world, TilePosc tilePos, Random rand) {
+        for (int i = 0; i < 4; i++) {
+            Direction dir = Direction.ID_MAP[rand.nextInt(6)];
+            TilePos target = tilePos.add(dir, new TilePos());
 
-            int radius = 4;
-            if (Math.pow((x1 - tilePos.x()), 2) + Math.pow((y1 - tilePos.y()), 2) + Math.pow((z1 - tilePos.z()), 2) > Math.pow(radius, 2)) {
-                continue;
+            if (rand.nextInt(3) == 0) {
+                target = target.add(Direction.ID_MAP[rand.nextInt(6)], new TilePos());
             }
 
-            TilePos tilePos1 = new TilePos(x1, y1, z1);
-            freezeBlock(world, tilePos1);
-            l++;
+            if (freezeBlock(world, target)) {
+                break;
+            }
         }
     }
 
-    public void freezeBlock(@NonNull World world, @NonNull TilePosc tilePos) {
+    private boolean freezeBlock(@NonNull World world, @NonNull TilePosc tilePos) {
+        if (!world.isBlockLoaded(tilePos)) return false;
+
         Block<?> block = world.getBlockType(tilePos);
         int meta = world.getBlockData(tilePos);
-
-        // jank.
-        if ((block == Blocks.FLUID_WATER_STILL
-            || block == Blocks.FLUID_LAVA_STILL
-            || block == Blocks.FLUID_WATER_FLOWING
-            || block == Blocks.FLUID_LAVA_FLOWING
-        ) && meta != 0) {
-            return;
+        if ((block == Blocks.FLUID_WATER_FLOWING || block == Blocks.FLUID_LAVA_FLOWING || block == Blocks.FLUID_ACID_FLOWING) && meta != 0) {
+            return false;
         }
 
-        Block<?> result = NO_ICE_TO_ICE_MAP.get(block);
+        Block<?> result = getIceBlock(world.getBlockType(tilePos));
         if (result != null) {
-            world.setBlockTypeNotify(tilePos, result);
+            return world.setBlockTypeNotify(tilePos, result);
         }
+        return false;
     }
 
 }
