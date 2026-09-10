@@ -6,7 +6,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import org.joml.Vector3dc;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.entity.projectile.ProjectileWindball;
+import teamport.aether.entity.projectile.windball.ProjectileWindball;
 
 public class ItemStaffCloud extends Item {
     public ItemStaffCloud(String translationKey, String namespaceId, int id) {

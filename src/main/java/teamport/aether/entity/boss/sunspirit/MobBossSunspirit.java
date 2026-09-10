@@ -16,7 +16,6 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3d;
 import org.joml.Vector3dc;
 import org.jspecify.annotations.NonNull;
@@ -373,7 +372,7 @@ public class MobBossSunspirit extends MobBossFlying {
             return;
         }
         if (!this.world.isClientSide) {
-            @NotNull Vector3dc viewVector = this.getViewVector(1.0F); // I dont know how this would be null
+            @NonNull Vector3dc viewVector = this.getViewVector(1.0F); // I dont know how this would be null
             assert viewVector != null;
             if (this.timesShot < totalShots) {
                 ProjectileElementFire elementFire = new ProjectileElementFire(this.world, this);

@@ -2,17 +2,16 @@ package teamport.aether.models;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.PlayerRemote;
 import net.minecraft.client.render.item.model.ItemModelDispatcher;
 import net.minecraft.client.render.item.model.ItemModelStandard;
 import net.minecraft.client.render.renderer.GLRenderer;
 import net.minecraft.client.render.tessellator.TessellatorGeneral;
 import net.minecraft.core.entity.Entity;
-import net.minecraft.core.entity.monster.MobSkeleton;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.item.Items;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.useless.dragonfly.DisplayPos;
@@ -31,29 +30,41 @@ public class ItemModelShooter extends ItemModelStandard {
     }
 
     @Override
-    protected void renderSingle(@NonNull TessellatorGeneral tessellator, @Nullable Entity holder, @NonNull ItemStack itemStack, boolean items3d, byte lightIndex, int color, float partialTick, boolean mirrorX) {
-        super.renderSingle(tessellator, holder, itemStack, items3d, lightIndex, color, partialTick, mirrorX);
-        Item nextDart = null;
-        if (holder instanceof Player player) {
-            nextDart = getNextDart(player);
-        } else if (holder instanceof MobSkeleton skeleton && skeleton.attackTime < 5) {
-            nextDart = Items.AMMO_ARROW;
-        }
+    public void render(@NonNull TessellatorGeneral tessellator, @Nullable Entity holder, @NonNull ItemStack itemStack, @NonNull String displayPosId, boolean items3d, int clusterSize, byte lightIndex, float partialTick, boolean leftHanded) {
+        Player player = holder instanceof Player p ? p : Minecraft.getMinecraft().thePlayer;
 
+        boolean isHeld = items3d || (player != null && player.getHeldItem() == itemStack);
+        Item nextDart = (isHeld && player != null) ? getNextDart(player) : null;
 
-        if (nextDart != null) {
+        if (!items3d) {
+            if (nextDart != null) {
+                renderDart(tessellator, holder, nextDart, lightIndex, false, false);
+            }
             GLRenderer.pushFrame();
-            if (mirrorX) {
-                GLRenderer.modelM4f().rotateZ(((float) Math.PI / 2F));
-            }
-            if (!mirrorX) {
-                GLRenderer.modelM4f().translate(-0.3125f, 0.3125f, -0.0625f);
-            }
-
-            this.renderCoordinate(tessellator, ItemModelDispatcher.getInstance().getDispatch(nextDart).getIcon(holder, nextDart.getDefaultStack()), lightIndex, color, items3d, !mirrorX);
+            GLRenderer.modelM4f().translate(0.0f, 0.0f, 0.001f);
+            super.render(tessellator, holder, itemStack, displayPosId, false, clusterSize, lightIndex, partialTick, leftHanded);
             GLRenderer.popFrame();
+        } else {
+            super.render(tessellator, holder, itemStack, displayPosId, true, clusterSize, lightIndex, partialTick, leftHanded);
+            if (nextDart != null) {
+                boolean isLeft = leftHanded || displayPosId.contains("lefthand");
+                renderDart(tessellator, holder, nextDart, lightIndex, true, isLeft);
+            }
+        }
+    }
+
+    private void renderDart(@NonNull TessellatorGeneral tessellator, @Nullable Entity holder, @NonNull Item nextDart, byte lightIndex, boolean items3d, boolean isLeftHanded) {
+        GLRenderer.pushFrame();
+
+        if (items3d) {
+            GLRenderer.modelM4f().rotateZ((float) (Math.PI / 2.0F));
+            float zOffset = isLeftHanded ? 0.0625f : -0.0625f;
+            GLRenderer.modelM4f().translate(0.3125f, 0.3125f, zOffset);
         }
 
+        this.renderCoordinate(tessellator, ItemModelDispatcher.getInstance().getDispatch(nextDart).getIcon(holder, nextDart.getDefaultStack()), lightIndex, -1, items3d, false);
+
+        GLRenderer.popFrame();
     }
 
     public Item getNextDart(Player player) {

@@ -3,15 +3,11 @@ package teamport.aether.world.feature.chest;
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.world.World;
-import net.minecraft.core.world.generate.feature.WorldFeature;
 import net.minecraft.core.world.generate.feature.WorldFeatureInterface;
-import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.block.dungeon.BlockLogicChestLocked;
 import teamport.aether.helper.AetherMathHelper;
@@ -19,9 +15,7 @@ import teamport.aether.helper.AetherMathHelper;
 import java.util.List;
 import java.util.Random;
 
-import static teamport.aether.world.feature.util.WorldFeatureComponent.LootGenerator;
-import static teamport.aether.world.feature.util.WorldFeatureComponent.getOrCreateChestInventory;
-import static teamport.aether.world.feature.util.WorldFeatureComponent.placeItemInChest;
+import static teamport.aether.world.feature.util.WorldFeatureComponent.*;
 
 public class WorldFeatureAetherTreasureChest implements WorldFeatureInterface {
     private final int chestMetadata;
@@ -38,7 +32,7 @@ public class WorldFeatureAetherTreasureChest implements WorldFeatureInterface {
         this.chestMetadata = chestMetadata;
     }
 
-    public boolean place(@NonNull World world, @NotNull Random random, @NotNull TilePosc pos) {
+    public boolean place(@NonNull World world, @NonNull Random random, @NonNull TilePosc pos) {
         Block<?> block = world.getBlockType(pos);
         Container inventory = getOrCreateChestInventory(world, pos);
         if (inventory != null && block.getLogic() instanceof BlockLogicChestLocked) {
