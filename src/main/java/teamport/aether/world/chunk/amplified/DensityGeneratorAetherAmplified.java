@@ -1,4 +1,4 @@
-package teamport.aether.world.chunk.extended;
+package teamport.aether.world.chunk.amplified;
 
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.chunk.Chunk;
@@ -7,7 +7,7 @@ import net.minecraft.core.world.noise.FractalNoise3D;
 import net.minecraft.core.world.noise.ImprovedPerlinNoise;
 import org.jspecify.annotations.NonNull;
 
-public class DensityGeneratorAetherExtended implements DensityGenerator {
+public class DensityGeneratorAetherAmplified implements DensityGenerator {
     private final World world;
 
     private final FractalNoise3D<ImprovedPerlinNoise> minLimitNoise;
@@ -17,7 +17,7 @@ public class DensityGeneratorAetherExtended implements DensityGenerator {
     private double[] minLimitBuffer;
     private double[] maxLimitBuffer;
 
-    public DensityGeneratorAetherExtended(@NonNull World world) {
+    public DensityGeneratorAetherAmplified(@NonNull World world) {
         this.world = world;
 
         this.minLimitNoise = new FractalNoise3D<>(ImprovedPerlinNoise.genOctaves(world.getRandomSeed(), 16, 0));
@@ -47,14 +47,14 @@ public class DensityGeneratorAetherExtended implements DensityGenerator {
         double[] densityMapArray = new double[noiseSize];
 
         double mainNoiseScaleX = 80.0;
-        double mainNoiseScaleY = 100.0;
+        double mainNoiseScaleY = 40.0;
         double mainNoiseScaleZ = 80.0;
 
         final double coordScale = 684.412 / 4.0;
         final double heightScale = 684.412 / 2.0;
 
-        double upperLimitScale = 128.0;
-        double lowerLimitScale = 128.0;
+        double upperLimitScale = 96.0;
+        double lowerLimitScale = 96.0;
 
         // Generate noise arrays
         this.mainNoise.getRegion(this.mainNoiseBuffer, x, y, z, xSize, ySize, zSize, (coordScale / mainNoiseScaleX), (heightScale / mainNoiseScaleY), (coordScale / mainNoiseScaleZ));
@@ -80,11 +80,17 @@ public class DensityGeneratorAetherExtended implements DensityGenerator {
                     }
                     density -= 16.0;
 
+                    if (density > 0.0) {
+                        density = Math.pow(density, 1.25) * 1.4;
+                    } else {
+                        density = -Math.pow(-density, 1.25) * 1.4;
+                    }
+
                     // Modulate density based on Y level to make islands smaller and thinner higher up
                     // Higher Y reduces density, making islands sparser and smaller
                     double yFactor = (double) dy / (ySize - 1.0);
                     yFactor = Math.sin(yFactor * Math.PI);
-                    density *= yFactor * 0.8 + 0.4; // Scale density: 1.0 at bottom, 0.5 at top
+                    density *= yFactor * 0.7 + 0.3; // Scale density: 1.0 at bottom, 0.5 at top
 
                     int upperLowerLimit = 70;
                     if (dy > ySize - upperLowerLimit) {

@@ -67,7 +67,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         Random rand = ChunkDecoratorAether.deriveRandomFromWorld(chunk, this.world.getRandomSeed());
 
         this.decorateWithClouds(rand, minY, maxY, worldX, worldZ);
-        if (world.getWorldType() == AetherWorldTypes.AETHER_EXTENDED) this.decorateWithFlatClouds(chunk);
+        if (world.getWorldType() == AetherWorldTypes.AETHER_EXTENDED || world.getWorldType() == AetherWorldTypes.AETHER_AMPLIFIED) this.decorateWithFlatClouds(chunk);
         this.decorateWithDungeons(chunk, rand, minY, maxY);
         this.decorateWithFlowers(chunk, rand);
         this.decorateWithQuickSoil(rand, worldX, worldZ, minY, maxY);

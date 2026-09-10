@@ -17,6 +17,7 @@ public abstract class AetherWorldTypes {
     public static WorldType AETHER_EXTENDED;
     public static WorldType AETHER_SKYBLOCK;
     public static WorldType AETHER_RETRO;
+    public static WorldType AETHER_AMPLIFIED;
 
     public static final @NonNull Tag<WorldType> AETHER = Tag.of("aether");
 
@@ -55,13 +56,16 @@ public abstract class AetherWorldTypes {
                 .seasonConfig(null)
                 .bounds(0, 127, 0)
                 .portalBounds(0, 256)));
+
+        AETHER_AMPLIFIED = WorldTypes.register("aether:aether.amplified", new WorldTypeAetherAmplified
+            (WorldTypeAether.defaultProperties("worldType.aether.amplified").withTags(AETHER)
+                .portalBounds(0, 256)));
     }
 
     public static void addToWorldTypeGroups(Dimension aether) {
         Map<WorldType, WorldType> overworldToAetherWorldTypeMap = new HashMap<>();
         for (WorldType type : new WorldType[]{
             WorldTypes.OVERWORLD_EXTENDED,
-            WorldTypes.OVERWORLD_AMPLIFIED,
             WorldTypes.OVERWORLD_INLAND,
             WorldTypes.OVERWORLD_PARADISE,
             WorldTypes.OVERWORLD_WOODS,
@@ -77,7 +81,11 @@ public abstract class AetherWorldTypes {
         }
 
         overworldToAetherWorldTypeMap.put(WorldTypes.OVERWORLD_DEFAULT, AETHER_DEFAULT);
+
+        overworldToAetherWorldTypeMap.put(WorldTypes.OVERWORLD_AMPLIFIED, AETHER_AMPLIFIED);
+
         overworldToAetherWorldTypeMap.put(WorldTypes.OVERWORLD_SKYBLOCK, AETHER_SKYBLOCK);
+
         overworldToAetherWorldTypeMap.put(WorldTypes.OVERWORLD_RETRO, AETHER_RETRO);
         overworldToAetherWorldTypeMap.put(WorldTypes.OVERWORLD_CLASSIC, AETHER_RETRO);
         overworldToAetherWorldTypeMap.put(WorldTypes.OVERWORLD_INDEV, AETHER_RETRO);

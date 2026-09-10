@@ -116,7 +116,7 @@ public class WorldTypeAether extends WorldType {
         }
 
         float f2 = timeFraction;
-        timeFraction = 1.0F - (float) ((Math.cos(timeFraction * 3.1415926535897931D) + 1.0D) / 2D);
+        timeFraction = 1.0F - (float) ((Math.cos(timeFraction * Math.PI) + 1.0D) / 2D);
         timeFraction = f2 + (timeFraction - f2) / 3F;
         return timeFraction;
     }
