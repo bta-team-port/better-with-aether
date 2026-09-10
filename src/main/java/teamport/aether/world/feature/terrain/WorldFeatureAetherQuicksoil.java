@@ -1,7 +1,9 @@
 package teamport.aether.world.feature.terrain;
 
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
+import org.jspecify.annotations.NonNull;
 
 import java.util.Random;
 
@@ -13,11 +15,15 @@ public class WorldFeatureAetherQuicksoil extends WorldFeature {
     }
 
     @Override
-    public boolean place(World world, Random random, int x, int y, int z) {
-        for (int x1 = x - 3; x1 <= x + 4 + 1; x1++) {
-            for (int z1 = z - 3; z1 <= z + 4 + 1; z1++) {
-                if (world.getBlockId(x1, y, z1) == 0 && (x1 - x) * (x1 - x) + (z1 - z) * (z1 - z) < 12)
+    public boolean place(World world, @NonNull Random random, int x, int y, int z) {
+        int radius = 3 + random.nextInt(3);
+        for (int x1 = x - radius; x1 <= x + radius; x1++) {
+            for (int z1 = z - radius; z1 <= z + radius; z1++) {
+                int dx = x1 - x;
+                int dz = z1 - z;
+                if (dx * dx + dz * dz <= radius * radius + random.nextInt(2) && world.getBlockId(x1, y, z1) == Blocks.AIR.id()) {
                     world.setBlock(x1, y, z1, this.blockId);
+                }
             }
         }
         return true;

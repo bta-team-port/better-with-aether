@@ -2,6 +2,7 @@ package teamport.aether.world.chunk;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicFallingBlock;
+import net.minecraft.core.block.BlockLogicLeavesBase;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
@@ -67,7 +68,8 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         Random rand = ChunkDecoratorAether.deriveRandomFromWorld(chunk, this.world.getRandomSeed());
 
         this.decorateWithClouds(rand, minY, maxY, worldX, worldZ);
-        if (world.getWorldType() == AetherWorldTypes.AETHER_EXTENDED || world.getWorldType() == AetherWorldTypes.AETHER_AMPLIFIED) this.decorateWithFlatClouds(chunk);
+        if (world.getWorldType() == AetherWorldTypes.AETHER_EXTENDED || world.getWorldType() == AetherWorldTypes.AETHER_AMPLIFIED)
+            this.decorateWithFlatClouds(chunk);
         this.decorateWithDungeons(chunk, rand, minY, maxY);
         this.decorateWithFlowers(chunk, rand);
         this.decorateWithQuickSoil(rand, worldX, worldZ, minY, maxY);
@@ -259,25 +261,22 @@ public class ChunkDecoratorAether implements ChunkDecorator {
 
     @SuppressWarnings("java:S1119")
     public void decorateWithQuickSoil(@NonNull Random rand, int worldX, int worldZ, int minY, int maxY) {
-        if (rand.nextInt(5) != 0) {
+        if (rand.nextInt(3) != 0) {
             return;
         }
         int rangeY = maxY + 1 - minY;
-        int yPosition;
-        int zPosition;
-        int xPosition;
-        yLoop:
-        for (yPosition = minY + (rangeY / 8); yPosition < minY + (int) (192.0F / 256.0F * rangeY); ++yPosition) {
-            for (xPosition = worldX; xPosition < worldX + 16; ++xPosition) {
-                for (zPosition = worldZ; zPosition < worldZ + 16; ++zPosition) {
-                    TilePos tilePos = new TilePos(xPosition, yPosition, zPosition);
-                    if (
-                        this.world.getBlockType(tilePos) == Blocks.AIR
-                            && this.world.getBlockType(tilePos.up()) == AetherBlocks.GRASS_AETHER
-                            && this.world.getBlockType(tilePos.up()) == Blocks.AIR
-                    ) {
-                        QUICKSOIL.place(this.world, rand, xPosition, yPosition, zPosition);
-                        continue yLoop;
+        int startY = minY + (rangeY / 8);
+        int endY = minY + (int) (192.0F / 256.0F * rangeY);
+
+        outer:
+        for (int y = startY; y < endY; y++) {
+            for (int x = worldX; x < worldX + 16; x++) {
+                for (int z = worldZ; z < worldZ + 16; z++) {
+                    if (world.getBlockId(x, y, z) == Blocks.AIR.id()
+                        && world.getBlockId(x, y + 1, z) == AetherBlocks.GRASS_AETHER.id()) {
+
+                        QUICKSOIL.place(this.world, rand, new TilePos(x, y, z));
+                        break outer;
                     }
                 }
             }
@@ -299,15 +298,20 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             LAKE_WATER.place(this.world, rand, new TilePos(x, y, z));
         }
 
-        for (int generateChance = 0; generateChance < 2; ++generateChance) {
-            int x = chunkX + rand.nextInt(16);
-            int z = chunkZ + rand.nextInt(16);
-            int y = this.world.getHeightValue(x, z);
-            (rand.nextInt(18) == 0 ? TREE_GOLDEN : TREE_SKYROOT)
-                .place(this.world, rand, new TilePos(x, y, z));
+        BlockLogicLeavesBase.enableDecay = false;
+        try {
+            for (int generateChance = 0; generateChance < 2; ++generateChance) {
+                int x = chunkX + rand.nextInt(16) + 8;
+                int z = chunkZ + rand.nextInt(16) + 8;
+                int y = this.world.getHeightValue(x, z);
+                (rand.nextInt(18) == 0 ? TREE_GOLDEN : TREE_SKYROOT)
+                    .place(this.world, rand, new TilePos(x, y, z));
+            }
+        } finally {
+            BlockLogicLeavesBase.enableDecay = true;
         }
 
-        for (int generateChance = 0; generateChance < 50; ++generateChance) {
+        for (int generateChance = 0; generateChance < 25; ++generateChance) {
             int x = chunkX + rand.nextInt(16);
             int z = chunkZ + rand.nextInt(16);
             int y = rand.nextInt(rangeY - 1);
@@ -344,7 +348,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         }
 
         if ((world.getWorldType() == AetherWorldTypes.AETHER_DEFAULT || world.getWorldType() == AetherWorldTypes.AETHER_RETRO) && rand.nextInt(24) == 0) {
-            yPosition = rand.nextInt(32) + 4;
+            yPosition = rand.nextInt(28) + 4;
             AERCLOUD_FLAT.place(this.world, rand, worldX + 8, yPosition, worldZ + 8);
         }
     }

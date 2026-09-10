@@ -1,6 +1,5 @@
 package teamport.aether.world.feature.terrain;
 
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import net.minecraft.core.world.generate.feature.WorldFeatureInterface;
@@ -44,7 +43,7 @@ public class WorldFeatureAetherClouds extends WorldFeature implements WorldFeatu
                 for (int z1 = z; z1 < zBound; z1++) {
                     for (int y1 = y; y1 < y + 2; y1++) {
                         int distance = isFlat ? 12 : 4 + random.nextInt(2);
-                        if (Math.abs(x1 - x) + Math.abs(y1 - y) + Math.abs(z1 - z) < distance && world.getBlockId(x1, y1, z1) == Blocks.AIR.id()) {
+                        if (Math.abs(x1 - x) + Math.abs(y1 - y) + Math.abs(z1 - z) < distance && world.isAirBlock(x1, y1, z1)) {
                             world.setBlock(x1, y1, z1, blockToPlace);
                         }
                     }

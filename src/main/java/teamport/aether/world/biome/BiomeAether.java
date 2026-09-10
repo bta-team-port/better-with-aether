@@ -71,7 +71,6 @@ public class BiomeAether extends Biome {
 
     @Override
     public @NonNull WorldFeature getTreeFeature(@NonNull Random random) {
-        return random.nextInt(10) == 0 ? new WorldFeatureAetherTree(AetherBlocks.LEAVES_SKYROOT.id(), AetherBlocks.LOG_SKYROOT.id(), 4)
-            : new WorldFeatureAetherTreeGoldenOak();
+        return random.nextInt(10) == 0 ? new WorldFeatureAetherTreeGoldenOak() : new WorldFeatureAetherTree(AetherBlocks.LEAVES_SKYROOT.id(), AetherBlocks.LOG_SKYROOT.id(), 4);
     }
 }
