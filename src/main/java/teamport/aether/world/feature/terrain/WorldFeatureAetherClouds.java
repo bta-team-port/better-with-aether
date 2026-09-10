@@ -4,9 +4,7 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import net.minecraft.core.world.generate.feature.WorldFeatureInterface;
-import net.minecraft.core.world.generate.feature.WorldFeatureLabyrinth;
 import net.minecraft.core.world.pos.TilePosc;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 
 import java.util.Random;
@@ -23,7 +21,7 @@ public class WorldFeatureAetherClouds extends WorldFeature implements WorldFeatu
     }
 
     @Override
-    public boolean place(@NotNull World world, @NotNull Random random, @NotNull TilePosc tilePosc) {
+    public boolean place(@NonNull World world, @NonNull Random random, @NonNull TilePosc tilePosc) {
         return this.place(world, random, tilePosc.x(), tilePosc.y(), tilePosc.z());
     }
 

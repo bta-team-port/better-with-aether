@@ -68,6 +68,7 @@ import teamport.aether.entity.monster.valkyrie.MobValkyrie;
 import teamport.aether.entity.monster.zephyr.MobRendererZephyr;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
 import teamport.aether.entity.projectile.*;
+import teamport.aether.entity.projectile.windball.ProjectileWindball;
 import teamport.aether.entity.renderer.EntityRendererArrowFlaming;
 import teamport.aether.entity.renderer.EntityRendererDart;
 import teamport.aether.entity.renderer.EntityRendererKnifeLightning;

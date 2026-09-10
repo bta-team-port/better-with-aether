@@ -6,7 +6,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.ProgressListener;
 import net.minecraft.core.world.save.conversion.SaveConverterMCRegionBase;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.AetherGlobals;
@@ -39,15 +39,15 @@ public abstract class SaveConversionFix {
     )
     private int fixConversionBug(
             SaveConverterMCRegionBase instance,
-            @NotNull Dimension dimension,
-            @NotNull ArrayList<File> files,
+            @NonNull Dimension dimension,
+            @NonNull ArrayList<File> files,
             int numberOfConversion, int totalConversions,
-            @NotNull ProgressListener progressListener,
+            @NonNull ProgressListener progressListener,
             Operation<Integer> original,
-            @Local(name = "dimensionDir")File dir
+            @Local(name = "dimensionDir") @NonNull File dimensionDir
 
     ) {
-        String name = dir.getName();
+        String name = dimensionDir.getName();
         int id;
         try {
             id = Integer.parseInt(name);

@@ -24,7 +24,7 @@ public class MobUtil {
         double distX = attacker.x - target.x;
         double distZ = attacker.z - target.z;
 
-        if(target instanceof Player player){
+        if (target instanceof Player player) {
             int count = PlayerUtil.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.OBSIDIAN);
             if (count >= 5) {
                 return;
@@ -35,7 +35,7 @@ public class MobUtil {
             }
         }
 
-        float horizonalDistance = Math.max(0.001F, MathHelper.sqrt(distX * distX + distZ * distZ));
+        float horizontalDistance = Math.max(0.001F, MathHelper.sqrt(distX * distX + distZ * distZ));
 
         // half momentum, to slow the player down
         target.xd /= 2.0F; // velocity x
@@ -43,14 +43,11 @@ public class MobUtil {
         target.zd /= 2.0F; // velocity z
 
         // set velocity, apply knockback
-        target.xd = target.xd - (distX / horizonalDistance * knockBackStrength);
-        target.yd = target.yd + lift;
-        target.zd = target.zd - (distZ / horizonalDistance * knockBackStrength);
+        target.xd -= (distX / horizontalDistance * knockBackStrength);
+        target.yd += lift;
+        target.zd -= (distZ / horizontalDistance * knockBackStrength);
 
-        // update velocity, so it works on the server
-        target.xo = target.x;
-        target.yo = target.y;
-        target.zo = target.z;
+        target.hurtMarked = true;
     }
 
 
