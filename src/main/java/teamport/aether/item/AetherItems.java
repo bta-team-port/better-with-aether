@@ -254,23 +254,251 @@ public final class AetherItems {
 
     public static void initializeItems() {
         AetherItems.registerArmor();
+        AetherItems.registerWolfArmor();
+        AetherItems.registerGloves();
+        AetherItems.registerTrinkets();
+        AetherItems.registerCape();
+
         AetherItems.registerTool();
+        AetherItems.registerRangeWeapons();
+        AetherItems.registerSpecialWeapons();
+        AetherItems.registerSpecialTools();
+
         AetherItems.registerOther();
+    }
+
+    public static void registerArmor() {
+        ARMOR_HELMET_ZANITE = new ItemArmor<>("armor.helmet.zanite", itemKey("armor_helmet_zanite"), itemID("ARMOR_HELMET_ZANITE"), AetherArmorMaterial.ZANITE, HumanArmorShape.HEAD);
+        ARMOR_CHESTPLATE_ZANITE = new ItemArmor<>("armor.chestplate.zanite", itemKey("armor_chestplate_zanite"), itemID("ARMOR_CHESTPLATE_ZANITE"), AetherArmorMaterial.ZANITE, HumanArmorShape.CHEST);
+        ARMOR_LEGGINGS_ZANITE = new ItemArmor<>("armor.leggings.zanite", itemKey("armor_leggings_zanite"), itemID("ARMOR_LEGGINGS_ZANITE"), AetherArmorMaterial.ZANITE, HumanArmorShape.LEGS);
+        ARMOR_BOOTS_ZANITE = new ItemArmor<>("armor.boots.zanite", itemKey("armor_boots_zanite"), itemID("ARMOR_BOOTS_ZANITE"), AetherArmorMaterial.ZANITE, HumanArmorShape.BOOTS);
+
+
+        ARMOR_HELMET_GRAVITITE = new ItemArmor<>("armor.helmet.gravitite", itemKey("armor_helmet_gravitite"), itemID("ARMOR_HELMET_GRAVITITE"), AetherArmorMaterial.GRAVITITE, HumanArmorShape.HEAD);
+        ARMOR_CHESTPLATE_GRAVITITE = new ItemArmor<>("armor.chestplate.gravitite", itemKey("armor_chestplate_gravitite"), itemID("ARMOR_CHESTPLATE_GRAVITITE"), AetherArmorMaterial.GRAVITITE, HumanArmorShape.CHEST);
+        ARMOR_LEGGINGS_GRAVITITE = new ItemArmor<>("armor.leggings.gravitite", itemKey("armor_leggings_gravitite"), itemID("ARMOR_LEGGINGS_GRAVITITE"), AetherArmorMaterial.GRAVITITE, HumanArmorShape.LEGS);
+        ARMOR_BOOTS_GRAVITITE = new ItemArmor<>("armor.boots.gravitite", itemKey("armor_boots_gravitite"), itemID("ARMOR_BOOTS_GRAVITITE"), AetherArmorMaterial.GRAVITITE, HumanArmorShape.BOOTS);
+
+
+        ARMOR_HELMET_OBSIDIAN = new ItemArmor<>("armor.helmet.obsidian", itemKey("armor_helmet_obsidian"), itemID("ARMOR_HELMET_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN, HumanArmorShape.HEAD)
+            .withTags(ItemTags.IS_BLAST_PROOF, ItemTags.IS_FIRE_PROOF, AetherItemTags.IS_ACID_PROOF);
+        ARMOR_CHESTPLATE_OBSIDIAN = new ItemArmor<>("armor.chestplate.obsidian", itemKey("armor_chestplate_obsidian"), itemID("ARMOR_CHESTPLATE_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN, HumanArmorShape.CHEST)
+            .withTags(ItemTags.IS_BLAST_PROOF, ItemTags.IS_FIRE_PROOF, AetherItemTags.IS_ACID_PROOF);
+        ARMOR_LEGGINGS_OBSIDIAN = new ItemArmor<>("armor.leggings.obsidian", itemKey("armor_leggings_obsidian"), itemID("ARMOR_LEGGINGS_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN, HumanArmorShape.LEGS)
+            .withTags(ItemTags.IS_BLAST_PROOF, ItemTags.IS_FIRE_PROOF, AetherItemTags.IS_ACID_PROOF);
+        ARMOR_BOOTS_OBSIDIAN = new ItemArmor<>("armor.boots.obsidian", itemKey("armor_boots_obsidian"), itemID("ARMOR_BOOTS_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN, HumanArmorShape.BOOTS)
+            .withTags(ItemTags.IS_BLAST_PROOF, ItemTags.IS_FIRE_PROOF, AetherItemTags.IS_ACID_PROOF);
+
+
+        ARMOR_HELMET_PHOENIX = new ItemArmor<>("armor.helmet.phoenix", itemKey("armor_helmet_phoenix"), itemID("ARMOR_HELMET_PHOENIX"), AetherArmorMaterial.PHOENIX, HumanArmorShape.HEAD)
+            .withTags(ItemTags.IS_FIRE_PROOF);
+        ARMOR_CHESTPLATE_PHOENIX = new ItemArmor<>("armor.chestplate.phoenix", itemKey("armor_chestplate_phoenix"), itemID("ARMOR_CHESTPLATE_PHOENIX"), AetherArmorMaterial.PHOENIX, HumanArmorShape.CHEST)
+            .withTags(ItemTags.IS_FIRE_PROOF);
+        ARMOR_LEGGINGS_PHOENIX = new ItemArmor<>("armor.leggings.phoenix", itemKey("armor_leggings_phoenix"), itemID("ARMOR_LEGGINGS_PHOENIX"), AetherArmorMaterial.PHOENIX, HumanArmorShape.LEGS)
+            .withTags(ItemTags.IS_FIRE_PROOF);
+        ARMOR_BOOTS_PHOENIX = new ItemArmor<>("armor.boots.phoenix", itemKey("armor_boots_phoenix"), itemID("ARMOR_BOOTS_PHOENIX"), AetherArmorMaterial.PHOENIX, HumanArmorShape.BOOTS)
+            .withTags(ItemTags.IS_FIRE_PROOF);
+
+
+        ARMOR_HELMET_NEPTUNE = new ItemArmor<>("armor.helmet.neptune", itemKey("armor_helmet_neptune"), itemID("ARMOR_HELMET_NEPTUNE"), AetherArmorMaterial.NEPTUNE, HumanArmorShape.HEAD);
+        ARMOR_CHESTPLATE_NEPTUNE = new ItemArmor<>("armor.chestplate.neptune", itemKey("armor_chestplate_neptune"), itemID("ARMOR_CHESTPLATE_NEPTUNE"), AetherArmorMaterial.NEPTUNE, HumanArmorShape.CHEST);
+        ARMOR_LEGGINGS_NEPTUNE = new ItemArmor<>("armor.leggings.neptune", itemKey("armor_leggings_neptune"), itemID("ARMOR_LEGGINGS_NEPTUNE"), AetherArmorMaterial.NEPTUNE, HumanArmorShape.LEGS);
+        ARMOR_BOOTS_NEPTUNE = new ItemArmor<>("armor.boots.neptune", itemKey("armor_boots_neptune"), itemID("ARMOR_BOOTS_NEPTUNE"), AetherArmorMaterial.NEPTUNE, HumanArmorShape.BOOTS);
+    }
+
+    private static void registerWolfArmor() {
+        ARMOR_WOLF_ZANITE = new ItemArmor<>("armor.wolf.zanite", itemKey("armor_wolf_zanite"), itemID("ARMOR_WOLF_ZANITE"), AetherArmorMaterial.ZANITE, WolfArmorShape.BODY);
+        ARMOR_WOLF_GRAVITITE = new ItemArmor<>("armor.wolf.gravitite", itemKey("armor_wolf_gravitite"), itemID("ARMOR_WOLF_GRAVITITE"), AetherArmorMaterial.GRAVITITE, WolfArmorShape.BODY);
+        ARMOR_WOLF_OBSIDIAN = new ItemArmor<>("armor.wolf.obsidian", itemKey("armor_wolf_obsidian"), itemID("ARMOR_WOLF_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN, WolfArmorShape.BODY)
+            .withTags(ItemTags.IS_FIRE_PROOF, ItemTags.IS_BLAST_PROOF, AetherItemTags.IS_ACID_PROOF);
+        ARMOR_WOLF_PHOENIX = new ItemArmor<>("armor.wolf.phoenix", itemKey("armor_wolf_phoenix"), itemID("ARMOR_WOLF_PHOENIX"), AetherArmorMaterial.PHOENIX, WolfArmorShape.BODY)
+            .withTags(ItemTags.IS_FIRE_PROOF);
+        ARMOR_WOLF_NEPTUNE = new ItemArmor<>("armor.wolf.neptune", itemKey("armor_wolf_neptune"), itemID("ARMOR_WOLF_NEPTUNE"), AetherArmorMaterial.NEPTUNE, WolfArmorShape.BODY);
+    }
+
+    private static void registerGloves() {
+        ARMOR_GLOVES_LEATHER = new ItemGloves("armor.gloves.leather", itemKey("armor_gloves_leather"), itemID("ARMOR_GLOVES_LEATHER"), ArmorMaterial.LEATHER, HumanAccessoryShape.GLOVES)
+            .setDamage(2);
+        ARMOR_GLOVES_CHAINMAIL = new ItemGloves("armor.gloves.chainmail", itemKey("armor_gloves_chainmail"), itemID("ARMOR_GLOVES_CHAINMAIL"), ArmorMaterial.CHAINMAIL, HumanAccessoryShape.GLOVES)
+            .setDamage(2);
+        ARMOR_GLOVES_IRON = new ItemGloves("armor.gloves.iron", itemKey("armor_gloves_iron"), itemID("ARMOR_GLOVES_IRON"), ArmorMaterial.IRON, HumanAccessoryShape.GLOVES)
+            .setDamage(2);
+        ARMOR_GLOVES_GOLD = new ItemGloves("armor.gloves.gold", itemKey("armor_gloves_gold"), itemID("ARMOR_GLOVES_GOLD"), ArmorMaterial.GOLD, HumanAccessoryShape.GLOVES)
+            .setDamage(2);
+        ARMOR_GLOVES_DIAMOND = new ItemGloves("armor.gloves.diamond", itemKey("armor_gloves_diamond"), itemID("ARMOR_GLOVES_DIAMOND"), ArmorMaterial.DIAMOND, HumanAccessoryShape.GLOVES)
+            .setDamage(4);
+        ARMOR_GLOVES_STEEL = new ItemGloves("armor.gloves.steel", itemKey("armor_gloves_steel"), itemID("ARMOR_GLOVES_STEEL"), ArmorMaterial.STEEL, HumanAccessoryShape.GLOVES)
+            .setDamage(3);
+        ARMOR_GLOVES_ZANITE = new ItemGloves("armor.gloves.zanite", itemKey("armor_gloves_zanite"), itemID("ARMOR_GLOVES_ZANITE"), AetherArmorMaterial.ZANITE, HumanAccessoryShape.GLOVES)
+            .setDamage(2);
+        ARMOR_GLOVES_GRAVITITE = new ItemGlovesGravitite("armor.gloves.gravitite", itemKey("armor_gloves_gravitite"), itemID("ARMOR_GLOVES_GRAVITITE"), AetherArmorMaterial.GRAVITITE, HumanAccessoryShape.GLOVES)
+            .setDamage(3).setDamageType(DamageType.FALL);
+        ARMOR_GLOVES_OBSIDIAN = new ItemGlovesObsidian("armor.gloves.obsidian", itemKey("armor_gloves_obsidian"), itemID("ARMOR_GLOVES_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN, HumanAccessoryShape.GLOVES)
+            .setDamage(3)
+            .setDamageType(DamageType.BLAST)
+            .withTags(ItemTags.IS_FIRE_PROOF, ItemTags.IS_BLAST_PROOF, AetherItemTags.IS_ACID_PROOF);
+        ARMOR_GLOVES_PHOENIX = new ItemGlovesPhoenix("armor.gloves.phoenix", itemKey("armor_gloves_phoenix"), itemID("ARMOR_GLOVES_PHOENIX"), AetherArmorMaterial.PHOENIX, HumanAccessoryShape.GLOVES)
+            .setDamage(3)
+            .setDamageType(DamageType.FIRE)
+            .withTags(ItemTags.IS_FIRE_PROOF);
+        ARMOR_GLOVES_NEPTUNE = new ItemGlovesNeptune("armor.gloves.neptune", itemKey("armor_gloves_neptune"), itemID("ARMOR_GLOVES_NEPTUNE"), AetherArmorMaterial.NEPTUNE, HumanAccessoryShape.GLOVES)
+            .setDamage(3)
+            .setDamageType(DamageType.DROWN);
+    }
+
+    private static void registerTrinkets() {
+        ARMOR_TALISMAN_REGEN = new ItemRegenStone("armor.talisman.regen", itemKey("armor_talisman_regen"), itemID("ARMOR_TALISMAN_REGEN"), "regen_trinket");
+        ARMOR_TALISMAN_BUBBLE = new ItemIronBubble("armor.talisman.bubble", itemKey("armor_talisman_bubble"), itemID("ARMOR_TALISMAN_BUBBLE"), "bubble");
+        ARMOR_TALISMAN_FEATHER_GOLD = new ItemGoldenFeather("armor.talisman.feather.gold", itemKey("armor_talisman_feather_gold"), itemID("ARMOR_TALISMAN_FEATHER_GOLD"), "feather_gold");
+        ARMOR_SHIELD_REPULSION = new ItemRepulsionShield("armor.shield.repulsion", itemKey("armor_shield_repulsion"), itemID("ARMOR_SHIELD_REPULSION"), "shield");
+        ARMOR_TALISMAN_LEATHER = new ItemPendant("armor.talisman.leather", itemKey("armor_talisman_leather"), itemID("ARMOR_TALISMAN_LEATHER"), "cloth");
+        ARMOR_TALISMAN_CHAINMAIL = new ItemCombatPendant("armor.talisman.chainmail", itemKey("armor_talisman_chainmail"), itemID("ARMOR_TALISMAN_CHAINMAIL"), ArmorMaterial.CHAINMAIL, "chain");
+        ARMOR_TALISMAN_IRON = new ItemPendant("armor.talisman.iron", itemKey("armor_talisman_iron"), itemID("ARMOR_TALISMAN_IRON"), "iron");
+        ///  we treat gold differently when harvesting as such we don't make it take damage when harvesting the way other pendant might
+        ARMOR_TALISMAN_GOLD = new ItemPendant("armor.talisman.gold", itemKey("armor_talisman_gold"), itemID("ARMOR_TALISMAN_GOLD"), ArmorMaterial.GOLD, "gold");
+        ARMOR_TALISMAN_DIAMOND = new ItemPendant("armor.talisman.diamond", itemKey("armor_talisman_diamond"), itemID("ARMOR_TALISMAN_DIAMOND"), ArmorMaterial.DIAMOND, "diamond")
+            .setHarvestDamageable();
+        ARMOR_TALISMAN_STEEL = new ItemPendant("armor.talisman.steel", itemKey("armor_talisman_steel"), itemID("ARMOR_TALISMAN_STEEL"), ArmorMaterial.STEEL, "steel");
+        ARMOR_TALISMAN_ZANITE = new ItemPendant("armor.talisman.zanite", itemKey("armor_talisman_zanite"), itemID("ARMOR_TALISMAN_ZANITE"), AetherArmorMaterial.ZANITE, "zanite")
+            .setHarvestDamageable();
+        ARMOR_TALISMAN_GRAVITITE = new ItemGravititePendant("armor.talisman.gravitite", itemKey("armor_talisman_gravitite"), itemID("ARMOR_TALISMAN_GRAVITITE"), "gravitite");
+        ARMOR_TALISMAN_ICE = new ItemIcePendant("armor.talisman.ice", itemKey("armor_talisman_ice"), itemID("ARMOR_TALISMAN_ICE"), "ice");
+    }
+
+    private static void registerCape() {
+        ARMOR_CAPE_AGILITY = new ItemCapeAgility("armor.cape.agility", itemKey("armor_cape_agility"), itemID("ARMOR_CAPE_AGILITY"), "agility");
+        ARMOR_CAPE_SWET = new ItemCapeSwet("armor.cape.swet", itemKey("armor_cape_swet"), itemID("ARMOR_CAPE_SWET"), "swet");
+        ARMOR_CAPE_INVISIBILITY = new ItemCapeInvisibility("armor.cape.invisibility", itemKey("armor_cape_invisibility"), itemID("ARMOR_CAPE_INVISIBILITY"), "invisibility");
+        ARMOR_CAPE_BLACK = new ItemCape("armor.cape.black", itemKey("armor_cape_black"), itemID("ARMOR_CAPE_BLACK"), "black");
+        ARMOR_CAPE_RED = new ItemCape("armor.cape.red", itemKey("armor_cape_red"), itemID("ARMOR_CAPE_RED"), "red");
+        ARMOR_CAPE_GREEN = new ItemCape("armor.cape.green", itemKey("armor_cape_green"), itemID("ARMOR_CAPE_GREEN"), "green");
+        ARMOR_CAPE_BROWN = new ItemCape("armor.cape.brown", itemKey("armor_cape_brown"), itemID("ARMOR_CAPE_BROWN"), "brown");
+        ARMOR_CAPE_BLUE = new ItemCape("armor.cape.blue", itemKey("armor_cape_blue"), itemID("ARMOR_CAPE_BLUE"), "blue");
+        ARMOR_CAPE_PURPLE = new ItemCape("armor.cape.purple", itemKey("armor_cape_purple"), itemID("ARMOR_CAPE_PURPLE"), "purple");
+        ARMOR_CAPE_CYAN = new ItemCape("armor.cape.cyan", itemKey("armor_cape_cyan"), itemID("ARMOR_CAPE_CYAN"), "cyan");
+        ARMOR_CAPE_SILVER = new ItemCape("armor.cape.silver", itemKey("armor_cape_silver"), itemID("ARMOR_CAPE_SILVER"), "silver");
+        ARMOR_CAPE_GRAY = new ItemCape("armor.cape.gray", itemKey("armor_cape_gray"), itemID("ARMOR_CAPE_GRAY"), "gray");
+        ARMOR_CAPE_PINK = new ItemCape("armor.cape.pink", itemKey("armor_cape_pink"), itemID("ARMOR_CAPE_PINK"), "pink");
+        ARMOR_CAPE_LIME = new ItemCape("armor.cape.lime", itemKey("armor_cape_lime"), itemID("ARMOR_CAPE_LIME"), "lime");
+        ARMOR_CAPE_YELLOW = new ItemCape("armor.cape.yellow", itemKey("armor_cape_yellow"), itemID("ARMOR_CAPE_YELLOW"), "yellow");
+        ARMOR_CAPE_LIGHTBLUE = new ItemCape("armor.cape.lightblue", itemKey("armor_cape_lightblue"), itemID("ARMOR_CAPE_LIGHTBLUE"), "lightblue");
+        ARMOR_CAPE_MAGENTA = new ItemCape("armor.cape.magenta", itemKey("armor_cape_magenta"), itemID("ARMOR_CAPE_MAGENTA"), "magenta");
+        ARMOR_CAPE_ORANGE = new ItemCape("armor.cape.orange", itemKey("armor_cape_orange"), itemID("ARMOR_CAPE_ORANGE"), "orange");
+        ARMOR_CAPE_WHITE = new ItemCape("armor.cape.white", itemKey("armor_cape_white"), itemID("ARMOR_CAPE_WHITE"), "white");
+    }
+
+    public static void registerTool() {
+        BUCKET_SKYROOT = new ItemBucketSkyrootEmpty("bucket.skyroot", itemKey("bucket_skyroot"), itemID("BUCKET_SKYROOT"));
+        BUCKET_SKYROOT_WATER = new ItemBucketSkyroot("bucket.skyroot.water", itemKey("bucket_skyroot_water"), itemID("BUCKET_SKYROOT_WATER"), Blocks.FLUID_WATER_FLOWING)
+            .setContainerItem(BUCKET_SKYROOT);
+        BUCKET_SKYROOT_MILK = new ItemBucketSkyroot("bucket.skyroot.milk", itemKey("bucket_skyroot_milk"), itemID("BUCKET_SKYROOT_MILK"), null)
+            .setContainerItem(BUCKET_SKYROOT);
+        BUCKET_SKYROOT_REMEDY = new ItemBucketSkyrootRemedy("bucket.skyroot.remedy", itemKey("bucket_skyroot_remedy"), itemID("BUCKET_SKYROOT_REMEDY"))
+            .setContainerItem(BUCKET_SKYROOT);
+        BUCKET_SKYROOT_POISON = new ItemBucketSkyrootPoison("bucket.skyroot.poison", itemKey("bucket_skyroot_poison"), itemID("BUCKET_SKYROOT_POISON"))
+            .setContainerItem(BUCKET_SKYROOT);
+        BUCKET_SKYROOT_ICECREAM = new ItemBucketSkyrootIceCream("bucket.skyroot.icecream", itemKey("bucket_skyroot_icecream"), itemID("BUCKET_SKYROOT_ICECREAM"), 10, 4)
+            .setContainerItem(BUCKET_SKYROOT);
+
+
+        TOOL_SWORD_SKYROOT = new ItemToolSwordAether("tool.sword.skyroot", itemKey("tool_sword_skyroot"), itemID("TOOL_SWORD_SKYROOT"), AetherToolMaterial.skyroot)
+            .withTags(ItemTags.PREVENT_CREATIVE_MINING);
+
+        TOOL_SHOVEL_SKYROOT = new ItemToolShovelAether("tool.shovel.skyroot", itemKey("tool_shovel_skyroot"), itemID("TOOL_SHOVEL_SKYROOT"), AetherToolMaterial.skyroot);
+        TOOL_PICKAXE_SKYROOT = new ItemToolPickaxeAether("tool.pickaxe.skyroot", itemKey("tool_pickaxe_skyroot"), itemID("TOOL_PICKAXE_SKYROOT"), AetherToolMaterial.skyroot);
+        TOOL_AXE_SKYROOT = new ItemToolAxeAether("tool.axe.skyroot", itemKey("tool_axe_skyroot"), itemID("TOOL_AXE_SKYROOT"), AetherToolMaterial.skyroot);
+
+
+        TOOL_SWORD_HOLYSTONE = new ItemToolSwordHolystone("tool.sword.holystone", itemKey("tool_sword_holystone"), itemID("TOOL_SWORD_HOLYSTONE"), AetherToolMaterial.holystone)
+            .withTags(ItemTags.PREVENT_CREATIVE_MINING);
+
+        TOOL_SHOVEL_HOLYSTONE = new ItemToolShovelHolystone("tool.shovel.holystone", itemKey("tool_shovel_holystone"), itemID("TOOL_SHOVEL_HOLYSTONE"), AetherToolMaterial.holystone);
+        TOOL_PICKAXE_HOLYSTONE = new ItemToolPickaxeHolystone("tool.pickaxe.holystone", itemKey("tool_pickaxe_holystone"), itemID("TOOL_PICKAXE_HOLYSTONE"), AetherToolMaterial.holystone);
+        TOOL_AXE_HOLYSTONE = new ItemToolAxeHolystone("tool.axe.holystone", itemKey("tool_axe_holystone"), itemID("TOOL_AXE_HOLYSTONE"), AetherToolMaterial.holystone);
+
+
+        TOOL_SWORD_ZANITE = new ItemToolSwordZanite("tool.sword.zanite", itemKey("tool_sword_zanite"), itemID("TOOL_SWORD_ZANITE"), AetherToolMaterial.zanite)
+            .withTags(ItemTags.PREVENT_CREATIVE_MINING);
+
+        TOOL_SHOVEL_ZANITE = new ItemToolShovelZanite("tool.shovel.zanite", itemKey("tool_shovel_zanite"), itemID("TOOL_SHOVEL_ZANITE"), AetherToolMaterial.zanite);
+        TOOL_PICKAXE_ZANITE = new ItemToolPickaxeZanite("tool.pickaxe.zanite", itemKey("tool_pickaxe_zanite"), itemID("TOOL_PICKAXE_ZANITE"), AetherToolMaterial.zanite);
+        TOOL_AXE_ZANITE = new ItemToolAxeZanite("tool.axe.zanite", itemKey("tool_axe_zanite"), itemID("TOOL_AXE_ZANITE"), AetherToolMaterial.zanite);
+
+
+        TOOL_SWORD_GRAVITITE = new ItemToolSwordGravitite("tool.sword.gravitite", itemKey("tool_sword_gravitite"), itemID("TOOL_SWORD_GRAVITITE"), AetherToolMaterial.gravitite)
+            .withTags(ItemTags.PREVENT_CREATIVE_MINING);
+
+        TOOL_SHOVEL_GRAVITITE = new ItemToolShovelGravitite("tool.shovel.gravitite", itemKey("tool_shovel_gravitite"), itemID("TOOL_SHOVEL_GRAVITITE"), AetherToolMaterial.gravitite);
+        TOOL_PICKAXE_GRAVITITE = new ItemToolPickaxeGravitite("tool.pickaxe.gravitite", itemKey("tool_pickaxe_gravitite"), itemID("TOOL_PICKAXE_GRAVITITE"), AetherToolMaterial.gravitite);
+        TOOL_AXE_GRAVITITE = new ItemToolAxeGravitite("tool.axe.gravitite", itemKey("tool_axe_gravitite"), itemID("TOOL_AXE_GRAVITITE"), AetherToolMaterial.gravitite);
+
+
+        TOOL_SWORD_VALKYRIE = new ItemToolSwordValkyrie("tool.sword.valkyrie", itemKey("tool_sword_valkyrie"), itemID("TOOL_SWORD_VALKYRIE"), AetherToolMaterial.valkyrie)
+            .withTags(ItemTags.PREVENT_CREATIVE_MINING);
+
+        TOOL_SHOVEL_VALKYRIE = new ItemToolShovelValkyrie("tool.shovel.valkyrie", itemKey("tool_shovel_valkyrie"), itemID("TOOL_SHOVEL_VALKYRIE"), AetherToolMaterial.valkyrie);
+        TOOL_PICKAXE_VALKYRIE = new ItemToolPickaxeValkyrie("tool.pickaxe.valkyrie", itemKey("tool_pickaxe_valkyrie"), itemID("TOOL_PICKAXE_VALKYRIE"), AetherToolMaterial.valkyrie);
+        TOOL_AXE_VALKYRIE = new ItemToolAxeValkyrie("tool.axe.valkyrie", itemKey("tool_axe_valkyrie"), itemID("TOOL_AXE_VALKYRIE"), AetherToolMaterial.valkyrie);
+    }
+
+    private static void registerRangeWeapons() {
+        TOOL_KNIFE_LIGHTNING = new ItemToolKnifeLightning("tool.knife.lightning", itemKey("tool_knife_lightning"), itemID("TOOL_KNIFE_LIGHTNING"))
+            .withTags(ItemTags.PREVENT_CREATIVE_MINING)
+            .setMaxStackSize(32);
+        AMMO_HAMMER_HEAD = new Item("ammo.hammer.head", itemKey("ammo_hammer_head"), itemID("AMMO_HAMMER_HEAD"))
+            .withTags(ItemTags.NOT_IN_CREATIVE_MENU);
+        TOOL_HAMMER_NOTCH = new ItemToolHammerNotch("tool.hammer.notch", itemKey("tool_hammer_notch"), itemID("TOOL_HAMMER_NOTCH"), AetherToolMaterial.special)
+            .withTags(ItemTags.PREVENT_CREATIVE_MINING);
+        TOOL_BOW_PHOENIX = new ItemBowPhoenix("tool.bow.phoenix", itemKey("tool_bow_phoenix"), itemID("TOOL_BOW_PHOENIX"))
+            .withTags(ItemTags.IS_FIRE_PROOF);
+        AMMO_DART_GOLDEN = new ItemDart("ammo.dart.golden", itemKey("ammo_dart_golden"), itemID("AMMO_DART_GOLDEN"), 0);
+        AMMO_DART_POISON = new ItemDart("ammo.dart.poison", itemKey("ammo_dart_poison"), itemID("AMMO_DART_POISON"), 1);
+        AMMO_DART_ENCHANTED = new ItemDart("ammo.dart.enchanted", itemKey("ammo_dart_enchanted"), itemID("AMMO_DART_ENCHANTED"), 2);
+        TOOL_SHOOTER = new ItemShooter("tool.shooter", itemKey("tool_shooter"), itemID("TOOL_SHOOTER"));
+        AMMO_ARROW_FLAMING = new Item("ammo.arrow.flaming", itemKey("ammo_arrow_flaming"), itemID("AMMO_ARROW_FLAMING"))
+            .withTags(ItemTags.NOT_IN_CREATIVE_MENU);
+    }
+
+    private static void registerSpecialWeapons() {
+        TOOL_SWORD_PIG = new ItemToolSwordPig("tool.sword.pig", itemKey("tool_sword_pig"), itemID("TOOL_SWORD_PIG"), AetherToolMaterial.special)
+            .withTags(ItemTags.PREVENT_CREATIVE_MINING);
+
+        TOOL_SWORD_VAMPIRE = new ItemToolSwordVampire("tool.sword.vampire", itemKey("tool_sword_vampire"), itemID("TOOL_SWORD_VAMPIRE"), AetherToolMaterial.special)
+            .withTags(ItemTags.PREVENT_CREATIVE_MINING);
+
+        TOOL_SWORD_FLAME = new ItemToolSwordFire("tool.sword.flame", itemKey("tool_sword_flame"), itemID("TOOL_SWORD_FLAME"), AetherToolMaterial.special)
+            .withTags(ItemTags.PREVENT_CREATIVE_MINING);
+
+        TOOL_SWORD_HOLY = new ItemToolSwordHoly("tool.sword.holy", itemKey("tool_sword_holy"), itemID("TOOL_SWORD_HOLY"), AetherToolMaterial.special)
+            .withTags(ItemTags.PREVENT_CREATIVE_MINING);
+
+        TOOL_SWORD_LIGHTNING = new ItemToolSwordLightning("tool.sword.lightning", itemKey("tool_sword_lightning"), itemID("TOOL_SWORD_LIGHTNING"), AetherToolMaterial.special)
+            .withTags(ItemTags.PREVENT_CREATIVE_MINING);
+    }
+
+    private static void registerSpecialTools() {
+        TOOL_STAFF_NATURE = new Item("tool.staff.nature", itemKey("tool_staff_nature"), itemID("TOOL_STAFF_NATURE"))
+            .withTags(ItemTags.CHICKENS_FAVOURITE_ITEM, ItemTags.COWS_FAVOURITE_ITEM, AetherItemTags.NATURE_STAFF_FOLLOW, AetherItemTags.MOAS_FAVOURITE_ITEM)
+            .setMaxStackSize(1);
+
+        TOOL_STAFF_CLOUD = new ItemStaffCloud("tool.staff.cloud", itemKey("tool_staff_cloud"), itemID("TOOL_STAFF_CLOUD"));
+
+
+        TOOL_DUNGEON_COMPASS = new ItemTrinket("tool.dungeon_compass", itemKey("tool_dungeon_compass"), itemID("TOOL_DUNGEON_COMPASS"), "dungeon_compass");
     }
 
     public static void registerOther() {
         MEDAL_VICTORY = new Item("medal.victory", itemKey("medal_victory"), itemID("MEDAL_VICTORY"))
             .setMaxStackSize(10);
 
-
         KEY_BRONZE = new Item("key.bronze", itemKey("key_bronze"), itemID("KEY_BRONZE"))
-            .withTags(ItemTags.IS_FIRE_PROOF, ItemTags.IS_BLAST_PROOF);
+            .withTags(ItemTags.IS_PERSISTENT, ItemTags.IS_INDESTRUCTIBLE);
 
         KEY_SILVER = new Item("key.silver", itemKey("key_silver"), itemID("KEY_SILVER"))
-            .withTags(ItemTags.IS_FIRE_PROOF, ItemTags.IS_BLAST_PROOF);
+            .withTags(ItemTags.IS_PERSISTENT, ItemTags.IS_INDESTRUCTIBLE);
 
         KEY_GOLD = new Item("key.gold", itemKey("key_gold"), itemID("KEY_GOLD"))
-            .withTags(ItemTags.IS_FIRE_PROOF, ItemTags.IS_BLAST_PROOF);
+            .withTags(ItemTags.IS_PERSISTENT, ItemTags.IS_INDESTRUCTIBLE);
 
 
         EGG_MOA_BLUE = new Item("egg.moa.blue", itemKey("egg_moa_blue"), itemID("EGG_MOA_BLUE"))
@@ -284,35 +512,23 @@ public final class AetherItems {
 
 
         RECORD_AETHER = new ItemDiscMusic("record.aether", itemKey("record_aether"), itemID("RECORD_AETHER"), "aether:aether_tune", "Noisestorm");
-
         RECORD_MORNING = new ItemDiscMusic("record.morning", itemKey("record_morning"), itemID("RECORD_MORNING"), "aether:a_morning_wish", "Emile van Kriken");
-
         RECORD_DAWN = new ItemDiscMusic("record.dawn", itemKey("record_dawn"), itemID("RECORD_DAWN"), "aether:ascending_dawn", "Emile van Kriken");
-
         RECORD_NETHER = new ItemDiscMusic("record.nether", itemKey("record_nether"), itemID("RECORD_NETHER"), "aether:nether_menu", "Emile van Kriken");
 
 
         AMBER = new Item("amber", itemKey("amber"), itemID("AMBER"));
-
         PETAL_AECHOR = new Item("petal.aechor", itemKey("petal_aechor"), itemID("PETAL_AECHOR"))
             .withTags(AetherItemTags.MOAS_FAVOURITE_ITEM);
-
         STICK_SKYROOT = new Item("stick.skyroot", itemKey("stick_skyroot"), itemID("STICK_SKYROOT"));
-
-
         AMBROSIUM = new ItemAmbrosium("ambrosium", itemKey("ambrosium"), itemID("AMBROSIUM"), 1, 20, false);
-
         ZANITE = new Item("zanite", itemKey("zanite"), itemID("ZANITE"));
-
         ORE_RAW_GRAVITITE = new Item("ore.raw.gravitite", itemKey("ore_raw_gravitite"), itemID("ORE_RAW_GRAVITITE"))
             .withTags(AetherItemTags.FALLS_UPWARDS);
 
 
         FOOD_HEALING_STONE = new ItemFood("food.healing.stone", itemKey("food_healing_stone"), itemID("FOOD_HEALING_STONE"), 4, 10, false, 4);
-
-
         FOOD_GUMMY_BLUE = new ItemFood("food.gummy.blue", itemKey("food_gummy_blue"), itemID("FOOD_GUMMY_BLUE"), 15, 2, false, 4);
-
         FOOD_GUMMY_GOLD = new ItemFood("food.gummy.gold", itemKey("food_gummy_gold"), itemID("FOOD_GUMMY_GOLD"), 30, 2, false, 2);
 
 
@@ -322,8 +538,6 @@ public final class AetherItems {
 
         PARACHUTE_CLOUD = ((ItemAccessor) new ItemParachute("parachute.cloud", itemKey("parachute_cloud"), itemID("PARACHUTE_CLOUD"), EntityParachute.class))
             .callSetMaxDamage(1);
-
-
         PARACHUTE_CLOUD_GOLD = ((ItemAccessor) new ItemParachute("parachute.cloud.gold", itemKey("parachute_cloud_gold"), itemID("PARACHUTE_CLOUD_GOLD"), EntityParachuteGold.class))
             .callSetMaxDamage(20);
 
@@ -331,12 +545,8 @@ public final class AetherItems {
         LANTERN_FIREFLY_SILVER = new ItemPlaceable("lantern.firefly.silver", itemKey("lantern_firefly_silver"), itemID("LANTERN_FIREFLY_SILVER"), AetherBlocks.LANTERN_FIREFLY_SILVER);
 
         DOOR_SKYROOT = new ItemDoor("door.skyroot", itemKey("door_skyroot"), itemID("DOOR_SKYROOT"), AetherBlocks.DOOR_PLANKS_SKYROOT_BOTTOM, AetherBlocks.DOOR_PLANKS_SKYROOT_TOP);
-
         DOOR_SKYROOT_PAINTED = new ItemDoorPainted("door.skyroot.painted", itemKey("door_skyroot_painted"), itemID("DOOR_SKYROOT_PAINTED"), AetherBlocks.DOOR_PLANKS_SKYROOT_PAINTED_BOTTOM, AetherBlocks.DOOR_PLANKS_SKYROOT_PAINTED_TOP);
-
-
         DOOR_GLASS_AMBROSIUM = new ItemDoor("door.glass.ambrosium", itemKey("door_glass_ambrosium"), itemID("DOOR_GLASS_AMBROSIUM"), AetherBlocks.DOOR_GLASS_QUICKSOIL_BOTTOM, AetherBlocks.DOOR_GLASS_QUICKSOIL_TOP);
-
         DOOR_DUNGEON_BRONZE = new ItemDoorDungeon("door.dungeon.bronze", itemKey("door_dungeon_bronze"), itemID("DOOR_DUNGEON_BRONZE"), AetherBlocks.DOOR_DUNGEON_BRONZE, ItemDoorDungeon.DoorType.BRONZE);
         DOOR_DUNGEON_SILVER = new ItemDoorDungeon("door.dungeon.silver", itemKey("door_dungeon_silver"), itemID("DOOR_DUNGEON_SILVER"), AetherBlocks.DOOR_DUNGEON_SILVER, ItemDoorDungeon.DoorType.SILVER);
         DOOR_DUNGEON_GOLD = new ItemDoorDungeon("door.dungeon.gold", itemKey("door_dungeon_gold"), itemID("DOOR_DUNGEON_GOLD"), AetherBlocks.DOOR_DUNGEON_GOLD, ItemDoorDungeon.DoorType.GOLD);
@@ -358,289 +568,6 @@ public final class AetherItems {
 
         PROJECTILE_LIGHTNING = new Item("projectile.lightning", itemKey("projectile_lightning"), itemID("PROJECTILE_LIGHTNING"))
             .withTags(ItemTags.NOT_IN_CREATIVE_MENU);
-    }
-
-    public static void registerTool() {
-        BUCKET_SKYROOT = new ItemBucketSkyrootEmpty("bucket.skyroot", itemKey("bucket_skyroot"), itemID("BUCKET_SKYROOT"));
-
-        BUCKET_SKYROOT_WATER = new ItemBucketSkyroot("bucket.skyroot.water", itemKey("bucket_skyroot_water"), itemID("BUCKET_SKYROOT_WATER"), Blocks.FLUID_WATER_FLOWING)
-            .setContainerItem(BUCKET_SKYROOT);
-
-        BUCKET_SKYROOT_MILK = new ItemBucketSkyroot("bucket.skyroot.milk", itemKey("bucket_skyroot_milk"), itemID("BUCKET_SKYROOT_MILK"), null)
-            .setContainerItem(BUCKET_SKYROOT);
-
-        BUCKET_SKYROOT_REMEDY = new ItemBucketSkyrootRemedy("bucket.skyroot.remedy", itemKey("bucket_skyroot_remedy"), itemID("BUCKET_SKYROOT_REMEDY"))
-            .setContainerItem(BUCKET_SKYROOT);
-
-        BUCKET_SKYROOT_POISON = new ItemBucketSkyrootPoison("bucket.skyroot.poison", itemKey("bucket_skyroot_poison"), itemID("BUCKET_SKYROOT_POISON"))
-            .setContainerItem(BUCKET_SKYROOT);
-
-        BUCKET_SKYROOT_ICECREAM = new ItemBucketSkyrootIceCream("bucket.skyroot.icecream", itemKey("bucket_skyroot_icecream"), itemID("BUCKET_SKYROOT_ICECREAM"), 10, 4)
-            .setContainerItem(BUCKET_SKYROOT);
-
-
-        TOOL_SWORD_SKYROOT = new ItemToolSwordAether("tool.sword.skyroot", itemKey("tool_sword_skyroot"), itemID("TOOL_SWORD_SKYROOT"), AetherToolMaterial.skyroot)
-            .withTags(ItemTags.PREVENT_CREATIVE_MINING);
-
-        TOOL_SHOVEL_SKYROOT = new ItemToolShovelAether("tool.shovel.skyroot", itemKey("tool_shovel_skyroot"), itemID("TOOL_SHOVEL_SKYROOT"), AetherToolMaterial.skyroot);
-
-        TOOL_PICKAXE_SKYROOT = new ItemToolPickaxeAether("tool.pickaxe.skyroot", itemKey("tool_pickaxe_skyroot"), itemID("TOOL_PICKAXE_SKYROOT"), AetherToolMaterial.skyroot);
-
-        TOOL_AXE_SKYROOT = new ItemToolAxeAether("tool.axe.skyroot", itemKey("tool_axe_skyroot"), itemID("TOOL_AXE_SKYROOT"), AetherToolMaterial.skyroot);
-
-
-        TOOL_SWORD_HOLYSTONE = new ItemToolSwordHolystone("tool.sword.holystone", itemKey("tool_sword_holystone"), itemID("TOOL_SWORD_HOLYSTONE"), AetherToolMaterial.holystone)
-            .withTags(ItemTags.PREVENT_CREATIVE_MINING);
-
-        TOOL_SHOVEL_HOLYSTONE = new ItemToolShovelHolystone("tool.shovel.holystone", itemKey("tool_shovel_holystone"), itemID("TOOL_SHOVEL_HOLYSTONE"), AetherToolMaterial.holystone);
-
-        TOOL_PICKAXE_HOLYSTONE = new ItemToolPickaxeHolystone("tool.pickaxe.holystone", itemKey("tool_pickaxe_holystone"), itemID("TOOL_PICKAXE_HOLYSTONE"), AetherToolMaterial.holystone);
-
-        TOOL_AXE_HOLYSTONE = new ItemToolAxeHolystone("tool.axe.holystone", itemKey("tool_axe_holystone"), itemID("TOOL_AXE_HOLYSTONE"), AetherToolMaterial.holystone);
-
-
-        TOOL_SWORD_ZANITE = new ItemToolSwordZanite("tool.sword.zanite", itemKey("tool_sword_zanite"), itemID("TOOL_SWORD_ZANITE"), AetherToolMaterial.zanite)
-            .withTags(ItemTags.PREVENT_CREATIVE_MINING);
-
-        TOOL_SHOVEL_ZANITE = new ItemToolShovelZanite("tool.shovel.zanite", itemKey("tool_shovel_zanite"), itemID("TOOL_SHOVEL_ZANITE"), AetherToolMaterial.zanite);
-
-        TOOL_PICKAXE_ZANITE = new ItemToolPickaxeZanite("tool.pickaxe.zanite", itemKey("tool_pickaxe_zanite"), itemID("TOOL_PICKAXE_ZANITE"), AetherToolMaterial.zanite);
-
-        TOOL_AXE_ZANITE = new ItemToolAxeZanite("tool.axe.zanite", itemKey("tool_axe_zanite"), itemID("TOOL_AXE_ZANITE"), AetherToolMaterial.zanite);
-
-
-        TOOL_SWORD_GRAVITITE = new ItemToolSwordGravitite("tool.sword.gravitite", itemKey("tool_sword_gravitite"), itemID("TOOL_SWORD_GRAVITITE"), AetherToolMaterial.gravitite)
-            .withTags(ItemTags.PREVENT_CREATIVE_MINING);
-
-        TOOL_SHOVEL_GRAVITITE = new ItemToolShovelGravitite("tool.shovel.gravitite", itemKey("tool_shovel_gravitite"), itemID("TOOL_SHOVEL_GRAVITITE"), AetherToolMaterial.gravitite);
-
-        TOOL_PICKAXE_GRAVITITE = new ItemToolPickaxeGravitite("tool.pickaxe.gravitite", itemKey("tool_pickaxe_gravitite"), itemID("TOOL_PICKAXE_GRAVITITE"), AetherToolMaterial.gravitite);
-
-        TOOL_AXE_GRAVITITE = new ItemToolAxeGravitite("tool.axe.gravitite", itemKey("tool_axe_gravitite"), itemID("TOOL_AXE_GRAVITITE"), AetherToolMaterial.gravitite);
-
-
-        TOOL_SWORD_VALKYRIE = new ItemToolSwordValkyrie("tool.sword.valkyrie", itemKey("tool_sword_valkyrie"), itemID("TOOL_SWORD_VALKYRIE"), AetherToolMaterial.valkyrie)
-            .withTags(ItemTags.PREVENT_CREATIVE_MINING);
-
-        TOOL_SHOVEL_VALKYRIE = new ItemToolShovelValkyrie("tool.shovel.valkyrie", itemKey("tool_shovel_valkyrie"), itemID("TOOL_SHOVEL_VALKYRIE"), AetherToolMaterial.valkyrie);
-
-        TOOL_PICKAXE_VALKYRIE = new ItemToolPickaxeValkyrie("tool.pickaxe.valkyrie", itemKey("tool_pickaxe_valkyrie"), itemID("TOOL_PICKAXE_VALKYRIE"), AetherToolMaterial.valkyrie);
-
-        TOOL_AXE_VALKYRIE = new ItemToolAxeValkyrie("tool.axe.valkyrie", itemKey("tool_axe_valkyrie"), itemID("TOOL_AXE_VALKYRIE"), AetherToolMaterial.valkyrie);
-
-
-        TOOL_KNIFE_LIGHTNING = new ItemToolKnifeLightning("tool.knife.lightning", itemKey("tool_knife_lightning"), itemID("TOOL_KNIFE_LIGHTNING"))
-            .withTags(ItemTags.PREVENT_CREATIVE_MINING)
-            .setMaxStackSize(32);
-
-
-        AMMO_HAMMER_HEAD = new Item("ammo.hammer.head", itemKey("ammo_hammer_head"), itemID("AMMO_HAMMER_HEAD"))
-            .withTags(ItemTags.NOT_IN_CREATIVE_MENU);
-
-        TOOL_HAMMER_NOTCH = new ItemToolHammerNotch("tool.hammer.notch", itemKey("tool_hammer_notch"), itemID("TOOL_HAMMER_NOTCH"), AetherToolMaterial.special)
-            .withTags(ItemTags.PREVENT_CREATIVE_MINING);
-
-
-        TOOL_BOW_PHOENIX = new ItemBowPhoenix("tool.bow.phoenix", itemKey("tool_bow_phoenix"), itemID("TOOL_BOW_PHOENIX"))
-            .withTags(ItemTags.IS_FIRE_PROOF);
-
-
-        AMMO_DART_GOLDEN = new ItemDart("ammo.dart.golden", itemKey("ammo_dart_golden"), itemID("AMMO_DART_GOLDEN"), 0);
-
-        AMMO_DART_POISON = new ItemDart("ammo.dart.poison", itemKey("ammo_dart_poison"), itemID("AMMO_DART_POISON"), 1);
-
-        AMMO_DART_ENCHANTED = new ItemDart("ammo.dart.enchanted", itemKey("ammo_dart_enchanted"), itemID("AMMO_DART_ENCHANTED"), 2);
-
-
-        TOOL_SHOOTER = new ItemShooter("tool.shooter", itemKey("tool_shooter"), itemID("TOOL_SHOOTER"));
-
-
-        AMMO_ARROW_FLAMING = new Item("ammo.arrow.flaming", itemKey("ammo_arrow_flaming"), itemID("AMMO_ARROW_FLAMING"))
-            .withTags(ItemTags.NOT_IN_CREATIVE_MENU);
-
-
-        TOOL_SWORD_PIG = new ItemToolSwordPig("tool.sword.pig", itemKey("tool_sword_pig"), itemID("TOOL_SWORD_PIG"), AetherToolMaterial.special)
-            .withTags(ItemTags.PREVENT_CREATIVE_MINING);
-
-        TOOL_SWORD_VAMPIRE = new ItemToolSwordVampire("tool.sword.vampire", itemKey("tool_sword_vampire"), itemID("TOOL_SWORD_VAMPIRE"), AetherToolMaterial.special)
-            .withTags(ItemTags.PREVENT_CREATIVE_MINING);
-
-        TOOL_SWORD_FLAME = new ItemToolSwordFire("tool.sword.flame", itemKey("tool_sword_flame"), itemID("TOOL_SWORD_FLAME"), AetherToolMaterial.special)
-            .withTags(ItemTags.PREVENT_CREATIVE_MINING);
-
-        TOOL_SWORD_HOLY = new ItemToolSwordHoly("tool.sword.holy", itemKey("tool_sword_holy"), itemID("TOOL_SWORD_HOLY"), AetherToolMaterial.special)
-            .withTags(ItemTags.PREVENT_CREATIVE_MINING);
-
-        TOOL_SWORD_LIGHTNING = new ItemToolSwordLightning("tool.sword.lightning", itemKey("tool_sword_lightning"), itemID("TOOL_SWORD_LIGHTNING"), AetherToolMaterial.special)
-            .withTags(ItemTags.PREVENT_CREATIVE_MINING);
-
-
-        TOOL_STAFF_NATURE = new Item("tool.staff.nature", itemKey("tool_staff_nature"), itemID("TOOL_STAFF_NATURE"))
-            .withTags(ItemTags.CHICKENS_FAVOURITE_ITEM, ItemTags.COWS_FAVOURITE_ITEM, AetherItemTags.NATURE_STAFF_FOLLOW, AetherItemTags.MOAS_FAVOURITE_ITEM)
-            .setMaxStackSize(1);
-
-        TOOL_STAFF_CLOUD = new ItemStaffCloud("tool.staff.cloud", itemKey("tool_staff_cloud"), itemID("TOOL_STAFF_CLOUD"));
-
-
-        TOOL_DUNGEON_COMPASS = new ItemTrinket("tool.dungeon_compass", itemKey("tool_dungeon_compass"), itemID("TOOL_DUNGEON_COMPASS"), "dungeon_compass");
-
-    }
-
-    public static void registerArmor() {
-
-        ARMOR_HELMET_ZANITE = new ItemArmor<>("armor.helmet.zanite", itemKey("armor_helmet_zanite"), itemID("ARMOR_HELMET_ZANITE"), AetherArmorMaterial.ZANITE, HumanArmorShape.HEAD);
-
-        ARMOR_CHESTPLATE_ZANITE = new ItemArmor<>("armor.chestplate.zanite", itemKey("armor_chestplate_zanite"), itemID("ARMOR_CHESTPLATE_ZANITE"), AetherArmorMaterial.ZANITE, HumanArmorShape.CHEST);
-
-        ARMOR_LEGGINGS_ZANITE = new ItemArmor<>("armor.leggings.zanite", itemKey("armor_leggings_zanite"), itemID("ARMOR_LEGGINGS_ZANITE"), AetherArmorMaterial.ZANITE, HumanArmorShape.LEGS);
-
-        ARMOR_BOOTS_ZANITE = new ItemArmor<>("armor.boots.zanite", itemKey("armor_boots_zanite"), itemID("ARMOR_BOOTS_ZANITE"), AetherArmorMaterial.ZANITE, HumanArmorShape.BOOTS);
-
-
-        ARMOR_HELMET_GRAVITITE = new ItemArmor<>("armor.helmet.gravitite", itemKey("armor_helmet_gravitite"), itemID("ARMOR_HELMET_GRAVITITE"), AetherArmorMaterial.GRAVITITE, HumanArmorShape.HEAD);
-
-        ARMOR_CHESTPLATE_GRAVITITE = new ItemArmor<>("armor.chestplate.gravitite", itemKey("armor_chestplate_gravitite"), itemID("ARMOR_CHESTPLATE_GRAVITITE"), AetherArmorMaterial.GRAVITITE, HumanArmorShape.CHEST);
-
-        ARMOR_LEGGINGS_GRAVITITE = new ItemArmor<>("armor.leggings.gravitite", itemKey("armor_leggings_gravitite"), itemID("ARMOR_LEGGINGS_GRAVITITE"), AetherArmorMaterial.GRAVITITE, HumanArmorShape.LEGS);
-
-        ARMOR_BOOTS_GRAVITITE = new ItemArmor<>("armor.boots.gravitite", itemKey("armor_boots_gravitite"), itemID("ARMOR_BOOTS_GRAVITITE"), AetherArmorMaterial.GRAVITITE, HumanArmorShape.BOOTS);
-
-
-        ARMOR_HELMET_OBSIDIAN = new ItemArmor<>("armor.helmet.obsidian", itemKey("armor_helmet_obsidian"), itemID("ARMOR_HELMET_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN, HumanArmorShape.HEAD)
-            .withTags(ItemTags.IS_BLAST_PROOF);
-
-        ARMOR_CHESTPLATE_OBSIDIAN = new ItemArmor<>("armor.chestplate.obsidian", itemKey("armor_chestplate_obsidian"), itemID("ARMOR_CHESTPLATE_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN, HumanArmorShape.CHEST)
-            .withTags(ItemTags.IS_BLAST_PROOF);
-
-        ARMOR_LEGGINGS_OBSIDIAN = new ItemArmor<>("armor.leggings.obsidian", itemKey("armor_leggings_obsidian"), itemID("ARMOR_LEGGINGS_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN, HumanArmorShape.LEGS)
-            .withTags(ItemTags.IS_BLAST_PROOF);
-
-        ARMOR_BOOTS_OBSIDIAN = new ItemArmor<>("armor.boots.obsidian", itemKey("armor_boots_obsidian"), itemID("ARMOR_BOOTS_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN, HumanArmorShape.BOOTS)
-            .withTags(ItemTags.IS_BLAST_PROOF);
-
-
-        ARMOR_HELMET_PHOENIX = new ItemArmor<>("armor.helmet.phoenix", itemKey("armor_helmet_phoenix"), itemID("ARMOR_HELMET_PHOENIX"), AetherArmorMaterial.PHOENIX, HumanArmorShape.HEAD)
-            .withTags(ItemTags.IS_FIRE_PROOF);
-
-        ARMOR_CHESTPLATE_PHOENIX = new ItemArmor<>("armor.chestplate.phoenix", itemKey("armor_chestplate_phoenix"), itemID("ARMOR_CHESTPLATE_PHOENIX"), AetherArmorMaterial.PHOENIX, HumanArmorShape.CHEST)
-            .withTags(ItemTags.IS_FIRE_PROOF);
-
-        ARMOR_LEGGINGS_PHOENIX = new ItemArmor<>("armor.leggings.phoenix", itemKey("armor_leggings_phoenix"), itemID("ARMOR_LEGGINGS_PHOENIX"), AetherArmorMaterial.PHOENIX, HumanArmorShape.LEGS)
-            .withTags(ItemTags.IS_FIRE_PROOF);
-
-        ARMOR_BOOTS_PHOENIX = new ItemArmor<>("armor.boots.phoenix", itemKey("armor_boots_phoenix"), itemID("ARMOR_BOOTS_PHOENIX"), AetherArmorMaterial.PHOENIX, HumanArmorShape.BOOTS)
-            .withTags(ItemTags.IS_FIRE_PROOF);
-
-
-        ARMOR_HELMET_NEPTUNE = new ItemArmor<>("armor.helmet.neptune", itemKey("armor_helmet_neptune"), itemID("ARMOR_HELMET_NEPTUNE"), AetherArmorMaterial.NEPTUNE, HumanArmorShape.HEAD);
-
-        ARMOR_CHESTPLATE_NEPTUNE = new ItemArmor<>("armor.chestplate.neptune", itemKey("armor_chestplate_neptune"), itemID("ARMOR_CHESTPLATE_NEPTUNE"), AetherArmorMaterial.NEPTUNE, HumanArmorShape.CHEST);
-
-        ARMOR_LEGGINGS_NEPTUNE = new ItemArmor<>("armor.leggings.neptune", itemKey("armor_leggings_neptune"), itemID("ARMOR_LEGGINGS_NEPTUNE"), AetherArmorMaterial.NEPTUNE, HumanArmorShape.LEGS);
-
-        ARMOR_BOOTS_NEPTUNE = new ItemArmor<>("armor.boots.neptune", itemKey("armor_boots_neptune"), itemID("ARMOR_BOOTS_NEPTUNE"), AetherArmorMaterial.NEPTUNE, HumanArmorShape.BOOTS);
-
-        ARMOR_WOLF_ZANITE = new ItemArmor<>("armor.wolf.zanite", itemKey("armor_wolf_zanite"), itemID("ARMOR_WOLF_ZANITE"), AetherArmorMaterial.ZANITE, WolfArmorShape.BODY);
-        ARMOR_WOLF_GRAVITITE = new ItemArmor<>("armor.wolf.gravitite", itemKey("armor_wolf_gravitite"), itemID("ARMOR_WOLF_GRAVITITE"), AetherArmorMaterial.GRAVITITE, WolfArmorShape.BODY);
-        ARMOR_WOLF_OBSIDIAN = new ItemArmor<>("armor.wolf.obsidian", itemKey("armor_wolf_obsidian"), itemID("ARMOR_WOLF_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN, WolfArmorShape.BODY);
-        ARMOR_WOLF_PHOENIX = new ItemArmor<>("armor.wolf.phoenix", itemKey("armor_wolf_phoenix"), itemID("ARMOR_WOLF_PHOENIX"), AetherArmorMaterial.PHOENIX, WolfArmorShape.BODY);
-        ARMOR_WOLF_NEPTUNE = new ItemArmor<>("armor.wolf.neptune", itemKey("armor_wolf_neptune"), itemID("ARMOR_WOLF_NEPTUNE"), AetherArmorMaterial.NEPTUNE, WolfArmorShape.BODY);
-
-
-        ARMOR_GLOVES_LEATHER = new ItemGloves("armor.gloves.leather", itemKey("armor_gloves_leather"), itemID("ARMOR_GLOVES_LEATHER"), ArmorMaterial.LEATHER, HumanAccessoryShape.GLOVES).setDamage(2);
-
-        ARMOR_GLOVES_CHAINMAIL = new ItemGloves("armor.gloves.chainmail", itemKey("armor_gloves_chainmail"), itemID("ARMOR_GLOVES_CHAINMAIL"), ArmorMaterial.CHAINMAIL, HumanAccessoryShape.GLOVES).setDamage(2);
-
-        ARMOR_GLOVES_IRON = new ItemGloves("armor.gloves.iron", itemKey("armor_gloves_iron"), itemID("ARMOR_GLOVES_IRON"), ArmorMaterial.IRON, HumanAccessoryShape.GLOVES).setDamage(2);
-
-        ARMOR_GLOVES_GOLD = new ItemGloves("armor.gloves.gold", itemKey("armor_gloves_gold"), itemID("ARMOR_GLOVES_GOLD"), ArmorMaterial.GOLD, HumanAccessoryShape.GLOVES).setDamage(2);
-
-        ARMOR_GLOVES_DIAMOND = new ItemGloves("armor.gloves.diamond", itemKey("armor_gloves_diamond"), itemID("ARMOR_GLOVES_DIAMOND"), ArmorMaterial.DIAMOND, HumanAccessoryShape.GLOVES).setDamage(4);
-
-        ARMOR_GLOVES_STEEL = new ItemGloves("armor.gloves.steel", itemKey("armor_gloves_steel"), itemID("ARMOR_GLOVES_STEEL"), ArmorMaterial.STEEL, HumanAccessoryShape.GLOVES).setDamage(3);
-
-        ARMOR_GLOVES_ZANITE = new ItemGloves("armor.gloves.zanite", itemKey("armor_gloves_zanite"), itemID("ARMOR_GLOVES_ZANITE"), AetherArmorMaterial.ZANITE, HumanAccessoryShape.GLOVES).setDamage(2);
-
-        ARMOR_GLOVES_GRAVITITE = new ItemGlovesGravitite("armor.gloves.gravitite", itemKey("armor_gloves_gravitite"), itemID("ARMOR_GLOVES_GRAVITITE"), AetherArmorMaterial.GRAVITITE, HumanAccessoryShape.GLOVES).setDamage(3).setDamageType(DamageType.FALL);
-
-        ARMOR_GLOVES_OBSIDIAN = new ItemGlovesObsidian("armor.gloves.obsidian", itemKey("armor_gloves_obsidian"), itemID("ARMOR_GLOVES_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN, HumanAccessoryShape.GLOVES).setDamage(3).setDamageType(DamageType.BLAST);
-
-        ARMOR_GLOVES_PHOENIX = new ItemGlovesPhoenix("armor.gloves.phoenix", itemKey("armor_gloves_phoenix"), itemID("ARMOR_GLOVES_PHOENIX"), AetherArmorMaterial.PHOENIX, HumanAccessoryShape.GLOVES).setDamage(3).setDamageType(DamageType.FIRE);
-
-        ARMOR_GLOVES_NEPTUNE = new ItemGlovesNeptune("armor.gloves.neptune", itemKey("armor_gloves_neptune"), itemID("ARMOR_GLOVES_NEPTUNE"), AetherArmorMaterial.NEPTUNE, HumanAccessoryShape.GLOVES).setDamage(3).setDamageType(DamageType.DROWN);
-
-
-        ARMOR_TALISMAN_REGEN = new ItemRegenStone("armor.talisman.regen", itemKey("armor_talisman_regen"), itemID("ARMOR_TALISMAN_REGEN"), "regen_trinket");
-
-        ARMOR_TALISMAN_BUBBLE = new ItemIronBubble("armor.talisman.bubble", itemKey("armor_talisman_bubble"), itemID("ARMOR_TALISMAN_BUBBLE"), "bubble");
-
-        ARMOR_TALISMAN_FEATHER_GOLD = new ItemGoldenFeather("armor.talisman.feather.gold", itemKey("armor_talisman_feather_gold"), itemID("ARMOR_TALISMAN_FEATHER_GOLD"), "feather_gold");
-
-
-        ARMOR_SHIELD_REPULSION = new ItemRepulsionShield("armor.shield.repulsion", itemKey("armor_shield_repulsion"), itemID("ARMOR_SHIELD_REPULSION"), "shield");
-
-
-        ARMOR_TALISMAN_LEATHER = new ItemPendant("armor.talisman.leather", itemKey("armor_talisman_leather"), itemID("ARMOR_TALISMAN_LEATHER"), "cloth");
-
-        ARMOR_TALISMAN_CHAINMAIL = new ItemCombatPendant("armor.talisman.chainmail", itemKey("armor_talisman_chainmail"), itemID("ARMOR_TALISMAN_CHAINMAIL"), ArmorMaterial.CHAINMAIL, "chain");
-
-        ARMOR_TALISMAN_IRON = new ItemPendant("armor.talisman.iron", itemKey("armor_talisman_iron"), itemID("ARMOR_TALISMAN_IRON"), "iron");
-
-        ///  we treat gold differently when harvesting as such we don't make it take damage when harvesting the way other pendant might
-        ARMOR_TALISMAN_GOLD = new ItemPendant("armor.talisman.gold", itemKey("armor_talisman_gold"), itemID("ARMOR_TALISMAN_GOLD"), ArmorMaterial.GOLD, "gold");
-
-        ARMOR_TALISMAN_DIAMOND = new ItemPendant("armor.talisman.diamond", itemKey("armor_talisman_diamond"), itemID("ARMOR_TALISMAN_DIAMOND"), ArmorMaterial.DIAMOND, "diamond")
-            .setHarvestDamageable();
-
-        ARMOR_TALISMAN_STEEL = new ItemPendant("armor.talisman.steel", itemKey("armor_talisman_steel"), itemID("ARMOR_TALISMAN_STEEL"), ArmorMaterial.STEEL, "steel");
-
-        ARMOR_TALISMAN_ZANITE = new ItemPendant("armor.talisman.zanite", itemKey("armor_talisman_zanite"), itemID("ARMOR_TALISMAN_ZANITE"), AetherArmorMaterial.ZANITE, "zanite")
-            .setHarvestDamageable();
-
-        ARMOR_TALISMAN_GRAVITITE = new ItemGravititePendant("armor.talisman.gravitite", itemKey("armor_talisman_gravitite"), itemID("ARMOR_TALISMAN_GRAVITITE"), "gravitite");
-
-        ARMOR_TALISMAN_ICE = new ItemIcePendant("armor.talisman.ice", itemKey("armor_talisman_ice"), itemID("ARMOR_TALISMAN_ICE"), "ice");
-
-
-        ARMOR_CAPE_AGILITY = new ItemCapeAgility("armor.cape.agility", itemKey("armor_cape_agility"), itemID("ARMOR_CAPE_AGILITY"), "agility");
-
-        ARMOR_CAPE_SWET = new ItemCapeSwet("armor.cape.swet", itemKey("armor_cape_swet"), itemID("ARMOR_CAPE_SWET"), "swet");
-
-        ARMOR_CAPE_INVISIBILITY = new ItemCapeInvisibility("armor.cape.invisibility", itemKey("armor_cape_invisibility"), itemID("ARMOR_CAPE_INVISIBILITY"), "invisibility");
-
-
-        ARMOR_CAPE_BLACK = new ItemCape("armor.cape.black", itemKey("armor_cape_black"), itemID("ARMOR_CAPE_BLACK"), "black");
-
-        ARMOR_CAPE_RED = new ItemCape("armor.cape.red", itemKey("armor_cape_red"), itemID("ARMOR_CAPE_RED"), "red");
-
-        ARMOR_CAPE_GREEN = new ItemCape("armor.cape.green", itemKey("armor_cape_green"), itemID("ARMOR_CAPE_GREEN"), "green");
-
-        ARMOR_CAPE_BROWN = new ItemCape("armor.cape.brown", itemKey("armor_cape_brown"), itemID("ARMOR_CAPE_BROWN"), "brown");
-
-        ARMOR_CAPE_BLUE = new ItemCape("armor.cape.blue", itemKey("armor_cape_blue"), itemID("ARMOR_CAPE_BLUE"), "blue");
-
-        ARMOR_CAPE_PURPLE = new ItemCape("armor.cape.purple", itemKey("armor_cape_purple"), itemID("ARMOR_CAPE_PURPLE"), "purple");
-
-        ARMOR_CAPE_CYAN = new ItemCape("armor.cape.cyan", itemKey("armor_cape_cyan"), itemID("ARMOR_CAPE_CYAN"), "cyan");
-
-        ARMOR_CAPE_SILVER = new ItemCape("armor.cape.silver", itemKey("armor_cape_silver"), itemID("ARMOR_CAPE_SILVER"), "silver");
-
-        ARMOR_CAPE_GRAY = new ItemCape("armor.cape.gray", itemKey("armor_cape_gray"), itemID("ARMOR_CAPE_GRAY"), "gray");
-
-        ARMOR_CAPE_PINK = new ItemCape("armor.cape.pink", itemKey("armor_cape_pink"), itemID("ARMOR_CAPE_PINK"), "pink");
-
-        ARMOR_CAPE_LIME = new ItemCape("armor.cape.lime", itemKey("armor_cape_lime"), itemID("ARMOR_CAPE_LIME"), "lime");
-
-        ARMOR_CAPE_YELLOW = new ItemCape("armor.cape.yellow", itemKey("armor_cape_yellow"), itemID("ARMOR_CAPE_YELLOW"), "yellow");
-
-        ARMOR_CAPE_LIGHTBLUE = new ItemCape("armor.cape.lightblue", itemKey("armor_cape_lightblue"), itemID("ARMOR_CAPE_LIGHTBLUE"), "lightblue");
-
-        ARMOR_CAPE_MAGENTA = new ItemCape("armor.cape.magenta", itemKey("armor_cape_magenta"), itemID("ARMOR_CAPE_MAGENTA"), "magenta");
-
-        ARMOR_CAPE_ORANGE = new ItemCape("armor.cape.orange", itemKey("armor_cape_orange"), itemID("ARMOR_CAPE_ORANGE"), "orange");
-
-        ARMOR_CAPE_WHITE = new ItemCape("armor.cape.white", itemKey("armor_cape_white"), itemID("ARMOR_CAPE_WHITE"), "white");
-
     }
 
 }

@@ -15,6 +15,7 @@ public class AetherItemTags {
     public static final Tag<Item> TRINKET = Tag.of("trinket"); // only assign to vanilla items
 
     public static final Tag<Item> FALLS_UPWARDS = Tag.of("falls_upwards");
+    public static final Tag<Item> IS_ACID_PROOF = Tag.of("is_acid_proof");
 
     @SafeVarargs
     public static Tag<Item>[] tags(Tag<Item>... tags) {
