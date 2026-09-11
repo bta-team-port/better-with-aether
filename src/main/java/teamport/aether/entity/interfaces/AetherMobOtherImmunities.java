@@ -8,4 +8,8 @@ public interface AetherMobOtherImmunities {
     default boolean canTakeDamageFromCactus() {
         return false;
     }
+
+    default boolean canTakeDamageFromAcid() {
+        return false;
+    }
 }
