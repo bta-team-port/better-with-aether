@@ -61,7 +61,7 @@ public class AetherMod implements ModInitializer {
     public static final String MOD_ID = HalpLibe.registerMod("aether", true);
     @SuppressWarnings("OptionalGetWithoutIsPresent")
     public static final String VERSION_STRING = FabricLoader.getInstance().getModContainer(MOD_ID).get().getMetadata().getVersion().getFriendlyString();
-//    public static final String STATE = "release";
+    //    public static final String STATE = "release";
     public static final String STATE = "pre1";
     public static I18n TRANSLATOR = null;
     public static MobFireflyCluster.FireflyColor SILVER;
@@ -87,12 +87,6 @@ public class AetherMod implements ModInitializer {
     public static final byte SILVER_CHANCES = 10;
     public static final byte GOLD_CHANCES = 11;
 
-    /**
-     * @deprecated Will be deprecated in the next HalpLibe release (6.2.1).
-     */
-    @Deprecated(forRemoval = true)
-    public static final SortedSingleEvent<Runnable> DIMENSION_REGISTRY = new SortedSingleEvent<>("Aether:DimensionRegistry");
-
     private final AetherRecipes recipes = new AetherRecipes();
 
     @Override
@@ -104,7 +98,6 @@ public class AetherMod implements ModInitializer {
         CommonEvents.RECIPES_NAMESPACE_INIT.listen(key, recipes::initNamespaces);
         CommonEvents.RECIPES_READY.listen(key, recipes::onRecipesReady);
 
-        AetherMod.DIMENSION_REGISTRY.listen(key, this::afterDimensionInit);
         AetherApiEvents.DUNGEON_REGISTER.listen(key, DungeonMap::registerDungeons);
         AetherApiEvents.DIMENSION_BLACKLIST.listen(key, AetherDimension::addBannedBlocks);
 
@@ -153,10 +146,6 @@ public class AetherMod implements ModInitializer {
         SoundTypes.loadSoundsJson(MOD_ID);
     }
 
-    public void afterDimensionInit(){
-        AetherDimension.register();
-    }
-
     public void afterGameStart() {
         AetherEffects.init();
         MimicRegistry.init();
@@ -182,9 +171,7 @@ public class AetherMod implements ModInitializer {
     public static void registerNewRecipeTypes() {
         Registries.RECIPE_TYPES.register("aether:machine", RecipeEntryAetherMachine.class);
         Registries.RECIPE_TYPES.register("aether:incubator", RecipeEntryIncubator.class);
-//        if (AetherConfig.INCLUDE_REPAIR_RECIPES) {
-            Registries.RECIPE_TYPES.register("aether:repair", RecipeEntryAetherMachine.class);
-//        }
+        Registries.RECIPE_TYPES.register("aether:repair", RecipeEntryAetherMachine.class);
     }
 
     public static void registerNewTagForBlocks() {

@@ -20,9 +20,4 @@ public abstract class MinecraftMixinEvents {
         AetherClient.HUD_INIT.emit(Runnable::run);
     }
 
-    @Inject(method = "startGame", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/world/Dimension;init()V", shift = At.Shift.AFTER))
-    public void dimensionRegistry(CallbackInfo ci) {
-        AetherMod.DIMENSION_REGISTRY.emit(Runnable::run);
-    }
-
 }
