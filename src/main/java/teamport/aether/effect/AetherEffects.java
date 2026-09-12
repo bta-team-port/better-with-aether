@@ -5,9 +5,18 @@ import net.minecraft.core.data.registry.Registry;
 import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
+import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
+import sunsetsatellite.catalyst.effects.api.attribute.Attributes;
+import sunsetsatellite.catalyst.effects.api.attribute.type.IntAttribute;
 import sunsetsatellite.catalyst.effects.api.effect.*;
+import sunsetsatellite.catalyst.effects.api.modifier.IItemWithModifiers;
+import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
+import teamport.aether.AetherGlobals;
+import teamport.aether.ducks.IContainerInventoryAether;
 import teamport.aether.entity.boss.slider.MobBossSlider;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
@@ -18,15 +27,16 @@ import teamport.aether.entity.monster.sentry.MobSentry;
 import teamport.aether.entity.monster.valkyrie.MobValkyrie;
 
 import java.util.*;
+import java.util.function.Function;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
 public class AetherEffects extends Registry<Effect> {
     public static class LookupLooks {
+
         public static final LookupLooks instance = new LookupLooks();
         public final Map<Effect, Effect> locker = new HashMap<>();
         public final Map<Effect, HashSet<Effect>> lockedEffects = new HashMap<>();
-
         public void addEntry(Effect getLocked, Effect lock) {
             this.locker.put(getLocked, lock);
             if (this.lockedEffects.containsKey(lock)) {
@@ -46,8 +56,8 @@ public class AetherEffects extends Registry<Effect> {
         public @Nullable Set<Effect> getLockedEffects(Effect id) {
             return this.lockedEffects.get(id);
         }
-    }
 
+    }
     private static boolean hasInit = false;
 
     private AetherEffects() {
@@ -63,11 +73,12 @@ public class AetherEffects extends Registry<Effect> {
     }
 
     public static Effect poisonEffect;
+
     public static Effect remedyEffect;
     public static Effect invisibility;
     public static Effect swetty;
-    private static final Tag<Effect> IMMUNE_TO_POISON = Tag.of("immune_to_poison");
 
+    private static final Tag<Effect> IMMUNE_TO_POISON = Tag.of("immune_to_poison");
     private static void assignEffects() {
         AetherEffects.poisonEffect = new PoisonEffect(
             "effect.aether.poison",
@@ -110,8 +121,6 @@ public class AetherEffects extends Registry<Effect> {
         effects.register(AetherEffects.remedyEffect.id, AetherEffects.remedyEffect);
         effects.register(AetherEffects.invisibility.id, AetherEffects.invisibility);
         effects.register(AetherEffects.swetty.id, AetherEffects.swetty);
-
-        effects.register(MOD_ID + ":extra_health", Effects.EXTRA_HEALTH);
 
         IMMUNE_TO_POISON.tag(AetherEffects.poisonEffect);
         EffectTagDispatcher.setImmunityFor(MobAechorPlant.class, IMMUNE_TO_POISON);
@@ -199,5 +208,29 @@ public class AetherEffects extends Registry<Effect> {
         }
 
         return false;
+    }
+
+    public static @NotNull Function<Player, List<Modifier<?>>> getPlayerAccessoriesModifiers() {
+        return AetherEffects::getPlayerAccessoriesModifiers;
+    }
+
+    private static @NotNull List<Modifier<?>> getPlayerAccessoriesModifiers(Player player) {
+        ArrayList<Modifier<?>> modifiers = new ArrayList<>();
+        ItemStack[] accessories = ((IContainerInventoryAether)player.inventory).aether$getAccessoryInventory();
+        for (int i = 0; i < accessories.length; i++) {
+            ItemStack stack = accessories[i];
+            if (stack != null && stack.getItem() instanceof IItemWithModifiers) {
+                Map<Modifier<?>, Boolean> itemModifiers =
+                    ((IItemWithModifiers) stack.getItem())
+                        .getModifiers((IHasEffects<?>) player, stack, AetherGlobals.AETHER_ACCESSORY_SLOT_OFFSET + i);
+
+                for (Map.Entry<Modifier<?>, Boolean> entry : itemModifiers.entrySet()) {
+                    if (entry.getValue()) {
+                        modifiers.add(entry.getKey());
+                    }
+                }
+            }
+        }
+        return modifiers;
     }
 }

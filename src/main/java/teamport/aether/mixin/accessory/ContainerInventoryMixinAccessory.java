@@ -18,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import teamport.aether.AetherGlobals;
 import teamport.aether.ducks.IContainerInventoryAether;
 import teamport.aether.item.accessory.IAccessoryEffects;
 
@@ -25,8 +26,6 @@ import java.util.Arrays;
 
 @Mixin(ContainerInventory.class)
 public abstract class ContainerInventoryMixinAccessory implements IContainerInventoryAether {
-    @Unique
-    private static final int AETHER_ACCESSORY_SLOT_OFFSET = 104;
 
     @Shadow
     @Final
@@ -68,7 +67,7 @@ public abstract class ContainerInventoryMixinAccessory implements IContainerInve
             ItemStack itemStack = accessoryInventory[slot];
             if (itemStack != null) {
                 CompoundTag itemTag = new CompoundTag();
-                itemTag.putByte("Slot", (byte) (AETHER_ACCESSORY_SLOT_OFFSET + slot));
+                itemTag.putByte("Slot", (byte) (AetherGlobals.AETHER_ACCESSORY_SLOT_OFFSET + slot));
                 itemStack.writeToNBT(itemTag);
                 result.addTag(itemTag);
             }
@@ -79,7 +78,7 @@ public abstract class ContainerInventoryMixinAccessory implements IContainerInve
     private void loadAccessories(@NonNull ListTag parentTag, CallbackInfo ci) {
         for (int i = 0; i < parentTag.tagCount(); ++i) {
             CompoundTag itemTag = (CompoundTag) parentTag.tagAt(i);
-            int slot = (itemTag.getByte("Slot") & 255) - AETHER_ACCESSORY_SLOT_OFFSET;
+            int slot = (itemTag.getByte("Slot") & 255) - AetherGlobals.AETHER_ACCESSORY_SLOT_OFFSET;
             if (slot >= 0 && slot < accessoryInventory.length) {
                 accessoryInventory[slot] = ItemStack.readItemStackFromNbt(itemTag);
             }

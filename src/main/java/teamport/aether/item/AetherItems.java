@@ -17,10 +17,7 @@ import teamport.aether.item.accessory.cape.ItemCapeAgility;
 import teamport.aether.item.accessory.cape.ItemCapeInvisibility;
 import teamport.aether.item.accessory.cape.ItemCapeSwet;
 import teamport.aether.item.accessory.gloves.*;
-import teamport.aether.item.accessory.pendant.ItemCombatPendant;
-import teamport.aether.item.accessory.pendant.ItemGravititePendant;
-import teamport.aether.item.accessory.pendant.ItemIcePendant;
-import teamport.aether.item.accessory.pendant.ItemPendant;
+import teamport.aether.item.accessory.pendant.*;
 import teamport.aether.item.accessory.trinket.*;
 import teamport.aether.item.item_tool.*;
 import teamport.aether.item.item_tool.item_tool_gravitite.ItemToolAxeGravitite;
@@ -353,7 +350,7 @@ public final class AetherItems {
         ARMOR_SHIELD_REPULSION = new ItemRepulsionShield("armor.shield.repulsion", itemKey("armor_shield_repulsion"), itemID("ARMOR_SHIELD_REPULSION"), "shield");
         ARMOR_TALISMAN_LEATHER = new ItemPendant("armor.talisman.leather", itemKey("armor_talisman_leather"), itemID("ARMOR_TALISMAN_LEATHER"), "cloth");
         ARMOR_TALISMAN_CHAINMAIL = new ItemCombatPendant("armor.talisman.chainmail", itemKey("armor_talisman_chainmail"), itemID("ARMOR_TALISMAN_CHAINMAIL"), ArmorMaterial.CHAINMAIL, "chain");
-        ARMOR_TALISMAN_IRON = new ItemPendant("armor.talisman.iron", itemKey("armor_talisman_iron"), itemID("ARMOR_TALISMAN_IRON"), "iron");
+        ARMOR_TALISMAN_IRON = new ItemCombatPendant("armor.talisman.iron", itemKey("armor_talisman_iron"), itemID("ARMOR_TALISMAN_IRON"),ArmorMaterial.IRON ,"iron");
         ///  we treat gold differently when harvesting as such we don't make it take damage when harvesting the way other pendant might
         ARMOR_TALISMAN_GOLD = new ItemPendant("armor.talisman.gold", itemKey("armor_talisman_gold"), itemID("ARMOR_TALISMAN_GOLD"), ArmorMaterial.GOLD, "gold");
         ARMOR_TALISMAN_DIAMOND = new ItemPendant("armor.talisman.diamond", itemKey("armor_talisman_diamond"), itemID("ARMOR_TALISMAN_DIAMOND"), ArmorMaterial.DIAMOND, "diamond")
