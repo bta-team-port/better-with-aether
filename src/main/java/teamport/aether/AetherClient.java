@@ -226,7 +226,7 @@ public class AetherClient implements ClientModInitializer {
     public void registerHUDComponents() {
 
         TRINKET_2_BAR = HudComponents.register((new HudComponentAccessoryBar("trinket_2_bar",
-            new LayoutSnap(HudComponents.BOOTS_BAR, ComponentAnchor.TOP_RIGHT, ComponentAnchor.BOTTOM_RIGHT, 0, -2), HumanAccessoryShape.TRINKET, 3))
+            new LayoutSnap(HudComponents.HOTBAR, ComponentAnchor.TOP_RIGHT, ComponentAnchor.BOTTOM_RIGHT, 0, -13), HumanAccessoryShape.TRINKET, 3))
             .addAttachedOption(AetherGameSettingsHolder.HIDE_TRINKET_2_BAR, () -> new ToggleableOptionComponent<>(AetherGameSettingsHolder.HIDE_TRINKET_2_BAR))
             .addAttachedOption(AetherGameSettingsHolder.FLIP_TRINKET_2_BAR, () -> new BooleanOptionComponent(AetherGameSettingsHolder.FLIP_TRINKET_2_BAR)));
 
