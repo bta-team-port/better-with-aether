@@ -96,7 +96,7 @@
     "fix.WorldTypeOverworldRespawnMixin",
     "fix.halplibe.MinecraftMixinEvents",
     "fix.halplibe.SaveConversionFix",
-    "gui.SortCreativeInventoryMixin",
+    "gui.CreativeMenuContentsMixinAddSpecials",
     "gui.screens.PlayerMixinAetherScreens",
     "item.ItemBlockBlacklistMixin",
     "item.ItemBlockSlabBlacklistMixin",
