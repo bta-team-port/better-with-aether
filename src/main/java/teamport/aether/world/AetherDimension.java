@@ -54,26 +54,14 @@ public class AetherDimension {
     private static final HashMap<UUID, Boolean> HAS_RECEIVED_PARACHUTE_MAP = new HashMap<>();
     private static final HashMap<UUID, CompoundTag> HAS_BUNNY_MAP = new HashMap<>();
     // inits
-    public static final Dimension AETHER;
+    public static Dimension AETHER;
     private static boolean hasInit = false;
 
-    static {
-        AETHER = new Dimension("aether", Dimension.OVERWORLD, 1.0f, AetherBlocks.PORTAL_AETHER, AetherWorldTypes.AETHER_DEFAULT);
-    }
 
     private AetherDimension() {
     }
 
     public static void init() {
-        /**
-         * ⚠️ Very important do not delete this! Do not think even of doing this. No I heard you thinking it stop it get some help.
-         * Dimension need to be created earlier as it is required to be not null for portal.
-         * The games does not check it! Registration however need to be done much later cause otherwise it will cause issues for
-         * loading worlds!
-         */
-    }
-
-    public static void register(){
         if (!hasInit) {
             hasInit = true;
             initializeDimension();
@@ -85,7 +73,8 @@ public class AetherDimension {
         AetherWorldTypes.init();
         BiomeProviderAether.init();
         WorldTypeGroups.GROUPS.size();
-        Dimension.registerDimension(AETHER_DIMENSION_ID, AETHER); // registration need to be happening later but init earlier
+        AETHER = new Dimension("aether", Dimension.OVERWORLD, 1.0f, AetherBlocks.PORTAL_AETHER, AetherWorldTypes.AETHER_DEFAULT);
+        Dimension.registerDimension(AETHER_DIMENSION_ID, AETHER);
         AetherWorldTypes.addToWorldTypeGroups(AETHER);
         AetherDimension.initDimensionBlackList();
     }
