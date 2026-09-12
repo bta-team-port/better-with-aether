@@ -36,7 +36,7 @@ public class ItemAccessory<T extends IAccessoryShape> extends Item implements IA
         IAccessoryWearing<HumanAccessoryShape> accessoryPlayer = (IAccessoryWearing<HumanAccessoryShape>) wearing;
 
         List<Integer> validSlots = new ArrayList<>();
-        for (int i = 0; i < accessoryPlayer.getNumAccessorySlots(); i++) {
+        for (int i = 0; i < accessoryPlayer.better_with_aether$getNumAccessorySlots(); i++) {
             if (accessoryPlayer.canItemGoInAccessorySlot(i, selfStack)) {
                 validSlots.add(i);
             }
@@ -49,7 +49,7 @@ public class ItemAccessory<T extends IAccessoryShape> extends Item implements IA
         int targetSlot = -1;
 
         for (int slotIndex : validSlots) {
-            if (accessoryPlayer.getAccessoryInSlot(slotIndex) == null) {
+            if (accessoryPlayer.better_with_aether$getAccessoryInSlot(slotIndex) == null) {
                 targetSlot = slotIndex;
                 break;
             }
@@ -62,14 +62,14 @@ public class ItemAccessory<T extends IAccessoryShape> extends Item implements IA
                 targetSlot = validSlots.get(0);
             }
         }
-        ItemStack currentStack = accessoryPlayer.getAccessoryInSlot(targetSlot);
+        ItemStack currentStack = accessoryPlayer.better_with_aether$getAccessoryInSlot(targetSlot);
 
         if (currentStack != null && currentStack.getItem() instanceof IAccessoryEffects oldEffects) {
             oldEffects.removeEffect(player, currentStack);
         }
 
         ItemStack equippedStack = selfStack.splitStack(1);
-        accessoryPlayer.setAccessoryInSlot(targetSlot, equippedStack);
+        accessoryPlayer.better_with_aether$setAccessoryInSlot(targetSlot, equippedStack);
 
         if (equippedStack.getItem() instanceof IAccessoryEffects newEffects) {
             newEffects.addEffect(player, equippedStack);

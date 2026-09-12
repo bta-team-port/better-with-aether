@@ -117,6 +117,7 @@ public class AetherMod implements ModInitializer {
         NetworkHandler.registerNetworkMessage(AetherDungeonMapRequestNetworkMessage::new);
         NetworkHandler.registerNetworkMessage(AetherSyncRepulsionNetworkMessage::new);
         NetworkHandler.registerNetworkMessage(EjectRiderNetworkMessage::new);
+        NetworkHandler.registerNetworkMessage(AetherSyncLifeShardMessage::new);
     }
 
     public void beforeGameStart() {
