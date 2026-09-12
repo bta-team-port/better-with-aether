@@ -17,7 +17,7 @@ public class ItemCombatPendant extends ItemPendant {
 
     @Override
     public float getArmorPieceProtectionPercentage() {
-        return (float) this.armorPieceProtection() / 80.0f;
+        return (float) this.armorPieceProtection() / 40.0f;
     }
 
 }

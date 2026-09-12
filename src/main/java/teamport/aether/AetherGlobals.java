@@ -2,6 +2,7 @@ package teamport.aether;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.spongepowered.asm.mixin.Unique;
 
 /**
  * Important, do not reference game classes here!
@@ -23,6 +24,8 @@ public class AetherGlobals {
     public static final String UUID_SMUSHYTACO = "c6d2219b-c8a5-4ccd-a816-5328b2b32653";
     public static final String UUID_TOUFOUMASTER = "61ca7ec2-322f-4f95-b0d5-a47d608b4934";
     public static final String UUID_RIN = "337409a3-79c1-442f-913b-7e5b54d1ee9d";
+    @Unique
+    public static final int AETHER_ACCESSORY_SLOT_OFFSET = 104;
 
 
     private AetherGlobals(){}

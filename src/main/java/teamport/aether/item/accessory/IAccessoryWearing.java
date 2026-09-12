@@ -11,19 +11,19 @@ import org.jspecify.annotations.Nullable;
 import teamport.aether.item.AetherArmorMaterial;
 
 public interface IAccessoryWearing<T extends IAccessoryShape> {
-    @Nullable ItemStack getAccessoryInSlot(int slotIndex);
+    @Nullable ItemStack better_with_aether$getAccessoryInSlot(int slotIndex);
 
-    void setAccessoryInSlot(int slotIndex, @Nullable ItemStack stack);
+    void better_with_aether$setAccessoryInSlot(int slotIndex, @Nullable ItemStack stack);
 
-    int getNumAccessorySlots();
+    int better_with_aether$getNumAccessorySlots();
 
-    @Nullable T getSlotShape(int slotIndex);
+    @Nullable T better_with_aether$getSlotShape(int slotIndex);
 
     default float getTotalAccessoryProtectionAmount(@NonNull DamageType damageType) {
         float protectionPercentage = 0.0F;
 
-        for (int i = 0; i < this.getNumAccessorySlots(); ++i) {
-            ItemStack itemStack = this.getAccessoryInSlot(i);
+        for (int i = 0; i < this.better_with_aether$getNumAccessorySlots(); ++i) {
+            ItemStack itemStack = this.better_with_aether$getAccessoryInSlot(i);
             if (itemStack != null && itemStack.getItem() instanceof IAccessoryItem<?> accessory) {
                 ArmorMaterial material = accessory.getArmorMaterial();
                 if (material != null) {
@@ -42,7 +42,7 @@ public interface IAccessoryWearing<T extends IAccessoryShape> {
     }
 
     default void damageAccessories(int damage, int slotIndex) {
-        ItemStack itemStack = this.getAccessoryInSlot(slotIndex);
+        ItemStack itemStack = this.better_with_aether$getAccessoryInSlot(slotIndex);
         if (itemStack != null && itemStack.getItem() instanceof IAccessoryItem<?> accessory) {
             if (!accessory.takesArmorDamage()) return;
 
@@ -51,14 +51,14 @@ public interface IAccessoryWearing<T extends IAccessoryShape> {
                 itemStack.damageItem(damage, entity);
 
                 if (itemStack.stackSize <= 0) {
-                    this.setAccessoryInSlot(slotIndex, null);
+                    this.better_with_aether$setAccessoryInSlot(slotIndex, null);
                 }
             }
         }
     }
 
     default void damageAccessories(int damage) {
-        for (int i = 0; i < this.getNumAccessorySlots(); ++i) {
+        for (int i = 0; i < this.better_with_aether$getNumAccessorySlots(); ++i) {
             this.damageAccessories(damage, i);
         }
     }
@@ -72,7 +72,7 @@ public interface IAccessoryWearing<T extends IAccessoryShape> {
         if (item == null || !(item.asItem() instanceof IAccessoryItem<?> accessory)) {
             return false;
         }
-        T slotShape = this.getSlotShape(slotIndex);
+        T slotShape = this.better_with_aether$getSlotShape(slotIndex);
         return slotShape != null && ((IAccessoryItem<T>) accessory).fitsInShape(slotShape);
     }
 }

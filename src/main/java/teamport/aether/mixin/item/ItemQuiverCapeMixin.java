@@ -25,7 +25,7 @@ public abstract class ItemQuiverCapeMixin {
         }
 
         ItemStack currentChest = player.getItemInArmorSlot(HumanArmorShape.CHEST);
-        ItemStack currentCape = accessoryPlayer.getAccessoryInSlot(HumanAccessoryShape.CAPE.getSlotIndex());
+        ItemStack currentCape = accessoryPlayer.better_with_aether$getAccessoryInSlot(HumanAccessoryShape.CAPE.getSlotIndex());
 
         if (player.isSneaking() || (currentChest != null && currentCape == null)) {
             if (currentCape != null && currentCape.getItem() instanceof IAccessoryEffects oldEffects) {
@@ -33,7 +33,7 @@ public abstract class ItemQuiverCapeMixin {
             }
 
             ItemStack equippedStack = selfStack.splitStack(1);
-            accessoryPlayer.setAccessoryInSlot(HumanAccessoryShape.CAPE.getSlotIndex(), equippedStack);
+            accessoryPlayer.better_with_aether$setAccessoryInSlot(HumanAccessoryShape.CAPE.getSlotIndex(), equippedStack);
 
             if (equippedStack.getItem() instanceof IAccessoryEffects newEffects) {
                 newEffects.addEffect(player, equippedStack);
