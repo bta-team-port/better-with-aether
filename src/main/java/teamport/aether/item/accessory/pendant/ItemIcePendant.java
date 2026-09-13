@@ -21,7 +21,7 @@ import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
 public class ItemIcePendant extends ItemPendant {
 
     public ItemIcePendant(@NonNull String translationKey, @NonNull String namespaceId, int id, String name) {
-        super(translationKey, namespaceId, id, ArmorMaterial.CHAINMAIL, name);
+        super(translationKey, namespaceId, id, ArmorMaterial.DIAMOND, name);
     }
 
     @Override
@@ -29,8 +29,7 @@ public class ItemIcePendant extends ItemPendant {
         if (player.isInWater() || player.isSneaking()) {
             return;
         }
-
-        freezeBlocks(stack, world, player, slotId);
+        this.freezeBlocks(stack, world, player, slotId);
     }
 
     public void freezeBlocks(@NonNull ItemStack stack, @NonNull World world, @NonNull Entity entity, int slotId) {
@@ -55,8 +54,8 @@ public class ItemIcePendant extends ItemPendant {
             return;
         }
 
-        Vector3d playerPos = new Vector3d(player.x, player.y - 1, player.z);
-        Vector3d playerNextPos = new Vector3d(player.x + player.xd, player.y - 1 + player.yd - 1, player.z + player.zd);
+        Vector3d playerPos = new Vector3d(player.x, player.bb.minY + player.heightOffset - player.ySlideOffset, player.z);
+        Vector3d playerNextPos = new Vector3d(player.x + player.xd, player.y + player.yd, player.z + player.zd);
         HitResult hits = world.checkBlockCollisionBetweenPoints(playerPos, playerNextPos, true);
         if (!(hits instanceof HitResult.Tile tile)) return;
         int proc = 0;
@@ -75,7 +74,7 @@ public class ItemIcePendant extends ItemPendant {
             }
         }
         if (proc > 0) {
-            damagePendant(stack, player);
+            this.damagePendant(stack, player);
         }
     }
 
