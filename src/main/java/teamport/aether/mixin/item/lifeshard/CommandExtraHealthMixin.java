@@ -21,14 +21,13 @@ public abstract class CommandExtraHealthMixin {
         if (amount >= 0 ) {
             return;
         }
-        byte lifeShardUsed = (byte) (((ILifeShard) player).better_with_aether$getLifeShardUsed());
-        if(amount >= lifeShardUsed){
-            lifeShardUsed = 0;
-        }else{
-            lifeShardUsed -= (byte) amount;
-        }
+        ILifeShard lifeShardUser = (ILifeShard) player;
+        byte lifeShardUsed = (byte) (lifeShardUser.better_with_aether$getLifeShardUsed());
+        lifeShardUsed = (byte) Math.max(0, lifeShardUsed - amount);
         if (EnvironmentHelper.isMultiplayerServer()) {
             NetworkHandler.sendToPlayer(player, new AetherSyncLifeShardMessage(lifeShardUsed));
+        }else{
+            lifeShardUser.better_with_aether$setLifeshardUsed(lifeShardUsed);
         }
     }
 
@@ -37,8 +36,9 @@ public abstract class CommandExtraHealthMixin {
     private static void setAdjustLifeShardUsed(Player player, int amount, Operation<Void> original) {
         int extraHealth = HealthHelper.getExtraHealth(player);
         original.call(player, amount);
-        byte lifeShardUsed = (byte) (((ILifeShard) player).better_with_aether$getLifeShardUsed());
-        if (amount <= 20) {
+        ILifeShard lifeShardUser = (ILifeShard) player;
+        byte lifeShardUsed = (byte) (lifeShardUser.better_with_aether$getLifeShardUsed());
+        if (amount <= 0) {
             lifeShardUsed = 0;
         }else{
             int diff = extraHealth - amount;
@@ -49,6 +49,8 @@ public abstract class CommandExtraHealthMixin {
         }
         if (EnvironmentHelper.isMultiplayerServer()) {
             NetworkHandler.sendToPlayer(player, new AetherSyncLifeShardMessage(lifeShardUsed));
+        }else{
+            lifeShardUser.better_with_aether$setLifeshardUsed(lifeShardUsed);
         }
     }
 
