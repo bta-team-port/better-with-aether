@@ -59,9 +59,9 @@ public class BiomeAether extends Biome {
         this.spawnableMonsterList.add(new SpawnListEntry(MobZephyr.class, 10));
         this.spawnableMonsterList.add(new SpawnListEntry(MobSwet.class, 5));
         this.spawnableMonsterList.add(new SpawnListEntry(MobSwetGold.class, 2));
-        this.spawnableMonsterList.add(new SpawnListEntry(MobAechorPlant.class, 5));
+        this.spawnableMonsterList.add(new SpawnListEntry(MobAechorPlant.class, 10));
         this.spawnableMonsterList.add(new SpawnListEntry(MobCockatrice.class, 10));
-        this.spawnableMonsterList.add(new SpawnListEntry(MobTempest.class, 5));
+        this.spawnableMonsterList.add(new SpawnListEntry(MobTempest.class, 10));
     }
 
     @Override
