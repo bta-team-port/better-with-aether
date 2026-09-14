@@ -77,7 +77,11 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         metadata = getMetaWithDirection(metadata, direction);
         ItemStack stack = mob instanceof Player player ? player.getHeldItem() : null;
         if (stack != null && stack.getItem() instanceof ItemBlock<?>) {
-            CompoundTag loot = stack.getData().getCompound("loot");
+            CompoundTag tag = stack.getData();
+            if (tag.containsKey("loot")) {
+                tag.putCompound("tileEntityData", tag.getCompound("loot"));
+            }
+            CompoundTag loot = tag.getCompound("tileEntityData");
             TileEntityChest chest = new TileEntityMimic();
             chest.readFromNBT(loot);
             world.setTileEntity(x, y, z, chest);
@@ -101,15 +105,11 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
             tileEntity = world.getTileEntity(x, y, z);
         }
         switch (dropCause) {
-            case EXPLOSION:
-            case PISTON_CRUSH:
+            case EXPLOSION, PISTON_CRUSH:
                 return dropAsDefeatedMimic(world, x, y, z, meta, tileEntity);
-            case SILK_TOUCH:
-            case PICK_BLOCK:
+            case SILK_TOUCH, PICK_BLOCK:
                 return dropAsBlock(meta, tileEntity);
-            case WORLD:
-            case PROPER_TOOL:
-            case IMPROPER_TOOL:
+            case WORLD, PROPER_TOOL,IMPROPER_TOOL:
                 if (!world.getDifficulty().canHostileMobsSpawn()) {
                     return dropAsDefeatedMimic(world, x, y, z, meta, tileEntity);
                 }
@@ -142,8 +142,8 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         ItemStack held = player.getHeldItem();
         if (held != null && held.getItem() instanceof ItemLabel) {
             TileEntity tileEntity = world.getTileEntity(x, y, z);
-            if (tileEntity instanceof TileEntityMimic) {
-                ((TileEntityMimic) tileEntity).setCustomName(held.getCustomName(), (byte) Math.max(held.getCustomColor(), 0));
+            if (tileEntity instanceof TileEntityMimic tileEntityMimic) {
+                tileEntityMimic.setCustomName(held.getCustomName(), (byte) Math.max(held.getCustomColor(), 0));
                 return true;
             }
         }
@@ -175,8 +175,8 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
     }
 
     private @NonNull ItemStack[] dropAsDefeatedMimic(World world, int x, int y, int z, int meta, TileEntity tileEntity) {
-        if (tileEntity instanceof TileEntityMimic) {
-            ((TileEntityMimic) tileEntity).dropContentForced(world, x, y, z);
+        if (tileEntity instanceof TileEntityMimic tileEntityMimic) {
+            tileEntityMimic.dropContentForced(world, x, y, z);
         }
         MimicEntry variant = MimicRegistry.getMimicVariantByMimicChest(this.id(), meta & COLOR_MASK);
         return new ItemStack[]{new ItemStack(variant.getChestID(), 1, variant.getChestMetadata())};
@@ -219,9 +219,9 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         mimic.spawnInit();
         mimic.setVariant(variant.getMimicVariant());
         mimic.setBlockData(variant.getMimicChestID(), variant.getMimicChestMetadata());
-        if (tileEntity instanceof TileEntityMimic) {
-            mimic.setNickname(((TileEntityMimic) tileEntity).getNickName());
-            mimic.setChatColor(((TileEntityMimic) tileEntity).getChatColor());
+        if (tileEntity instanceof TileEntityMimic tileEntityMimic) {
+            mimic.setNickname(tileEntityMimic.getNickName());
+            mimic.setChatColor(tileEntityMimic.getChatColor());
         }
         world.entityJoinedWorld(mimic);
         return mimic;
@@ -232,14 +232,13 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         CompoundTag data = result.getData();
         CompoundTag mimicData = new CompoundTag();
         if (tileEntity != null) {
-            if (tileEntity instanceof TileEntityMimic) {
-                TileEntityMimic mimicEntity = (TileEntityMimic) tileEntity;
+            if (tileEntity instanceof TileEntityMimic mimicEntity) {
                 result.setCustomColor(mimicEntity.getChatColor());
                 result.setCustomName(mimicEntity.getNickName());
             }
             tileEntity.writeToNBT(mimicData);
         }
-        data.putCompound("loot", mimicData);
+        data.putCompound("tileEntityData", mimicData);
         result.setData(data);
         return new ItemStack[]{result};
     }
@@ -296,7 +295,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         return !world.isBlockNormalCube(x, y, z) && !world.isBlockNormalCube(x, y + 1, z);
     }
 
-    public static void setRandomDirections(@NonNull World world, Random random, int x, int y, int z){
+    public static void setRandomDirections(@NonNull World world, Random random, int x, int y, int z) {
         if (!world.isClientSide) {
             world.setBlockMetadataWithNotify(
                 x, y, z,
