@@ -37,7 +37,7 @@ public class BlockLogicDirtAether extends BlockLogic implements IBonemealable {
     }
 
     @Override
-    public boolean onBonemealUsed(@NonNull ItemStack itemStack, @Nullable Player player, World world, TilePosc pos, @NonNull Side side, double d, double e) {
+    public boolean onBonemealUsed(@NonNull ItemStack itemStack, @Nullable Player player, @NonNull World world, @NonNull TilePosc pos, @NonNull Side side, double d, double e) {
         int i = pos.x();
         int j = pos.y();
         int k = pos.z();
