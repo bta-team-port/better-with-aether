@@ -47,7 +47,7 @@ public class DensityGeneratorAether implements DensityGenerator {
         double[] densityMapArray = new double[noiseSize];
 
         double mainNoiseScaleX = 80.0;
-        double mainNoiseScaleY = 80.0;
+        double mainNoiseScaleY = 120.0;
         double mainNoiseScaleZ = 80.0;
 
         final double coordScale = 684.412 / 4.0;
@@ -68,7 +68,7 @@ public class DensityGeneratorAether implements DensityGenerator {
 
                     double minDensity = this.minLimitBuffer[mainIndex] / upperLimitScale;
                     double maxDensity = this.maxLimitBuffer[mainIndex] / lowerLimitScale;
-                    double mainDensity = (this.mainNoiseBuffer[mainIndex] / 10.0 + 1.0) / 2.0;
+                    double mainDensity = (this.mainNoiseBuffer[mainIndex] / 10.0 + 1.0);
 
                     double density;
                     if (mainDensity < 0.0) {
@@ -78,7 +78,7 @@ public class DensityGeneratorAether implements DensityGenerator {
                     } else {
                         density = minDensity + (maxDensity - minDensity) * mainDensity;
                     }
-                    density -= 16.0;
+                    density -= 32.0;
 
                     // Modulate density based on Y level to make islands smaller and thinner higher up
                     // Higher Y reduces density, making islands sparser and smaller
@@ -86,13 +86,13 @@ public class DensityGeneratorAether implements DensityGenerator {
                     yFactor = Math.sin(yFactor * Math.PI);
                     density *= yFactor * 0.8 + 0.4; // Scale density: 1.0 at bottom, 0.5 at top
 
-                    int upperLowerLimit = 6;
+                    int upperLowerLimit = 35;
                     if (dy > ySize - upperLowerLimit) {
                         double densityMod = (double) (dy - (ySize - upperLowerLimit)) / (upperLowerLimit - 1.0);
                         density = density * (1.0 - densityMod) + (-30.0 * densityMod);
                     }
 
-                    int bottomLowerLimit = 4;
+                    int bottomLowerLimit = 5;
                     if (dy < bottomLowerLimit) {
                         double densityMod = (double) (bottomLowerLimit - dy) / (bottomLowerLimit - 1.0);
                         density = density * (1.0 - densityMod) + (-30.0 * densityMod);

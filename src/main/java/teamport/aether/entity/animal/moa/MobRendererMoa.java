@@ -17,7 +17,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.useless.dragonfly.models.entity.BoneTransform;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
-import teamport.aether.item.AetherItemTags;
+import teamport.aether.item.AetherItems;
 
 @Environment(EnvType.CLIENT)
 public class MobRendererMoa extends MobRenderer<MobMoa> {
@@ -68,7 +68,7 @@ public class MobRendererMoa extends MobRenderer<MobMoa> {
             Player player = mc.thePlayer;
             if (player != null && entity == player.vehicle) {
                 ItemStack held = player.inventory.getCurrentItem();
-                if (held == null || held.getItem().hasTag(AetherItemTags.MOAS_FAVOURITE_ITEM)) {
+                if (held == null || held.itemID != AetherItems.PETAL_AECHOR.id) {
                     Vector3dc eye = player.getPosition(partialTick, true);
                     Vector3dc look = player.getViewVector(partialTick);
                     if (look == null) {

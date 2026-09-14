@@ -3,9 +3,14 @@ package teamport.aether.mixin.item;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.option.enums.TextureAnimation;
 import net.minecraft.client.render.TextureManager;
 import net.minecraft.client.render.dynamictexture.DynamicTexture;
+import net.minecraft.client.render.dynamictexture.DynamicTextureCustom;
+import net.minecraft.client.render.texture.meta.AnimationProperties;
+import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
+import net.minecraft.core.util.helper.DyeColor;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -20,10 +25,25 @@ public abstract class DynamicTexturesMixin {
     @Shadow
     @Final
     public Minecraft mc;
+
     @Shadow
     protected abstract void addDynamicTexture(DynamicTexture texture);
+
     @Inject(method = "initDynamicTextures", at = @At(value = "TAIL"))
     private void initDynamicTextures(CallbackInfo ci) {
         this.addDynamicTexture(new DynamicTextureDungeonCompass(this.mc, TextureRegistry.getTexture("aether:item/tool_dungeon_compass")));
+    }
+
+    @Inject(method = "addNativeDynamicTextures", at = @At("TAIL"))
+    private void addNativeDynamicTextures(TextureAnimation state, CallbackInfo ci) {
+        if (state != TextureAnimation.CUSTOM) {
+            for (DyeColor c : DyeColor.values()) {
+                IconCoordinate cAether = TextureRegistry.getTexture("aether:block/portal_aether/" + c.colorID);
+
+                assert cAether.hasMeta("animation") : "Coordinate " + cAether.namespaceId + " is expected to have animation data attached!";
+
+                this.addDynamicTexture(new DynamicTextureCustom(cAether, cAether.getMeta("animation", AnimationProperties.class)));
+            }
+        }
     }
 }

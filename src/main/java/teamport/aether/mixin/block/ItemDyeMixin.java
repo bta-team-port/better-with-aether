@@ -35,13 +35,15 @@ public abstract class ItemDyeMixin extends Item {
 
     @WrapOperation(method = "onUseOnBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/world/World;setBlockTypeNotify(Lnet/minecraft/core/world/pos/TilePosc;Lnet/minecraft/core/block/Block;)Z"))
     private boolean replaceWithAetherFlora(@NonNull World world, @NonNull TilePosc tilePos, @NonNull Block<?> block, Operation<Boolean> original) {
-        Block<?> soil = world.getBlockType(new TilePos(tilePos.x(), tilePos.y() - 1, tilePos.z()));
+        if (world.isAirBlock(tilePos)) {
+            Block<?> soil = world.getBlockType(new TilePos(tilePos.x(), tilePos.y() - 1, tilePos.z()));
 
-        if (soil.hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS)) {
-            if (block == Blocks.TALLGRASS || block == Blocks.SPINIFEX) {
-                block = AetherBlocks.TALLGRASS_AETHER;
-            } else {
-                block = itemRand.nextBoolean() ? AetherBlocks.FLOWER_PURPLE : AetherBlocks.FLOWER_WHITE;
+            if (soil.hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS)) {
+                if (block == Blocks.TALLGRASS || block == Blocks.SPINIFEX) {
+                    block = AetherBlocks.TALLGRASS_AETHER;
+                } else {
+                    block = itemRand.nextBoolean() ? AetherBlocks.FLOWER_PURPLE : AetherBlocks.FLOWER_WHITE;
+                }
             }
         }
 

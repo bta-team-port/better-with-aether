@@ -2,15 +2,17 @@ package teamport.aether.entity.monster.zephyr;
 
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.EntityItemHoming;
 import net.minecraft.core.entity.MobFlying;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.player.gamemode.Gamemodes;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.LightIndexHelper;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
-import org.joml.Vector3dc;
 import org.joml.primitives.AABBd;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -18,7 +20,11 @@ import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.entity.projectile.windball.ProjectileWindball;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MobZephyr extends MobFlying implements Enemy {
+    private static final int DATA_CHARGING = 16;
     private int courseChangeCooldown = 0;
     private double waypointX;
     private double waypointY;
@@ -55,27 +61,24 @@ public class MobZephyr extends MobFlying implements Enemy {
 
     @Override
     public void defineSynchedData() {
-        this.entityData.define(16, (byte) 0, Byte.class);
+        super.defineSynchedData();
+        this.entityData.define(DATA_CHARGING, (byte) 0, Byte.class);
     }
 
     @Override
     public @NonNull String getEntityTexture() {
-        return this.entityData.getByte(16) != 1 ? super.getEntityTexture() : "/assets/aether/textures/entity/zephyr_fire/" + this.getTextureReference() + ".png";
+        return this.entityData.getByte(DATA_CHARGING) != 1 ? super.getEntityTexture() : "/assets/aether/textures/entity/zephyr_fire/" + this.getTextureReference() + ".png";
     }
 
     @Override
     public @NonNull String getDefaultEntityTexture() {
-        if (this.entityData.getByte(16) != 1) {
-            return super.getEntityTexture();
-        }
-        return "/assets/aether/textures/entity/zephyr_fire/" + this.getTextureReference() + ".png";
+        return this.entityData.getByte(DATA_CHARGING) != 1 ? super.getEntityTexture() : "/assets/aether/textures/entity/zephyr_fire/" + this.getTextureReference() + ".png";
     }
 
     @Override
-    @SuppressWarnings("java:S1192")
     public void tick() {
         if (this.world.isClientSide) {
-            byte i = this.entityData.getByte(16);
+            byte i = this.entityData.getByte(DATA_CHARGING);
             if (i > 0 && this.attackCharge == 0) {
                 this.world.playSoundAtEntity(null, this, "aether:mob.zephyr.shoot", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
             }
@@ -108,94 +111,109 @@ public class MobZephyr extends MobFlying implements Enemy {
     public void updateAI() {
         if (!this.world.isClientSide && !this.world.getDifficulty().canHostileMobsSpawn()) {
             this.remove();
-        }
-
-        if (this.y < -2.0 || this.y > world.getHeightBlocks()) {
-            this.remove();
-        }
-
-        this.tryToDespawn();
-        this.attackChargeO = this.attackCharge;
-        double d = this.waypointX - this.x;
-        double d1 = this.waypointY - this.y;
-        double d2 = this.waypointZ - this.z;
-        double d3 = Math.max(0.001F, MathHelper.sqrt(d * d + d1 * d1 + d2 * d2));
-        if (d3 < 1.0 || d3 > 60.0) {
-            this.waypointX = this.x + ((this.random.nextFloat() * 2.0F - 1.0F) * 16.0F);
-            this.waypointY = this.y + ((this.random.nextFloat() * 2.0F - 1.0F) * 16.0F);
-            this.waypointZ = this.z + ((this.random.nextFloat() * 2.0F - 1.0F) * 16.0F);
-        }
-
-        if (this.courseChangeCooldown-- <= 0) {
-            this.courseChangeCooldown += this.random.nextInt(5) + 2;
-            if (this.isCourseTraversable(d3)) {
-                this.xd += d / d3 * 0.1;
-                this.yd += d1 / d3 * 0.1;
-                this.zd += d2 / d3 * 0.1;
-            } else {
-                this.waypointX = this.x;
-                this.waypointY = this.y;
-                this.waypointZ = this.z;
-            }
-        }
-
-        if (this.targetedEntity != null && this.targetedEntity.removed) {
-            this.targetedEntity = null;
-        }
-
-        if (this.targetedEntity == null || this.aggroCooldown-- <= 0) {
-            this.targetedEntity = this.findPlayerToAttack();
-            if (this.targetedEntity != null) {
-                this.aggroCooldown = 20;
-            }
-
-            if (this.targetedEntity != null && !((Player) this.targetedEntity).getGamemode().hasHostileMobs()) {
-                this.targetedEntity = null;
-            }
-        }
-
-        double d4 = 64.0;
-        if (this.targetedEntity != null && this.targetedEntity.distanceToSqr(this) < d4 * d4) {
-            double d8 = 4.0;
-            Vector3dc vec3 = this.getViewVector(1.0F);
-            double dX = this.targetedEntity.x - this.x;
-            double dY = this.targetedEntity.y - this.y;
-            double dZ = this.targetedEntity.z - this.z;
-            double dist = MathHelper.sqrt(dX * dX + dY * dY + dZ * dZ);
-            double vX = dX + this.targetedEntity.xd * dist / 7.5 - vec3.x() * d8;
-            double vY = dY + this.targetedEntity.yd * dist / 7.5 - ((this.bbHeight / 2.0F) + 0.5);
-            double vZ = dZ + this.targetedEntity.zd * dist / 7.5 - vec3.z() * d8;
-            this.yBodyRot = this.yRot = -((float) Math.atan2(vX, vZ)) * 180.0F / 3.1415927F;
-            if (this.canEntityBeSeen(this.targetedEntity)) {
-                if (this.attackCharge == 10) {
-                    this.world.playSoundAtEntity(null, this, "aether:mob.zephyr.call", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-                }
-
-                ++this.attackCharge;
-                if (this.attackCharge == 20) {
-                    this.world.playSoundAtEntity(null, this, "aether:mob.zephyr.shoot", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-                    ProjectileWindball windball = new ProjectileWindball(this.world, this, vX, vY, vZ);
-                    windball.setPos(this.x + vec3.x() * d8, this.y + (this.bbHeight / 2.0F) - 0.5, this.z + vec3.z() * d8);
-                    this.world.entityJoinedWorld(windball);
-                    this.attackCharge = -40;
-                }
-            } else if (this.attackCharge > 0) {
-                --this.attackCharge;
-            } else {
-                this.targetedEntity = null;
-            }
         } else {
-            this.yBodyRot = this.yRot = -((float) Math.atan2(this.xd, this.zd)) * 180.0F / 3.1415927F;
-            if (this.attackCharge > 0) {
-                --this.attackCharge;
-            }
-        }
 
-        if (!this.world.isClientSide) {
-            byte chargeData = this.entityData.getByte(16);
-            byte chargeState = (byte) (this.attackCharge <= 10 ? 0 : 1);
-            if (chargeData != chargeState) {
-                this.entityData.set(16, chargeState);
+            if (this.y < -2.0 || this.y > world.getHeightBlocks()) {
+                this.remove();
+            }
+
+            this.tryToDespawn();
+            double d = this.waypointX - this.x;
+            double d1 = this.waypointY - this.y;
+            double d2 = this.waypointZ - this.z;
+            double d3 = d * d + d1 * d1 + d2 * d2;
+            if (d3 < (double) 1.0F || d3 > (double) 3600.0F) {
+                this.waypointX = this.x + (double) ((this.random.nextFloat() * 2.0F - 1.0F) * 16.0F);
+                this.waypointY = this.y + (double) ((this.random.nextFloat() * 2.0F - 1.0F) * 16.0F);
+                this.waypointZ = this.z + (double) ((this.random.nextFloat() * 2.0F - 1.0F) * 16.0F);
+            }
+
+            if (this.courseChangeCooldown-- <= 0) {
+                this.courseChangeCooldown += this.random.nextInt(5) + 2;
+                d3 = MathHelper.sqrt(d3);
+                if (this.isCourseTraversable(this.waypointX, this.waypointY, this.waypointZ, d3)) {
+                    this.xd += d / d3 * 0.1;
+                    this.yd += d1 / d3 * 0.1;
+                    this.zd += d2 / d3 * 0.1;
+                } else {
+                    this.waypointX = this.x;
+                    this.waypointY = this.y;
+                    this.waypointZ = this.z;
+                }
+            }
+
+            if (this.targetedEntity == null || this.aggroCooldown-- <= 0) {
+                Entity potentialTarget = this.world.getClosestPlayerToEntity(this, 100.0);
+                if (potentialTarget instanceof Player p && p.gamemode != Gamemodes.CREATIVE && p.gamemode != Gamemodes.SPECTATOR) {
+                    this.targetedEntity = potentialTarget;
+                }
+
+                if (this.targetedEntity != null) {
+                    this.aggroCooldown = 20;
+                }
+            }
+
+            double maxAttackDist = 64.0F;
+            if (this.targetedEntity != null && this.targetedEntity.distanceToSqr(this) < maxAttackDist * maxAttackDist) {
+                double tx = this.targetedEntity.x - this.x;
+                double ty = this.targetedEntity.y + (double) (this.targetedEntity.bbHeight / 2.0F) - (this.y + (double) (this.bbHeight / 2.0F));
+                double tz = this.targetedEntity.z - this.z;
+                float targetYaw = -((float) Math.atan2(tx, tz)) * 180.0F / (float) Math.PI;
+                float deltaYaw = targetYaw - this.yRot;
+
+                while (deltaYaw < -180.0F) {
+                    deltaYaw += 360.0F;
+                }
+
+                while (deltaYaw >= 180.0F) {
+                    deltaYaw -= 360.0F;
+                }
+
+                this.yRot += deltaYaw * 0.1F;
+                this.yBodyRot = this.yRot;
+                if (this.canEntityBeSeen(this.targetedEntity)) {
+                    if (this.attackCharge == 10) {
+                        this.world.playSoundAtEntity(null, this, "aether:mob.zephyr.call", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+                    }
+
+                    this.attackCharge++;
+                    if (this.attackCharge == 20) {
+                        this.world.playSoundAtEntity(null, this, "aether:mob.zephyr.shoot", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+                        ProjectileWindball windball = new ProjectileWindball(this.world, this, tx, ty, tz);
+                        windball.setPos(this.x, this.y + this.bbHeight / 2.0F, this.z);
+                        this.world.entityJoinedWorld(windball);
+                        this.attackCharge = -40;
+                    }
+                } else if (this.attackCharge > 0) {
+                    this.attackCharge--;
+                }
+            } else {
+                if (this.xd * this.xd + this.zd * this.zd > 0.001) {
+                    float targetYaw = -((float) Math.atan2(this.xd, this.zd)) * 180.0F / (float) Math.PI;
+                    float deltaYaw = targetYaw - this.yRot;
+
+                    while (deltaYaw < -180.0F) {
+                        deltaYaw += 360.0F;
+                    }
+
+                    while (deltaYaw >= 180.0F) {
+                        deltaYaw -= 360.0F;
+                    }
+
+                    this.yRot += deltaYaw * 0.1F;
+                    this.yBodyRot = this.yRot;
+                }
+
+                if (this.attackCharge > 0) {
+                    this.attackCharge--;
+                }
+            }
+
+            if (!this.world.isClientSide) {
+                byte isCharging = (byte) (this.attackCharge > 10 ? 1 : 0);
+                if (this.entityData.getByte(16) != isCharging) {
+                    this.entityData.set(16, isCharging);
+                }
             }
         }
     }
@@ -208,15 +226,15 @@ public class MobZephyr extends MobFlying implements Enemy {
         return player;
     }
 
-    private boolean isCourseTraversable(double d3) {
-        double d4 = (this.waypointX - this.x) / d3;
-        double d5 = (this.waypointY - this.y) / d3;
-        double d6 = (this.waypointZ - this.z) / d3;
-        AABBd axisalignedbb = new AABBd(this.bb);
+    private boolean isCourseTraversable(double x, double y, double z, double d3) {
+        double d4 = (x - this.x) / d3;
+        double d5 = (y - this.y) / d3;
+        double d6 = (z - this.z) / d3;
+        AABBd aabb = new AABBd(this.bb);
 
-        for (int i = 1; i < d3; ++i) {
-            axisalignedbb.translate(d4, d5, d6);
-            if (!this.world.getCubes(this, axisalignedbb).isEmpty()) {
+        for (int i = 1; (double) i < d3; ++i) {
+            aabb.translate(d4, d5, d6);
+            if (!this.world.areBlocksLoaded(aabb) || !this.world.getCubes(this, aabb).isEmpty()) {
                 return false;
             }
         }
@@ -259,25 +277,50 @@ public class MobZephyr extends MobFlying implements Enemy {
 
     @Override
     public boolean canSpawnHere() {
-        boolean tooManyZephyrs = world.entities.stream()
-            .filter(MobZephyr.class::isInstance)
-            .filter(e -> e.distanceTo(this) <= 64)
-            .count() > 5;
-
-        if (tooManyZephyrs) return false;
-
-        TilePos blockPos = new TilePos(this.x, this.bb.minY - 0.5, this.z);
+        TilePos blockPos = new TilePos(this.x, this.bb.minY, this.z);
 
         return this.world.getDifficulty().canHostileMobsSpawn()
-            && this.world.checkIfAABBIsClear(this.bb)
-            && this.random.nextInt(10) == 0
+            && this.world.areBlocksLoaded(this.bb)
             && this.world.getCubes(this, this.bb).isEmpty()
-            && this.world.canBlockSeeSky(blockPos);
+            && this.world.canBlockSeeSky(blockPos)
+            && super.canSpawnHere();
     }
 
     @Override
     public int getMaxSpawnedInChunk() {
         return 1;
+    }
+
+    @Override
+    public int getMaxPerPlayer() {
+        return 3;
+    }
+
+    @Override
+    public void onDeath(Entity killer) {
+        List<WeightedRandomLootObject> storedDrops = new ArrayList<>(this.mobDrops);
+        this.mobDrops.clear();
+        super.onDeath(killer);
+        this.mobDrops.addAll(storedDrops);
+        if (!this.world.isClientSide) {
+            for (WeightedRandomLootObject lootObject : storedDrops) {
+                ItemStack dropStack = lootObject.getItemStack(this.random);
+                if (dropStack != null && dropStack.stackSize > 0) {
+                    if (killer instanceof Player) {
+                        for (int i = 0; i < dropStack.stackSize; i++) {
+                            ItemStack singleDrop = new ItemStack(dropStack.itemID, 1, dropStack.getMetadata());
+                            EntityItemHoming homingItem = new EntityItemHoming(this.world, this.x, this.y, this.z, singleDrop, killer);
+                            homingItem.xd = (this.random.nextFloat() - 0.5F) * 0.8F;
+                            homingItem.yd = this.random.nextFloat() * 0.8F;
+                            homingItem.zd = (this.random.nextFloat() - 0.5F) * 0.8F;
+                            this.world.entityJoinedWorld(homingItem);
+                        }
+                    } else {
+                        this.world.dropItem(new TilePos(this.x, this.y, this.z), dropStack);
+                    }
+                }
+            }
+        }
     }
 
     public int getAttackChargeO() {

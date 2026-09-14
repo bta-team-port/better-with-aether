@@ -21,3 +21,5 @@ aether.gui.un_missing_warn.proceed_0=Play Selected World
 aether.gui.un_missing_warn.proceed_1=Yes, Play Selected World!
 aether.gui.un_missing_warn.proceed_2=§eI AGREE TO CONTINUE.§r
 aether.gui.un_missing_warn.proceed_3=Continue
+
+gui.world_settings.page.world_settings.category.aether=Aether
