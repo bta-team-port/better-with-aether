@@ -14,6 +14,7 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 
 public class BlockLogicChestLocked extends BlockLogicRotatable {
@@ -61,12 +62,13 @@ public class BlockLogicChestLocked extends BlockLogicRotatable {
     }
 
     @Override
-    public float blockStrength(@NonNull World world, int x, int y, int z, @NonNull Side side, @NonNull Player player) {
+    public float getStrength(@NotNull World world, @NotNull TilePosc tilePos, @NotNull Side side, @NotNull Player player) {
         if (this.block.blockHardness < 0.0F) {
             return 0.0F;
         } else {
-            return !player.canHarvestBlock(this.block) ? 1.0F / this.block.blockHardness / 100.0F : player.getCurrentPlayerStrVsBlock(this.block) / this.block.blockHardness / 30.0F;
+            return !player.canHarvestBlock(this.block)
+                ? 1.0F / this.block.blockHardness / 100.0F
+                : player.getCurrentPlayerStrVsBlock(this.block) / this.block.blockHardness / 30.0F;
         }
     }
-
 }
