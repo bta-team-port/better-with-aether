@@ -6,9 +6,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.option.GameSettings;
 import net.minecraft.client.render.entity.MobRendererQuadruped;
 import net.minecraft.client.render.tessellator.TessellatorGeneral;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.Items;
 import net.minecraft.core.util.helper.MathHelper;
 import org.joml.Vector3d;
 import org.joml.Vector3dc;
@@ -65,7 +65,7 @@ public class MobRendererPhow extends MobRendererQuadruped<MobPhow> {
             Player player = mc.thePlayer;
             if (player != null && entity == player.vehicle) {
                 ItemStack held = player.inventory.getCurrentItem();
-                if (held == null || held.itemID != Blocks.MUSHROOM_BROWN.id() && held.itemID != Blocks.MUSHROOM_RED.id()) {
+                if (held == null || held.itemID != Items.WHEAT.id) {
                     Vector3dc eye = player.getPosition(partialTick, true);
                     Vector3dc look = player.getViewVector(partialTick);
                     if (look == null) {
