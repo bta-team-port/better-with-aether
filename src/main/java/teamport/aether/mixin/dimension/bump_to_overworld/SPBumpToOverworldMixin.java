@@ -68,7 +68,6 @@ public abstract class SPBumpToOverworldMixin extends Mob {
                     vehicleNBT.putString("id", vehicleId.toString());
                     v.saveWithoutId(vehicleNBT);
                 }
-                v.remove();
             }
 
             mc.currentWorld.setEntityDead(this);
