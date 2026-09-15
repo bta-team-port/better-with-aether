@@ -14,7 +14,7 @@ import org.useless.dragonfly.models.entity.StaticEntityModel;
 @Environment(EnvType.CLIENT)
 public class MobRendererSlider extends MobRenderer<MobBossSlider> {
     public MobRendererSlider(float shadowSize) {
-        super(shadowSize);
+        super(0.0f);
     }
 
     @Override
