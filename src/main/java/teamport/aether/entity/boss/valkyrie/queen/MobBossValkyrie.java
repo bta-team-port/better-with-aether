@@ -54,7 +54,7 @@ public class MobBossValkyrie extends MobBoss implements IItemHolding {
         super(world);
         this.setTextureIdentifier("aether", "boss_valkyrie");
         this.setSize(0.8F, 2.0F);
-        this.scoreValue = 50000;
+        this.scoreValue = 25000;
         this.mobDrops.add(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_HOLY.getDefaultStack(), 1));
         this.moveSpeed = 0.5F;
         this.footSize = 1.5f;

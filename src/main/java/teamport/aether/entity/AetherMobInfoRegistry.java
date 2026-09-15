@@ -73,7 +73,7 @@ public class AetherMobInfoRegistry {
         MobInfoRegistry.register(MobZephyr.class, "guidebook.section.mob.zephyr.name", "guidebook.section.mob.zephyr.desc", 10, 500, new MobInfoRegistry.MobDrop[]{
             new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.AERCLOUD_WHITE), 1.0f, 0, 6)});
 
-        MobInfoRegistry.register(MobCockatrice.class, "guidebook.section.mob.cockatrice.name", "guidebook.section.mob.cockatrice.desc", 40, 10, new MobInfoRegistry.MobDrop[]{
+        MobInfoRegistry.register(MobCockatrice.class, "guidebook.section.mob.cockatrice.name", "guidebook.section.mob.cockatrice.desc", 40, 500, new MobInfoRegistry.MobDrop[]{
             new MobInfoRegistry.MobDrop(new ItemStack(Items.FEATHER_CHICKEN), 1.0f, 0, 2)});
 
         MobInfoRegistry.register(MobSwet.class, "guidebook.section.mob.swet.name", "guidebook.section.mob.swet.desc", 16, 200, new MobInfoRegistry.MobDrop[]{
@@ -87,13 +87,13 @@ public class AetherMobInfoRegistry {
         MobInfoRegistry.register(MobAechorPlant.class, "guidebook.section.mob.aechorplant.name", "guidebook.section.mob.aechorplant.desc", 14, 200, new MobInfoRegistry.MobDrop[]{
             new MobInfoRegistry.MobDrop(new ItemStack(AetherItems.PETAL_AECHOR), 1.0f, 1, 4)});
 
-        MobInfoRegistry.register(MobMimic.class, "guidebook.section.mob.mimic.name", "guidebook.section.mob.mimic.desc", 80, 2000, new MobInfoRegistry.MobDrop[]{
+        MobInfoRegistry.register(MobMimic.class, "guidebook.section.mob.mimic.name", "guidebook.section.mob.mimic.desc", 80, 1000, new MobInfoRegistry.MobDrop[]{
             new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CHEST_PLANKS_SKYROOT), 1.0f, 1, 1)});
 
 
         // Bronze Dungeon
 
-        MobInfoRegistry.register(MobSentry.class, "guidebook.section.mob.sentry.name", "guidebook.section.mob.sentry.desc", 10, 200, new MobInfoRegistry.MobDrop[]{
+        MobInfoRegistry.register(MobSentry.class, "guidebook.section.mob.sentry.name", "guidebook.section.mob.sentry.desc", 10, 400, new MobInfoRegistry.MobDrop[]{
             new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CARVED_STONE), 1.0f, 1, 1),
             new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CARVED_STONE_LIGHT), 1.0f, 1, 1)});
 
@@ -103,10 +103,10 @@ public class AetherMobInfoRegistry {
 
         //Silver Dungeon
 
-        MobInfoRegistry.register(MobValkyrie.class, "guidebook.section.mob.valkyrie.name", "guidebook.section.mob.valkyrie.desc", 20, 5000, new MobInfoRegistry.MobDrop[]{
+        MobInfoRegistry.register(MobValkyrie.class, "guidebook.section.mob.valkyrie.name", "guidebook.section.mob.valkyrie.desc", 20, 2500, new MobInfoRegistry.MobDrop[]{
             new MobInfoRegistry.MobDrop(new ItemStack(AetherItems.MEDAL_VICTORY), 100.0f, 1, 1)});
 
-        MobInfoRegistry.register(MobBossValkyrie.class, "guidebook.section.mob.valkyrie.queen.name", "guidebook.section.mob.valkyrie.queen.desc", 750, 50000, new MobInfoRegistry.MobDrop[]{
+        MobInfoRegistry.register(MobBossValkyrie.class, "guidebook.section.mob.valkyrie.queen.name", "guidebook.section.mob.valkyrie.queen.desc", 750, 25000, new MobInfoRegistry.MobDrop[]{
             new MobInfoRegistry.MobDrop(new ItemStack(AetherItems.KEY_SILVER), 1.0f, 1, 1),
             new MobInfoRegistry.MobDrop(new ItemStack(AetherItems.TOOL_SWORD_HOLY), 1.0f, 1, 1)});
 
@@ -115,7 +115,7 @@ public class AetherMobInfoRegistry {
 
         MobInfoRegistry.register(MobFireMinion.class, "guidebook.section.mob.fireminion.name", "guidebook.section.mob.fireminion.desc", 40, 5000, null);
 
-        MobInfoRegistry.register(MobBossSunspirit.class, "guidebook.section.mob.sunspirit.name", "guidebook.section.mob.sunspirit.desc", 1000, 100000, new MobInfoRegistry.MobDrop[]{
+        MobInfoRegistry.register(MobBossSunspirit.class, "guidebook.section.mob.sunspirit.name", "guidebook.section.mob.sunspirit.desc", 1000, 50000, new MobInfoRegistry.MobDrop[]{
             new MobInfoRegistry.MobDrop(new ItemStack(AetherItems.KEY_GOLD), 100.0f, 1, 1)});
 
 
