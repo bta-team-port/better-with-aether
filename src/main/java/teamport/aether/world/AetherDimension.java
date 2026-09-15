@@ -73,7 +73,7 @@ public class AetherDimension {
          */
     }
 
-    public static void register(){
+    public static void register() {
         if (!hasInit) {
             hasInit = true;
             initializeDimension();
@@ -289,7 +289,15 @@ public class AetherDimension {
         List<CompoundTag> chunkList = ENTITIES_MOVED_TO_OVERWORLD.computeIfAbsent(chunk, i -> new ArrayList<>());
 
         CompoundTag data = new CompoundTag();
-        target.save(data);
+
+        var id = target.getDispatcherId();
+        if (id != null) {
+            data.putString("id", id.toString());
+            target.saveWithoutId(data);
+        } else {
+            target.save(data);
+        }
+
         target.remove();
 
         chunkList.add(data);
@@ -305,6 +313,11 @@ public class AetherDimension {
                     CompoundTag data = entities.remove(0);
 
                     Entity copy = EntityDispatcher.getInstance().createEntityFromNBT(data, world);
+                    if (copy == null) {
+                        AetherGlobals.LOGGER.warn("Failed to recreate fallen entity from NBT, skipping: {}", data);
+                        continue;
+                    }
+
                     copy.load(data);
 
                     float scale = Dimension.getCoordScale(AetherDimension.getAether(), Dimension.OVERWORLD);
