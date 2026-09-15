@@ -43,7 +43,6 @@ import teamport.aether.world.feature.AetherWorldFeatures;
 import teamport.aether.world.feature.util.map.DungeonMap;
 import turniplabs.halplibe.HalpLibe;
 import turniplabs.halplibe.event.defs.CommonEvents;
-import turniplabs.halplibe.event.impl.SortedSingleEvent;
 import turniplabs.halplibe.helper.network.NetworkHandler;
 import turniplabs.halplibe.util.deathcause.DeathCause;
 import turniplabs.halplibe.util.deathcause.DeathCauseEvents;

@@ -5,6 +5,7 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.MaterialLiquid;
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.ICollidable;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
@@ -16,6 +17,8 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
+import org.jetbrains.annotations.Nullable;
 import org.joml.primitives.AABBd;
 import org.joml.primitives.AABBdc;
 import org.jspecify.annotations.NonNull;
@@ -32,6 +35,7 @@ import teamport.aether.entity.player.MessageMaker;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.item_tool.ItemToolPickaxeAether;
 import teamport.aether.world.AetherDimension;
+import teamport.aether.world.feature.util.map.DungeonMap;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.ArrayList;
@@ -40,9 +44,8 @@ import java.util.function.Consumer;
 
 import static net.minecraft.core.Global.TICKS_PER_SECOND;
 import static teamport.aether.entity.DamageInstance.inst;
-import static teamport.aether.world.feature.util.map.DungeonMap.runWithDungeon;
 
-public class MobBossSlider extends MobBoss {
+public class MobBossSlider extends MobBoss implements ICollidable {
     private State currentState = State.ASLEEP;
 
     /// movement
@@ -266,8 +269,10 @@ public class MobBossSlider extends MobBoss {
         }
     }
 
-    public AABBdc getBb() {
-        return new AABBd(this.bb);
+
+    @Override
+    public @Nullable AABBdc getCollisionAABB() {
+        return this.bb;
     }
 
     public float getDeformX() {
@@ -280,11 +285,6 @@ public class MobBossSlider extends MobBoss {
 
     public int getDeformZ() {
         return this.deformZ;
-    }
-
-    @Override
-    public boolean showBoundingBoxOnHover() {
-        return !this.isAwake() && this.getHealth() > 0;
     }
 
     @Override
@@ -315,10 +315,6 @@ public class MobBossSlider extends MobBoss {
             return false;
         }
         ItemStack item = ((Player) attacker).inventory.getCurrentItem();
-
-        if(this.isDeapSleep()){
-            return false;
-        }
         if (item == null || (!(item.getItem() instanceof ItemToolPickaxe) && !(item.getItem() instanceof ItemToolPickaxeAether))) {
             if (!this.isAwake()) {
                 String message = "<" + ((Player) attacker).getDisplayName() + "> " + I18n.getInstance().translateKey("boss_slider.hit_fail");
@@ -337,9 +333,25 @@ public class MobBossSlider extends MobBoss {
         return super.hurt(attacker, (int) item.getStrVsBlock(AetherBlocks.COBBLE_HOLYSTONE), type);
     }
 
-    //temporary disable the waking up.
-    private boolean isDeapSleep(){
-        return true;
+    private void updateEntityData() {
+        if (EnvironmentHelper.isMultiplayerServer()) {
+            entityData.set(DATA_STATE, currentState.ordinal());
+            entityData.set(DATA_ALLOW_MOVEMENT, allowedToMove ? 1 : 0);
+            entityData.set(DATA_MOVEMENT_DIRECTION, moveDirection.ordinal());
+            entityData.set(DATA_MOVEMENT_AMOUNT, Float.floatToIntBits(blocksToMove));
+            return;
+        }
+        if (EnvironmentHelper.isMultiplayerClient()) {
+            currentState = State.values()[entityData.getInt(DATA_STATE)];
+            allowedToMove = entityData.getInt(DATA_ALLOW_MOVEMENT) > 0;
+            moveDirection = Direction.values()[entityData.getInt(DATA_MOVEMENT_DIRECTION)];
+            blocksToMove = Float.intBitsToFloat(entityData.getInt(DATA_MOVEMENT_AMOUNT));
+        }
+    }
+
+    @Override
+    public boolean showBoundingBoxOnHover() {
+        return !this.isAwake() && this.getHealth() > 0;
     }
 
     private void performDeformation(@NonNull Entity attacker) {
@@ -378,41 +390,12 @@ public class MobBossSlider extends MobBoss {
         return this.currentState != State.ASLEEP;
     }
 
-    public void tryAwake() {
-        if (!this.world.getDifficulty().canHostileMobsSpawn()) {
-            return;
-        }
-        if (!this.isAwake()) {
-            this.setState(State.AWAKE);
-            runWithDungeon(dungeonID, d -> d.lock(this.world));
-            this.world.playSoundAtEntity(null, this, "aether:mob.slider.awaken", 1F, 1F);
-
-            if (!EnvironmentHelper.isMultiplayerServer()) {
-                MobBoss.play("aether:aether_music_boss.sliderboss", this.x, this.y, this.z);
-            }
-
-            this.wakeUpTimer = WAKEUP_TIMER;
-        }
-    }
-
     protected void stateAwake() {
         if (this.world.getClosestPlayerToEntity(this, AetherDimension.BOSS_DETECTION_RADIUS) == null) {
-            this.setState(State.ASLEEP);
-            this.returnToOriginalState();
+            this.startSleep();
+            return;
         }
-        if (this.target == null || world.rand.nextInt(10) == 0) {
-            this.target = findPlayerToAttack();
-            if (!this.creativeAttackersList.isEmpty()) {
-                this.target = this.creativeAttackersList.get(0);
-                for (Player player : this.creativeAttackersList) {
-                    if (this.distanceToSqr(player) < this.distanceToSqr(this.target)) {
-                        this.target = player;
-                    }
-                }
-            }
-        } else if (this.distanceToSqr(this.target) > AetherDimension.BOSS_DETECTION_RANGE_SQR) {
-            this.target = null;
-        }
+        this.setTarget();
         if (!this.allowedToMove || this.target == null || this.blocksToMove > 0.05F) {
             return;
         }
@@ -421,13 +404,7 @@ public class MobBossSlider extends MobBoss {
         this.allowedToMove = false;
 
         if (this.distanceToSqr(this.target) <= 25 && progress < .60F && this.random.nextInt(6) == 0) {
-            this.moveDirection = Direction.UP;
-            this.blocksToMove = 45;
-
-            this.speed = BASE_SPEED * 2;
-            this.attackCoolDown = (int) Math.floor(MathHelper.lerp(MIN_ATTACK_COOL_DOWN, MAX_ATTACK_COOL_DOWN, 0.5));
-            this.currentState = State.SLAM;
-            this.slamGoingDown = false;
+            this.startSlam();
             return;
         }
         int moveAmount;
@@ -442,7 +419,57 @@ public class MobBossSlider extends MobBoss {
         this.world.playSoundAtEntity(null, this, "aether:mob.slider.move", 1.60F + this.random.nextFloat(), .45F + this.random.nextFloat());
     }
 
+    private void setTarget() {
+        if (this.target != null && world.rand.nextInt(10) != 0) {
+            if (this.distanceToSqr(this.target) <= AetherDimension.BOSS_DETECTION_RANGE_SQR) {
+                return;
+            }
+            this.target = null;
+        }
+        this.target = findPlayerToAttack();
+        if (this.creativeAttackersList.isEmpty()) {
+            return;
+        }
+        this.target = this.creativeAttackersList.get(0);
+        if (this.target == null) {
+            return;
+        }
+        for (Player player : this.creativeAttackersList) {
+            if (this.distanceToSqr(player) < this.distanceToSqr(this.target)) {
+                this.target = player;
+            }
+        }
+    }
+
+    public void tryAwake() {
+        if (!this.world.getDifficulty().canHostileMobsSpawn()) {
+            return;
+        }
+        if (this.isAwake()) {
+            return;
+        }
+        this.setState(State.AWAKE);
+        DungeonMap.runWithDungeon(dungeonID, d -> d.lock(this.world));
+        this.world.playSoundAtEntity(null, this, "aether:mob.slider.awaken", 1F, 1F);
+        if (!EnvironmentHelper.isMultiplayerServer()) {
+            MobBoss.play("aether:aether_music_boss.sliderboss", this.x, this.y, this.z);
+        }
+        this.wakeUpTimer = WAKEUP_TIMER;
+    }
+    private void startSleep() {
+        this.setState(State.ASLEEP);
+        this.returnToOriginalState();
+    }
+
     protected void stateAsleep() {/* ZZZ... */}
+    private void startSlam() {
+        this.moveDirection = Direction.UP;
+        this.blocksToMove = 45;
+        this.speed = BASE_SPEED * 2;
+        this.attackCoolDown = (int) Math.floor(MathHelper.lerp(MIN_ATTACK_COOL_DOWN, MAX_ATTACK_COOL_DOWN, 0.5));
+        this.setState(State.SLAM);
+        this.slamGoingDown = false;
+    }
 
     @SuppressWarnings("java:S131")
     protected void stateSlam() {
@@ -468,29 +495,17 @@ public class MobBossSlider extends MobBoss {
                     inst((int) Math.floor((BASE_DAMAGE * 0.75F) * getAngerModifier()), DamageType.COMBAT)
                 );
                 switch (calculateDirection(entity)) {
-                    case NORTH:
-                        entity.push(0, launchSpeed / 2, -launchSpeed);
-                        break;
-
-                    case SOUTH:
-                        entity.push(0, launchSpeed / 2, launchSpeed);
-                        break;
-
-                    case EAST:
-                        entity.push(launchSpeed, launchSpeed / 2, 0);
-                        break;
-
-                    case WEST:
-                        entity.push(-launchSpeed, launchSpeed / 2, 0);
-                        break;
+                    case NORTH -> entity.push(0, launchSpeed / 2, -launchSpeed);
+                    case SOUTH -> entity.push(0, launchSpeed / 2, launchSpeed);
+                    case EAST -> entity.push(launchSpeed, launchSpeed / 2, 0);
+                    case WEST -> entity.push(-launchSpeed, launchSpeed / 2, 0);
                 }
-
-                doExplosionEffect(entity.world, entity.x, entity.y, entity.z);
+                MobBossSlider.doExplosionEffect(entity.world, entity.x, entity.y, entity.z);
             }
             this.createSlamParticle(slamRadius);
             this.blocksToMove = 0;
             this.moveDirection = Direction.NONE;
-            this.currentState = State.AWAKE;
+            this.setState(State.AWAKE);
             this.speed = BASE_SPEED;
             this.attackCoolDown = MAX_ATTACK_COOL_DOWN;
         }
@@ -502,17 +517,33 @@ public class MobBossSlider extends MobBoss {
         return this.currentState == State.SLAM;
     }
 
+    @Override
+    public boolean collidesWith(Entity entity) {
+        if (0.25F >= blocksToMove) {
+            return super.collidesWith(entity);
+        }
+        if (entity instanceof Player player) {
+            if (!player.gamemode.hasInvulnerablePlayer()) {
+                MobUtil.multiHit(this, entity,
+                    inst((int) Math.floor(BASE_DAMAGE * getAngerModifier()), DamageType.FALL),
+                    inst((int) Math.floor((BASE_DAMAGE * 0.50F) * getAngerModifier()), DamageType.COMBAT)
+                );
+            }
+            return super.collidesWith(entity);
+        }
+        MobBossSlider.doExplosionEffect(entity.world, entity.x, entity.y, entity.z);
+        this.playCollidingSound();
+        return super.collidesWith(entity);
+    }
 
     @Override
     @SuppressWarnings("java:S6541")
     public void tick() {
         super.baseTick();
         if (!this.world.getDifficulty().canHostileMobsSpawn()) {
-            if (!this.isAwake()) {
-                return;
+            if (this.isAwake()) {
+                this.startSleep();
             }
-            this.setState(State.ASLEEP);
-            this.returnToOriginalState();
             return;
         }
         this.lerpSlider();
@@ -526,7 +557,6 @@ public class MobBossSlider extends MobBoss {
 
         if (blocksToMove <= 0.05F) {
             this.y = this.y % 1 < .50F ? Math.floor(this.y) : Math.ceil(this.y);
-
             this.yo = this.y;
             this.xo = this.x;
             this.zo = this.z;
@@ -584,17 +614,17 @@ public class MobBossSlider extends MobBoss {
     private int getBlocksBroken() {
         int blocksBroken = 0;
         if (this.blocksToMove <= 0) {
-            return blocksBroken;
+            return 0;
         }
         int y = (this.moveDirection == Direction.DOWN && this.currentState != State.SLAM) ? -1 : 0;
         for (int x = 0; x <= 3; x++) {
             for (int z = 0; z <= 3; z++) {
                 for (; y <= 2 && blocksBroken < 9; y++) {
-                    int x1 = (int) (this.x + x);
+                    int x1 = (int) (this.x - x);
                     int y1 = (int) (this.y + y);
-                    int z1 = (int) (this.z + z);
-                    Block<?> block = this.world.getBlock(x1, y1, z1);
-                    if (block == Blocks.AIR || !this.breakBlock(this.world, x1, y1, z1)) {
+                    int z1 = (int) (this.z - z);
+                    Block<?> block = this.world.getBlockType(new TilePos(x1, y1, z1));
+                    if (!this.breakBlock(this.world, new TilePos(x1, y1, z1))) {
                         continue;
                     }
                     this.blocksToMove -= 0.5F * Math.min(block.getHardness() / 3f, 1);
@@ -603,22 +633,6 @@ public class MobBossSlider extends MobBoss {
             }
         }
         return blocksBroken;
-    }
-
-    private void updateEntityData() {
-        if (EnvironmentHelper.isMultiplayerServer()) {
-            entityData.set(DATA_STATE, currentState.ordinal());
-            entityData.set(DATA_ALLOW_MOVEMENT, allowedToMove ? 1 : 0);
-            entityData.set(DATA_MOVEMENT_DIRECTION, moveDirection.ordinal());
-            entityData.set(DATA_MOVEMENT_AMOUNT, Float.floatToIntBits(blocksToMove));
-            return;
-        }
-        if (EnvironmentHelper.isMultiplayerClient()) {
-            currentState = State.values()[entityData.getInt(DATA_STATE)];
-            allowedToMove = entityData.getInt(DATA_ALLOW_MOVEMENT) > 0;
-            moveDirection = Direction.values()[entityData.getInt(DATA_MOVEMENT_DIRECTION)];
-            blocksToMove = Float.intBitsToFloat(entityData.getInt(DATA_MOVEMENT_AMOUNT));
-        }
     }
 
     private void lerpSlider() {
@@ -663,11 +677,11 @@ public class MobBossSlider extends MobBoss {
         }
     }
 
-    public boolean breakBlock(@NonNull World world, int x, int y, int z) {
+    public boolean breakBlock(@NonNull World world, TilePos tilePos) {
         if (this.getHealth() <= 0) {
             return false;
         }
-        Block<?> block = world.getBlock(x, y, z);
+        Block<?> block = world.getBlockType(tilePos);
         if (block.getLogic() instanceof BlockLogicTrapped ||
             block.getLogic() instanceof BlockLogicLocked ||
             block.getLogic() instanceof BlockLogicDungeonDoor ||
@@ -676,8 +690,8 @@ public class MobBossSlider extends MobBoss {
             block.getHardness() < 0) {
             return false;
         }
-        block.dropBlockWithCause(world, EnumDropCause.EXPLOSION, x, y, z, world.getBlockMetadata(x, y, z), world.getTileEntity(x, y, z), null);
-        world.setBlockWithNotify(x, y, z, 0);
+        block.dropWithCause(world, EnumDropCause.EXPLOSION, tilePos, world.getBlockData(tilePos), world.getTileEntity(tilePos), null);
+        world.setBlockTypeDataNotify(tilePos, Blocks.AIR, 0);
         return true;
     }
 
@@ -689,25 +703,6 @@ public class MobBossSlider extends MobBoss {
             ParticleMaker.spawnParticle(world, "explode", xParticle, yParticle, zParticle, 0, 0, 0, 0);
         }
         world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, x, y, z, "random.explode", 0.5F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
-    }
-
-    @Override
-    public boolean collidesWith(Entity entity) {
-        if (0.25F >= blocksToMove) {
-            return super.collidesWith(entity);
-        }
-        if (entity instanceof Player player) {
-            if (!player.gamemode.hasInvulnerablePlayer()) {
-                MobUtil.multiHit(this, entity,
-                    inst((int) Math.floor(BASE_DAMAGE * getAngerModifier()), DamageType.FALL),
-                    inst((int) Math.floor((BASE_DAMAGE * 0.50F) * getAngerModifier()), DamageType.COMBAT)
-                );
-            }
-            return super.collidesWith(entity);
-        }
-        doExplosionEffect(entity.world, entity.x, entity.y, entity.z);
-        this.playCollidingSound();
-        return super.collidesWith(entity);
     }
 
     @Override
