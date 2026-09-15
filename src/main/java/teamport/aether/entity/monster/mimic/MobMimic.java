@@ -61,7 +61,7 @@ public class MobMimic extends MobMonsterAether implements Enemy {
         super(world);
         this.setSize(1.0F, 1.8F);
         this.attackStrength = 5;
-        this.scoreValue = 2000;
+        this.scoreValue = 1000;
         this.mimicTime = 60 * Global.TICKS_PER_SECOND;
         this.setTextureIdentifier("aether", "mimic");
         this.setSkinVariant(this.getSkinVariant());

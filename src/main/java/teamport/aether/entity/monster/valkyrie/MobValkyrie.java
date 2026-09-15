@@ -40,7 +40,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, IItemHolding {
         this.setSize(0.8F, 1.9F);
         this.mobDrops.add(new WeightedRandomLootObject(AetherItems.MEDAL_VICTORY.getDefaultStack(), 1));
         this.moveSpeed = 0.5F;
-        this.scoreValue = 5000;
+        this.scoreValue = 2500;
         this.footSize = 1.5f;
         this.canBreatheUnderwater();
     }
