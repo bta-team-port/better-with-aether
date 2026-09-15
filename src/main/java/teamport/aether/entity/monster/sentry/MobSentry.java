@@ -21,7 +21,7 @@ public class MobSentry extends MobMonsterAether implements Enemy, AetherMobOther
     public MobSentry(World world) {
         super(world);
         this.setTextureIdentifier("aether", "sentry");
-        this.scoreValue = 200;
+        this.scoreValue = 400;
         this.setSize(1f, 1f);
         this.activated = false;
         this.cooldownInactive = 0;
