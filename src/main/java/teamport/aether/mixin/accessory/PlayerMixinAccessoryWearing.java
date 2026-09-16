@@ -4,6 +4,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -49,13 +50,37 @@ public abstract class PlayerMixinAccessoryWearing implements IAccessoryWearing<H
         };
     }
 
+    @Unique
+    private final ItemStack[] oldAccessoryInventory = new ItemStack[4];
+
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void checkAccessoryEquipSound(CallbackInfo ci) {
+        Player player = (Player) (Object) this;
+        boolean playEquipSound = false;
+
+        for (int i = 0; i < this.oldAccessoryInventory.length; i++) {
+            ItemStack oldStack = this.oldAccessoryInventory[i];
+            int slotIndex = player.inventory.getContainerSize() - 4 + i;
+            ItemStack currentStack = player.inventory.getItem(slotIndex);
+
+            if (oldStack != currentStack && (oldStack == null || currentStack == null || oldStack.itemID != currentStack.itemID)) {
+                playEquipSound = true;
+            }
+
+            this.oldAccessoryInventory[i] = currentStack != null ? currentStack.copy() : null;
+        }
+
+        if (playEquipSound) {
+            player.world.playSoundAtEntity(player, player, "random.equip", 2.0F, 1.0F);
+        }
+    }
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void init(World world, CallbackInfo ci) {
         ((IHasEffects<Player>) this)
-            .getContainer()
-            .additionalModifierSuppliers
-            .add(AetherEffects.getPlayerAccessoriesModifiers());
+                .getContainer()
+                .additionalModifierSuppliers
+                .add(AetherEffects.getPlayerAccessoriesModifiers());
     }
 
 }
