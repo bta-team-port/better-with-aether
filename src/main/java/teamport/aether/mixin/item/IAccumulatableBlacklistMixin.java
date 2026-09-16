@@ -23,7 +23,7 @@ import teamport.aether.helper.ParticleMaker;
 import teamport.aether.world.AetherDimension;
 
 @Mixin(IAccumulatable.class)
-public interface ItemBlockSlabBlacklistMixin {
+public interface IAccumulatableBlacklistMixin {
 
     @Definition(id = "stackSize", field = "Lnet/minecraft/core/item/ItemStack;stackSize:I")
     @Expression("?.stackSize <= 0")
