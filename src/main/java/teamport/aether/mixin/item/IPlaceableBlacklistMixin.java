@@ -25,7 +25,7 @@ import teamport.aether.world.SunSpiritDeath;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 @Mixin(IPlaceable.PlaceableBlock.class)
-public interface ItemBlockBlacklistMixin {
+public interface IPlaceableBlacklistMixin {
 
     @Shadow
     @NonNull Block<?> getBlock();
