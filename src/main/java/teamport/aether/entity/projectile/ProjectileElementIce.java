@@ -4,6 +4,7 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.enums.EnumBlockSoundEffectType;
 import net.minecraft.core.util.helper.BlockParticleHelper;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Side;
@@ -60,7 +61,7 @@ public class ProjectileElementIce extends ProjectileElementBase implements Aethe
             int data = "block".equals(key) ? iceData : 0;
             ParticleMaker.spawnParticle(world, key, px, py, pz, 0, 0, 0, data);
         }
-        world.playBlockSoundEffect(null, this.x, this.y, this.z, Blocks.ICE, net.minecraft.core.enums.EnumBlockSoundEffectType.MINE);
+        world.playBlockSoundEffect(null, this.x, this.y, this.z, Blocks.ICE, EnumBlockSoundEffectType.MINE);
     }
 
     @Override

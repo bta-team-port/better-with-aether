@@ -76,7 +76,6 @@ import teamport.aether.entity.renderer.EntityRendererNeedle;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
 import teamport.aether.entity.vehicle.parachute.EntityParachuteGold;
 import teamport.aether.entity.vehicle.parachute.EntityRendererParachute;
-import teamport.aether.entity.vehicle.parachute.EntityRendererParachuteGold;
 import teamport.aether.item.AetherItems;
 import teamport.aether.models.dungeon.BlockModelDungeonDoor;
 import teamport.aether.models.dungeon.BlockModelMimic;
@@ -304,7 +303,7 @@ public class AetherModels {
 
         dispatcher.assignRenderer(EntityFloatingBlock.class, new EntityRendererFloatingBlock());
         dispatcher.assignRenderer(EntityParachute.class, new EntityRendererParachute());
-        dispatcher.assignRenderer(EntityParachuteGold.class, new EntityRendererParachuteGold());
+        dispatcher.assignRenderer(EntityParachuteGold.class, new EntityRendererParachute());
     }
 
     public void initBlockColors(@NonNull BlockColorDispatcher dispatcher) {

@@ -7,6 +7,8 @@ import net.minecraft.client.render.renderer.BlendFactor;
 import net.minecraft.client.render.renderer.GLRenderer;
 import net.minecraft.client.render.renderer.State;
 import net.minecraft.client.render.tessellator.TessellatorGeneral;
+import net.minecraft.client.render.texture.stitcher.TextureRegistry;
+import org.joml.Math;
 import org.jspecify.annotations.NonNull;
 
 @Environment(EnvType.CLIENT)
@@ -15,22 +17,23 @@ public class EntityRendererParachute extends EntityRenderer<EntityParachute> {
         super(0.0F);
     }
 
+    @Override
     public void render(@NonNull TessellatorGeneral tessellator, @NonNull EntityParachute entity, double x, double y, double z, float yaw, float partialTick) {
         GLRenderer.pushFrame();
         GLRenderer.modelM4f().translate((float) x, (float) y, (float) z);
+        GLRenderer.modelM4f().rotateY(Math.toRadians(180.0F - yaw));
 
-        float f4 = 0.75F;
-        GLRenderer.modelM4f().scale(f4, f4, f4);
-        GLRenderer.modelM4f().scale(1.0F / f4, 1.0F / f4, 1.0F / f4);
-        this.bindTexture("/assets/aether/textures/entity/parachute.png");
-
-        GLRenderer.enableState(State.DEPTH_TEST);
         GLRenderer.enableState(State.BLEND);
         GLRenderer.setBlendFunc(BlendFactor.SRC_ALPHA, BlendFactor.ONE_MINUS_SRC_ALPHA);
-        GLRenderer.setColor4f(1.0F, 1.0F, 1.0F, .75F);
 
-        GLRenderer.modelM4f().scale(-1.0F, -1.0F, 1.0F);
-        ParachuteGeometry.render(tessellator);
+        TextureRegistry.worldAtlas.bind();
+        GLRenderer.modelM4f().scale(0.75F, 0.75F, 0.75F);
+        GLRenderer.modelM4f().scale(1.3333334F, 1.3333334F, 1.3333334F);
+
+        this.bindTexture(entity.getEntityTexture());
+
+        GLRenderer.modelM4f().scale(0.0625F, 0.0625F, -0.0625F);
+        this.getModel("main").render();
         GLRenderer.popFrame();
     }
 }

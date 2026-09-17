@@ -70,7 +70,10 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         this.decorateWithClouds(rand, minY, maxY, worldX, worldZ);
         if (world.getWorldType() == AetherWorldTypes.AETHER_EXTENDED || world.getWorldType() == AetherWorldTypes.AETHER_AMPLIFIED)
             this.decorateWithFlatClouds(chunk);
-        this.decorateWithDungeons(chunk, rand, minY, maxY);
+
+        if ((chunk.pos.x() & 1) == 0 && (chunk.pos.z() & 1) == 0) {
+            decorateWithDungeons(chunk, rand, minY, maxY);
+        }
         this.decorateWithFlowers(chunk, rand);
         this.decorateWithQuickSoil(rand, worldX, worldZ, minY, maxY);
         this.decorateWithLakesAndTrees(rand, minY, maxY, worldX, worldZ);

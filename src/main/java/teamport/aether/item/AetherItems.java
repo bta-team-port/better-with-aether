@@ -39,7 +39,6 @@ import teamport.aether.item.item_tool.item_tool_zanite.ItemToolAxeZanite;
 import teamport.aether.item.item_tool.item_tool_zanite.ItemToolPickaxeZanite;
 import teamport.aether.item.item_tool.item_tool_zanite.ItemToolShovelZanite;
 import teamport.aether.item.item_tool.item_tool_zanite.ItemToolSwordZanite;
-import teamport.aether.mixin.accessors.ItemAccessor;
 
 import static teamport.aether.AetherConfig.itemID;
 import static teamport.aether.AetherMod.MOD_ID;
@@ -320,12 +319,9 @@ public final class AetherItems {
             .setMaxStackSize(10);
 
 
-        PARACHUTE_CLOUD = ((ItemAccessor) new ItemParachute("parachute.cloud", itemKey("parachute_cloud"), itemID("PARACHUTE_CLOUD"), EntityParachute.class))
-            .callSetMaxDamage(1);
+        PARACHUTE_CLOUD = new ItemParachute("parachute.cloud", itemKey("parachute_cloud"), itemID("PARACHUTE_CLOUD"), EntityParachute.class, 1);
 
-
-        PARACHUTE_CLOUD_GOLD = ((ItemAccessor) new ItemParachute("parachute.cloud.gold", itemKey("parachute_cloud_gold"), itemID("PARACHUTE_CLOUD_GOLD"), EntityParachuteGold.class))
-            .callSetMaxDamage(20);
+        PARACHUTE_CLOUD_GOLD = new ItemParachute("parachute.cloud.gold", itemKey("parachute_cloud_gold"), itemID("PARACHUTE_CLOUD_GOLD"), EntityParachuteGold.class, 20);
 
 
         LANTERN_FIREFLY_SILVER = new ItemPlaceable("lantern.firefly.silver", itemKey("lantern_firefly_silver"), itemID("LANTERN_FIREFLY_SILVER"), AetherBlocks.LANTERN_FIREFLY_SILVER);
