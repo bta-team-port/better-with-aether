@@ -11,6 +11,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import teamport.aether.entity.interfaces.AetherRideable;
+import teamport.aether.entity.vehicle.parachute.EntityParachute;
 import teamport.aether.entity.AetherRideable;
 
 @Environment(EnvType.CLIENT)
@@ -29,6 +31,10 @@ public abstract class PlayerLocalHandleAetherRideableMixin extends Player {
             aetherRideable.controlEntity(input.moveForward, input.moveStrafe, isJumping, xRot, yRot);
         } else if (passenger instanceof AetherRideable aetherRideable) {
             aetherRideable.controlEntity(input.moveForward, input.moveStrafe, isJumping, xRot, yRot);
+        }
+
+        if (this.vehicle instanceof EntityParachute entityParachute) {
+            entityParachute.controlParachute(-this.input.moveForward, -this.input.moveStrafe);
         }
     }
 }
