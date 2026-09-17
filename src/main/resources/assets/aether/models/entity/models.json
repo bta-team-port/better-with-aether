@@ -18,7 +18,8 @@
     "/assets/aether/models/entity/slider/slider.geo.json",
     "/assets/aether/models/entity/valkyrie/valkyrie.geo.json",
     "/assets/aether/models/entity/sunspirit/sunspirit.geo.json",
-    "/assets/aether/models/entity/player/accessory.geo.json"
+    "/assets/aether/models/entity/player/accessory.geo.json",
+    "/assets/aether/models/entity/parachute/parachute.geo.json"
   ],
   "renderers": {
     "aether:phyg": {
@@ -97,6 +98,9 @@
     },
     "aether:boss_sunspirit": {
       "main":"geometry.sunspirit"
+    },
+    "aether:parachute": {
+      "main":"geometry.parachute"
     }
   }
 }
