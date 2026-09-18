@@ -28,7 +28,7 @@ import teamport.aether.entity.monster.zephyr.MobZephyr;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItems;
 
-public class ProjectileDart extends Projectile implements ProjectileAether, AetherProjectileDeathMessages {
+public class ProjectileDart extends Projectile implements ProjectileAether {
     private int xTile;
     private int yTile;
     private int zTile;

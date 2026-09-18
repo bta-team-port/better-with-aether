@@ -18,7 +18,7 @@ import teamport.aether.helper.ParticleMaker;
 
 import java.util.List;
 
-public class ProjectileElementLightning extends ProjectileElementBase implements AetherProjectileDeathMessages {
+public class ProjectileElementLightning extends ProjectileElementBase {
     private static final String[] PARTICLES = {"explode", "lightning", "lightning"};
     private Mob target;
     private static final float HOMING_POWER = 0.15F;
