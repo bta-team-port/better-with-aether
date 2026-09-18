@@ -1,10 +1,9 @@
 package teamport.aether.entity.boss;
 
 import net.minecraft.core.item.ItemStack;
-import teamport.aether.entity.projectile.AetherDeathMessage;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
 
-public interface EnemyBoss extends AetherDeathMessage {
+public interface EnemyBoss {
 
     void setDungeonID(int id);
 

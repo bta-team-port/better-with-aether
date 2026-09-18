@@ -15,7 +15,7 @@ import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 import teamport.aether.entity.monster.fireminion.MobFireMinion;
 import teamport.aether.helper.ParticleMaker;
 
-public class ProjectileElementIce extends ProjectileElementBase implements AetherProjectileDeathMessages {
+public class ProjectileElementIce extends ProjectileElementBase {
     private static final String[] PARTICLES = {"block", "snowshovel"};
 
     public static @NonNull Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner) {
