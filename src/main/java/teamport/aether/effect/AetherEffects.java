@@ -33,10 +33,12 @@ import static teamport.aether.AetherMod.MOD_ID;
 
 public class AetherEffects extends Registry<Effect> {
     public static class LookupLooks {
-
         public static final LookupLooks instance = new LookupLooks();
         public final Map<Effect, Effect> locker = new HashMap<>();
         public final Map<Effect, HashSet<Effect>> lockedEffects = new HashMap<>();
+
+        private LookupLooks(){}
+
         public void addEntry(Effect getLocked, Effect lock) {
             this.locker.put(getLocked, lock);
             if (this.lockedEffects.containsKey(lock)) {
@@ -73,7 +75,6 @@ public class AetherEffects extends Registry<Effect> {
     }
 
     public static Effect poisonEffect;
-
     public static Effect remedyEffect;
     public static Effect invisibility;
     public static Effect swetty;
@@ -219,15 +220,13 @@ public class AetherEffects extends Registry<Effect> {
         ItemStack[] accessories = ((IContainerInventoryAether)player.inventory).aether$getAccessoryInventory();
         for (int i = 0; i < accessories.length; i++) {
             ItemStack stack = accessories[i];
-            if (stack != null && stack.getItem() instanceof IItemWithModifiers) {
-                Map<Modifier<?>, Boolean> itemModifiers =
-                    ((IItemWithModifiers) stack.getItem())
-                        .getModifiers((IHasEffects<?>) player, stack, AetherGlobals.AETHER_ACCESSORY_SLOT_OFFSET + i);
-
-                for (Map.Entry<Modifier<?>, Boolean> entry : itemModifiers.entrySet()) {
-                    if (entry.getValue()) {
-                        modifiers.add(entry.getKey());
-                    }
+            if (stack == null || !(stack.getItem() instanceof IItemWithModifiers iItemWithModifiers)) {
+                continue;
+            }
+            Map<Modifier<?>, Boolean> itemModifiers = iItemWithModifiers.getModifiers((IHasEffects<?>) player, stack, AetherGlobals.AETHER_ACCESSORY_SLOT_OFFSET + i);
+            for (Map.Entry<Modifier<?>, Boolean> entry : itemModifiers.entrySet()) {
+                if (entry.getValue()) {
+                    modifiers.add(entry.getKey());
                 }
             }
         }

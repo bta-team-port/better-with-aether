@@ -7,7 +7,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePosc;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.entity.interfaces.AetherMobOtherImmunities;
+import teamport.aether.entity.AetherMobOtherImmunities;
 
 @Mixin(BlockLogicSpikes.class)
 public abstract class SpikeImmunitiesMixin {
