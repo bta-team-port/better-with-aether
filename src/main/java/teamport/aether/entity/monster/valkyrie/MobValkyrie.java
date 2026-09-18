@@ -18,8 +18,6 @@ import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherMod;
-import teamport.aether.entity.projectile.AetherDeathMessage;
-import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.player.MessageMaker;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItems;

@@ -23,7 +23,6 @@ import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.ducks.IContainerInventoryAether;
 import teamport.aether.effect.AetherEffects;
 import teamport.aether.effect.DeathCauseEffects;
-import teamport.aether.entity.DeathCauseKeyed;
 import teamport.aether.entity.PreVehicle;
 import teamport.aether.entity.boss.DeathCauseBoss;
 import teamport.aether.entity.boss.EnemyBoss;

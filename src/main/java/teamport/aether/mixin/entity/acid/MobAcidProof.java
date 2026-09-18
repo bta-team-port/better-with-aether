@@ -5,7 +5,7 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.util.helper.DamageType;
 import org.spongepowered.asm.mixin.Mixin;
-import teamport.aether.entity.interfaces.AetherMobOtherImmunities;
+import teamport.aether.entity.AetherMobOtherImmunities;
 
 @Mixin(Mob.class)
 public abstract class MobAcidProof extends EntityAcidProof {

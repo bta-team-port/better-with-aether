@@ -15,7 +15,6 @@ import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.effect.AetherEffects;
-import teamport.aether.entity.projectile.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.helper.ParticleMaker;

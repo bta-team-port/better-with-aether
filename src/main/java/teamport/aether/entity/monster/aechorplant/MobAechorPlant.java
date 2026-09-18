@@ -16,7 +16,6 @@ import net.minecraft.core.world.pos.TilePos;
 import org.joml.Vector3d;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
-import teamport.aether.entity.projectile.AetherDeathMessage;
 import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.entity.projectile.ProjectileNeedle;
