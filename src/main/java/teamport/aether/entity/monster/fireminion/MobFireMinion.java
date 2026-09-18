@@ -6,7 +6,6 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.LightIndexHelper;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.entity.projectile.AetherDeathMessage;
 import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.helper.ParticleMaker;

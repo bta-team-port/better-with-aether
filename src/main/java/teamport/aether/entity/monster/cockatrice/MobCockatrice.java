@@ -10,7 +10,6 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlockTags;
-import teamport.aether.entity.projectile.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.entity.projectile.ProjectileNeedle;
 

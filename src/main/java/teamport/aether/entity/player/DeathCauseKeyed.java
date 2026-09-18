@@ -1,4 +1,4 @@
-package teamport.aether.entity;
+package teamport.aether.entity.player;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.entity.Mob;

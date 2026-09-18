@@ -8,8 +8,7 @@ import net.minecraft.core.item.tool.ItemToolPickaxe;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 import teamport.aether.block.AetherBlocks;
-import teamport.aether.entity.projectile.AetherDeathMessage;
-import teamport.aether.entity.interfaces.AetherMobOtherImmunities;
+import teamport.aether.entity.AetherMobOtherImmunities;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.item.item_tool.ItemToolPickaxeAether;
 

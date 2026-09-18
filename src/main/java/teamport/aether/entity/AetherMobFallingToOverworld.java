@@ -1,4 +1,4 @@
-package teamport.aether.entity.interfaces;
+package teamport.aether.entity;
 
 public interface AetherMobFallingToOverworld {
 
