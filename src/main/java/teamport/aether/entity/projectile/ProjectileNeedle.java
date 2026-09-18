@@ -18,7 +18,7 @@ import teamport.aether.effect.AetherEffects;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItems;
 
-public class ProjectileNeedle extends Projectile implements ProjectileAether, AetherProjectileDeathMessages {
+public class ProjectileNeedle extends Projectile implements ProjectileAether {
     private int xTile;
     private int yTile;
     private int zTile;

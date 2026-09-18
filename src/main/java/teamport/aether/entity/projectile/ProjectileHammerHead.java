@@ -9,7 +9,7 @@ import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.helper.ParticleMaker;
 
-public class ProjectileHammerHead extends Projectile implements ProjectileAether, AetherProjectileDeathMessages {
+public class ProjectileHammerHead extends Projectile implements ProjectileAether {
 
     @SuppressWarnings("unused")
     public ProjectileHammerHead(World world) {

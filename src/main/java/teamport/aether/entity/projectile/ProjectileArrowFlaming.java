@@ -19,7 +19,7 @@ import org.jspecify.annotations.NonNull;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItems;
 
-public class ProjectileArrowFlaming extends ProjectileArrow implements ProjectileAether, AetherProjectileDeathMessages {
+public class ProjectileArrowFlaming extends ProjectileArrow implements ProjectileAether {
 
     @SuppressWarnings("unused")
     public ProjectileArrowFlaming(World world) {

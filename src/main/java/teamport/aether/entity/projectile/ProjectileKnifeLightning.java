@@ -12,7 +12,7 @@ import teamport.aether.AetherMod;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItems;
 
-public class ProjectileKnifeLightning extends Projectile implements ProjectileAether, AetherProjectileDeathMessages {
+public class ProjectileKnifeLightning extends Projectile implements ProjectileAether {
 
     @SuppressWarnings("unused")
     public ProjectileKnifeLightning(World world) {
