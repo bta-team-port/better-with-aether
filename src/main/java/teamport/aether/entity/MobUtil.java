@@ -5,7 +5,15 @@ import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.helper.MathHelper;
+import net.minecraft.core.world.World;
+import net.minecraft.core.world.WorldSource;
+import net.minecraft.core.world.chunk.ChunkCache;
+import net.minecraft.core.world.pos.TilePos;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
+import teamport.aether.entity.pathing.base.Path;
+import teamport.aether.entity.pathing.base.PathFinder;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherArmorMaterial;
 
@@ -92,5 +100,20 @@ public class MobUtil {
         entity.moveTo(mob.x, mob.y, mob.z, mob.yRot, mob.xRot);
         mob.world.entityJoinedWorld(entity);
         mob.remove();
+    }
+
+    public static Path getPath(@NotNull World world, @NotNull Entity target, @NotNull PathFinder pathFinder, float distance) {
+        int x1 = MathHelper.floor(target.x);
+        int y2 = MathHelper.floor(target.y);
+        int z1 = MathHelper.floor(target.z);
+        int radius = (int)(distance + 16.0F);
+        int xMin = x1 - radius;
+        int yMin = y2 - radius;
+        int zMin = z1 - radius;
+        int xMax = x1 + radius;
+        int yMax = y2 + radius;
+        int zMax = z1 + radius;
+        WorldSource chunkcache = new ChunkCache(world, new TilePos(xMin, yMin, zMin),new TilePos(xMax, yMax, zMax), true);
+        return pathFinder.findPath(chunkcache, target, distance);
     }
 }

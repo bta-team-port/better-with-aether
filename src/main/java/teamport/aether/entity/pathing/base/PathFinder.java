@@ -14,8 +14,8 @@ import java.util.List;
 
 public abstract class PathFinder {
     private final Entity entity;
-    private final BoundingBoxSize boundingBoxSize;
-    private final NodeWeightFunction getNodeWeight;
+    protected final BoundingBoxSize boundingBoxSize;
+    protected final NodeWeightFunction getNodeWeight;
     private final Int2ObjectMap<StateNode> closedSet = new Int2ObjectOpenHashMap();
     private final BinaryHeap openSet = new BinaryHeap();
 
@@ -56,8 +56,11 @@ public abstract class PathFinder {
             currentNode.closed = true;
             List<StateNode> neighbors = this.getNeighbors(world, currentNode, endNode, distance);
             for (StateNode neighborNode : neighbors) {
+                if (neighborNode.closed) {
+                    continue;
+                }
                 double f1 = currentNode.costSoFar + this.getNodeWeight.apply(world, neighborNode.tilePosc(), this.boundingBoxSize);
-                if (neighborNode.inHeap() && !(f1 < neighborNode.costSoFar)) {
+                if (neighborNode.inHeap() && f1 >= neighborNode.costSoFar) {
                     continue;
                 }
                 neighborNode.parent = currentNode;
@@ -97,7 +100,7 @@ public abstract class PathFinder {
             pathNodes.add(stateNode.node());
         }
         Collections.reverse(pathNodes);
-        return new Path(pathNodes);
+        return pathNodes.isEmpty() ? null : new Path(pathNodes);
     }
 
     protected abstract List<StateNode> getNeighbors(WorldSource world, StateNode current, StateNode end, float distance);
