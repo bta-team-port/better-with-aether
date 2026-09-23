@@ -1,6 +1,7 @@
 package teamport.aether.entity.pathing.base;
 
 import net.minecraft.core.util.helper.Direction;
+import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
 
@@ -56,6 +57,14 @@ public class StateNode {
         return this.heapIndex >= 0;
     }
 
+    public double distanceTo(StateNode other){
+        return this.node().distanceTo(other.node());
+    }
+
+    public double distanceTo(TilePosc tilePosc){
+        return this.node().distanceTo(tilePosc);
+    }
+
     @Override
     public boolean equals(Object that) {
         if (!(that instanceof StateNode nThat)) {
@@ -68,9 +77,5 @@ public class StateNode {
     @Override
     public int hashCode() {
         return this.node.hashCode();
-    }
-
-    public double distanceTo(StateNode other){
-        return this.node().distanceTo(other.node());
     }
 }
