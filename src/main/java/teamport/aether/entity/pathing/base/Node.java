@@ -45,6 +45,10 @@ public class Node {
         return this.tilePos.distance(other.tilePos);
     }
 
+    public double distanceTo(TilePosc tilePosc) {
+        return this.tilePos.distance(tilePosc);
+    }
+
     public static int createHash(int x, int y, int z) {
         return y & 255 | (x & 32767) << 8 | (z & 32767) << 24 | (x >= 0 ? 0 : Integer.MIN_VALUE) | (z >= 0 ? 0 : '耀');
     }
