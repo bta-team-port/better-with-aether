@@ -24,6 +24,7 @@ import net.minecraft.core.util.collection.NamespaceID;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.ducks.IContainerInventoryAether;
+import teamport.aether.item.AetherItemTags;
 import teamport.aether.item.accessory.HumanAccessoryShape;
 import teamport.aether.item.accessory.IAccessoryItem;
 import teamport.aether.option.AetherGameSettingsHolder;
@@ -39,10 +40,10 @@ public class HudComponentAccessoryBar extends HudComponentMovable {
     private final @NonNull StringBuilder queryBuilder = new StringBuilder();
     private static final @NonNull String SLOT_EMPTY = "empty";
     private static final @NonNull String SLOT_UNKNOWN = "unknown";
-    private static final @NonNull NamespaceID PREVIEW_HELMET_ID = new NamespaceID("aether", "item/armor_gloves_gravitite");
-    private static final @NonNull NamespaceID PREVIEW_CHESTPLATE_ID = new NamespaceID("aether", "item/armor_cape_red");
-    private static final @NonNull NamespaceID PREVIEW_LEGGINGS_ID = new NamespaceID("aether", "item/armor_talisman_zanite");
-    private static final @NonNull NamespaceID PREVIEW_BOOTS_ID = new NamespaceID("aether", "item/armor_talisman_feather_gold");
+    private static final @NonNull NamespaceID PREVIEW_GLOVES_ID = new NamespaceID("aether", "item/armor_gloves_gravitite");
+    private static final @NonNull NamespaceID PREVIEW_CAPE_ID = new NamespaceID("aether", "item/armor_cape_red");
+    private static final @NonNull NamespaceID PREVIEW_TRINKET1_ID = new NamespaceID("aether", "item/armor_talisman_zanite");
+    private static final @NonNull NamespaceID PREVIEW_TRINKET2_ID = new NamespaceID("aether", "item/armor_talisman_feather_gold");
     private final Map<String, IconCoordinate> icons = new HashMap<>();
     private final Map<String, Boolean> iconExists = new HashMap<>();
     private int cachedReloadGeneration = -1;
@@ -134,7 +135,8 @@ public class HudComponentAccessoryBar extends HudComponentMovable {
 
     private @NonNull String itemQuery(@NonNull NamespaceID itemKey, @NonNull AccessoryState state) {
         this.queryBuilder.setLength(0);
-        this.queryBuilder.append(itemKey.namespace()).append(":gui/hud/accessory_bar/").append(itemKey.value()).append('/').append(state.getRegistry());
+        String namespace = "minecraft".equals(itemKey.namespace()) ? "aether" : itemKey.namespace();
+        this.queryBuilder.append(namespace).append(":gui/hud/accessory_bar/").append(itemKey.value()).append('/').append(state.getRegistry());
         return this.queryBuilder.toString();
     }
 
@@ -190,7 +192,7 @@ public class HudComponentAccessoryBar extends HudComponentMovable {
             maxDurability = accessoryStack.getMaxDamage();
             currentDurability = maxDurability > 0.0D ? maxDurability - (double) accessoryStack.getItemDamageForDisplay() : 0.0D;
 
-            boolean isAccessoryItem = item instanceof IAccessoryItem<?>;
+            boolean isAccessoryItem = item instanceof IAccessoryItem<?> || item.hasTag(AetherItemTags.TRINKET);
             boolean isQuiver = item instanceof ItemQuiver || item instanceof ItemQuiverEndless;
 
             if (isAccessoryItem || isQuiver) {
@@ -242,19 +244,19 @@ public class HudComponentAccessoryBar extends HudComponentMovable {
         NamespaceID previewId;
         int previewDurability = switch (this.getKey()) {
             case "gloves_bar" -> {
-                previewId = PREVIEW_HELMET_ID;
+                previewId = PREVIEW_GLOVES_ID;
                 yield 45;
             }
             case "capes_bar" -> {
-                previewId = PREVIEW_CHESTPLATE_ID;
+                previewId = PREVIEW_CAPE_ID;
                 yield 35;
             }
             case "trinket_1_bar" -> {
-                previewId = PREVIEW_LEGGINGS_ID;
+                previewId = PREVIEW_TRINKET1_ID;
                 yield 25;
             }
             default -> {
-                previewId = PREVIEW_BOOTS_ID;
+                previewId = PREVIEW_TRINKET2_ID;
                 yield 15;
             }
         };
