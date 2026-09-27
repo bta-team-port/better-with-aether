@@ -89,7 +89,8 @@ public class MobMimic extends MobMonsterAether implements Enemy {
 
     @Override
     public @NonNull String getDefaultEntityTexture() {
-        return String.format("/assets/%s/textures/entity/%s/%s/0.png", this.textureIdentifier.namespace(), DEFAULT.getPathName(), this.textureIdentifier.value());
+        MimicEntry entry = MimicRegistry.getMimicVariantByID(this.entityData.getInt(3));
+        return String.format("/assets/%s/textures/entity/mimic/%s/0.png", this.textureIdentifier.namespace(), entry.getPathName());
     }
 
     @Override
