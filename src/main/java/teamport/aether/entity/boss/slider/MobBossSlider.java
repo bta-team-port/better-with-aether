@@ -401,23 +401,21 @@ public class MobBossSlider extends MobBoss implements ICollidable {
             this.slamGoingDown = false;
             return;
         }
-        int moveAmount;
-        this.moveDirection = this.calculateDirection(this.target);
-        moveAmount = this.getMoveAmount();
-        this.blocksToMove = Math.min(25, moveAmount + (this.sameAxis() ? 3 : 0));
+        this.getNext();
         this.world.playSoundAtEntity(null, this, "aether:mob.slider.move", 1.60F + this.random.nextFloat(), .45F + this.random.nextFloat());
     }
 
-    private int getMoveAmount() {
-        if(this.target == null){
-            return 0;
-        }
-        return switch (this.moveDirection) {
-            case EAST, WEST -> (int) Math.abs(this.x - this.target.x);
-            case DOWN, UP -> (int) Math.abs(this.y - this.target.y);
-            case NORTH, SOUTH -> (int) Math.abs(this.z - this.target.z);
-            default -> 0;
-        };
+    private void getNext() {
+        assert this.target != null;
+
+        this.moveDirection = this.calculateDirection(this.target);
+        int moveAmount = switch (this.moveDirection) {
+                case EAST, WEST -> (int) Math.abs(this.x - this.target.x);
+                case DOWN, UP -> (int) Math.abs(this.y - this.target.y);
+                case NORTH, SOUTH -> (int) Math.abs(this.z - this.target.z);
+                default -> 0;
+            };
+        this.blocksToMove = Math.min(25, moveAmount + (this.sameAxis() ? 3 : 0));
     }
 
     private void setTarget() {
