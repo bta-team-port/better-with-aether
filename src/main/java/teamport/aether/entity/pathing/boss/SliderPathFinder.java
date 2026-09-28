@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SliderPathFinder extends PathFinder {
-    private static final int MAX_SLIDE_DISTANCE = 16;
+    private static final int MAX_SLIDE_DISTANCE = 25;
 
     public SliderPathFinder(Entity entity, NodeWeightFunction getNodeWeight) {
         super(entity, getNodeWeight);
@@ -31,14 +31,12 @@ public class SliderPathFinder extends PathFinder {
     private List<StateNode> rayMarch(WorldSource world, Direction direction, StateNode from, StateNode end, float maxDistance) {
         List<StateNode> results = new ArrayList<>();
         TilePosc pos = from.tileInDirection(direction);
-        int steps = 0;
         int alignDistance = alignmentDistance(direction, from.node(), end.node());
-        while (from.distanceTo(pos) < maxDistance) {
+        for(int steps = 1; steps <= MAX_SLIDE_DISTANCE && steps < maxDistance; steps++){
             double weight = this.getNodeWeight.apply(world, pos, this.boundingBoxSize);
             if (weight == Double.POSITIVE_INFINITY) {
                 break;
             }
-            ++steps;
             if ((steps >= alignDistance) || (steps >= MAX_SLIDE_DISTANCE)) {
                 results.add(this.markNodeAt(pos.x(), pos.y(), pos.z()));
                 break;
@@ -52,13 +50,14 @@ public class SliderPathFinder extends PathFinder {
     }
 
     private boolean isJumpPoint(WorldSource world, TilePosc pos, Direction direction) {
-        for (Direction perp : this.perpendicularDirections(direction)) {
-            TilePos current = new TilePos(pos.x(), pos.y(), pos.z());
-            TilePos behindBase = new TilePos(pos.x(), pos.y(), pos.z());
-            TilePos behind = direction.opposite().offset(behindBase);
-            boolean openNow = this.getNodeWeight.apply(world, perp.offset(current), this.boundingBoxSize) != Double.POSITIVE_INFINITY;
-            boolean openBefore = this.getNodeWeight.apply(world, perp.offset(behind), this.boundingBoxSize) != Double.POSITIVE_INFINITY;
-            if (openNow && !openBefore) {
+        TilePos current = new TilePos(pos);
+        TilePos previous = direction.opposite().offset(new TilePos(pos));
+        for (Direction perpendicular : perpendicularDirections(direction)) {
+            TilePos sideCurrent = perpendicular.offset(new TilePos(current));
+            TilePos sidePrevious = perpendicular.offset(new TilePos(previous));
+            boolean currentOpen = this.getNodeWeight.apply(world, sideCurrent, this.boundingBoxSize) != Double.POSITIVE_INFINITY;
+            boolean previousOpen = this.getNodeWeight.apply(world, sidePrevious, this.boundingBoxSize) != Double.POSITIVE_INFINITY;
+            if (currentOpen && !previousOpen) {
                 return true;
             }
         }
@@ -77,13 +76,13 @@ public class SliderPathFinder extends PathFinder {
 
     private int alignmentDistance(Direction direction, Node from, Node endPoint) {
         return switch (direction) {
-            case UP -> endPoint.y() > from.y() ? (endPoint.y() - from.y()) : MAX_SLIDE_DISTANCE;
-            case DOWN -> endPoint.y() < from.y() ? (from.y() - endPoint.y()) : MAX_SLIDE_DISTANCE;
-            case NORTH -> endPoint.z() < from.z() ? (from.z() - endPoint.z()) : MAX_SLIDE_DISTANCE;
-            case SOUTH -> endPoint.z() > from.z() ? (endPoint.z() - from.z()) : MAX_SLIDE_DISTANCE;
-            case WEST -> endPoint.x() < from.x() ? (from.x() - endPoint.x()) : MAX_SLIDE_DISTANCE;
-            case EAST -> endPoint.x() > from.x() ? (endPoint.x() - from.x()) : MAX_SLIDE_DISTANCE;
-            default -> MAX_SLIDE_DISTANCE;
+            case UP -> endPoint.y() > from.y() ? (endPoint.y() - from.y()) : Integer.MAX_VALUE;
+            case DOWN -> endPoint.y() < from.y() ? (from.y() - endPoint.y()) : Integer.MAX_VALUE;
+            case NORTH -> endPoint.z() < from.z() ? (from.z() - endPoint.z()) : Integer.MAX_VALUE;
+            case SOUTH -> endPoint.z() > from.z() ? (endPoint.z() - from.z()) : Integer.MAX_VALUE;
+            case WEST -> endPoint.x() < from.x() ? (from.x() - endPoint.x()) : Integer.MAX_VALUE;
+            case EAST -> endPoint.x() > from.x() ? (endPoint.x() - from.x()) : Integer.MAX_VALUE;
+            default -> Integer.MAX_VALUE;
         };
     }
 }
