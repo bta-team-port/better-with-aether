@@ -27,8 +27,7 @@ public class BossRoom extends BaseBronzeRoom {
 
     static {
         ROOM_PALLET.addEntry(AetherBlocks.CARVED_STONE_LOCKED.id(), 0, 80);
-        ROOM_PALLET.addEntry(AetherBlocks.CARVED_STONE_LIGHT_LOCKED.id(), 0, 10);
-        ROOM_PALLET.addEntry(AetherBlocks.CARVED_STONE_TRAPPED_LOCKED.id(), 0, 10); //
+        ROOM_PALLET.addEntry(AetherBlocks.CARVED_STONE_LIGHT_LOCKED.id(), 0, 20);
     }
 
     private DungeonLogicBronzeDungeon dungeon;

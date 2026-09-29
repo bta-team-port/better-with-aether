@@ -3,8 +3,8 @@ package teamport.aether.entity.pathing.boss;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.WorldSource;
-import net.minecraft.core.world.pos.TilePos;
-import net.minecraft.core.world.pos.TilePosc;
+import org.joml.Vector3d;
+import org.joml.Vector3dc;
 import teamport.aether.entity.pathing.base.Node;
 import teamport.aether.entity.pathing.base.PathFinder;
 import teamport.aether.entity.pathing.base.StateNode;
@@ -30,8 +30,8 @@ public class SliderPathFinder extends PathFinder {
 
     private List<StateNode> rayMarch(WorldSource world, Direction direction, StateNode from, StateNode end, float maxDistance) {
         List<StateNode> results = new ArrayList<>();
-        TilePosc pos = from.tileInDirection(direction);
-        int alignDistance = alignmentDistance(direction, from.node(), end.node());
+        Vector3dc pos = from.tileInDirection(direction);
+        double alignDistance = alignmentDistance(direction, from.node(), end.node());
         for(int steps = 1; steps <= MAX_SLIDE_DISTANCE && steps < maxDistance; steps++){
             double weight = this.getNodeWeight.apply(world, pos, this.boundingBoxSize);
             if (weight == Double.POSITIVE_INFINITY) {
@@ -44,17 +44,18 @@ public class SliderPathFinder extends PathFinder {
             if (this.isJumpPoint(world, pos, direction)) {
                 results.add(this.markNodeAt(pos.x(), pos.y(), pos.z()));
             }
-            pos = direction.offset(new TilePos(pos));
+            pos = new Vector3d(pos).add(direction.offsetX(), direction.offsetY(), direction.offsetZ());
         }
         return results;
     }
 
-    private boolean isJumpPoint(WorldSource world, TilePosc pos, Direction direction) {
-        TilePos current = new TilePos(pos);
-        TilePos previous = direction.opposite().offset(new TilePos(pos));
+    private boolean isJumpPoint(WorldSource world, Vector3dc pos, Direction direction) {
+        Direction opposite = direction.opposite();
+        Vector3d current = new Vector3d(pos);
+        Vector3d previous = current.add(opposite.offsetX(), opposite.offsetY(), opposite.offsetZ());
         for (Direction perpendicular : perpendicularDirections(direction)) {
-            TilePos sideCurrent = perpendicular.offset(new TilePos(current));
-            TilePos sidePrevious = perpendicular.offset(new TilePos(previous));
+            Vector3d sideCurrent = new Vector3d(current).add(perpendicular.offsetX(), perpendicular.offsetY(), perpendicular.offsetZ());
+            Vector3d sidePrevious = new Vector3d(previous).add(perpendicular.offsetX(), perpendicular.offsetY(), perpendicular.offsetZ());
             boolean currentOpen = this.getNodeWeight.apply(world, sideCurrent, this.boundingBoxSize) != Double.POSITIVE_INFINITY;
             boolean previousOpen = this.getNodeWeight.apply(world, sidePrevious, this.boundingBoxSize) != Double.POSITIVE_INFINITY;
             if (currentOpen && !previousOpen) {
@@ -74,14 +75,14 @@ public class SliderPathFinder extends PathFinder {
         return result;
     }
 
-    private int alignmentDistance(Direction direction, Node from, Node endPoint) {
+    private double alignmentDistance(Direction direction, Node from, Node endPoint) {
         return switch (direction) {
-            case UP -> endPoint.y() > from.y() ? (endPoint.y() - from.y()) : Integer.MAX_VALUE;
-            case DOWN -> endPoint.y() < from.y() ? (from.y() - endPoint.y()) : Integer.MAX_VALUE;
-            case NORTH -> endPoint.z() < from.z() ? (from.z() - endPoint.z()) : Integer.MAX_VALUE;
-            case SOUTH -> endPoint.z() > from.z() ? (endPoint.z() - from.z()) : Integer.MAX_VALUE;
-            case WEST -> endPoint.x() < from.x() ? (from.x() - endPoint.x()) : Integer.MAX_VALUE;
-            case EAST -> endPoint.x() > from.x() ? (endPoint.x() - from.x()) : Integer.MAX_VALUE;
+            case UP -> endPoint.y() >= from.y() ? (endPoint.y() - from.y()) : Double.MAX_VALUE;
+            case DOWN -> endPoint.y() <= from.y() ? (from.y() - endPoint.y()) : Double.MAX_VALUE;
+            case NORTH -> endPoint.z() <= from.z() ? (from.z() - endPoint.z()) : Double.MAX_VALUE;
+            case SOUTH -> endPoint.z() >= from.z() ? (endPoint.z() - from.z()) : Double.MAX_VALUE;
+            case WEST -> endPoint.x() <= from.x() ? (from.x() - endPoint.x()) : Double.MAX_VALUE;
+            case EAST -> endPoint.x() >= from.x() ? (endPoint.x() - from.x()) : Double.MAX_VALUE;
             default -> Integer.MAX_VALUE;
         };
     }

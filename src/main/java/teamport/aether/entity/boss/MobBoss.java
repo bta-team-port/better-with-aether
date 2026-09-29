@@ -6,6 +6,8 @@ import com.mojang.nbt.tags.StringTag;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.block.Block;
+import net.minecraft.core.block.material.MaterialLiquid;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.MobPathfinder;
@@ -15,6 +17,10 @@ import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.AetherGlobals;
+import teamport.aether.block.dungeon.BlockLogicChestLocked;
+import teamport.aether.block.dungeon.BlockLogicDungeonDoor;
+import teamport.aether.block.dungeon.BlockLogicLocked;
+import teamport.aether.block.dungeon.BlockLogicTrapped;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
 import teamport.aether.world.feature.util.map.DungeonMap;
 import turniplabs.halplibe.helper.EnvironmentHelper;
@@ -203,5 +209,4 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss {
         minecraft.sndManager.stopMusic();
         minecraft.sndManager.playMusic(sound, (float) x, (float) y, (float) z, 1.0F, 1.0F);
     }
-
 }

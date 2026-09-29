@@ -1,64 +1,48 @@
 package teamport.aether.entity.pathing.base;
 
-import net.minecraft.core.entity.Entity;
-import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3d;
 import org.joml.Vector3dc;
 
+import java.util.Objects;
+
 public class Node {
     private final int hash;
-    private final TilePosc tilePos;
+    private Vector3dc pos;
 
-    public Node(int x, int y, int z) {
-        this.hash = Node.createHash(x, y, z);
-        this.tilePos = new TilePos(x, y, z);
+    public Node(double x, double y, double z) {
+        this(Objects.hash(x, y, z), x, y, z);
     }
 
-    public Node(int hash, int x, int y, int z) {
+    public Node(int hash, double x, double y, double z) {
         this.hash = hash;
-        this.tilePos = new TilePos(x, y, z);
+        this.pos = new Vector3d(x, y, z);
     }
 
-    /**
-     * Return the position as {@link TilePosc} of the node.#
-     * Alternatively {@link Node#x()}, {@link Node#y()}, {@link Node#z()} can be used
-     * to derive the individual coordinates.
-     * */
-    public TilePosc tilePosc() {
-        return this.tilePos;
+    public Vector3dc pos() {
+        return this.pos;
     }
 
-    public int x() {
-        return this.tilePos.x();
+    public double x() {
+        return this.pos.x();
     }
-    public int y() {
-        return this.tilePos.y();
+    public double y() {
+        return this.pos.y();
     }
-    public int z() {
-        return this.tilePos.z();
+    public double z() {
+        return this.pos.z();
     }
 
     public double distanceTo(Node other) {
-        return this.tilePos.distance(other.tilePos);
+        return this.pos.distance(other.pos);
+    }
+
+    public double distanceTo(Vector3dc other) {
+        return this.pos.distance(other);
     }
 
     public double distanceTo(TilePosc tilePosc) {
-        return this.tilePos.distance(tilePosc);
-    }
-
-    public static int createHash(int x, int y, int z) {
-        return y & 255 | (x & 32767) << 8 | (z & 32767) << 24 | (x >= 0 ? 0 : Integer.MIN_VALUE) | (z >= 0 ? 0 : '耀');
-    }
-
-    public @Nullable Vector3dc getPos(@NotNull Entity entity) {
-        double offset = Math.floor((entity.bbWidth + 2.0F)) * 0.5F;
-        double x = this.x() + offset;
-        double y = this.y();
-        double z = this.z() + offset;
-        return new Vector3d(x, y, z);
+        return this.pos.distance(tilePosc.x(), tilePosc.y(), tilePosc.z());
     }
 
     @Override
@@ -66,7 +50,7 @@ public class Node {
         if (!(that instanceof Node nThat)) {
             return false;
         } else {
-            return this.hash == nThat.hash && this.tilePos.equals(nThat.tilePos);
+            return this.hash == nThat.hash && this.pos.equals(nThat.pos);
         }
     }
 

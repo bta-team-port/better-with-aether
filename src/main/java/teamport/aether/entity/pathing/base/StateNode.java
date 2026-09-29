@@ -1,9 +1,9 @@
 package teamport.aether.entity.pathing.base;
 
 import net.minecraft.core.util.helper.Direction;
-import net.minecraft.core.util.phys.HitResult;
-import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
+import org.joml.Vector3d;
+import org.joml.Vector3dc;
 
 public class StateNode {
     // actual node
@@ -21,11 +21,7 @@ public class StateNode {
     /// BinaryHeap membership test for picking next node
     public int heapIndex = -1;
 
-    public StateNode(int ix, int iy, int iz) {
-        this(new Node(ix, iy, iz));
-    }
-
-    public StateNode(int hash, int ix, int iy, int iz) {
+    public StateNode(int hash, double ix, double iy, double iz) {
         this(new Node(hash, ix, iy, iz));
     }
 
@@ -37,20 +33,20 @@ public class StateNode {
      * Finds neighboring node using direction, calls to implement function
      * {@link StateNode#tileInDirection(int, int, int)} with directional offsets.
      */
-    public TilePosc tileInDirection(int xOff, int yOff, int zOff) {
-        return this.tilePosc().add(xOff, yOff, zOff, new TilePos());
+    public Vector3dc tileInDirection(int xOff, int yOff, int zOff) {
+        return this.pos().add(xOff, yOff, zOff, new Vector3d());
     }
 
-    public TilePosc tileInDirection(Direction direction) {
-        return this.tilePosc().add(direction, new TilePos());
+    public Vector3dc tileInDirection(Direction direction) {
+        return this.pos().add(direction.offsetX(), direction.offsetY(), direction.offsetZ(), new Vector3d());
     }
 
     public Node node() {
         return this.node;
     }
 
-    public TilePosc tilePosc() {
-        return this.node.tilePosc();
+    public Vector3dc pos(){
+        return this.node.pos();
     }
 
     public boolean inHeap(){
@@ -70,7 +66,7 @@ public class StateNode {
         if (!(that instanceof StateNode nThat)) {
             return false;
         } else {
-            return this.hashCode() == nThat.hashCode() && this.tilePosc().equals(nThat.tilePosc());
+            return this.hashCode() == nThat.hashCode() && this.pos().equals(nThat.pos());
         }
     }
 
