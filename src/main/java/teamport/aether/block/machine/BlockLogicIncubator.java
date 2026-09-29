@@ -3,6 +3,7 @@ package teamport.aether.block.machine;
 import net.minecraft.core.Global;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.entity.player.Player;
@@ -10,6 +11,7 @@ import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
@@ -20,7 +22,6 @@ import java.util.Random;
 
 public class BlockLogicIncubator extends BlockLogic {
     public final boolean isActive;
-    private static boolean keepIncubatorInventory = false;
 
     public BlockLogicIncubator(Block<?> block, boolean active) {
         super(block, Materials.STONE);
@@ -28,14 +29,11 @@ public class BlockLogicIncubator extends BlockLogic {
         block.withEntity(TileEntityIncubator::new);
     }
 
-    public static boolean isKeepIncubatorInventory() {
-        return keepIncubatorInventory;
-    }
-
     @Override
     public ItemStack[] getBreakResult(@NonNull World world, @NonNull EnumDropCause dropCause, int meta, TileEntity tileEntity) {
         return switch (dropCause) {
-            case PICK_BLOCK, EXPLOSION, PROPER_TOOL, SILK_TOUCH, PISTON_CRUSH -> new ItemStack[]{new ItemStack(AetherBlocks.INCUBATOR_IDLE)};
+            case PICK_BLOCK, EXPLOSION, PROPER_TOOL, SILK_TOUCH, PISTON_CRUSH ->
+                new ItemStack[]{new ItemStack(AetherBlocks.INCUBATOR_IDLE)};
             default -> null;
         };
     }
@@ -64,27 +62,20 @@ public class BlockLogicIncubator extends BlockLogic {
         return true;
     }
 
-    public static void updateFurnaceBlockState(boolean lit, @NonNull World world, int x, int y, int z) {
-        int meta = world.getBlockMetadata(x, y, z);
-        TileEntity tileEntity = world.getTileEntity(x, y, z);
-        if (tileEntity == null) {
-            String msg = "Incubator is missing Tile Entity at x: " + x + " y: " + y + " z: " + z + ", block will be removed!";
+    public static void updateFurnaceBlockState(@NonNull World world, @NonNull TilePos tilePos, boolean lit) {
+        if (!(world.getTileEntity(tilePos) instanceof TileEntityIncubator)) {
+            String msg = "Incubator is missing Tile Entity at " + tilePos + ", block will be removed!";
             if (Global.BUILD_CHANNEL.isUnstableBuild()) {
                 throw new RuntimeException(msg);
+            } else {
+                world.setBlockTypeNotify(tilePos, Blocks.AIR);
             }
-            world.setBlockWithNotify(x, y, z, 0);
-            return;
-        }
-        keepIncubatorInventory = true;
-        if (lit) {
-            world.setBlockWithNotify(x, y, z, AetherBlocks.INCUBATOR_ACTIVE.id());
         } else {
-            world.setBlockWithNotify(x, y, z, AetherBlocks.INCUBATOR_IDLE.id());
+            int meta = world.getBlockData(tilePos);
+            Block<? extends BlockLogic> block = lit ? AetherBlocks.INCUBATOR_ACTIVE : AetherBlocks.INCUBATOR_IDLE;
+            world.setBlockTypeDataRaw(tilePos, block, meta);
+            world.notifyBlockChange(tilePos, block);
         }
-        keepIncubatorInventory = false;
-        world.setBlockMetadataWithNotify(x, y, z, meta);
-        tileEntity.validate();
-        world.setTileEntity(x, y, z, tileEntity);
     }
 
 }

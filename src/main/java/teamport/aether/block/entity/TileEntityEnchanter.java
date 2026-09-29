@@ -1,17 +1,13 @@
 package teamport.aether.block.entity;
 
-
-import net.minecraft.core.entity.EntityItem;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.net.packet.Packet;
 import net.minecraft.core.net.packet.PacketTileEntityData;
-import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherRecipes;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.block.machine.BlockLogicEnchanter;
 import teamport.aether.lookup.LookupFuelEnchanter;
-
 
 public class TileEntityEnchanter extends AetherTileEntityMachine {
 
@@ -92,7 +88,7 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
 
     public boolean eternallyLit(boolean updateMachine) {
         if ((this.worldObj == null
-            || this.worldObj.getBlockId(this.tilePos.x, this.tilePos.y, this.tilePos.z) == AetherBlocks.ENCHANTER_IDLE.id())
+            || this.worldObj.getBlockType(this.tilePos) == AetherBlocks.ENCHANTER_IDLE)
             && this.getCurrentEnergyTime() == 0 && this.containerItemStacks[0] == null
             && this.containerItemStacks[1] != null
             && this.containerItemStacks[1].itemID == AetherBlocks.BLOCK_ZANITE.id()
@@ -165,14 +161,14 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
         }
 
         if (this.worldObj != null && wasEmpty && this.containerItemStacks[2] != null) {
-            this.worldObj.markBlockNeedsUpdate(this.tilePos.x, this.tilePos.y, this.tilePos.z);
+            this.worldObj.markBlockNeedsUpdate(this.tilePos);
         }
     }
 
     @Override
     public void updateContainer(boolean forceLit) {
         if (this.worldObj != null) {
-            BlockLogicEnchanter.updateFurnaceBlockState(forceLit || this.getCurrentEnergyTime() > 0, this.worldObj, this.tilePos.x, this.tilePos.y, this.tilePos.z);
+            BlockLogicEnchanter.updateFurnaceBlockState(this.worldObj, this.tilePos, forceLit || this.getCurrentEnergyTime() > 0);
             return;
         }
         if (this.carriedBlock != null) {
@@ -183,38 +179,6 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
     @Override
     public int getEnergyTimeFromItem(ItemStack itemStack) {
         return itemStack == null ? 0 : LookupFuelEnchanter.INSTANCE.getFuelYield(itemStack.getItem().id);
-    }
-
-    @Override
-    public void dropContents(World world, int x, int y, int z) {
-        super.dropContents(world, x, y, z);
-        if (!BlockLogicEnchanter.isKeepEnchanterInventory()) {
-            for (int l = 0; l < this.getContainerSize(); ++l) {
-                ItemStack itemstack = this.getItem(l);
-                if (itemstack != null) {
-                    float f = this.random.nextFloat() * 0.8F + 0.1F;
-                    float f1 = this.random.nextFloat() * 0.8F + 0.1F;
-                    float f2 = this.random.nextFloat() * 0.8F + 0.1F;
-
-                    while (itemstack.stackSize > 0) {
-                        int i1 = this.random.nextInt(21) + 10;
-                        if (i1 > itemstack.stackSize) {
-                            i1 = itemstack.stackSize;
-                        }
-
-                        itemstack.stackSize -= i1;
-                        EntityItem entityItem = new EntityItem(
-                            world, x + f, y + f1, z + f2,
-                            new ItemStack(itemstack.itemID, i1, itemstack.getMetadata()));
-                        float f3 = 0.05F;
-                        entityItem.xd = (float) this.random.nextGaussian() * f3;
-                        entityItem.yd = (float) this.random.nextGaussian() * f3 + 0.2F;
-                        entityItem.zd = (float) this.random.nextGaussian() * f3;
-                        world.entityJoinedWorld(entityItem);
-                    }
-                }
-            }
-        }
     }
 
     @Override
