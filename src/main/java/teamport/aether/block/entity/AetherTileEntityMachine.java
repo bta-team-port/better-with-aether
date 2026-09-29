@@ -6,6 +6,7 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.motion.CarriedBlock;
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.EntityItem;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.net.packet.Packet;
@@ -162,6 +163,32 @@ public abstract class AetherTileEntityMachine extends TileEntity implements Cont
 
     @Override
     public void dropContents(World world, int x, int y, int z) {
+        super.dropContents(world, x, y, z);
+        for (int l = 0; l < this.getContainerSize(); ++l) {
+            ItemStack itemstack = this.getItem(l);
+            if (itemstack != null) {
+                float f = worldObj.rand.nextFloat() * 0.8F + 0.1F;
+                float f1 = worldObj.rand.nextFloat() * 0.8F + 0.1F;
+                float f2 = worldObj.rand.nextFloat() * 0.8F + 0.1F;
+
+                while (itemstack.stackSize > 0) {
+                    int i1 = worldObj.rand.nextInt(21) + 10;
+                    if (i1 > itemstack.stackSize) {
+                        i1 = itemstack.stackSize;
+                    }
+
+                    itemstack.stackSize -= i1;
+                    EntityItem entityItem = new EntityItem(
+                        world, x + f, y + f1, z + f2,
+                        new ItemStack(itemstack.itemID, i1, itemstack.getMetadata()));
+                    float f3 = 0.05F;
+                    entityItem.xd = (float) worldObj.rand.nextGaussian() * f3;
+                    entityItem.yd = (float) worldObj.rand.nextGaussian() * f3 + 0.2F;
+                    entityItem.zd = (float) worldObj.rand.nextGaussian() * f3;
+                    world.entityJoinedWorld(entityItem);
+                }
+            }
+        }
     }
 
     @Override
