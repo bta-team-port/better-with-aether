@@ -3,14 +3,14 @@ package teamport.aether.entity.pathing.base;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.entity.Entity;
-import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.WorldSource;
-import net.minecraft.core.world.pos.TilePosc;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3dc;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class PathFinder {
     private final Entity entity;
@@ -21,7 +21,7 @@ public abstract class PathFinder {
 
     @FunctionalInterface
     public interface NodeWeightFunction {
-        double apply(WorldSource world, TilePosc pos, BoundingBoxSize boundingBoxSize);
+        double apply(WorldSource world, Vector3dc pos, BoundingBoxSize boundingBoxSize);
     }
 
     protected PathFinder(Entity entity, NodeWeightFunction getNodeWeight) {
@@ -59,7 +59,7 @@ public abstract class PathFinder {
                 if (neighborNode.closed) {
                     continue;
                 }
-                double f1 = currentNode.costSoFar + this.getNodeWeight.apply(world, neighborNode.tilePosc(), this.boundingBoxSize);
+                double f1 = currentNode.costSoFar + this.getNodeWeight.apply(world, neighborNode.pos(), this.boundingBoxSize);
                 if (neighborNode.inHeap() && f1 >= neighborNode.costSoFar) {
                     continue;
                 }
@@ -82,21 +82,14 @@ public abstract class PathFinder {
         return this.reconstructPath(prevNode);
     }
 
-    protected final StateNode markNodeAt(double dx, double dy, double dz) {
-        int ix = MathHelper.floor(dx);
-        int iy = MathHelper.floor(dy);
-        int iz = MathHelper.floor(dz);
-        return this.markNodeAt(ix, iy, iz);
-    }
-
-    protected final StateNode markNodeAt(int ix, int iy, int iz) {
-        int hash = Node.createHash(ix, iy, iz);
-        return this.closedSet.computeIfAbsent(hash, k -> new StateNode(hash, ix, iy, iz));
+    protected final StateNode markNodeAt(double x, double y, double z) {
+        int hash = Objects.hash(x, y, z);
+        return this.closedSet.computeIfAbsent(hash, k -> new StateNode(hash, x, y, z));
     }
 
     protected Path reconstructPath(StateNode end) {
         List<Node> pathNodes = new ArrayList<>();
-        for (StateNode stateNode = end; stateNode != null; stateNode = stateNode.parent) {
+        for (StateNode stateNode = end; stateNode.parent != null; stateNode = stateNode.parent) {
             pathNodes.add(stateNode.node());
         }
         Collections.reverse(pathNodes);

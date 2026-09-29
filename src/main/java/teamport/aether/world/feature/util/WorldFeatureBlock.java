@@ -42,6 +42,10 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
         return new WorldFeatureBlock(point.getX(), point.getY(), point.getZ(), blockID, metadata, false);
     }
 
+    public static @NonNull WorldFeatureBlock wfb(@NonNull WorldFeaturePoint point, int blockID) {
+        return new WorldFeatureBlock(point.getX(), point.getY(), point.getZ(), blockID, 0, false);
+    }
+
     public static @NonNull WorldFeatureBlock wfb(@NonNull WorldFeaturePoint point) {
         return new WorldFeatureBlock(point.getX(), point.getY(), point.getZ(), 0, 0, false);
     }
