@@ -14,7 +14,7 @@ public class Path implements Iterator<Node> {
 
     @Override
     public boolean hasNext() {
-        return this.index < this.nodes.size();
+        return this.index + 1 < this.nodes.size();
     }
 
     public Node current() {

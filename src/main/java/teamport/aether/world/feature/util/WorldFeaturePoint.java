@@ -6,6 +6,7 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.helper.Side;
+import net.minecraft.core.world.pos.TilePosc;
 import org.jspecify.annotations.NonNull;
 
 import java.util.Objects;
@@ -37,6 +38,10 @@ public class WorldFeaturePoint {
 
     public static @NonNull WorldFeaturePoint wfp(int x, int y, int z) {
         return new WorldFeaturePoint(x, y, z);
+    }
+
+    public static @NonNull WorldFeaturePoint wfp(TilePosc tilePosc) {
+        return new WorldFeaturePoint(tilePosc.x(), tilePosc.y(), tilePosc.z());
     }
 
     public static @NonNull WorldFeaturePoint wfpoint(@NonNull Entity e) {
