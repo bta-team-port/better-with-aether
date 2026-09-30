@@ -34,6 +34,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
+import teamport.aether.block.dungeon.BlockLogicChestLocked;
 import teamport.aether.block.dungeon.BlockLogicChestMimic;
 import teamport.aether.block.dungeon.BlockLogicPaintedChestMimic;
 import teamport.aether.block.entity.TileEntityMimic;
@@ -344,14 +345,14 @@ public class MobMimic extends MobMonsterAether implements Enemy {
                 if (blockLogic instanceof BlockLogicChestMimic) {
                     return new IntIntImmutablePair(block.id(), metadata);
                 }
-                if (blockLogic instanceof BlockLogicChest) {
+                if (blockLogic instanceof BlockLogicChest || blockLogic instanceof BlockLogicChestLocked) {
                     MimicEntry variant = MimicRegistry.getMimicVariantByChest(block.id(), metadata & 240);
                     return new IntIntImmutablePair(variant.getMimicChestID(), variant.getMimicChestMetadata());
                 }
                 queue.add(to);
             }
         }
-        MimicEntry variant = MimicRegistry.getMimicVariantByID(this.getSkinVariant());
+        MimicEntry variant = MimicRegistry.getMimicVariantByID(this.mimicChestID);
         return new IntIntImmutablePair(variant.getMimicChestID(), variant.getMimicChestMetadata());
     }
 

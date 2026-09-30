@@ -4,6 +4,7 @@ import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.ICollidable;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumDropCause;
@@ -19,7 +20,6 @@ import net.minecraft.core.world.LevelListener;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.WorldSource;
 import net.minecraft.core.world.pos.TilePos;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3d;
 import org.joml.Vector3dc;
@@ -28,16 +28,19 @@ import org.joml.primitives.AABBdc;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.block.AetherBlocks;
+import teamport.aether.block.dungeon.BlockLogicTrapped;
 import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.boss.AetherBossList;
 import teamport.aether.entity.boss.EnemyBoss;
 import teamport.aether.entity.boss.MobBoss;
+import teamport.aether.entity.monster.sentry.MobSentry;
 import teamport.aether.entity.pathing.base.BoundingBoxSize;
 import teamport.aether.entity.pathing.base.Node;
 import teamport.aether.entity.pathing.base.Path;
 import teamport.aether.entity.pathing.boss.SliderPathFinder;
 import teamport.aether.entity.player.MessageMaker;
 import teamport.aether.helper.ParticleMaker;
+import teamport.aether.helper.RandomHelper;
 import teamport.aether.item.item_tool.ItemToolPickaxeAether;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.feature.util.WorldFeatureBlock;
@@ -50,7 +53,6 @@ import java.util.function.Consumer;
 
 import static net.minecraft.core.Global.TICKS_PER_SECOND;
 import static teamport.aether.entity.DamageInstance.inst;
-import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
 
 public class MobBossSlider extends MobBoss implements ICollidable {
     private State currentState = State.ASLEEP;
@@ -68,7 +70,7 @@ public class MobBossSlider extends MobBoss implements ICollidable {
     public static final int MAX_ATTACK_COOL_DOWN = 50;
     public static final int MIN_ATTACK_COOL_DOWN = 10;
     /// wakeup timer
-    public static final int WAKEUP_TIMER = 20;
+    public static final int WAKEUP_TIMER = 15;
     public int wakeUpTimer = 0;
     /// slam
     private double slamY = -1;
@@ -77,13 +79,17 @@ public class MobBossSlider extends MobBoss implements ICollidable {
     private float deformX;
     private int deformY;
     private int deformZ;
-    ///  sync data defaults
+    /// sync data defaults
     static final int DATA_STATE = 17;
     static final int DATA_ALLOW_MOVEMENT = 18;
     static final int DATA_MOVEMENT_DIRECTION = 19;
     static final int DATA_MOVEMENT_AMOUNT = 20;
     /// target list
     private final List<Player> creativeAttackersList = new ArrayList<>();
+    /// sentry spawn
+    int currentCoolDown = 0;
+    int currentPlayerCount = 0;
+    public static final int SENTRY_TIMER = 30 * TICKS_PER_SECOND;
 
     ///  pathing 2.0
     Path path = null;
@@ -265,6 +271,10 @@ public class MobBossSlider extends MobBoss implements ICollidable {
         if (!EnvironmentHelper.isMultiplayerServer()) {
             MobBoss.stop();
         }
+        this.moveDirection = Direction.NONE;
+        this.allowedToMove = false;
+        this.blocksToMove = 0;
+        this.attackCoolDown = MAX_ATTACK_COOL_DOWN;
         super.onDeath(entityKilledBy);
     }
 
@@ -590,7 +600,10 @@ public class MobBossSlider extends MobBoss implements ICollidable {
             final int slamRadius = 5;
             final float launchSpeed = 0.75F;
             final AABBdc boundingBox = new AABBd(this.x - slamRadius, this.y, this.z - slamRadius, this.x + slamRadius, this.y + slamRadius, this.z + slamRadius);
-            MobBossSlider.doDestroyBlockEffect(this.world, boundingBox);
+            double width = Math.abs(boundingBox.maxX() - boundingBox.maxX());
+            double height = Math.abs(boundingBox.maxY() - boundingBox.maxY());
+            double legth = Math.abs(boundingBox.maxZ() - boundingBox.maxZ());
+            RandomHelper.doDestroyBlockEffect(this.world, boundingBox.minX() + width, boundingBox.minY() + height, boundingBox.minZ() + legth);
             List<Entity> list = this.world.getEntitiesWithinAABB(Entity.class, boundingBox);
             for (Entity entity : list) {
                 MobUtil.multiHit(this, entity,
@@ -615,24 +628,6 @@ public class MobBossSlider extends MobBoss implements ICollidable {
         this.slamY = this.y;
     }
 
-    private static void doDestroyBlockEffect(@NotNull World world, AABBdc bb) {
-        int minX = MathHelper.floor(bb.minX());
-        int maxX = MathHelper.floor(bb.maxX() + 1.0F);
-        int minY = MathHelper.floor(bb.minY());
-        int maxY = MathHelper.floor(bb.maxY() + 1.0F);
-        int minZ = MathHelper.floor(bb.minZ());
-        int maxZ = MathHelper.floor(bb.maxZ() + 1.0F);
-        List<WorldFeatureBlock> blockInAABB = EnemyBoss.blockCollidingWithAABB(world, minX, minY, minZ, maxX, maxY, maxZ);
-        TilePos tilePos = new TilePos(0, 0, 0);
-        for(WorldFeatureBlock wfb : blockInAABB){
-            Block<?> block = Blocks.getBlock(wfb.getBlockId());
-            tilePos.set(wfb.getX(), wfb.getY(), wfb.getZ());
-            block.dropWithCause(world, EnumDropCause.EXPLOSION, tilePos, world.getBlockData(tilePos), world.getTileEntity(tilePos), null);
-            world.playBlockEvent(tilePos, LevelListener.EVENT_BLOCK_BREAK, block.id());
-            world.setBlockTypeDataNotify(tilePos, Blocks.AIR, 0);
-        }
-    }
-
 
     @Override
     @SuppressWarnings("java:S6541")
@@ -650,6 +645,7 @@ public class MobBossSlider extends MobBoss implements ICollidable {
         this.moveSlider();
         this.collideWithEntity();
         this.updateO();
+        this.spawnSentries();
         if (this.deformX > 0.01F) {
             this.deformX *= 0.8F;
         }
@@ -665,8 +661,8 @@ public class MobBossSlider extends MobBoss implements ICollidable {
         }
     }
 
-    // MOVEMENT
 
+    // MOVEMENT
     @Override
     public boolean isMovementBlocked() {
         return super.isMovementBlocked() || !isAwake();
@@ -694,11 +690,11 @@ public class MobBossSlider extends MobBoss implements ICollidable {
             return;
         }
         int minX = MathHelper.floor(this.bb.minX());
-        int maxX = MathHelper.floor(this.bb.maxX() + 1.0F);
+        int maxX = MathHelper.floor(this.bb.maxX());
         int minY = MathHelper.floor(this.bb.minY());
-        int maxY = MathHelper.floor(this.bb.maxY() + 1.0F);
+        int maxY = MathHelper.floor(this.bb.maxY());
         int minZ = MathHelper.floor(this.bb.minZ());
-        int maxZ = MathHelper.floor(this.bb.maxZ() + 1.0F);
+        int maxZ = MathHelper.floor(this.bb.maxZ());
         int dx = this.moveDirection.offsetX();
         int dy = this.moveDirection.offsetY();
         int dz = this.moveDirection.offsetZ();
@@ -806,4 +802,44 @@ public class MobBossSlider extends MobBoss implements ICollidable {
         return 1.0;
     }
 
+
+    private void spawnSentries() {
+        if (this.currentState != State.AWAKE){
+            return;
+        }
+        currentCoolDown++;
+        if(this.currentCoolDown % (5 * TICKS_PER_SECOND) == 0){
+            // sampling player count
+            List<Player> playerList = this.world.getPlayersWithinRange(this.x, this.y, this.z, 24.24871130596428);
+            this.currentPlayerCount = playerList.isEmpty() ? 0 : playerList.size();
+        }
+        if (currentCoolDown <= SENTRY_TIMER){
+            return;
+        }
+        List<Player> playerList = this.world.getPlayersWithinRange(this.x, this.y, this.z, 24.24871130596428);
+        int count = Math.abs(playerList.size() - this.currentPlayerCount) <= 1 ? playerList.size() : this.currentPlayerCount;
+        this.currentCoolDown = MAX_ATTACK_COOL_DOWN / Math.max(1, Math.min(3, count));
+        for(int i = 0; i < 5; i++){
+            MobSentry sentry = EntityDispatcher.getInstance().createEntityInWorld(MobSentry.class, this.world);
+            if (sentry == null) {
+                continue;
+            }
+            sentry.spawnInit();
+            int tries = 16;
+            while(tries-- > 0){
+                final double angleRad = Math.toRadians(world.rand.nextInt(360));
+                double spawnX = x + 6 * Math.cos(angleRad);
+                double spawnZ = z + 6 * Math.sin(angleRad);
+                double spawnY = y + 0.5;
+                sentry.moveTo(spawnX, spawnY, spawnZ, 0.0f, 0.0f);
+                if (!world.getCubes(sentry, sentry.bb).isEmpty()) {
+                    continue;
+                }
+                this.world.entityJoinedWorld(sentry);
+                BlockLogicTrapped.spawnParticles(world, spawnX, spawnY + 0.25, spawnZ);
+                break;
+            }
+        }
+
+    }
 }

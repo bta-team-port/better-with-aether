@@ -41,8 +41,7 @@ public interface EnemyBoss {
 
 
     static boolean cannotBreakBlock(Block<?> block) {
-        return block.getLogic() instanceof BlockLogicTrapped ||
-            block.getLogic() instanceof BlockLogicLocked ||
+        return block.getLogic() instanceof BlockLogicLocked ||
             block.getLogic() instanceof BlockLogicDungeonDoor ||
             block.getLogic() instanceof BlockLogicChestLocked ||
             block.getMaterial() instanceof MaterialLiquid ||
