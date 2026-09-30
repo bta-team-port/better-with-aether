@@ -32,8 +32,8 @@ import static teamport.aether.AetherGlobals.LOGGER;
 
 public class MixinHelper {
 
-    private MixinHelper() {
-    }
+    private MixinHelper() {}
+
     public static final int ANIMATION_LENGTH = 30;
     public static final Map<Item, String> TRINKET_TEXTURES = new HashMap<>();
     static {

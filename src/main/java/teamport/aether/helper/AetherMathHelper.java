@@ -5,6 +5,8 @@ import org.jspecify.annotations.NonNull;
 import java.util.Random;
 
 public class AetherMathHelper {
+    private AetherMathHelper(){}
+
     /**
      * @implNote Exponential can return any value between [0, INF) and as such this function caps it.
      */
