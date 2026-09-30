@@ -9,13 +9,13 @@ import teamport.aether.item.accessory.ItemAccessory;
 import java.util.*;
 
 @SuppressWarnings("java:S6548")
-public class LookupTrinketIcons {
-    public static final LookupTrinketIcons INSTANCE = new LookupTrinketIcons();
+public class LookupTrinketOutlines {
+    public static final LookupTrinketOutlines INSTANCE = new LookupTrinketOutlines();
     private final Map<Item, String> idOutlineTextures = new HashMap<>();
     private final List<String> listTexture = new ArrayList<>();
     private static final Random random = new Random();
 
-    private LookupTrinketIcons() {
+    private LookupTrinketOutlines() {
         this.register();
     }
 

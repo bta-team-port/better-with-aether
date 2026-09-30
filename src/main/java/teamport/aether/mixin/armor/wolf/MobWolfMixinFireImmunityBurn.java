@@ -10,7 +10,7 @@ import net.minecraft.core.world.World;
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import teamport.aether.helper.MixinHelper;
+import teamport.aether.entity.MobUtil;
 import teamport.aether.helper.ParticleMaker;
 
 @Mixin(Entity.class)
@@ -34,7 +34,7 @@ public abstract class MobWolfMixinFireImmunityBurn {
             original.call(damage, fireSource);
             return;
         }
-        if (MixinHelper.isImmuneToFire((MobWolf) (Object) this)) {
+        if (MobUtil.isImmuneToFire((MobWolf) (Object) this)) {
             if (world == null) return;
             ParticleMaker.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
             return;
@@ -47,7 +47,7 @@ public abstract class MobWolfMixinFireImmunityBurn {
             original.call(bolt);
             return;
         }
-        if (MixinHelper.isImmuneToFire((MobWolf) (Object) this)) {
+        if (MobUtil.isImmuneToFire((MobWolf) (Object) this)) {
             if (world == null) return;
             ParticleMaker.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
             return;

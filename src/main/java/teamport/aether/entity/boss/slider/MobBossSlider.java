@@ -40,7 +40,6 @@ import teamport.aether.entity.pathing.base.Path;
 import teamport.aether.entity.pathing.boss.SliderPathFinder;
 import teamport.aether.entity.player.MessageMaker;
 import teamport.aether.helper.ParticleMaker;
-import teamport.aether.helper.RandomHelper;
 import teamport.aether.item.item_tool.ItemToolPickaxeAether;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.feature.util.WorldFeatureBlock;
@@ -603,7 +602,7 @@ public class MobBossSlider extends MobBoss implements ICollidable {
             double width = Math.abs(boundingBox.maxX() - boundingBox.maxX());
             double height = Math.abs(boundingBox.maxY() - boundingBox.maxY());
             double legth = Math.abs(boundingBox.maxZ() - boundingBox.maxZ());
-            RandomHelper.doDestroyBlockEffect(this.world, boundingBox.minX() + width, boundingBox.minY() + height, boundingBox.minZ() + legth);
+            MobUtil.doDestroyBlockEffect(this.world, boundingBox.minX() + width, boundingBox.minY() + height, boundingBox.minZ() + legth);
             List<Entity> list = this.world.getEntitiesWithinAABB(Entity.class, boundingBox);
             for (Entity entity : list) {
                 MobUtil.multiHit(this, entity,
