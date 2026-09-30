@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.helper.MixinHelper;
+import teamport.aether.achievements.AetherAchievements;
 
 @Mixin(SlotArmor.class)
 public abstract class SlotArmorWearChainmailAchievementMixin {
@@ -23,7 +23,7 @@ public abstract class SlotArmorWearChainmailAchievementMixin {
     @WrapOperation(method = "setChanged", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/player/Player;triggerAchievement(Lnet/minecraft/core/achievement/stat/Stat;)V"))
     private void checkChainmailWithAccessories(Player instance, Stat statbase, Operation<Void> original) {
         if (statbase == Achievements.GET_CHAINMAIL) {
-            MixinHelper.checkChainmailAchievement(this.menu);
+            AetherAchievements.checkChainmailAchievement(this.menu);
         } else {
             original.call(instance, statbase);
         }
