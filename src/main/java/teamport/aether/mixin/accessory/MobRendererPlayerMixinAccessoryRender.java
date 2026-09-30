@@ -34,16 +34,12 @@ import org.useless.dragonfly.models.entity.StaticEntityModel;
 import teamport.aether.ducks.IContainerInventoryAether;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
 import teamport.aether.entity.player.PlayerUtil;
-import teamport.aether.helper.MixinHelper;
 import teamport.aether.item.AetherItemTags;
 import teamport.aether.item.AetherRepulsion;
 import teamport.aether.item.accessory.ItemAccessory;
 import teamport.aether.item.accessory.gloves.ItemGloves;
 import teamport.aether.item.accessory.pendant.ItemPendant;
-import teamport.aether.item.accessory.trinket.ItemGoldenFeather;
-import teamport.aether.item.accessory.trinket.ItemIronBubble;
-import teamport.aether.item.accessory.trinket.ItemRegenStone;
-import teamport.aether.item.accessory.trinket.ItemRepulsionShield;
+import teamport.aether.item.accessory.trinket.*;
 
 import static teamport.aether.item.accessory.SlotAccessory.*;
 
@@ -161,7 +157,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
         if (layer <= 4) {
             return original.call(entity, brightness, partialTick, layer);
         }
-        MixinHelper.setUpInvisibility(entity);
+        PlayerUtil.setUpInvisibility(entity);
         int slot = layer - 1;
         ItemStack armorStack = this.getAccessory(entity, slot);
         if (armorStack == null
@@ -196,21 +192,21 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
             return this.setUpGoldenFeather(entity, partialTick, layer, slot);
         }
 
-        String textureKey = MixinHelper.TRINKET_TEXTURES.get(item);
+        String textureKey = ItemTrinket.getTextureKey(item);
         if (textureKey != null) {
-            return setUpTrinkets(entity, partialTick, layer, slot, textureKey);
+            return this.setUpTrinkets(entity, partialTick, layer, slot, textureKey);
         }
 
         if (item instanceof ItemPendant) {
-            return setUpPendant(entity, partialTick, layer, slot, itemTrinketSlot1, item);
+            return this.setUpPendant(entity, partialTick, layer, slot, itemTrinketSlot1, item);
         }
 
         if (item instanceof ItemRegenStone) {
-            return setUpRegenStone(entity, partialTick, layer, slot);
+            return this.setUpRegenStone(entity, partialTick, layer, slot);
         }
 
         if (item instanceof ItemIronBubble) {
-            return setUpIronBubble(entity, partialTick, layer, itemTrinketSlot1, itemTrinketSlot2, slot);
+            return this.setUpIronBubble(entity, partialTick, layer, itemTrinketSlot1, itemTrinketSlot2, slot);
         }
         return null;
     }

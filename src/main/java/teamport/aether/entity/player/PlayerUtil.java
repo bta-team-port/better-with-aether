@@ -1,5 +1,7 @@
 package teamport.aether.entity.player;
 
+import net.minecraft.client.render.renderer.GLRenderer;
+import net.minecraft.client.render.renderer.State;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
@@ -31,9 +33,12 @@ import teamport.aether.entity.monster.mimic.MobMimic;
 import teamport.aether.entity.monster.swet.DeathCauseKilledSecondary;
 import teamport.aether.entity.monster.swet.MobSwet;
 import teamport.aether.entity.monster.swet.MobSwetGold;
+import teamport.aether.helper.ParticleMaker;
+import teamport.aether.item.AetherArmorMaterial;
 import teamport.aether.item.AetherItems;
 import teamport.aether.item.accessory.gloves.ItemGloves;
 import teamport.aether.item.accessory.pendant.ItemIcePendant;
+import teamport.aether.mixin.accessors.EntityAccessor;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 import turniplabs.halplibe.util.deathcause.DeathCause;
 import turniplabs.halplibe.util.deathcause.vanilla.DeathCauseKilledBy;
@@ -43,6 +48,27 @@ import static teamport.aether.item.accessory.SlotAccessory.*;
 
 public class PlayerUtil {
     private PlayerUtil() {/* no need to initiate*/}
+
+    public static void damageArmourWithEffect(int damage, Player player, double x, double y, double z, float bbHeight, float bbWidth) {
+        if (((EntityAccessor) player).getRandom().nextFloat() < (double) 0.05F) {
+            player.damageArmor(damage);
+            if (((EntityAccessor) player).getRandom().nextInt(6) == 0) {
+                player.world.playSoundAtEntity(null, player, "random.fizz", 0.5F, 0.8F / (((EntityAccessor) player).getRandom().nextFloat() * 0.2F + 0.9F));
+            }
+        }
+        ParticleMaker.spawnSmokeParticles(player.world, x, y, z, bbHeight, bbWidth);
+    }
+
+    public static int fireResistanceCount(ContainerInventory inventory) {
+        return countArmorPiecesOfMaterial(inventory, AetherArmorMaterial.PHOENIX);
+    }
+
+    public static void setUpInvisibility(Entity entity) {
+        if(isInvisible(entity)){
+            GLRenderer.enableState(State.BLEND);
+            GLRenderer.setColor4f(1.0F, 1.0F, 1.0F, 0.15F);
+        }
+    }
 
     public enum InventoryType {
         HOLD, MAIN, ARMOR

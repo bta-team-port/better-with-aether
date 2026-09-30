@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.item.AetherItemTags;
 import teamport.aether.item.accessory.ItemAccessory;
-import teamport.aether.lookup.LookupTrinketIcons;
+import teamport.aether.lookup.LookupTrinketOutlines;
 import teamport.aether.option.AetherGameSettingsHolder;
 
 import java.nio.DoubleBuffer;
@@ -51,8 +51,8 @@ public abstract class ItemElementMixinHoverShowSlot {
             if (seconds != 0) {
                 if (this.mc.thePlayer.tickCount - lastTick >= seconds * Global.TICKS_PER_SECOND) { // 3000
                     lastTick = this.mc.thePlayer.tickCount;
-                    iconPathTrinket1 = LookupTrinketIcons.INSTANCE.getRandomEntry();
-                    iconPathTrinket2 = LookupTrinketIcons.INSTANCE.getRandomEntry();
+                    iconPathTrinket1 = LookupTrinketOutlines.INSTANCE.getRandomEntry();
+                    iconPathTrinket2 = LookupTrinketOutlines.INSTANCE.getRandomEntry();
                 }
                 if (iconPathTrinket1 != null && iconPathTrinket2 != null) {
                     defaultIcon = TextureRegistry.getTexture(currectSlot.index > ARMOR_START_INDEX + TRINKET_1_SLOT ? iconPathTrinket2 : iconPathTrinket1);
@@ -74,7 +74,7 @@ public abstract class ItemElementMixinHoverShowSlot {
                 if (hoverStack != null) {
                     Item item = hoverStack.getItem();
                     if (item instanceof ItemAccessory<?> || item.hasTag(AetherItemTags.TRINKET)) {
-                        String iconPath = LookupTrinketIcons.INSTANCE.getEntry(item);
+                        String iconPath = LookupTrinketOutlines.INSTANCE.getEntry(item);
                         IconCoordinate displayIcon = iconPath != null ? TextureRegistry.getTexture(iconPath) : defaultIcon;
                         instance.drawTexturedIcon(x, y, 16, 16, displayIcon);
                         return;
@@ -87,7 +87,7 @@ public abstract class ItemElementMixinHoverShowSlot {
                 if (hoverStack != null) {
                     Item item = hoverStack.getItem();
                     if (item instanceof ItemAccessory<?> || item.hasTag(AetherItemTags.TRINKET)) {
-                        String iconPath = LookupTrinketIcons.INSTANCE.getEntry(item);
+                        String iconPath = LookupTrinketOutlines.INSTANCE.getEntry(item);
                         IconCoordinate displayIcon = iconPath != null ? TextureRegistry.getTexture(iconPath) : defaultIcon;
                         instance.drawTexturedIcon(x, y, 16, 16, displayIcon);
                         return;

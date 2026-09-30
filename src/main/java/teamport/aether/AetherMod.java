@@ -192,11 +192,11 @@ public class AetherMod implements ModInitializer {
     }
 
     public static void registerNewTagForItems() {
-        ItemTrinket.setIcon(Items.TOOL_COMPASS, "aether:item/trinket/armor_compass_outline");
-        ItemTrinket.setIcon(Items.TOOL_CALENDAR, "aether:item/trinket/armor_calendar_outline");
-        ItemTrinket.setIcon(Items.TOOL_CLOCK, "aether:item/trinket/armor_clock_outline");
-        ItemTrinket.setIcon(Items.MAP, "aether:item/trinket/armor_map_outline");
-        ItemTrinket.setIcon(AetherItems.TOOL_DUNGEON_COMPASS, "aether:item/trinket/armor_compass_outline");
+        ItemTrinket.setOutline(Items.TOOL_COMPASS, "aether:item/trinket/armor_compass_outline");
+        ItemTrinket.setOutline(Items.TOOL_CALENDAR, "aether:item/trinket/armor_calendar_outline");
+        ItemTrinket.setOutline(Items.TOOL_CLOCK, "aether:item/trinket/armor_clock_outline");
+        ItemTrinket.setOutline(Items.MAP, "aether:item/trinket/armor_map_outline");
+        ItemTrinket.setOutline(AetherItems.TOOL_DUNGEON_COMPASS, "aether:item/trinket/armor_compass_outline");
 
         Items.TOOL_COMPASS.withTags(AetherItemTags.tags(AetherItemTags.TRINKET));
         Items.TOOL_CALENDAR.withTags(AetherItemTags.tags(AetherItemTags.TRINKET));

@@ -9,7 +9,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.helper.DamageType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import teamport.aether.helper.MixinHelper;
+import teamport.aether.entity.player.PlayerUtil;
 
 @Mixin(Entity.class)
 public abstract class PlayerMixinFireImmunityBurn {
@@ -32,8 +32,8 @@ public abstract class PlayerMixinFireImmunityBurn {
             return;
         }
         Player player = (Player) (Object) this;
-        if (MixinHelper.fireResistanceCount(player.inventory) >= 3) {
-            MixinHelper.damageArmourWithEffect(1, player, x, y, z, bbHeight, bbWidth);
+        if (PlayerUtil.fireResistanceCount(player.inventory) >= 3) {
+            PlayerUtil.damageArmourWithEffect(1, player, x, y, z, bbHeight, bbWidth);
             return;
         }
         original.call(damage, fireSource);
@@ -45,10 +45,10 @@ public abstract class PlayerMixinFireImmunityBurn {
             return;
         }
         Player player = (Player) (Object) this;
-        if (MixinHelper.fireResistanceCount(player.inventory) >= 5) {
+        if (PlayerUtil.fireResistanceCount(player.inventory) >= 5) {
             // we only negate the burn but the player takes the lightning damage
             hurt(null, 5, DamageType.FIRE);
-            MixinHelper.damageArmourWithEffect(1, player, x, y, z, bbHeight, bbWidth);
+            PlayerUtil.damageArmourWithEffect(1, player, x, y, z, bbHeight, bbWidth);
             return;
         }
         original.call(bolt);
