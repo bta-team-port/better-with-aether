@@ -1,32 +1,16 @@
 package teamport.aether.helper;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import net.minecraft.client.render.renderer.GLRenderer;
-import net.minecraft.client.render.renderer.State;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
-import net.minecraft.core.entity.animal.MobWolf;
-import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.item.IArmorItem;
-import net.minecraft.core.item.Item;
-import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.item.Items;
-import net.minecraft.core.item.material.ArmorMaterial;
-import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.util.helper.Color;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import org.joml.primitives.AABBdc;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.entity.player.PlayerUtil;
-import teamport.aether.item.AetherArmorMaterial;
-import teamport.aether.item.AetherItems;
-import teamport.aether.mixin.accessors.EntityAccessor;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static teamport.aether.AetherGlobals.LOGGER;
 
@@ -35,34 +19,6 @@ public class MixinHelper {
     private MixinHelper() {}
 
     public static final int ANIMATION_LENGTH = 30;
-    public static final Map<Item, String> TRINKET_TEXTURES = new HashMap<>();
-    static {
-        TRINKET_TEXTURES.put(Items.TOOL_COMPASS, "compass_trinket");
-        TRINKET_TEXTURES.put(Items.TOOL_CLOCK, "clock_trinket");
-        TRINKET_TEXTURES.put(Items.TOOL_CALENDAR, "calendar_trinket");
-        TRINKET_TEXTURES.put(AetherItems.TOOL_DUNGEON_COMPASS, "compass_dungeon_trinket");
-    }
-
-    public static int fireResistanceCount(ContainerInventory inventory) {
-        return PlayerUtil.countArmorPiecesOfMaterial(inventory, AetherArmorMaterial.PHOENIX);
-    }
-
-    public static void damageArmourWithEffect(int damage, Player player, double x, double y, double z, float bbHeight, float bbWidth) {
-        if (((EntityAccessor) player).getRandom().nextFloat() < (double) 0.05F) {
-            player.damageArmor(damage);
-            if (((EntityAccessor) player).getRandom().nextInt(6) == 0) {
-                player.world.playSoundAtEntity(null, player, "random.fizz", 0.5F, 0.8F / (((EntityAccessor) player).getRandom().nextFloat() * 0.2F + 0.9F));
-            }
-        }
-        ParticleMaker.spawnSmokeParticles(player.world, x, y, z, bbHeight, bbWidth);
-    }
-
-    public static boolean isImmuneToFire(@NonNull MobWolf mobWolf) {
-        ItemStack armor = mobWolf.getArmorItem();
-        if (armor == null || !(armor.getItem() instanceof IArmorItem)) return false;
-        ArmorMaterial armorMaterial = ((IArmorItem<?>) armor.getItem()).getArmorMaterial();
-        return armorMaterial != null && armorMaterial.equals(AetherArmorMaterial.PHOENIX);
-    }
 
     public static boolean isBrokenAABB(@NonNull AABBdc aabb) {
         double diffX = Math.abs(aabb.maxX() - aabb.minX());
@@ -121,13 +77,6 @@ public class MixinHelper {
         int greenRes = (int) (greenA * ratio + greenB * (1 - ratio));
 
         return Color.intToIntARGB(alphaRes, redRes, blueRes, greenRes);
-    }
-
-    public static void setUpInvisibility(Entity entity) {
-        if(PlayerUtil.isInvisible(entity)){
-            GLRenderer.enableState(State.BLEND);
-            GLRenderer.setColor4f(1.0F, 1.0F, 1.0F, 0.15F);
-        }
     }
 
 }
