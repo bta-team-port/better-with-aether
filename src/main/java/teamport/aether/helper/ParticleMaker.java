@@ -17,6 +17,7 @@ import turniplabs.halplibe.helper.EnvironmentHelper;
 import java.util.Random;
 
 public class ParticleMaker {
+    private ParticleMaker(){}
     private static final Random random = new Random();
 
     public static void spawnParticle(World world, String particleKey, double x, double y, double z, double motionX, double motionY, double motionZ, int data, double maxDistance) {
