@@ -129,7 +129,7 @@ public class BlockLogicTrapped extends BlockLogicDungeon implements AetherBlockT
                 world.entityJoinedWorld(theMonster);
                 world.setBlockMetadata(x, y, z, 1);
                 world.scheduleBlockUpdate(x, y, z, this.id(), this.tickDelay());
-                this.spawnParticles(world, spawnX, spawnY + 0.25, spawnZ);
+                BlockLogicTrapped.spawnParticles(world, spawnX, spawnY + 0.25, spawnZ);
                 this.playSound(world, x, y, z, entity, theMonster);
                 this.giveAchievement((Player) entity, theMonster);
                 return;
@@ -158,7 +158,7 @@ public class BlockLogicTrapped extends BlockLogicDungeon implements AetherBlockT
         world.playSoundAtEntity(entity, theMonster, "mob.ghast.fireball", 0.25F, 0.75F);
     }
 
-    private void spawnParticles(World world, double x, double y, double z) {
+    public static void spawnParticles(World world, double x, double y, double z) {
         for (int l = 0; l < 8; ++l) {
             double angle = Math.toRadians(l * 45.0);
             ParticleMaker.spawnParticle(world, "snowshovel", x, y, z, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
