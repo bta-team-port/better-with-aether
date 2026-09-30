@@ -11,7 +11,6 @@ import net.minecraft.core.player.inventory.menu.MenuInventory;
 import net.minecraft.core.player.inventory.slot.Slot;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.achievements.AetherAchievements;
-import teamport.aether.helper.MixinHelper;
 import teamport.aether.item.AetherItemTags;
 
 public class SlotAccessory extends Slot {
@@ -80,7 +79,7 @@ public class SlotAccessory extends Slot {
             this.menu.inventory.player.triggerAchievement(AetherAchievements.ALL_ACCESSORY_TYPES);
         }
 
-        MixinHelper.checkChainmailAchievement(this.menu);
+        AetherAchievements.checkChainmailAchievement(this.menu);
 
         if (this.getItemStack() != null && this.container instanceof ContainerInventory containerInventory) {
             Player player = containerInventory.player;
