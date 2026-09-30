@@ -1,12 +1,18 @@
 package teamport.aether.achievements;
 
 import net.minecraft.core.achievement.Achievement;
+import net.minecraft.core.achievement.Achievements;
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
+import net.minecraft.core.player.inventory.menu.MenuInventory;
+import net.minecraft.core.player.inventory.slot.Slot;
+import net.minecraft.core.player.inventory.slot.SlotArmor;
 import net.minecraft.core.util.collection.NamespaceID;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.item.AetherItems;
+import teamport.aether.item.accessory.SlotAccessory;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
@@ -124,4 +130,29 @@ public class AetherAchievements {
         .registerAchievement();
 
 
+    public static void checkChainmailAchievement(@NonNull MenuInventory menu) {
+        int chainCount = 0;
+
+        for (int i = 0; i < menu.slots.size(); ++i) {
+            Slot slot = menu.slots.get(i);
+            if (slot instanceof SlotArmor || slot instanceof SlotAccessory) {
+                ItemStack stack = slot.getItemStack();
+                if (stack != null && stack.getMetadata() == 0) {
+                    int id = stack.itemID;
+                    if (id == Items.ARMOR_BOOTS_CHAINMAIL.id ||
+                        id == Items.ARMOR_HELMET_CHAINMAIL.id ||
+                        id == Items.ARMOR_CHESTPLATE_CHAINMAIL.id ||
+                        id == Items.ARMOR_LEGGINGS_CHAINMAIL.id ||
+                        id == AetherItems.ARMOR_GLOVES_CHAINMAIL.id ||
+                        id == AetherItems.ARMOR_TALISMAN_CHAINMAIL.id) {
+                        chainCount++;
+                    }
+                }
+            }
+        }
+
+        if (chainCount >= 7) {
+            menu.inventory.player.triggerAchievement(Achievements.GET_CHAINMAIL);
+        }
+    }
 }
