@@ -1,6 +1,8 @@
 package teamport.aether.world.feature.terrain;
 
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.BlockLogicLeavesBase;
+import net.minecraft.core.block.BlockLogicLog;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.world.World;
@@ -26,7 +28,6 @@ public abstract class WorldFeatureAetherTree extends WorldFeature implements Wor
         this.log = log;
         this.heightMod = heightMod;
     }
-
 
     @Override
     public final boolean place(World world, Random random, int x, int y, int z) {
@@ -71,6 +72,18 @@ public abstract class WorldFeatureAetherTree extends WorldFeature implements Wor
             && (blockBelow.hasTag(BlockTags.GROWS_TREES) || blockBelow.hasTag(AetherBlockTags.GROWS_AETHER_TREES));
     }
 
+    protected boolean canTrunkBePlaced(Block<?> block) {
+        return block == Blocks.AIR
+            || block.hasTag(BlockTags.PLACE_OVERWRITES)
+            || block.getLogic() instanceof BlockLogicLeavesBase
+            || block.getLogic() instanceof BlockLogicLog;
+    }
 
+    protected boolean canLeavesBePlaced(Block<?> block) {
+        return block == Blocks.AIR
+            || block.getLogic() instanceof BlockLogicLeavesBase
+            || block.hasTag(BlockTags.PLACE_OVERWRITES)
+            || block.getMaterial().isReplaceable();
+    }
 
 }
