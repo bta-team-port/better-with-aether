@@ -6,6 +6,8 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import net.minecraft.core.world.pos.TilePosc;
 import org.jspecify.annotations.NonNull;
+import teamport.aether.block.AetherBlocks;
+import teamport.aether.world.feature.terrain.WorldFeatureAetherTree;
 import teamport.aether.world.feature.terrain.WorldFeatureAetherTreeGoldenOak;
 
 import java.util.Random;
@@ -18,7 +20,7 @@ public class BlockLogicSaplingOakGolden extends BlockLogicSaplingBaseAether {
 
     @Override
     public void growTree(@NonNull World world, @NonNull TilePosc tilePos, @NonNull Random random) {
-        WorldFeature treeBig = new WorldFeatureAetherTreeGoldenOak();
+        WorldFeatureAetherTree treeBig = new WorldFeatureAetherTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN, AetherBlocks.LOG_OAK_GOLDEN, 6);
         world.setBlockType(tilePos, Blocks.AIR);
         if (!treeBig.place(world, random, tilePos.x(), tilePos.y(), tilePos.z())) {
             world.setBlockType(tilePos, this.block);

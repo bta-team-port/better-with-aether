@@ -8,11 +8,12 @@ import net.minecraft.core.item.Items;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.chunk.Chunk;
 import net.minecraft.core.world.generate.chunk.ChunkDecorator;
+import net.minecraft.core.world.pos.TilePos;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.item.AetherItems;
 import teamport.aether.world.feature.terrain.WorldFeatureAetherClouds;
-import teamport.aether.world.feature.terrain.WorldFeatureAetherTree;
+import teamport.aether.world.feature.terrain.WorldFeatureSkyrootTree;
 
 import java.util.Random;
 
@@ -41,15 +42,15 @@ public class ChunkDecoratorSkyblockAether implements ChunkDecorator {
 
         if (rand.nextInt(24) == 0) {
             yPosition = rand.nextInt(32) + 224;
-            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_GOLD.id(), 4, false)).place(this.world, rand, xPosition, yPosition, zPosition);
+            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_GOLD, 4, false)).place(this.world, rand, new TilePos(xPosition, yPosition, zPosition));
         }
         if (rand.nextInt(24) == 0) {
             yPosition = rand.nextInt(64) + 128;
-            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_BLUE.id(), 8, false)).place(this.world, rand, xPosition, yPosition, zPosition);
+            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_BLUE, 8, false)).place(this.world, rand, new TilePos(xPosition, yPosition, zPosition));
         }
         if (rand.nextInt(12) == 0) {
             yPosition = rand.nextInt(256);
-            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), 16, false)).place(this.world, rand, xPosition, yPosition, zPosition);
+            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE, 16, false)).place(this.world, rand, new TilePos(xPosition, yPosition, zPosition));
         }
 
 
@@ -62,7 +63,7 @@ public class ChunkDecoratorSkyblockAether implements ChunkDecorator {
         }
 
         if (this.contains(chunk, 0, -3)) {
-            (new WorldFeatureAetherTree(AetherBlocks.LEAVES_SKYROOT.id(), AetherBlocks.LOG_SKYROOT.id(), 6)).place(chunk.world, new Random(0L), 0, 67, -3);
+            (new WorldFeatureSkyrootTree(AetherBlocks.LEAVES_SKYROOT, AetherBlocks.LOG_SKYROOT, 6)).place(chunk.world, new Random(0L), new TilePos(0, 67, -3));
         }
 
         TileEntity tileEntity;

@@ -256,7 +256,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
         List<WorldFeaturePoint> cloudPoints = getCloudPoints(x, y, z);
         for (WorldFeaturePoint cloudPoint : cloudPoints) {
             cloudPoint.rotateYAroundPivot(this.dungeonAnchor, this.direction);
-            new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), (6 + random.nextInt(10)), false).place(world, random, cloudPoint.getX(), cloudPoint.getY(), cloudPoint.getZ());
+            new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE, (6 + random.nextInt(10)), false).place(world, random, new TilePos(cloudPoint.getX(), cloudPoint.getY(), cloudPoint.getZ()));
         }
 
         // holystone base
@@ -434,7 +434,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
         this.placeComponent(pod);
         this.placeComponent(trees);
         for (WorldFeatureBlock tree : trees.getBlockList()) {
-            new WorldFeatureAetherTreeGoldenOak().place(this.world, this.random, tree.getX(), tree.getY(), tree.getZ());
+            new WorldFeatureAetherTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN, AetherBlocks.LOG_OAK_GOLDEN, 6).place(this.world, this.random, tree.getX(), tree.getY(), tree.getZ());
         }
     }
 
