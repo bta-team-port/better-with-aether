@@ -1,28 +1,36 @@
 package teamport.aether.world.feature.terrain;
 
+import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.World;
-import net.minecraft.core.world.generate.feature.WorldFeature;
-import org.jspecify.annotations.NonNull;
+import net.minecraft.core.world.generate.feature.WorldFeatureInterface;
+import net.minecraft.core.world.pos.TilePos;
+import net.minecraft.core.world.pos.TilePosc;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
-public class WorldFeatureAetherQuicksoil extends WorldFeature {
-    private final int blockId;
+public class WorldFeatureAetherQuicksoil implements WorldFeatureInterface {
+    private final Block<?> block;
 
-    public WorldFeatureAetherQuicksoil(int blockId) {
-        this.blockId = blockId;
+    public WorldFeatureAetherQuicksoil(Block<?> block) {
+        this.block = block;
     }
 
     @Override
-    public boolean place(World world, @NonNull Random random, int x, int y, int z) {
+    public boolean place(@NotNull World world, @NotNull Random random, @NotNull TilePosc tilePosc) {
+        int ix = tilePosc.x();
+        int iy = tilePosc.y();
+        int iz = tilePosc.z();
         int radius = 3 + random.nextInt(3);
-        for (int x1 = x - radius; x1 <= x + radius; x1++) {
-            for (int z1 = z - radius; z1 <= z + radius; z1++) {
-                int dx = x1 - x;
-                int dz = z1 - z;
-                if (dx * dx + dz * dz <= radius * radius + random.nextInt(2) && world.getBlockId(x1, y, z1) == Blocks.AIR.id()) {
-                    world.setBlock(x1, y, z1, this.blockId);
+        TilePos temp = new TilePos();
+        for (int x = ix - radius; x <= ix + radius; x++) {
+            for (int z = iz - radius; z <= iz + radius; z++) {
+                temp.set(x, iy, z);
+                if (world.getBlockType(temp) == Blocks.AIR
+                    && (x - ix) * (x - ix) + (z - iz) * (z - iz) < radius * radius + random.nextInt(2)
+                ) {
+                    world.setBlockType(temp, block);
                 }
             }
         }
