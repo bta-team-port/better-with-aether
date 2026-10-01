@@ -23,7 +23,13 @@ public class BlockLogicLeavesOakGolden extends BlockLogicLeavesBase {
     @Override
     public void animationTick(@NonNull World world, @NonNull TilePosc tilePos, @NonNull Random rand) {
         if (rand.nextInt(5) == 0) {
-            world.spawnParticle("goldendust", tilePos.x(), (double) tilePos.y() - (double) 0.1F, tilePos.z(), 0.0F, 0.0F, 0.0F, 0, false);
+            world.spawnParticle(
+                "goldendust",
+                tilePos.x() + rand.nextDouble(),
+                tilePos.y() - 0.1D,
+                tilePos.z() + rand.nextDouble(),
+                0.0F, 0.0F, 0.0F, 0, 32, false
+            );
         }
 
     }
@@ -34,7 +40,7 @@ public class BlockLogicLeavesOakGolden extends BlockLogicLeavesBase {
             if (world.rand.nextInt(20) == 0) {
                 return new ItemStack[]{new ItemStack(AetherBlocks.SAPLING_OAK_GOLDEN, 1)};
             }
-            if (world.rand.nextInt(1000) == 0) {
+            if (world.rand.nextInt(1024) == 0) {
                 return new ItemStack[]{new ItemStack(Items.FOOD_APPLE_GOLD, 1)};
             }
         } else {
