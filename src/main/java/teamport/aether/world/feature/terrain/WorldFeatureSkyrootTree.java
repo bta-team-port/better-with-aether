@@ -50,10 +50,11 @@ public class WorldFeatureSkyrootTree extends WorldFeatureAetherTree implements W
                     int relativeZ = leafZ - z;
                     TilePos tilePos = new TilePos(leafX, leafY, leafZ);
                     Block<?> block = world.getBlockType(tilePos);
-                    if (this.canPlaceLeave(block, random, leafRadius, relativeX, relativeY, relativeZ)) {
-                        continue;
+                    if ((Math.abs(relativeX) != leafRadius || Math.abs(relativeZ) != leafRadius || (random.nextInt(2) != 0 && relativeY != 0))
+                        && (this.canLeavesBePlaced(block))
+                    ) {
+                        world.setBlockTypeNotify(tilePos, this.leaves);
                     }
-                    world.setBlockTypeNotify(tilePos, this.leaves);
                 }
             }
         }
@@ -65,10 +66,12 @@ public class WorldFeatureSkyrootTree extends WorldFeatureAetherTree implements W
                 int x = tilePosc.x() + direction.offsetX();
                 int y = tilePosc.y() + yOff;
                 int z = tilePosc.z() + direction.offsetZ();
-                Block<?> block1 = world.getBlockType(new TilePos(x, y, z));
-                if (block1 != Blocks.AIR && !(block1.getLogic() instanceof BlockLogicLeavesBase)) {
-                    return false;
+                Block<?> block = world.getBlockType(new TilePos(x, y, z));
+                if (this.canLeavesBePlaced(block)
+                ) {
+                    continue;
                 }
+                return false;
             }
         }
         return true;
@@ -79,16 +82,10 @@ public class WorldFeatureSkyrootTree extends WorldFeatureAetherTree implements W
         for (int l1 = 0; l1 < this.treeHeight; ++l1) {
             tilePos.up();
             Block<?> block = world.getBlockType(tilePos);
-            if (block == Blocks.AIR || block.getLogic() instanceof BlockLogicLeavesBase) {
+            if (this.canTrunkBePlaced(block)) {
                 world.setBlockTypeNotify(tilePos, this.log);
             }
         }
-    }
-
-    private boolean canPlaceLeave(Block<?> block, @NotNull Random random, int leafRadius, int relativeX, int relativeY, int relativeZ) {
-        return (Math.abs(relativeX) == leafRadius && Math.abs(relativeZ) == leafRadius
-            && (random.nextInt(2) == 0 || relativeY == 0))
-            || !block.hasTag(BlockTags.PLACE_OVERWRITES);
     }
 
     // This kept for now, in case the skyroot tree need adjustments
@@ -108,9 +105,10 @@ public class WorldFeatureSkyrootTree extends WorldFeatureAetherTree implements W
             for (int ix = x - treeRadius; ix <= x + treeRadius; ++ix) {
                 for (int iz = z - treeRadius; iz <= z + treeRadius; ++iz) {
                     Block<?> block = world.getBlockType(new TilePos(ix, curY, iz));
-                    if (block != Blocks.AIR && !(block.getLogic() instanceof BlockLogicLeavesBase)) {
-                        return false;
+                    if (this.canLeavesBePlaced(block)) {
+                        continue;
                     }
+                    return false;
                 }
             }
         }

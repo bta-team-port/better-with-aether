@@ -1,14 +1,12 @@
 package teamport.aether.world.feature.terrain;
 
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.BlockLogicLeavesBase;
-import net.minecraft.core.block.Blocks;
+import net.minecraft.core.block.BlockLogicLog;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeatureInterface;
 import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
 import org.jetbrains.annotations.NotNull;
-import teamport.aether.block.terrain.BlockLogicLogAether;
 
 import java.util.Random;
 
@@ -46,12 +44,12 @@ public class WorldFeatureAetherTreeGoldenOak extends WorldFeatureAetherTree impl
             for (int ix = tilePosc.x() - radius; ix < tilePosc.x() + radius + 1; ix++) {
                 for (int iz = tilePosc.z() - radius; iz < tilePosc.z() + radius + 1; iz++) {
                     Block<?> block = world.getBlockType(new TilePos(ix, iy, iz));
-                    if (block != Blocks.AIR
-                        && !(block.getLogic() instanceof BlockLogicLeavesBase)
-                        && !(leanCheck && !(block.getLogic() instanceof BlockLogicLogAether))
+                    if (this.canLeavesBePlaced(block)
+                        || leanCheck && block.getLogic() instanceof BlockLogicLog
                     ) {
-                        return false;
+                        continue;
                     }
+                    return false;
                 }
             }
         }
@@ -94,10 +92,14 @@ public class WorldFeatureAetherTreeGoldenOak extends WorldFeatureAetherTree impl
 
     private void placeTrunk(@NotNull World world, @NotNull Random random, int x, int y, int z) {
         for (int trunkY = 0; trunkY < this.treeHeight; ++trunkY) {
-            if (trunkY > 4 && random.nextInt(3) > 0) {
-                this.branch(world, random, x, y + trunkY, z, trunkY / 4 - 1);
+            TilePos tilePos = new TilePos(x, y + trunkY, z);
+            Block<?> block = world.getBlockType(tilePos);
+            if(this.canTrunkBePlaced(block)){
+                if (trunkY > 4 && random.nextInt(3) > 0) {
+                    this.branch(world, random, x, y + trunkY, z, trunkY / 4 - 1);
+                }
+                world.setBlockTypeDataNotify(tilePos, this.log, 0);
             }
-            world.setBlockTypeDataNotify(new TilePos(x, y + trunkY, z), this.log, 0);
         }
     }
 
@@ -110,7 +112,7 @@ public class WorldFeatureAetherTreeGoldenOak extends WorldFeatureAetherTree impl
             y += verticalStep;
             z += directionZ;
             TilePos tilePos = new TilePos(x, y, z);
-            if (world.getBlockType(tilePos) == this.leaves) {
+            if (this.canLeavesBePlaced(world.getBlockType(tilePos))) {
                 world.setBlockTypeDataNotify(tilePos, this.leaves, 0);
             }
         }
