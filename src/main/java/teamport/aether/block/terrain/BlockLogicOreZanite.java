@@ -13,7 +13,7 @@ import org.jspecify.annotations.NonNull;
 import teamport.aether.item.AetherItems;
 
 public class BlockLogicOreZanite extends BlockLogic {
-    public static Int2IntArrayMap variantMap = new Int2IntArrayMap();
+    public static final Int2IntArrayMap variantMap = new Int2IntArrayMap();
 
     public BlockLogicOreZanite(@NonNull Block<?> block, @NonNull Block<?> parentBlock, @NonNull Material material) {
         super(block, material);
