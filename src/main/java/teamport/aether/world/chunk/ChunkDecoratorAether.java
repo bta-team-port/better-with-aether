@@ -257,7 +257,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         }
     }
 
-    public static final WorldFeatureAetherQuicksoil QUICKSOIL = new WorldFeatureAetherQuicksoil(AetherBlocks.QUICKSOIL.id());
+    public static final WorldFeatureAetherQuicksoil QUICKSOIL = new WorldFeatureAetherQuicksoil(AetherBlocks.QUICKSOIL);
 
     @SuppressWarnings("java:S1119")
     public void decorateWithQuickSoil(@NonNull Random rand, int worldX, int worldZ, int minY, int maxY) {
@@ -272,10 +272,11 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         for (int y = startY; y < endY; y++) {
             for (int x = worldX; x < worldX + 16; x++) {
                 for (int z = worldZ; z < worldZ + 16; z++) {
-                    if (world.getBlockId(x, y, z) == Blocks.AIR.id()
-                        && world.getBlockId(x, y + 1, z) == AetherBlocks.GRASS_AETHER.id()) {
+                    TilePos tilePos = new TilePos(x, y, z);
+                    if ( this.world.getBlockType(tilePos) == Blocks.AIR
+                        && this.world.getBlockType(new TilePos(x, y + 1, z)) == AetherBlocks.GRASS_AETHER) {
 
-                        QUICKSOIL.place(this.world, rand, new TilePos(x, y, z));
+                        QUICKSOIL.place(this.world, rand, tilePos);
                         break outer;
                     }
                 }
@@ -283,9 +284,9 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         }
     }
 
-    public static final WorldFeatureAetherTreeGoldenOak TREE_GOLDEN = new WorldFeatureAetherTreeGoldenOak();
-    public static final WorldFeatureAetherTree TREE_SKYROOT = new WorldFeatureAetherTree(AetherBlocks.LEAVES_SKYROOT.id(), AetherBlocks.LOG_SKYROOT.id(), 4);
-    public static final WorldFeatureAetherLiquid WATERFALL = new WorldFeatureAetherLiquid(Blocks.FLUID_WATER_FLOWING.id());
+    public static final WorldFeatureAetherTreeGoldenOak TREE_GOLDEN = new WorldFeatureAetherTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN, AetherBlocks.LOG_OAK_GOLDEN, 6);
+    public static final WorldFeatureSkyrootTree TREE_SKYROOT = new WorldFeatureSkyrootTree(AetherBlocks.LEAVES_SKYROOT, AetherBlocks.LOG_SKYROOT, 4);
+    public static final WorldFeatureAetherLiquid WATERFALL = new WorldFeatureAetherLiquid(Blocks.FLUID_WATER_FLOWING);
     public static final WorldFeatureLake LAKE_WATER = new WorldFeatureLake(Blocks.FLUID_WATER_STILL.id());
 
     public void decorateWithLakesAndTrees(@NonNull Random rand, int minY, int maxY, int chunkX, int chunkZ) {
@@ -319,42 +320,42 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         }
     }
 
-    public static final WorldFeatureAetherClouds AERCLOUD_WHITE = new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), 16, false);
-    public static final WorldFeatureAetherClouds AERCLOUD_BLUE = new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_BLUE.id(), 8, false);
-    public static final WorldFeatureAetherClouds AERCLOUD_GOLD = new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_GOLD.id(), 4, false);
-    public static final WorldFeatureAetherClouds AERCLOUD_FLAT = new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), 48, true);
+    public static final WorldFeatureAetherClouds AERCLOUD_WHITE = new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE, 16, false);
+    public static final WorldFeatureAetherClouds AERCLOUD_BLUE = new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_BLUE, 8, false);
+    public static final WorldFeatureAetherClouds AERCLOUD_GOLD = new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_GOLD, 4, false);
+    public static final WorldFeatureAetherClouds AERCLOUD_FLAT = new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE, 48, true);
 
     public void decorateWithClouds(@NonNull Random rand, int minY, int maxY, int worldX, int worldZ) {
         int rangeY = maxY + 1 - minY;
         float heightModifier = rangeY / 128.0F;
-        int yPosition;
+        TilePos tilePos = new TilePos(worldX + 8, minY, worldZ + 8);
 
         if (rand.nextInt(12) == 0) {
             int base = rand.nextInt(16) + 112;
-            yPosition = minY + Math.round(base * heightModifier);
-            AERCLOUD_GOLD.place(this.world, rand, worldX + 8, yPosition, worldZ + 8);
+            tilePos.y = minY + Math.round(base * heightModifier);
+            AERCLOUD_GOLD.place(this.world, rand, tilePos);
         }
 
         if (rand.nextInt(12) == 0) {
             int base = rand.nextInt(32) + 64;
-            yPosition = minY + Math.round(base * heightModifier);
-            AERCLOUD_BLUE.place(this.world, rand, worldX + 8, yPosition, worldZ + 8);
+            tilePos.y = minY + Math.round(base * heightModifier);
+            AERCLOUD_BLUE.place(this.world, rand, tilePos);
         }
 
         if (rand.nextInt(6) == 0) {
             int base = rand.nextInt(96) + 16;
-            yPosition = minY + Math.round(base * heightModifier);
-            AERCLOUD_WHITE.place(this.world, rand, worldX + 8, yPosition, worldZ + 8);
+            tilePos.y = minY + Math.round(base * heightModifier);
+            AERCLOUD_WHITE.place(this.world, rand, tilePos);
         }
 
         if ((world.getWorldType() == AetherWorldTypes.AETHER_DEFAULT || world.getWorldType() == AetherWorldTypes.AETHER_RETRO) && rand.nextInt(24) == 0) {
-            yPosition = rand.nextInt(28) + 4;
-            AERCLOUD_FLAT.place(this.world, rand, worldX + 8, yPosition, worldZ + 8);
+            tilePos.y = rand.nextInt(28) + 4;
+            AERCLOUD_FLAT.place(this.world, rand, tilePos);
         }
     }
 
-    public static final WorldFeatureAetherOre ORE_DIRT = new WorldFeatureAetherOre(AetherBlocks.DIRT_AETHER.id(), 32);
-    public static final WorldFeatureAetherOre ORE_ICESTONE = new WorldFeatureAetherOre(AetherBlocks.ICESTONE.id(), 32);
+    public static final WorldFeatureAetherOre ORE_DIRT = new WorldFeatureAetherOre(AetherBlocks.DIRT_AETHER, 32);
+    public static final WorldFeatureAetherOre ORE_ICESTONE = new WorldFeatureAetherOre(AetherBlocks.ICESTONE, 32);
     public static final WorldFeatureAetherOre ORE_AMBROSIUM = new WorldFeatureAetherOre(BlockLogicOreAmbrosium.variantMap, 16);
     public static final WorldFeatureAetherOre ORE_ZANITE = new WorldFeatureAetherOre(BlockLogicOreZanite.variantMap, 8);
     public static final WorldFeatureAetherOre ORE_GRAVITITE = new WorldFeatureAetherOre(BlockLogicOreGravitite.variantMap, 7);
@@ -362,47 +363,34 @@ public class ChunkDecoratorAether implements ChunkDecorator {
     public void decorateWithOres(Random rand, int minY, int maxY, int worldX, int worldZ) {
         int rangeY = maxY + 1 - minY;
         float oreHeightModifier = rangeY / 128.0F;
-
-        int x;
-        int y;
-        int z;
-        int generateChance;
+        int generateChance = 0;
+        TilePos tilePos = new TilePos(0,0,0);
         for (generateChance = 0; generateChance < 10 * oreHeightModifier; ++generateChance) {
-            y = rand.nextInt(rangeY);
-            x = worldX + rand.nextInt(16);
-            z = worldZ + rand.nextInt(16);
-            ORE_DIRT.place(this.world, rand, new TilePos(x, y, z));
+            tilePos.set(worldX + rand.nextInt(16), rand.nextInt(rangeY), worldZ + rand.nextInt(16));
+            ORE_DIRT.place(this.world, rand, tilePos);
         }
 
         for (generateChance = 0; generateChance < 10 * oreHeightModifier; ++generateChance) {
-            y = rand.nextInt(rangeY);
-            x = worldX + rand.nextInt(16);
-            z = worldZ + rand.nextInt(16);
-            ORE_ICESTONE.place(this.world, rand, new TilePos(x, y, z));
+            tilePos.set(worldX + rand.nextInt(16), rand.nextInt(rangeY), worldZ + rand.nextInt(16));
+            ORE_ICESTONE.place(this.world, rand, tilePos);
         }
 
         //Ambrosium 0-256
         for (generateChance = 0; generateChance < 20.0F * oreHeightModifier; ++generateChance) {
-            y = rand.nextInt(rangeY);
-            x = worldX + rand.nextInt(16);
-            z = worldZ + rand.nextInt(16);
-            ORE_AMBROSIUM.place(this.world, rand, new TilePos(x, y, z));
+            tilePos.set(worldX + rand.nextInt(16), rand.nextInt(rangeY), worldZ + rand.nextInt(16));
+            ORE_AMBROSIUM.place(this.world, rand, tilePos);
         }
 
         //Zanite 0-192
         for (generateChance = 0; generateChance < 15.0F * oreHeightModifier; ++generateChance) {
-            y = rand.nextInt(rangeY / 2);
-            x = worldX + rand.nextInt(16);
-            z = worldZ + rand.nextInt(16);
-            ORE_ZANITE.place(this.world, rand, new TilePos(x, y, z));
+            tilePos.set(worldX + rand.nextInt(16), rand.nextInt(rangeY / 2), worldZ + rand.nextInt(16));
+            ORE_ZANITE.place(this.world, rand, tilePos);
         }
 
         //Gravitite 0-128
         for (generateChance = 0; generateChance < 8.0f * oreHeightModifier; ++generateChance) {
-            y = rand.nextInt(rangeY / 3);
-            x = worldX + rand.nextInt(16);
-            z = worldZ + rand.nextInt(16);
-            ORE_GRAVITITE.place(this.world, rand, new TilePos(x, y, z));
+            tilePos.set(worldX + rand.nextInt(16), rand.nextInt(rangeY / 3), worldX + rand.nextInt(16));
+            ORE_GRAVITITE.place(this.world, rand, tilePos);
         }
     }
 

@@ -1,7 +1,6 @@
 package teamport.aether.world.feature.util;
 
 import com.mojang.nbt.tags.CompoundTag;
-import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.ints.IntIntPair;
 import net.minecraft.core.block.*;
 import net.minecraft.core.block.entity.TileEntity;
