@@ -13,7 +13,7 @@ import teamport.aether.block.BlockLogicFloatingBlock;
 import teamport.aether.item.AetherItems;
 
 public class BlockLogicOreGravitite extends BlockLogicFloatingBlock {
-    public static Int2IntArrayMap variantMap = new Int2IntArrayMap();
+    public static final Int2IntArrayMap variantMap = new Int2IntArrayMap();
 
     public BlockLogicOreGravitite(@NonNull Block<?> block, @NonNull Block<?> parentBlock, @NonNull Material material) {
         super(block, material);

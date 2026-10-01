@@ -12,6 +12,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePosc;
+import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.item.AetherItems;
@@ -19,7 +20,7 @@ import teamport.aether.item.AetherItems;
 public class BlockLogicOreAmbrosium extends BlockLogic {
     public static final Int2IntArrayMap variantMap = new Int2IntArrayMap();
 
-    public BlockLogicOreAmbrosium(Block<?> block, Block<?> parentBlock, Material material) {
+    public BlockLogicOreAmbrosium(@NonNull Block<?> block, @NotNull Block<?> parentBlock, Material material) {
         super(block, material);
         variantMap.put(parentBlock.id(), block.id());
     }
