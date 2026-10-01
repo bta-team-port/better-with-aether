@@ -23,7 +23,7 @@ import teamport.aether.entity.monster.swet.MobSwet;
 import teamport.aether.entity.monster.swet.MobSwetGold;
 import teamport.aether.entity.monster.tempest.MobTempest;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
-import teamport.aether.world.feature.terrain.WorldFeatureAetherTree;
+import teamport.aether.world.feature.terrain.WorldFeatureSkyrootTree;
 import teamport.aether.world.feature.terrain.WorldFeatureAetherTreeGoldenOak;
 
 import java.util.Random;
@@ -71,6 +71,9 @@ public class BiomeAether extends Biome {
 
     @Override
     public @NonNull WorldFeature getTreeFeature(@NonNull Random random) {
-        return random.nextInt(10) == 0 ? new WorldFeatureAetherTreeGoldenOak() : new WorldFeatureAetherTree(AetherBlocks.LEAVES_SKYROOT.id(), AetherBlocks.LOG_SKYROOT.id(), 4);
+        return random.nextInt(10) == 0
+            ? new WorldFeatureSkyrootTree(AetherBlocks.LEAVES_SKYROOT, AetherBlocks.LOG_SKYROOT, 4);
+            : new WorldFeatureAetherTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN, AetherBlocks.LOG_OAK_GOLDEN, 6);
+
     }
 }

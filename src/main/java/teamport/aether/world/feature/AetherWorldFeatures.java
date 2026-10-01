@@ -14,6 +14,8 @@ import teamport.aether.world.feature.util.RotationBlockTest;
 import static net.minecraft.core.net.command.util.CommandHelper.registerWorldFeatureClass;
 
 public class AetherWorldFeatures {
+    private AetherWorldFeatures(){}
+
     private static boolean hasInit = false;
 
     public static void init() {
@@ -31,7 +33,7 @@ public class AetherWorldFeatures {
         registerWorldFeatureClass(WorldFeatureAetherClouds.class, "Clouds");
         registerWorldFeatureClass(WorldFeatureAetherLiquid.class, "AetherLakes");
         registerWorldFeatureClass(WorldFeatureAetherOre.class, "AetherOre");
-        registerWorldFeatureClass(WorldFeatureAetherTree.class, "TreeSkyroot");
+        registerWorldFeatureClass(WorldFeatureSkyrootTree.class, "TreeSkyroot");
         registerWorldFeatureClass(WorldFeatureAetherTreeGoldenOak.class, "TreeGoldenSkyroot");
         registerWorldFeatureClass(WorldFeatureAetherQuicksoil.class, "Quicksoil");
 

@@ -66,7 +66,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeatureMap<DungeonLogicG
         WORLD_FEATURE.addEntry(() -> new WorldFeatureTallGrass(AetherBlocks.TALLGRASS_AETHER.id()), 16);
         WORLD_FEATURE.addEntry(() -> new WorldFeatureFlowers(AetherBlocks.FLOWER_WHITE.id(), 64, true), 4);
         WORLD_FEATURE.addEntry(() -> new WorldFeatureFlowers(AetherBlocks.FLOWER_PURPLE.id(), 64, true), 4);
-        WORLD_FEATURE.addEntry(WorldFeatureAetherTreeGoldenOak::new, 8);
+        WORLD_FEATURE.addEntry(() -> new WorldFeatureAetherTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN, AetherBlocks.LOG_OAK_GOLDEN, 6), 8);
     }
 
     private static final WeightedRandomBag<WeightedRandomLootObject> JUNK = new WeightedRandomBag<>();
@@ -188,15 +188,13 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeatureMap<DungeonLogicG
         this.dungeonAnchor = new WorldFeaturePoint(x, y, z);
         this.bossPosition = new WorldFeaturePoint(x, y + RADIUS / 2 + 2, z);
         this.heightMap = new ArrayList<>();
-
-        createMainSphere(x, y, z);
-        createOuterSpheres(x, y, z);
-        createMainRoom(x, y, z);
-        createBossAndTreasure(x, y, z);
-        createHeightMap(x, y, z);
-        createGrassOnTopLevel();
-        createDecorations();
-
+        this.createMainSphere(x, y, z);
+        this.createOuterSpheres(x, y, z);
+        this.createMainRoom(x, y, z);
+        this.createBossAndTreasure(x, y, z);
+        this.createHeightMap(x, y, z);
+        this.createGrassOnTopLevel();
+        this.createDecorations();
         return true;
     }
 
