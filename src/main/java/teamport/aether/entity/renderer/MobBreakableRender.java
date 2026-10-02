@@ -1,8 +1,9 @@
-package teamport.aether.entity.boss.slider;
+package teamport.aether.entity.renderer;
 
 import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.renderer.*;
 import net.minecraft.client.render.tessellator.TessellatorGeneral;
+import net.minecraft.core.Global;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.util.helper.Color;
 import net.minecraft.core.util.helper.MathHelper;
@@ -37,7 +38,7 @@ public abstract class MobBreakableRender<T extends Mob> extends MobRenderer<T> {
         this.renderDispatcher.textureManager.loadTexture(name).bind();
         GLRenderer.textureM4f().scale(scaleX, scaleY, scaleZ);
         GLRenderer.pushFrame();
-        GLRenderer.setLightmapCoord2i(15, 15);
+        GLRenderer.setLightmapCoord2i(8, 8);
         GLRenderer.setShader(Shaders.COLOR_WORLD);
         GLRenderer.enableState(State.BLEND);
         GLRenderer.setBlendFunc(BlendFactor.SRC_ALPHA, BlendFactor.ONE_MINUS_SRC_ALPHA);
@@ -46,6 +47,7 @@ public abstract class MobBreakableRender<T extends Mob> extends MobRenderer<T> {
             for (int layer = 0; layer <= maxRenderLayer; ++layer) {
                 StaticEntityModel model = ((MobRendererAccessor) this).getSetupModels().get(layer);
                 if (model != null) {
+                    GLRenderer.setColor4f(1f, 1f, 1f, 1.0f);
                     model.render();
                 }
             }

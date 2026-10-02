@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
+import teamport.aether.entity.renderer.MobBreakableRender;
 
 @Environment(EnvType.CLIENT)
 public class MobRendererSlider extends MobBreakableRender<MobBossSlider> {
@@ -89,33 +90,22 @@ public class MobRendererSlider extends MobBreakableRender<MobBossSlider> {
     ) {
         StaticEntityModel model = this.getModel("main");
         model.resetBones();
-        if (layer == 1) {
+        if(layer == 1 && slider.deathTime > 0) {
+            int index = 7;
+            if(slider.deathTime > 7) index++;
+            if(slider.deathTime > 14) index++;
+            this.renderDispatcher.textureManager.loadTexture(String.format("/assets/minecraft/textures/block/breaking/%d.png", index)).bind();
+            GLRenderer.textureM4f().scale(4, 2, 4);
+        }
+        if (layer == 2) {
             this.bindGlowTexture(slider);
             GLRenderer.setLightmapCoord2i(15, 15);
             GLRenderer.setBlendFunc(BlendFactor.SRC_ALPHA, BlendFactor.ONE_MINUS_SRC_ALPHA);
             GLRenderer.enableState(State.BLEND);
         }
-        if (layer == 2) {
+        if (layer == 3) {
             GLRenderer.disableState(State.BLEND);
             return null;
-        }
-        if (layer == 3) {
-//            float progress = 1.0F - slider.getHealth() / (float) slider.getMaxHealth();
-//            if (progress > 0.5 && slider.deathTime == 0) {
-//                float textureProgress = (progress - 0.5F) / 0.5F;
-//                int index = (int) Math.floor(Math.min(9, MathHelper.lerp(2, 5, textureProgress)));
-//                // probably better with a custom texture here for the damage states
-//                this.renderDispatcher.textureManager.loadTexture(String.format("/assets/minecraft/textures/block/breaking/%d.png", index)).bind();
-//                GLRenderer.textureM4f().translate(0.25F, 0.25F, 0.0F);
-//                GLRenderer.textureM4f().scale(4f, 2f, 4f);
-//            }
-            if(slider.deathTime > 0) {
-                int index = 7;
-                if(slider.deathTime > 7) index++;
-                if(slider.deathTime > 14) index++;
-                this.renderDispatcher.textureManager.loadTexture(String.format("/assets/minecraft/textures/block/breaking/%d.png", index)).bind();
-                GLRenderer.textureM4f().scale(4, 2, 4);
-            }
         }
         return model;
     }

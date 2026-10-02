@@ -2,12 +2,11 @@ package teamport.aether.entity.monster.sentry;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.renderer.GLRenderer;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
-import teamport.aether.entity.boss.slider.MobBreakableRender;
+import teamport.aether.entity.renderer.MobBreakableRender;
 
 @Environment(EnvType.CLIENT)
 public class MobRendererSentry extends MobBreakableRender<MobSentry> {
