@@ -8,11 +8,12 @@ import org.jspecify.annotations.Nullable;
 import org.useless.dragonfly.models.entity.BoneTransform;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
 import net.minecraft.client.render.entity.MobRenderer;
+import teamport.aether.entity.boss.slider.MobBreakableRender;
 
 @Environment(EnvType.CLIENT)
-public class MobRendererMimic extends MobRenderer<MobMimic> {
+public class MobRendererMimic extends MobBreakableRender<MobMimic> {
     public MobRendererMimic(float shadowSize) {
-        super(shadowSize);
+        super(shadowSize, 8, 4, 8);
     }
 
     @Override
@@ -21,20 +22,15 @@ public class MobRendererMimic extends MobRenderer<MobMimic> {
         model.resetBones();
         float limbSwing = this.getLimbSwing(entity, partialTick);
         float limbYaw = this.getLimbYaw(entity, partialTick);
-
         BoneTransform head = model.getTransform("head");
-
         float flapRotation = -0.8F + (MathHelper.cos(limbSwing * 0.6662F) * (limbYaw * 1.4f));
         float minRotation = -1.6F;
         float maxRotation = 0.0F;
-
         head.rotX = MathHelper.clamp(flapRotation, minRotation, maxRotation);
-
         BoneTransform leg0 = model.getTransform("leg0");
         BoneTransform leg1 = model.getTransform("leg1");
         leg0.rotX = MathHelper.cos(limbSwing * 0.6662F) * 1.1F * limbYaw;
         leg1.rotX = MathHelper.cos(limbSwing * 0.6662F + 3.1415927F) * 1.1F * limbYaw;
-
         return model;
     }
 }
