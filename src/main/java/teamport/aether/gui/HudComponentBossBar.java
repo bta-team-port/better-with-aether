@@ -35,7 +35,7 @@ public class HudComponentBossBar extends HudComponentMovable {
 
     @Override
     public boolean isVisible() {
-        return GameSettings.IMMERSIVE_MODE.drawHotbar() && !getBossesFromPlayer(mc).isEmpty();
+        return GameSettings.IMMERSIVE_MODE.drawHotbar() && !this.getBossesFromPlayer(mc).isEmpty();
     }
 
     public int getAnchorY(@NonNull ComponentAnchor anchor) {
@@ -60,7 +60,7 @@ public class HudComponentBossBar extends HudComponentMovable {
         height = mobList.isEmpty() ? 0 : (BAR_HEIGHT + SPACING) * mobList.size() + SPACING;
 
         for (Mob mob : mobList) {
-            drawBossBar(mc, hudIngame, mob, i++, xSizeScreen, ySizeScreen);
+            this.drawBossBar(mc, hudIngame, mob, i++, xSizeScreen, ySizeScreen);
         }
     }
 
@@ -74,7 +74,7 @@ public class HudComponentBossBar extends HudComponentMovable {
             int textX = barX + BAR_WIDTH / 2;
             int textY = barY + TEXT_OFFSET;
 
-            drawProgressBar(mc, gui, barX, barY, 50, 100);
+            this.drawProgressBar(mc, gui, barX, barY, 50, 100);
             String title = I18n.getInstance().translateKey("aether.menu.boss_bar.preview_name");
             gui.drawStringCenteredShadow(mc.font, title, textX, textY, 0xFFFFFFFF);
         }
@@ -85,14 +85,14 @@ public class HudComponentBossBar extends HudComponentMovable {
         int barY = getLayout().getComponentY(this, ySizeScreen) + (BAR_HEIGHT + SPACING) * offset + SPACING;
         int textX = barX + BAR_WIDTH / 2;
         int textY = barY + TEXT_OFFSET;
-
-        drawProgressBar(mc, gui, barX, barY, mob.getHealth(), mob.getMaxHealth());
-        String entityName = (mob instanceof EnemyBoss) ? ((EnemyBoss) mob).getTranslatedBossTitle() : mob.getDisplayName();
-        gui.drawStringCenteredShadow(mc.font, entityName, textX, textY, 0xFFFFFFFF);
+        String name = (mob instanceof EnemyBoss boss) ? boss.getTranslatedBossTitle() : mob.getDisplayName();
+        int maxHealth = Math.max(mob.getHealth(), mob.getMaxHealth());
+        this.drawProgressBar(mc, gui, barX, barY, mob.getHealth(), maxHealth);
+        gui.drawStringCenteredShadow(mc.font, name, textX, textY, 0xFFFFFFFF);
     }
 
-    public void drawProgressBar(Minecraft mc, Gui gui, int barX, int barY, int health, int maxHealth) {
-        float progress = (float) health / (float) maxHealth;
+    public void drawProgressBar(Minecraft mc, Gui gui, int barX, int barY, float health, float maxHealth) {
+        float progress = health / maxHealth;
         int progressWidth = (int) (BAR_WIDTH * progress);
 
         GLRenderer.setColor4f(1.0F, 1.0F, 1.0F, 1.0F);

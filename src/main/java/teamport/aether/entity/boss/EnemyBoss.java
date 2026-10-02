@@ -9,7 +9,6 @@ import net.minecraft.core.world.pos.TilePos;
 import teamport.aether.block.dungeon.BlockLogicChestLocked;
 import teamport.aether.block.dungeon.BlockLogicDungeonDoor;
 import teamport.aether.block.dungeon.BlockLogicLocked;
-import teamport.aether.block.dungeon.BlockLogicTrapped;
 import teamport.aether.world.feature.util.WorldFeatureBlock;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
 
