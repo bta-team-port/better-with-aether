@@ -7,8 +7,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.useless.dragonfly.models.entity.BoneTransform;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
-import net.minecraft.client.render.entity.MobRenderer;
-import teamport.aether.entity.boss.slider.MobBreakableRender;
+import teamport.aether.entity.renderer.MobBreakableRender;
 
 @Environment(EnvType.CLIENT)
 public class MobRendererMimic extends MobBreakableRender<MobMimic> {
