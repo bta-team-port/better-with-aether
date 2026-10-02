@@ -51,9 +51,9 @@ public interface EnemyBoss {
     static List<WorldFeatureBlock> blockCollidingWithAABB(World world, int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
         List<WorldFeatureBlock> blockInAABB = new ArrayList<>();
         TilePos tilePos = new TilePos(0, 0, 0);
-        for (tilePos.x = minX; tilePos.x < maxX; ++tilePos.x) {
-            for (tilePos.z = minZ; tilePos.z < maxZ; ++tilePos.z) {
-                for (tilePos.y = minY; tilePos.y < maxY; ++tilePos.y) {
+        for (tilePos.x = minX; tilePos.x <= maxX; ++tilePos.x) {
+            for (tilePos.z = minZ; tilePos.z <= maxZ; ++tilePos.z) {
+                for (tilePos.y = minY; tilePos.y <= maxY; ++tilePos.y) {
                     Block<?> block = world.getBlockType(tilePos);
                     if (EnemyBoss.cannotBreakBlock(block) || block == Blocks.AIR) {
                         continue;

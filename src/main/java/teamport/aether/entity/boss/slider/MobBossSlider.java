@@ -3,9 +3,11 @@ package teamport.aether.entity.boss.slider;
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.block.material.MaterialLiquid;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.ICollidable;
+import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
@@ -28,6 +30,9 @@ import org.joml.primitives.AABBdc;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.block.AetherBlocks;
+import teamport.aether.block.dungeon.BlockLogicChestLocked;
+import teamport.aether.block.dungeon.BlockLogicDungeonDoor;
+import teamport.aether.block.dungeon.BlockLogicLocked;
 import teamport.aether.block.dungeon.BlockLogicTrapped;
 import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.boss.AetherBossList;
@@ -54,6 +59,7 @@ import static net.minecraft.core.Global.TICKS_PER_SECOND;
 import static teamport.aether.entity.DamageInstance.inst;
 
 public class MobBossSlider extends MobBoss implements ICollidable {
+    public static final Block<?> SLIDER_BLOCK = AetherBlocks.COBBLE_HOLYSTONE;
     private State currentState = State.ASLEEP;
 
     /// movement
@@ -68,8 +74,9 @@ public class MobBossSlider extends MobBoss implements ICollidable {
     public static final float BASE_DAMAGE = 10F;
     public static final int MAX_ATTACK_COOL_DOWN = 50;
     public static final int MIN_ATTACK_COOL_DOWN = 10;
+    public static final int MAX_MOVE_DISTANCE = 25;
     /// wakeup timer
-    public static final int WAKEUP_TIMER = 15;
+    public static final int WAKEUP_TIMER = 12;
     public int wakeUpTimer = 0;
     /// slam
     private double slamY = -1;
@@ -86,9 +93,9 @@ public class MobBossSlider extends MobBoss implements ICollidable {
     /// target list
     private final List<Player> creativeAttackersList = new ArrayList<>();
     /// sentry spawn
-    int currentCoolDown = 0;
+    int sentryCoolDown = 0;
     int currentPlayerCount = 0;
-    public static final int SENTRY_TIMER = 30 * TICKS_PER_SECOND;
+    public static final int SENTRY_TIMER = 15 * TICKS_PER_SECOND;
 
     ///  pathing 2.0
     Path path = null;
@@ -124,7 +131,6 @@ public class MobBossSlider extends MobBoss implements ICollidable {
         this.setBounds();
         this.setTextureIdentifier("aether", "boss_slider");
         this.chatColor = (byte) (TextFormatting.BROWN.id & 255);
-
         this.pathFinder = new SliderPathFinder(this, this::getBlockPathWeight);
     }
 
@@ -141,6 +147,7 @@ public class MobBossSlider extends MobBoss implements ICollidable {
         tag.putString("state", this.currentState.toString());
         tag.putInt("attackCoolDown", this.attackCoolDown);
         tag.putBoolean("allowedToMove", this.allowedToMove);
+        tag.putInt("sentryCooldown", this.sentryCoolDown);
         super.addAdditionalSaveData(tag);
     }
 
@@ -154,6 +161,7 @@ public class MobBossSlider extends MobBoss implements ICollidable {
         }
         this.attackCoolDown = tag.getInteger("attackCoolDown");
         this.allowedToMove = tag.getBoolean("allowedToMove");
+        this.sentryCoolDown = tag.getInteger("sentryCooldown");
         super.readAdditionalSaveData(tag);
     }
 
@@ -162,7 +170,7 @@ public class MobBossSlider extends MobBoss implements ICollidable {
             entityData.set(DATA_STATE, currentState.ordinal());
             entityData.set(DATA_ALLOW_MOVEMENT, allowedToMove ? 1 : 0);
             entityData.set(DATA_MOVEMENT_DIRECTION, moveDirection.ordinal());
-            entityData.set(DATA_MOVEMENT_AMOUNT, Float.floatToIntBits((float)blocksToMove));
+            entityData.set(DATA_MOVEMENT_AMOUNT, Float.floatToIntBits((float) blocksToMove));
             return;
         }
         if (EnvironmentHelper.isMultiplayerClient()) {
@@ -242,7 +250,7 @@ public class MobBossSlider extends MobBoss implements ICollidable {
         if (!(attacker instanceof Player player)) {
             return false;
         }
-        ItemStack item = ((Player) attacker).inventory.getCurrentItem();
+        ItemStack item = player.inventory.getCurrentItem();
         if (item == null || (!(item.getItem() instanceof ItemToolPickaxe) && !(item.getItem() instanceof ItemToolPickaxeAether))) {
             if (!this.isAwake()) {
                 String message = "<" + player.getDisplayName() + "> " + I18n.getInstance().translateKey("boss_slider.hit_fail");
@@ -258,7 +266,7 @@ public class MobBossSlider extends MobBoss implements ICollidable {
         ((AetherBossList) attacker).aether$TryAddBossList(this);
         this.performDeformation(attacker);
         this.createDamageParticle(damage);
-        return super.hurt(attacker, (int) item.getStrVsBlock(AetherBlocks.COBBLE_HOLYSTONE), type);
+        return super.hurt(attacker, (int) item.getStrVsBlock(SLIDER_BLOCK), type);
     }
 
     @Override
@@ -273,6 +281,7 @@ public class MobBossSlider extends MobBoss implements ICollidable {
         this.moveDirection = Direction.NONE;
         this.allowedToMove = false;
         this.blocksToMove = 0;
+        this.sentryCoolDown = 0;
         this.attackCoolDown = MAX_ATTACK_COOL_DOWN;
         super.onDeath(entityKilledBy);
     }
@@ -341,7 +350,7 @@ public class MobBossSlider extends MobBoss implements ICollidable {
                     posZ = (float) (this.z - 1 + faceY);
                     break;
             }
-            ParticleMaker.spawnParticle(this.world, "block", posX, posY, posZ, 0, 0, 0, AetherBlocks.COBBLE_HOLYSTONE.id());
+            ParticleMaker.spawnParticle(this.world, "block", posX, posY, posZ, 0, 0, 0, SLIDER_BLOCK.id());
         }
     }
 
@@ -362,6 +371,13 @@ public class MobBossSlider extends MobBoss implements ICollidable {
             ParticleMaker.spawnParticle(world, "explode", xParticle, yParticle, zParticle, 0, 0, 0, 0);
         }
         world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, x, y, z, "random.explode", 0.5F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
+    }
+
+    private void spawnDamageParticles() {
+        double x = this.x - this.bbWidth / 2.0F + (this.random.nextDouble() * this.bbWidth);
+        double y = this.y + (this.random.nextDouble() * this.bbWidth);
+        double z = this.z - this.bbWidth / 2.0F + (this.random.nextDouble() * this.bbWidth);
+        ParticleMaker.spawnParticle(this.world, "block", x, y, z, 0, -0.01, 0, AetherBlocks.COBBLE_HOLYSTONE.id());
     }
 
     // AABB
@@ -412,14 +428,14 @@ public class MobBossSlider extends MobBoss implements ICollidable {
         if (0.25F >= blocksToMove) {
             return super.collidesWith(entity);
         }
-        if (entity instanceof Player player) {
-            if (!player.gamemode.hasInvulnerablePlayer()) {
-                MobUtil.multiHit(this, entity,
-                    inst((int) Math.floor(BASE_DAMAGE * getAngerModifier()), DamageType.FALL),
-                    inst((int) Math.floor((BASE_DAMAGE * 0.50F) * getAngerModifier()), DamageType.COMBAT)
-                );
+        if (entity instanceof Mob) {
+            if (entity instanceof Player player && !player.gamemode.hasInvulnerablePlayer()) {
+                return super.collidesWith(entity);
             }
-            return super.collidesWith(entity);
+            MobUtil.multiHit(this, entity,
+                inst((int) Math.floor(BASE_DAMAGE * getAngerModifier()), DamageType.FALL),
+                inst((int) Math.floor((BASE_DAMAGE * 0.50F) * getAngerModifier()), DamageType.COMBAT)
+            );
         }
         MobBossSlider.doExplosionEffect(entity.world, entity.x, entity.y, entity.z);
         this.playCollidingSound();
@@ -485,7 +501,7 @@ public class MobBossSlider extends MobBoss implements ICollidable {
         float progress = (float) Math.max((float) this.getHealth() / this.getMaxHealth(), .32);
         this.attackCoolDown = (int) Math.floor(MathHelper.lerp(MIN_ATTACK_COOL_DOWN, MAX_ATTACK_COOL_DOWN, progress));
         this.allowedToMove = false;
-        if (this.distanceToSqr(this.target) <= 25 && progress < .60F && this.random.nextInt(6) == 0) {
+        if (this.distanceToSqr(this.target) <= MAX_MOVE_DISTANCE && progress < .60F && this.random.nextInt(6) == 0) {
             this.moveDirection = Direction.UP;
             this.blocksToMove = 45;
             this.speed = BASE_SPEED * 2;
@@ -532,7 +548,7 @@ public class MobBossSlider extends MobBoss implements ICollidable {
     }
 
     private void getNext() {
-        this.path = MobUtil.getPath(this.world, this.target, this.pathFinder, 25.0F);
+        this.path = MobUtil.getPath(this.world, this.target, this.pathFinder, MAX_MOVE_DISTANCE);
         if (this.path == null) {
             this.getNextOld();
             return;
@@ -542,7 +558,7 @@ public class MobBossSlider extends MobBoss implements ICollidable {
         double dy = wp.y() - this.bb.minY;
         double dz = wp.z() - this.bb.minZ;
         this.setDirectionAndMovementAmount(dx, dy, dz);
-        this.blocksToMove = Math.min(25, this.blocksToMove + (this.sameAxis() ? 3 : 0));
+        this.blocksToMove = Math.min(MAX_MOVE_DISTANCE, this.blocksToMove + (this.sameAxis() ? 3 : 0));
     }
 
     private void getNextOld() {
@@ -554,7 +570,7 @@ public class MobBossSlider extends MobBoss implements ICollidable {
             case NORTH, SOUTH -> (int) Math.abs(this.z - this.target.z);
             default -> 0;
         };
-        this.blocksToMove = Math.min(25, moveAmount + (this.sameAxis() ? 3 : 0));
+        this.blocksToMove = Math.min(MAX_MOVE_DISTANCE, moveAmount + (this.sameAxis() ? 3 : 0));
     }
 
     private void setDirectionAndMovementAmount(double dx, double dy, double dz) {
@@ -598,11 +614,9 @@ public class MobBossSlider extends MobBoss implements ICollidable {
         } else if (this.allowedToMove && this.slamY == this.y) {
             final int slamRadius = 5;
             final float launchSpeed = 0.75F;
+            // this might be a bit to much for now
+//            MobUtil.doDestroyBlockEffect(this.world, this.x, this.y, this.z);
             final AABBdc boundingBox = new AABBd(this.x - slamRadius, this.y, this.z - slamRadius, this.x + slamRadius, this.y + slamRadius, this.z + slamRadius);
-            double width = Math.abs(boundingBox.maxX() - boundingBox.maxX());
-            double height = Math.abs(boundingBox.maxY() - boundingBox.maxY());
-            double legth = Math.abs(boundingBox.maxZ() - boundingBox.maxZ());
-            MobUtil.doDestroyBlockEffect(this.world, boundingBox.minX() + width, boundingBox.minY() + height, boundingBox.minZ() + legth);
             List<Entity> list = this.world.getEntitiesWithinAABB(Entity.class, boundingBox);
             for (Entity entity : list) {
                 MobUtil.multiHit(this, entity,
@@ -632,31 +646,39 @@ public class MobBossSlider extends MobBoss implements ICollidable {
     @SuppressWarnings("java:S6541")
     public void tick() {
         super.baseTick();
-        if (!this.world.getDifficulty().canHostileMobsSpawn()) {
-            if (this.isAwake()) {
-                this.setState(State.ASLEEP);
-                this.returnToOriginalState();
+        if (!this.noAI) {
+            if (!this.world.getDifficulty().canHostileMobsSpawn()) {
+                if (this.isAwake()) {
+                    this.setState(State.ASLEEP);
+                    this.returnToOriginalState();
+                }
+                return;
             }
-            return;
+
+            this.lerpSlider();
+            this.breakBlockAheadOfAABB();
+            this.moveSlider();
+            this.collideWithEntity();
+            this.updateO();
+            this.spawnSentries();
+            if (!EnvironmentHelper.isMultiplayerClient()) {
+                if (--attackCoolDown <= 0) {
+                    allowedToMove = true;
+                }
+                this.currentState.getConsumer().accept(this);
+            }
+            this.updateEntityData();
+            if (this.isAwake()) {
+                this.wakeUpTimer--;
+            }
+            if (this.deathTime > 0) {
+                for (int i = 0; i < 32; i++) {
+                    this.spawnDamageParticles();
+                }
+            }
         }
-        this.lerpSlider();
-        this.breakBlockAheadOfAABB();
-        this.moveSlider();
-        this.collideWithEntity();
-        this.updateO();
-        this.spawnSentries();
         if (this.deformX > 0.01F) {
             this.deformX *= 0.8F;
-        }
-        if (!EnvironmentHelper.isMultiplayerClient()) {
-            if (--attackCoolDown <= 0) {
-                allowedToMove = true;
-            }
-            this.currentState.getConsumer().accept(this);
-        }
-        this.updateEntityData();
-        if (this.isAwake()) {
-            this.wakeUpTimer--;
         }
     }
 
@@ -684,16 +706,18 @@ public class MobBossSlider extends MobBoss implements ICollidable {
         }
     }
 
-    private void breakBlockAheadOfAABB(){
-        if (this.blocksToMove <= 0) {
+    private void breakBlockAheadOfAABB() {
+        if (this.blocksToMove <= 0 || this.getHealth() <= 0) {
             return;
         }
-        int minX = MathHelper.floor(this.bb.minX());
-        int maxX = MathHelper.floor(this.bb.maxX());
-        int minY = MathHelper.floor(this.bb.minY());
-        int maxY = MathHelper.floor(this.bb.maxY());
-        int minZ = MathHelper.floor(this.bb.minZ());
-        int maxZ = MathHelper.floor(this.bb.maxZ());
+        final double EPS = 1e-6;
+
+        int minX = MathHelper.floor(this.bb.minX() + EPS);
+        int maxX = MathHelper.floor(this.bb.maxX() - EPS);
+        int minY = MathHelper.floor(this.bb.minY() + EPS);
+        int maxY = MathHelper.floor(this.bb.maxY() - EPS);
+        int minZ = MathHelper.floor(this.bb.minZ() + EPS);
+        int maxZ = MathHelper.floor(this.bb.maxZ() - EPS);
         int dx = this.moveDirection.offsetX();
         int dy = this.moveDirection.offsetY();
         int dz = this.moveDirection.offsetZ();
@@ -705,7 +729,7 @@ public class MobBossSlider extends MobBoss implements ICollidable {
         maxZ += Math.max(dz, 0);
         List<WorldFeatureBlock> blockInAABB = EnemyBoss.blockCollidingWithAABB(this.world, minX, minY, minZ, maxX, maxY, maxZ);
         TilePos tilePos = new TilePos(0, 0, 0);
-        for(WorldFeatureBlock wfb : blockInAABB){
+        for (WorldFeatureBlock wfb : blockInAABB) {
             Block<?> block = Blocks.getBlock(wfb.getBlockId());
             tilePos.set(wfb.getX(), wfb.getY(), wfb.getZ());
             block.dropWithCause(world, EnumDropCause.EXPLOSION, tilePos, world.getBlockData(tilePos), world.getTileEntity(tilePos), null);
@@ -803,40 +827,43 @@ public class MobBossSlider extends MobBoss implements ICollidable {
 
 
     private void spawnSentries() {
-        if (this.currentState != State.AWAKE){
+        if (this.currentState != State.AWAKE) {
             return;
         }
-        currentCoolDown++;
-        if(this.currentCoolDown % (5 * TICKS_PER_SECOND) == 0){
+        sentryCoolDown++;
+        if (this.sentryCoolDown % (5 * TICKS_PER_SECOND) == 0) {
             // sampling player count
             List<Player> playerList = this.world.getPlayersWithinRange(this.x, this.y, this.z, 24.24871130596428);
             this.currentPlayerCount = playerList.isEmpty() ? 0 : playerList.size();
         }
-        if (currentCoolDown <= SENTRY_TIMER){
+        if (sentryCoolDown <= SENTRY_TIMER) {
             return;
         }
         List<Player> playerList = this.world.getPlayersWithinRange(this.x, this.y, this.z, 24.24871130596428);
         int count = Math.abs(playerList.size() - this.currentPlayerCount) <= 1 ? playerList.size() : this.currentPlayerCount;
-        this.currentCoolDown = MAX_ATTACK_COOL_DOWN / Math.max(1, Math.min(3, count));
-        for(int i = 0; i < 5; i++){
+        this.sentryCoolDown = Math.min(2, count - 1) * 5 * TICKS_PER_SECOND;
+        List<MobSentry> mobSentries = this.world.getEntitiesWithinRadius(MobSentry.class, this.x, this.y, this.z, MAX_MOVE_DISTANCE);
+        if (mobSentries.size() > 8) {
+            return;
+        }
+        for (int i = 0; i < 5; i++) {
             MobSentry sentry = EntityDispatcher.getInstance().createEntityInWorld(MobSentry.class, this.world);
             if (sentry == null) {
                 continue;
             }
             sentry.spawnInit();
             int tries = 16;
-            while(tries-- > 0){
+            while (tries-- > 0) {
                 final double angleRad = Math.toRadians(world.rand.nextInt(360));
                 double spawnX = x + 6 * Math.cos(angleRad);
                 double spawnZ = z + 6 * Math.sin(angleRad);
                 double spawnY = y + 0.5;
                 sentry.moveTo(spawnX, spawnY, spawnZ, 0.0f, 0.0f);
-                if (!world.getCubes(sentry, sentry.bb).isEmpty()) {
-                    continue;
+                if (world.getCubes(sentry, sentry.bb).isEmpty()) {
+                    this.world.entityJoinedWorld(sentry);
+                    BlockLogicTrapped.spawnParticles(world, spawnX, spawnY + 0.25, spawnZ);
+                    break;
                 }
-                this.world.entityJoinedWorld(sentry);
-                BlockLogicTrapped.spawnParticles(world, spawnX, spawnY + 0.25, spawnZ);
-                break;
             }
         }
 
