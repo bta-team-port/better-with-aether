@@ -3,7 +3,6 @@ package teamport.aether.entity.renderer;
 import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.renderer.*;
 import net.minecraft.client.render.tessellator.TessellatorGeneral;
-import net.minecraft.core.Global;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.util.helper.Color;
 import net.minecraft.core.util.helper.MathHelper;
@@ -26,8 +25,8 @@ public abstract class MobBreakableRender<T extends Mob> extends MobRenderer<T> {
 
     protected void renderHurt(@NotNull T entity, boolean hasOverlayAlpha, int maxRenderLayer, int argb) {
         if (hasOverlayAlpha || entity.hurtTime > 0 || entity.deathTime > 0) {
-            double maxHealth = entity.getMaxHealth();
             double currentHealth = entity.getHealth();
+            int maxHealth = Math.max(entity.getHealth(), entity.getMaxHealth());
             int index = (int) Math.floor(Math.min(9, MathHelper.lerp(0, 6, 1.0D - currentHealth / maxHealth)));
             String breakingTexture = String.format("/assets/minecraft/textures/block/breaking/%d.png", index);
             this.renderOverLayBreakTexture(entity, breakingTexture, hasOverlayAlpha, maxRenderLayer, argb);
