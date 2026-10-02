@@ -11,6 +11,7 @@
     "accessors.ItemAccessor",
     "accessors.ItemToolSwordAccessor",
     "accessors.MenuAbstractAccessor",
+    "accessors.MobRendererAccessor",
     "accessors.SlotAccessor",
     "accessory.ContainerInventoryMixinAccessory",
     "accessory.MenuInventoryMixinAddSlotAdjSlot",
