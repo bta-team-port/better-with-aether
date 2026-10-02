@@ -7,12 +7,13 @@ import net.minecraft.client.render.renderer.GLRenderer;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
+import teamport.aether.entity.boss.slider.MobBreakableRender;
 
 @Environment(EnvType.CLIENT)
-public class MobRendererSentry extends MobRenderer<MobSentry> {
+public class MobRendererSentry extends MobBreakableRender<MobSentry> {
 
     public MobRendererSentry(float shadowSize) {
-        super(shadowSize);
+        super(shadowSize, 8, 4, 8);
     }
 
     @Override
