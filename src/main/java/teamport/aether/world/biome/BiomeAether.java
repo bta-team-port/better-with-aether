@@ -72,7 +72,7 @@ public class BiomeAether extends Biome {
     @Override
     public @NonNull WorldFeature getTreeFeature(@NonNull Random random) {
         return random.nextInt(10) == 0
-            ? new WorldFeatureSkyrootTree(AetherBlocks.LEAVES_SKYROOT, AetherBlocks.LOG_SKYROOT, 4);
+            ? new WorldFeatureSkyrootTree(AetherBlocks.LEAVES_SKYROOT, AetherBlocks.LOG_SKYROOT, 4)
             : new WorldFeatureAetherTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN, AetherBlocks.LOG_OAK_GOLDEN, 6);
 
     }
