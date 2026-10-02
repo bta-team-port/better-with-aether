@@ -114,8 +114,8 @@ public class MobRendererSlider extends MobBreakableRender<MobBossSlider> {
     @Override
     protected void renderHurt(@NotNull MobBossSlider entity, boolean hasOverlayAlpha, int maxRenderLayer, int argb) {
         if ((hasOverlayAlpha || entity.hurtTime > 0) && entity.deathTime == 0) {
-            double maxHealth = entity.getMaxHealth();
             double currentHealth = entity.getHealth();
+            int maxHealth = Math.max(entity.getHealth(), entity.getMaxHealth());
             int index = (int) Math.floor(Math.min(9, MathHelper.lerp(0, 6, 1.0D - currentHealth / maxHealth)));
             String breakingTexture = String.format("/assets/minecraft/textures/block/breaking/%d.png", index);
             this.renderOverLayBreakTexture(entity, breakingTexture, hasOverlayAlpha, maxRenderLayer, argb);
