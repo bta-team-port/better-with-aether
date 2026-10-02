@@ -3,7 +3,6 @@ package teamport.aether.entity.boss.slider;
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
-import net.minecraft.core.block.material.MaterialLiquid;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.ICollidable;
@@ -30,9 +29,6 @@ import org.joml.primitives.AABBdc;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.block.AetherBlocks;
-import teamport.aether.block.dungeon.BlockLogicChestLocked;
-import teamport.aether.block.dungeon.BlockLogicDungeonDoor;
-import teamport.aether.block.dungeon.BlockLogicLocked;
 import teamport.aether.block.dungeon.BlockLogicTrapped;
 import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.boss.AetherBossList;
@@ -373,11 +369,17 @@ public class MobBossSlider extends MobBoss implements ICollidable {
         world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, x, y, z, "random.explode", 0.5F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
     }
 
-    private void spawnDamageParticles() {
-        double x = this.x - this.bbWidth / 2.0F + (this.random.nextDouble() * this.bbWidth);
-        double y = this.y + (this.random.nextDouble() * this.bbWidth);
-        double z = this.z - this.bbWidth / 2.0F + (this.random.nextDouble() * this.bbWidth);
-        ParticleMaker.spawnParticle(this.world, "block", x, y, z, 0, -0.01, 0, AetherBlocks.COBBLE_HOLYSTONE.id());
+    private void spawnDeathParticles() {
+        double px = this.bb.minX + this.random.nextDouble() * this.bbWidth;
+        double py = this.bb.minY + this.random.nextDouble() * this.bbHeight;
+        double pz = this.bb.minZ + this.random.nextDouble() * this.bbWidth;
+        Vector3d vec = new Vector3d(px, py, pz);
+        vec.sub(this.x, this.y + this.bbHeight / 2.0D, this.z);
+        if(vec.length() > 0.0D){
+            vec.normalize();
+            vec.mul(0.05D);
+        }
+        ParticleMaker.spawnParticle(this.world, "block", px, py, pz, vec.x(), vec.y(), vec.z(), AetherBlocks.COBBLE_HOLYSTONE.id());
     }
 
     // AABB
@@ -429,7 +431,7 @@ public class MobBossSlider extends MobBoss implements ICollidable {
             return super.collidesWith(entity);
         }
         if (entity instanceof Mob) {
-            if (entity instanceof Player player && !player.gamemode.hasInvulnerablePlayer()) {
+            if (entity instanceof Player player && player.gamemode.hasInvulnerablePlayer()) {
                 return super.collidesWith(entity);
             }
             MobUtil.multiHit(this, entity,
@@ -673,7 +675,7 @@ public class MobBossSlider extends MobBoss implements ICollidable {
             }
             if (this.deathTime > 0) {
                 for (int i = 0; i < 32; i++) {
-                    this.spawnDamageParticles();
+                    this.spawnDeathParticles();
                 }
             }
         }
