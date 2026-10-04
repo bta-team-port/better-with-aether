@@ -129,11 +129,11 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> boss = new WeightedRandomBag<>();
         boss.addEntry(BossRoom::new, 1);
         TREASURE_ROOMS = new WeightedRandomBag<>();
+        TREASURE_ROOMS.addEntry(TreasureChestRoom::new, 2);
+        TREASURE_ROOMS.addEntry(TreasureOreRoom::new, 2);
+        TREASURE_ROOMS.addEntry(StorageRoom::new, 2);
         TREASURE_ROOMS.addEntry(JumpRoom::new, 1);
-        TREASURE_ROOMS.addEntry(TreasureChestRoom::new, 0.5);
-        TREASURE_ROOMS.addEntry(TreasureOreRoom::new, 0.5);
-        TREASURE_ROOMS.addEntry(StorageRoom::new, 0.5);
-        TREASURE_ROOMS.addEntry(DisplayRoom::new, 0.5);
+        TREASURE_ROOMS.addEntry(DisplayRoom::new, 0.2);
 
         WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> trapRooms = new WeightedRandomBag<>();
         trapRooms.addEntry(SpikerRoom::new, 1);
@@ -158,14 +158,16 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         this.random = random;
         Set<BaseBronzeRoom> seenRooms = new HashSet<>();
         List<BaseBronzeRoom> availableRooms = new ArrayList<>();
-        BaseBronzeRoom boss = new BossRoom();
-        if (world.canBlockSeeTheSky(x, y, z) || !boss.place(world, random, x, y, z)) {
+        BaseBronzeRoom firstRoom = new TallRoom();
+//        BaseBronzeRoom firstRoom = new BossRoom();
+        if (world.canBlockSeeTheSky(x, y, z) || !firstRoom.place(world, random, x, y, z)) {
             return false;
         }
-        float roomWeight = boss.getRoomWeight();
+        AetherGlobals.LOGGER.debug("Place Maze at x:{} y:{} z:{}", x, y, z);
+        float roomWeight = firstRoom.getRoomWeight();
         int bossRoomCount = 1;
-        seenRooms.add(boss);
-        availableRooms.add(boss);
+        seenRooms.add(firstRoom);
+        availableRooms.add(firstRoom);
         BaseBronzeRoom currentRoom = null;
         while (!availableRooms.isEmpty() && MAX_WEIGHT > roomWeight) {
             if (currentRoom == null) {
@@ -197,6 +199,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                     currentRoom = null;
                     break;
                 } else if (nextRoom.place(world, random, anchor.getX(), anchor.getY(), anchor.getZ())) {
+                    AetherGlobals.LOGGER.debug("Place Room {} at x:{} y:{} z:{}", nextRoom.getClass().getSimpleName(), anchor.getX(), anchor.getY(), anchor.getZ());
                     WorldFeaturePoint topCorner;
                     WorldFeaturePoint bottomCorner;
                     bottomCorner = door.getP1().copy();
