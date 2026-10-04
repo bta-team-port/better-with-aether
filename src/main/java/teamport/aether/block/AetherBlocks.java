@@ -146,10 +146,13 @@ public final class AetherBlocks {
     public static Block<BlockLogicPaintedPressurePlate<Entity>> PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED;
 
     public static Block<?> ORE_AMBROSIUM_HOLYSTONE;
+    public static Block<?> ORE_AMBROSIUM_COBBLE_HOLYSTONE;
 
     public static Block<?> ORE_ZANITE_HOLYSTONE;
+    public static Block<?> ORE_ZANITE_COBBLE_HOLYSTONE;
 
     public static Block<?> ORE_GRAVITITE_HOLYSTONE;
+    public static Block<?> ORE_GRAVITITE_COBBLE_HOLYSTONE;
 
     public static Block<?> BLOCK_AMBER;
     public static Block<?> BLOCK_AMBROSIUM;
@@ -802,20 +805,42 @@ public final class AetherBlocks {
 
 
         ORE_AMBROSIUM_HOLYSTONE = register("ore.ambrosium.holystone", blockKey("ore_ambrosium_holystone"), blockID("ORE_AMBROSIUM_HOLYSTONE"),
-            b -> new BlockLogicOreAmbrosium(b, COBBLE_HOLYSTONE, AetherMaterials.HOLYSTONE))
+            b -> new BlockLogicOreAmbrosium(b, HOLYSTONE, AetherMaterials.HOLYSTONE))
             .withSound(BlockSounds.STONE)
             .withHardness(1.5F)
             .withBlastResistance(5.0F)
             .withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
 
         ORE_ZANITE_HOLYSTONE = register("ore.zanite.holystone", blockKey("ore_zanite_holystone"), blockID("ORE_ZANITE_HOLYSTONE"),
-            b -> new BlockLogicOreZanite(b, COBBLE_HOLYSTONE, AetherMaterials.HOLYSTONE))
+            b -> new BlockLogicOreZanite(b, HOLYSTONE, AetherMaterials.HOLYSTONE))
             .withSound(BlockSounds.STONE)
             .withHardness(1.5F)
             .withBlastResistance(5.0F)
             .withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
 
         ORE_GRAVITITE_HOLYSTONE = register("ore.gravitite.holystone", blockKey("ore_gravitite_holystone"), blockID("ORE_GRAVITITE_HOLYSTONE"),
+            b -> new BlockLogicOreGravitite(b, HOLYSTONE, AetherMaterials.HOLYSTONE))
+            .withSound(BlockSounds.STONE)
+            .withHardness(1.5F)
+            .withBlastResistance(5.0F)
+            .setTicking(true)
+            .withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
+
+        ORE_AMBROSIUM_COBBLE_HOLYSTONE = register("ore.ambrosium.cobble.holystone", blockKey("ore_ambrosium_cobble_holystone"), blockID("ORE_AMBROSIUM_COBBLE_HOLYSTONE"),
+            b -> new BlockLogicOreAmbrosium(b, COBBLE_HOLYSTONE, AetherMaterials.HOLYSTONE))
+            .withSound(BlockSounds.STONE)
+            .withHardness(1.5F)
+            .withBlastResistance(5.0F)
+            .withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
+
+        ORE_ZANITE_COBBLE_HOLYSTONE = register("ore.zanite.cobble.holystone", blockKey("ore_zanite_cobble_holystone"), blockID("ORE_ZANITE_COBBLE_HOLYSTONE"),
+            b -> new BlockLogicOreZanite(b, COBBLE_HOLYSTONE, AetherMaterials.HOLYSTONE))
+            .withSound(BlockSounds.STONE)
+            .withHardness(1.5F)
+            .withBlastResistance(5.0F)
+            .withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
+
+        ORE_GRAVITITE_COBBLE_HOLYSTONE = register("ore.gravitite.cobble.holystone", blockKey("ore_gravitite_cobble_holystone"), blockID("ORE_GRAVITITE_COBBLE_HOLYSTONE"),
             b -> new BlockLogicOreGravitite(b, COBBLE_HOLYSTONE, AetherMaterials.HOLYSTONE))
             .withSound(BlockSounds.STONE)
             .withHardness(1.5F)

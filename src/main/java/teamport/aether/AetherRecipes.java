@@ -916,6 +916,21 @@ public class AetherRecipes {
             .create("ore_gravitite_holystone", AetherBlocks.ORE_GRAVITITE_HOLYSTONE.getDefaultStack());
 
         RecipeBuilder.BlastFurnace(MOD_ID)
+            .setInput(0, AetherBlocks.COBBLE_HOLYSTONE)
+            .setInput(1, "aether:ambrosium_ores")
+            .create("ore_ambrosium_cobble_holystone", AetherBlocks.ORE_AMBROSIUM_COBBLE_HOLYSTONE.getDefaultStack());
+
+        RecipeBuilder.BlastFurnace(MOD_ID)
+            .setInput(0, AetherBlocks.COBBLE_HOLYSTONE)
+            .setInput(1, "aether:zanite_ores")
+            .create("ore_zanite_cobble_holystone", AetherBlocks.ORE_ZANITE_COBBLE_HOLYSTONE.getDefaultStack());
+
+        RecipeBuilder.BlastFurnace(MOD_ID)
+            .setInput(0, AetherBlocks.COBBLE_HOLYSTONE)
+            .setInput(1, "aether:gravitite_ores")
+            .create("ore_gravitite_cobble_holystone", AetherBlocks.ORE_GRAVITITE_COBBLE_HOLYSTONE.getDefaultStack());
+
+        RecipeBuilder.BlastFurnace(MOD_ID)
             .setInput(0, "aether:overworld_logs")
             .setInput(1, Blocks.BLOCK_ASH)
             .create("log_to_scorched_log", Blocks.LOG_SCORCHED.getDefaultStack());
