@@ -29,10 +29,10 @@ public abstract class ServerPlayerControllerPendantDamageMixin {
         if (this.player == null) return;
         ItemStack trinketSlot1 = PlayerUtil.getArmorOrAccessoryItem(this.player, TRINKET_1_SLOT);
         ItemStack trinketSlot2 = PlayerUtil.getArmorOrAccessoryItem(this.player, TRINKET_2_SLOT);
-        if (trinketSlot1 != null && trinketSlot1.getItem() instanceof ItemPendant && ((ItemPendant) trinketSlot1.getItem()).canHarvestDamage()) {
+        if (trinketSlot1 != null && trinketSlot1.getItem() instanceof ItemPendant pendant && pendant.canHarvestDamage()) {
             PlayerUtil.damageItemArmor(this.player, trinketSlot1, TRINKET_1_SLOT);
         }
-        if (trinketSlot2 != null && trinketSlot2.getItem() instanceof ItemPendant && ((ItemPendant) trinketSlot2.getItem()).canHarvestDamage()) {
+        if (trinketSlot2 != null && trinketSlot2.getItem() instanceof ItemPendant pendant && pendant.canHarvestDamage()) {
             PlayerUtil.damageItemArmor(this.player, trinketSlot2, TRINKET_2_SLOT);
         }
     }
