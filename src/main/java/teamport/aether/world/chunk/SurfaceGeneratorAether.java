@@ -114,12 +114,7 @@ public class SurfaceGeneratorAether implements SurfaceGenerator {
     }
 
     private int getStoneBlockForBiome(Biome biome, Random rand) {
-        if (biome == AetherBiomes.AETHER_PLAINS) {
-            return rand.nextInt(2) == 0 ? holystoneId : cobbleHolystoneId;
-        }
-
-
-        return rand.nextInt(2) == 0 ? this.holystoneId : this.cobbleHolystoneId;
+        return this.cobbleHolystoneId;
     }
 
 }
