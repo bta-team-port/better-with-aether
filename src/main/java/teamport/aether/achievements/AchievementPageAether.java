@@ -246,9 +246,6 @@ public class AchievementPageAether extends AchievementPage implements AetherAchi
 
     @Override
     public float getShadowScale(int layer) {
-        if(layer == 4){
-            return 3.4F;
-        }
         if (layer >= 3) {
             return 1.7F;
         }

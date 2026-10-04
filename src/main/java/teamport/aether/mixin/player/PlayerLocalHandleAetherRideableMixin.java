@@ -11,7 +11,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.entity.interfaces.AetherRideable;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
 import teamport.aether.entity.AetherRideable;
 
