@@ -68,8 +68,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         Random rand = ChunkDecoratorAether.deriveRandomFromWorld(chunk, this.world.getRandomSeed());
 
         this.decorateWithClouds(rand, minY, maxY, worldX, worldZ);
-        if (world.getWorldType() == AetherWorldTypes.AETHER_EXTENDED || world.getWorldType() == AetherWorldTypes.AETHER_AMPLIFIED)
-            this.decorateWithFlatClouds(chunk);
+        this.decorateWithFlatClouds(chunk);
         this.decorateWithDungeons(chunk, rand, minY, maxY);
         this.decorateWithFlowers(chunk, rand);
         this.decorateWithQuickSoil(rand, worldX, worldZ, minY, maxY);
@@ -87,6 +86,9 @@ public class ChunkDecoratorAether implements ChunkDecorator {
     private final double[] CLOUD_NOISE_TOP_2_BUFFER = new double[16 * 16];
 
     public void decorateWithFlatClouds(@NonNull Chunk chunk) {
+        if (world.getWorldType() != AetherWorldTypes.AETHER_EXTENDED && world.getWorldType() != AetherWorldTypes.AETHER_AMPLIFIED) {
+            return;
+        }
         double scale = 0.38;
         double chunkX = chunk.pos.x * 16.0;
         double chunkZ = chunk.pos.z * 16.0;
@@ -389,7 +391,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
 
         //Gravitite 0-128
         for (generateChance = 0; generateChance < 8.0f * oreHeightModifier; ++generateChance) {
-            tilePos.set(worldX + rand.nextInt(16), rand.nextInt(rangeY / 3), worldX + rand.nextInt(16));
+            tilePos.set(worldX + rand.nextInt(16), rand.nextInt(rangeY / 3), worldZ + rand.nextInt(16));
             ORE_GRAVITITE.place(this.world, rand, tilePos);
         }
     }
@@ -400,13 +402,11 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         int rangeY = maxY + 1 - minY;
         int x = chunkX * 16;
         int z = chunkZ * 16;
-        int gridX = MathHelper.floor(chunkX / 2.0F);
-        int gridZ = MathHelper.floor(chunkZ / 2.0F);
         long worldSeed = this.world.getRandomSeed();
         int transformedSeed = Worley.mix((int) (worldSeed >>> 32), (int) (worldSeed & 0xFFFFFFFFL), 0);
-        int goldSeed = Worley.isSeed(gridX, gridZ, GOLD_CHANCES, transformedSeed, 1, 1); // 22 - 2
-        int silverSeed = Worley.isSeed(gridX, gridZ, SILVER_CHANCES, transformedSeed, 1, 1); // 16 - 2
-        int bronzeSeed = Worley.isSeed(gridX, gridZ, BRONZE_CHANCES, transformedSeed, 1, 0); // 8 - 0
+        int goldSeed = Worley.isSeed(chunkX, chunkZ, GOLD_CHANCES, transformedSeed, 1, 2); // 22 - 2
+        int silverSeed = Worley.isSeed(chunkX, chunkZ, SILVER_CHANCES , transformedSeed, 1, 2); // 16 - 2
+        int bronzeSeed = Worley.isSeed(chunkX, chunkZ, BRONZE_CHANCES, transformedSeed, 1, 1); // 8 - 0
         if (goldSeed > -1) {
             int dungeonX = x + 8;
             int dungeonY = (rangeY / 2) + rand.nextInt(rangeY / 8);
