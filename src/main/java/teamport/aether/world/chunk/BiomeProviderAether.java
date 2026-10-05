@@ -1,51 +1,62 @@
 package teamport.aether.world.chunk;
 
 import net.minecraft.core.util.helper.MathHelper;
+import net.minecraft.core.world.World;
 import net.minecraft.core.world.biome.Biome;
 import net.minecraft.core.world.biome.data.BiomeRange;
 import net.minecraft.core.world.biome.data.BiomeRangeMap;
 import net.minecraft.core.world.biome.provider.BiomeProvider;
-import net.minecraft.core.world.noise.PerlinSimplexNoise;
+import net.minecraft.core.world.noise.FractalNoise2D;
+import net.minecraft.core.world.noise.SimplexNoise;
 import net.minecraft.core.world.type.WorldType;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.world.biome.AetherBiomes;
 
 import java.util.Iterator;
-import java.util.Random;
 import java.util.Set;
 
 public final class BiomeProviderAether extends BiomeProvider {
     private static final BiomeRangeMap BIOME_RANGE_MAP = new BiomeRangeMap();
     private static final double TEMPERATURE_X_SCALE = 0.0125;
     private static final double TEMPERATURE_Z_SCALE = 0.0125;
-    private static final double TEMPERATURE_EXPONENT = 0.25;
+    private static final double TEMPERATURE_LACUNARITY = 0.25;
     private static final double TEMPERATURE_FUZZ_PERCENTAGE = 0.01;
     private static final double HUMIDITY_X_SCALE = 0.025;
     private static final double HUMIDITY_Z_SCALE = 0.025;
-    private static final double HUMIDITY_EXPONENT = 0.3;
+    private static final double HUMIDITY_LACUNARITY = 0.3;
     private static final double HUMIDITY_FUZZ_PERCENTAGE = 0.01;
     private static final double VARIETY_X_SCALE = 0.25;
     private static final double VARIETY_Z_SCALE = 0.25;
-    private static final double VARIETY_EXPONENT = 0.3;
+    private static final double VARIETY_LACUNARITY = 0.3;
     private static final double VARIETY_FUZZ_PERCENTAGE = 0.0;
     private static final double FUZZINESS_X_SCALE = 0.25;
     private static final double FUZZINESS_Z_SCALE = 0.25;
-    private static final double FUZZINESS_EXPONENT = 1.0;
+    private static final double FUZZINESS_LACUNARITY = 1.0;
+    private static final double LEGACY_PERSISTENCE = 2.0;
     private final WorldType worldType;
-    private final PerlinSimplexNoise temperatureNoise;
-    private final PerlinSimplexNoise humidityNoise;
-    private final PerlinSimplexNoise varietyNoise;
-    private final PerlinSimplexNoise fuzzinessNoise;
+    private final FractalNoise2D<SimplexNoise> temperatureNoise;
+    private final FractalNoise2D<SimplexNoise> humidityNoise;
+    private final FractalNoise2D<SimplexNoise> varietyNoise;
+    private final FractalNoise2D<SimplexNoise> fuzzinessNoise;
 
-    public BiomeProviderAether(long seed, WorldType worldType) {
-        this.worldType = worldType;
-        this.temperatureNoise = new PerlinSimplexNoise(new Random(seed * 9871L), 4);
-        this.humidityNoise = new PerlinSimplexNoise(new Random(seed * 39811L), 4);
-        this.varietyNoise = new PerlinSimplexNoise(new Random(seed), 4);
-        this.fuzzinessNoise = new PerlinSimplexNoise(new Random(seed * 543321L), 2);
+    public BiomeProviderAether(World world) {
+        super(world);
+        long seed = world.getRandomSeed();
+        this.worldType = world.getWorldType();
+        this.temperatureNoise = createLegacyNoise(seed * 9871L, 4, TEMPERATURE_LACUNARITY);
+        this.humidityNoise = createLegacyNoise(seed * 39811L, 4, HUMIDITY_LACUNARITY);
+        this.varietyNoise = createLegacyNoise(seed, 4, VARIETY_LACUNARITY);
+        this.fuzzinessNoise = createLegacyNoise(seed * 543321L, 2, FUZZINESS_LACUNARITY);
+    }
+
+    private static @NonNull FractalNoise2D<SimplexNoise> createLegacyNoise(long seed, int octaves, double lacunarity) {
+        return new FractalNoise2D<>(SimplexNoise.genOctaves(seed, octaves))
+            .setLacunarity(lacunarity)
+            .setPersistence(LEGACY_PERSISTENCE);
     }
 
     @Override
-    public Biome[] getBiomes(Biome[] biomes, double[] temperatures, double[] humidities, double[] varieties, int x, int y, int z, int xSize, int ySize, int zSize) {
+    public Biome @NonNull [] getBiomes(Biome[] biomes, double[] temperatures, double[] humidities, double[] varieties, int x, int y, int z, int xSize, int ySize, int zSize) {
         if (biomes == null || biomes.length < xSize * ySize * zSize) {
             biomes = new Biome[xSize * ySize * zSize];
         }
@@ -69,7 +80,7 @@ public final class BiomeProviderAether extends BiomeProvider {
                 double variety = varieties[dx * zSize + dz];
 
                 for (int dy = 0; dy < ySize; ++dy) {
-                    double altitude = this.worldType.getYPercentage(y + dy << 3);
+                    double altitude = this.worldType.getYPercentage(this.world, y + dy << 3);
                     biomes[dy * xSize * zSize + dz * xSize + dx] = this.lookupBiome(temperature, humidity, variety, altitude);
                 }
             }
@@ -79,13 +90,13 @@ public final class BiomeProviderAether extends BiomeProvider {
     }
 
     @Override
-    public double[] getTemperatures(double[] temperatures, int x, int z, int xSize, int zSize) {
+    public double @NonNull [] getTemperatures(double[] temperatures, int x, int z, int xSize, int zSize) {
         if (temperatures == null || temperatures.length < xSize * zSize) {
             temperatures = new double[xSize * zSize];
         }
 
-        double[] tnResult = this.temperatureNoise.getValue(null, x, z, xSize, zSize, TEMPERATURE_X_SCALE, TEMPERATURE_Z_SCALE, TEMPERATURE_EXPONENT);
-        double[] fnResult = this.fuzzinessNoise.getValue(null, x, z, xSize, zSize, FUZZINESS_X_SCALE, FUZZINESS_Z_SCALE, FUZZINESS_EXPONENT);
+        double[] tnResult = this.temperatureNoise.getRegion(null, x, z, xSize, zSize, TEMPERATURE_X_SCALE, TEMPERATURE_Z_SCALE);
+        double[] fnResult = this.fuzzinessNoise.getRegion(null, x, z, xSize, zSize, FUZZINESS_X_SCALE, FUZZINESS_Z_SCALE);
 
         for (int dx = 0; dx < xSize; ++dx) {
             for (int dz = 0; dz < zSize; ++dz) {
@@ -109,13 +120,13 @@ public final class BiomeProviderAether extends BiomeProvider {
     }
 
     @Override
-    public double[] getHumidities(double[] humidities, int x, int z, int xSize, int zSize) {
+    public double @NonNull [] getHumidities(double[] humidities, int x, int z, int xSize, int zSize) {
         if (humidities == null || humidities.length < xSize * zSize) {
             humidities = new double[xSize * zSize];
         }
 
-        double[] hnResult = this.humidityNoise.getValue(null, x, z, xSize, zSize, HUMIDITY_X_SCALE, HUMIDITY_Z_SCALE, HUMIDITY_EXPONENT);
-        double[] fnResult = this.fuzzinessNoise.getValue(null, x, z, xSize, zSize, FUZZINESS_X_SCALE, FUZZINESS_Z_SCALE, FUZZINESS_EXPONENT);
+        double[] hnResult = this.humidityNoise.getRegion(null, x, z, xSize, zSize, HUMIDITY_X_SCALE, HUMIDITY_Z_SCALE);
+        double[] fnResult = this.fuzzinessNoise.getRegion(null, x, z, xSize, zSize, FUZZINESS_X_SCALE, FUZZINESS_Z_SCALE);
 
         for (int dx = 0; dx < xSize; ++dx) {
             for (int dz = 0; dz < zSize; ++dz) {
@@ -139,13 +150,13 @@ public final class BiomeProviderAether extends BiomeProvider {
     }
 
     @Override
-    public double[] getVarieties(double[] varieties, int x, int z, int xSize, int zSize) {
+    public double @NonNull [] getVarieties(double[] varieties, int x, int z, int xSize, int zSize) {
         if (varieties == null || varieties.length < xSize * zSize) {
             varieties = new double[xSize * zSize];
         }
 
-        double[] vnResult = this.varietyNoise.getValue(null, x, z, xSize, zSize, VARIETY_X_SCALE, VARIETY_Z_SCALE, VARIETY_EXPONENT);
-        double[] fnResult = this.fuzzinessNoise.getValue(null, x, z, xSize, zSize, FUZZINESS_X_SCALE, FUZZINESS_Z_SCALE, FUZZINESS_EXPONENT);
+        double[] vnResult = this.varietyNoise.getRegion(null, x, z, xSize, zSize, VARIETY_X_SCALE, VARIETY_Z_SCALE);
+        double[] fnResult = this.fuzzinessNoise.getRegion(null, x, z, xSize, zSize, FUZZINESS_X_SCALE, FUZZINESS_Z_SCALE);
 
         for (int dx = 0; dx < xSize; ++dx) {
             for (int dz = 0; dz < zSize; ++dz) {
@@ -168,9 +179,9 @@ public final class BiomeProviderAether extends BiomeProvider {
         return varieties;
     }
 
-    @SuppressWarnings({"java:S1119", "java:S6541"})
     @Override
-    public double[] getBiomenesses(double[] biomenesses, int x, int y, int z, int xSize, int ySize, int zSize) {
+    @SuppressWarnings({"java:S1119", "java:S6541"})
+    public double @NonNull [] getBiomenesses(double[] biomenesses, int x, int y, int z, int xSize, int ySize, int zSize) {
         if (biomenesses == null || biomenesses.length < xSize * ySize * zSize) {
             biomenesses = new double[xSize * ySize * zSize];
         }
@@ -185,7 +196,7 @@ public final class BiomeProviderAether extends BiomeProvider {
                 for (int dz = 0; dz < zSize; ++dz) {
                     double temperature = MathHelper.clamp(temperatures[dx * zSize + dz], 0.0, 1.0);
                     double humidity = MathHelper.clamp(humidities[dx * zSize + dz], 0.0, 1.0);
-                    double altitude = MathHelper.clamp(this.worldType.getYPercentage(y + dy << 3), 0.0, 1.0);
+                    double altitude = MathHelper.clamp(this.worldType.getYPercentage(this.world, y + dy << 3), 0.0, 1.0);
                     double variety = MathHelper.clamp(varieties[dx * zSize + dz], 0.0, 1.0);
                     Biome biome = this.lookupBiome(temperature, humidity, variety, altitude);
                     Set<BiomeRange> ranges = BIOME_RANGE_MAP.getRanges(biome);

@@ -3,24 +3,20 @@ package teamport.aether;
 import com.b100.utils.FileUtils;
 import com.b100.utils.StreamUtils;
 import com.b100.utils.StringUtils;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
+import it.unimi.dsi.fastutil.Pair;
+import it.unimi.dsi.fastutil.objects.ObjectObjectImmutablePair;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.sound.SoundEngine;
 import net.minecraft.client.sound.SoundRepository;
 import net.minecraft.core.net.CertificateHelper;
-import teamport.aether.helper.Pair;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.InputStream;
+import java.io.*;
 import java.math.BigInteger;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.util.ArrayList;
@@ -28,7 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static teamport.aether.AetherMod.LOGGER;
+import static teamport.aether.AetherGlobals.LOGGER;
 
 @Environment(EnvType.CLIENT)
 public class AetherRemoteResourceDownloaderThread extends Thread {
@@ -66,19 +62,34 @@ public class AetherRemoteResourceDownloaderThread extends Thread {
         }
     }
 
-    @SuppressWarnings({"java:S2674", "ResultOfMethodCallIgnored"})
     @Override
+    @SuppressWarnings({"java:S2674", "ResultOfMethodCallIgnored"})
     public void run() {
         JsonArray manifest;
 
+        String manifestURL = url + "manifest.json";
         try {
-            String manifestURL = url + "manifest.json";
-            manifest = JsonParser.parseString(StringUtils.getWebsiteContentAsString(manifestURL)).getAsJsonArray();
-            LOGGER.info("Manifest Downloaded");
-
-        } catch (Exception except) {
+            LOGGER.info("Fetching resource manifest from {}", manifestURL);
+            String content = StringUtils.getWebsiteContentAsString(manifestURL);
+            JsonElement jsonElement = JsonParser.parseString(content);
+            if (!jsonElement.isJsonArray()) {
+                this.state = State.ERROR;
+                LOGGER.error("Resource manifest does not contain a JSON array. URL: {}, Content: {}", manifestURL, content);
+                return;
+            }
+            manifest = jsonElement.getAsJsonArray();
+            LOGGER.info("Manifest downloaded successfully from {}", manifestURL);
+        } catch (JsonSyntaxException exception) {
             this.state = State.ERROR;
-            LOGGER.error("Failed to fetch resource manifest.");
+            LOGGER.error("Failed to parse resource manifest as JSON. URL: {}", manifestURL, exception);
+            return;
+        } catch (IllegalStateException exception) {
+            this.state = State.ERROR;
+            LOGGER.error("Resource manifest has an unexpected JSON structure. URL: {}", manifestURL, exception);
+            return;
+        } catch (Exception exception) {
+            this.state = State.ERROR;
+            LOGGER.error("Failed to fetch resource manifest from {}", manifestURL, exception);
             return;
         }
 
@@ -86,8 +97,7 @@ public class AetherRemoteResourceDownloaderThread extends Thread {
         List<Pair<File, String>> entriesToDownload = new ArrayList<>();
 
         for (JsonElement entry : entries) {
-            if (!(entry instanceof JsonObject)) continue;
-            JsonObject entryObj = (JsonObject) entry;
+            if (!(entry instanceof JsonObject entryObj)) continue;
 
             String key = entryObj.get("Key").getAsString();
             String md5 = entryObj.get("MD5").getAsString();
@@ -127,7 +137,7 @@ public class AetherRemoteResourceDownloaderThread extends Thread {
             if (fileAlreadyDownloaded) {
                 LOGGER.info("File Already Downloaded: {}", soundFile);
             } else {
-                entriesToDownload.add(new Pair<>(soundFile, key));
+                entriesToDownload.add(new ObjectObjectImmutablePair<>(soundFile, key));
             }
         }
 
@@ -137,8 +147,8 @@ public class AetherRemoteResourceDownloaderThread extends Thread {
             this.state = State.DOWNLOADING;
 
             for (Pair<File, String> entry : entriesToDownload) {
-                File soundFile = entry.getFirst();
-                String key = entry.getSecond();
+                File soundFile = entry.first();
+                String key = entry.second();
 
                 try {
                     downloadSoundFile(key, soundFile);
@@ -154,28 +164,31 @@ public class AetherRemoteResourceDownloaderThread extends Thread {
             SoundRepository.reload();
             mc.sndManager.destroy();
             mc.sndManager = new SoundEngine();
-            mc.sndManager.init(this.mc.gameSettings);
+            mc.sndManager.init();
 
             state = State.IDLE;
         }
     }
 
-    private void downloadSoundFile(String name, File file) throws Exception {
+    private void downloadSoundFile(String name, File file) throws IOException {
         String theUrl = this.url + name;
         theUrl = theUrl.replace(" ", "%20");
         LOGGER.info("Downloading File: {}", theUrl);
 
         StreamUtils.transferDataAndClose(
-                new BufferedInputStream(CertificateHelper.getWebsiteAsStream(theUrl)),
-                new BufferedOutputStream(Files.newOutputStream(FileUtils.createNewFile(file).toPath()))
+            new BufferedInputStream(CertificateHelper.getWebsiteAsStream(theUrl)),
+            new BufferedOutputStream(Files.newOutputStream(FileUtils.createNewFile(file).toPath()))
         );
     }
+
     public AtomicInteger getProgress() {
         return progress;
     }
+
     public int getToDownload() {
         return toDownload;
     }
+
     public State getTheState() {
         return state;
     }

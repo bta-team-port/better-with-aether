@@ -11,6 +11,8 @@ import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.gui.AetherScreens;
 
@@ -33,15 +35,18 @@ public class ItemSignSkyroot extends Item {
     }
 
     @Override
-    public boolean onUseItemOnBlock(ItemStack itemstack, Player entityplayer, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
-        int sideHit = side.getId();
+    public boolean onUseOnBlock(@NonNull ItemStack itemstack, @NonNull World world, Player entityplayer, @NonNull TilePosc blockPos, @NonNull Side side, double xPlaced, double yPlaced) {
+        int blockX = blockPos.x();
+        int blockY = blockPos.y();
+        int blockZ = blockPos.z();
+        int sideHit = side.id;
         if (side == Side.BOTTOM) return false;
         if (!world.getBlockMaterial(blockX, blockY, blockZ).isSolid()) return false;
 
         if (!world.canPlaceInsideBlock(blockX, blockY, blockZ)) {
-            blockX += side.getOffsetX();
-            blockY += side.getOffsetY();
-            blockZ += side.getOffsetZ();
+            blockX += side.offsetX();
+            blockY += side.offsetY();
+            blockZ += side.offsetZ();
         }
 
         if (!(blockY >= 0 && blockY < world.getHeightBlocks())) return false;
@@ -68,7 +73,7 @@ public class ItemSignSkyroot extends Item {
     }
 
     @Override
-    public String getLanguageKey(ItemStack itemstack) {
+    public @NonNull String getLanguageKey(@NonNull ItemStack itemstack) {
         if (!isPainted) return super.getLanguageKey(itemstack);
         return super.getKey() + "." + DyeColor.colorFromItemMeta(itemstack.getMetadata()).colorID;
     }

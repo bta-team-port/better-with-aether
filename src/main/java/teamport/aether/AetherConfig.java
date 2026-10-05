@@ -2,6 +2,7 @@ package teamport.aether;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import turniplabs.halplibe.util.TomlConfigHandler;
@@ -41,23 +42,21 @@ public class AetherConfig {
 
     public static volatile String REMOTE_RESOURCE_URL = getDefaultRemoteUrl();
 
-    static String getDefaultRemoteUrl() {
+    static @NonNull String getDefaultRemoteUrl() {
         FabricLoader loader = FabricLoader.getInstance();
         Optional<ModContainer> modContainerOpt = loader.getModContainer(MOD_ID);
 
         String result;
-        if (loader.isDevelopmentEnvironment() || !modContainerOpt.isPresent()) {
+        if (loader.isDevelopmentEnvironment() || modContainerOpt.isEmpty()) {
             result = "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/heads/7.3/remoteAssets/";
         } else {
             ModContainer modContainer = modContainerOpt.get();
-
             String version = modContainer
                     .getMetadata()
                     .getVersion()
                     .getFriendlyString()
                     .substring(0, 5);
 
-            if (version.endsWith(".0")) version = version.substring(0, 3);
             result = String.format(
                 "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/tags/%s-%s/remoteAssets/",
                 version,
@@ -114,7 +113,7 @@ public class AetherConfig {
         }
     }
 
-    private static void assembleProperties(Toml properties) {
+    private static void assembleProperties(@NonNull Toml properties) {
         properties.addCategory(GENERAL_CATEGORY)
                 .addEntry("cfgVersion", 6)
                 .addEntry("DIMENSION", DIMENSION)
@@ -129,7 +128,6 @@ public class AetherConfig {
                 .addEntry("INCLUDE_REPAIR_RECIPES", INCLUDE_REPAIR_RECIPES);
     }
 
-    // Useless Numerical will sort it out for us.
     @SuppressWarnings("unused")
     public static int itemID(String itemName) {
         return currentItemID++;

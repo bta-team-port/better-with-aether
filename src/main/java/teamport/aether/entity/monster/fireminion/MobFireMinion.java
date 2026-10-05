@@ -2,24 +2,21 @@ package teamport.aether.entity.monster.fireminion;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
-import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
+import net.minecraft.core.util.helper.LightIndexHelper;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
-import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.helper.ParticleMaker;
 
 import static teamport.aether.entity.DamageInstance.inst;
 
-public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeathMessage {
+public class MobFireMinion extends MobMonsterAether implements Enemy {
 
-    public MobFireMinion(@Nullable World world) {
+    public MobFireMinion(@NonNull World world) {
         super(world);
-        this.textureIdentifier = NamespaceID.getPermanent("aether", "fire_minion");
+        this.setTextureIdentifier("aether", "fire_minion");
         this.moveSpeed = 4.0F;
         this.attackStrength = 10;
         this.fireImmune = true;
@@ -40,8 +37,10 @@ public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeat
     }
 
     @Override
-    public int getLightmapCoord(float partialTick) {
-        return this.world == null ? super.getLightmapCoord(partialTick) : this.world.getLightmapCoord(15, 15);
+    public byte getLightIndex(float partialTick) {
+        byte light = super.getLightIndex(partialTick);
+        light = LightIndexHelper.setSkyLight(light, 15);
+        return LightIndexHelper.setBlockLight(light, 15);
     }
 
     @Override
@@ -61,13 +60,6 @@ public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeat
             target.maxFireTicks = 300;
         }
 
-    }
-
-    @Override
-    protected Entity findPlayerToAttack() {
-        if (this.world == null) return super.findPlayerToAttack();
-        Player entityplayer = this.world.getClosestPlayerToEntity(this, 16.0);
-        return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().areMobsHostile() ? entityplayer : null;
     }
 
     @Override
@@ -104,27 +96,16 @@ public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeat
 
     @Override
     public void playHurtSound() {
-        if (this.world == null) {
-            super.playHurtSound();
-            return;
-        }
         this.world.playSoundAtEntity(null, this, this.getHurtSound(), 0.5f, (this.random.nextFloat() + this.random.nextFloat()) * 1.5F + 0.25F);
     }
 
     @Override
     public void playDeathSound() {
-        if (this.world == null) {
-            super.playDeathSound();
-            return;
-        }
         this.world.playSoundAtEntity(null, this, this.getDeathSound(), 0.5f, (this.random.nextFloat() + this.random.nextFloat()) * 1.5F + 0.25F);
     }
 
     @Override
     public boolean canSpawnHere() {
-        return this.world != null
-            && this.world.getDifficulty().canHostileMobsSpawn()
-            && this.world.checkIfAABBIsClear(this.bb)
-            && this.world.getCubes(this, this.bb).isEmpty();
+        return this.world.getDifficulty().canHostileMobsSpawn() && this.world.checkIfAABBIsClear(this.bb) && this.world.getCubes(this, this.bb).isEmpty();
     }
 }

@@ -9,9 +9,10 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.net.command.CommandManager;
 import net.minecraft.core.net.command.CommandSource;
-import net.minecraft.core.net.command.arguments.ArgumentTypeVec3;
+import net.minecraft.core.net.command.arguments.ArgumentTypeVector3d;
 import net.minecraft.core.net.command.helpers.DoubleCoordinates;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,21 +29,20 @@ public class CommandCount implements CommandManager.CommandRegistry {
      *  @s, self
      * */
 
-    // TODO temp remove later
     @SuppressWarnings("unchecked")
     @Override
-    public void register(CommandDispatcher<CommandSource> commandDispatcher) {
+    public void register(@NonNull CommandDispatcher<CommandSource> commandDispatcher) {
         commandDispatcher
             .register((ArgumentBuilderLiteral<CommandSource>) (Object) literal("aether:countBlocks").requires(t -> ((CommandSource) t).hasAdmin())
-                .then(ArgumentBuilderRequired.argument("first", ArgumentTypeVec3.vec3d())
-                    .then(ArgumentBuilderRequired.argument("second", ArgumentTypeVec3.vec3d())
+                .then(ArgumentBuilderRequired.argument("first", ArgumentTypeVector3d.vec3d())
+                    .then(ArgumentBuilderRequired.argument("second", ArgumentTypeVector3d.vec3d())
                         .executes(c -> {
                             calcBlockCount(c);
                             return 1;
                         }))));
     }
 
-    private static void calcBlockCount(CommandContext<Object> c) throws CommandSyntaxException {
+    private static void calcBlockCount(@NonNull CommandContext<Object> c) throws CommandSyntaxException {
         CommandSource sauce = (CommandSource) c.getSource();
         World world = sauce.getWorld();
         DoubleCoordinates first = c.getArgument("first", DoubleCoordinates.class);
@@ -63,7 +63,7 @@ public class CommandCount implements CommandManager.CommandRegistry {
                 for (int z = Math.min(fz, sz); z <= Math.max(fz, sz); z++) {
                     int id = world.getBlockId(x, y, z);
                     Block<?> block = Blocks.getBlock(id);
-                    String name = block == null ? "Air" : TRANSLATOR.translateNameKey(block.getLanguageKey(0));
+                    String name = TRANSLATOR.translateKey(block.getLanguageKey(0) + ".name");
                     count.merge(name, 1, Integer::sum);
                 }
             }

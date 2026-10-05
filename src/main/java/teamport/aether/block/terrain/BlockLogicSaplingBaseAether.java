@@ -4,7 +4,11 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicSaplingBase;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.tag.BlockTags;
+import net.minecraft.core.data.gamerule.GameRules;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
+import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
 
@@ -17,34 +21,44 @@ public abstract class BlockLogicSaplingBaseAether extends BlockLogicSaplingBase 
     }
 
     @Override
-    public boolean mayPlaceOn(int blockId) {
-        Block<?> block = Blocks.blocksList[blockId];
-        return block != null
-            && (block.hasTag(BlockTags.GROWS_FLOWERS)
+    public boolean mayPlaceOn(@NonNull Block<?> block) {
+        int blockId = block.id();
+        return (block.hasTag(BlockTags.GROWS_FLOWERS)
             || blockId == AetherBlocks.QUICKSOIL.id()
             || blockId == Blocks.SAND.id()
             || block.hasTag(BlockTags.GROWS_TREES)
             || block.hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS)
             || block.hasTag(AetherBlockTags.GROWS_AETHER_TREES)
-            || super.mayPlaceOn(blockId));
+            || super.mayPlaceOn(block));
     }
 
     @Override
-    public void updateTick(World world, int x, int y, int z, Random rand) {
+    public void updateTick(@NonNull World world, @NonNull TilePosc tilePos, @NonNull Random rand, boolean isRandomTick) {
         if (!world.isClientSide) {
-            if (world.getBlockId(x, y - 1, z) == AetherBlocks.QUICKSOIL.id() || world.getBlockId(x, y - 1, z) == Blocks.SAND.id()) {
-                world.setBlockWithNotify(x, y, z, AetherBlocks.DEADBUSH_AETHER.id());
+            TilePos queryPos = new TilePos();
+            if (!this.canGrowOnSand && (world.getBlockType(tilePos.down(queryPos)) == Blocks.SAND || world.getBlockType(tilePos.down(queryPos)) == AetherBlocks.QUICKSOIL)) {
+                world.setBlockTypeNotify(tilePos, AetherBlocks.DEADBUSH_AETHER);
             }
 
-            super.updateTick(world, x, y, z, rand);
+            this.checkAlive(world, tilePos);
+            if (this.killedByWeather
+                && world.getGameRuleValue(GameRules.DO_SEASONAL_GROWTH)
+                && world.getSeasonManager().getCurrentSeason() != null
+                && !isPermanent(world.getBlockData(tilePos))
+                && world.getSeasonManager().getCurrentSeason().killFlowers
+                && rand.nextInt(256) == 0) {
+
+                world.setBlockTypeNotify(tilePos, Blocks.AIR);
+            }
+
             int growthRate = 30;
 
-            if (world.getBlockLightValue(x, y + 1, z) >= 9 && rand.nextInt(growthRate) == 0) {
-                int l = world.getBlockMetadata(x, y, z);
+            if (world.getBlockLightValue(tilePos.up(queryPos)) >= 9 && rand.nextInt(growthRate) == 0) {
+                int l = world.getBlockData(tilePos);
                 if ((l & 8) == 0) {
-                    world.setBlockMetadataWithNotify(x, y, z, l | 8);
+                    world.setBlockData(tilePos, l | 8);
                 } else {
-                    this.growTree(world, x, y, z, rand);
+                    this.growTree(world, tilePos, rand);
                 }
             }
 

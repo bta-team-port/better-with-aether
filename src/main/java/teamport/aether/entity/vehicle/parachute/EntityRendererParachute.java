@@ -3,36 +3,37 @@ package teamport.aether.entity.vehicle.parachute;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRenderer;
-import net.minecraft.client.render.model.ModelBase;
-import net.minecraft.client.render.tessellator.Tessellator;
-import org.lwjgl.opengl.GL11;
+import net.minecraft.client.render.renderer.BlendFactor;
+import net.minecraft.client.render.renderer.GLRenderer;
+import net.minecraft.client.render.renderer.State;
+import net.minecraft.client.render.tessellator.TessellatorGeneral;
+import net.minecraft.client.render.texture.stitcher.TextureRegistry;
+import org.joml.Math;
+import org.jspecify.annotations.NonNull;
 
 @Environment(EnvType.CLIENT)
 public class EntityRendererParachute extends EntityRenderer<EntityParachute> {
-    private final ModelBase modelCloud;
-
     public EntityRendererParachute() {
-        this.shadowSize = 0.0F;
-        this.modelCloud = new ModelParachute();
+        super(0.0F);
     }
 
-    public void render(Tessellator tessellator, EntityParachute entity, double x, double y, double z, float yaw, float partialTick) {
-        GL11.glPushMatrix();
-        GL11.glTranslatef((float) x, (float) y, (float) z);
-        GL11.glRotatef(0.0F, 0.0F, 0.0F, 0.0F);
+    @Override
+    public void render(@NonNull TessellatorGeneral tessellator, @NonNull EntityParachute entity, double x, double y, double z, float yaw, float partialTick) {
+        GLRenderer.pushFrame();
+        GLRenderer.modelM4f().translate((float) x, (float) y, (float) z);
+        GLRenderer.modelM4f().rotateY(Math.toRadians(180.0F - yaw));
 
-        float f4 = 0.75F;
-        GL11.glScalef(f4, f4, f4);
-        GL11.glScalef(1.0F / f4, 1.0F / f4, 1.0F / f4);
-        this.bindTexture("/assets/aether/textures/entity/parachute.png");
+        GLRenderer.enableState(State.BLEND);
+        GLRenderer.setBlendFunc(BlendFactor.SRC_ALPHA, BlendFactor.ONE_MINUS_SRC_ALPHA);
 
-        GL11.glEnable(GL11.GL_DEPTH_TEST);
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, .75F);
+        TextureRegistry.worldAtlas.bind();
+        GLRenderer.modelM4f().scale(0.75F, 0.75F, 0.75F);
+        GLRenderer.modelM4f().scale(1.3333334F, 1.3333334F, 1.3333334F);
 
-        GL11.glScalef(-1.0F, -1.0F, 1.0F);
-        this.modelCloud.render(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
-        GL11.glPopMatrix();
+        this.bindTexture(entity.getEntityTexture());
+
+        GLRenderer.modelM4f().scale(0.0625F, 0.0625F, -0.0625F);
+        this.getModel("main").render();
+        GLRenderer.popFrame();
     }
 }

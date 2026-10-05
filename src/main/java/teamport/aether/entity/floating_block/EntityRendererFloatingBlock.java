@@ -2,77 +2,67 @@ package teamport.aether.entity.floating_block;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.render.Lighting;
-import net.minecraft.client.render.RenderBlocks;
 import net.minecraft.client.render.TileEntityRenderDispatcher;
-import net.minecraft.client.render.block.model.BlockModel;
 import net.minecraft.client.render.block.model.BlockModelDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
-import net.minecraft.client.render.tessellator.Tessellator;
+import net.minecraft.client.render.renderer.BlendFactor;
+import net.minecraft.client.render.renderer.GLRenderer;
+import net.minecraft.client.render.renderer.Shaders;
+import net.minecraft.client.render.renderer.State;
+import net.minecraft.client.render.tessellator.TessellatorGeneral;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.client.render.tileentity.TileEntityRenderer;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
-import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.BlocksContainer;
-import org.lwjgl.opengl.GL11;
+import net.minecraft.core.world.pos.TilePos;
+import org.jspecify.annotations.NonNull;
+import org.lwjgl.opengl.GL41;
 
 @Environment(EnvType.CLIENT)
 public class EntityRendererFloatingBlock extends EntityRenderer<EntityFloatingBlock> {
-    private final Minecraft mc = Minecraft.getMinecraft();
     private BlocksContainer container = null;
-    private RenderBlocks containerRenderBlock = null;
 
     public EntityRendererFloatingBlock() {
-        this.shadowSize = 0.5F;
+        super(0.5F);
     }
 
-    public void render(Tessellator tessellator, EntityFloatingBlock floatingBlock, double x, double y, double z, float yaw, float partialTick) {
+    public void render(@NonNull TessellatorGeneral tessellator, @NonNull EntityFloatingBlock floatingBlock, double x, double y, double z, float yaw, float partialTick) {
         if (this.container == null || this.container.world != floatingBlock.world) {
             this.container = new BlocksContainer(floatingBlock.world);
-            this.containerRenderBlock = new RenderBlocks(this.container);
         }
 
-        GL11.glPushMatrix();
-        GL11.glTranslated(x, y, z);
-        TextureRegistry.blockAtlas.bind();
-        Lighting.disable();
-        GL11.glBlendFunc(770, 771);
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glDisable(GL11.GL_CULL_FACE);
-        if (this.mc.isAmbientOcclusionEnabled()) {
-            GL11.glShadeModel(7425);
-        } else {
-            GL11.glShadeModel(7424);
-        }
-
-        int blockX = MathHelper.floor(floatingBlock.x);
-        int blockY = MathHelper.floor(floatingBlock.y);
-        int blockZ = MathHelper.floor(floatingBlock.z);
-
+        GLRenderer.pushFrame();
+        GLRenderer.setColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        GLRenderer.setLightmapCoord2f(15.0F, 15.0F);
+        GLRenderer.modelM4f().translate((float) x, (float) y, (float) z);
+        GLRenderer.setShader(Shaders.ITEM);
+        TextureRegistry.worldAtlas.bind();
+        GL41.glActiveTexture(33986);
+        TextureRegistry.worldAtlas.layerTextureMap.get("emissive").bind();
+        GL41.glActiveTexture(33987);
+        TextureRegistry.worldAtlas.layerTextureMap.get("maskColor").bind();
+        GL41.glActiveTexture(33984);
+        GLRenderer.setBlendFunc(BlendFactor.SRC_ALPHA, BlendFactor.ONE_MINUS_SRC_ALPHA);
+        GLRenderer.enableState(State.BLEND);
+        GLRenderer.disableState(State.CULL_FACE);
+        TilePos blockPos = new TilePos(floatingBlock);
         tessellator.startDrawingQuads();
-        tessellator.setTranslation((-blockX) - 0.5, (-blockY) - 0.5, (-blockZ) - 0.5);
-        BlockModel.setRenderBlocks(this.containerRenderBlock);
-
+        tessellator.setTranslation((double) (-blockPos.x) - (double) 0.5F, (double) (-blockPos.y) - (double) 0.5F, (double) (-blockPos.z) - (double) 0.5F);
         this.container.setLightReferenceEntity(floatingBlock);
-        this.container.setBlock(blockX, blockY, blockZ, floatingBlock.getCarriedBlock().blockId, floatingBlock.getCarriedBlock().metadata, floatingBlock.getCarriedBlock().entity);
-
-        BlockModelDispatcher.getInstance().getDispatch(Blocks.getBlock(floatingBlock.getCarriedBlock().blockId)).renderNoCulling(Tessellator.instance, blockX, blockY, blockZ);
-
+        this.container.setBlock(blockPos.x, blockPos.y, blockPos.z, floatingBlock.carriedBlock.blockId, floatingBlock.carriedBlock.metadata, floatingBlock.carriedBlock.entity);
+        BlockModelDispatcher.getInstance().getDispatch(Blocks.getBlock(floatingBlock.carriedBlock.blockId)).renderNoCulling(GLRenderer.getTessellator(), this.container, blockPos);
         this.container.setLightReferenceEntity(null);
         this.container.clear();
-
-        tessellator.setTranslation(0.0, 0.0, 0.0);
+        tessellator.setTranslation(0.0F, 0.0F, 0.0F);
         tessellator.draw();
-        Lighting.enableLight();
-        GL11.glPopMatrix();
-        TileEntityRenderer<TileEntity> renderer = TileEntityRenderDispatcher.instance.getRenderer(floatingBlock.getCarriedBlock().entity);
-
+        GLRenderer.popFrame();
+        TileEntityRenderer<TileEntity> renderer = TileEntityRenderDispatcher.instance.getRenderer(floatingBlock.carriedBlock.entity);
         if (renderer != null) {
-            GL11.glPushMatrix();
-            renderer.doRender(tessellator, floatingBlock.getCarriedBlock().entity, x - 0.5, y - 0.5, z - 0.5, partialTick);
-            GL11.glPopMatrix();
+            GLRenderer.pushFrame();
+            renderer.doRender(tessellator, floatingBlock.carriedBlock.entity, x - (double) 0.5F, y - (double) 0.5F, z - (double) 0.5F, partialTick);
+            GLRenderer.popFrame();
         }
+
     }
 }

@@ -5,10 +5,10 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.guidebook.GuidebookSection;
 import net.minecraft.client.gui.guidebook.SlotGuidebook;
 import net.minecraft.client.render.TextureManager;
+import net.minecraft.client.render.renderer.GLRenderer;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.item.ItemStack;
 import org.jspecify.annotations.NonNull;
-import org.lwjgl.opengl.GL11;
 import teamport.aether.gui.guidebook.AetherSlotGuidebook;
 import teamport.aether.gui.guidebook.RecipePageAetherMachines;
 import teamport.aether.recipe.RecipeEntryAetherMachine;
@@ -24,7 +24,7 @@ public class RecipePageEnchanting extends RecipePageAetherMachines {
     }
 
     @Override
-    public void buildSlots(List<RecipeEntryAetherMachine> recipes) {
+    public void buildSlots(@NonNull List<RecipeEntryAetherMachine> recipes) {
         for (RecipeEntryAetherMachine recipe : recipes) {
             List<SlotGuidebook> recipeSlots = new ArrayList<>();
             RecipeSymbol varietyItem = getDamagedVariety(recipe);
@@ -61,26 +61,26 @@ public class RecipePageEnchanting extends RecipePageAetherMachines {
                     && output.isItemStackDamageable()
                     && output.itemID == input.itemID
             ) {
-                GL11.glPushMatrix();
-                GL11.glTranslatef(posX - 1.0F, posY - 1.0F, 0.0f);
-                GL11.glScalef(0.85f, 0.93f, 1.0f);
+                GLRenderer.pushFrame();
+                GLRenderer.modelM4f().translate(posX - 1.0F, posY - 1.0F, 0.0f);
+                GLRenderer.modelM4f().scale(0.85f, 0.93f, 1.0f);
                 this.drawStringNoShadow(mc.font, "max", 0, 0, -12566464);
-                GL11.glPopMatrix();
+                GLRenderer.popFrame();
                 adjY = 11;
             }
 
-            GL11.glPushMatrix();
-            GL11.glTranslatef((float) posX + alignRight, posY - 1.0F + adjY, 0.0f);
-            GL11.glScalef(0.85f, 0.93f, 1.0f);
+            GLRenderer.pushFrame();
+            GLRenderer.modelM4f().translate((float) posX + alignRight, posY - 1.0F + adjY, 0.0f);
+            GLRenderer.modelM4f().scale(0.85f, 0.93f, 1.0f);
             this.drawStringNoShadow(mc.font, timeString, 0, 0, -12566464);
-            GL11.glPopMatrix();
+            GLRenderer.popFrame();
             re.loadTexture("/assets/minecraft/textures/gui/container/guidebook/guidebook.png").bind();
-            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+            GLRenderer.setColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         }
 
     }
 
-    public static String getTimeAsString(int data) {
+    public static @NonNull String getTimeAsString(int data) {
         StringBuilder buildTime = new StringBuilder();
         int time = Math.round(data / 20.0F);
         if (time >= 60) {
@@ -92,7 +92,7 @@ public class RecipePageEnchanting extends RecipePageAetherMachines {
         return buildTime.toString();
     }
 
-    public static @NonNull RecipeSymbol getDamagedVariety(RecipeEntryAetherMachine recipe) {
+    public static @NonNull RecipeSymbol getDamagedVariety(@NonNull RecipeEntryAetherMachine recipe) {
         RecipeSymbol varientRecipeInput = recipe.getInput();
         ItemStack input = varientRecipeInput.getStack();
         ItemStack copyInput = ItemStack.copyItemStack(input);

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab/upper",
+  "textures": {
+    "top": "aether:block/dungeon/angelic",
+    "bottom": "aether:block/dungeon/angelic",
+    "side": "aether:block/dungeon/angelic"
+  }
+}

@@ -4,6 +4,8 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicFenceGate;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 
 public class BlockLogicPaintableFenceGate extends BlockLogicFenceGate {
     protected final Block<? extends BlockLogicPaintedFenceGate> paintedBlock;
@@ -14,9 +16,9 @@ public class BlockLogicPaintableFenceGate extends BlockLogicFenceGate {
     }
 
     @Override
-    public void setColor(World world, int x, int y, int z, DyeColor color) {
-        int meta = world.getBlockMetadata(x, y, z);
-        world.setBlockAndMetadata(x, y, z, paintedBlock.id(), meta);
-        paintedBlock.getLogic().setColor(world, x, y, z, color);
+    public void setColor(@NonNull World world, @NonNull TilePosc pos, @NonNull DyeColor color) {
+        int meta = world.getBlockData(pos);
+        world.setBlockTypeData(pos, paintedBlock, meta);
+        paintedBlock.getLogic().setColor(world, pos, color);
     }
 }

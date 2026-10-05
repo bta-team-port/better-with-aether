@@ -1,0 +1,30 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"parent": "block/cube",
+	"textures": {
+      "down": "#bottom",
+      "up": "#top",
+      "north": "#side",
+      "east": "#side",
+      "south": "#side",
+      "west": "#side",
+      "bottom": "aether:block/grass_path_aether/bottom",
+      "top": "aether:block/grass_path_aether/top",
+      "side": "aether:block/grass_path_aether/side"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 15, 16],
+			"faces": {
+				"north": {"uv": [0, 1, 16, 16], "texture": "#side"},
+				"east": {"uv": [0, 1, 16, 16], "texture": "#side"},
+				"south": {"uv": [0, 1, 16, 16], "texture": "#side"},
+				"west": {"uv": [0, 1, 16, 16], "texture": "#side"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#top"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#bottom"}
+			}
+		}
+	]
+}

@@ -2,7 +2,10 @@ package teamport.aether.block.skyroot;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicStairsPainted;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 
 public class BlockLogicPaintedStairs extends BlockLogicStairsPainted {
     protected final int unpaintedBlockID;
@@ -13,8 +16,8 @@ public class BlockLogicPaintedStairs extends BlockLogicStairsPainted {
     }
 
     @Override
-    public void removeDye(World world, int x, int y, int z) {
-        int meta = world.getBlockMetadata(x, y, z);
-        world.setBlockAndMetadataWithNotify(x, y, z, unpaintedBlockID, this.stripColorFromMetadata(meta));
+    public void removeDye(@NonNull World world, @NonNull TilePosc pos) {
+        int meta = world.getBlockData(pos);
+        world.setBlockTypeDataNotify(pos, Blocks.getBlock(unpaintedBlockID), this.stripColorFromMetadata(meta));
     }
 }

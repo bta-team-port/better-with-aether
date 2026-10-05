@@ -3,26 +3,31 @@ package teamport.aether.entity.boss;
 import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.IntTag;
 import com.mojang.nbt.tags.StringTag;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.block.Block;
+import net.minecraft.core.block.material.MaterialLiquid;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.MobPathfinder;
-import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.net.command.TextFormatting;
+import net.minecraft.core.lang.I18n;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import teamport.aether.AetherMod;
-import teamport.aether.entity.AetherDeathMessage;
+import teamport.aether.AetherGlobals;
+import teamport.aether.block.dungeon.BlockLogicChestLocked;
+import teamport.aether.block.dungeon.BlockLogicDungeonDoor;
+import teamport.aether.block.dungeon.BlockLogicLocked;
+import teamport.aether.block.dungeon.BlockLogicTrapped;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
 import teamport.aether.world.feature.util.map.DungeonMap;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
-import static net.minecraft.core.net.command.TextFormatting.*;
-import static teamport.aether.AetherMod.TRANSLATOR;
 import static teamport.aether.world.feature.util.map.DungeonMap.runWithDungeon;
 
-public abstract class MobBoss extends MobPathfinder implements EnemyBoss, AetherDeathMessage {
+public abstract class MobBoss extends MobPathfinder implements EnemyBoss {
 
     @Nullable
     protected Integer dungeonID = null;
@@ -35,13 +40,26 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
     @Nullable
     public ItemStack trophy = null;
 
-    protected MobBoss(@Nullable World world) {
+    protected MobBoss(@NonNull World world) {
         super(world);
     }
 
     @Override
     public boolean canFight() {
         return isAlive();
+    }
+
+    @Override
+    public boolean isPushable() {
+        return false;
+    }
+
+    @Override
+    public void push(@NonNull Entity entity) {
+    }
+
+    @Override
+    public void push(double x, double y, double z) {
     }
 
     @Override
@@ -60,9 +78,23 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
     }
 
     @Override
-    public String getBossTitle() {
-        final String translationKey = EntityDispatcher.nameKeyForClass(this.getClass());
-        return String.format(TRANSLATOR.translateKey(translationKey + ".title"), getBossName());
+    public String getTranslatedBossTitle() {
+        return String.format(I18n.getInstance().translateKey(this.getBossTitleKey()), getBossName());
+    }
+
+    @Override
+    public byte getBossColor() {
+        return this.chatColor;
+    }
+
+    @Override
+    public String getBossTitleKey() {
+        EntityDispatcher.EntityDispatcherEntry<? extends MobBoss> entityDispatcherEntry =
+            EntityDispatcher.getInstance().entryForClass(this.getClass());
+        if(entityDispatcherEntry == null){
+            return "no.boss.yes.boss";
+        }
+        return entityDispatcherEntry.nameKey + ".title";
     }
 
     @Override
@@ -77,12 +109,11 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
 
     @Override
     public void onDeath(Entity entityKilledBy) {
-        if (this.world == null) return;
-        AetherMod.LOGGER.info("{} of ID {} has been slain!", bossName, dungeonID);
+        AetherGlobals.LOGGER.info("{} of ID {} has been slain!", bossName, dungeonID);
 
 
         if (trophy != null) {
-            if (!EnvironmentHelper.isClientWorld()) world.dropItem((int) x, (int) y, (int) z, trophy);
+            if (!EnvironmentHelper.isMultiplayerClient()) world.dropItem((int) x, (int) y, (int) z, trophy);
             world.playBlockEvent(null, 1003, (int) x, (int) y, (int) z, 0);
         }
 
@@ -102,7 +133,6 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
                 }
             }
         }
-
         super.onDeath(entityKilledBy);
     }
 
@@ -112,9 +142,7 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
         bossName = tag.getString("bossName");
 
         CompoundTag trophyNBT = tag.getCompound("trophy");
-        if (trophyNBT != null) {
-            trophy = ItemStack.readItemStackFromNbt(trophyNBT);
-        }
+        trophy = ItemStack.readItemStackFromNbt(trophyNBT);
 
         if (tag.getBoolean("hasHadReturnPointSet")) {
             CompoundTag returnPointNBT = tag.getCompound("returnPoint");
@@ -159,26 +187,26 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
         this.hasHadReturnPointSet = true;
     }
 
-    @Override
-    public String deathMessage(Player player) {
-        String key = EntityDispatcher.nameKeyForClass(this.getClass()) + ".death_message";
-        String name = key + "_" + random.nextInt(9);
-
-        String theBossName = BOLD.toString() + TextFormatting.get(this.chatColor).toString() + this.getBossTitle() + RESET + RED;
-        String playerName = player.getDisplayName() + RESET + RED;
-
-        String deathMessage = TRANSLATOR.translateKey(name)
-            .replace("[PLAYER]", playerName)
-            .replace("[BOSS]", theBossName);
-
-        return RED + deathMessage;
-    }
-
     public void returnToOriginalState() {
         this.target = null;
         returnToHome();
         runWithDungeon(dungeonID, d -> d.unlock(world));
         this.setHealthRaw(this.getMaxHealth());
+        // not sure how to stop the music otherwise, gonna have to look up how 7.3_04 did it.
+        if (!EnvironmentHelper.isMultiplayerServer()) {
+            MobBoss.stop();
+        }
     }
 
+    @Environment(EnvType.CLIENT)
+    public static void stop() {
+        Minecraft.getMinecraft().sndManager.stopMusic();
+    }
+
+    @Environment(EnvType.CLIENT)
+    public static void play(String sound, double x, double y, double z) {
+        Minecraft minecraft = Minecraft.getMinecraft();
+        minecraft.sndManager.stopMusic();
+        minecraft.sndManager.playMusic(sound, (float) x, (float) y, (float) z, 1.0F, 1.0F);
+    }
 }

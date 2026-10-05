@@ -1,17 +1,22 @@
 package teamport.aether.block.terrain;
 
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.BlockLogicAxisAligned;
 import net.minecraft.core.block.BlockLogicLog;
+import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.enums.PlacementMode;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.Items;
 import net.minecraft.core.util.helper.Axis;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+import teamport.aether.block.AetherBlocks;
 import teamport.aether.item.AetherItems;
 import teamport.aether.mixin.accessors.ItemAccessor;
 
@@ -24,16 +29,51 @@ public class BlockLogicLogAether extends BlockLogicLog {
     }
 
     @Override
-    public void onBlockPlacedByMob(World world, int x, int y, int z, @NonNull Side side, Mob mob, double xPlaced, double yPlaced) {
-        Axis axis = mob.getPlacementDirection(side, PlacementMode.SIDE).getAxis();
-        world.setBlockMetadataWithNotify(x, y, z, BlockLogicAxisAligned.axisToMeta(axis) + 4);
+    public @NonNull ItemStack @Nullable [] getBreakResult(@NonNull World world, @NonNull EnumDropCause dropCause, int data, @Nullable TileEntity tileEntity) {
+        if (this.block == AetherBlocks.LOG_AETHER_SCORCHED) {
+            ItemStack[] var10000;
+            if (dropCause == EnumDropCause.PISTON_CRUSH) {
+                var10000 = new ItemStack[]{new ItemStack(Items.COAL, 1, 1)};
+            } else {
+                var10000 = new ItemStack[]{new ItemStack(this.block)};
+            }
+
+            return var10000;
+        } else {
+            return super.getBreakResult(world, dropCause, data, tileEntity);
+        }
     }
 
     @Override
-    public void onBlockDestroyedByPlayer(World world, int x, int y, int z, Side side, int meta, Player player, Item item) {
+    public int getPlacedData(@Nullable Player player, @NonNull ItemStack itemStack, @NonNull World world, @NonNull TilePosc tilePos, @NonNull Side side, double xHit, double yHit) {
+        Axis axis;
+        if (player != null) {
+            axis = player.getPlacementDirection(side, PlacementMode.SIDE).axis();
+        } else {
+            axis = side.axis();
+        }
+
+        return axisToMeta(axis) + 4;
+    }
+
+    @Override
+    public void onPlacedByMob(@NonNull World world, @NonNull TilePosc tilePos, @NonNull Side side, @NonNull Mob mob, double xHit, double yHit) {
+        Axis axis = mob.getPlacementDirection(side, PlacementMode.SIDE).axis();
+        world.setBlockDataNotify(tilePos, axisToMeta(axis) + 4);
+    }
+
+    @Override
+    public void onPlacedOnSide(@NonNull World world, @NonNull TilePosc tilePos, @NonNull Side side, double xHit, double yHit) {
+        Axis axis = side.axis();
+        world.setBlockDataNotify(tilePos, axisToMeta(axis) + 4);
+    }
+
+
+    @Override
+    public void onDestroyedByPlayer(@NonNull World world, @NonNull TilePosc tilePos, @NonNull Side side, int data, @NonNull Player player, @Nullable Item item) {
         ItemStack heldItem = player.getHeldItem();
-        if (heldItem != null && heldItem.getItem().equals(AetherItems.TOOL_AXE_SKYROOT) && meta == 0 && player.getGamemode().consumeBlocks()) {
-            this.harvestBlock(world, player, x, y, z, 1, world.getTileEntity(x, y, z));
+        if (heldItem != null && heldItem.getItem().equals(AetherItems.TOOL_AXE_SKYROOT) && data <= 2 && player.getGamemode().hasBlockConsumption()) {
+            this.onHarvest(world, player, tilePos, 1, world.getTileEntity(tilePos));
         }
     }
 
@@ -50,8 +90,9 @@ public class BlockLogicLogAether extends BlockLogicLog {
             return doubleStack;
         }
         if (tool != null && tool.equals(AetherItems.TOOL_AXE_HOLYSTONE)) {
-            if (results.length > 64) throw new IllegalStateException("Expected results.length <= 64 but got " + results.length);
-            Random random = ((ItemAccessor) tool).getItemRand();
+            if (results.length > 64)
+                throw new IllegalStateException("Expected results.length <= 64 but got " + results.length);
+            Random random = ItemAccessor.getItemRand();
             int count = 0;
             for (int i = 0; i < results.length; i++) {
                 if (random.nextInt(16) == 0) {

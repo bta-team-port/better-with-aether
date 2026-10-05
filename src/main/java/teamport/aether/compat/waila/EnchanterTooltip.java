@@ -17,7 +17,7 @@ import static toufoumaster.btwaila.BTWaila.translator;
 public class EnchanterTooltip extends TileTooltip<TileEntityEnchanter> {
     @Override
     public void initTooltip() {
-        addClass(TileEntityEnchanter.class);
+        this.addClass(TileEntityEnchanter.class);
     }
 
     @Override
@@ -37,3 +37,4 @@ public class EnchanterTooltip extends TileTooltip<TileEntityEnchanter> {
         advancedInfoComponent.drawItemList(stacks, 0);
     }
 }
+

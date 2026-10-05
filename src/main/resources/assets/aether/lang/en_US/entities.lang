@@ -1,0 +1,173 @@
+# Death messages
+
+# Passive
+guidebook.section.mob.aerbunny.name.death_message = ...how did this even happen?
+
+# Hostile
+messages.death.player.killed_by.cockatrice = %s was turned into a pincushion.
+messages.death.player.killed_by.aechorplant = %s sniffed a flower too hard.
+messages.death.player.killed_by.tempest = %s was blown away in a gust of wind.
+messages.death.player.killed_by.mimic = <%s> Thank you dark souls.
+messages.death.player.killed_by.sentry = %s walked over a living mine.
+messages.death.player.killed_by.valkyrie = %s lost an honorable duel.
+messages.death.player.killed_by.fire_minion = %s hugged fire.
+
+messages.death.player.killed_by.swet = %s became Jell-O.
+messages.death.player.killed_by.swet_gold = %s was dissolved in gold.
+messages.death.player.killed_by.swet.friendly = %s forgot that friendly doesn't mean harmless.
+messages.death.player.killed_by.swet_gold.friendly = %s forgot that friendly doesn't mean harmless.
+messages.death.player.killed_by.smile.friendly = %s forgot that friendly doesn't mean harmless.
+
+# Effects
+messages.death.poison = %s had a toxic experience.
+messages.death.poison.driving = %s died drunk driving.
+
+# Bosses
+messages.death.player.killed_by.boss_slider_0 = %1$s was crushed by the mighty %2$s!
+messages.death.player.killed_by.boss_slider_1 = %1$s was mined by the mighty %2$s!
+messages.death.player.killed_by.boss_slider_2 = %1$s was tossed by the mighty %2$s!
+messages.death.player.killed_by.boss_slider_3 = %1$s was flung by the mighty %2$s!
+messages.death.player.killed_by.boss_slider_4 = %1$s was flattened into wallpaper by %2$s!
+messages.death.player.killed_by.boss_slider_5 = %1$s was punted across the chamber by the mighty %2$s!
+messages.death.player.killed_by.boss_slider_6 = %1$s was chiseled out of existence by the mighty %2$s!
+messages.death.player.killed_by.boss_slider_7 = %1$s was juggled between sentries and the mighty %2$s!
+messages.death.player.killed_by.boss_slider_8 = %1$s was served on a silver platter to the mighty %2$s!
+messages.death.player.killed_by.boss_slider = %1$s was slain by The Slider!
+
+messages.death.player.killed_by.boss_valkyrie_0 = %1$s was impressed. %2$s was not!
+messages.death.player.killed_by.boss_valkyrie_1 = %1$s fought well. %2$s fought weller!
+messages.death.player.killed_by.boss_valkyrie_2 = %1$s knows defeat. %2$s has never known defeat!
+messages.death.player.killed_by.boss_valkyrie_3 = %1$s raised a blade. %2$s raised victory!
+messages.death.player.killed_by.boss_valkyrie_4 = %1$s felt thunder. %2$s is thunder’s voice!
+messages.death.player.killed_by.boss_valkyrie_5 = %1$s struck hard. %2$s struck harder!
+messages.death.player.killed_by.boss_valkyrie_6 = %1$s lost track. %2$s cannot be tracked!
+messages.death.player.killed_by.boss_valkyrie_7 = %1$s offered medals. %2$s demanded more!
+messages.death.player.killed_by.boss_valkyrie_8 = %1$s thought themselves worthy. %2$s proved them wrong!
+messages.death.player.killed_by.boss_valkyrie = %1$s was slain by The Valkyrie Queen!
+
+# currently cannot be triggered
+guidebook.section.mob.valkyrie.queen.name.death_message.projectile_lightning = %1$s was shocked. %2$s was amused!
+
+messages.death.player.killed_by.boss_sunspirit_0 = %1$s ignored the sparks dancing around! I, %2$s, warned them!
+messages.death.player.killed_by.boss_sunspirit_1 = %1$s charged recklessly into my flames! I, %2$s, warned them!
+messages.death.player.killed_by.boss_sunspirit_2 = %1$s thought they could handle the heat! I, %2$s, warned them!
+messages.death.player.killed_by.boss_sunspirit_3 = %1$s ran headfirst into danger! I, %2$s, warned them!
+messages.death.player.killed_by.boss_sunspirit_4 = %1$s ignored my warnings! I, %2$s, warned them!
+messages.death.player.killed_by.boss_sunspirit_5 = %1$s underestimated the blaze! I, %2$s, warned them!
+messages.death.player.killed_by.boss_sunspirit_6 = %1$s tried to play with fire! I, %2$s, warned them!
+messages.death.player.killed_by.boss_sunspirit_7 = %1$s reached for the sun! I, %2$s, warned them!
+messages.death.player.killed_by.boss_sunspirit_8 = %1$s got fired! I, %2$s, warned them!
+messages.death.player.killed_by.boss_sunspirit = %1$s was slain by The Sun Spirit!
+
+# currently cannot be triggered
+guidebook.section.mob.sunspirit.name.death_message.projectile_fire = %1$s juggled too many flames! I, %2$s, warned them!
+guidebook.section.mob.sunspirit.name.death_message.projectile_ice = %1$s took on the ice bucket challenge! I, %2$s, warned them!
+
+
+# Valkyrie Interact
+valkyrie.show_medal.1=Well... that's a nice pile of medallions you have there...
+valkyrie.show_medal.2=That's pretty impressive, but you won't defeat me.
+valkyrie.show_medal.3=You think you're a touch guy? Well, bring it on!
+
+valkyrie.interact.1=What's that? You want to fight? Aww, what a cute little human.
+valkyrie.interact.2=You're not thinking of fighting a big, strong Valkyrie are you?
+valkyrie.interact.3=I don't think you should bother me, you could get really hurt.
+
+valkyrie.duel_start.1=I'm not going easy on you!
+valkyrie.duel_start.2=You're gonna regret that!
+valkyrie.duel_start.3=Now you're in for it!
+valkyrie.submit.1=Take your medal, you have earned it.
+valkyrie.submit.2=Don't push your luck and take your medal.
+valkyrie.submit.3=Some day has come, take the medal.
+valkyrie.attacked.1=You want a medallion? There are no medallions for participation.
+valkyrie.attacked.2=You are not as cute dead than alive.
+valkyrie.attacked.3=Maybe some other day.
+
+# color codes pls don't remove or back it up I cannot for the love of god remember what §e is!
+#WHITE               -> 0
+#ORANGE              -> 1
+#MAGENTA             -> 2
+#LIGHT_BLUE          -> 3
+#YELLOW              -> 4
+#LIME                -> 5
+#PINK                -> 6
+#GRAY                -> 7
+#LIGHT_GRAY          -> 8
+#CYAN                -> 9
+#PURPLE              -> a
+#BLUE                -> b
+#BROWN               -> c
+#GREEN               -> d
+#RED                 -> e
+#BLACK               -> f
+#OBFUSCATED          -> g
+#BOLD                -> h
+#STRIKETHROUGH       -> i
+#UNDERLINE           -> j
+#ITALIC              -> k
+#RESET               -> l
+
+# Bosses
+aether.entity.boss_slider.id=boss_slider
+guidebook.section.mob.slider.name.title=%s, The Slider
+
+boss_slider.hit_fail=Hmm. Perhaps I need to attack it with a pickaxe?
+
+aether.entity.boss_valkyrie.id=boss_valkyrie
+guidebook.section.mob.valkyrie.queen.name.title=%s, The Valkyrie Queen
+
+boss_valkyrie.duel_start = Very well, attack me when you wish to begin.
+boss_valkyrie.condition = Show me 10 victory medals, and I will fight you.
+boss_valkyrie.duel = If you wish to challenge me, strike at any time.
+boss_valkyrie.peaceful = I have no time for pathetic humans like you.
+boss_valkyrie.dies = You are truly... a mighty warrior...
+boss_valkyrie.weakling = Sorry, I don't fight with weaklings.
+boss_valkyrie.fight_weaklings = Try defeating some weaker valkyries first.
+boss_valkyrie.collect_medals = Collect 10 medallions before trying that.
+boss_valkyrie.target = This will be your final battle!
+
+aether.entity.boss_sunspirit.id=boss_sunspirit
+guidebook.section.mob.sunspirit.name.title=%s, The Sun Spirit
+
+boss_sunspirit.chat_0= You are certainly a brave soul to have entered this chamber.
+boss_sunspirit.chat_1= Begone human, you serve no purpose here.
+boss_sunspirit.chat_2= Your presence annoys me. Do you not fear my burning aura?
+boss_sunspirit.chat_3= I have nothing to offer you, fool. Leave me at peace.
+boss_sunspirit.chat_4= Perhaps you are ignorant. Do you wish to know who I am?
+boss_sunspirit.chat_5= I am a sun spirit, embodiment of the Aether's eternal daylight.
+boss_sunspirit.chat_5_1= As long as I am alive, the sun will never set on this world.
+boss_sunspirit.chat_6= My body burns with the anger of a thousand beasts.
+boss_sunspirit.chat_6_1= No man, hero, or villain can harm me. You are no exception.
+boss_sunspirit.chat_7= You wish to challenge the might of the sun? You are mad.
+boss_sunspirit.chat_7_1= Do not further insult me or you will feel my wrath.
+boss_sunspirit.chat_8= This is your final warning. Leave now, or prepare to burn.
+boss_sunspirit.fight.start= As you wish, your death will be slow and agonizing.
+boss_sunspirit.fight.repeat= Did your previous death not satisfy your curiosity, human?
+boss_sunspirit.dies= Such bitter cold... is this the feeling... of pain?
+boss_sunspirit.peaceful_0= You are certainly a ... coward.
+boss_sunspirit.peaceful_1= Begone ... coward!
+boss_sunspirit.peaceful_2= Your presence annoys me.
+boss_sunspirit.peaceful_3= Leave me at peace.
+
+# Misc
+aether.entity.arrow_flaming.death_message.suicide = %1$s kebabbed himself.
+aether.entity.dart.death_message.suicide = %1$s became a pincushion.
+aether.entity.dart_enchanted.death_message.suicide = %1$s desperately tried to cure himself.
+aether.entity.hammer_head.death_message.suicide = %1$s got hammered.
+aether.entity.knife_lightning.death_message.suicide = %1$s discovered electricity.
+aether.entity.needle.death_message.suicide = %1$s got hit in his Achilles heel.
+
+aether.entity.arrow_flaming.death_message.player = %2$s turned %1$s into barbecue.
+aether.entity.dart.death_message.player = %2$s shot %1$s in the bullseye.
+aether.entity.dart_enchanted.death_message.player = %2$s cured %1$s of life.
+aether.entity.hammer_head.death_message.player = %2$s showed %1$s where the hammer hangs.
+aether.entity.knife_lightning.death_message.player = %2$s smited %1$s.
+aether.entity.needle.death_message.player = %2$s overdid the acupuncture on %1$s.
+
+# currently cannot be triggered
+aether.entity.projectile_fire.death_message.suicide = %1$s juggled too many flames!
+aether.entity.projectile_ice.death_message.suicide = %1$s took on the ice bucket challenge!
+aether.entity.projectile_lightning.death_message.suicide = %1$s was shocked.
+aether.entity.projectile_fire.death_message.player = %2$s player with fire. %1$s got burned.
+aether.entity.projectile_ice.death_message.player = %2$s froze %1$s solid!
+aether.entity.projectile_lightning.death_message.player = %2$s has unlimited power! %1$s was shocked.

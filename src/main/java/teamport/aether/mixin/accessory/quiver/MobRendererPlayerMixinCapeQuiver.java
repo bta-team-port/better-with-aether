@@ -1,74 +1,68 @@
 package teamport.aether.mixin.accessory.quiver;
 
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.entity.MobRendererPlayer;
-import net.minecraft.client.render.model.ModelBase;
-import net.minecraft.client.render.model.ModelBiped;
-import net.minecraft.client.render.tessellator.Tessellator;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemQuiver;
 import net.minecraft.core.item.ItemQuiverEndless;
 import net.minecraft.core.item.ItemStack;
-import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.useless.dragonfly.models.entity.StaticEntityModel;
+import teamport.aether.ducks.IContainerInventoryAether;
+import teamport.aether.item.accessory.SlotAccessory;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = MobRendererPlayer.class)
+@Mixin(value = MobRendererPlayer.class, priority = 1100)
 public abstract class MobRendererPlayerMixinCapeQuiver extends MobRenderer<Player> {
-    protected MobRendererPlayerMixinCapeQuiver(ModelBase model, float shadowSize) {
-        super(model, shadowSize);
+    protected MobRendererPlayerMixinCapeQuiver(float shadowSize) {
+        super(shadowSize);
     }
-    @SuppressWarnings("java:S1161")
-    @Shadow
-    public abstract void render(Tessellator tessellator, Player entity, double x, double y, double z, float yaw, float partialTick);
-    @Shadow
-    private ModelBiped modelBipedMain;
-    @Unique
-    private final ModelBiped quiver = new ModelBiped(1.05F);
-    @SuppressWarnings("java:S1075")
-    @Inject(method = "prepareArmor*", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/item/ItemStack;getItem()Lnet/minecraft/core/item/Item;", shift = At.Shift.AFTER), cancellable = true)
-    private void setArmorModel(@NonNull Player player, int renderPass, float partialTick, CallbackInfoReturnable<Boolean> info) {
-        quiver.holdingLarge = modelBipedMain.holdingLarge;
-        quiver.holdingRightHand = modelBipedMain.holdingRightHand;
-        quiver.holdingLeftHand = modelBipedMain.holdingLeftHand;
-        quiver.sneaking = modelBipedMain.sneaking;
-        quiver.isRiding = modelBipedMain.isRiding;
-        quiver.onGround = this.getSwingProgress(player, partialTick);
 
-        ItemStack armorStack = player.inventory.armorInventory[renderPass];
-        if (armorStack == null) return;
-        Item item = armorStack.getItem();
-        ItemStack chestplate = player.inventory.armorInventory[2];
-        if (item instanceof ItemQuiver && renderPass == 5) {
-            String path = "/assets/minecraft/textures/armor/quiver.png";
-            if (chestplate != null && (chestplate.getItem() instanceof ItemQuiver || chestplate.getItem() instanceof ItemQuiverEndless)) {
-                path = "/assets/aether/textures/armor/quiver_flipped.png";
+    @Shadow
+    protected abstract StaticEntityModel setupAnimations(Player player, StaticEntityModel model, float partialTick, int layer);
+
+    @Unique
+    protected StaticEntityModel getQuiverModel(Player player, float partialTick) {
+        StaticEntityModel quiver = this.setupAnimations(player, this.getModel("aether.accessory.quiver"), partialTick, 6);
+        quiver.getTransform("head").visible = false;
+        quiver.getTransform("chest").visible = true;
+        quiver.getTransform("rightArm").visible = false;
+        quiver.getTransform("leftArm").visible = false;
+        quiver.getTransform("rightLeg").visible = false;
+        quiver.getTransform("leftLeg").visible = false;
+        return quiver;
+    }
+
+    @WrapMethod(method = "getAndSetupModelForLayer(Lnet/minecraft/core/entity/player/Player;FFI)Lorg/useless/dragonfly/models/entity/StaticEntityModel;")
+    private @Nullable StaticEntityModel setQuiverModel(Player player, float brightness, float partialTick, int layer, Operation<StaticEntityModel> original) {
+        if (layer == 6) {
+            ItemStack armorStack = ((IContainerInventoryAether) player.inventory).aether$getAccessoryInventory()[SlotAccessory.CAPE_SLOT - SlotAccessory.GLOVES_SLOT];
+            if (armorStack == null) {
+                return null;
             }
-            this.bindTexture(path);
-            ModelBiped modelBiped = this.quiver;
-            modelBiped.body.visible = true;
-            this.setArmorModel(modelBiped);
-            info.setReturnValue(true);
-            return;
-        }
-        if (item instanceof ItemQuiverEndless && renderPass == 5) {
-            String path = "/assets/minecraft/textures/armor/quiver_golden.png";
-            if (chestplate != null && (chestplate.getItem() instanceof ItemQuiver || chestplate.getItem() instanceof ItemQuiverEndless)) {
-                path = "/assets/aether/textures/armor/quiver_golden_flipped.png";
+            Item item = armorStack.getItem();
+            ItemStack chestplate = player.inventory.armorInventory[1];
+            if (item instanceof ItemQuiver || item instanceof ItemQuiverEndless) {
+                StaticEntityModel quiver = this.getQuiverModel(player, partialTick);
+                boolean isEndless = item instanceof ItemQuiverEndless;
+                boolean isFlipped = chestplate != null && (chestplate.getItem() instanceof ItemQuiver || chestplate.getItem() instanceof ItemQuiverEndless);
+                String path = String.format("/assets/%s/textures/armor/%s%s.png",
+                    isFlipped ? "aether" : "minecraft",
+                    isEndless ? "quiver_golden" : "quiver",
+                    isFlipped ? "_flipped" : ""
+                );
+                this.renderDispatcher.textureManager.loadTexture(path).bind();
+                return quiver;
             }
-            this.bindTexture(path);
-            ModelBiped modelBiped = this.quiver;
-            modelBiped.body.visible = true;
-            this.setArmorModel(modelBiped);
-            info.setReturnValue(true);
         }
+        return original.call(player, brightness, partialTick, layer);
     }
 }

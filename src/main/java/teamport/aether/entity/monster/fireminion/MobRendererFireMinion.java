@@ -6,7 +6,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.useless.dragonfly.models.entity.BoneTransform;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
-import org.useless.dragonfly.renderer.MobRenderer;
+import net.minecraft.client.render.entity.MobRenderer;
 
 @Environment(EnvType.CLIENT)
 public class MobRendererFireMinion extends MobRenderer<MobFireMinion> {
@@ -30,4 +30,3 @@ public class MobRendererFireMinion extends MobRenderer<MobFireMinion> {
     }
 
 }
-

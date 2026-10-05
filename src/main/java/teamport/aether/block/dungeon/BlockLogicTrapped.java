@@ -4,6 +4,7 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
+import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.player.Player;
@@ -11,9 +12,10 @@ import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.phys.HitResult;
-import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
-import org.jspecify.annotations.Nullable;
+import net.minecraft.core.world.pos.TilePosc;
+import org.joml.Vector3d;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.entity.monster.sentry.MobSentry;
 import teamport.aether.helper.ParticleMaker;
@@ -28,7 +30,7 @@ public class BlockLogicTrapped extends BlockLogicDungeon implements AetherBlockT
     private final int cooldown;
 
     public BlockLogicTrapped(Block<?> block, Block<?> breakResult, Block<?> replaceOnClear, Class<? extends Entity> monster, int cooldown) {
-        super(block, Material.stone);
+        super(block, Materials.STONE);
         block.setTicking(true);
         this.monster = monster;
         this.breakResult = breakResult;
@@ -37,7 +39,14 @@ public class BlockLogicTrapped extends BlockLogicDungeon implements AetherBlockT
     }
 
     @Override
-    public @Nullable ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
+    public int getPistonPushReaction(@NonNull World world, @NonNull TilePosc pos) {
+        return this.block.getHardness() < 0.0F
+            ? Material.PISTON_CANT_PUSH
+            : super.getPistonPushReaction(world, pos);
+    }
+
+    @Override
+    public @NonNull ItemStack[] getBreakResult(@NonNull World world, @NonNull EnumDropCause dropCause, int meta, TileEntity tileEntity) {
         return breakResult.getBreakResult(world, dropCause, meta, tileEntity);
     }
 
@@ -47,7 +56,10 @@ public class BlockLogicTrapped extends BlockLogicDungeon implements AetherBlockT
     }
 
     @Override
-    public void updateTick(World world, int x, int y, int z, Random rand) {
+    public void updateTick(@NonNull World world, @NonNull TilePosc pos, @NonNull Random rand, boolean scheduled) {
+        int x = pos.x();
+        int y = pos.y();
+        int z = pos.z();
         if (!world.isClientSide && world.getBlockMetadata(x, y, z) == 1) {
             world.setBlockMetadata(x, y, z, 0);
         }
@@ -59,27 +71,24 @@ public class BlockLogicTrapped extends BlockLogicDungeon implements AetherBlockT
     }
 
     @Override
-    public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
-        if (EnvironmentHelper.isClientWorld()
-            || !(entity instanceof Player)
-            || world.getBlockMetadata(x, y, z) != 0
-        ) {
+    public void onEntityWalkedOn(@NonNull World world, @NonNull TilePosc tilePos, @NonNull Entity walker) {
+        if (EnvironmentHelper.isMultiplayerClient() || !(walker instanceof Player) || world.getBlockData(tilePos) != 0) {
             return;
         }
-        this.triggerTrap(world, x, y, z, entity);
+        this.triggerTrap(world, tilePos.x(), tilePos.y(), tilePos.z(), walker);
     }
 
     private void triggerTrap(World world, int x, int y, int z, Entity entity) {
-        Entity theMonster = EntityDispatcher.createEntityInWorld(this.monster, world);
+        Entity theMonster = EntityDispatcher.getInstance().createEntityInWorld(this.monster, world);
         if (theMonster == null) {
             return;
         }
         theMonster.spawnInit();
 
         int distance = 6 + world.rand.nextInt(2);
-        while (distance --> 0) {
+        while (distance-- > 0) {
             int tries = 16;
-            while (tries --> 0) {
+            while (tries-- > 0) {
                 final double angleRad = Math.toRadians(world.rand.nextInt(360));
 
                 float actualDistance = distance - ((float) world.rand.nextInt(11) / 10);
@@ -89,14 +98,14 @@ public class BlockLogicTrapped extends BlockLogicDungeon implements AetherBlockT
 
                 theMonster.moveTo(spawnX, spawnY, spawnZ, 0.0f, 0.0f);
 
-                if (world.getIsAnySolidGround(theMonster.bb)) {
+                if (!world.getCubes(theMonster, theMonster.bb).isEmpty()) {
                     continue;
                 }
 
                 ///  checks sight between player and entity
                 HitResult hit = world.checkBlockCollisionBetweenPoints(
-                    Vec3.getPermanentVec3(entity.x, entity.y, entity.z),
-                    Vec3.getPermanentVec3(theMonster.x, theMonster.y, theMonster.z),
+                    new Vector3d(entity.x, entity.y, entity.z),
+                    new Vector3d(theMonster.x, theMonster.y, theMonster.z),
                     false, false, true
                 );
                 if (hit != null) {
@@ -105,18 +114,22 @@ public class BlockLogicTrapped extends BlockLogicDungeon implements AetherBlockT
 
                 ///  checks if the entity can be spawned on the choosen block
                 HitResult hit1 = world.checkBlockCollisionBetweenPoints(
-                    Vec3.getPermanentVec3(theMonster.x, theMonster.y, theMonster.z),
-                    Vec3.getPermanentVec3(theMonster.x, theMonster.y - 5, theMonster.z),
+                    new Vector3d(theMonster.x, theMonster.y, theMonster.z),
+                    new Vector3d(theMonster.x, theMonster.y - 5, theMonster.z),
                     true, false, true
                 );
-                if (hit1 == null || hit1.hitType != HitResult.HitType.TILE || !world.getBlockMaterial(hit1.x, hit1.y, hit1.z).isSolid() || world.getBlockId(hit1.x, hit1.y, hit1.z) == Blocks.SPIKES.id()) {
+                if (!(hit1 instanceof HitResult.Tile)) {
+                    continue;
+                }
+                TilePosc tilePos = ((HitResult.Tile) hit1).tilePos;
+                if (!world.getBlockMaterial(tilePos.x(), tilePos.y(), tilePos.z()).isSolid() || world.getBlockId(tilePos.x(), tilePos.y(), tilePos.z()) == Blocks.SPIKES.id()) {
                     continue;
                 }
 
                 world.entityJoinedWorld(theMonster);
                 world.setBlockMetadata(x, y, z, 1);
                 world.scheduleBlockUpdate(x, y, z, this.id(), this.tickDelay());
-                this.spawnParticles(world, spawnX, spawnY + 0.25, spawnZ);
+                BlockLogicTrapped.spawnParticles(world, spawnX, spawnY + 0.25, spawnZ);
                 this.playSound(world, x, y, z, entity, theMonster);
                 this.giveAchievement((Player) entity, theMonster);
                 return;
@@ -140,12 +153,12 @@ public class BlockLogicTrapped extends BlockLogicDungeon implements AetherBlockT
         }
     }
 
-    private void playSound(World world, int x, int y, int z, Entity entity, Entity theMonster) {
+    private void playSound(@NonNull World world, int x, int y, int z, Entity entity, Entity theMonster) {
         world.playSoundEffect(entity, SoundCategory.ENTITY_SOUNDS, x, y, z, "mob.ghast.fireball", 1.0f, 1.0f);
         world.playSoundAtEntity(entity, theMonster, "mob.ghast.fireball", 0.25F, 0.75F);
     }
 
-    private void spawnParticles(World world, double x, double y, double z) {
+    public static void spawnParticles(World world, double x, double y, double z) {
         for (int l = 0; l < 8; ++l) {
             double angle = Math.toRadians(l * 45.0);
             ParticleMaker.spawnParticle(world, "snowshovel", x, y, z, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);

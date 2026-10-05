@@ -4,6 +4,8 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicPlanksPainted;
 import net.minecraft.core.block.IPainted;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 
 import java.util.function.Supplier;
 
@@ -17,8 +19,8 @@ public class BlockLogicPaintedBlock extends BlockLogicPlanksPainted implements I
     }
 
     @Override
-    public void removeDye(World world, int x, int y, int z) {
+    public void removeDye(@NonNull World world, @NonNull TilePosc pos) {
         Block<?> block = unpaintedVariant.get();
-        world.setBlockWithNotify(x, y, z, block.id());
+        world.setBlockTypeNotify(pos, block);
     }
 }

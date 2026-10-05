@@ -1,23 +1,20 @@
 package teamport.aether.entity.monster.swet;
 
 import net.minecraft.core.WeightedRandomLootObject;
-import net.minecraft.core.block.Block;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.LightLayer;
 import net.minecraft.core.item.Item;
-import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
 import org.jspecify.annotations.NonNull;
 import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.effect.AetherEffects;
-import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.helper.ParticleMaker;
@@ -27,8 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("java:S110")
-public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessage {
-    private double ydO;
+public class MobSwet extends MobMonsterAether implements Enemy {
+    protected double ydO;
     protected int jumpDelay;
     protected int grabDelay;
 
@@ -39,7 +36,7 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
         this.setSize(1.4F, 1.2F);
         this.setPos(this.x, this.y, this.z);
         this.jumpDelay = 20;
-        this.textureIdentifier = NamespaceID.getPermanent("aether", "swet");
+        this.setTextureIdentifier("aether", "swet");
         this.moveSpeed = 1.5F;
         this.mobDrops.add(new WeightedRandomLootObject(AetherBlocks.AERCLOUD_BLUE.getDefaultStack(), 0));
     }
@@ -49,6 +46,11 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
         List<WeightedRandomLootObject> drops = new ArrayList<>();
         drops.add(new WeightedRandomLootObject(AetherBlocks.AERCLOUD_BLUE.getDefaultStack(), 1, 2));
         return drops;
+    }
+
+    @Override
+    public int getMaxSpawnedInChunk() {
+        return 2;
     }
 
     @Override
@@ -76,7 +78,7 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
     }
 
     public void doTickEffect() {
-        if (this.world != null && random.nextInt(2) == 0) {
+        if (random.nextInt(2) == 0) {
             ParticleMaker.spawnParticle(world, "splash", this.x, this.y, this.z, world.rand.nextDouble(), world.rand.nextDouble(), world.rand.nextDouble(), 0);
         }
     }
@@ -85,10 +87,9 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
         return AetherItems.FOOD_GUMMY_BLUE;
     }
 
-    @SuppressWarnings("java:S1192")
     @Override
+    @SuppressWarnings("java:S1192")
     public void tick() {
-        if (this.world == null) return;
         this.doTickEffect();
 
         if (this.passenger != null && (!this.passenger.isAlive() || this.passenger.removed)) {
@@ -136,9 +137,8 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
     @Override
     public void updateAI() {
         this.tryToDespawn();
-        if (this.world == null) return;
         Player entityplayer = PlayerUtil.getClosestPlayerToEntity(this.world, this, 16.0, PlayerUtil::isInvisible, PlayerUtil::isSwetty);
-        boolean targetPlayer = entityplayer != null && entityplayer.getGamemode().areMobsHostile() && this.canEntityBeSeen(entityplayer);
+        boolean targetPlayer = entityplayer != null && entityplayer.getGamemode().hasHostileMobs() && this.canEntityBeSeen(entityplayer);
         if (entityplayer != null && targetPlayer && entityplayer != this.passenger) {
             this.lookAt(entityplayer, 10.0F, 20.0F);
         }
@@ -174,9 +174,7 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
     protected void attackEntityWithDamage(@NonNull Entity entity, float distance, int damage) {
         if (this.isAlive() && this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY && getHealth() > 0 && !dead) {
             this.attackTime = 200;
-            if (this.world != null) {
-                this.world.playSoundAtEntity(null, this, "mob.slimeattack", 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-            }
+            this.world.playSoundAtEntity(null, this, "mob.slimeattack", 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
             entity.hurt(this, damage, DamageType.COMBAT);
         }
     }
@@ -186,8 +184,8 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
         this.playerTouchWithDelay(player, 100);
     }
 
-    protected void playerTouchWithDelay(Player player, int delay){
-        if (((IHasEffects<?>)player).getContainer().hasEffect(AetherEffects.swetty)) {
+    protected void playerTouchWithDelay(Player player, int delay) {
+        if (((IHasEffects<?>) player).getContainer().hasEffect(AetherEffects.swetty)) {
             this.ejectRider();
             return;
         }
@@ -214,20 +212,13 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
 
     @Override
     public boolean canSpawnHere() {
-        if (this.world == null) return false;
-        int x = MathHelper.floor(this.x);
-        int y = MathHelper.floor(this.bb.minY);
-        int z = MathHelper.floor(this.z);
-        int id = this.world.getBlockId(x, y - 1, z);
+        TilePos blockPos = new TilePos(MathHelper.floor(this.x), MathHelper.floor(this.bb.minY - 1), MathHelper.floor(this.z));
 
-        if (this.world.getSavedLightValue(LightLayer.Block, x, y, z) > 7) {
+        if (this.world.getSavedLightValue(LightLayer.Block, blockPos) > 7) {
             return false;
         }
 
-        Block<?> block = Blocks.blocksList[id];
-        if (block == null) return false;
-        if (world.rand.nextInt(5) == 0) return block.hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN);
-        return false;
+        return AetherBlockTags.PASSIVE_MOBS_SPAWN.appliesTo(this.world.getBlockType(blockPos));
     }
 
     public double getYdO() {

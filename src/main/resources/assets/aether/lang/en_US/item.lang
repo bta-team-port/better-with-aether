@@ -1,0 +1,411 @@
+# Tools
+item.tool.dungeon_compass.name=Dungeon Compass
+item.tool.dungeon_compass.desc=Points towards something yet unknown.
+
+# Pickaxes
+item.tool.pickaxe.skyroot.name=Skyroot Pickaxe
+item.tool.pickaxe.skyroot.desc=Pick some holystone with this doubling wooden tool.
+item.tool.pickaxe.holystone.name=Holystone Pickaxe
+item.tool.pickaxe.holystone.desc=Pick some holystone with this holystone tool.
+item.tool.pickaxe.zanite.name=Zanite Pickaxe
+item.tool.pickaxe.zanite.desc=Pick some holystone with this zanite tool.
+item.tool.pickaxe.gravitite.name=Gravitite Pickaxe
+item.tool.pickaxe.gravitite.desc=Pick some holystone with this gravity defying gravitite tool.
+item.tool.pickaxe.valkyrie.name=Valkyrie Pickaxe
+item.tool.pickaxe.valkyrie.desc=Pick some holystone with this angelic valkyrie tool.
+
+# Shovels
+item.tool.shovel.skyroot.name=Skyroot Shovel
+item.tool.shovel.skyroot.desc=Dig up the Aether dirt with this doubling wooden tool.
+item.tool.shovel.holystone.name=Holystone Shovel
+item.tool.shovel.holystone.desc=Dig up the Aether dirt with this holystone tool.
+item.tool.shovel.zanite.name=Zanite Shovel
+item.tool.shovel.zanite.desc=Dig up the Aether dirt with this zanite tool.
+item.tool.shovel.gravitite.name=Gravitite Shovel
+item.tool.shovel.gravitite.desc=Dig up the Aether dirt with this gravity defying gravitite tool.
+item.tool.shovel.valkyrie.name=Valkyrie Shovel
+item.tool.shovel.valkyrie.desc=Dig up the Aether dirt with this angelic valkyrie tool.
+
+# Axes
+item.tool.axe.skyroot.name=Skyroot Axe
+item.tool.axe.skyroot.desc=Chop some trees with this doubling wooden tool.
+item.tool.axe.holystone.name=Holystone Axe
+item.tool.axe.holystone.desc=Chop some trees with this holystone tool.
+item.tool.axe.zanite.name=Zanite Axe
+item.tool.axe.zanite.desc=Chop some trees with this zanite tool.
+item.tool.axe.gravitite.name=Gravitite Axe
+item.tool.axe.gravitite.desc=Chop some trees with this gravity defying gravitite tool.
+item.tool.axe.valkyrie.name=Valkyrie Axe
+item.tool.axe.valkyrie.desc=Chop some trees with this angelic valkyrie tool.
+
+# Swords
+item.tool.sword.skyroot.name=Skyroot Sword
+item.tool.sword.skyroot.desc=Slay giant bosses with this doubling wooden blade.
+item.tool.sword.holystone.name=Holystone Sword
+item.tool.sword.holystone.desc=Slay giant bosses with this sharp holystone blade.
+item.tool.sword.zanite.name=Zanite Sword
+item.tool.sword.zanite.desc=Slay giant bosses with this sharp zanite blade.
+item.tool.sword.gravitite.name=Gravitite Sword
+item.tool.sword.gravitite.desc=Slay giant bosses with this sharp gravitite blade.
+item.tool.sword.valkyrie.name=Valkyrie Lance
+item.tool.sword.valkyrie.desc=Slay fearsome foes at range with this angelic valkyrie spear.
+
+# Specialty Weapons
+item.tool.sword.pig.name=Pig Slayer
+item.tool.sword.pig.desc=Magical dagger that kills pig-like creatures in 1 hit.
+item.tool.sword.vampire.name=Vampire Blade
+item.tool.sword.vampire.desc=Vampiric sword that drains the health of enemies, giving you a fair share.
+item.tool.sword.flame.name=Flaming Sword
+item.tool.sword.flame.desc=An elemental blade imbued with the power of fire.
+item.tool.sword.holy.name=Holy Sword
+item.tool.sword.holy.desc=An elemental blade imbued with the power of light.
+item.tool.sword.lightning.name=Lightning Sword
+item.tool.sword.lightning.desc=An elemental blade imbued with the power of electricity.
+
+# Staves
+item.tool.staff.nature.name=Nature Staff
+item.tool.staff.nature.desc=Allows the user to control any mob with full authority.
+item.tool.staff.cloud.name=Cloud Staff
+item.tool.staff.cloud.desc=Summon two mini zephyrs to help defend.
+
+# Ranged Weapons and Ammo
+item.tool.knife.lightning.name=Lightning Knife
+item.tool.knife.lightning.desc=Throwable dagger that strikes the foe with a bolt.
+item.tool.hammer.notch.name=Hammer of Notch
+item.tool.hammer.notch.desc=Legendary hammer with a special attack for groups of foes.
+item.ammo.hammer.head.name=Hammer Head
+item.ammo.hammer.head.desc=Projectile launched from the hammer of Notch.
+item.tool.bow.phoenix.name=Phoenix Bow
+item.tool.bow.phoenix.desc=A weapon for shooting rapid-fire flaming arrows.
+item.tool.shooter.name=Blowgun
+item.tool.shooter.desc=A weapon for blowing rapid-fire darts.
+item.ammo.dart.golden.name=Golden Dart
+item.ammo.dart.golden.desc=A gold spiked projectile for firing from a blowgun.
+item.ammo.dart.poison.name=Poison Dart
+item.ammo.dart.poison.desc=A poison tipped projectile for firing from a blowgun.
+item.ammo.dart.enchanted.name=Remedy Dart
+item.ammo.dart.enchanted.desc=An enchanted projectile for firing from a blowgun.
+item.ammo.arrow.flaming.name=Flaming Arrow
+item.ammo.arrow.flaming.desc=How did you obtain this!?
+item.ammo.windball.name=Wind Charge
+item.ammo.windball.desc=Ammo for a hand cannon. Shoots a gust of wind over a wide area.
+item.projectile.fire.name=Fire Crystal
+item.projectile.fire.desc=Crystallized projectile made of fire.
+item.projectile.ice.name=Ice Crystal
+item.projectile.ice.desc=Crystallized projectile made of ice.
+item.projectile.lightning.name=Lightning Crystal
+item.projectile.lightning.desc=Crystallized projectile made of lightning.
+
+# Buckets
+item.bucket.skyroot.name=Skyroot Bucket
+item.bucket.skyroot.desc=Used to pick up various liquids.
+item.bucket.skyroot.water.name=Water Skyroot Bucket
+item.bucket.skyroot.water.desc=A bucket full of the bottomless sea.
+item.bucket.skyroot.milk.name=Skyroot Bucket of Milk
+item.bucket.skyroot.milk.desc=A great source of calcium!
+item.bucket.skyroot.poison.name=Poison Skyroot Bucket
+item.bucket.skyroot.poison.desc=A bucket full of bubbling poison. Stings!
+item.bucket.skyroot.remedy.name=Remedy Skyroot Bucket
+item.bucket.skyroot.remedy.desc=A bucket used to cure poison.
+item.bucket.skyroot.icecream.name=Skyroot Bucket of Ice Cream
+item.bucket.skyroot.icecream.desc=A chilling treat decorated with cocoa flakes and a cherry!
+
+# Parachutes
+item.parachute.cloud.name=Cloud Parachute
+item.parachute.cloud.desc=Gently glide down when activated. Works if you fall out of The Aether.
+item.parachute.cloud.gold.name=Gold Cloud Parachute
+item.parachute.cloud.gold.desc=A longer-lasting variant of the cloud parachute.
+
+# Armor
+item.armor.helmet.zanite.name=Zanite Helmet
+item.armor.helmet.zanite.desc=A shiny zanite helmet.
+item.armor.helmet.gravitite.name=Gravitite Helmet
+item.armor.helmet.gravitite.desc=A forceful gravitite helmet.
+item.armor.helmet.phoenix.name=Phoenix Helmet
+item.armor.helmet.phoenix.desc=A burning phoenix helmet.
+item.armor.helmet.obsidian.name=Obsidian Helmet
+item.armor.helmet.obsidian.desc=A powerful obsidian helmet.
+item.armor.helmet.neptune.name=Neptune Helmet
+item.armor.helmet.neptune.desc=A stormy neptune helmet.
+
+item.armor.chestplate.zanite.name=Zanite Chestplate
+item.armor.chestplate.zanite.desc=A shiny zanite chestplate.
+item.armor.chestplate.gravitite.name=Gravitite Chestplate
+item.armor.chestplate.gravitite.desc=A forceful gravitite chestplate.
+item.armor.chestplate.phoenix.name=Phoenix Chestplate
+item.armor.chestplate.phoenix.desc=A burning phoenix chestplate.
+item.armor.chestplate.obsidian.name=Obsidian Chestplate
+item.armor.chestplate.obsidian.desc=A powerful obsidian chestplate.
+item.armor.chestplate.neptune.name=Neptune Chestplate
+item.armor.chestplate.neptune.desc=A stormy neptune chestplate.
+
+item.armor.leggings.zanite.name=Zanite Leggings
+item.armor.leggings.zanite.desc=A shiny pair of zanite leggings.
+item.armor.leggings.gravitite.name=Gravitite Leggings
+item.armor.leggings.gravitite.desc=A forceful pair of gravitite leggings.
+item.armor.leggings.phoenix.name=Phoenix Leggings
+item.armor.leggings.phoenix.desc=A burning pair of phoenix leggings.
+item.armor.leggings.obsidian.name=Obsidian Leggings
+item.armor.leggings.obsidian.desc=A powerful pair of obsidian leggings.
+item.armor.leggings.neptune.name=Neptune Leggings
+item.armor.leggings.neptune.desc=A stormy pair of neptune leggings.
+
+item.armor.boots.zanite.name=Zanite Boots
+item.armor.boots.zanite.desc=A shiny pair of zanite boots.
+item.armor.boots.gravitite.name=Gravitite Boots
+item.armor.boots.gravitite.desc=A forceful pair of gravitite boots.
+item.armor.boots.phoenix.name=Phoenix Boots
+item.armor.boots.phoenix.desc=A burning pair of phoenix boots.
+item.armor.boots.obsidian.name=Obsidian Boots
+item.armor.boots.obsidian.desc=A powerful pair of obsidian boots.
+item.armor.boots.neptune.name=Neptune Boots
+item.armor.boots.neptune.desc=A stormy pair of neptune boots.
+
+item.armor.gloves.leather.name=Leather Gloves
+item.armor.gloves.leather.desc=A pair of gloves made from a cow's hide.
+item.armor.gloves.chainmail.name=Chainmail Gloves
+item.armor.gloves.chainmail.desc=A pair of gloves made up of tiny chains. Can be repaired.
+item.armor.gloves.iron.name=Iron Gloves
+item.armor.gloves.iron.desc=A strong pair of iron gloves.
+item.armor.gloves.gold.name=Gold Gloves
+item.armor.gloves.gold.desc=A delicate pair of gold gloves.
+item.armor.gloves.diamond.name=Diamond Gloves
+item.armor.gloves.diamond.desc=A fancy pair of diamond gloves.
+item.armor.gloves.steel.name=Steel Gloves
+item.armor.gloves.steel.desc=A durable pair of steel gloves.
+item.armor.gloves.zanite.name=Zanite Gloves
+item.armor.gloves.zanite.desc=A shiny pair of zanite gloves.
+item.armor.gloves.gravitite.name=Gravitite Gloves
+item.armor.gloves.gravitite.desc=A forceful pair of gravitite gloves.
+item.armor.gloves.phoenix.name=Phoenix Gloves
+item.armor.gloves.phoenix.desc=A burning pair of phoenix gloves.
+item.armor.gloves.obsidian.name=Obsidian Gloves
+item.armor.gloves.obsidian.desc=A powerful pair of obsidian gloves.
+item.armor.gloves.neptune.name=Neptune Gloves
+item.armor.gloves.neptune.desc=A stormy pair of neptune gloves.
+
+item.armor.wolf.zanite.name=Zanite Wolf Armor
+item.armor.wolf.zanite.desc=Keep your best friend safe with this shiny zanite shell.
+
+item.armor.wolf.gravitite.name=Gravitite Wolf Armor
+item.armor.wolf.gravitite.desc=Keep your best friend safe with this forceful gravitite shell.
+
+item.armor.wolf.obsidian.name=Obsidian Wolf Armor
+item.armor.wolf.obsidian.desc=Keep your best friend safe with this powerful obsidian shell.
+
+item.armor.wolf.phoenix.name=Phoenix Wolf Armor
+item.armor.wolf.phoenix.desc=Keep your best friend safe with this burning phoenix shell.
+
+item.armor.wolf.neptune.name=Neptune Wolf Armor
+item.armor.wolf.neptune.desc=Keep your best friend safe with this stormy neptune shell.
+
+# Dungeon Items
+item.medal.victory.name=Victory Medal
+item.medal.victory.desc=A prize for defeating a valkyrie. Collect 10!
+item.key.bronze.name=Maze Key
+item.key.bronze.desc=Dropped by the Slider, use it on a treasure chest!
+item.key.silver.name=Temple Key
+item.key.silver.desc=Dropped by the Valkyrie Queen, use it on a treasure chest!
+item.key.gold.name=Sanctuary Key
+item.key.gold.desc=Dropped by the Sun Spirit, use it on a treasure chest!
+
+# Accessories
+item.armor.talisman.iron.name=Iron Pendant
+item.armor.talisman.iron.desc=A strong iron pendant.
+item.armor.talisman.gold.name=Gold Pendant
+item.armor.talisman.gold.desc=A delicate gold pendant.
+item.armor.talisman.zanite.name=Zanite Pendant
+item.armor.talisman.zanite.desc=A shiny zanite pendant.
+item.armor.talisman.ice.name=Ice Pendant
+item.armor.talisman.ice.desc=A freezing ice pendant.
+item.armor.talisman.leather.name=Leather Pendant
+item.armor.talisman.leather.desc=A pendant made from a cow's hide.
+item.armor.talisman.chainmail.name=Chain Pendant
+item.armor.talisman.chainmail.desc=A pendant made up of tiny chains. Can be repaired.
+item.armor.talisman.diamond.name=Diamond Pendant
+item.armor.talisman.diamond.desc=A fancy diamond pendant.
+item.armor.talisman.steel.name=Steel Pendant
+item.armor.talisman.steel.desc=A durable steel pendant.
+item.armor.talisman.gravitite.name=Gravitite Pendant
+item.armor.talisman.gravitite.desc=A forceful gravitite pendant.
+item.armor.talisman.bubble.name=Iron Bubble
+item.armor.talisman.bubble.desc=Allows you to breathe underwater forever.
+item.armor.talisman.feather.gold.name=Golden Feather
+item.armor.talisman.feather.gold.desc=Lets you gently float to the ground without taking fall damage.
+item.armor.talisman.regen.name=Regeneration Stone
+item.armor.talisman.regen.desc=Regenerates your health over time.
+item.armor.shield.repulsion.name=Shield of Repulsion
+item.armor.shield.repulsion.desc=A shield to repulse projectiles. Can either be worn or held.
+
+# Capes
+item.armor.cape.swet.name=Swet Cape
+item.armor.cape.swet.desc=Tame slimes and swets with this nice cape.
+item.armor.cape.invisibility.name=Invisibility Cloak
+item.armor.cape.invisibility.desc=Go invisible with this neat cloak.
+item.armor.cape.agility.name=Agility Cape
+item.armor.cape.agility.desc=Walk up blocks with this handy cape.
+item.armor.cape.white.name=White Cape
+item.armor.cape.white.desc=Decorative cape colored white.
+item.armor.cape.silver.name=Light Gray Cape
+item.armor.cape.silver.desc=Decorative cape colored light gray.
+item.armor.cape.gray.name=Gray Cape
+item.armor.cape.gray.desc=Decorative cape colored gray.
+item.armor.cape.black.name=Black Cape
+item.armor.cape.black.desc=Decorative cape colored black.
+item.armor.cape.red.name=Red Cape
+item.armor.cape.red.desc=Decorative cape colored red.
+item.armor.cape.yellow.name=Yellow Cape
+item.armor.cape.yellow.desc=Decorative cape colored yellow.
+item.armor.cape.orange.name=Orange Cape
+item.armor.cape.orange.desc=Decorative cape colored orange.
+item.armor.cape.brown.name=Brown Cape
+item.armor.cape.brown.desc=Decorative cape colored brown.
+item.armor.cape.lime.name=Lime Cape
+item.armor.cape.lime.desc=Decorative cape colored lime.
+item.armor.cape.green.name=Green Cape
+item.armor.cape.green.desc=Decorative cape colored green.
+item.armor.cape.cyan.name=Cyan Cape
+item.armor.cape.cyan.desc=Decorative cape colored cyan.
+item.armor.cape.blue.name=Blue Cape
+item.armor.cape.blue.desc=Decorative cape colored blue.
+item.armor.cape.lightblue.name=Light Blue Cape
+item.armor.cape.lightblue.desc=Decorative cape colored light blue.
+item.armor.cape.purple.name=Purple Cape
+item.armor.cape.purple.desc=Decorative cape colored purple.
+item.armor.cape.magenta.name=Magenta Cape
+item.armor.cape.magenta.desc=Decorative cape colored magenta.
+item.armor.cape.pink.name=Pink Cape
+item.armor.cape.pink.desc=Decorative cape colored pink.
+
+# Miscellaneous
+item.egg.moa.blue.name=Blue Moa Egg
+item.egg.moa.blue.desc=Laid by a blue moa, place it in an incubator.
+item.egg.moa.black.name=Black Moa Egg
+item.egg.moa.black.desc=Laid by a black moa, place it in an incubator.
+item.egg.moa.white.name=White Moa Egg
+item.egg.moa.white.desc=Laid by a white moa, place it in an incubator.
+
+item.record.aether.name=Aether Music Disc
+item.record.aether.desc=§baether
+item.record.morning.name=Aether Music Disc
+item.record.morning.desc=§8morning
+item.record.dawn.name=Aether Music Disc
+item.record.dawn.desc=§6dawn
+item.record.nether.name=Aether Music Disc
+item.record.nether.desc=§knether
+
+item.amber.name=Golden Amber
+item.amber.desc=Harvested from a golden oak, useful for darts.
+item.petal.aechor.name=Aechor Petal
+item.petal.aechor.desc=Collected from an aechor plant, a moa's favorite food!
+item.stick.skyroot.name=Skyroot Stick
+item.stick.skyroot.desc=Found at the ends of branches. Can craft various Aether items.
+item.ambrosium.name=Ambrosium Shard
+item.ambrosium.desc=A magical fuel found in holystone, can be eaten.
+item.zanite.name=Zanite Gemstone
+item.zanite.desc=A shiny purple gemstone used to make tools.
+item.ore.raw.gravitite.name=Raw Gravitite Ore
+item.ore.raw.gravitite.desc=A chunk of unprocessed gravitite. Can be enchanted into a block of gravitite.
+
+item.food.healing.stone.name=Healing Stone
+item.food.healing.stone.desc=Enchanted rock turned into food, tastes divine!
+item.food.gummy.blue.name=Blue Gummy Swet
+item.food.gummy.blue.desc=Tasty blue swet flavored sweet. Heals a lot!
+item.food.gummy.gold.name=Gold Gummy Swet
+item.food.gummy.gold.desc=Delicious gold swet flavored sweet. Full heal!
+item.food.lifeshard.name=Lifeshard
+item.food.lifeshard.desc=Permanently increases your maximum health by one heart. Amazing!
+item.food.sword.vampire.name=Victim's Blood
+item.food.sword.vampire.desc=How did you get this?!
+
+
+item.lantern.firefly.silver.name=Silver Firefly Lantern
+item.lantern.firefly.silver.desc=A glass jar containing a swarm of silver fireflies.
+
+# Doors
+item.door.glass.ambrosium.name=Quicksoil Glass Door
+item.door.glass.ambrosium.desc=Terrible for aesthetics, terrible for privacy.
+item.door.dungeon.bronze.name=Maze Dungeon Door
+item.door.dungeon.bronze.desc=Every maze needs one.
+item.door.dungeon.silver.name=Temple Dungeon Door
+item.door.dungeon.silver.desc=Every temple needs one.
+item.door.dungeon.gold.name=Sanctuary Dungeon Door
+item.door.dungeon.gold.desc=Every sanctuary needs one.
+item.door.skyroot.name=Skyroot Door
+item.door.skyroot.desc=Every home needs one.
+item.door.skyroot.painted.name=Mystery Skyroot Door
+item.door.skyroot.painted.desc=How did you get this?!
+item.door.skyroot.painted.white.name=White Skyroot Door
+item.door.skyroot.painted.white.desc=Every home needs one.
+item.door.skyroot.painted.orange.name=Orange Skyroot Door
+item.door.skyroot.painted.orange.desc=Every home needs one.
+item.door.skyroot.painted.magenta.name=Magenta Skyroot Door
+item.door.skyroot.painted.magenta.desc=Every home needs one.
+item.door.skyroot.painted.lightblue.name=Light Blue Skyroot Door
+item.door.skyroot.painted.lightblue.desc=Every home needs one.
+item.door.skyroot.painted.yellow.name=Yellow Skyroot Door
+item.door.skyroot.painted.yellow.desc=Every home needs one.
+item.door.skyroot.painted.lime.name=Lime Skyroot Door
+item.door.skyroot.painted.lime.desc=Every home needs one.
+item.door.skyroot.painted.pink.name=Pink Skyroot Door
+item.door.skyroot.painted.pink.desc=Every home needs one.
+item.door.skyroot.painted.gray.name=Gray Skyroot Door
+item.door.skyroot.painted.gray.desc=Every home needs one.
+item.door.skyroot.painted.silver.name=Light Gray Skyroot Door
+item.door.skyroot.painted.silver.desc=Every home needs one.
+item.door.skyroot.painted.cyan.name=Cyan Skyroot Door
+item.door.skyroot.painted.cyan.desc=Every home needs one.
+item.door.skyroot.painted.purple.name=Purple Skyroot Door
+item.door.skyroot.painted.purple.desc=Every home needs one.
+item.door.skyroot.painted.blue.name=Blue Skyroot Door
+item.door.skyroot.painted.blue.desc=Every home needs one.
+item.door.skyroot.painted.brown.name=Brown Skyroot Door
+item.door.skyroot.painted.brown.desc=Every home needs one.
+item.door.skyroot.painted.green.name=Green Skyroot Door
+item.door.skyroot.painted.green.desc=Every home needs one.
+item.door.skyroot.painted.red.name=Red Skyroot Door
+item.door.skyroot.painted.red.desc=Every home needs one.
+item.door.skyroot.painted.black.name=Black Skyroot Door
+item.door.skyroot.painted.black.desc=Every home needs one.
+
+# Signs
+item.sign.skyroot.name=Skyroot Sign
+item.sign.skyroot.desc=Sign your land, or put down a notice.
+item.sign.skyroot.painted.name=Mystery Skyroot Sign
+item.sign.skyroot.painted.desc=How did you get this?!
+item.sign.skyroot.painted.white.name=White Skyroot Sign
+item.sign.skyroot.painted.white.desc=Sign your land, or put down a notice.
+item.sign.skyroot.painted.orange.name=Orange Skyroot Sign
+item.sign.skyroot.painted.orange.desc=Sign your land, or put down a notice.
+item.sign.skyroot.painted.magenta.name=Magenta Skyroot Sign
+item.sign.skyroot.painted.magenta.desc=Sign your land, or put down a notice.
+item.sign.skyroot.painted.lightblue.name=Light Blue Skyroot Sign
+item.sign.skyroot.painted.lightblue.desc=Sign your land, or put down a notice.
+item.sign.skyroot.painted.yellow.name=Yellow Skyroot Sign
+item.sign.skyroot.painted.yellow.desc=Sign your land, or put down a notice.
+item.sign.skyroot.painted.lime.name=Lime Skyroot Sign
+item.sign.skyroot.painted.lime.desc=Sign your land, or put down a notice.
+item.sign.skyroot.painted.pink.name=Pink Skyroot Sign
+item.sign.skyroot.painted.pink.desc=Sign your land, or put down a notice.
+item.sign.skyroot.painted.gray.name=Gray Skyroot Sign
+item.sign.skyroot.painted.gray.desc=Sign your land, or put down a notice.
+item.sign.skyroot.painted.silver.name=Light Gray Skyroot Sign
+item.sign.skyroot.painted.silver.desc=Sign your land, or put down a notice.
+item.sign.skyroot.painted.cyan.name=Cyan Skyroot Sign
+item.sign.skyroot.painted.cyan.desc=Sign your land, or put down a notice.
+item.sign.skyroot.painted.purple.name=Purple Skyroot Sign
+item.sign.skyroot.painted.purple.desc=Sign your land, or put down a notice.
+item.sign.skyroot.painted.blue.name=Blue Skyroot Sign
+item.sign.skyroot.painted.blue.desc=Sign your land, or put down a notice.
+item.sign.skyroot.painted.brown.name=Brown Skyroot Sign
+item.sign.skyroot.painted.brown.desc=Sign your land, or put down a notice.
+item.sign.skyroot.painted.green.name=Green Skyroot Sign
+item.sign.skyroot.painted.green.desc=Sign your land, or put down a notice.
+item.sign.skyroot.painted.red.name=Red Skyroot Sign
+item.sign.skyroot.painted.red.desc=Sign your land, or put down a notice.
+item.sign.skyroot.painted.black.name=Black Skyroot Sign
+item.sign.skyroot.painted.black.desc=Sign your land, or put down a notice.
+
+
+item.statue.holystone.name=Holystone Statue
+item.statue.holystone.desc=A decorative statue carved out of holystone.

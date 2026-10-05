@@ -2,69 +2,125 @@ package teamport.aether.entity.boss.slider;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.LightmapHelper;
-import net.minecraft.client.render.entity.MobRenderer;
-import net.minecraft.client.render.model.ModelBase;
-import net.minecraft.client.render.tessellator.Tessellator;
-import org.lwjgl.opengl.GL11;
+import net.minecraft.client.render.renderer.*;
+import net.minecraft.client.render.tessellator.TessellatorGeneral;
+import net.minecraft.core.util.helper.MathHelper;
+import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+import org.useless.dragonfly.models.entity.StaticEntityModel;
+import teamport.aether.entity.renderer.MobBreakableRender;
 
 @Environment(EnvType.CLIENT)
-public class MobRendererSlider extends MobRenderer<MobBossSlider> {
+public class MobRendererSlider extends MobBreakableRender<MobBossSlider> {
 
-    public MobRendererSlider(ModelBase model, float shadowSize) {
-        super(model, shadowSize);
-        this.setArmorModel(model);
-        this.shadowSize = 0.0F;
+    public MobRendererSlider(float shadowSize) {
+        super(0.0f, 4, 2, 4);
     }
 
     @Override
-    public void renderPreview(Tessellator tessellator, MobBossSlider slider, double x, double y, double z, float yaw, float partialTick) {
-        GL11.glPushMatrix();
-        GL11.glScalef(0.75F, 0.75F, 0.75F);
+    public void renderPreview(
+        @NonNull TessellatorGeneral tessellator,
+        @NonNull MobBossSlider slider,
+        double x, double y, double z, float yaw, float partialTick
+    ) {
+        GLRenderer.pushFrame();
+        GLRenderer.modelM4f().scale(0.75F, 0.75F, 0.75F);
         this.bindTexture("/assets/aether/textures/entity/boss_slider/slider_awake.png");
         super.renderPreview(tessellator, slider, x, y + 0.5, z, yaw, partialTick);
-        GL11.glPopMatrix();
+        GLRenderer.popFrame();
     }
 
-    public boolean setEyeBrightness(MobBossSlider slider, int renderPass) {
-        if (renderPass == 0) {
-            if (slider.isAwake() && !slider.doingSlam()) {
-                if (slider.isAngry()) {
-                    this.bindTexture("/assets/aether/textures/entity/boss_slider/slider_awake_red_glow.png");
-                } else {
-                    this.bindTexture("/assets/aether/textures/entity/boss_slider/slider_awake_glow.png");
-                }
-            } else {
-                if (slider.isAngry()) {
-                    this.bindTexture("/assets/aether/textures/entity/boss_slider/slider_sleep_red_glow.png");
-                } else {
-                    this.bindTexture("/assets/aether/textures/entity/boss_slider/slider_sleep_glow.png");
-                }
-            }
-            if (LightmapHelper.isLightmapEnabled()) {
-                LightmapHelper.setLightmapCoord(LightmapHelper.getLightmapCoord(15, 15));
-            }
-
-            GL11.glEnable(3042);
-            GL11.glDisable(3008);
-            GL11.glBlendFunc(770, 771);
-            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            return true;
-        } else {
-            return false;
-        }
+    private void bindGlowTexture(@NonNull MobBossSlider slider) {
+        String state = slider.isAwake() && !slider.doingSlam() ? "awake" : "sleep";
+        String anger = slider.isAngry() ? "_red" : "";
+        this.bindTexture("/assets/aether/textures/entity/boss_slider/slider_" + state + anger + "_glow.png");
     }
 
     @Override
-    public void setupScale(MobBossSlider slider, float partialTick) {
+    protected int maxRenderLayer(@NonNull MobBossSlider slider) {
+        return 3;
+    }
+
+    @Override
+    protected void preRenderTransform(
+        @NonNull MobBossSlider slider,
+        double x, double y, double z,
+        float yaw, float partialTick
+    ) {
+        GLRenderer.modelM4f().translate((float) x, (float) y, (float) z);
+        GLRenderer.modelM4f().rotateY(-this.getBodyYaw(slider, partialTick));
+        GLRenderer.modelM4f().scale(0.062539086F, 0.062539086F, -0.062539086F);
+        if (slider.deathTime > 0) {
+            float t = slider.deathTime + partialTick;
+            float acceleration = 0.1F;
+            float phase = t * 0.25F * (1.0F + acceleration * t);
+            int step = (int) phase;
+            float defY;
+            float defZ = switch (step % 4) {
+                case 0 -> {
+                    defY = 1.0F;
+                    yield 0.0F;
+                }
+                case 1 -> {
+                    defY = 0.0F;
+                    yield 1.0F;
+                }
+                case 2 -> {
+                    defY = -1.0F;
+                    yield 0.0F;
+                }
+                default -> {
+                    defY = 0.0F;
+                    yield -1.0F;
+                }
+            };
+            float angle = (float) Math.toRadians(-3F);
+            GLRenderer.modelM4f().rotate(angle, defY, 0.0F, defZ);
+        }
         if (slider.getDeformX() > 0.01F) {
-            GL11.glRotatef(slider.getDeformX() * -30.0F, slider.getDeformY(), 0.0F, slider.getDeformZ());
+            GLRenderer.modelM4f().rotate((float) Math.toRadians(slider.getDeformX() * -30.0F), slider.getDeformY(), 0.0F, slider.getDeformZ());
         }
-
     }
 
     @Override
-    public boolean prepareArmor(MobBossSlider slider, int renderPass, float partialTick) {
-        return this.setEyeBrightness(slider, renderPass);
+    protected @Nullable StaticEntityModel getAndSetupModelForLayer(
+        @NonNull MobBossSlider slider, float brightness,
+        float partialTick, int layer
+    ) {
+        StaticEntityModel model = this.getModel("main");
+        model.resetBones();
+        if(layer == 1 && slider.deathTime > 0) {
+            int index = 7;
+            if(slider.deathTime > 7) index++;
+            if(slider.deathTime > 14) index++;
+            this.renderDispatcher.textureManager.loadTexture(String.format("/assets/minecraft/textures/block/breaking/%d.png", index)).bind();
+            GLRenderer.textureM4f().scale(4, 2, 4);
+        }
+        if (layer == 2) {
+            this.bindGlowTexture(slider);
+            GLRenderer.setLightmapCoord2i(15, 15);
+            GLRenderer.setBlendFunc(BlendFactor.SRC_ALPHA, BlendFactor.ONE_MINUS_SRC_ALPHA);
+            GLRenderer.enableState(State.BLEND);
+        }
+        if (layer == 3) {
+            GLRenderer.disableState(State.BLEND);
+            return null;
+        }
+        return model;
     }
+
+    // this will change in 8.0.2 so not mucht needed to change her for now.
+    @Override
+    protected void renderHurt(@NotNull MobBossSlider entity, boolean hasOverlayAlpha, int maxRenderLayer, int argb) {
+        if ((hasOverlayAlpha || entity.hurtTime > 0) && entity.deathTime == 0) {
+            double currentHealth = entity.getHealth();
+            int maxHealth = Math.max(entity.getHealth(), entity.getMaxHealth());
+            int index = (int) Math.floor(Math.min(9, MathHelper.lerp(0, 6, 1.0D - currentHealth / maxHealth)));
+            String breakingTexture = String.format("/assets/minecraft/textures/block/breaking/%d.png", index);
+            this.renderOverLayBreakTexture(entity, breakingTexture, hasOverlayAlpha, maxRenderLayer, argb);
+        }
+    }
+
+
 }

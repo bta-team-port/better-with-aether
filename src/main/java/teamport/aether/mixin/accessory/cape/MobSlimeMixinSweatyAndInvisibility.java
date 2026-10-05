@@ -14,8 +14,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.entity.player.PlayerUtil;
 
-@Mixin(value = MobSlime.class)
-public class MobSlimeMixinSweatyAndInvisibility {
+@Mixin(MobSlime.class)
+public abstract class MobSlimeMixinSweatyAndInvisibility {
     @WrapOperation(method = "updateAI", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/world/World;getClosestPlayerToEntity(Lnet/minecraft/core/entity/Entity;D)Lnet/minecraft/core/entity/player/Player;"))
     public Player hardToSpotInvisPlayer(World instance, Entity entity, double radius, Operation<Player> original){
         return PlayerUtil.getClosestPlayerToEntity(instance, entity, radius, PlayerUtil::isInvisible, PlayerUtil::isSwetty);

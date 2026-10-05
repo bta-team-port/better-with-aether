@@ -2,19 +2,40 @@ package teamport.aether.entity.animal.aerbunny;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.render.entity.MobRenderer;
+import net.minecraft.client.render.renderer.BlendFactor;
+import net.minecraft.client.render.renderer.GLRenderer;
+import net.minecraft.client.render.renderer.State;
 import net.minecraft.core.util.helper.MathHelper;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import org.lwjgl.opengl.GL11;
 import org.useless.dragonfly.models.entity.BoneTransform;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
-import org.useless.dragonfly.renderer.MobRenderer;
 
 @Environment(EnvType.CLIENT)
 public class MobRendererAerbunny extends MobRenderer<MobAerbunny> {
 
     public MobRendererAerbunny(float shadowSize) {
         super(shadowSize);
+    }
+
+    @Override
+    protected int maxRenderLayer(@NonNull MobAerbunny entity) {
+        return entity.isDevil() ? 1 : 0;
+    }
+
+    @Override
+    protected void preRenderTransform(@NonNull MobAerbunny entity, double x, double y, double z, float yaw, float partialTick) {
+        super.preRenderTransform(entity, x, y, z, yaw, partialTick);
+        if (!entity.onGround && entity.vehicle == null) {
+            if (entity.yd > 0.5) {
+                GLRenderer.modelM4f().rotate((float) Math.toRadians(15.0F), -1.0F, 0.0F, 0.0F);
+            } else if (entity.yd < -0.5) {
+                GLRenderer.modelM4f().rotate((float) Math.toRadians(-15.0F), -1.0F, 0.0F, 0.0F);
+            } else {
+                GLRenderer.modelM4f().rotate((float) Math.toRadians(entity.yd * 30.0), -1.0F, 0.0F, 0.0F);
+            }
+        }
     }
 
     @Override
@@ -40,25 +61,32 @@ public class MobRendererAerbunny extends MobRenderer<MobAerbunny> {
         leg1.rotX = (MathHelper.cos(limbSwing * 0.6662F) * 1.0F * limbYaw);
 
         BoneTransform puff = model.getTransform("puff");
-
         float puffiness = 1.0F + entity.getPuffiness() * 0.5F;
         puff.scaleX = puffiness;
         puff.scaleY = puffiness;
         puff.scaleZ = puffiness;
 
-        puff.posY = -5f * (puffiness -1.0F);
-
-        if (!entity.onGround && entity.vehicle == null) {
-            if (entity.yd > 0.5) {
-                GL11.glRotatef(15.0F, -1.0F, 0.0F, 0.0F);
-            } else if (entity.yd < -0.5) {
-                GL11.glRotatef(-15.0F, -1.0F, 0.0F, 0.0F);
-            } else {
-                GL11.glRotatef((float) (entity.yd * 30.0), -1.0F, 0.0F, 0.0F);
-            }
+        BoneTransform eyeGlow = model.getTransform("eye_glow");
+        eyeGlow.rotX = headPitch;
+        eyeGlow.rotY = headYaw;
+        if (layer == 0) {
+            eyeGlow.visible = false;
+        } else {
+            hideAllExceptEyeGlow(model);
+            eyeGlow.visible = true;
+            GLRenderer.setLightmapCoord2i(15, 15);
+            GLRenderer.setBlendFunc(BlendFactor.SRC_ALPHA, BlendFactor.ONE_MINUS_SRC_ALPHA);
+            GLRenderer.enableState(State.BLEND);
         }
 
         return model;
     }
 
+    private static void hideAllExceptEyeGlow(StaticEntityModel model) {
+        String[] bones = {"body", "tail", "puff", "head", "ear", "leg0", "leg1", "leg2", "leg3"};
+        for (String name : bones) {
+            BoneTransform t = model.getTransform(name);
+            t.visible = false;
+        }
+    }
 }

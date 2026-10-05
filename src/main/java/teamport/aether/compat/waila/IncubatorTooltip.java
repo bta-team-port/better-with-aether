@@ -17,7 +17,7 @@ import static toufoumaster.btwaila.BTWaila.translator;
 public class IncubatorTooltip extends TileTooltip<TileEntityIncubator> {
     @Override
     public void initTooltip() {
-        addClass(TileEntityIncubator.class);
+        this.addClass(TileEntityIncubator.class);
     }
 
     @Override

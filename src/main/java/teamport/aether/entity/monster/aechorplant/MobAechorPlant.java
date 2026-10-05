@@ -8,37 +8,46 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.LightLayer;
-import net.minecraft.core.item.ItemBucketEmpty;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
-import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
+import org.joml.Vector3d;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
-import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.entity.projectile.ProjectileNeedle;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItems;
+import teamport.aether.item.ItemBucketSkyrootEmpty;
 
-public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDeathMessage {
+public class MobAechorPlant extends MobMonsterAether implements Enemy {
+    private static final int DATA_HAS_TARGET = 16;
+
     private int attackCooldown;
     private int smokeTime;
     private boolean hasTarget;
     private float sinage;
+    private float sinageO;
 
     public MobAechorPlant(World world1) {
         super(world1);
-        this.textureIdentifier = NamespaceID.getPermanent("aether", "aechorplant");
+        this.setTextureIdentifier("aether", "aechorplant");
         this.sinage = this.random.nextFloat() * 6.0F;
+        this.sinageO = this.sinage;
         this.smokeTime = this.attackCooldown = 0;
         this.hasTarget = false;
         this.setSize(0.9F, 0.9F);
         this.scoreValue = 200;
         this.mobDrops.add(new WeightedRandomLootObject(AetherItems.PETAL_AECHOR.getDefaultStack(), 1, 4));
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_HAS_TARGET, (byte) 0, Byte.class);
     }
 
     @Override
@@ -67,16 +76,17 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
 
     @Override
     public boolean canSpawnHere() {
-        if (this.world == null) return false;
-        int x = MathHelper.floor(this.x);
-        int y = MathHelper.floor(this.bb.minY);
-        int z = MathHelper.floor(this.z);
+        TilePos blockPos = new TilePos(MathHelper.floor(this.x), MathHelper.floor(this.bb.minY), MathHelper.floor(this.z));
 
-        if (this.world.getBlockId(x, y - 1, z) != AetherBlocks.GRASS_AETHER.id()) {
+        if (this.world.getBlockType(blockPos.down(new TilePos())) != AetherBlocks.GRASS_AETHER) {
             return false;
         }
 
-        if (this.world.getSavedLightValue(LightLayer.Block, x, y, z) > 7) {
+        if (this.world.canBlockSeeSky(blockPos.down(new TilePos()))) {
+            return false;
+        }
+
+        if (this.world.getSavedLightValue(LightLayer.Block, blockPos) > 7) {
             return false;
         }
 
@@ -85,9 +95,10 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         for (int i = 0; i < 8; i++) {
             int offsetX = adjacentOffsets[i * 2];
             int offsetZ = adjacentOffsets[i * 2 + 1];
-            int blockId = this.world.getBlockId(x + offsetX, y, z + offsetZ);
-            Block<?> block = Blocks.blocksList[blockId];
-            if (block != null && block.isCubeShaped()) {
+
+            TilePos offset = new TilePos(blockPos.x() + offsetX, blockPos.y(), blockPos.z() + offsetZ);
+            Block<?> block = this.world.getBlockType(offset);
+            if (block.isCubeShaped()) {
                 return false;
             }
         }
@@ -111,7 +122,7 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
     }
 
     @Override
-    public void push(Entity entity) {
+    public void push(@NonNull Entity entity) {
         /* should not be fling*/
         for (int i = 0; i < 8; ++i) {
             double d1 = this.x + (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
@@ -130,15 +141,15 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
     @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
-        if (this.world == null) return;
-        int belowX = MathHelper.floor(this.x);
         int belowY = MathHelper.floor(this.bb.minY) - 1;
-        int belowZ = MathHelper.floor(this.z);
-        int belowId = this.world.getBlockId(belowX, belowY, belowZ);
-        Block<?> belowBlock = Blocks.blocksList[belowId];
-        double blockTopY = (belowBlock != null) ? (belowY + belowBlock.getBlockBoundsFromState(this.world, belowX, belowY, belowZ).maxY) : (belowY + 1.0);
+
+        TilePos below = new TilePos(this.x, this.bb.minY - 1, this.z);
+
+        Block<?> belowId = this.world.getBlockType(below);
+        Block<?> belowBlock = Blocks.blocksList[belowId.id()];
+        double blockTopY = (belowBlock != null) ? (belowY + belowBlock.getBoundsFromState(this.world, new TilePos(below)).maxY()) : (belowY + 1.0);
         double gap = this.bb.minY - blockTopY;
-        this.onGround = (belowId != 0) && (gap <= 0.001D);
+        this.onGround = (belowId != Blocks.AIR) && (gap <= 0.001D);
 
         if (!this.isAlive()) {
             this.target = null;
@@ -149,16 +160,21 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         ++this.entityAge;
         this.tryToDespawn();
 
+        this.sinageO = this.sinage;
+
+        if (!this.world.isClientSide) {
+            this.hasTarget = this.target != null;
+            this.entityData.set(DATA_HAS_TARGET, (byte) (this.hasTarget ? 1 : 0));
+        } else {
+            this.hasTarget = this.entityData.getByte(DATA_HAS_TARGET) != 0;
+        }
+
         if (this.hurtTime > 0) {
             this.sinage += 0.9F;
         } else if (this.hasTarget) {
             this.sinage += 0.3F;
         } else {
             this.sinage += 0.1F;
-        }
-
-        if (this.sinage > 6.283186F) {
-            this.sinage -= 6.283186F;
         }
 
         if (this.target == null) {
@@ -186,13 +202,11 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
             ++this.smokeTime;
             if (this.smokeTime >= (this.hasTarget ? 3 : 8)) {
                 this.smokeTime = 0;
-                if (this.world.getBlockId(belowX, belowY, belowZ) != AetherBlocks.GRASS_AETHER.id()) {
+                if (this.world.getBlockType(below) != AetherBlocks.GRASS_AETHER) {
                     MobUtil.killMob(this);
                 }
             }
         }
-
-        this.hasTarget = this.target != null;
 
         this.xd = 0.0D;
         this.yd = 0.0D;
@@ -200,13 +214,13 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
     }
 
     @Override
-    public boolean canEntityBeSeen(Entity entity) {
-        return this.world != null && this.world.checkBlockCollisionBetweenPoints(Vec3.getTempVec3(this.x, this.y + this.getHeadHeight(), this.z), Vec3.getTempVec3(entity.x, entity.y + entity.getHeadHeight(), entity.z),
+    public boolean canEntityBeSeen(@NonNull Entity entity) {
+        return this.world.checkBlockCollisionBetweenPoints(new Vector3d(this.x, this.y + this.getHeadHeight(), this.z), new Vector3d(entity.x, entity.y + entity.getHeadHeight(), entity.z),
             false, true, false) == null;
     }
 
     public void shootTarget(Entity target) {
-        if (!this.isAlive() || this.world == null || !this.world.getDifficulty().canHostileMobsSpawn() || this.world.isClientSide) {
+        if (!this.isAlive() || !this.world.getDifficulty().canHostileMobsSpawn() || this.world.isClientSide) {
             return;
         }
 
@@ -268,7 +282,7 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
     public boolean interact(@NonNull Player player) {
         ItemStack itemstack = player.inventory.getCurrentItem();
         if (itemstack != null && itemstack.itemID == AetherItems.BUCKET_SKYROOT.id) {
-            ItemBucketEmpty.useBucket(player, new ItemStack(AetherItems.BUCKET_SKYROOT_POISON));
+            ItemBucketSkyrootEmpty.useBucket(player, new ItemStack(AetherItems.BUCKET_SKYROOT_POISON));
             return true;
         } else {
             return super.interact(player);
@@ -293,5 +307,9 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
 
     public float getSinage() {
         return sinage;
+    }
+
+    public float getSinageO() {
+        return sinageO;
     }
 }

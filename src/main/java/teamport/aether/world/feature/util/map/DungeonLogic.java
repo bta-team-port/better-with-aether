@@ -2,17 +2,21 @@ package teamport.aether.world.feature.util.map;
 
 import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.ListTag;
+import it.unimi.dsi.fastutil.Pair;
+import it.unimi.dsi.fastutil.objects.ObjectObjectMutablePair;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.block.dungeon.BlockLogicDungeonDoor;
 import teamport.aether.block.dungeon.BlockLogicLocked;
 import teamport.aether.block.dungeon.BlockLogicTrapped;
 import teamport.aether.entity.boss.EnemyBoss;
-import teamport.aether.helper.Pair;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.feature.util.WorldFeatureBlock;
@@ -89,14 +93,14 @@ public abstract class DungeonLogic {
     protected int doorReplacementMeta = 0;
     // </structure data>
 
-    public void setClearArea(Pair<WorldFeaturePoint, WorldFeaturePoint> clearArea) {
-        this.setClearArea(clearArea.getFirst(), clearArea.getSecond());
+    public void setClearArea(@NonNull Pair<WorldFeaturePoint, WorldFeaturePoint> clearArea) {
+        this.setClearArea(clearArea.first(), clearArea.second());
     }
 
-    public void setClearArea(WorldFeaturePoint p1, WorldFeaturePoint p2) {
+    public void setClearArea(@NonNull WorldFeaturePoint p1, @NonNull WorldFeaturePoint p2) {
         WorldFeaturePoint lowest = WorldFeaturePoint.wfp(Math.min(p1.getX(), p2.getX()), Math.min(p1.getY(), p2.getY()), Math.min(p1.getZ(), p2.getZ()));
         WorldFeaturePoint highest = WorldFeaturePoint.wfp(Math.max(p1.getX(), p2.getX()), Math.max(p1.getY(), p2.getY()), Math.max(p1.getZ(), p2.getZ()));
-        this.clearArea = new Pair<>(lowest, highest);
+        this.clearArea = new ObjectObjectMutablePair<>(lowest, highest);
     }
 
     public void setTreasureDoor(List<WorldFeaturePoint> doorBlocks) {
@@ -107,7 +111,7 @@ public abstract class DungeonLogic {
         this.entranceDoor.addAll(entranceDoor);
     }
 
-    public <T extends Entity & EnemyBoss> void notifyBossDead(T boss) {
+    public <T extends Entity & EnemyBoss> void notifyBossDead(@NonNull T boss) {
         onDungeonRemoved(boss.world);
     }
 
@@ -125,7 +129,7 @@ public abstract class DungeonLogic {
         if (entranceDoor == null) return;
         for (WorldFeatureBlock block : entranceDoor) {
             world.playSoundEffect(null, SoundCategory.ENTITY_SOUNDS, block.getX(), block.getY(), block.getZ(), "random.door_open", 0.025f, 0.5f);
-            world.setBlockWithNotify(block.getX(), block.getY(), block.getZ(), 0);
+            world.setBlockTypeNotify(new TilePos(block.getX(), block.getY(), block.getZ()), Blocks.AIR);
         }
     }
 
@@ -158,36 +162,35 @@ public abstract class DungeonLogic {
                 for (WorldFeaturePoint coordinate : treasureDoor) {
                     ParticleMaker.spawnParticle(world, "smoke", coordinate.getX(), coordinate.getY() + 0.8F, coordinate.getZ(), 0.0, 0.0, 0.0, 0);
                     ParticleMaker.spawnParticle(world, "largesmoke", coordinate.getX(), coordinate.getY() + 0.8F, coordinate.getZ(), 0.0, 0.0, 0.0, 0);
-                    world.setBlockAndMetadataWithNotify(coordinate.getX(), coordinate.getY(), coordinate.getZ(), doorReplacementID, doorReplacementMeta);
+                    world.setBlockTypeDataNotify(new TilePos(coordinate.getX(), coordinate.getY(), coordinate.getZ()), Blocks.getBlock(doorReplacementID), doorReplacementMeta);
                 }
             }
 
             if (clearArea != null) {
                 iterate3d(clearArea, p -> {
-                    Block<?> block = world.getBlock(p.getX(), p.getY(), p.getZ());
-                    if (block == null) return;
-
+                    TilePos tilePos = new TilePos(p.getX(), p.getY(), p.getZ());
+                    Block<?> block = world.getBlockType(tilePos);
                     BlockLogic logic = block.getLogic();
-                    if (logic instanceof BlockLogicLocked) {
-                        world.setBlockWithNotify(p.getX(), p.getY(), p.getZ(), ((BlockLogicLocked) logic).getReplacement().id());
-                    } else if (logic instanceof BlockLogicTrapped) {
-                        world.setBlockWithNotify(p.getX(), p.getY(), p.getZ(), ((BlockLogicTrapped) logic).getReplaceOnClear().id());
+                    if (logic instanceof BlockLogicLocked logicLocked) {
+                        world.setBlockTypeNotify(tilePos, logicLocked.getReplacement());
+                    } else if (logic instanceof BlockLogicTrapped logicTrapped) {
+                        world.setBlockTypeNotify(tilePos, logicTrapped.getReplaceOnClear());
                     } else if (logic instanceof BlockLogicDungeonDoor) {
-                        world.setBlockWithNotify(p.getX(), p.getY(), p.getZ(), 0);
+                        world.setBlockTypeNotify(tilePos, Blocks.AIR);
                     }
                 });
             }
         }
     }
 
-    public CompoundTag saveStructureData(CompoundTag data) {
+    public CompoundTag saveStructureData(@NonNull CompoundTag data) {
         data.putInt("doorReplacementID", this.doorReplacementID);
         data.putInt("doorReplacementMeta", this.doorReplacementMeta);
         data.putBoolean("entranceLocked", this.entranceLocked);
 
         if (this.clearArea != null) {
-            data.put("clearPos1", this.clearArea.getFirst().toCompoundTag());
-            data.put("clearPos2", this.clearArea.getSecond().toCompoundTag());
+            data.put("clearPos1", this.clearArea.first().toCompoundTag());
+            data.put("clearPos2", this.clearArea.second().toCompoundTag());
         }
 
         if (this.treasureDoor != null && !this.treasureDoor.isEmpty()) {
@@ -206,45 +209,42 @@ public abstract class DungeonLogic {
         return data;
     }
 
-    public void loadStructureData(CompoundTag data) {
+    public void loadStructureData(@NonNull CompoundTag data) {
         this.doorReplacementID = data.getInteger("doorReplacementID");
         this.doorReplacementMeta = data.getInteger("doorReplacementMeta");
         this.entranceLocked = data.getBoolean("entranceLocked");
 
         this.position = WorldFeaturePoint.fromCompoundTag(data.getCompound("position"));
 
-        this.clearArea = new Pair<>(
+        this.clearArea = new ObjectObjectMutablePair<>(
             WorldFeaturePoint.fromCompoundTag(data.getCompound("clearPos1")),
             WorldFeaturePoint.fromCompoundTag(data.getCompound("clearPos2"))
         );
 
-        if (this.clearArea.getFirst() == null || this.clearArea.getSecond() == null) {
+        if (this.clearArea.first() == null || this.clearArea.second() == null) {
             this.clearArea = null;
         }
 
         ListTag treasureDoorNBT = data.getList("blocksDestroyOnDeath");
-        if (treasureDoorNBT != null) {
-            List<WorldFeaturePoint> list = new ArrayList<>();
 
-            for (int i = 0; i < treasureDoorNBT.tagCount(); i++) {
-                CompoundTag blockNBT = (CompoundTag) treasureDoorNBT.tagAt(i);
-                list.add(WorldFeaturePoint.fromCompoundTag(blockNBT));
-            }
+        List<WorldFeaturePoint> worldFeaturePoints = new ArrayList<>();
 
-            this.treasureDoor = list;
+        for (int i = 0; i < treasureDoorNBT.tagCount(); i++) {
+            CompoundTag blockNBT = (CompoundTag) treasureDoorNBT.tagAt(i);
+            worldFeaturePoints.add(WorldFeaturePoint.fromCompoundTag(blockNBT));
         }
+
+        this.treasureDoor = worldFeaturePoints;
 
         ListTag entranceDoorNBT = data.getList("blocksDungeonEntrance");
-        if (entranceDoorNBT != null) {
-            List<WorldFeatureBlock> list = new ArrayList<>();
+        List<WorldFeatureBlock> worldFeatureBlocks = new ArrayList<>();
 
-            for (int i = 0; i < entranceDoorNBT.tagCount(); i++) {
-                CompoundTag blockNBT = (CompoundTag) entranceDoorNBT.tagAt(i);
-                list.add(WorldFeatureBlock.fromCompoundTag(blockNBT));
-            }
-
-            this.entranceDoor = list;
+        for (int i = 0; i < entranceDoorNBT.tagCount(); i++) {
+            CompoundTag blockNBT = (CompoundTag) entranceDoorNBT.tagAt(i);
+            worldFeatureBlocks.add(WorldFeatureBlock.fromCompoundTag(blockNBT));
         }
+
+        this.entranceDoor = worldFeatureBlocks;
 
     }
 

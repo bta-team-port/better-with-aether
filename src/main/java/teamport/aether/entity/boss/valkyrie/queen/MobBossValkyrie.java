@@ -1,24 +1,23 @@
 package teamport.aether.entity.boss.valkyrie.queen;
 
 import com.mojang.nbt.tags.CompoundTag;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.Global;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
-import net.minecraft.core.block.material.Material;
+import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.IItemHolding;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
 import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
+import teamport.aether.AetherGlobals;
 import teamport.aether.AetherMod;
 import teamport.aether.achievements.AetherAchievements;
-import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.boss.AetherBossList;
 import teamport.aether.entity.boss.MobBoss;
 import teamport.aether.entity.player.MessageMaker;
@@ -36,27 +35,48 @@ import java.util.Objects;
 import static net.minecraft.core.net.command.TextFormatting.LIGHT_GRAY;
 import static teamport.aether.AetherMod.TRANSLATOR;
 
-public class MobBossValkyrie extends MobBoss {
+public class MobBossValkyrie extends MobBoss implements IItemHolding {
+    private static final int DATA_READY_TO_DUEL = 17;
+    private static final int DATA_AGGRO = 18;
+    protected static final int FLAG_LEFT_HANDED = 5;
     private boolean isSwinging;
     private boolean isReadyToDuel;
     private boolean isAgro;
 
     private int teleportTimer;
     private int chatTime;
-    protected float wingSpeed;
+    private float wingSpeed;
+    private float prevWingSpeed;
 
     private static final int ATTACK_STRENGTH = 10;
 
-    public MobBossValkyrie(@Nullable World world) {
+    public MobBossValkyrie(@NonNull World world) {
         super(world);
-        this.textureIdentifier = NamespaceID.getPermanent("aether", "boss_valkyrie");
+        this.setTextureIdentifier("aether", "boss_valkyrie");
         this.setSize(0.8F, 2.0F);
-        this.scoreValue = 50000;
+        this.scoreValue = 25000;
         this.mobDrops.add(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_HOLY.getDefaultStack(), 1));
         this.moveSpeed = 0.5F;
         this.footSize = 1.5f;
         this.chatColor = (byte) (LIGHT_GRAY.id & 255);
         this.canBreatheUnderwater();
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_READY_TO_DUEL, 0, Integer.class);
+        this.entityData.define(DATA_AGGRO, 0, Integer.class);
+    }
+
+    private void syncFightState() {
+        if (this.world.isClientSide) {
+            this.isReadyToDuel = this.entityData.getInt(DATA_READY_TO_DUEL) != 0;
+            this.isAgro = this.entityData.getInt(DATA_AGGRO) != 0;
+        } else {
+            this.entityData.set(DATA_READY_TO_DUEL, this.isReadyToDuel ? 1 : 0);
+            this.entityData.set(DATA_AGGRO, this.isAgro ? 1 : 0);
+        }
     }
 
     @Override
@@ -69,25 +89,19 @@ public class MobBossValkyrie extends MobBoss {
         this.yd = 0.72;
     }
 
-    @Override
-    public boolean collidesWith(Entity entity) {
-        return this.isAgro;
-    }
-
+    @SuppressWarnings({"java:S3776"})
     @Override
     public void tick() {
-        if (this.world == null) {
-            return;
-        }
-        if (!this.world.getDifficulty().canHostileMobsSpawn()) {
-            if (this.isAgro) {
-                if (!EnvironmentHelper.isServerEnvironment()) {
-                    Minecraft.getMinecraft().sndManager.stopMusic();
-                }
-                this.isAgro = false;
-                this.returnToOriginalState();
+        this.syncFightState();
+        if (!this.world.getDifficulty().canHostileMobsSpawn() && this.isAgro) {
+            if (!EnvironmentHelper.isMultiplayerServer()) {
+                MobBoss.stop();
             }
+            this.isAgro = false;
+            this.returnToOriginalState();
+            this.syncFightState();
         }
+
         if (!isAgro) {
             this.moveSpeed = 0.0F;
         }
@@ -111,28 +125,28 @@ public class MobBossValkyrie extends MobBoss {
 
         this.moveSpeed = this.target == null ? 0.5F : 1.0F;
 
-        if (this.world != null && !this.world.getDifficulty().canHostileMobsSpawn() && (this.target != null || this.isAgro)) {
+        if (!this.world.getDifficulty().canHostileMobsSpawn() && (this.target != null || this.isAgro)) {
             this.target = null;
         }
 
         if (this.isSwinging) {
-            this.prevSwingProgress += 0.15F;
+            this.prevSwingProgress = this.swingProgress;
             this.swingProgress += 0.15F;
-            if (this.prevSwingProgress > 1.0F || this.swingProgress > 1.0F) {
+            if (this.swingProgress >= 1.0F) {
                 this.isSwinging = false;
                 this.prevSwingProgress = 0.0F;
                 this.swingProgress = 0.0F;
             }
+        } else {
+            this.prevSwingProgress = 0.0F;
+            this.swingProgress = 0.0F;
         }
 
+        this.prevWingSpeed = this.wingSpeed;
         if (!this.onGround) {
             this.wingSpeed += 0.75F;
         } else {
             this.wingSpeed += 0.15F;
-        }
-
-        if (this.wingSpeed > 6.283186F) {
-            this.wingSpeed -= 6.283186F;
         }
     }
 
@@ -179,7 +193,7 @@ public class MobBossValkyrie extends MobBoss {
 
     @Override
     public boolean interact(@NonNull Player entityplayer) {
-        if (this.world == null || this.chatTime > 0 || (this.isReadyToDuel && this.target == entityplayer))
+        if (this.chatTime > 0 || this.isReadyToDuel && this.target == entityplayer)
             return false;
 
         this.lookAt(entityplayer, 180.0F, 180.0F);
@@ -215,22 +229,23 @@ public class MobBossValkyrie extends MobBoss {
 
     @Override
     public void causeFallDamage(float distance) {
+        /* won't fall for any men so easily */
     }
 
     @Override
     public void spawnInit() {
         this.teleportTimer = this.random.nextInt(125);
+        this.setSharedFlag(FLAG_LEFT_HANDED, this.random.nextInt(10) == 0);
     }
 
     @Override
     public Entity findPlayerToAttack() {
-        if (!this.isReadyToDuel || !this.isAgro || this.world == null || !this.world.getDifficulty().canHostileMobsSpawn()) {
+        if (!this.isReadyToDuel || !this.isAgro || !this.world.getDifficulty().canHostileMobsSpawn()) {
             return null;
         }
 
         Entity newTarget = this.world.players.stream()
-            .filter(Objects::nonNull)
-            .filter(player -> player.getGamemode().areMobsHostile())
+            .filter(player -> player.getGamemode().hasHostileMobs())
             .filter(player -> player.distanceTo(this) <= AetherDimension.BOSS_DETECTION_RADIUS)
             .filter(this::canEntityBeSeen)
             .min(Comparator.comparingDouble(this::distanceTo))
@@ -248,8 +263,8 @@ public class MobBossValkyrie extends MobBoss {
 
         newTarget = currTargetIsBetter ? this.target : newTarget;
 
-        if (newTarget instanceof AetherBossList) {
-            ((AetherBossList) newTarget).aether$TryAddBossList(this);
+        if (newTarget instanceof AetherBossList aetherBossList) {
+            aetherBossList.aether$TryAddBossList(this);
         }
 
         return newTarget;
@@ -257,10 +272,6 @@ public class MobBossValkyrie extends MobBoss {
 
     @Override
     public void onDeath(Entity entityKilledBy) {
-        if (this.world == null) {
-            super.onDeath(entityKilledBy);
-            return;
-        }
         this.world.players.stream()
             .filter(player -> player.distanceTo(this) < 32)
             .forEach(player -> {
@@ -270,13 +281,14 @@ public class MobBossValkyrie extends MobBoss {
 
         this.world.playSoundAtEntity(null, this, "aether:achievement.silver", 0.5f, 1.0f);
 
-        if (!EnvironmentHelper.isServerEnvironment()) {
-            Minecraft.getMinecraft().sndManager.stopMusic();
+        if (!EnvironmentHelper.isMultiplayerServer()) {
+            MobBoss.stop();
         }
 
         super.onDeath(entityKilledBy);
     }
 
+    @SuppressWarnings({"java:S3776"})
     public void teleport(double x, double y, double z, int rad) {
         int ax = this.random.nextInt(rad + 1) * (this.random.nextInt(2) * 2 - 1);
         int ay = this.random.nextInt(rad / 2) * (this.random.nextInt(2) * 2 - 1);
@@ -291,7 +303,7 @@ public class MobBossValkyrie extends MobBoss {
         boolean flag = false;
 
         if (returnPoint == null) {
-            AetherMod.LOGGER.info("Queen Valkyrie at {}, {}, {} has no return point!", x, y, z);
+            AetherGlobals.LOGGER.info("Queen Valkyrie at {}, {}, {} has no return point!", x, y, z);
             return;
         }
         WorldFeaturePoint p1 = new WorldFeaturePoint(this.returnPoint.getX() - 9, this.returnPoint.getY() - 3, this.returnPoint.getZ() - 16);
@@ -301,30 +313,31 @@ public class MobBossValkyrie extends MobBoss {
             int iz = newZ + (this.random.nextInt(6) - this.random.nextInt(6));
 
             for (int searchY = iy; searchY >= p1.getY(); --searchY) {
-                if (searchY < 0 || searchY + 1 >= Objects.requireNonNull(this.world).getHeightBlocks()) continue;
+                if (searchY >= 0 && searchY + 1 < Objects.requireNonNull(this.world).getHeightBlocks()) {
+                    boolean isAirAbove = this.isAirySpace(new TilePos(ix, searchY, iz));
+                    boolean isAirHead = this.isAirySpace(new TilePos(ix, searchY + 1, iz));
+                    boolean isGroundBelow = !this.isAirySpace(new TilePos(ix, searchY - 1, iz));
 
-                boolean isAirAbove = this.isAirySpace(ix, searchY, iz);
-                boolean isAirHead = this.isAirySpace(ix, searchY + 1, iz);
-                boolean isGroundBelow = !this.isAirySpace(ix, searchY - 1, iz);
-
-                if (isAirAbove && isAirHead && isGroundBelow
-                    && ix >= p1.getX() && ix <= p1.getX() + 16
-                    && searchY >= p1.getY() && searchY <= p1.getY() + 16
-                    && iz >= p1.getZ() && iz <= p1.getZ() + 16
-                ) {
-                    newX = ix;
-                    newY = searchY;
-                    newZ = iz;
-                    flag = true;
-                    break;
+                    if (isAirAbove && isAirHead && isGroundBelow
+                        && ix >= p1.getX() && ix <= p1.getX() + 16
+                        && searchY >= p1.getY() && searchY <= p1.getY() + 16
+                        && iz >= p1.getZ() && iz <= p1.getZ() + 16
+                    ) {
+                        newX = ix;
+                        newY = searchY;
+                        newZ = iz;
+                        flag = true;
+                        break;
+                    }
                 }
+
             }
         }
 
         if (!flag) {
             this.teleportFailed();
         } else {
-            if (!EnvironmentHelper.isServerEnvironment()) {
+            if (!EnvironmentHelper.isMultiplayerServer()) {
                 ParticleMaker.spawnParticle(world, "explode", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
                 ParticleMaker.spawnParticle(world, "smoke", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
                 ParticleMaker.spawnParticle(world, "largesmoke", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
@@ -345,13 +358,9 @@ public class MobBossValkyrie extends MobBoss {
         }
     }
 
-    public boolean isAirySpace(int x, int y, int z) {
-        if (this.world == null) return true;
-        int p = this.world.getBlockId(x, y, z);
-        Block<?> block = this.world.getBlock(x, y, z);
-        Block<?> blockTwo = Blocks.blocksList[p];
-
-        return p == 0 || blockTwo == null || blockTwo.getCollisionBoundingBoxFromPool(this.world, x, y, z) == null || block != null && block.getMaterial() == Material.water;
+    public boolean isAirySpace(TilePos tilePos) {
+        Block<?> block = this.world.getBlockType(tilePos);
+        return block == Blocks.AIR ||  block.getCollisionAABB(this.world, tilePos) == null || block.getMaterial() == Materials.WATER;
     }
 
     public void swingArm() {
@@ -371,14 +380,8 @@ public class MobBossValkyrie extends MobBoss {
 
     @Override
     public boolean canSpawnHere() {
-        int i = MathHelper.floor(this.x);
-        int j = MathHelper.floor(this.bb.minY);
-        int k = MathHelper.floor(this.z);
-
-        return this.world != null && this.world.getFullBlockLightValue(i, j, k) > 8
-            && this.world.getIsAnySolidGround(this.bb)
-            && this.world.getCollidingSolidBlockBoundingBoxes(this, this.bb).isEmpty()
-            && !this.world.getIsAnyLiquid(this.bb);
+        TilePos blockPos = new TilePos(this.x, this.bb.minY, this.z);
+        return this.world.getFullBlockLightValue(blockPos) > 8 && this.world.getIsAnySolidGround(this.bb) && this.world.getCollidingSolidBlockBoundingBoxes(this, this.bb).isEmpty() && !this.world.getIsAnyLiquid(this.bb);
     }
 
     @Override
@@ -387,6 +390,7 @@ public class MobBossValkyrie extends MobBoss {
         tag.putShort("teleportTimer", (short) this.teleportTimer);
         tag.putBoolean("isReadyToDuel", this.isReadyToDuel);
         tag.putBoolean("isAgro", this.isAgro);
+        tag.putBoolean("LeftHanded", this.getSharedFlag(FLAG_LEFT_HANDED));
     }
 
     @Override
@@ -395,20 +399,20 @@ public class MobBossValkyrie extends MobBoss {
         this.teleportTimer = tag.getShort("teleportTimer");
         this.isReadyToDuel = tag.getBoolean("isReadyToDuel");
         this.isAgro = tag.getBoolean("isAgro");
+        this.setSharedFlag(FLAG_LEFT_HANDED, tag.getBoolean("LeftHanded"));
     }
 
     @Override
     public boolean canFight() {
-        return isAlive() && this.isReadyToDuel && this.world.getDifficulty().canHostileMobsSpawn();
+        boolean ready = this.world.isClientSide
+            ? this.entityData.getInt(DATA_READY_TO_DUEL) != 0
+            : this.isReadyToDuel;
+        return isAlive() && ready && this.world.getDifficulty().canHostileMobsSpawn();
     }
 
+    @SuppressWarnings({"java:S3776"})
     @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
-        /// if /kill (jank!)
-        if (attacker == null && type == null && damage == 100) {
-            return MobUtil.killMob(this);
-        }
-        if (this.world == null) return false;
         /// need to acquire more medals
         if (!this.isReadyToDuel) {
             if (!(attacker instanceof Player) || this.chatTime > 0) {
@@ -429,10 +433,10 @@ public class MobBossValkyrie extends MobBoss {
         }
 
         /// can fight valk
-        if (this.target == null && attacker instanceof Player) {
+        if (this.target == null && attacker instanceof Player playerAttacker) {
             if (!world.getDifficulty().canHostileMobsSpawn()) {
                 if (this.chatTime <= 0) {
-                    MessageMaker.sendMessage((Player) attacker, TRANSLATOR.translateKey("boss_valkyrie.weakling"));
+                    MessageMaker.sendMessage(playerAttacker, TRANSLATOR.translateKey("boss_valkyrie.weakling"));
                     world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
                     this.chatTime = 40;
                 }
@@ -441,11 +445,10 @@ public class MobBossValkyrie extends MobBoss {
 
             // Lock dungeon and set boss target
             DungeonMap.runWithDungeon(dungeonID, d -> d.lock(world));
-            MessageMaker.sendMessage((Player) attacker, TRANSLATOR.translateKey("boss_valkyrie.target"));
+            MessageMaker.sendMessage(playerAttacker, TRANSLATOR.translateKey("boss_valkyrie.target"));
 
-            if (!EnvironmentHelper.isServerEnvironment()) {
-                Minecraft.getMinecraft().sndManager.stopMusic();
-                Minecraft.getMinecraft().sndManager.playMusic("aether:aether_music_boss.valkyrieboss", (float) this.x, (float) this.y, (float) this.z, 1.0F, 1.0F);
+            if (!EnvironmentHelper.isMultiplayerServer()) {
+                MobBoss.play("aether:aether_music_boss.valkyrieboss", this.x, this.y, this.z);
             }
 
             ((AetherBossList) attacker).aether$TryAddBossList(this);
@@ -470,6 +473,16 @@ public class MobBossValkyrie extends MobBoss {
         return super.hurt(attacker, damage, type);
     }
 
+    @Override
+    public void knockBack(Entity entity, int i, double d, double d1) {
+        float f = MathHelper.sqrt(d * d + d1 * d1);
+        float f1 = 0.4F;
+        this.xd /= 2.0F;
+        this.zd /= 2.0F;
+        this.xd -= d / f * f1;
+        this.zd -= d1 / f * f1;
+    }
+
 
     @Override
     public void attackEntity(@NonNull Entity entity, float distance) {
@@ -477,9 +490,9 @@ public class MobBossValkyrie extends MobBoss {
             double d = entity.x - this.x;
             double d1 = entity.z - this.z;
             if (this.attackTime == 0) {
-                if (this.world != null && !this.world.isClientSide) {
+                if (!this.world.isClientSide) {
                     ProjectileElementLightning elementLightning = new ProjectileElementLightning(this.world, this);
-                    elementLightning.setHeading(world.rand.nextDouble(), this.getLookAngle().y + 5, world.rand.nextDouble(), 0.5f, 0.0f);
+                    elementLightning.setHeading(world.rand.nextDouble(), this.getViewVector(1.0F).y() + 5, world.rand.nextDouble(), 0.5f, 0.0f);
                     this.world.playSoundAtEntity(null, this, "mob.ghast.fireball", this.getSoundVolume(), (this.random.nextFloat() + this.random.nextFloat()) * 1.2F + 1.0F);
                     this.world.entityJoinedWorld(elementLightning);
                 }
@@ -495,12 +508,8 @@ public class MobBossValkyrie extends MobBoss {
             this.swingArm();
             entity.hurt(this, ATTACK_STRENGTH, AetherMod.HOLY);
 
-            if (this.target != null && entity == this.target && entity instanceof Player) {
-                Player target = (Player) entity;
-
-                if (this.world != null && !target.isAlive() && this.chatTime <= 0) {
-                    this.world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
-                }
+            if (this.target != null && entity == this.target && entity instanceof Player && !this.target.isAlive() && this.chatTime <= 0) {
+                this.world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
             }
         }
     }
@@ -522,13 +531,11 @@ public class MobBossValkyrie extends MobBoss {
 
     @Override
     public void playHurtSound() {
-        if (this.world == null) return;
         this.world.playSoundAtEntity(null, this, this.getHurtSound(), 0.75f, 0.75F);
     }
 
     @Override
     public void playDeathSound() {
-        if (this.world == null) return;
         this.world.playSoundAtEntity(null, this, this.getDeathSound(), 1.0f, 0.75F);
     }
 
@@ -541,4 +548,23 @@ public class MobBossValkyrie extends MobBoss {
     public ItemStack getHeldItem() {
         return new ItemStack(AetherItems.TOOL_SWORD_HOLY, 1);
     }
+
+    @Override
+    public void setHeldItem(ItemStack itemStack) {
+        /* your gifts cannot sway her stands */
+    }
+
+    @Override
+    public boolean isLeftHanded() {
+        return this.getSharedFlag(FLAG_LEFT_HANDED);
+    }
+
+    public float wingSpeed(){
+        return this.wingSpeed;
+    }
+
+    public float preWingSpeed(){
+        return this.prevWingSpeed;
+    }
+
 }

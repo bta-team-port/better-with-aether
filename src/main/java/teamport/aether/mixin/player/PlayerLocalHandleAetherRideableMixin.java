@@ -11,22 +11,29 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import teamport.aether.entity.vehicle.parachute.EntityParachute;
 import teamport.aether.entity.AetherRideable;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = PlayerLocal.class)
+@Mixin(PlayerLocal.class)
 public abstract class PlayerLocalHandleAetherRideableMixin extends Player {
     protected PlayerLocalHandleAetherRideableMixin(World world) {
         super(world);
     }
+
     @Shadow
     public PlayerInput input;
+
     @Inject(method = "handleSpecialVehicleControl", at = @At("HEAD"))
     private void handleAetherRideableControl(CallbackInfo ci) {
-        if (vehicle instanceof AetherRideable) {
-            ((AetherRideable) vehicle).controlEntity(input.moveForward, input.moveStrafe, isJumping, xRot, yRot);
-        } else if (passenger instanceof AetherRideable) {
-            ((AetherRideable) passenger).controlEntity(input.moveForward, input.moveStrafe, isJumping, xRot, yRot);
+        if (vehicle instanceof AetherRideable aetherRideable) {
+            aetherRideable.controlEntity(input.moveForward, input.moveStrafe, isJumping, xRot, yRot);
+        } else if (passenger instanceof AetherRideable aetherRideable) {
+            aetherRideable.controlEntity(input.moveForward, input.moveStrafe, isJumping, xRot, yRot);
+        }
+
+        if (this.vehicle instanceof EntityParachute entityParachute) {
+            entityParachute.controlParachute(-this.input.moveForward, -this.input.moveStrafe);
         }
     }
 }

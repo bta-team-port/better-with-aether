@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/door/top_right",
+  "textures": {
+    "top": "aether:block/door/skyroot_yellow/top"
+  }
+}

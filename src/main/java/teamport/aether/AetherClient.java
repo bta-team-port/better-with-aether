@@ -4,49 +4,64 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.particle.ParticleDispatcher;
-import net.minecraft.client.entity.particle.ParticleFirefly;
 import net.minecraft.client.gui.achievements.data.AchievementPages;
 import net.minecraft.client.gui.hud.component.ComponentAnchor;
 import net.minecraft.client.gui.hud.component.HudComponent;
-import net.minecraft.client.gui.hud.component.HudComponentMovable;
 import net.minecraft.client.gui.hud.component.HudComponents;
 import net.minecraft.client.gui.hud.component.layout.LayoutAbsolute;
 import net.minecraft.client.gui.hud.component.layout.LayoutSnap;
+import net.minecraft.client.gui.options.components.BooleanOptionComponent;
+import net.minecraft.client.gui.options.components.ToggleableOptionComponent;
 import net.minecraft.client.holiday.Holiday;
 import net.minecraft.client.render.colorizer.Colorizer;
+import net.minecraft.client.render.colorizer.Colorizers;
+import net.minecraft.client.render.particle.ParticleDispatcher;
+import net.minecraft.client.render.particle.ParticleFirefly;
 import net.minecraft.client.render.texture.stitcher.AtlasStitcher;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.client.render.worldtype.WorldTypeFXDispatcher;
 import net.minecraft.client.sound.SoundRepository;
-import net.minecraft.core.util.helper.MathHelper;
+import net.minecraft.core.world.pos.TilePos;
+import sunsetsatellite.catalyst.effects.api.effect.render.EffectRenderer;
+import sunsetsatellite.catalyst.effects.api.effect.render.EffectRendererDispatcher;
 import teamport.aether.achievements.AchievementPageAether;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.command.AetherCommand;
 import teamport.aether.ducks.IBlockAether;
+import teamport.aether.effect.AetherEffects;
+import teamport.aether.effect.render.PoisonEffectRenderer;
+import teamport.aether.effect.render.RemedyEffectRenderer;
 import teamport.aether.entity.AetherMobInfoRegistry;
+import teamport.aether.gui.HudComponentAccessoryBar;
 import teamport.aether.gui.HudComponentBossBar;
 import teamport.aether.gui.HudComponentJumpBar;
+import teamport.aether.item.accessory.HumanAccessoryShape;
+import teamport.aether.models.AetherModels;
 import teamport.aether.option.AetherGameSettings;
+import teamport.aether.option.AetherGameSettingsHolder;
 import teamport.aether.particle.*;
 import teamport.aether.world.type.AetherWorldTypes;
 import teamport.aether.world.type.WorldTypeFXAether;
+import turniplabs.halplibe.event.defs.ClientEvents;
+import turniplabs.halplibe.event.impl.SortedSingleEvent;
 import turniplabs.halplibe.helper.TextureHelper;
-import turniplabs.halplibe.util.ClientStartEntrypoint;
+import turniplabs.halplibe.util.dependency.Key;
 
 import java.time.Month;
 
-import static net.minecraft.client.render.colorizer.Colorizers.add;
-import static net.minecraft.client.render.texture.stitcher.TextureRegistry.register;
-import static teamport.aether.AetherMod.LOGGER;
+import static teamport.aether.AetherGlobals.LOGGER;
 import static teamport.aether.AetherMod.MOD_ID;
 
-@SuppressWarnings({"java:S1104", "java:S1444", "java:S3008"})
 @Environment(EnvType.CLIENT)
-public class AetherClient implements ClientModInitializer, ClientStartEntrypoint {
+@SuppressWarnings({"java:S1104", "java:S1444", "java:S3008"})
+public class AetherClient implements ClientModInitializer {
     public static HudComponent BOSS_BAR;
     public static HudComponent JUMP_BAR;
+    public static HudComponentAccessoryBar GLOVES_BAR;
+    public static HudComponentAccessoryBar CAPES_BAR;
+    public static HudComponentAccessoryBar TRINKET_1_BAR;
+    public static HudComponentAccessoryBar TRINKET_2_BAR;
 
     public static final Holiday ANNIVERSARY_AETHER = new Holiday(Month.JULY, 22);
 
@@ -54,11 +69,33 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
     public static Colorizer skyroot;
     public static Colorizer oakGolden;
 
-    public static AetherRemoteResourceDownloaderThread resourceDownloaderThread;
-    @SuppressWarnings("unused")
-    public static AtlasStitcher extras = register("extras", new AtlasStitcher("textures/extras", true, false, null));
+    /**
+     * @deprecated Will be deprecated in the next HalpLibe release (6.2.1).
+     */
+    @Deprecated(forRemoval = true)
+    public static final SortedSingleEvent<Runnable> HUD_INIT = new SortedSingleEvent<>("Aether:HudInit");
 
+    private static final AetherModels MODELS = new AetherModels();
+
+    public static AetherRemoteResourceDownloaderThread resourceDownloaderThread;
     @Override
+    public void onInitializeClient() {
+        Key key = Key.of(MOD_ID);
+        ClientEvents.BEFORE_CLIENT_START.listen(key, this::beforeClientStart);
+        ClientEvents.AFTER_CLIENT_START.listen(key, this::afterClientStart);
+        ClientEvents.BLOCK_MODEL_RELOAD.listen(key, MODELS::initBlockModels);
+        ClientEvents.ITEM_MODEL_RELOAD.listen(key, MODELS::initItemModels);
+        ClientEvents.ENTITY_RENDERER_RELOAD.listen(key, MODELS::initEntityModels);
+        ClientEvents.BLOCK_COLOR_RELOAD.listen(key, MODELS::initBlockColors);
+
+        AetherClient.HUD_INIT.listen(key, this::registerHUDComponents);
+
+        LOGGER.info("AetherMod client initialized.");
+    }
+
+    @SuppressWarnings("unused")
+    public static AtlasStitcher extras = TextureRegistry.register(new AtlasStitcher(true, false).addDirectory("extras", "textures/extras"));
+
     public void beforeClientStart() {
         ParticleDispatcher dispatcher = ParticleDispatcher.getInstance();
 
@@ -75,18 +112,18 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
         dispatcher.addDispatch("tempest", (world, x, y, z, xa, ya, za, id) -> new ParticleTempestSpiral(world, x, y, z));
         dispatcher.addDispatch("fire", (world, x, y, z, xa, ya, za, id) -> new ParticleFireSpiral(world, x, y, z));
         dispatcher.addDispatch("fallingAetherLeaf", (world, x, y, z, motionX, motionY, motionZ, data) -> {
-            int id = world.getBlockId(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z));
-            return id != 0 ? (new ParticleAetherLeaf(world, x, y, z, motionX, motionY, motionX)).init(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z)) : null;
+            TilePos tilePos = new TilePos(x, y, z);
+            return !world.isAirBlock(tilePos) ? (new ParticleAetherLeaf(world, x, y, z, motionX, motionY, motionZ)).init(tilePos) : null;
         });
 
-        SoundRepository.registerNamespace(MOD_ID);
+        SoundRepository.namespaceAdded(MOD_ID);
         AetherCommand.registerClientCommands();
         AetherClient.registerTextures();
     }
 
-    @Override
     public void afterClientStart() {
         Minecraft mc = Minecraft.getMinecraft();
+        registerEffectRenderers();
 
         try {
             LOGGER.info("Starting Resource Download Thread...");
@@ -101,14 +138,36 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
         AetherMobInfoRegistry.init();
         AetherGameSettings.init();
 
-        grassAether = add(new Colorizer("grassAether"));
-        skyroot = add(new Colorizer("skyroot"));
-        oakGolden = add(new Colorizer("oakGolden"));
+        WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherWorldTypes.AETHER_EXTENDED).setHasAurora(true).setCloudHeight(8.0F).setHasGround(false));
+        WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherWorldTypes.AETHER_DEFAULT).setHasAurora(true).setCloudHeight(8.0F).setHasGround(false));
+        WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherWorldTypes.AETHER_SKYBLOCK).setHasAurora(true).setCloudHeight(8.0F).setHasGround(false));
+        WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherWorldTypes.AETHER_RETRO).setHasAurora(true).setCloudHeight(8.0F).setHasGround(false));
+        WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherWorldTypes.AETHER_AMPLIFIED).setHasAurora(true).setCloudHeight(8.0F).setHasGround(false));
+    }
 
-        WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherWorldTypes.AETHER_EXTENDED));
-        WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherWorldTypes.AETHER_DEFAULT));
-        WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherWorldTypes.AETHER_SKYBLOCK));
-        WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherWorldTypes.AETHER_RETRO));
+    private static void registerEffectRenderers() {
+        AetherEffects.init();
+        EffectRendererDispatcher dispatcher = EffectRendererDispatcher.getInstance();
+        dispatcher.addDispatch(AetherEffects.poisonEffect, new PoisonEffectRenderer<>(
+            AetherEffects.poisonEffect,
+            "/assets/aether/textures/other/poisonvignette.png",
+            0x8218cb,
+            "aether:gui/hud/poison/"
+        ).setIcon("poison.png"));
+        dispatcher.addDispatch(AetherEffects.remedyEffect, new RemedyEffectRenderer<>(
+            AetherEffects.remedyEffect,
+            "/assets/aether/textures/other/curevignette.png",
+            0x009bc2,
+            "aether:gui/hud/remedy/"
+        ).setIcon("remedy.png"));
+        dispatcher.addDispatch(AetherEffects.invisibility, new EffectRenderer<>(AetherEffects.invisibility).setIcon("invisibility.png"));
+        dispatcher.addDispatch(AetherEffects.swetty, new EffectRenderer<>(AetherEffects.swetty).setIcon("swetty.png"));
+    }
+
+    public static void registerColorizers() {
+        grassAether = Colorizers.add(new Colorizer("grassAether"));
+        skyroot = Colorizers.add(new Colorizer("skyroot"));
+        oakGolden = Colorizers.add(new Colorizer("oakGolden"));
     }
 
     public void setupCustomBlockLight() {
@@ -118,11 +177,6 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
         IBlockAether.of(AetherBlocks.CARVED_ANGELIC_LIGHT_LOCKED).better_with_aether$setEmissionOverride(0);
         IBlockAether.of(AetherBlocks.CARVED_HELLFIRE_LIGHT).better_with_aether$setEmissionOverride(0);
         IBlockAether.of(AetherBlocks.CARVED_HELLFIRE_LIGHT_LOCKED).better_with_aether$setEmissionOverride(0);
-    }
-
-    @Override
-    public void onInitializeClient() {
-        LOGGER.info("AetherMod client initialized.");
     }
 
     public static void initAchievementsPage() {
@@ -170,7 +224,29 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
         AchievementPages.register(page);
     }
 
-    public static void registerHUDComponents() {
+    public void registerHUDComponents() {
+
+        TRINKET_2_BAR = HudComponents.register((new HudComponentAccessoryBar("trinket_2_bar",
+            new LayoutSnap(HudComponents.HOTBAR, ComponentAnchor.TOP_RIGHT, ComponentAnchor.BOTTOM_RIGHT, 0, -13), HumanAccessoryShape.TRINKET, 3))
+            .addAttachedOption(AetherGameSettingsHolder.HIDE_TRINKET_2_BAR, () -> new ToggleableOptionComponent<>(AetherGameSettingsHolder.HIDE_TRINKET_2_BAR))
+            .addAttachedOption(AetherGameSettingsHolder.FLIP_TRINKET_2_BAR, () -> new BooleanOptionComponent(AetherGameSettingsHolder.FLIP_TRINKET_2_BAR)));
+
+        TRINKET_1_BAR = HudComponents.register((new HudComponentAccessoryBar("trinket_1_bar",
+            new LayoutSnap(TRINKET_2_BAR, ComponentAnchor.CENTER_LEFT, ComponentAnchor.CENTER_RIGHT, -3, 0), HumanAccessoryShape.TRINKET, 2))
+            .addAttachedOption(AetherGameSettingsHolder.HIDE_TRINKET_1_BAR, () -> new ToggleableOptionComponent<>(AetherGameSettingsHolder.HIDE_TRINKET_1_BAR))
+            .addAttachedOption(AetherGameSettingsHolder.FLIP_TRINKET_1_BAR, () -> new BooleanOptionComponent(AetherGameSettingsHolder.FLIP_TRINKET_1_BAR)));
+
+        CAPES_BAR = HudComponents.register((new HudComponentAccessoryBar("capes_bar",
+            new LayoutSnap(TRINKET_1_BAR, ComponentAnchor.CENTER_LEFT, ComponentAnchor.CENTER_RIGHT, -3, 0), HumanAccessoryShape.CAPE))
+            .addAttachedOption(AetherGameSettingsHolder.HIDE_CAPE_BAR, () -> new ToggleableOptionComponent<>(AetherGameSettingsHolder.HIDE_CAPE_BAR))
+            .addAttachedOption(AetherGameSettingsHolder.FLIP_CAPE_BAR, () -> new BooleanOptionComponent(AetherGameSettingsHolder.FLIP_CAPE_BAR)));
+
+        GLOVES_BAR = HudComponents.register((new HudComponentAccessoryBar("gloves_bar",
+            new LayoutSnap(CAPES_BAR, ComponentAnchor.CENTER_LEFT, ComponentAnchor.CENTER_RIGHT, -3, 0), HumanAccessoryShape.GLOVES))
+            .addAttachedOption(AetherGameSettingsHolder.HIDE_GLOVES_BAR, () -> new ToggleableOptionComponent<>(AetherGameSettingsHolder.HIDE_GLOVES_BAR))
+            .addAttachedOption(AetherGameSettingsHolder.FLIP_GLOVES_BAR, () -> new BooleanOptionComponent(AetherGameSettingsHolder.FLIP_GLOVES_BAR)));
+
+
         BOSS_BAR = HudComponents.register(
             new HudComponentBossBar(
                 "boss_bar",
@@ -181,19 +257,19 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
         JUMP_BAR = HudComponents.register(
             new HudComponentJumpBar(
                 "wing_bar",
-                new LayoutSnap(HudComponents.HEALTH_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT)
+                new LayoutSnap(HudComponents.VEHICLE_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT)
             )
         );
 
-        ((HudComponentMovable) HudComponents.OXYGEN_BAR).setLayout(new LayoutSnap(HudComponents.ARMOR_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT));
+        HudComponents.OXYGEN_BAR.setLayout(new LayoutSnap(JUMP_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT));
     }
 
     public static void registerTextures() {
         for (final AtlasStitcher stitcher : TextureRegistry.stitcherMap.values()) {
             try {
-                TextureHelper.initializeAllFiles(MOD_ID, stitcher, Integer.MAX_VALUE);
+                TextureHelper.initializeAllFiles(MOD_ID, stitcher, true);
             } catch (Exception e) {
-                AetherMod.LOGGER.error("Failed to initialize texture files!", e);
+                AetherGlobals.LOGGER.error("Failed to initialize texture files!", e);
             }
         }
     }

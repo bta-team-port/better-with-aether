@@ -36,39 +36,32 @@ public class StairwellRoom extends BaseBronzeRoom {
 
         decoration.add(drawSquareCylinder(random, ROOM_PALLET, SOUTH, width - 2, EAST, width - 2, UP, height - 16, x + 1, y + 8, z + 1, false));
 
-        Direction dir = horizontalDirections[random.nextInt(4)];
+        Direction dir = horizontal[random.nextInt(4)];
 
         WorldFeatureComponent staircase = new WorldFeatureComponent();
-        WorldFeaturePoint offset;
-
-        switch (dir) {
-            case WEST:
+        WorldFeaturePoint offset = switch (dir) {
+            case WEST -> {
                 decoration.add(drawVolume(random, ROOM_PALLET, SOUTH, 4, UP, 1, EAST, 1, x + 5, y + height - 9, z + 2, false));
-                offset = wfp(0, 0, 0);
-                break;
-
-            case SOUTH:
+                yield wfp(0, 0, 0);
+            }
+            case SOUTH -> {
                 decoration.add(drawVolume(random, ROOM_PALLET, SOUTH, 1, UP, 1, EAST, 4, x + 2, y + height - 9, z + 2, false));
-                offset = wfp(3, 0, 0);
-                break;
-
-            case EAST:
+                yield wfp(3, 0, 0);
+            }
+            case EAST -> {
                 decoration.add(drawVolume(random, ROOM_PALLET, SOUTH, 4, UP, 1, EAST, 1, x + 2, y + height - 9, z + 2, false));
-                offset = wfp(3, 0, -3);
-                break;
-
-            case NORTH:
+                yield wfp(3, 0, -3);
+            }
+            case NORTH -> {
                 decoration.add(drawVolume(random, ROOM_PALLET, SOUTH, 1, UP, 1, EAST, 4, x + 2, y + height - 9, z + 5, false));
-                offset = wfp(0, 0, -3);
-                break;
-
-            default:
-                offset = wfp(0, 0, 0);
-        }
+                yield wfp(0, 0, -3);
+            }
+            default -> wfp(0, 0, 0);
+        };
 
         WorldFeaturePoint stepPosition = wfp(x + 2, y + 1, z + 5);
         for (int i = 0; i < (height - 9) << 1; i++) {
-            if ((i % 3) == 0) dir = dir.rotate(1);
+            if ((i % 3) == 0) dir = dir.rotateY(-1);
             stepPosition.moveInDirection(dir);
             staircase.add(wfb(stepPosition.getX(), stepPosition.getY() + MathHelper.floor(i / 2.0f), stepPosition.getZ(), AetherBlocks.SLAB_CARVED_STONE.id(), i & 1));
         }

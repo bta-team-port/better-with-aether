@@ -1,6 +1,7 @@
 package teamport.aether.net;
 
 import com.mojang.nbt.tags.CompoundTag;
+import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.net.entity.EntityTracker;
@@ -8,7 +9,6 @@ import net.minecraft.core.net.entity.EntityTrackerEntry;
 import net.minecraft.core.net.entity.ITrackedEntry;
 import net.minecraft.core.net.entity.IVehicleEntry;
 import net.minecraft.core.net.packet.PacketAddEntity;
-import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -26,7 +26,7 @@ public class NetEntryFloatingBlock implements IVehicleEntry<EntityFloatingBlock>
         return 160;
     }
 
-    public int getPacketDelay() {
+    public int getMovementPacketDelay() {
         return 20;
     }
 
@@ -39,7 +39,11 @@ public class NetEntryFloatingBlock implements IVehicleEntry<EntityFloatingBlock>
     }
 
     public Entity getEntity(World world, double x, double y, double z, int metadata, boolean hasVelocity, double xd, double yd, double zd, Entity owner, @Nullable CompoundTag tag) {
-        EntityFloatingBlock floatingBlock = new EntityFloatingBlock(world, x, y, z, MathHelper.clamp(metadata, 0, Blocks.blocksList.length), 0, null);
+        if (metadata < 0 || metadata > Blocks.highestBlockId) return null;
+        Block<?> block = Blocks.getBlock(metadata);
+        if (block == null) return null;
+
+        EntityFloatingBlock floatingBlock = new EntityFloatingBlock(world, x, y, z, block.id(), 0, null);
         if (tag != null) floatingBlock.readAdditionalSaveData(tag);
 
         return floatingBlock;

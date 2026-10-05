@@ -3,7 +3,7 @@ package teamport.aether.block;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.data.tag.Tag;
-import teamport.aether.AetherMod;
+import teamport.aether.AetherGlobals;
 
 import java.lang.reflect.Field;
 
@@ -23,6 +23,8 @@ public class AetherBlockTags {
 
     public static Tag<Block<?>> PLANTABLE_IN_AETHER_JAR = Tag.of("plantable_in_aether_jar");
 
+    public static Tag<Block<?>> AETHER_TERRAIN_BLOCK = Tag.of("aether_terrain_block");
+
     static {
         for (Field field : AetherBlockTags.class.getDeclaredFields()) {
             if (field.getType().equals(Tag.class)) {
@@ -31,7 +33,7 @@ public class AetherBlockTags {
                     Tag<Block<?>> tag = (Tag<Block<?>>) field.get(null);
                     BlockTags.TAG_LIST.add(tag);
                 } catch (Exception e) {
-                    AetherMod.LOGGER.error("Failed to add tag '{}'!", field.getName(), e);
+                    AetherGlobals.LOGGER.error("Failed to add tag '{}'!", field.getName(), e);
                 }
             }
         }

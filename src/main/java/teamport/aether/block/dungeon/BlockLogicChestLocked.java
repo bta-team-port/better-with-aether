@@ -6,11 +6,16 @@ import net.minecraft.core.block.BlockLogicChest;
 import net.minecraft.core.block.BlockLogicRotatable;
 import net.minecraft.core.block.entity.TileEntityChest;
 import net.minecraft.core.block.material.Material;
+import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
+import net.minecraft.core.world.pos.TilePosc;
+import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public class BlockLogicChestLocked extends BlockLogicRotatable {
     private final ItemStack key;
@@ -18,17 +23,29 @@ public class BlockLogicChestLocked extends BlockLogicRotatable {
     private final boolean locked;
 
     public BlockLogicChestLocked(Block<BlockLogic> block, ItemStack key, boolean locked, Block<?> unlockedChest) {
-        super(block, Material.stone);
+        super(block, Materials.STONE);
         this.key = key;
         this.locked = locked;
         this.unlockedChest = unlockedChest;
         block.withEntity(TileEntityChest::new);
     }
 
-    @SuppressWarnings("java:S3516")
     @Override
-    public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced) {
-        if (this.locked && !player.gamemode.isPlayerInvulnerable()) {
+    public int getPistonPushReaction(@NonNull World world, @NonNull TilePosc pos) {
+        return this.locked
+            ? Material.PISTON_CANT_PUSH
+            : super.getPistonPushReaction(world, pos);
+    }
+
+    @Override
+    public boolean onInteracted(@NonNull World world, TilePosc pos, @NonNull Player player, Side side, double xHit, double yHit) {
+        return onBlockRightClicked(world, pos.x(), pos.y(), pos.z(), player, side, xHit, yHit);
+    }
+
+    @Override
+    @SuppressWarnings("java:S3516")
+    public boolean onBlockRightClicked(@NonNull World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced) {
+        if (this.locked && !player.gamemode.hasInvulnerablePlayer()) {
             ItemStack item = player.getHeldItem();
 
             if (item != null && item.itemID == key.itemID) {
@@ -40,17 +57,18 @@ public class BlockLogicChestLocked extends BlockLogicRotatable {
             return true;
         }
 
-        player.displayChestScreen(BlockLogicChest.getInventory(world, x, y, z), x, y, z);
+        player.displayChestScreen(BlockLogicChest.getInventory(world, new TilePos(x, y, z)), x, y, z);
         return true;
     }
 
     @Override
-    public float blockStrength(World world, int x, int y, int z, Side side, Player player) {
+    public float getStrength(@NotNull World world, @NotNull TilePosc tilePos, @NotNull Side side, @NotNull Player player) {
         if (this.block.blockHardness < 0.0F) {
             return 0.0F;
         } else {
-            return !player.canHarvestBlock(this.block) ? 1.0F / this.block.blockHardness / 100.0F : player.getCurrentPlayerStrVsBlock(this.block) / this.block.blockHardness / 30.0F;
+            return !player.canHarvestBlock(this.block)
+                ? 1.0F / this.block.blockHardness / 100.0F
+                : player.getCurrentPlayerStrVsBlock(this.block) / this.block.blockHardness / 30.0F;
         }
     }
-
 }

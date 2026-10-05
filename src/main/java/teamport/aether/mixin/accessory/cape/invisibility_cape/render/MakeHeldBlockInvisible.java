@@ -1,37 +1,30 @@
 package teamport.aether.mixin.accessory.cape.invisibility_cape.render;
 
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.render.ItemRenderer;
-import net.minecraft.client.render.block.model.BlockModel;
 import net.minecraft.client.render.item.model.ItemModelBlock;
-import net.minecraft.client.render.tessellator.Tessellator;
+import net.minecraft.client.render.renderer.GLRenderer;
+import net.minecraft.client.render.tessellator.TessellatorGeneral;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
-import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.entity.player.PlayerUtil;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = ItemModelBlock.class)
+@Mixin(ItemModelBlock.class)
 public abstract class MakeHeldBlockInvisible {
+    @WrapMethod(method = "render(Lnet/minecraft/client/render/tessellator/TessellatorGeneral;Lnet/minecraft/core/entity/Entity;Lnet/minecraft/core/item/ItemStack;Ljava/lang/String;ZIBFZ)V")
     @SuppressWarnings("java:S107")
-    @WrapOperation(method = "renderItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/block/model/BlockModel;renderBlockOnInventory(Lnet/minecraft/client/render/tessellator/Tessellator;IFLjava/lang/Integer;)V"))
-    private void makeItemInvisible(BlockModel<?> instance, Tessellator tessellator, int metadata, float brightness, Integer lightmapCoordinate, Operation<Void> original, Tessellator tessellatorTwo, ItemRenderer renderer, ItemStack itemstack, @Nullable Entity entity, float brightnessTwo, boolean handheldTransform) {
-        if (entity instanceof Player
-            && (
-                entity != Minecraft.getMinecraft().thePlayer
-                || Minecraft.getMinecraft().gameSettings.thirdPersonView.value != 0)
-                && PlayerUtil.isInvisible(entity)
+    private void makeItemInvisible(TessellatorGeneral tessellator, Entity holder, ItemStack itemStack, String displayPosId, boolean items3d, int clusterSize, byte lightIndex, float partialTick, boolean leftHanded, Operation<Void> original) {
+        if (holder instanceof Player
+            && ("thirdperson_lefthand".equals(displayPosId) || "thirdperson_righthand".equals(displayPosId))
+            && PlayerUtil.isInvisible(holder)
         ) {
-            instance.renderBlockOnInventory(tessellator, metadata, brightness, 0.05F, lightmapCoordinate);
-            return;
+            GLRenderer.setColor4f(1.0f, 1.0f, 1.0f, 0.15f);
         }
-        original.call(instance, tessellator, metadata, brightness, lightmapCoordinate);
+        original.call(tessellator, holder, itemStack, displayPosId, items3d, clusterSize, lightIndex, partialTick, leftHanded);
     }
 }

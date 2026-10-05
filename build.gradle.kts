@@ -1,11 +1,29 @@
-import com.google.gson.Gson
-import com.smushytaco.lwjgl_gradle.Preset
+import org.kohsuke.github.GHReleaseBuilder
+import org.kohsuke.github.GitHub
+import java.nio.file.Files
+
+buildscript {
+
+    dependencies {
+        classpath("org.kohsuke:github-api:1.135")
+    }
+
+    repositories {
+        mavenCentral()
+    }
+}
+
 plugins {
     alias(libs.plugins.loom)
-    alias(libs.plugins.lwjgl)
+    alias(libs.plugins.minotaur)
     java
+    `maven-publish`
 }
-val modVersion: Provider<String> = providers.gradleProperty("mod_version")
+
+val lwjglNatives = resolveLwjglNatives()
+
+val modVersion = "${providers.gradleProperty("mod_version").get()}"
+//val modVersion = "${providers.gradleProperty("mod_version").get()}+${libs.versions.bta.get()}"
 val modGroup: Provider<String> = providers.gradleProperty("mod_group")
 val modName: Provider<String> = providers.gradleProperty("mod_name")
 
@@ -13,127 +31,84 @@ val javaVersion: Provider<Int> = libs.versions.java.map { it.toInt() }
 
 base.archivesName = modName
 group = modGroup.get()
-version = modVersion.get()
-
-class AccountsJson(val accounts: List<Account>)
-class Account(val profile: Profile, val ygg: YGG)
-class YGG(val token: String)
-class Profile(val name: String, val id: String)
-
-val prismAccountsFile = providers.provider {
-    val explicit = providers.gradleProperty("prism.accounts.file").orNull
-    if (explicit != null) {
-        val explicitFile = File(explicit)
-        if (explicitFile.exists()) return@provider explicitFile
-    }
-
-    val home = System.getProperty("user.home")
-
-    val candidates = buildList {
-        // Windows
-        System.getenv("APPDATA")?.let { add(File(it, "PrismLauncher/accounts.json")) }
-        System.getenv("HOMEPATH")?.let { add(File(it, "scoop/persist/prismlauncher/accounts.json")) }
-        // Linux / XDG
-        val xdgDataHome = System.getenv("XDG_DATA_HOME")
-        if (xdgDataHome != null) {
-            add(File(xdgDataHome, "PrismLauncher/accounts.json"))
-        } else {
-            add(File(home, ".local/share/PrismLauncher/accounts.json"))
-        }
-        // Flatpak
-        add(File(home, ".var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/accounts.json"))
-        // macOS
-        add(File(home, "Library/Application Support/PrismLauncher/accounts.json"))
-    }
-    candidates.firstOrNull(File::exists)
-}
+version = modVersion
 
 loom {
-    customMinecraftMetadata.set("https://downloads.betterthanadventure.net/bta-client/${libs.versions.btaChannel.get()}/v${libs.versions.bta.get()}/manifest.json")
+    val btaChannel = libs.versions.btaChannel.get()
+    val btaVersion = (if (btaChannel == "nightly") "" else "v") + libs.versions.bta.get()
+    customMinecraftMetadata.set("https://downloads.betterthanadventure.net/bta-client/${btaChannel}/$btaVersion/manifest.json")
     accessWidenerPath = file("src/main/resources/aether.classtweaker")
-    runs {
-        prismAccountsFile.orNull?.let { file ->
-            val account: Provider<Account> = providers.fileContents(layout.file(providers.provider { file }))
-                .asText
-                .map { jsonStr ->
-                    val accountNumber = (providers.gradleProperty("prism.accounts.number").orNull?.toInt() ?: 1) - 1
-                    val accounts = Gson().fromJson(jsonStr, AccountsJson::class.java).accounts
-                    accounts.getOrNull(accountNumber.coerceIn(0, accounts.size - 1))
-                        ?: error("No PrismLauncher accounts found in ${file.absolutePath}")
-                }
-            register("clientAuth") {
-                inherit(getByName("client"))
-                configName = "Minecraft Client (Auth)"
-                val acc = account.get()
-                programArgs("--username", acc.profile.name, "--uuid", acc.profile.id, "--session", acc.ygg.token)
-            }
-        }
-    }
 }
 
 repositories {
     mavenCentral()
-    maven("https://jitpack.io")
-    maven("https://maven.fabricmc.net/") { name = "Fabric" }
-    maven("https://maven.thesignalumproject.net/infrastructure") { name = "SignalumMavenInfrastructure" }
-    maven("https://maven.thesignalumproject.net/releases") { name = "SignalumMavenReleases" }
-    ivy("https://github.com/Better-than-Adventure") {
-        patternLayout { artifact("[organisation]/releases/download/[revision]/[module]-bta-[revision].jar") }
-        metadataSources { artifact() }
-    }
-    ivy("https://downloads.betterthanadventure.net/bta-client/${libs.versions.btaChannel.get()}/") {
-        patternLayout { artifact("/v[revision]/client.jar") }
-        metadataSources { artifact() }
-    }
-    ivy("https://downloads.betterthanadventure.net/bta-server/${libs.versions.btaChannel.get()}/") {
-        patternLayout { artifact("/v[revision]/server.jar") }
-        metadataSources { artifact() }
-    }
     ivy("https://piston-data.mojang.com") {
         patternLayout { artifact("v1/[organisation]/[revision]/[module].jar") }
         metadataSources { artifact() }
     }
-    ivy("https://github.com/") {
+    maven("https://maven.fabricmc.net/") { name = "Fabric" }
+    maven("https://maven.danygames2014.net/signalum") { name = "SignalumMavenMirror1" }
+    maven("https://maven.thesignalumproject.net/infrastructure") { name = "SignalumMavenInfrastructure" }
+    maven("https://maven.thesignalumproject.net/releases") { name = "SignalumMavenReleases" }
+    maven("https://maven.thesignalumproject.net/nightly") { name = "SignalumMavenNightly" }
+    maven("https://api.modrinth.com/maven") { name = "Modrinth"
+        content {
+            includeGroup("maven.modrinth")
+        }
+    }
+    maven("https://jitpack.io")
+    ivy("https://piston-data.mojang.com") {
         patternLayout { artifact("v1/[organisation]/[revision]/[module].jar") }
         metadataSources { artifact() }
     }
-    ivy ("https://github.com/"){
-        patternLayout { artifact("[organization]/[module]/releases/download/[revision]/[module]-[revision].jar")}
+    ivy("https://github.com/Better-than-Adventure") {
+        patternLayout { artifact("[organisation]/releases/download/[revision]/[module]-bta-[revision].jar") }
         metadataSources { artifact() }
     }
 }
-lwjgl {
-    version = libs.versions.lwjgl
-    implementation(Preset.MINIMAL_OPENGL)
-}
+
 dependencies {
     minecraft("::${libs.versions.bta.get()}")
+
+    // Required at compilation & runtime
+    // included in builds as a runtime dependency
+    implementation(libs.loader)
+    implementation(libs.halplibe)
+    implementation(libs.uselessNumerical)
+    implementation(libs.catalyst.core)
+    implementation(libs.catalyst.effects)
+
+    // keep them around just in case
+//    implementation(files("libs/catalyst-core-3.0.0-beta.2+8.0.1.jar"))
+//    implementation(files("libs/catalyst-effects-3.0.0-beta.2+8.0.1.jar"))
 
     compileOnly(libs.btwaila)
     compileOnly(libs.commandly)
 
-    runtimeOnly(libs.clientJar)
-    implementation(libs.loader)
-    implementation(libs.halplibe)
-    implementation(libs.modMenu)
-    implementation(libs.legacyLwjgl)
+//    compileOnly(libs.legacyLwjgl)
 
-    implementation(libs.dragonfly)
-    implementation(libs.catalyst.core)
-    implementation(libs.catalyst.effects)
-    implementation(libs.uselessNumerical.get().let { "${it.group}:${it.name}:${it.version}-${libs.versions.bta.get()}" })
+    // Only required at compilation
+    // provides documentation, can be removed if that isn't needed
+    compileOnly(libs.bundles.btaLwjgl)
+    compileOnly(libs.joml)
+    compileOnly(libs.joml.primitives)
+    compileOnly(libs.slf4jApi)
 
-    implementation(libs.slf4jApi)
-    implementation(libs.guava)
-    implementation(libs.log4j.slf4j2.impl)
-    implementation(libs.log4j.core)
-    implementation(libs.log4j.api)
-    implementation(libs.log4j.api12)
-    implementation(libs.gson)
+    compileOnly(libs.jspecify)
+    compileOnly(libs.errorprone)
 
-    implementation(libs.commonsLang3)
-    include(libs.commonsLang3)
+    // Only required for development/launch at runtime, won't be part of any builds
+    localRuntime(libs.modMenu) // Optional, can be removed
+    runtimeClasspath(libs.clientJar)
+    val lwjglVer = libs.versions.lwjgl.get()
+    localRuntime(platform("org.lwjgl:lwjgl-bom:${lwjglVer}"))
+    localRuntime("org.lwjgl:lwjgl::$lwjglNatives")
+    localRuntime("org.lwjgl:lwjgl-glfw::$lwjglNatives")
+    localRuntime("org.lwjgl:lwjgl-openal::$lwjglNatives")
+    localRuntime("org.lwjgl:lwjgl-opengl::$lwjglNatives")
+    localRuntime("org.lwjgl:lwjgl-stb::$lwjglNatives")
 }
+
 java {
     toolchain {
         languageVersion = javaVersion.map { JavaLanguageVersion.of(it) }
@@ -143,6 +118,7 @@ java {
     targetCompatibility = JavaVersion.toVersion(javaVersion.get())
     withSourcesJar()
 }
+
 val licenseFile = run {
     val rootLicense = layout.projectDirectory.file("LICENSE")
     val parentLicense = layout.projectDirectory.file("../LICENSE")
@@ -161,6 +137,7 @@ val licenseFile = run {
         }
     }
 }
+
 tasks {
     withType<JavaCompile>().configureEach {
         options.encoding = "UTF-8"
@@ -168,7 +145,7 @@ tasks {
         targetCompatibility = javaVersion.get().toString()
         if (javaVersion.get() > 8) options.release = javaVersion
     }
-    withType<UpdateDaemonJvm>().configureEach {
+    named<UpdateDaemonJvm>("updateDaemonJvm") {
         languageVersion = libs.versions.gradleJava.map { JavaLanguageVersion.of(it.toInt()) }
         vendor = JvmVendorSpec.ADOPTIUM
     }
@@ -184,20 +161,120 @@ tasks {
     }
     processResources {
         val resourceMap = mapOf(
-            "version" to modVersion.get(),
+            "version" to modVersion,
             "fabricloader" to libs.versions.loader.get(),
-            "dragonfly" to libs.versions.dragonfly.get(),
             "halplibe" to libs.versions.halplibe.get(),
-            "java" to libs.versions.java.get(),
-            "modmenu" to libs.versions.modMenu.get(),
+            "uselessnumerical" to libs.versions.uselessNumerical.get(),
             "catalystcore" to libs.versions.catalyst.core.get(),
             "catalysteffects" to libs.versions.catalyst.effects.get(),
-            "uselessnumerical" to libs.versions.uselessNumerical.get()
+            "java" to libs.versions.java.get(),
+            "modmenu" to libs.versions.modMenu.get()
         )
+        // This is needed for Gradle to recognize changes
+        // made to expanded files
         inputs.properties(resourceMap)
-        filesMatching("fabric.mod.json") { expand(resourceMap) }
-        filesMatching("**/*.mixins.json") { expand(resourceMap.filterKeys { it == "java" }) }
+
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+        with(copySpec {
+            from("src/main/resources/") {
+                include("fabric.mod.json")
+                include("*.mixins.json")
+                expand(resourceMap)
+            }
+        })
     }
 }
-// Removes LWJGL2 dependencies
-configurations.configureEach { exclude(group = "org.lwjgl.lwjgl") }
+
+configurations.configureEach {
+    exclude(group = "org.lwjgl.lwjgl")
+    exclude(group = "net.java.jutils")
+    exclude(group = "net.java.jinput")
+    exclude(group = "net.sf.jopt-simple")
+    exclude(group = "net.minecraft", module = "launchwrapper")
+}
+
+publishing {
+    repositories {
+        maven("https://maven.thesignalumproject.net/releases") {
+            name = "signalumMaven"
+            credentials(PasswordCredentials::class)
+            authentication {
+                create<BasicAuthentication>("basic")
+            }
+        }
+    }
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = modGroup.get()
+            artifactId = modName.get()
+            version = modVersion
+            from(components["java"])
+        }
+    }
+}
+
+val modrinthToken: Provider<String> = providers.gradleProperty("modrinthToken")
+val githubToken: Provider<String> = providers.gradleProperty("turnipLabsGithubToken")
+
+if (modrinthToken.isPresent) {
+    modrinth {
+        token = modrinthToken
+        projectId = "halplibe"
+        versionName = "HalpLibe $modVersion"
+        versionNumber = modVersion
+        versionType = "release"
+        uploadFile.set(tasks.jar)
+        additionalFiles = listOf(tasks.named("sourcesJar"))
+        gameVersions.add("b1.7.3")
+        loaders.add("bta-babric")
+        changelog = Files.readString(rootProject.projectDir.toPath().resolve("CHANGELOG.md"))
+    }
+}
+
+fun resolveLwjglNatives(): String { // Sourced from https://www.lwjgl.org/
+    return Pair(
+        System.getProperty("os.name")!!,
+        System.getProperty("os.arch")!!
+    ).let { (name, arch) ->
+        when {
+            arrayOf("Linux", "SunOS", "Unit").any { name.startsWith(it) } ->
+                if (arrayOf("arm", "aarch64").any { arch.startsWith(it) })
+                    "natives-linux${if (arch.contains("64") || arch.startsWith("armv8")) "-arm64" else "-arm32"}"
+                else
+                    "natives-linux"
+            arrayOf("Mac OS X", "Darwin").any { name.startsWith(it) } ->
+                "natives-macos${if (arch.startsWith("aarch64")) "-arm64" else ""}"
+            arrayOf("Windows").any { name.startsWith(it) } ->
+                if (arch.contains("64"))
+                    "natives-windows${if (arch.startsWith("aarch64")) "-arm64" else ""}"
+                else
+                    "natives-windows-x86"
+            else ->
+                throw Error("Unrecognized or unsupported platform. Please set \"lwjglNatives\" manually")
+        }
+    }
+}
+
+if(githubToken.isPresent){
+    tasks.register("github") {
+        doLast {
+            val github = GitHub.connectUsingOAuth(githubToken.get())
+            val repository = github.getRepository("Turnip-Labs/bta-halplibe")
+
+            val releaseBuilder = GHReleaseBuilder(repository, version.toString())
+            releaseBuilder.name("HalpLibe $version")
+            releaseBuilder.body(Files.readString(rootProject.projectDir.toPath().resolve("CHANGELOG.md")))
+            releaseBuilder.commitish("8.0")
+            val release = releaseBuilder.create()
+            release.uploadAsset(
+                project.file(tasks.named("jar").get().outputs.files.singleFile),
+                "application/java-archive"
+            )
+            release.uploadAsset(
+                project.file(tasks.named("sourcesJar").get().outputs.files.singleFile),
+                "application/java-archive"
+            )
+        }
+    }
+
+}

@@ -2,7 +2,7 @@
 
 [![GitHub release](https://img.shields.io/github/v/release/bta-team-port/better-with-aether?color=cyan)](https://github.com/bta-team-port/better-with-aether/releases)
 [![GitHub commit activity](https://img.shields.io/github/commit-activity/w/bta-team-port/better-with-aether?color=cyan)](https://github.com/bta-team-port/better-with-aether/graphs/code-frequency)
-[![GitHub last commit](https://img.shields.io/github/last-commit/bta-team-port/better-with-aether?color=cyan&cacheSeconds=1)](https://github.com/bta-team-port/better-with-aether/commits/7.3/)
+[![GitHub last commit](https://img.shields.io/github/last-commit/bta-team-port/better-with-aether?color=cyan)](https://github.com/bta-team-port/better-with-aether/commits/7.3/)
 [![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/bta-team-port/better-with-aether/total?color=cyan)](https://tooomm.github.io/github-release-stats/?username=bta-team-port&repository=better-with-aether)
 
 ## Welcome to the Hostile Paradise: The Aether, now Better than ever.
@@ -40,12 +40,11 @@ to [Better with Aether Repo](https://github.com/bta-team-port/better-with-aether
 
 ### REQUIRES:
 
-- BTA == 7.3_04
-- Halplibe >= [5.4.0](https://github.com/Turnip-Labs/bta-halplibe/releases/tag/v5.4.0)
-- Catalyst-Core >= [2.2.0](https://github.com/MartinSVK12/catalyst)
-- Catalyst-Effects = [2.5.3](https://github.com/MartinSVK12/catalyst)
-- UselessNumericals >= [1.1.0-7.3_04](https://github.com/gungun974/UselessNumerical/releases/tag/1.1.0-7.3_04)
-- DragonFly >= [1.7.0-alpha.7](https://modrinth.com/mod/dragonfly-model-library/version/1.7.0-alpha.7)
+- BTA == 8.0.1
+- Halplibe >= [6.1.3+8.0](https://github.com/Turnip-Labs/bta-halplibe/releases)
+- UselessNumericals >= [1.1.1-8.0](https://github.com/gungun974/UselessNumerical/releases)
+- Catalyst Core >= [3.0.0-v8.0.1](https://github.com/MartinSVK12/catalyst/releases)
+- Catalyst Effects >= [3.0.0-v8.0.1](https://github.com/MartinSVK12/catalyst/releases)
 
 ### Screenshots from the latest Release:
 

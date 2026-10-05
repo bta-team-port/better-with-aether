@@ -3,6 +3,7 @@ package teamport.aether.entity.monster.mimic;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.util.helper.DyeColor;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 
 import java.util.ArrayList;
@@ -18,7 +19,8 @@ public class MimicRegistry {
     @SuppressWarnings("java:S116")
     protected final List<MimicEntry> MIMIC_ENTRY_LIST = new ArrayList<>();
 
-    public static void init() {/* just to load this class*/}
+    public static void init() {
+    }
 
     protected MimicRegistry() {
         this.register();
@@ -41,10 +43,6 @@ public class MimicRegistry {
         }
     }
 
-    protected static void addEntry(String pathName, int mimicChestId, int mimicChestMetadata, int chestID, int chestMetadata) {
-        instance.MIMIC_ENTRY_LIST.add(mimicEntry(instance.MIMIC_ENTRY_LIST.size(), pathName, mimicChestId, mimicChestMetadata, chestID, chestMetadata));
-    }
-
     protected void addEntry(MimicEntry entry) {
         this.MIMIC_ENTRY_LIST.add(entry);
     }
@@ -53,7 +51,7 @@ public class MimicRegistry {
         this.MIMIC_ENTRY_LIST.add(mimicEntry(mimicVariant, pathName, mimicChestId, mimicChestMetadata, chestID, chestMetadata));
     }
 
-    protected void addEntry(int mimicVariant, String pathName, Block<?> mimicChest, Block<?> chest) {
+    protected void addEntry(int mimicVariant, String pathName, @NonNull Block<?> mimicChest, @NonNull Block<?> chest) {
         this.MIMIC_ENTRY_LIST.add(mimicEntry(mimicVariant, pathName, mimicChest.id(), 0, chest.id(), 0));
     }
 
@@ -95,7 +93,7 @@ public class MimicRegistry {
         return DEFAULT;
     }
 
-    public static MimicEntry getRandomEntry(Random random) {
+    public static MimicEntry getRandomEntry(@NonNull Random random) {
         return instance.MIMIC_ENTRY_LIST.get(random.nextInt(instance.MIMIC_ENTRY_LIST.size()));
     }
 
@@ -104,15 +102,11 @@ public class MimicRegistry {
     }
 
     public static int getPrevValue(int index) {
-        return MimicRegistry.getValue(index - 1);
+        return instance.MIMIC_ENTRY_LIST.get(Math.floorMod(index - 1, instance.MIMIC_ENTRY_LIST.size())).getMimicVariant();
     }
 
     public static int getNextValue(int index) {
-        return MimicRegistry.getValue(index + 1);
-    }
-
-    private static int getValue(int index) {
-        return instance.MIMIC_ENTRY_LIST.get(Math.floorMod(index, instance.MIMIC_ENTRY_LIST.size())).getMimicVariant();
+        return instance.MIMIC_ENTRY_LIST.get(Math.floorMod(index + 1, instance.MIMIC_ENTRY_LIST.size())).getMimicVariant();
     }
 
 }

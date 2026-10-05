@@ -2,7 +2,6 @@ package teamport.aether.item.item_tool;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicLog;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.data.gamerule.GameRules;
 import net.minecraft.core.data.gamerule.TreecapitatorHelper;
 import net.minecraft.core.entity.Mob;
@@ -12,6 +11,8 @@ import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemTool;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.item.AetherItems;
 
@@ -21,18 +22,17 @@ public class ItemToolAxeAether extends ItemTool {
     }
 
     @Override
-    public boolean canHarvestBlock(Mob mob, ItemStack itemStack, Block<?> block) {
+    public boolean canHarvestBlock(@NonNull ItemStack itemStack, @NonNull Mob mob, @NonNull Block<?> block) {
         return block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
     }
 
-    @SuppressWarnings("java:S5411")
     @Override
-    public boolean beforeDestroyBlock(World world, ItemStack itemStack, int blockId, int x, int y, int z, Side side, Player player) {
+    @SuppressWarnings("java:S5411")
+    public boolean beforeBlockDestroyed(@NonNull ItemStack itemStack, @NonNull World world, @NonNull Player player, @NonNull Block<?> block, @NonNull TilePosc blockPos, @NonNull Side side) {
         if (!world.isClientSide && world.getGameRuleValue(GameRules.TREECAPITATOR) && !player.isSneaking()) {
             ItemStack held = player.getHeldItem();
-            Block<?> block = Blocks.blocksList[blockId];
             if (Block.hasLogicClass(block, BlockLogicLog.class) && (block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE) || held != null && held.itemID == AetherItems.TOOL_AXE_VALKYRIE.id)) {
-                return !(new TreecapitatorHelper(world, x, y, z, player)).chopTree();
+                return !(new TreecapitatorHelper(world, blockPos.x(), blockPos.y(), blockPos.z(), player)).chopTree();
             }
         }
         return true;

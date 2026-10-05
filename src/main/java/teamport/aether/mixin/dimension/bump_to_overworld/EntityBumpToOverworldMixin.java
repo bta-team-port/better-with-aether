@@ -4,6 +4,7 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -16,38 +17,40 @@ import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import static teamport.aether.world.AetherDimension.addEntityToFallen;
 
-@Mixin(value = Entity.class)
+@Mixin(Entity.class)
 public abstract class EntityBumpToOverworldMixin {
     @Shadow
-    @Nullable
+    @NonNull
     public World world;
+
     @Shadow
     public double y;
+
     @Shadow
     public abstract void remove();
+
+    @Shadow
+    public abstract @Nullable Entity getPassenger();
+
     @Shadow
     public abstract Entity ejectRider();
-    @Shadow
-    public abstract boolean isPassenger();
-    @Shadow
-    @Nullable
-    public abstract Entity getPassenger();
-    @Shadow
-    @Nullable
-    public Entity passenger;
+
     @Inject(method = "tick", at = @At("HEAD"))
     private void fallToOverWorld(CallbackInfo ci) {
-        if (world == null || EnvironmentHelper.isClientWorld()) return;
         Dimension dimension = world.dimension;
-        if (dimension.id == AetherDimension.getAether().id && y < world.worldType.getMinY() - 10) {
+        Entity entity = (Entity) (Object) this;
+
+        if (EnvironmentHelper.isMultiplayerClient()) return;
+        if (entity.removed) return;
+
+        if (dimension.id == AetherDimension.getAether().id && y < world.getWorldType().getMinY(world) - 10) {
             if (getPassenger() != null) {
                 if (getPassenger() instanceof Player) return;
                 ejectRider();
             }
-            Entity entity = (Entity) (Object) this;
-            if (entity instanceof AetherMobFallingToOverworld) {
-                ((AetherMobFallingToOverworld) entity).onLeavingAether();
-                if (!((AetherMobFallingToOverworld) entity).canFallToOverworld()) {
+            if (entity instanceof AetherMobFallingToOverworld aetherMobFallingToOverworld) {
+                aetherMobFallingToOverworld.onLeavingAether();
+                if (!aetherMobFallingToOverworld.canFallToOverworld()) {
                     this.remove();
                     return;
                 }

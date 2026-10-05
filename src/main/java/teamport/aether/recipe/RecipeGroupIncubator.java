@@ -15,7 +15,8 @@ public class RecipeGroupIncubator extends RecipeGroup<RecipeEntryIncubator> {
     public @Nullable Class<? extends Entity> findOutput(ItemStack stack) {
         for (RecipeEntryIncubator recipe : getAllRecipes()) {
             if (recipe.matches(stack)) {
-                return EntityDispatcher.classForId(recipe.getOutput().getEntity());
+                EntityDispatcher.EntityDispatcherEntry<?> entry = EntityDispatcher.getInstance().entryForId(recipe.getOutput().getEntity());
+                return entry != null ? entry.entityClass : null;
             }
         }
         return null;

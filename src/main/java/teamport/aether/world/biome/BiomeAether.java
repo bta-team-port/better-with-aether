@@ -3,8 +3,10 @@ package teamport.aether.world.biome;
 import net.minecraft.core.entity.SpawnListEntry;
 import net.minecraft.core.entity.animal.MobFireflyCluster;
 import net.minecraft.core.world.biome.Biome;
+import net.minecraft.core.world.biome.SurfaceProperties;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import net.minecraft.core.world.weather.Weathers;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
 import teamport.aether.entity.animal.aerwhale.MobAerwhale;
@@ -21,7 +23,7 @@ import teamport.aether.entity.monster.swet.MobSwet;
 import teamport.aether.entity.monster.swet.MobSwetGold;
 import teamport.aether.entity.monster.tempest.MobTempest;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
-import teamport.aether.world.feature.terrain.WorldFeatureAetherTree;
+import teamport.aether.world.feature.terrain.WorldFeatureSkyrootTree;
 import teamport.aether.world.feature.terrain.WorldFeatureAetherTreeGoldenOak;
 
 import java.util.Random;
@@ -29,10 +31,12 @@ import java.util.Random;
 public class BiomeAether extends Biome {
     public BiomeAether(String key) {
         super(key);
-        setColor(0xc0c0ff);
-        setTopBlock(AetherBlocks.GRASS_AETHER.id());
-        setFillerBlock(AetherBlocks.DIRT_AETHER.id());
-        setBlockedWeathers(Weathers.OVERWORLD_RAIN, Weathers.OVERWORLD_SNOW, Weathers.OVERWORLD_STORM);
+        withDebugColor(0xc0c0ff);
+        withSurfaceProperties(new SurfaceProperties.Builder()
+            .withTopBlock(AetherBlocks.GRASS_AETHER)
+            .withFillerBlock(AetherBlocks.DIRT_AETHER)
+            .build());
+        withBlockedWeathers(Weathers.OVERWORLD_RAIN, Weathers.OVERWORLD_SNOW, Weathers.OVERWORLD_STORM);
 
         spawnableAmbientCreatureList.clear();
         spawnableCreatureList.clear();
@@ -43,7 +47,7 @@ public class BiomeAether extends Biome {
         this.spawnableCreatureList.add(new SpawnListEntry(MobPhow.class, 102));
         this.spawnableCreatureList.add(new SpawnListEntry(MobSheepuff.class, 102));
         this.spawnableCreatureList.add(new SpawnListEntry(MobAerbunny.class, 102));
-        this.spawnableCreatureList.add(new SpawnListEntry(MobWhirly.class, 10));
+        this.spawnableCreatureList.add(new SpawnListEntry(MobWhirly.class, 26));
 
         this.spawnableAmbientCreatureList.add(new SpawnListEntry(MobAerwhale.class, 5));
         this.spawnableAmbientCreatureList.add(new SpawnListEntry(MobFireflyCluster.class, 30));
@@ -55,9 +59,9 @@ public class BiomeAether extends Biome {
         this.spawnableMonsterList.add(new SpawnListEntry(MobZephyr.class, 10));
         this.spawnableMonsterList.add(new SpawnListEntry(MobSwet.class, 5));
         this.spawnableMonsterList.add(new SpawnListEntry(MobSwetGold.class, 2));
-        this.spawnableMonsterList.add(new SpawnListEntry(MobAechorPlant.class, 5));
+        this.spawnableMonsterList.add(new SpawnListEntry(MobAechorPlant.class, 10));
         this.spawnableMonsterList.add(new SpawnListEntry(MobCockatrice.class, 10));
-        this.spawnableMonsterList.add(new SpawnListEntry(MobTempest.class, 5));
+        this.spawnableMonsterList.add(new SpawnListEntry(MobTempest.class, 10));
     }
 
     @Override
@@ -66,8 +70,10 @@ public class BiomeAether extends Biome {
     }
 
     @Override
-    public WorldFeature getRandomWorldGenForTrees(Random random) {
-        return random.nextInt(10) == 0 ? new WorldFeatureAetherTree(AetherBlocks.LEAVES_SKYROOT.id(), AetherBlocks.LOG_SKYROOT.id(), 4)
-            : new WorldFeatureAetherTreeGoldenOak();
+    public @NonNull WorldFeature getTreeFeature(@NonNull Random random) {
+        return random.nextInt(10) == 0
+            ? new WorldFeatureSkyrootTree(AetherBlocks.LEAVES_SKYROOT, AetherBlocks.LOG_SKYROOT, 4)
+            : new WorldFeatureAetherTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN, AetherBlocks.LOG_OAK_GOLDEN, 6);
+
     }
 }

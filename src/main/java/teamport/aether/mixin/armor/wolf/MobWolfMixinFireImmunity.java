@@ -8,10 +8,10 @@ import net.minecraft.core.entity.animal.MobWolf;
 import net.minecraft.core.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.helper.MixinHelper;
+import teamport.aether.entity.MobUtil;
 import teamport.aether.helper.ParticleMaker;
 
-@Mixin(value = MobWolf.class)
+@Mixin(MobWolf.class)
 public abstract class MobWolfMixinFireImmunity extends MobAnimal {
     protected MobWolfMixinFireImmunity(World world) {
         super(world);
@@ -20,7 +20,7 @@ public abstract class MobWolfMixinFireImmunity extends MobAnimal {
     @Expression("this.fireImmune")
     @ModifyExpressionValue(method = "lavaHurt", at = @At("MIXINEXTRAS:EXPRESSION"))
     private boolean lavaImmunity(boolean original) {
-        if (!MixinHelper.isImmuneToFire((MobWolf) (Object) this)) return original;
+        if (!MobUtil.isImmuneToFire((MobWolf) (Object) this)) return original;
         ParticleMaker.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
         return true;
     }
@@ -28,7 +28,7 @@ public abstract class MobWolfMixinFireImmunity extends MobAnimal {
     @Expression("this.fireImmune")
     @ModifyExpressionValue(method = "fireHurt", at = @At("MIXINEXTRAS:EXPRESSION"))
     private boolean fireImmunity(boolean original) {
-        if (!MixinHelper.isImmuneToFire((MobWolf) (Object) this)) return original;
+        if (!MobUtil.isImmuneToFire((MobWolf) (Object) this)) return original;
         ParticleMaker.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
         return true;
     }

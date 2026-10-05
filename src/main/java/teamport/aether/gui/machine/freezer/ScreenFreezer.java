@@ -2,10 +2,10 @@ package teamport.aether.gui.machine.freezer;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.render.renderer.GLRenderer;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
-import org.lwjgl.opengl.GL11;
 import teamport.aether.AetherRecipes;
 import teamport.aether.block.entity.TileEntityFreezer;
 import teamport.aether.gui.machine.ScreenAetherMachine;
@@ -24,7 +24,7 @@ public class ScreenFreezer extends ScreenAetherMachine {
     @Override
     public void drawGuiContainerBackgroundLayer(float f) {
         this.mc.textureManager.loadTexture("/assets/aether/textures/gui/container/freezer.png").bind();
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        GLRenderer.setColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         int j = (width - xSize) / 2;
         int k = (height - ySize) / 2;
         this.drawTexturedModalRect(j, k, 0, 0, this.xSize, this.ySize);
@@ -39,8 +39,8 @@ public class ScreenFreezer extends ScreenAetherMachine {
     @Override
     public void drawGuiContainerForegroundLayer() {
         I18n i18n = I18n.getInstance();
-        this.font.drawString(i18n.translateKey("aether.gui.freezer.title"), 60, 6, 0xFF404040);
-        this.font.drawString(i18n.translateKey("gui.furnace.label.inventory"), 8, this.ySize - 96 + 2, 4210752);
+        this.drawStringNoShadow(this.fontRenderer, i18n.translateKey("aether.gui.freezer.title"), 60, 6, 0xFF404040);
+        this.drawStringNoShadow(this.fontRenderer, i18n.translateKey("gui.furnace.label.inventory"), 8, this.ySize - 96 + 2, 4210752);
     }
 
     @Override

@@ -26,7 +26,6 @@ public class NetEntryAetherProjectile implements IVehicleEntry<ProjectileAether>
         register(1, ProjectileDart::getEntity, ProjectileDart.class);
         register(2, ProjectileKnifeLightning::getEntity, ProjectileKnifeLightning.class);
         register(3, ProjectileHammerHead::getEntity, ProjectileHammerHead.class);
-        register(4, ProjectileWindball::getEntity, ProjectileWindball.class);
         register(5, ProjectileNeedle::getEntity, ProjectileNeedle.class);
         register(6, ProjectileElementLightning::getEntity, ProjectileElementLightning.class);
         register(7, ProjectileElementFire::getEntity, ProjectileElementFire.class);
@@ -38,12 +37,12 @@ public class NetEntryAetherProjectile implements IVehicleEntry<ProjectileAether>
         CLASS_TO_ID.put(clazz, id);
     }
 
-    public static int getIdBits(ProjectileAether projectile) {
+    public static int getIdBits(@NonNull ProjectileAether projectile) {
         return CLASS_TO_ID.get(projectile.getClass()) << 24;
     }
 
     @Override
-    public PacketAddEntity getSpawnPacket(EntityTrackerEntry entityTrackerEntry, ProjectileAether tracked) {
+    public PacketAddEntity getSpawnPacket(EntityTrackerEntry entityTrackerEntry, @NonNull ProjectileAether tracked) {
         PacketAddEntity packet = tracked.getSpawnPacket((Projectile) tracked);
         packet.metaData |= getIdBits(tracked);
         return packet;
@@ -55,7 +54,7 @@ public class NetEntryAetherProjectile implements IVehicleEntry<ProjectileAether>
     }
 
     @Override
-    public int getPacketDelay() {
+    public int getMovementPacketDelay() {
         return 20;
     }
 
@@ -76,6 +75,9 @@ public class NetEntryAetherProjectile implements IVehicleEntry<ProjectileAether>
     @Override
     public Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner, @Nullable CompoundTag compoundTag) {
         ProjectileAether.ConstructorLambda projectile = ID_TO_CONSTRUCTOR.get(meta >>> 24);
+        if (projectile == null) {
+            return null;
+        }
         return projectile.getEntity(world, x, y, z, meta & ~TYPE_BITS, hasVelocity, xd, yd, zd, owner);
     }
 }

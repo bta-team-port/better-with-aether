@@ -1,15 +1,22 @@
 package teamport.aether.effect;
 
 import net.minecraft.core.Global;
+import net.minecraft.core.data.registry.Registry;
 import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
+import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
+import sunsetsatellite.catalyst.effects.api.attribute.Attributes;
+import sunsetsatellite.catalyst.effects.api.attribute.type.IntAttribute;
 import sunsetsatellite.catalyst.effects.api.effect.*;
-import sunsetsatellite.catalyst.effects.api.effect.render.EffectRenderer;
-import sunsetsatellite.catalyst.effects.api.effect.render.EffectRendererDispatcher;
-import teamport.aether.effect.render.PoisonEffectRenderer;
-import teamport.aether.effect.render.RemedyEffectRenderer;
+import sunsetsatellite.catalyst.effects.api.modifier.IItemWithModifiers;
+import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
+import teamport.aether.AetherGlobals;
+import teamport.aether.ducks.IContainerInventoryAether;
 import teamport.aether.entity.boss.slider.MobBossSlider;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
@@ -18,19 +25,19 @@ import teamport.aether.entity.monster.cockatrice.MobCockatrice;
 import teamport.aether.entity.monster.fireminion.MobFireMinion;
 import teamport.aether.entity.monster.sentry.MobSentry;
 import teamport.aether.entity.monster.valkyrie.MobValkyrie;
-import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.*;
+import java.util.function.Function;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
-
-public class AetherEffects {
-    @SuppressWarnings("java:S6548")
+public class AetherEffects extends Registry<Effect> {
     public static class LookupLooks {
         public static final LookupLooks instance = new LookupLooks();
         public final Map<Effect, Effect> locker = new HashMap<>();
         public final Map<Effect, HashSet<Effect>> lockedEffects = new HashMap<>();
+
+        private LookupLooks(){}
 
         public void addEntry(Effect getLocked, Effect lock) {
             this.locker.put(getLocked, lock);
@@ -45,17 +52,18 @@ public class AetherEffects {
         }
 
         public @Nullable Effect getLocker(Effect id) {
-            return this.locker.getOrDefault(id, null);
+            return this.locker.get(id);
         }
 
         public @Nullable Set<Effect> getLockedEffects(Effect id) {
-            return this.lockedEffects.getOrDefault(id, null);
+            return this.lockedEffects.get(id);
         }
-    }
 
+    }
     private static boolean hasInit = false;
 
-    private AetherEffects(){}
+    private AetherEffects() {
+    }
 
     public static void init() {
         if (hasInit) {
@@ -64,23 +72,14 @@ public class AetherEffects {
         hasInit = true;
         assignEffects();
         registerEffects();
-        if (!EnvironmentHelper.isServerEnvironment()) assignEffectRenderers();
     }
 
-    @SuppressWarnings({"java:S1104", "java:S1444"})
     public static Effect poisonEffect;
-    @SuppressWarnings({"java:S1104", "java:S1444"})
     public static Effect remedyEffect;
-    @SuppressWarnings({"java:S1104", "java:S1444"})
     public static Effect invisibility;
-    @SuppressWarnings({"java:S1104", "java:S1444"})
     public static Effect swetty;
-    @SuppressWarnings("java:S3008")
-    private static final Tag<Effect> IMMUNE_TO_POISON = Tag.of("immune_to_poison");
 
-    /**
-     * @implNote The path for the assets that effects uses is: assets/ + MOD_ID +/effects/icon/ + imagePath
-     */
+    private static final Tag<Effect> IMMUNE_TO_POISON = Tag.of("immune_to_poison");
     private static void assignEffects() {
         AetherEffects.poisonEffect = new PoisonEffect(
             "effect.aether.poison",
@@ -124,9 +123,6 @@ public class AetherEffects {
         effects.register(AetherEffects.invisibility.id, AetherEffects.invisibility);
         effects.register(AetherEffects.swetty.id, AetherEffects.swetty);
 
-        // in here for compatibility reasons.
-        effects.register(MOD_ID + ":extra_health", Effects.EXTRA_HEALTH);
-
         IMMUNE_TO_POISON.tag(AetherEffects.poisonEffect);
         EffectTagDispatcher.setImmunityFor(MobAechorPlant.class, IMMUNE_TO_POISON);
         EffectTagDispatcher.setImmunityFor(MobCockatrice.class, IMMUNE_TO_POISON);
@@ -139,32 +135,6 @@ public class AetherEffects {
 
         EffectTagDispatcher.setImmunityFor(MobFireMinion.class, IMMUNE_TO_POISON);
         EffectTagDispatcher.setImmunityFor(MobBossSunspirit.class, IMMUNE_TO_POISON);
-    }
-
-    private static void assignEffectRenderers() {
-        EffectRendererDispatcher dispatcher = EffectRendererDispatcher.getInstance();
-
-        dispatcher.addDispatch(poisonEffect, new PoisonEffectRenderer<>(
-                poisonEffect,
-                "/assets/aether/textures/other/poisonvignette.png",
-                0x8218cb,
-                "aether:gui/hud/poison/"
-            )
-                .setIcon("poison.png")
-        );
-
-        dispatcher.addDispatch(remedyEffect, new RemedyEffectRenderer<>(
-                remedyEffect,
-                "/assets/aether/textures/other/curevignette.png",
-                0x009bc2,
-                "aether:gui/hud/remedy/"
-            )
-                .setIcon("remedy.png")
-        );
-
-        dispatcher.addDispatch(invisibility, new EffectRenderer<>(invisibility).setIcon("invisibility.png"));
-
-        dispatcher.addDispatch(swetty, new EffectRenderer<>(swetty).setIcon("swetty.png"));
     }
 
     /**
@@ -195,12 +165,19 @@ public class AetherEffects {
 
 
     public static boolean add(Entity entity, EffectStack stackToAdd) {
-        if (!(entity instanceof IHasEffects)) return false;
-        IHasEffects<?> hasEffects = (IHasEffects<?>) entity;
+        if (!(entity instanceof IHasEffects<?> hasEffects)) return false;
+        if (entity.world.isClientSide) return false;
+        if (!stackToAdd.getEffect().canApplyTo(entity)) return false;
+        if (stackToAdd.getAmount() <= 0) return false;
 
         for (EffectStack effect : hasEffects.getContainer().getEffects()) {
-            if(effect.getEffect() == stackToAdd.getEffect()){
+            if (effect.getEffect() == stackToAdd.getEffect()) {
                 int amount = Math.min(stackToAdd.getAmount(), effect.getEffect().getMaxStack() - effect.getAmount());
+                if (amount <= 0) {
+                    if (effect.getEffect().getTimeType() != EffectTimeType.RESET) return false;
+                    effect.add(0, hasEffects.getContainer());
+                    return true;
+                }
                 effect.add(amount, hasEffects.getContainer());
                 return true;
             }
@@ -213,8 +190,7 @@ public class AetherEffects {
         return true;
     }
 
-
-    public static <T> boolean isLocked(EffectStack effectStack, EffectContainer<T> effectContainer) {
+    public static <T> boolean isLocked(@NonNull EffectStack effectStack, EffectContainer<T> effectContainer) {
         Effect effectToAdd = effectStack.getEffect();
         Effect effectBlocker = AetherEffects.LookupLooks.instance.getLocker(effectToAdd);
 
@@ -233,5 +209,27 @@ public class AetherEffects {
         }
 
         return false;
+    }
+
+    public static @NotNull Function<Player, List<Modifier<?>>> getPlayerAccessoriesModifiers() {
+        return AetherEffects::getPlayerAccessoriesModifiers;
+    }
+
+    private static @NotNull List<Modifier<?>> getPlayerAccessoriesModifiers(Player player) {
+        ArrayList<Modifier<?>> modifiers = new ArrayList<>();
+        ItemStack[] accessories = ((IContainerInventoryAether)player.inventory).aether$getAccessoryInventory();
+        for (int i = 0; i < accessories.length; i++) {
+            ItemStack stack = accessories[i];
+            if (stack == null || !(stack.getItem() instanceof IItemWithModifiers iItemWithModifiers)) {
+                continue;
+            }
+            Map<Modifier<?>, Boolean> itemModifiers = iItemWithModifiers.getModifiers((IHasEffects<?>) player, stack, AetherGlobals.AETHER_ACCESSORY_SLOT_OFFSET + i);
+            for (Map.Entry<Modifier<?>, Boolean> entry : itemModifiers.entrySet()) {
+                if (entry.getValue()) {
+                    modifiers.add(entry.getKey());
+                }
+            }
+        }
+        return modifiers;
     }
 }

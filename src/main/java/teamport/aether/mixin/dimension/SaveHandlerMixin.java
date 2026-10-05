@@ -2,10 +2,12 @@ package teamport.aether.mixin.dimension;
 
 import com.mojang.nbt.NbtIo;
 import com.mojang.nbt.tags.CompoundTag;
+import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.save.DimensionData;
 import net.minecraft.core.world.save.ISaveFormat;
 import net.minecraft.core.world.save.LevelData;
-import net.minecraft.core.world.save.SaveHandlerBase;
+import net.minecraft.core.world.save.LevelStorageBase;
+import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -21,7 +23,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 
-@Mixin(value = SaveHandlerBase.class)
+@Mixin(LevelStorageBase.class)
 public abstract class SaveHandlerMixin {
     @Shadow
     @Final
@@ -34,19 +36,19 @@ public abstract class SaveHandlerMixin {
     protected File saveDirectory;
 
     @Inject(method = "getDimensionData", at = @At("HEAD"))
-    private void getDimensionData(int dimensionId, CallbackInfoReturnable<DimensionData> cir) {
-        if (dimensionId != AetherDimension.getAether().id) return;
+    private void getDimensionData(@NonNull Dimension dimension, CallbackInfoReturnable<DimensionData> cir) {
+        if (dimension.id != AetherDimension.getAether().id) return;
 
         AetherDimension.setDimensionDataDefaults();
 
-        CompoundTag dimensionData = saveFormat.getDimensionDataRaw(worldDirName, dimensionId);
+        CompoundTag dimensionData = saveFormat.getDimensionDataRaw(worldDirName, dimension);
         if (dimensionData != null) {
             AetherDimension.loadDimensionData(dimensionData);
         }
     }
 
     @Inject(method = "getLevelData", at = @At("HEAD"))
-    private void getWorldData(CallbackInfoReturnable<LevelData> cir) throws IOException  {
+    private void getWorldData(CallbackInfoReturnable<LevelData> cir) throws IOException {
         File AETHER_CUSTOM_DATA_FILE = new File(saveDirectory, "data/aether_custom_data.dat");
 
         if (AETHER_CUSTOM_DATA_FILE.exists()) {
@@ -58,7 +60,7 @@ public abstract class SaveHandlerMixin {
     }
 
     @Inject(method = "saveDimensionDataRaw", at = @At("HEAD"))
-    private void saveDimensionDataRaw(int dimensionId, CompoundTag dimensionData, CallbackInfo ci) throws IOException {
+    private void saveDimensionDataRaw(int dimensionId, CompoundTag dimensionDataTag, CallbackInfo ci) throws IOException {
 
         File AETHER_CUSTOM_DATA_FILE = new File(saveDirectory, "data/aether_custom_data.dat");
         CompoundTag aetherData = new CompoundTag();
@@ -70,6 +72,6 @@ public abstract class SaveHandlerMixin {
         dos.close();
 
         if (dimensionId != AetherDimension.getAether().id) return;
-        AetherDimension.saveDimensionData(dimensionData);
+        AetherDimension.saveDimensionData(dimensionDataTag);
     }
 }

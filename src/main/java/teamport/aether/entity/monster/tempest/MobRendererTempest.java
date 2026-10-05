@@ -2,13 +2,15 @@ package teamport.aether.entity.monster.tempest;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.render.entity.MobRenderer;
+import net.minecraft.client.render.renderer.BlendFactor;
+import net.minecraft.client.render.renderer.GLRenderer;
+import net.minecraft.client.render.renderer.State;
 import net.minecraft.core.util.helper.MathHelper;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import org.lwjgl.opengl.GL11;
 import org.useless.dragonfly.models.entity.BoneTransform;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
-import org.useless.dragonfly.renderer.MobRenderer;
 
 @Environment(EnvType.CLIENT)
 public class MobRendererTempest extends MobRenderer<MobTempest> {
@@ -19,33 +21,24 @@ public class MobRendererTempest extends MobRenderer<MobTempest> {
     @Override
     protected @Nullable StaticEntityModel getAndSetupModelForLayer(@NonNull MobTempest tempest, float brightness, float partialTick, int layer) {
         StaticEntityModel model;
-        if (layer == 1) {
+        if (layer == 2) {
+            this.bindTexture("/assets/aether/textures/entity/tempest/eyes/" + tempest.getTextureReference() + ".png");
+            GLRenderer.setLightmapCoord2i(15, 15);
+            GLRenderer.enableState(State.BLEND);
+            GLRenderer.setBlendFunc(BlendFactor.SRC_ALPHA, BlendFactor.ONE_MINUS_SRC_ALPHA);
+        } else if (layer == 1) {
             model = this.getModel("wind");
             model.resetBones();
-        } else if (layer == 0) {
-            model = this.getModel("main");
-            model.resetBones();
-        } else {
-            model = null;
-        }
 
-        if (layer == 1) {
             this.bindTexture("/assets/aether/textures/entity/tempest/wind.png");
 
             float time = tempest.tickCount + partialTick;
-            float scroll = time * 0.1F;
             float spinSpeed = 0.375F;
             float wobbleSpeed = 0.9F;
             float wobbleStrength = 0.12F;
             float wobble = MathHelper.sin(time * wobbleSpeed) * wobbleStrength;
 
-            GL11.glMatrixMode(GL11.GL_TEXTURE);
-            GL11.glPushMatrix();
-            GL11.glLoadIdentity();
-            GL11.glTranslatef(-scroll, 0.0F, 0.0F);
-
-            GL11.glMatrixMode(GL11.GL_MODELVIEW);
-            GL11.glEnable(GL11.GL_BLEND);
+            GLRenderer.enableState(State.BLEND);
 
             BoneTransform wind = model.getTransform("wind");
             wind.rotY = time * spinSpeed;
@@ -67,20 +60,17 @@ public class MobRendererTempest extends MobRenderer<MobTempest> {
             wind5.rotY = wind3.rotY;
             wind5.rotX = wobble * 0.35F;
 
-        } else if (layer == 2) {
-            GL11.glMatrixMode(GL11.GL_TEXTURE);
-            GL11.glPopMatrix();
-            GL11.glLoadIdentity();
-            GL11.glMatrixMode(GL11.GL_MODELVIEW);
-            GL11.glDisable(GL11.GL_BLEND);
-        } else {
-            float bodyYaw = this.getBodyYaw(tempest, partialTick);
-            float headYaw = this.getHeadYaw(tempest, partialTick) - bodyYaw;
-            float headPitch = this.getHeadPitch(tempest, partialTick);
-            BoneTransform head = model.getTransform("head");
-            head.rotY = headYaw;
-            head.rotX = headPitch;
+            return model;
         }
+        model = this.getModel("main");
+        model.resetBones();
+
+        float bodyYaw = this.getBodyYaw(tempest, partialTick);
+        float headYaw = this.getHeadYaw(tempest, partialTick) - bodyYaw;
+        float headPitch = this.getHeadPitch(tempest, partialTick);
+        BoneTransform head = model.getTransform("head");
+        head.rotY = headYaw;
+        head.rotX = headPitch;
 
         return model;
     }

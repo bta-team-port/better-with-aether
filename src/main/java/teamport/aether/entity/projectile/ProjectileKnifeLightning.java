@@ -7,11 +7,12 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.entity.projectile.Projectile;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherMod;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItems;
 
-public class ProjectileKnifeLightning extends Projectile implements ProjectileAether, AetherProjectileDeathMessages {
+public class ProjectileKnifeLightning extends Projectile implements ProjectileAether {
 
     @SuppressWarnings("unused")
     public ProjectileKnifeLightning(World world) {
@@ -35,26 +36,26 @@ public class ProjectileKnifeLightning extends Projectile implements ProjectileAe
     }
 
     @Override
-    public void onHit(HitResult hitResult) {
-        if (this.world == null) return;
-        if (hitResult.entity != null) {
-            hitResult.entity.hurt(this.owner, this.damage, AetherMod.LIGHTNING);
+    public void onHit(@NonNull HitResult hitResult) {
+        if (hitResult instanceof HitResult.Entity entity) {
+            Entity hitEntity = entity.entity;
+            hitEntity.hurt(this.owner, this.damage, AetherMod.LIGHTNING);
             if (!world.isClientSide) {
-                world.entityJoinedWorld(new EntityLightning(hitResult.entity.world, hitResult.entity.x, hitResult.entity.y, hitResult.entity.z));
+                world.entityJoinedWorld(new EntityLightning(hitEntity.world, hitEntity.x, hitEntity.y, hitEntity.z));
             }
 
             doEffect();
             this.remove();
         }
 
-        if (hitResult.hitType == HitResult.HitType.TILE) {
+        if (hitResult instanceof HitResult.Tile tileHit) {
             if (!world.isClientSide) {
                 world.entityJoinedWorld(
                     new EntityLightning(
                         world,
-                        (double) hitResult.x + hitResult.side.getOffsetX(),
-                        (double) hitResult.y + hitResult.side.getOffsetY(),
-                        (double) hitResult.z + hitResult.side.getOffsetZ()
+                        (double) tileHit.tilePos.x() + tileHit.side.offsetX(),
+                        (double) tileHit.tilePos.y() + tileHit.side.offsetY(),
+                        (double) tileHit.tilePos.z() + tileHit.side.offsetZ()
                     )
                 );
             }
@@ -65,7 +66,6 @@ public class ProjectileKnifeLightning extends Projectile implements ProjectileAe
     }
 
     public void doEffect() {
-        if (this.world == null) return;
         for (int j = 0; j < 8; ++j) {
             ParticleMaker.spawnParticle(world,
                 "item",
@@ -90,10 +90,10 @@ public class ProjectileKnifeLightning extends Projectile implements ProjectileAe
     }
 
     @SuppressWarnings("unused")
-    public static Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner) {
+    public static @NonNull Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner) {
         ProjectileKnifeLightning knife = new ProjectileKnifeLightning(world, x, y, z);
         if (hasVelocity) knife.setHeading(xd, yd, zd, 1, 0);
-        if (owner instanceof Mob) knife.owner = (Mob) owner;
+        if (owner instanceof Mob mob) knife.owner = mob;
         return knife;
     }
 }

@@ -3,6 +3,7 @@ package teamport.aether.world.type;
 import net.minecraft.core.Global;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.biome.Biome;
 import net.minecraft.core.world.biome.provider.BiomeProvider;
 import net.minecraft.core.world.config.season.SeasonConfig;
 import net.minecraft.core.world.generate.chunk.ChunkGenerator;
@@ -10,8 +11,10 @@ import net.minecraft.core.world.season.Seasons;
 import net.minecraft.core.world.type.WorldType;
 import net.minecraft.core.world.weather.Weather;
 import net.minecraft.core.world.weather.Weathers;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.world.SunSpiritDeath;
+import teamport.aether.world.biome.AetherBiomes;
 import teamport.aether.world.chunk.BiomeProviderAether;
 import teamport.aether.world.chunk.ChunkGeneratorAether;
 
@@ -20,7 +23,7 @@ public class WorldTypeAether extends WorldType {
         super(properties);
     }
 
-    public static WorldType.Properties defaultProperties(String translationKey) {
+    public static WorldType.@NonNull Properties defaultProperties(String translationKey) {
         return Properties.of(translationKey)
             .brightnessRamp(getLightRamp())
             .defaultWeather(Weathers.OVERWORLD_CLEAR)
@@ -31,7 +34,6 @@ public class WorldTypeAether extends WorldType {
                 .withSeasonInCycle(Seasons.OVERWORLD_WINTER, 14)
                 .build())
             .dayNightCycleTicks(Global.DAY_LENGTH_TICKS)
-            .oceanBlock(null)
             .fillerBlock(AetherBlocks.COBBLE_HOLYSTONE);
     }
 
@@ -52,18 +54,24 @@ public class WorldTypeAether extends WorldType {
     }
 
     @Override
+    public void onWorldCreation(World world) {
+        super.onWorldCreation(world);
+        world.setWorldTime(72000L);
+    }
+
+    @Override
     public int getOceanY() {
         return 0;
     }
 
     @Override
-    public int getOceanBlockId() {
-        return 0;
+    public Biome @NonNull [] allBiomes() {
+        return new Biome[]{AetherBiomes.AETHER_PLAINS};
     }
 
     @Override
-    public BiomeProvider createBiomeProvider(World world) {
-        return new BiomeProviderAether(world.getRandomSeed(), this);
+    public @NonNull BiomeProvider createBiomeProvider(World world) {
+        return new BiomeProviderAether(world);
     }
 
     @Override
@@ -72,8 +80,8 @@ public class WorldTypeAether extends WorldType {
     }
 
     @Override
-    public boolean isValidSpawn(World world, int i, int j, int k) {
-        return world.getBlock(i, j, k) == AetherBlocks.GRASS_AETHER;
+    public boolean isValidSpawn(@NonNull World world, int x, int y, int z) {
+        return world.getBlockId(x, y, z) == AetherBlocks.GRASS_AETHER.id();
     }
 
     @Override
@@ -114,7 +122,7 @@ public class WorldTypeAether extends WorldType {
         }
 
         float f2 = timeFraction;
-        timeFraction = 1.0F - (float) ((Math.cos(timeFraction * 3.1415926535897931D) + 1.0D) / 2D);
+        timeFraction = 1.0F - (float) ((Math.cos(timeFraction * Math.PI) + 1.0D) / 2D);
         timeFraction = f2 + (timeFraction - f2) / 3F;
         return timeFraction;
     }
@@ -137,7 +145,7 @@ public class WorldTypeAether extends WorldType {
         float weatherOffset = 0.0F;
         Weather currentWeather = world.getCurrentWeather();
         if (currentWeather != null) {
-            weatherOffset = currentWeather.subtractLightLevel * world.weatherManager.getWeatherIntensity() * world.weatherManager.getWeatherPower();
+            weatherOffset = currentWeather.getLightLevelSubtracted() * world.getWeatherManager().getWeatherIntensity() * world.getWeatherManager().getWeatherPower();
         }
         return (int) (f2 * (11.0F - weatherOffset) + weatherOffset);
     }

@@ -13,13 +13,13 @@ import teamport.aether.item.AetherItems;
 
 import java.util.Random;
 
-@Mixin(value = WorldFeatureLabyrinth.class)
+@Mixin(WorldFeatureLabyrinth.class)
 public abstract class WorldFeatureLabyrinthMixin {
     @Shadow
     public WeightedRandomBag<WeightedRandomLootObject> chestLoot;
     @Inject(method = "place", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/WeightedRandomBag;addEntry(Ljava/lang/Object;D)V", ordinal = 7, shift = At.Shift.AFTER))
     private void addCustomLoot(World world, Random random, int x, int y, int z, CallbackInfoReturnable<Boolean> cir) {
-        this.chestLoot.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_GLOVES_CHAIN.getDefaultStack()).setRandomMetadata(AetherItems.ARMOR_GLOVES_CHAIN.getMaxDamage() / 2, AetherItems.ARMOR_GLOVES_CHAIN.getMaxDamage()), 20.0);
-        this.chestLoot.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_CHAIN.getDefaultStack()).setRandomMetadata(AetherItems.ARMOR_TALISMAN_CHAIN.getMaxDamage() / 2, AetherItems.ARMOR_TALISMAN_CHAIN.getMaxDamage()), 20.0);
+        this.chestLoot.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_GLOVES_CHAINMAIL.getDefaultStack()).setRandomMetadata(AetherItems.ARMOR_GLOVES_CHAINMAIL.getMaxDamage() / 2, AetherItems.ARMOR_GLOVES_CHAINMAIL.getMaxDamage()), 20.0);
+        this.chestLoot.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_CHAINMAIL.getDefaultStack()).setRandomMetadata(AetherItems.ARMOR_TALISMAN_CHAINMAIL.getMaxDamage() / 2, AetherItems.ARMOR_TALISMAN_CHAINMAIL.getMaxDamage()), 20.0);
     }
 }

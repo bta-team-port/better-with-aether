@@ -16,21 +16,25 @@ import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.menu.MenuInventory;
 import net.minecraft.core.player.inventory.slot.Slot;
-import org.lwjgl.input.Mouse;
+import org.jspecify.annotations.NonNull;
+import org.lwjgl.glfw.GLFW;
+import org.lwjgl.system.MemoryStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.item.AetherItemTags;
-import teamport.aether.item.accessory.IAccessory;
-import teamport.aether.lookup.LookupTrinketIcons;
-import teamport.aether.option.AetherGameSettingsOptions;
+import teamport.aether.item.accessory.ItemAccessory;
+import teamport.aether.lookup.LookupTrinketOutlines;
+import teamport.aether.option.AetherGameSettingsHolder;
+
+import java.nio.DoubleBuffer;
 
 import static teamport.aether.AetherMod.ARMOR_START_INDEX;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = ItemElement.class)
+@Mixin(ItemElement.class)
 public abstract class ItemElementMixinHoverShowSlot {
     @Unique
     private int lastTick = 0;
@@ -41,31 +45,36 @@ public abstract class ItemElementMixinHoverShowSlot {
     @Shadow
     Minecraft mc;
     @WrapOperation(method = "render(Lnet/minecraft/core/item/ItemStack;IIZLnet/minecraft/core/player/inventory/slot/Slot;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/ItemElement;drawTexturedIcon(IIIILnet/minecraft/client/render/texture/stitcher/IconCoordinate;)V", ordinal = 0))
-    private void changeWildcardIconOnHoverAndClick(ItemElement instance, int x, int y, int slotWidth, int slotHeight, IconCoordinate defaultIcon, Operation<Void> original, @Local(argsOnly = true) Slot currectSlot) {
+    private void changeWildcardIconOnHoverAndClick(ItemElement instance, int x, int y, int slotWidth, int slotHeight, IconCoordinate defaultIcon, Operation<Void> original, @Local(argsOnly = true) @NonNull Slot currectSlot) {
         if (currectSlot.index >= ARMOR_START_INDEX + TRINKET_1_SLOT && (this.mc.currentScreen instanceof ScreenInventory || this.mc.currentScreen instanceof ScreenInventoryCreative)) {
-            int seconds = ((AetherGameSettingsOptions) mc.gameSettings).aether$getAccessoryFlickSpeed().value;
+            int seconds = AetherGameSettingsHolder.FLICK_ACCESSORY_SPEED.value;
             if (seconds != 0) {
                 if (this.mc.thePlayer.tickCount - lastTick >= seconds * Global.TICKS_PER_SECOND) { // 3000
                     lastTick = this.mc.thePlayer.tickCount;
-                    iconPathTrinket1 = LookupTrinketIcons.INSTANCE.getRandomEntry();
-                    iconPathTrinket2 = LookupTrinketIcons.INSTANCE.getRandomEntry();
+                    iconPathTrinket1 = LookupTrinketOutlines.INSTANCE.getRandomEntry();
+                    iconPathTrinket2 = LookupTrinketOutlines.INSTANCE.getRandomEntry();
                 }
                 if (iconPathTrinket1 != null && iconPathTrinket2 != null) {
                     defaultIcon = TextureRegistry.getTexture(currectSlot.index > ARMOR_START_INDEX + TRINKET_1_SLOT ? iconPathTrinket2 : iconPathTrinket1);
                 }
             }
-            // got this from WoldRender, works like a charm
             int screenWidth = this.mc.resolution.getScaledWidthScreenCoords();
             int screenHeight = this.mc.resolution.getScaledHeightScreenCoords();
-            int mouseX = Mouse.getX() * screenWidth / this.mc.resolution.getWidthScreenCoords();
-            int mouseY = screenHeight - Mouse.getY() * screenHeight / this.mc.resolution.getHeightScreenCoords() - 1;
-            // TODO better way of checking if an item is dragged or not
+            int mouseX;
+            int mouseY;
+            try (MemoryStack stack = MemoryStack.stackPush()) {
+                DoubleBuffer cursorX = stack.mallocDouble(1);
+                DoubleBuffer cursorY = stack.mallocDouble(1);
+                GLFW.glfwGetCursorPos(this.mc.gameWindow.getHandle(), cursorX, cursorY);
+                mouseX = (int) (cursorX.get(0) * screenWidth / this.mc.resolution.getWidthScreenCoords());
+                mouseY = (int) (cursorY.get(0) * screenHeight / this.mc.resolution.getHeightScreenCoords());
+            }
             if (((MenuInventory) ((ScreenInventory) this.mc.currentScreen).inventorySlots).inventory.getHeldItemStack() != null) {
                 ItemStack hoverStack = ((MenuInventory) ((ScreenInventory) this.mc.currentScreen).inventorySlots).inventory.getHeldItemStack();
                 if (hoverStack != null) {
                     Item item = hoverStack.getItem();
-                    if (item instanceof IAccessory || item.hasTag(AetherItemTags.TRINKET)) {
-                        String iconPath = LookupTrinketIcons.INSTANCE.getEntry(item);
+                    if (item instanceof ItemAccessory<?> || item.hasTag(AetherItemTags.TRINKET)) {
+                        String iconPath = LookupTrinketOutlines.INSTANCE.getEntry(item);
                         IconCoordinate displayIcon = iconPath != null ? TextureRegistry.getTexture(iconPath) : defaultIcon;
                         instance.drawTexturedIcon(x, y, 16, 16, displayIcon);
                         return;
@@ -77,8 +86,8 @@ public abstract class ItemElementMixinHoverShowSlot {
                 ItemStack hoverStack = slot.getItemStack();
                 if (hoverStack != null) {
                     Item item = hoverStack.getItem();
-                    if (item instanceof IAccessory || item.hasTag(AetherItemTags.TRINKET)) {
-                        String iconPath = LookupTrinketIcons.INSTANCE.getEntry(item);
+                    if (item instanceof ItemAccessory<?> || item.hasTag(AetherItemTags.TRINKET)) {
+                        String iconPath = LookupTrinketOutlines.INSTANCE.getEntry(item);
                         IconCoordinate displayIcon = iconPath != null ? TextureRegistry.getTexture(iconPath) : defaultIcon;
                         instance.drawTexturedIcon(x, y, 16, 16, displayIcon);
                         return;

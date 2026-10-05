@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.PlayerLocal;
 import net.minecraft.client.net.handler.PacketHandlerClient;
 import net.minecraft.core.net.packet.PacketContainerOpen;
+import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,29 +20,29 @@ import teamport.aether.block.entity.TileEntityIncubator;
 import teamport.aether.gui.AetherScreens;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = PacketHandlerClient.class)
+@Mixin(PacketHandlerClient.class)
 public abstract class PacketHandlerClientMixinAetherMachines {
     @Final
     @Shadow
     private Minecraft mc;
-    @Inject(method = "handleOpenWindow", at = @At("TAIL"))
-    private void handleAetherMachines(PacketContainerOpen packet, CallbackInfo ci) {
+    @Inject(method = "handleContainerOpen(Lnet/minecraft/core/net/packet/PacketContainerOpen;)V", at = @At("TAIL"))
+    private void handleAetherMachines(@NonNull PacketContainerOpen packetContainerOpen, CallbackInfo ci) {
         PlayerLocal playerLocal = this.mc.thePlayer;
         AetherScreens playerScreen = (AetherScreens) playerLocal;
-        if (packet.inventoryType == AetherConfig.ENCHANTER_SCREEN_ID) {
+        if (packetContainerOpen.inventoryType == AetherConfig.ENCHANTER_SCREEN_ID) {
             TileEntityEnchanter machine = new TileEntityEnchanter();
             playerScreen.aether$displayEnchanterScreen(machine);
-            playerLocal.craftingInventory.containerId = packet.windowId;
+            playerLocal.containerMenu.containerId = packetContainerOpen.windowId;
         }
-        if (packet.inventoryType == AetherConfig.FREEZER_SCREEN_ID) {
+        if (packetContainerOpen.inventoryType == AetherConfig.FREEZER_SCREEN_ID) {
             TileEntityFreezer machine = new TileEntityFreezer();
             playerScreen.aether$displayFreezerScreen(machine);
-            playerLocal.craftingInventory.containerId = packet.windowId;
+            playerLocal.containerMenu.containerId = packetContainerOpen.windowId;
         }
-        if (packet.inventoryType == AetherConfig.INCUBATOR_SCREEN_ID) {
+        if (packetContainerOpen.inventoryType == AetherConfig.INCUBATOR_SCREEN_ID) {
             TileEntityIncubator machine = new TileEntityIncubator();
             playerScreen.aether$displayIncubatorScreen(machine);
-            playerLocal.craftingInventory.containerId = packet.windowId;
+            playerLocal.containerMenu.containerId = packetContainerOpen.windowId;
         }
     }
 }

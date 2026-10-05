@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = ScreenContainerAbstract.class)
+@Mixin(ScreenContainerAbstract.class)
 public interface ScreenContainerAbstractAccessor {
     @Invoker
     int invokeGetSlotId(int x, int y);

@@ -2,31 +2,24 @@ package teamport.aether.entity.monster.tempest;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
-import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.sound.SoundCategory;
-import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherMod;
-import teamport.aether.entity.AetherDeathMessage;
-import teamport.aether.entity.animal.whirly.MobWhirly;
 import teamport.aether.entity.monster.MobMonsterAether;
-import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.entity.projectile.ProjectileElementLightning;
 import teamport.aether.helper.ParticleMaker;
 
-;
-
 @SuppressWarnings("java:S110")
-public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMessage {
+public class MobTempest extends MobMonsterAether implements Enemy {
     private int cooldown;
     private final int maxLifetime;
 
     public MobTempest(World world) {
         super(world);
         this.setSize(1.0F, 2.0F);
-        this.textureIdentifier = NamespaceID.getPermanent("aether", "tempest");
+        this.setTextureIdentifier("aether", "tempest");
         this.maxLifetime = this.random.nextInt(1024) + 1024;
         this.scoreValue = 400;
         this.footSize = 1.0f;
@@ -52,8 +45,8 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
         }
     }
 
-    @SuppressWarnings("java:S1192")
     @Override
+    @SuppressWarnings("java:S1192")
     public void updateAI() {
         super.updateAI();
         if (this.isInWaterOrRain() || (this.entityAge >= this.maxLifetime && !this.hadNicknameSet)) {
@@ -71,18 +64,11 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
 
         if (this.cooldown >= 64 && this.target != null) {
             ProjectileElementLightning elementLightning = new ProjectileElementLightning(this.world, this);
-            elementLightning.setHeading(world.rand.nextDouble(), this.getLookAngle().y + 5, world.rand.nextDouble(), 0.5f, 0.0f);
+            elementLightning.setHeading(world.rand.nextDouble(), this.getViewVector(1.0F).y() + 5, world.rand.nextDouble(), 0.5f, 0.0f);
             this.world.playSoundAtEntity(null, this, "mob.ghast.fireball", this.getSoundVolume(), (this.random.nextFloat() + this.random.nextFloat()) * 1.2F + 1.0F);
             this.world.entityJoinedWorld(elementLightning);
             this.cooldown = 0;
         }
-    }
-
-    @Override
-    protected Entity findPlayerToAttack() {
-        if (this.world == null) return null;
-        Player entityplayer =  PlayerUtil.getClosestNonInvisPlayerToEntity(this.world, this, 16.0);
-        return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().areMobsHostile() ? entityplayer : null;
     }
 
     @Override
@@ -94,13 +80,13 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
     }
 
     @Override
-    public void causeFallDamage(float distance){/* dont take fall damage*/}
+    public void causeFallDamage(float distance) {/* dont take fall damage*/}
 
-    @SuppressWarnings("java:S131")
     @Override
+    @SuppressWarnings("java:S131")
     public boolean collidesWith(Entity entity) {
         float launchSpeed = 0.75F;
-        if (this.world != null && !(entity instanceof MobWhirly)) {
+        if (!(entity instanceof MobTempest)) {
             float launchHeightSpeed = launchSpeed / 2.0f;
             entity.fling(world.rand.nextGaussian(), launchHeightSpeed, world.rand.nextGaussian(), 0);
             return false;
@@ -134,5 +120,5 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
     }
 
     @Override
-    protected void jump(){/* looks weird if it jumps */}
+    protected void jump() {/* looks weird if it jumps */}
 }

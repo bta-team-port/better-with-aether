@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "aether:block/polished_holystone_top",
+    "side": "aether:block/polished_holystone_side"
+  }
+}

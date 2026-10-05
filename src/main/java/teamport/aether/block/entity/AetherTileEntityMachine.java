@@ -6,24 +6,29 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.motion.CarriedBlock;
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.EntityItem;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.net.packet.Packet;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Side;
+import net.minecraft.core.world.ICarriable;
+import net.minecraft.core.world.ICarrySource;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import java.util.Random;
 
-public class AetherTileEntityMachine extends TileEntity implements Container {
+public abstract class AetherTileEntityMachine extends TileEntity implements Container, ICarrySource {
     public final Random random = new Random();
 
     protected ItemStack[] containerItemStacks;
-    private int maxEnergyTime = 0;       // maxBurnTime
-    private int currentEnergyTime = 0;   // currentBurnTime
-    private int maxProcessTime = 200;    // maxCookTime
-    private int currentProcessTime = 0;  // currentCookTime
+    private int maxEnergyTime = 0;
+    private int currentEnergyTime = 0;
+    private int maxProcessTime = 200;
+    private int currentProcessTime = 0;
 
     public AetherTileEntityMachine() {
         this.containerItemStacks = new ItemStack[3];
@@ -45,7 +50,7 @@ public class AetherTileEntityMachine extends TileEntity implements Container {
             ItemStack itemstack = this.containerItemStacks[index];
             this.containerItemStacks[index] = null;
             if (this.worldObj != null && index == 2) {
-                this.worldObj.markBlockNeedsUpdate(this.x, this.y, this.z);
+                this.worldObj.markBlockNeedsUpdate(this.tilePos.x, this.tilePos.y, this.tilePos.z);
             }
             return itemstack;
         }
@@ -53,7 +58,7 @@ public class AetherTileEntityMachine extends TileEntity implements Container {
         if (this.containerItemStacks[index].stackSize <= 0) {
             this.containerItemStacks[index] = null;
             if (this.worldObj != null && index == 2) {
-                this.worldObj.markBlockNeedsUpdate(this.x, this.y, this.z);
+                this.worldObj.markBlockNeedsUpdate(this.tilePos.x, this.tilePos.y, this.tilePos.z);
             }
         }
         return itemStack;
@@ -66,17 +71,16 @@ public class AetherTileEntityMachine extends TileEntity implements Container {
         }
 
         if (this.worldObj != null && index == 2 && itemStack == null) {
-            this.worldObj.markBlockNeedsUpdate(this.x, this.y, this.z);
+            this.worldObj.markBlockNeedsUpdate(this.tilePos.x, this.tilePos.y, this.tilePos.z);
         }
     }
 
-    public String getNameTranslationKey() {
+    public @NonNull String getNameTranslationKey() {
         return "";
     }
 
     @Override
-    public void readFromNBT(CompoundTag compoundTag) {
-        super.readFromNBT(compoundTag);
+    public void readAdditionalData(@NonNull CompoundTag compoundTag) {
         ListTag listTag = compoundTag.getList("Items");
         this.containerItemStacks = new ItemStack[this.getContainerSize()];
 
@@ -93,8 +97,7 @@ public class AetherTileEntityMachine extends TileEntity implements Container {
     }
 
     @Override
-    public void writeToNBT(CompoundTag compoundTag) {
-        super.writeToNBT(compoundTag);
+    public void writeAdditionalData(@NonNull CompoundTag compoundTag) {
         compoundTag.putShort("EnergyTime", (short) this.currentEnergyTime);
         compoundTag.putShort("ProcessTime", (short) this.currentProcessTime);
         compoundTag.putShort("MaxEnegryTime", (short) this.maxEnergyTime);
@@ -147,19 +150,45 @@ public class AetherTileEntityMachine extends TileEntity implements Container {
     }
 
     public boolean stillValid(Player entityplayer) {
-        if (this.worldObj != null && this.worldObj.getTileEntity(this.x, this.y, this.z) == this) {
-            return entityplayer.distanceToSqr(this.x + 0.5, this.y + 0.5, this.z + 0.5) <= 64.0;
+        if (this.worldObj != null && this.worldObj.getTileEntity(this.tilePos) == this) {
+            return entityplayer.distanceToSqr(this.tilePos.x + 0.5, this.tilePos.y + 0.5, this.tilePos.z + 0.5) <= 64.0;
         } else {
             return false;
         }
     }
 
     @Override
-    public void sortContainer() {
+    public void sort() {
     }
 
     @Override
     public void dropContents(World world, int x, int y, int z) {
+        super.dropContents(world, x, y, z);
+        for (int l = 0; l < this.getContainerSize(); ++l) {
+            ItemStack itemstack = this.getItem(l);
+            if (itemstack != null) {
+                float f = worldObj.rand.nextFloat() * 0.8F + 0.1F;
+                float f1 = worldObj.rand.nextFloat() * 0.8F + 0.1F;
+                float f2 = worldObj.rand.nextFloat() * 0.8F + 0.1F;
+
+                while (itemstack.stackSize > 0) {
+                    int i1 = worldObj.rand.nextInt(21) + 10;
+                    if (i1 > itemstack.stackSize) {
+                        i1 = itemstack.stackSize;
+                    }
+
+                    itemstack.stackSize -= i1;
+                    EntityItem entityItem = new EntityItem(
+                        world, x + f, y + f1, z + f2,
+                        new ItemStack(itemstack.itemID, i1, itemstack.getMetadata()));
+                    float f3 = 0.05F;
+                    entityItem.xd = (float) worldObj.rand.nextGaussian() * f3;
+                    entityItem.yd = (float) worldObj.rand.nextGaussian() * f3 + 0.2F;
+                    entityItem.zd = (float) worldObj.rand.nextGaussian() * f3;
+                    world.entityJoinedWorld(entityItem);
+                }
+            }
+        }
     }
 
     @Override
@@ -180,16 +209,6 @@ public class AetherTileEntityMachine extends TileEntity implements Container {
         }
 
         return success;
-    }
-
-    @Override
-    public boolean canBeCarried(World world, Entity potentialHolder) {
-        return true;
-    }
-
-    @Override
-    public CarriedBlock getCarriedEntry(World world, Entity holder, Block<?> currentBlock, int currentMeta) {
-        return super.getCarriedEntry(world, holder, currentBlock, currentMeta & -8 | 2);
     }
 
     public int getMaxEnergyTime() {
@@ -222,5 +241,15 @@ public class AetherTileEntityMachine extends TileEntity implements Container {
 
     public void setCurrentProcessTime(int currentProcessTime) {
         this.currentProcessTime = currentProcessTime;
+    }
+
+    @Override
+    public @NonNull ICarriable pickup(@NonNull World world, @NonNull Entity holder, @NonNull TilePosc tilePos_) {
+        return super.pickup(world, holder, tilePos_);
+    }
+
+    @Override
+    public CarriedBlock getCarriedEntry(World world, Entity holder, Block<?> currentBlock, int currentMeta) {
+        return super.getCarriedEntry(world, holder, currentBlock, currentMeta & -8 | 2);
     }
 }

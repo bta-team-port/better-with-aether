@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_lantern",
+  "textures": {
+    "all": "aether:block/lantern_firefly_silver"
+  }
+}

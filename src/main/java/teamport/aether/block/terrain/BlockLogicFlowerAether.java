@@ -2,8 +2,9 @@ package teamport.aether.block.terrain;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicFlowerStackable;
-import net.minecraft.core.block.Blocks;
+import net.minecraft.core.block.BlockLogicMoss;
 import net.minecraft.core.block.tag.BlockTags;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlockTags;
 
 public class BlockLogicFlowerAether extends BlockLogicFlowerStackable {
@@ -12,10 +13,7 @@ public class BlockLogicFlowerAether extends BlockLogicFlowerStackable {
     }
 
     @Override
-    public boolean mayPlaceOn(int blockId) {
-        Block<?> block = Blocks.blocksList[blockId];
-        return block != null
-            && (block.hasTag(BlockTags.GROWS_FLOWERS)
-            || block.hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS));
+    public boolean mayPlaceOn(@NonNull Block<?> block) {
+        return block.getLogic() instanceof BlockLogicMoss || block.hasTag(BlockTags.GROWS_FLOWERS) || block.hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS) || super.mayPlaceOn(block);
     }
 }

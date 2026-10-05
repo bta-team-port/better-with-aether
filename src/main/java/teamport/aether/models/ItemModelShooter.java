@@ -4,72 +4,67 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.PlayerRemote;
-import net.minecraft.client.render.Font;
-import net.minecraft.client.render.ItemRenderer;
-import net.minecraft.client.render.TextureManager;
 import net.minecraft.client.render.item.model.ItemModelDispatcher;
 import net.minecraft.client.render.item.model.ItemModelStandard;
-import net.minecraft.client.render.tessellator.Tessellator;
-import net.minecraft.client.render.texture.stitcher.IconCoordinate;
+import net.minecraft.client.render.renderer.GLRenderer;
+import net.minecraft.client.render.tessellator.TessellatorGeneral;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
-import org.lwjgl.opengl.GL11;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+import org.useless.dragonfly.DisplayPos;
 import teamport.aether.item.DartInterface;
 
 @Environment(EnvType.CLIENT)
 public class ItemModelShooter extends ItemModelStandard {
-    public ItemModelShooter(Item item, String namespace) {
-        super(item, namespace);
+    public ItemModelShooter(@NonNull Item item, boolean defaultTextureLookup) {
+        super(item, defaultTextureLookup);
+        this.setDisplayPos(DisplayPos.THIRD_PERSON_RIGHT_HAND, new DisplayPos(
+            -0.0625f, -0.125f, 0.15625f, -80.0f, 260.0f, -40.0f, 0.9f, 0.9f, 0.9f
+        ));
+        this.setDisplayPos(DisplayPos.THIRD_PERSON_LEFT_HAND, new DisplayPos(
+            -0.0625f, -0.125f, 0.15625f, -80.0f, -280.0f, 40.0f, 0.9f, 0.9f, 0.9f
+        ));
     }
 
     @Override
-    public void renderItem(Tessellator tessellator, ItemRenderer renderer, ItemStack itemstack, Entity entity, float brightness, boolean handheldTransform) {
-        super.renderItem(tessellator, renderer, itemstack, entity, brightness, handheldTransform);
-        Item nextDart = null;
-        if (entity instanceof Player) {
-            Player entityplayer = (Player) entity;
-            nextDart = this.getNextDart(entityplayer);
-        }
+    public void render(@NonNull TessellatorGeneral tessellator, @Nullable Entity holder, @NonNull ItemStack itemStack, @NonNull String displayPosId, boolean items3d, int clusterSize, byte lightIndex, float partialTick, boolean leftHanded) {
+        Player player = holder instanceof Player p ? p : Minecraft.getMinecraft().thePlayer;
 
-        if (nextDart != null) {
-            GL11.glRotatef(-90.0F, 0.0F, 0.0F, 1.0F);
-            GL11.glTranslatef(-1.2F, 0.3F, 0.0625F);
-            ItemModelDispatcher.getInstance().getDispatch(nextDart).renderItem(tessellator, renderer, itemstack, entity, brightness, false);
-        }
+        boolean isHeld = items3d || (player != null && player.getHeldItem() == itemStack);
+        Item nextDart = (isHeld && player != null) ? getNextDart(player) : null;
 
-    }
-
-    @Override
-    public void renderItemIntoGui(Tessellator tessellator, Font font, TextureManager textureManager, ItemStack itemStack, int x, int y, float brightness, float alpha) {
-        Minecraft mc = Minecraft.getMinecraft();
-        Item nextDart = this.getNextDart(mc.thePlayer);
-        if (itemStack == mc.thePlayer.getHeldItem() && nextDart != null) {
-            GL11.glEnable(GL11.GL_BLEND);
-            GL11.glBlendFunc(770, 771);
-            GL11.glEnable(GL11.GL_CULL_FACE);
-            ItemModelStandard dartModel = (ItemModelStandard) ItemModelDispatcher.getInstance().getDispatch(nextDart);
-            IconCoordinate textureIndex = dartModel.getIcon(mc.thePlayer, nextDart.getDefaultStack());
-            GL11.glDisable(GL11.GL_LIGHTING);
-            textureIndex.parentAtlas.bind();
-            if (this.useColor) {
-                int color = this.getColor(itemStack);
-                float r = (color >> 16 & 255) / 255.0F;
-                float g = (color >> 8 & 255) / 255.0F;
-                float b = (color & 255) / 255.0F;
-                GL11.glColor4f(r * brightness, g * brightness, b * brightness, alpha);
-            } else {
-                GL11.glColor4f(brightness, brightness, brightness, alpha);
+        if (!items3d) {
+            if (nextDart != null) {
+                renderDart(tessellator, holder, nextDart, lightIndex, false, false);
             }
+            GLRenderer.pushFrame();
+            GLRenderer.modelM4f().translate(0.0f, 0.0f, 0.001f);
+            super.render(tessellator, holder, itemStack, displayPosId, false, clusterSize, lightIndex, partialTick, leftHanded);
+            GLRenderer.popFrame();
+        } else {
+            super.render(tessellator, holder, itemStack, displayPosId, true, clusterSize, lightIndex, partialTick, leftHanded);
+            if (nextDart != null) {
+                boolean isLeft = leftHanded || displayPosId.contains("lefthand");
+                renderDart(tessellator, holder, nextDart, lightIndex, true, isLeft);
+            }
+        }
+    }
 
-            this.renderTexturedQuad(tessellator, x, y, textureIndex, false, false);
-            GL11.glEnable(GL11.GL_LIGHTING);
-            GL11.glEnable(GL11.GL_CULL_FACE);
-            GL11.glDisable(GL11.GL_BLEND);
+    private void renderDart(@NonNull TessellatorGeneral tessellator, @Nullable Entity holder, @NonNull Item nextDart, byte lightIndex, boolean items3d, boolean isLeftHanded) {
+        GLRenderer.pushFrame();
+
+        if (items3d) {
+            GLRenderer.modelM4f().rotateZ((float) (Math.PI / 2.0F));
+            float zOffset = isLeftHanded ? 0.0625f : -0.0625f;
+            GLRenderer.modelM4f().translate(0.3125f, 0.3125f, zOffset);
         }
 
-        super.renderItemIntoGui(tessellator, font, textureManager, itemStack, x, y, brightness, alpha);
+        this.renderCoordinate(tessellator, ItemModelDispatcher.getInstance().getDispatch(nextDart).getIcon(holder, nextDart.getDefaultStack()), lightIndex, -1, items3d, false);
+
+        GLRenderer.popFrame();
     }
 
     public Item getNextDart(Player player) {
@@ -80,14 +75,5 @@ public class ItemModelShooter extends ItemModelStandard {
         } else {
             return dartPlayer.better_with_aether$getNextDart();
         }
-    }
-
-    @Override
-    public void heldTransformThirdPerson(ItemRenderer renderer, Entity entity, ItemStack itemStack) {
-        GL11.glTranslatef(0.0F, 0.125F, 0.3125F);
-        GL11.glRotatef(-20.0F, 0.0F, 1.0F, 0.0F);
-        GL11.glScalef(0.625F, -0.625F, 0.625F);
-        GL11.glRotatef(-100.0F, 1.0F, 0.0F, 0.0F);
-        GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
     }
 }

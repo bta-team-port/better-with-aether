@@ -1,5 +1,7 @@
 package teamport.aether.entity.boss;
 
+import org.jspecify.annotations.NonNull;
+
 import java.util.Random;
 
 public class NameGenerator {
@@ -9,7 +11,7 @@ public class NameGenerator {
 
     private static final Random random = new Random();
 
-    public static String getRandomName() {
+    public static @NonNull String getRandomName() {
         String randomName = (NAME_ONE[random.nextInt(NAME_ONE.length)] + NAME_TWO[random.nextInt(NAME_TWO.length)] + NAME_THREE[random.nextInt(NAME_THREE.length)]);
         String start = randomName.substring(0, 1);
         String end = randomName.substring(1);

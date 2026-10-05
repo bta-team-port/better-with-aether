@@ -1,5 +1,7 @@
 package teamport.aether.helper;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.net.packet.PacketAddParticle;
@@ -7,7 +9,7 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.net.PlayerList;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.mixin.accessors.EntityAccessor;
 import turniplabs.halplibe.helper.EnvironmentHelper;
@@ -15,23 +17,18 @@ import turniplabs.halplibe.helper.EnvironmentHelper;
 import java.util.Random;
 
 public class ParticleMaker {
+    private ParticleMaker(){}
     private static final Random random = new Random();
 
     public static void spawnParticle(World world, String particleKey, double x, double y, double z, double motionX, double motionY, double motionZ, int data, double maxDistance) {
-        if (EnvironmentHelper.isClientWorld()) return;
+        if (EnvironmentHelper.isMultiplayerClient()) return;
 
-        if (EnvironmentHelper.isServerEnvironment()) {
-            PlayerList playerList = MinecraftServer.getInstance().playerList;
-
-            playerList.sendPacketToAllPlayersInDimension(
-                new PacketAddParticle(particleKey, x, y, z, motionX, motionY, motionZ, data, maxDistance),
-                world.dimension.id
-            );
-
+        if (EnvironmentHelper.isMultiplayerServer()) {
+            spawnParticleServer(world, particleKey, x, y, z, motionX, motionY, motionZ, data, maxDistance);
             return;
         }
 
-        world.spawnParticle(particleKey, x, y, z, motionX, motionY, motionZ, data, maxDistance);
+        world.spawnParticle(particleKey, x, y, z, motionX, motionY, motionZ, data, maxDistance, false);
     }
 
     public static void spawnParticle(World world, String particleKey, double x, double y, double z, double motionX, double motionY, double motionZ, int data) {
@@ -52,9 +49,9 @@ public class ParticleMaker {
             double faceY = blockY + 0.5 + (random.nextDouble() * 0.6 - 0.3);
             double faceZ = blockZ + 0.5 + (random.nextDouble() * 0.6 - 0.3);
 
-            double offX = face.getOffsetX() * (random.nextDouble() * 0.3);
-            double offY = face.getOffsetY() * (random.nextDouble() * 0.3);
-            double offZ = face.getOffsetZ() * (random.nextDouble() * 0.3);
+            double offX = face.offsetX() * (random.nextDouble() * 0.3);
+            double offY = face.offsetY() * (random.nextDouble() * 0.3);
+            double offZ = face.offsetZ() * (random.nextDouble() * 0.3);
 
             double spawnX = faceX + offX;
             double spawnY = faceY + offY;
@@ -191,7 +188,7 @@ public class ParticleMaker {
         }
     }
 
-    public static void spawnLightningSwordParticles(Mob target) {
+    public static void spawnLightningSwordParticles(@NonNull Mob target) {
         Random random = ((EntityAccessor) target).getRandom();
         double startY = target.y + 2.0;
         double endY = target.y;
@@ -223,7 +220,7 @@ public class ParticleMaker {
         }
     }
 
-    public static void spawnDowningBubbles(Mob target) {
+    public static void spawnDrowningBubbles(Mob target) {
         Random random = ((EntityAccessor) target).getRandom();
         for (int i = 0; i < 30; ++i) {
             double offX = random.nextFloat() - random.nextFloat();
@@ -231,5 +228,14 @@ public class ParticleMaker {
             double offZ = random.nextFloat() - random.nextFloat();
             spawnParticle(target.world, "bubble", target.x + offX, target.y + offY + 1, target.z + offZ, target.xd, target.yd, target.zd, 0);
         }
+    }
+
+    @Environment(EnvType.SERVER)
+    public static void spawnParticleServer(@NonNull World world, String particleKey, double x, double y, double z,
+                                           double motionX, double motionY, double motionZ, int data, double maxDistance) {
+        MinecraftServer.getInstance().playerList.sendPacketToAllPlayersInDimension(
+            new PacketAddParticle(particleKey, x, y, z, motionX, motionY, motionZ, data, maxDistance),
+            world.dimension.id
+        );
     }
 }

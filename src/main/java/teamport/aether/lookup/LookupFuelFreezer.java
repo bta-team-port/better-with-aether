@@ -11,8 +11,6 @@ public class LookupFuelFreezer {
     public static final LookupFuelFreezer INSTANCE = new LookupFuelFreezer();
     private final Map<Integer, Integer> fuelList = new HashMap<>();
 
-    public static void init(){/* just to load this class*/}
-
     private LookupFuelFreezer() {
         this.register();
     }

@@ -1,7 +1,9 @@
 package teamport.aether.achievements;
 
-import teamport.aether.AetherMod;
-import teamport.aether.helper.unboxed.IntPair;
+import it.unimi.dsi.fastutil.ints.IntIntMutablePair;
+import it.unimi.dsi.fastutil.ints.IntIntPair;
+import org.jspecify.annotations.NonNull;
+import teamport.aether.AetherGlobals;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -13,7 +15,7 @@ import java.util.Objects;
 
 public class AetherAchievementPageBackground {
 
-    public final List<IntPair> waterSources;
+    public final List<IntIntPair> waterSources;
     public final List<List<Integer>> specials;
     public final List<List<Integer>> terrainLayer1;
     public final List<List<Integer>> terrainLayer2;
@@ -44,7 +46,7 @@ public class AetherAchievementPageBackground {
             heightTemp = terrainLayer1Temp.size() - 1;
             widthTemp = terrainLayer1Temp.get(0).size() - 1;
         } catch (NullPointerException e) {
-            AetherMod.LOGGER.error("Failed to load background files for the achievements screen!", e);
+            AetherGlobals.LOGGER.error("Failed to load background files for the achievements screen!", e);
 
             terrainLayer1Temp = Collections.singletonList(
                 Collections.singletonList(0)
@@ -78,12 +80,12 @@ public class AetherAchievementPageBackground {
         for (int y = 0; y < specials.size(); y++) {
             List<Integer> row = specials.get(y);
             for (int x = 0; x < row.size(); x++) {
-                if (row.get(x) == 1) this.waterSources.add(new IntPair(x, y));
+                if (row.get(x) == 1) this.waterSources.add(new IntIntMutablePair(x, y));
             }
         }
     }
 
-    private static List<List<Integer>> loadCSV(InputStream in) {
+    private static @NonNull List<List<Integer>> loadCSV(InputStream in) {
         List<List<Integer>> output = new ArrayList<>();
 
         InputStreamReader reader = new InputStreamReader(in);

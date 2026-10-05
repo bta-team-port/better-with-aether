@@ -9,13 +9,14 @@ import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.player.inventory.menu.MenuInventory;
 import net.minecraft.core.player.inventory.slot.Slot;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.item.AetherItemTags;
 
 public class SlotAccessory extends Slot {
     // armorType
-    public static final byte GLOVES_SLOT = 4;
-    public static final byte CAPE_SLOT = 5;       // cape, quiver
+    public static final byte GLOVES_SLOT    = 4;
+    public static final byte CAPE_SLOT      = 5; // cape, quiver
     public static final byte TRINKET_1_SLOT = 6; // pendant, healing stone, compass, clock, calendar, etc.
     public static final byte TRINKET_2_SLOT = 7; // pendant, healing stone, compass, clock, calendar, etc.
 
@@ -23,17 +24,16 @@ public class SlotAccessory extends Slot {
     private static final String[] accessoryOutlines = new String[]{
         "aether:item/armor_gloves_outline",
         "aether:item/armor_capes_outline",
-        "aether:item/armor_wildcard_outline",
-        "aether:item/armor_wildcard_outline",
+        "aether:item/armor_wildcard_outline"
     };
 
+    public final HumanAccessoryShape accessoryShape;
     public final MenuInventory menu;
-    public final int armorType;
 
-    public SlotAccessory(MenuInventory menu, Container container, int index, int x, int y, int armorType) {
+    public SlotAccessory(MenuInventory menu, Container container, int index, int x, int y, HumanAccessoryShape armorShape) {
         super(container, index, x, y);
         this.menu = menu;
-        this.armorType = armorType;
+        this.accessoryShape = armorShape;
     }
 
     @Override
@@ -42,15 +42,23 @@ public class SlotAccessory extends Slot {
     }
 
     @Override
-    public boolean mayPlace(ItemStack itemstack) {
+    @SuppressWarnings("unchecked")
+    public boolean mayPlace(@NonNull ItemStack itemstack) {
         Item item = itemstack.getItem();
-        if (item instanceof ItemAccessoryArmor) {
-            return ((ItemAccessoryArmor) item).getSlotID() == this.armorType;
+
+        if (itemstack.getItem() instanceof IAccessoryItem<?> accessory) {
+            return ((IAccessoryItem<HumanAccessoryShape>) accessory).fitsInShape(this.accessoryShape);
         }
-        if ((item instanceof ItemQuiverEndless || item instanceof ItemQuiver) && this.armorType == CAPE_SLOT) {
+
+        if ((item instanceof ItemQuiverEndless || item instanceof ItemQuiver) && this.accessoryShape == HumanAccessoryShape.CAPE) {
             return true;
         }
-        return item.hasTag(AetherItemTags.TRINKET) && this.armorType >= TRINKET_1_SLOT;
+
+        if (item.hasTag(AetherItemTags.TRINKET) && this.accessoryShape == HumanAccessoryShape.TRINKET) {
+            return true;
+        }
+
+        return false;
     }
 
     @Override
@@ -71,17 +79,17 @@ public class SlotAccessory extends Slot {
             this.menu.inventory.player.triggerAchievement(AetherAchievements.ALL_ACCESSORY_TYPES);
         }
 
-        if (this.getItemStack() != null && this.container instanceof ContainerInventory) {
-            Player player = ((ContainerInventory) this.container).player;
-            if (player.world != null) player.world.playSoundAtEntity(player, player, "random.equip", 2.0F, 1.0F);
-        }
+        AetherAchievements.checkChainmailAchievement(this.menu);
 
+        if (this.getItemStack() != null && this.container instanceof ContainerInventory containerInventory) {
+            Player player = containerInventory.player;
+            player.world.playSoundAtEntity(player, player, "random.equip", 1.0F, 1.0F);
+        }
     }
 
-    // cause of the armor offset
     @Override
     public String getItemIcon() {
-        return accessoryOutlines[this.armorType - 4];
+        return accessoryOutlines[this.accessoryShape.getSlotIndex()];
     }
 
 }

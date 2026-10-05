@@ -11,7 +11,7 @@ import net.minecraft.core.lang.I18n;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import teamport.aether.AetherMod;
+import teamport.aether.AetherGlobals;
 import teamport.aether.entity.boss.EnemyBoss;
 import teamport.aether.entity.boss.NameGenerator;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
@@ -56,10 +56,25 @@ public class MobBossFlying extends MobFlying implements EnemyBoss {
         dungeonID = id;
     }
 
+
     @Override
-    public String getBossTitle() {
-        final String translationKey = EntityDispatcher.nameKeyForClass(this.getClass());
-        return String.format(I18n.getInstance().translateKey(translationKey + ".title"), getBossName());
+    public String getTranslatedBossTitle() {
+        return String.format(I18n.getInstance().translateKey(this.getBossTitleKey()), getBossName());
+    }
+
+    @Override
+    public byte getBossColor() {
+        return this.chatColor;
+    }
+
+    @Override
+    public String getBossTitleKey() {
+        EntityDispatcher.EntityDispatcherEntry<? extends MobBossFlying> entityDispatcherEntry =
+            EntityDispatcher.getInstance().entryForClass(this.getClass());
+        if(entityDispatcherEntry == null){
+            return "no.boss.yes.boss";
+        }
+        return entityDispatcherEntry.nameKey + ".title";
     }
 
     @Override
@@ -74,11 +89,10 @@ public class MobBossFlying extends MobFlying implements EnemyBoss {
 
     @Override
     public void onDeath(Entity entityKilledBy) {
-        if (this.world == null) return;
-        AetherMod.LOGGER.info("{} of ID {} has been slain!", bossName, dungeonID);
+        AetherGlobals.LOGGER.info("{} of ID {} has been slain!", bossName, dungeonID);
 
         if (trophy != null) {
-            if (!EnvironmentHelper.isClientWorld()) world.dropItem((int) x, (int) y, (int) z, trophy);
+            if (!EnvironmentHelper.isMultiplayerClient()) world.dropItem((int) x, (int) y, (int) z, trophy);
             world.playBlockEvent(null, 1003, (int) x, (int) y, (int) z, 0);
         }
 
@@ -104,9 +118,7 @@ public class MobBossFlying extends MobFlying implements EnemyBoss {
         bossName = tag.getString("bossName");
 
         CompoundTag trophyNBT = tag.getCompound("trophy");
-        if (trophyNBT != null) {
-            trophy = ItemStack.readItemStackFromNbt(trophyNBT);
-        }
+        trophy = ItemStack.readItemStackFromNbt(trophyNBT);
 
         if (tag.getBoolean("hasHadReturnPointSet")) {
             CompoundTag returnPointNBT = tag.getCompound("returnPoint");

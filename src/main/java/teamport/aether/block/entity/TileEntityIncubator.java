@@ -1,16 +1,21 @@
 package teamport.aether.block.entity;
 
-
+import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.block.motion.CarriedBlock;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
-import net.minecraft.core.entity.EntityItem;
+import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.monster.MobSlime;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.ItemWandSpawner;
 import net.minecraft.core.net.packet.Packet;
 import net.minecraft.core.net.packet.PacketTileEntityData;
+import net.minecraft.core.sound.SoundCategory;
+import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.AetherRecipes;
 import teamport.aether.achievements.AetherAchievements;
@@ -21,22 +26,38 @@ import teamport.aether.lookup.LookupFuelIncubator;
 import teamport.aether.recipe.RecipeEntryIncubator;
 
 public class TileEntityIncubator extends AetherTileEntityMachine {
-    /// canSmelt                -> canProcess
-    /// smeltItem               -> processItem
-    /// updateFurnace           -> updateContainer
-    /// getBurnTimeFromItem     -> getEnergyTimeFromItem
-    /// getCookProgressScaled   -> getProgressScale
-    /// maxEnergyTime           -> maxBurnTime
-    /// currentEnergyTime       -> currentBurnTime
-    /// maxProcessTime          -> maxCookTime
-    /// currentProcessTime      -> currentCookTime
     public TileEntityIncubator() {
         this.containerItemStacks = new ItemStack[2];
     }
 
     @Override
-    public String getNameTranslationKey() {
+    public @NonNull String getNameTranslationKey() {
         return "container.incubator.name";
+    }
+
+    public World getWorld() {
+        if (this.worldObj != null) {
+            return this.worldObj;
+        }
+        if (this.carriedBlock != null) {
+            return this.carriedBlock.world;
+        }
+        return null;
+    }
+
+    @Override
+    public void heldTick(World world, Entity holder) {
+        this.tick();
+    }
+
+    @Override
+    public boolean tryPlace(World world, Entity holder, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
+        boolean success = super.tryPlace(world, holder, blockX, blockY, blockZ, side, xPlaced, yPlaced);
+        if (success) {
+            this.carriedBlock = null;
+            this.updateContainer(false);
+        }
+        return success;
     }
 
     @Override
@@ -47,7 +68,10 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
             this.setCurrentEnergyTime(this.getCurrentEnergyTime() - 1);
         }
         if (canProcess()) {
-            this.setMaxProcessTime(AetherRecipes.INCUBATOR.findRecipe(containerItemStacks[0]).getData());
+            RecipeEntryIncubator recipe = AetherRecipes.INCUBATOR.findRecipe(containerItemStacks[0]);
+            if (recipe != null) {
+                this.setMaxProcessTime(recipe.getData());
+            }
         }
         if (isUpdateMachine(updateMachine, isEnergyTimeHigherThan0)) {
             this.setChanged();
@@ -55,7 +79,8 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
     }
 
     public boolean isUpdateMachine(boolean updateMachine, boolean isEnergyTimeHigherThan0) {
-        if (this.worldObj == null || !this.worldObj.isClientSide) {
+        World world = getWorld();
+        if (world == null || !world.isClientSide) {
             updateMachine = eternallyLit(updateMachine);
 
             if (this.getCurrentEnergyTime() == 0 && this.containerItemStacks[1] != null && this.canProcess()) {
@@ -98,8 +123,9 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
     }
 
     public boolean eternallyLit(boolean updateMachine) {
-        if ((this.worldObj == null
-            || this.worldObj.getBlockId(this.x, this.y, this.z) == AetherBlocks.INCUBATOR_IDLE.id())
+        World world = getWorld();
+        if ((world == null
+            || world.getBlockType(this.tilePos) == AetherBlocks.INCUBATOR_IDLE)
             && this.getCurrentEnergyTime() == 0 && this.containerItemStacks[0] == null
             && this.containerItemStacks[1] != null
             && this.containerItemStacks[1].itemID == Blocks.WOOL.id()
@@ -122,7 +148,7 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
                 ItemStack itemstack = this.containerItemStacks[index];
                 this.containerItemStacks[index] = null;
                 if (this.worldObj != null && index == 0) {
-                    this.worldObj.markBlockNeedsUpdate(this.x, this.y, this.z);
+                    this.worldObj.markBlockNeedsUpdate(this.tilePos);
                 }
 
                 return itemstack;
@@ -131,7 +157,7 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
                 if (this.containerItemStacks[index].stackSize <= 0) {
                     this.containerItemStacks[index] = null;
                     if (this.worldObj != null && index == 0) {
-                        this.worldObj.markBlockNeedsUpdate(this.x, this.y, this.z);
+                        this.worldObj.markBlockNeedsUpdate(this.tilePos);
                     }
                 }
 
@@ -150,7 +176,7 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
         }
 
         if (this.worldObj != null && index == 0) {
-            this.worldObj.markBlockNeedsUpdate(this.x, this.y, this.z);
+            this.worldObj.markBlockNeedsUpdate(this.tilePos);
         }
 
     }
@@ -161,40 +187,79 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
             return;
         }
 
-        RecipeEntryIncubator recipe = AetherRecipes.INCUBATOR.findRecipe(containerItemStacks[0]);
-        Class<? extends Entity> entityClazz = EntityDispatcher.classForId(recipe.getOutput().getEntity());
-
-        if (entityClazz == null) {
+        World world = getWorld();
+        if (world == null) {
             return;
         }
 
-        Entity entity = createEntity(entityClazz);
+        ItemStack inputStack = containerItemStacks[0];
+        boolean wand = inputStack.getItem() instanceof ItemWandSpawner;
+        Entity entity;
+
+        if (wand) {
+            String monsterId = inputStack.getData().getString("monster");
+            if (monsterId.isEmpty()) {
+                monsterId = "Pig";
+            }
+            entity = EntityDispatcher.getInstance().createEntityInWorld(monsterId, world);
+            if (entity != null) {
+                entity.spawnInit();
+                String customName = inputStack.getCustomName();
+                if (customName != null && entity instanceof Mob mob) {
+                    if (inputStack.hasCustomColor()) {
+                        mob.chatColor = inputStack.getCustomColor();
+                    }
+                    mob.setNickname(customName);
+                }
+            }
+        } else {
+            RecipeEntryIncubator recipe = AetherRecipes.INCUBATOR.findRecipe(inputStack);
+            EntityDispatcher.EntityDispatcherEntry<?> entry = recipe == null ? null : EntityDispatcher.getInstance().entryForId(recipe.getOutput().getEntity());
+            Class<? extends Entity> entityClazz = entry == null ? null : entry.entityClass;
+
+            if (entityClazz == null) {
+                return;
+            }
+            entity = createEntity(entityClazz, world);
+        }
+
         if (entity == null) {
             return;
         }
-        entity.moveTo(this.x + 0.5, this.y + 1.0, this.z, 0.0F, 0.0F);
-        if (this.worldObj != null) this.worldObj.entityJoinedWorld(entity);
 
-        containerItemStacks[0].stackSize--;
-        if (containerItemStacks[0].stackSize <= 0) {
-            containerItemStacks[0] = null;
+        if (this.worldObj == null && this.carriedBlock != null) {
+            Entity holder = this.carriedBlock.holder;
+            entity.moveTo(holder.x, holder.y + holder.getHeadHeight() / 2, holder.z, holder.yRot, holder.xRot);
+        } else {
+            entity.moveTo(this.tilePos.x + 0.5, this.tilePos.y + 1.0, this.tilePos.z + 0.5, 0.0F, 0.0F);
         }
 
-        if (this.worldObj != null && (entity instanceof MobMoa)) {
-            Player player = this.worldObj.getClosestPlayerToEntity(entity, 16);
+        world.entityJoinedWorld(entity);
+        world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, entity.x, entity.y, entity.z, "tile.activator.use", 1.0F, 2.0F);
+
+        if (!wand) {
+            inputStack.stackSize--;
+            if (inputStack.stackSize <= 0) {
+                containerItemStacks[0] = null;
+            }
+        }
+
+        if (entity instanceof MobMoa) {
+            Player player = world.getClosestPlayerToEntity(entity, 16);
             if (player != null) {
                 player.triggerAchievement(AetherAchievements.MOA);
             }
         }
     }
 
-    private Entity createEntity(Class<? extends Entity> entityClazz) {
-        Entity entity = EntityDispatcher.createEntityInWorld(entityClazz, this.worldObj);
-        if (entity instanceof MobMoa) {
-            ((MobMoa) entity).setTamed(true);
+    private Entity createEntity(Class<? extends Entity> entityClazz, World world) {
+        Entity entity = EntityDispatcher.getInstance().createEntityInWorld(entityClazz, world);
+        if (entity instanceof MobMoa mobMoa) {
+            mobMoa.setTamed(true);
+            mobMoa.heal(100);
         }
-        if (entity instanceof MobSlime) {
-            ((MobSlime) entity).setSlimeSize(random.nextInt(4) + 1);
+        if (entity instanceof MobSlime slime) {
+            slime.setSlimeSize(random.nextInt(4) + 1);
         }
         return entity;
     }
@@ -203,6 +268,9 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
     public boolean canProcess() {
         if (this.containerItemStacks[0] == null) {
             return false;
+        }
+        if (this.containerItemStacks[0].getItem() instanceof ItemWandSpawner) {
+            return true;
         }
         return AetherRecipes.INCUBATOR.findOutput(this.containerItemStacks[0]) != null;
     }
@@ -215,7 +283,7 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
     @Override
     public void updateContainer(boolean forceLit) {
         if (this.worldObj != null) {
-            BlockLogicIncubator.updateFurnaceBlockState(forceLit || this.getCurrentEnergyTime() > 0, this.worldObj, this.x, this.y, this.z);
+            BlockLogicIncubator.updateFurnaceBlockState(this.worldObj, this.tilePos, forceLit || this.getCurrentEnergyTime() > 0);
             return;
         }
         if (this.carriedBlock != null) {
@@ -230,34 +298,7 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
     }
 
     @Override
-    public void dropContents(World world, int x, int y, int z) {
-        super.dropContents(world, x, y, z);
-        if (!BlockLogicIncubator.isKeepIncubatorInventory()) {
-            for (int l = 0; l < this.getContainerSize(); ++l) {
-                ItemStack itemstack = this.getItem(l);
-                if (itemstack != null) {
-                    float f = this.random.nextFloat() * 0.8F + 0.1F;
-                    float f1 = this.random.nextFloat() * 0.8F + 0.1F;
-                    float f2 = this.random.nextFloat() * 0.8F + 0.1F;
-
-                    while (itemstack.stackSize > 0) {
-                        int i1 = this.random.nextInt(21) + 10;
-                        if (i1 > itemstack.stackSize) {
-                            i1 = itemstack.stackSize;
-                        }
-
-                        itemstack.stackSize -= i1;
-                        EntityItem entityItem = new EntityItem(
-                            world, x + f, y + f1, z + f2,
-                            new ItemStack(itemstack.itemID, i1, itemstack.getMetadata()));
-                        float f3 = 0.05F;
-                        entityItem.xd = (float) this.random.nextGaussian() * f3;
-                        entityItem.yd = (float) this.random.nextGaussian() * f3 + 0.2F;
-                        entityItem.zd = (float) this.random.nextGaussian() * f3;
-                        world.entityJoinedWorld(entityItem);
-                    }
-                }
-            }
-        }
+    public CarriedBlock getCarriedEntry(World world, Entity holder, Block<?> currentBlock, int currentMeta) {
+        return new CarriedBlock(holder, currentBlock, 0, this);
     }
 }

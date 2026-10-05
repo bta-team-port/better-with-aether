@@ -4,7 +4,9 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
-import teamport.aether.entity.projectile.ProjectileWindball;
+import org.joml.Vector3dc;
+import org.jspecify.annotations.NonNull;
+import teamport.aether.entity.projectile.windball.ProjectileWindball;
 
 public class ItemStaffCloud extends Item {
     public ItemStaffCloud(String translationKey, String namespaceId, int id) {
@@ -14,12 +16,13 @@ public class ItemStaffCloud extends Item {
     }
 
     @Override
-    public ItemStack onUseItem(ItemStack itemstack, World world, Player entityplayer) {
+    public ItemStack onUse(@NonNull ItemStack itemstack, @NonNull World world, @NonNull Player entityplayer) {
         world.playSoundAtEntity(entityplayer, entityplayer, "aether:mob.zephyr.shoot", 0.3F, 1.0F / (itemRand.nextFloat() * -0.2F - 0.4F));
         if (!world.isClientSide) {
-            double lookX = entityplayer.getLookAngle().x;
-            double lookY = entityplayer.getLookAngle().y;
-            double lookZ = entityplayer.getLookAngle().z;
+            Vector3dc look = entityplayer.getViewVector(1.0F);
+            double lookX = look.x();
+            double lookY = look.y();
+            double lookZ = look.z();
 
             double perpX = -lookZ;
             double perpZ = lookX;

@@ -1,6 +1,5 @@
 package teamport.aether.entity.projectile;
 
-import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
@@ -10,33 +9,34 @@ import net.minecraft.core.entity.projectile.ProjectileArrow;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.util.helper.DamageType;
+import net.minecraft.core.util.helper.LightIndexHelper;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.helper.Side;
-import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.util.phys.HitResult;
-import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItems;
 
-public class ProjectileArrowFlaming extends ProjectileArrow implements ProjectileAether, AetherProjectileDeathMessages {
+public class ProjectileArrowFlaming extends ProjectileArrow implements ProjectileAether {
 
     @SuppressWarnings("unused")
     public ProjectileArrowFlaming(World world) {
         super(world);
+        this.tilePos = new TilePos(-1, -1, -1);
     }
 
     public ProjectileArrowFlaming(World world, Mob entityliving, boolean doesArrowBelongToPlayer, int arrowType) {
         super(world, entityliving, doesArrowBelongToPlayer, arrowType);
+        this.tilePos = new TilePos(-1, -1, -1);
     }
 
     public ProjectileArrowFlaming(World world, double x, double y, double z, int arrowType) {
         super(world, x, y, z, arrowType);
         this.mobsHit = 0;
-        this.xTile = -1;
-        this.yTile = -1;
-        this.zTile = -1;
-        this.inTile = 0;
+        this.tilePos = new TilePos(-1, -1, -1);
+        this.inTile = null;
         this.shake = 0;
         this.inData = 0;
         this.stack = new ItemStack(AetherItems.AMMO_ARROW_FLAMING);
@@ -56,65 +56,29 @@ public class ProjectileArrowFlaming extends ProjectileArrow implements Projectil
     }
 
     @Override
-    public int getLightmapCoord(float partialTick) {
-        return this.world == null ? super.getLightmapCoord(partialTick) : this.world.getLightmapCoord(15, 15);
+    public byte getLightIndex(float partialTick) {
+        byte light = super.getLightIndex(partialTick);
+        light = LightIndexHelper.setSkyLight(light, 15);
+        return LightIndexHelper.setBlockLight(light, 15);
     }
 
     @Override
     public void tick() {
-        if (this.world == null) return;
-        if (this.shake > 0) {
-            --this.shake;
-        }
-
-        if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
-            float f = MathHelper.sqrt(this.xd * this.xd + this.zd * this.zd);
-            this.yRotO = this.yRot = (float) (Math.atan2(this.xd, this.zd) * 180.0 / Math.PI);
-            this.xRotO = this.xRot = (float) (Math.atan2(this.yd, f) * 180.0 / Math.PI);
-        }
-
-        Block<?> block = this.world.getBlock(this.xTile, this.yTile, this.zTile);
-        if (block != null) {
-            AABB aabb = block.getCollisionBoundingBoxFromPool(this.world, this.xTile, this.yTile, this.zTile);
-            if (aabb != null && aabb.contains(Vec3.getTempVec3(this.x, this.y, this.z))) {
-                this.setGrounded(true);
-            }
-        }
-
-        if (this.isGrounded()) {
-            int id = this.world.getBlockId(this.xTile, this.yTile, this.zTile);
-            int meta = this.world.getBlockMetadata(this.xTile, this.yTile, this.zTile);
-            if (id == this.inTile && meta == this.inData) {
-                ++this.ticksInGround;
-                if (this.ticksInGround == 1200) {
-                    this.remove();
-                }
-
-            } else {
-                this.setGrounded(false);
-                this.xd *= this.random.nextDouble() * 0.2;
-                this.yd *= this.random.nextDouble() * 0.2;
-                this.zd *= this.random.nextDouble() * 0.2;
-                this.ticksInGround = 0;
-                this.ticksInAir = 0;
-            }
-        } else {
+        if (!this.isGrounded()) {
             ParticleMaker.spawnParticle(this.world, "flame", this.x, this.y, this.z, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
             ParticleMaker.spawnParticle(this.world, "flame", this.x + this.xd * 0.5, this.y + this.yd * 0.5, this.z + this.zd * 0.5, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
             ParticleMaker.spawnParticle(this.world, "smoke", this.x, this.y, this.z, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
             ParticleMaker.spawnParticle(this.world, "smoke", this.x + this.xd * 0.5, this.y + this.yd * 0.5, this.z + this.zd * 0.5, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
-
-            super.tick();
         }
+        super.tick();
     }
 
     @Override
-    public void onHit(HitResult hitResult) {
-        if (this.world == null) return;
-        if (hitResult.entity != null) {
-            if (hitResult.entity.hurt(this.owner, this.damage, DamageType.FIRE)) {
-                if (hitResult.entity instanceof MobCreeper) {
-                    MobCreeper entityCreeper = (MobCreeper) hitResult.entity;
+    public void onHit(@NonNull HitResult hitResult) {
+        if (hitResult instanceof HitResult.Entity hitResult1) {
+            Entity hitEntity = hitResult1.entity;
+            if (hitEntity.hurt(this.owner, this.damage, DamageType.FIRE)) {
+                if (hitEntity instanceof MobCreeper entityCreeper) {
                     entityCreeper.setTarget(entityCreeper);
                 }
 
@@ -122,47 +86,44 @@ public class ProjectileArrowFlaming extends ProjectileArrow implements Projectil
                     this.world.playSoundAtEntity(null, this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
                 }
 
-                hitResult.entity.fireHurt();
+                hitEntity.fireHurt();
                 this.remove();
             }
-        } else {
-            this.xTile = hitResult.x;
-            this.yTile = hitResult.y;
-            this.zTile = hitResult.z;
-            this.inTile = this.world.getBlockId(this.xTile, this.yTile, this.zTile);
-            this.inData = this.world.getBlockMetadata(this.xTile, this.yTile, this.zTile);
-            this.xd = (float) (hitResult.location.x - this.x);
-            this.yd = (float) (hitResult.location.y - this.y);
-            this.zd = (float) (hitResult.location.z - this.z);
+        } else if (hitResult instanceof HitResult.Tile tileHit) {
+            this.tilePos = new TilePos(tileHit.tilePos.x(), tileHit.tilePos.y(), tileHit.tilePos.z());
+            this.inTile = this.world.getBlock(this.tilePos.x, this.tilePos.y, this.tilePos.z);
+            this.inData = this.world.getBlockMetadata(this.tilePos.x, this.tilePos.y, this.tilePos.z);
+            this.xd = (float) (hitResult.location.x() - this.x);
+            this.yd = (float) (hitResult.location.y() - this.y);
+            this.zd = (float) (hitResult.location.z() - this.z);
             float f1 = MathHelper.sqrt(this.xd * this.xd + this.yd * this.yd + this.zd * this.zd);
             this.x -= this.xd / f1 * 0.05;
             this.y -= this.yd / f1 * 0.05;
             this.z -= this.zd / f1 * 0.05;
-            this.inGroundAction(hitResult.side, xTile, yTile, zTile);
+            this.inGroundAction(tileHit.side, this.tilePos.x, this.tilePos.y, this.tilePos.z);
         }
     }
 
     public void inGroundAction(Side side, int blockX, int blockY, int blockZ) {
-        if (this.world == null) return;
         this.world.playSoundAtEntity(null, this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
         for (int j = 0; j < 4; ++j) {
             ParticleMaker.spawnParticle(this.world, "item", this.x, this.y, this.z, 0.0, 0.0, 0.0, Items.AMMO_FIREBALL.id);
             ParticleMaker.spawnParticle(this.world, "item", this.x, this.y, this.z, 0.0, 0.0, 0.0, AetherItems.AMMO_ARROW_FLAMING.id);
         }
-        blockX += side.getOffsetX();
-        blockY += side.getOffsetY();
-        blockZ += side.getOffsetZ();
+        blockX += side.offsetX();
+        blockY += side.offsetY();
+        blockZ += side.offsetZ();
         int blockID = world.getBlockId(blockX, blockY, blockZ);
-        if (blockID == 0) {
+        if (blockID == Blocks.AIR.id()) {
             world.setBlockWithNotify(blockX, blockY, blockZ, Blocks.FIRE.id());
         }
         this.remove();
     }
 
-    public static Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner) {
+    public static @NonNull Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner) {
         ProjectileArrowFlaming projectile = new ProjectileArrowFlaming(world, x, y, z, meta);
         if (hasVelocity) projectile.setHeading(xd, yd, zd, 1, 0);
-        if (owner instanceof Mob) projectile.owner = (Mob) owner;
+        if (owner instanceof Mob mob) projectile.owner = mob;
         if (owner instanceof Player) projectile.doesArrowBelongToPlayer = true;
         return projectile;
     }

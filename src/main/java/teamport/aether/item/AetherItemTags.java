@@ -3,12 +3,9 @@ package teamport.aether.item;
 import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.tag.ItemTags;
-import net.minecraft.core.util.helper.DamageType;
-import teamport.aether.AetherMod;
+import teamport.aether.AetherGlobals;
 
 import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
 
 public class AetherItemTags {
     private AetherItemTags(){}
@@ -17,22 +14,8 @@ public class AetherItemTags {
     public static final Tag<Item> NATURE_STAFF_FOLLOW = Tag.of("nature_staff_follow");
     public static final Tag<Item> TRINKET = Tag.of("trinket"); // only assign to vanilla items
 
-    // Tags for Item immunities.
-    public static final Tag<Item> IMMUNE_TO_FIRE_DAMAGE = Tag.of("immune_to_fire_damage");
-    public static final Tag<Item> IMMUNE_TO_BLAST_DAMAGE = Tag.of("immune_to_blast_damage");
-    private static final Map<DamageType, Tag<Item>> DAMAGE_IMMUNITIES = new HashMap<>();
-
     public static final Tag<Item> FALLS_UPWARDS = Tag.of("falls_upwards");
-
-    static {
-        DAMAGE_IMMUNITIES.put(DamageType.FIRE, AetherItemTags.IMMUNE_TO_FIRE_DAMAGE);
-        DAMAGE_IMMUNITIES.put(DamageType.BLAST, AetherItemTags.IMMUNE_TO_BLAST_DAMAGE);
-    }
-
-    public static boolean isImmuneToType(Item item, DamageType type){
-        Tag<Item> tag = DAMAGE_IMMUNITIES.get(type);
-        return tag != null && item.hasTag(tag);
-    }
+    public static final Tag<Item> IS_ACID_PROOF = Tag.of("is_acid_proof");
 
     @SafeVarargs
     public static Tag<Item>[] tags(Tag<Item>... tags) {
@@ -47,7 +30,7 @@ public class AetherItemTags {
                 Tag<Item> tag = (Tag<Item>) field.get(null);
                 ItemTags.TAG_LIST.add(tag);
             } catch (Exception e) {
-                AetherMod.LOGGER.error("Failed to add tag '{}'!", field.getName(), e);
+                AetherGlobals.LOGGER.error("Failed to add tag '{}'!", field.getName(), e);
             }
         }
     }

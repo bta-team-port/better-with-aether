@@ -1,73 +1,112 @@
 package teamport.aether.entity.player;
 
+import net.minecraft.client.render.renderer.GLRenderer;
+import net.minecraft.client.render.renderer.State;
+import net.minecraft.core.block.Block;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.Mob;
+import net.minecraft.core.entity.monster.MobSlime;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.entity.projectile.Projectile;
+import net.minecraft.core.enums.HumanArmorShape;
 import net.minecraft.core.item.IArmorItem;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.Items;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
+import net.minecraft.core.world.IVehicle;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
+import sunsetsatellite.catalyst.effects.api.effect.EffectContainer;
 import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
+import teamport.aether.ducks.IContainerInventoryAether;
 import teamport.aether.effect.AetherEffects;
+import teamport.aether.effect.DeathCauseEffects;
+import teamport.aether.entity.PreVehicle;
+import teamport.aether.entity.boss.DeathCauseBoss;
+import teamport.aether.entity.boss.EnemyBoss;
+import teamport.aether.entity.monster.mimic.DeathCauseMimic;
+import teamport.aether.entity.monster.mimic.MobMimic;
+import teamport.aether.entity.monster.swet.DeathCauseKilledSecondary;
+import teamport.aether.entity.monster.swet.MobSwet;
+import teamport.aether.entity.monster.swet.MobSwetGold;
+import teamport.aether.helper.ParticleMaker;
+import teamport.aether.item.AetherArmorMaterial;
 import teamport.aether.item.AetherItems;
+import teamport.aether.item.accessory.gloves.ItemGloves;
+import teamport.aether.item.accessory.pendant.ItemIcePendant;
+import teamport.aether.mixin.accessors.EntityAccessor;
 import turniplabs.halplibe.helper.EnvironmentHelper;
+import turniplabs.halplibe.util.deathcause.DeathCause;
+import turniplabs.halplibe.util.deathcause.vanilla.DeathCauseKilledBy;
+import turniplabs.halplibe.util.deathcause.vanilla.DeathCauseProjectile;
 
-import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
-import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
+import static teamport.aether.item.accessory.SlotAccessory.*;
 
 public class PlayerUtil {
     private PlayerUtil() {/* no need to initiate*/}
+
+    public static void damageArmourWithEffect(int damage, Player player, double x, double y, double z, float bbHeight, float bbWidth) {
+        if (((EntityAccessor) player).getRandom().nextFloat() < (double) 0.05F) {
+            player.damageArmor(damage);
+            if (((EntityAccessor) player).getRandom().nextInt(6) == 0) {
+                player.world.playSoundAtEntity(null, player, "random.fizz", 0.5F, 0.8F / (((EntityAccessor) player).getRandom().nextFloat() * 0.2F + 0.9F));
+            }
+        }
+        ParticleMaker.spawnSmokeParticles(player.world, x, y, z, bbHeight, bbWidth);
+    }
+
+    public static int fireResistanceCount(ContainerInventory inventory) {
+        return countArmorPiecesOfMaterial(inventory, AetherArmorMaterial.PHOENIX);
+    }
+
+    public static void setUpInvisibility(Entity entity) {
+        if(isInvisible(entity)){
+            GLRenderer.enableState(State.BLEND);
+            GLRenderer.setColor4f(1.0F, 1.0F, 1.0F, 0.15F);
+        }
+    }
 
     public enum InventoryType {
         HOLD, MAIN, ARMOR
     }
 
-    @SuppressWarnings("java:S135")
     ///  Count the armor pieces of a specific material.
-    public static int countArmorPiecesOfMaterial(ContainerInventory inventory, ArmorMaterial material) {
+    @SuppressWarnings("java:S135")
+    public static int countArmorPiecesOfMaterial(@NonNull ContainerInventory inventory, ArmorMaterial material) {
         int count = 0;
         for (int i = 0; i < inventory.armorInventory.length; ++i) {
             ItemStack itemStack = inventory.armorInventory[i];
-            if (itemStack == null || !(itemStack.getItem() instanceof IArmorItem)) {
-                continue;
+            if (itemStack != null && itemStack.getItem() instanceof IArmorItem<?> armor && armor.getArmorShape().getSlotIndex() == i && hasArmorMaterial(armor, material)) {
+                count++;
             }
-            IArmorItem armor = (IArmorItem) itemStack.getItem();
-            if (armor.getArmorPiece() != i) {
-                continue;
+
+        }
+
+        if (inventory instanceof IContainerInventoryAether aetherInv) {
+            ItemStack[] accessories = aetherInv.aether$getAccessoryInventory();
+            if (accessories != null && 0 < accessories.length) {
+                ItemStack glovesStack = accessories[0];
+                if (glovesStack != null && glovesStack.getItem() instanceof ItemGloves gloves && gloves.getArmorMaterial() != null && gloves.getArmorMaterial().equals(material)) {
+                    count++;
+                }
             }
-            ArmorMaterial armorMaterial = armor.getArmorMaterial();
-            if (armorMaterial == null || !armorMaterial.equals(material)) {
-                continue;
-            }
-            count++;
         }
         return count;
     }
 
-    @SuppressWarnings("java:S135")
-    /// Counts the accessories of a specific material.
-    public static int countAccessoriesOfMaterial(ContainerInventory inventory, ArmorMaterial material) {
-        int count = 0;
-        for (int i = 6; i < inventory.armorInventory.length; ++i) {
-            ItemStack itemStack = inventory.armorInventory[i];
-            if (itemStack == null || !(itemStack.getItem() instanceof IArmorItem)) {
-                continue;
-            }
-            IArmorItem armor = (IArmorItem) itemStack.getItem();
-            ArmorMaterial armorMaterial = armor.getArmorMaterial();
-            if (armorMaterial == null || !armorMaterial.equals(material)) {
-                continue;
-            }
-            count++;
-        }
-        return count;
+    private static boolean hasArmorMaterial(@NonNull IArmorItem<?> armor, ArmorMaterial material) {
+        ArmorMaterial armorMaterial = armor.getArmorMaterial();
+        return armorMaterial != null && armorMaterial.equals(material);
     }
 
     /// Checks if player is wearing gold pendants
     public static boolean isSilkTouchPendant(Player player) {
-        ItemStack trinketOne = player.inventory.armorInventory[TRINKET_1_SLOT];
-        ItemStack trinketTwo = player.inventory.armorInventory[TRINKET_2_SLOT];
+        ItemStack trinketOne = getArmorOrAccessoryItem(player, TRINKET_1_SLOT);
+        ItemStack trinketTwo = getArmorOrAccessoryItem(player, TRINKET_2_SLOT);
         return trinketOne != null && trinketOne.getItem().id == AetherItems.ARMOR_TALISMAN_GOLD.id
             || trinketTwo != null && trinketTwo.getItem().id == AetherItems.ARMOR_TALISMAN_GOLD.id;
     }
@@ -75,14 +114,14 @@ public class PlayerUtil {
     /// Y pos on the server counted from the player's foot height but on the client it is counted from the player's head height
     /// We want count the player pos from his feet
     public static double getY(Player player) {
-        if (EnvironmentHelper.isSinglePlayer()) {
+        if (EnvironmentHelper.isSingleplayerClient()) {
             return player.y - player.bbHeight;
         }
         return player.y;
     }
 
     public static double getHeadY(Player player) {
-        if (EnvironmentHelper.isSinglePlayer()) {
+        if (EnvironmentHelper.isSingleplayerClient()) {
             return player.y;
         }
         return player.y - player.bbHeight;
@@ -93,7 +132,7 @@ public class PlayerUtil {
     }
 
     /// The normal damageItem does not destroy the item if the item durability hits zero.
-    public static void damageItem(Player player, int itemDamage, ItemStack stack, InventoryType type, int index) {
+    public static void damageItem(Player player, int itemDamage, @NonNull ItemStack stack, InventoryType type, int index) {
         stack.damageItem(itemDamage, player);
         if (stack.stackSize <= 0) {
             switch (type) {
@@ -112,7 +151,7 @@ public class PlayerUtil {
 
     /// The normal damageItem does not destroy the item if the item durability hits zero. This target an item to destroy
     /// in the player main inventory at an index.
-    public static void damageItemMain(Player player, int itemDamage, ItemStack stack, int index) {
+    public static void damageItemMain(Player player, int itemDamage, @NonNull ItemStack stack, int index) {
         stack.damageItem(itemDamage, player);
         if (stack.stackSize <= 0) {
             player.inventory.mainInventory[index] = null;
@@ -126,11 +165,54 @@ public class PlayerUtil {
 
     /// The normal damageItem does not destroy the item if the item durability hits zero. This target an item to destroy
     /// in the player armor inventory at an index.
-    public static void damageItemArmor(Player player, int itemDamage, ItemStack stack, int index) {
+    public static void damageItemArmor(Player player, int itemDamage, @NonNull ItemStack stack, int index) {
         stack.damageItem(itemDamage, player);
         if (stack.stackSize <= 0) {
-            player.inventory.armorInventory[index] = null;
+            if (index < player.inventory.armorInventory.length) {
+                player.inventory.armorInventory[index] = null;
+            } else {
+                ((IContainerInventoryAether) player.inventory).aether$getAccessoryInventory()[index - GLOVES_SLOT] = null;
+            }
         }
+    }
+
+    public static @Nullable ItemStack getArmorOrAccessoryItem(@NonNull Player player, int armorSlot) {
+        if (armorSlot < player.inventory.armorInventory.length) {
+            return player.inventory.armorInventory[armorSlot];
+        }
+        ItemStack[] accessories = ((IContainerInventoryAether) player.inventory).aether$getAccessoryInventory();
+        int accessorySlot = armorSlot - GLOVES_SLOT;
+        return accessorySlot >= 0 && accessorySlot < accessories.length ? accessories[accessorySlot] : null;
+    }
+
+    public static void clearArmorOrAccessoryItem(@NonNull Player player, int armorSlot) {
+        if (armorSlot < player.inventory.armorInventory.length) {
+            player.inventory.armorInventory[armorSlot] = null;
+            return;
+        }
+        ItemStack[] accessories = ((IContainerInventoryAether) player.inventory).aether$getAccessoryInventory();
+        int accessorySlot = armorSlot - GLOVES_SLOT;
+        if (accessorySlot >= 0 && accessorySlot < accessories.length) {
+            accessories[accessorySlot] = null;
+        }
+    }
+
+    public static @Nullable ItemStack getActiveQuiver(Player player) {
+        int slot = getActiveQuiverSlot(player);
+        return slot >= 0 ? getArmorOrAccessoryItem(player, slot) : null;
+    }
+
+    public static int getActiveQuiverSlot(Player player) {
+        int chestSlot = HumanArmorShape.CHEST.getSlotIndex();
+        if (isUsableQuiver(getArmorOrAccessoryItem(player, chestSlot))) return chestSlot;
+        if (isUsableQuiver(getArmorOrAccessoryItem(player, CAPE_SLOT))) return CAPE_SLOT;
+        return -1;
+    }
+
+    public static boolean isUsableQuiver(ItemStack stack) {
+        if (stack == null) return false;
+        if (stack.itemID == Items.ARMOR_QUIVER_GOLD.id) return true;
+        return stack.itemID == Items.ARMOR_QUIVER.id && stack.getMetadata() < stack.getMaxDamage();
     }
 
     ///  Tool taking only 1 damage is quite common.
@@ -159,7 +241,7 @@ public class PlayerUtil {
         return PlayerUtil.getClosestPlayerToEntity(world, entity.x, entity.y, entity.z, radius, playerStatus);
     }
 
-    public static @Nullable Player getClosestPlayerToEntity(World world, double x, double y, double z, double radius, PlayerStatus[] playerStatus) {
+    public static @Nullable Player getClosestPlayerToEntity(@NonNull World world, double x, double y, double z, double radius, PlayerStatus[] playerStatus) {
         double closestDistance = Double.POSITIVE_INFINITY;
         Player returnPlayer = null;
         for (Player currentPlayer : world.players) {
@@ -176,7 +258,7 @@ public class PlayerUtil {
         return returnPlayer;
     }
 
-    private static boolean test(PlayerStatus[] playerStatus, Player player, double distance) {
+    private static boolean test(PlayerStatus @NonNull [] playerStatus, Player player, double distance) {
         boolean acc = false;
         for (PlayerStatus status : playerStatus) {
             acc |= status.test(player, distance);
@@ -184,26 +266,89 @@ public class PlayerUtil {
         return acc;
     }
 
-     @SuppressWarnings("java:S1172")
     ///  To check if the player can be attacked by Swets
-    public static boolean isSwetty(Entity entity, double distance){
+    @SuppressWarnings("java:S1172")
+    public static boolean isSwetty(Entity entity, double distance) {
         return PlayerUtil.isSwetty(entity);
     }
 
     ///  The interface requires the distance but either call is fine, as long it not used to figure out targeting
     public static boolean isSwetty(Entity entity) {
-        return entity instanceof IHasEffects
-            &&((IHasEffects<?>) entity).getContainer().hasEffect(AetherEffects.swetty);
+        return entity instanceof IHasEffects<?> iHasEffects
+            && iHasEffects.getContainer().hasEffect(AetherEffects.swetty);
     }
 
     ///  To check if the player is Invisible for targeting
-    public static boolean isInvisible(Entity entity, double distance){
+    public static boolean isInvisible(Entity entity, double distance) {
         return PlayerUtil.isInvisible(entity) && distance > 2.0f;
     }
 
     ///  To check if the player is Invisible
     public static boolean isInvisible(Entity entity) {
-        return entity instanceof IHasEffects
-            &&((IHasEffects<?>) entity).getContainer().hasEffect(AetherEffects.invisibility);
+        return entity instanceof IHasEffects<?> iHasEffects
+            && iHasEffects.getContainer().hasEffect(AetherEffects.invisibility);
     }
+
+    public static DeathCause deathCause(Player victim, Entity entityKilledBy) {
+        IVehicle prevVehicle = ((PreVehicle) victim).better_with_aether$preVehicle();
+        DeathCause deathCause = PlayerUtil.deathCause(victim, entityKilledBy, prevVehicle);
+        ((PreVehicle) victim).better_with_aether$resestVehicle();
+        return deathCause;
+    }
+
+    public static DeathCause deathCause(Player victim, Entity entityKilledBy, IVehicle prevVehicle) {
+        if (entityKilledBy instanceof Mob mob) {
+            return PlayerUtil.killedByAetherMob(victim, mob, prevVehicle);
+        }
+        if (entityKilledBy instanceof Projectile projectile) {
+            return new DeathCauseProjectile(victim, projectile);
+        }
+        EffectContainer<?> victimsEffects = ((IHasEffects<?>) victim).getContainer();
+        if (victimsEffects.hasEffect(AetherEffects.poisonEffect)) {
+            DeathCauseEffects deathCausePoison = new DeathCauseEffects(victim, AetherEffects.poisonEffect);
+            if (prevVehicle != null) {
+                return deathCausePoison.setSecondary("driving");
+            }
+            return deathCausePoison;
+        }
+        if (victim.fallDistance <= 0) {
+            return null;
+        }
+        ItemStack[] accessories = ((IContainerInventoryAether) victim.inventory).aether$getAccessoryInventory();
+        ItemStack pendant1 = accessories[TRINKET_1_SLOT - GLOVES_SLOT];
+        ItemStack pendant2 = accessories[TRINKET_2_SLOT - GLOVES_SLOT];
+        if ((pendant1 != null && pendant1.getItem() instanceof ItemIcePendant)
+            || (pendant2 != null && pendant2.getItem() instanceof ItemIcePendant)
+        ) {
+            TilePos tilePos = new TilePos(victim);
+            Block<?> block = victim.world.getBlockType(tilePos.down());
+            if (block == Blocks.OBSIDIAN || block == Blocks.ICE) {
+                return new DeathCauseKeyed(victim, "ice_pendant");
+            }
+            return null;
+        }
+        return null;
+    }
+
+    private static DeathCause killedByAetherMob(Player victim, Mob mob, IVehicle prevVehicle) {
+        EffectContainer<?> victimsEffects = ((IHasEffects<?>) victim).getContainer();
+        if (victimsEffects.hasEffect(AetherEffects.poisonEffect) && prevVehicle != null) {
+            return new DeathCauseEffects(victim, AetherEffects.poisonEffect).setSecondary("driving");
+        }
+        if (mob instanceof EnemyBoss enemyBoss) {
+            return new DeathCauseBoss(victim, mob, enemyBoss);
+        }
+        if (mob instanceof MobSlime || mob instanceof MobSwet || mob instanceof MobSwetGold) {
+            DeathCauseKilledSecondary deathCauseSwet = new DeathCauseKilledSecondary(victim, mob);
+            if (victimsEffects.hasEffect(AetherEffects.swetty)) {
+                return deathCauseSwet.setSecondary("friendly");
+            }
+            return deathCauseSwet;
+        }
+        if (mob instanceof MobMimic) {
+            return new DeathCauseMimic(victim, mob);
+        }
+        return new DeathCauseKilledBy(victim, mob);
+    }
+
 }

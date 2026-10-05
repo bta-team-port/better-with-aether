@@ -6,9 +6,10 @@ import net.minecraft.core.entity.projectile.Projectile;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.helper.ParticleMaker;
 
-public class ProjectileHammerHead extends Projectile implements ProjectileAether, AetherProjectileDeathMessages {
+public class ProjectileHammerHead extends Projectile implements ProjectileAether {
 
     @SuppressWarnings("unused")
     public ProjectileHammerHead(World world) {
@@ -37,7 +38,6 @@ public class ProjectileHammerHead extends Projectile implements ProjectileAether
     @Override
     public void tick() {
         super.tick();
-        ++this.ticksInAir;
         if (ticksInAir > 200) {
             doEffect();
             remove();
@@ -45,14 +45,15 @@ public class ProjectileHammerHead extends Projectile implements ProjectileAether
     }
 
     @Override
-    public void onHit(HitResult hitResult) {
-        if (hitResult.entity != null) {
-            hitResult.entity.hurt(this.owner, this.damage, DamageType.COMBAT);
+    public void onHit(@NonNull HitResult hitResult) {
+        if (hitResult instanceof HitResult.Entity entity) {
+            Entity hitEntity = entity.entity;
+            hitEntity.hurt(this.owner, this.damage, DamageType.COMBAT);
             doEffect();
             this.remove();
         }
 
-        if (hitResult.hitType == HitResult.HitType.TILE) {
+        if (hitResult instanceof HitResult.Tile) {
             doEffect();
             this.remove();
         }
@@ -60,7 +61,6 @@ public class ProjectileHammerHead extends Projectile implements ProjectileAether
     }
 
     public void doEffect() {
-        if (this.world == null) return;
         world.playSoundAtEntity(null, this, "random.explode", 0.5F, 0.5F / (this.world.rand.nextFloat() * 0.4F + 0.8F));
         for (int j = 0; j < 8; ++j) {
             ParticleMaker.spawnParticle(this.world, "explode", this.x, this.y, this.z, 0.0, 0.0, 0.0, 0);
@@ -71,10 +71,10 @@ public class ProjectileHammerHead extends Projectile implements ProjectileAether
     }
 
     @SuppressWarnings("unused")
-    public static Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner) {
+    public static @NonNull Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner) {
         ProjectileHammerHead hammer = new ProjectileHammerHead(world, x, y, z);
         if (hasVelocity) hammer.setHeading(xd, yd, zd, 1, 0);
-        if (owner instanceof Mob) hammer.owner = (Mob) owner;
+        if (owner instanceof Mob mob) hammer.owner = mob;
         return hammer;
     }
 }

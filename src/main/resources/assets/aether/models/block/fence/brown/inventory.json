@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence/inventory",
+  "textures": {
+    "texture": "aether:block/planks_skyroot/brown"
+  }
+}

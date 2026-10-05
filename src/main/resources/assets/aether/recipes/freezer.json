@@ -17,7 +17,13 @@
     "time": 500,
     "input": {
       "stack": {
-        "id": "minecraft:item/bucket_lava"
+        "id": "minecraft:item/bucket_iron",
+        "tag": {
+          "State": {
+            "type": "TAG_String",
+            "value": "minecraft:lava"
+          }
+        }
       }
     },
     "output": {
@@ -97,6 +103,21 @@
     },
     "output": {
       "id": "aether:item/armor_gloves_obsidian",
+      "meta": -1
+    }
+  },
+  {
+    "name": "aether:freezer/phoenix_to_obsidian_wolf",
+    "type": "aether:machine",
+    "time": 5000,
+    "input": {
+      "stack": {
+        "id": "aether:item/armor_wolf_phoenix",
+        "meta": -1
+      }
+    },
+    "output": {
+      "id": "aether:item/armor_wolf_obsidian",
       "meta": -1
     }
   },
@@ -190,12 +211,12 @@
     }
   },
   {
-    "name": "aether:freezer/igneous_netherrack_to_netherrack",
+    "name": "aether:freezer/magma_to_netherrack",
     "type": "aether:machine",
     "time": 500,
     "input": {
       "stack": {
-        "id": "minecraft:block/cobble_netherrack_igneous"
+        "id": "minecraft:block/magma"
       }
     },
     "output": {

@@ -3,13 +3,15 @@ package teamport.aether;
 import net.fabricmc.api.DedicatedServerModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.core.sound.SoundTypes;
 import net.minecraft.server.entity.player.PlayerServer;
 import teamport.aether.command.AetherCommand;
 import teamport.aether.net.message.SunspiritDeathNetworkMessage;
 import teamport.aether.world.SunSpiritDeath;
 import turniplabs.halplibe.helper.network.NetworkHandler;
 
-import static teamport.aether.AetherMod.LOGGER;
+import static teamport.aether.AetherGlobals.LOGGER;
+import static teamport.aether.AetherMod.MOD_ID;
 
 @Environment(EnvType.SERVER)
 public class AetherServer implements DedicatedServerModInitializer {
@@ -24,6 +26,7 @@ public class AetherServer implements DedicatedServerModInitializer {
     @Override
     public void onInitializeServer() {
         AetherCommand.registerServerCommands();
+        SoundTypes.loadSoundsJson(MOD_ID);
         LOGGER.info("AetherMod server initialized.");
     }
 }

@@ -17,7 +17,7 @@ import static toufoumaster.btwaila.BTWaila.translator;
 public class FreezerTooltip extends TileTooltip<TileEntityFreezer> {
     @Override
     public void initTooltip() {
-        addClass(TileEntityFreezer.class);
+        this.addClass(TileEntityFreezer.class);
     }
 
     @Override
@@ -37,3 +37,4 @@ public class FreezerTooltip extends TileTooltip<TileEntityFreezer> {
         advancedInfoComponent.drawItemList(stacks, 0);
     }
 }
+

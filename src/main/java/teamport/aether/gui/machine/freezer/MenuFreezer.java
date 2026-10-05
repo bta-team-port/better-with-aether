@@ -1,15 +1,15 @@
 package teamport.aether.gui.machine.freezer;
 
+import it.unimi.dsi.fastutil.ints.IntList;
+import it.unimi.dsi.fastutil.ints.IntLists;
 import net.minecraft.core.InventoryAction;
 import net.minecraft.core.crafting.ContainerListener;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.player.inventory.menu.MenuAbstract;
 import net.minecraft.core.player.inventory.slot.Slot;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.block.entity.TileEntityFreezer;
-
-import java.util.Collections;
-import java.util.List;
 
 public class MenuFreezer extends MenuAbstract {
     private final TileEntityFreezer freezer;
@@ -35,7 +35,7 @@ public class MenuFreezer extends MenuAbstract {
     }
 
     @Override
-    public List<Integer> getMoveSlots(InventoryAction inventoryAction, Slot slot, int target, Player player) {
+    public IntList getMoveSlots(@NonNull InventoryAction inventoryAction, @NonNull Slot slot, int target, Player player) {
         if (slot.index >= 0 && slot.index <= 3) {
             return this.getSlots(slot.index, 1, false);
         } else {
@@ -54,7 +54,7 @@ public class MenuFreezer extends MenuAbstract {
     }
 
     @Override
-    public List<Integer> getTargetSlots(InventoryAction inventoryAction, Slot slot, int target, Player player) {
+    public IntList getTargetSlots(@NonNull InventoryAction inventoryAction, @NonNull Slot slot, int target, Player player) {
         if (slot.index >= 3 && slot.index <= 39) {
             if (inventoryAction != InventoryAction.MOVE_ALL) {
                 if (target == 1) {
@@ -78,12 +78,12 @@ public class MenuFreezer extends MenuAbstract {
         if (slot.index >= 0 && slot.index <= 2) {
             return slot.index == 2 ? this.getSlots(3, 36, true) : this.getSlots(3, 36, false);
         } else {
-            return Collections.emptyList();
+            return IntLists.EMPTY_LIST;
         }
     }
 
-    @SuppressWarnings("java:S131")
     @Override
+    @SuppressWarnings("java:S131")
     public void setData(int id, int value) {
         switch (id) {
             case 0:
@@ -129,8 +129,7 @@ public class MenuFreezer extends MenuAbstract {
     }
 
     @Override
-    public boolean stillValid(Player player) {
+    public boolean stillValid(@NonNull Player player) {
         return this.freezer.stillValid(player);
     }
 }
-

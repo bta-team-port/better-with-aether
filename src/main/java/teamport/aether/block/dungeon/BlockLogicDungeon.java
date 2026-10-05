@@ -6,6 +6,8 @@ import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.achievements.AetherAchievements;
 
 public class BlockLogicDungeon extends BlockLogic {
@@ -14,11 +16,11 @@ public class BlockLogicDungeon extends BlockLogic {
     }
 
     @Override
-    public boolean collidesWithEntity(Entity entity, World world, int x, int y, int z) {
-        if (entity instanceof Player) {
-            ((Player) entity).triggerAchievement(AetherAchievements.WEVE_GOT_HOSTILES);
+    public boolean collidesWithEntity(@NonNull Entity entity, @NonNull World world, @NonNull TilePosc tilePos) {
+        if (entity instanceof Player player) {
+            player.triggerAchievement(AetherAchievements.WEVE_GOT_HOSTILES);
         }
 
-        return super.collidesWithEntity(entity, world, x, y, z);
+        return super.collidesWithEntity(entity, world, tilePos);
     }
 }

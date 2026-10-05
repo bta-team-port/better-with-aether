@@ -4,6 +4,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.biome.provider.BiomeProvider;
 import net.minecraft.core.world.biome.provider.BiomeProviderSingleBiome;
 import net.minecraft.core.world.type.WorldType;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.world.biome.AetherBiomes;
 
 public class WorldTypeAetherRetro extends WorldTypeAether {
@@ -12,8 +13,8 @@ public class WorldTypeAetherRetro extends WorldTypeAether {
     }
 
     @Override
-    public BiomeProvider createBiomeProvider(World world) {
-        return new BiomeProviderSingleBiome(AetherBiomes.AETHER_PLAINS, 1.0F, 1.0F, 1.0F);
+    public @NonNull BiomeProvider createBiomeProvider(World world) {
+        return new BiomeProviderSingleBiome(world, AetherBiomes.AETHER_PLAINS, 1.0F, 1.0F, 1.0F);
     }
 
 }

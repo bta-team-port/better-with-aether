@@ -5,24 +5,22 @@ import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.tool.ItemToolPickaxe;
-import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 import teamport.aether.block.AetherBlocks;
-import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.AetherMobOtherImmunities;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.item.item_tool.ItemToolPickaxeAether;
 
-public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMessage, AetherMobOtherImmunities {
+public class MobSentry extends MobMonsterAether implements Enemy, AetherMobOtherImmunities {
     private int jumpDelay;
     private int cooldownInactive;
     private boolean activated;
 
     public MobSentry(World world) {
         super(world);
-        this.textureIdentifier = NamespaceID.getPermanent("aether", "sentry");
-        this.scoreValue = 200;
+        this.setTextureIdentifier("aether", "sentry");
+        this.scoreValue = 400;
         this.setSize(1f, 1f);
         this.activated = false;
         this.cooldownInactive = 0;
@@ -42,8 +40,8 @@ public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMes
     @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
 
-        if (attacker instanceof Player) {
-            ItemStack item = ((Player) attacker).inventory.getCurrentItem();
+        if (attacker instanceof Player player) {
+            ItemStack item = player.inventory.getCurrentItem();
 
             if (item != null && (item.getItem() instanceof ItemToolPickaxe || item.getItem() instanceof ItemToolPickaxeAether)) {
                 return super.hurt(attacker, damage * 2, type);
@@ -56,7 +54,6 @@ public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMes
     public void tick() {
         boolean flag = this.onGround;
         super.tick();
-        if (this.world == null) return;
         if (this.onGround && !flag) {
             this.world.playSoundAtEntity(null, this, "step.stone", this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f) / 0.8f);
         }
@@ -68,9 +65,8 @@ public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMes
     @Override
     public void updateAI() {
         this.tryToDespawn();
-        if (this.world == null) return;
         Player entityplayer = this.world.getClosestPlayerToEntity(this, 16.0);
-        boolean targetPlayer = entityplayer != null && entityplayer.getGamemode().areMobsHostile() && canEntityBeSeen(entityplayer);
+        boolean targetPlayer = entityplayer != null && entityplayer.getGamemode().hasHostileMobs() && canEntityBeSeen(entityplayer);
         if (entityplayer != null && targetPlayer) {
             this.target = entityplayer;
         }
@@ -117,16 +113,18 @@ public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMes
     @Override
     public void playerTouch(Player player) {
         Player target = (Player) this.findPlayerToAttack();
-        if (this.world != null && target != null && target.uuid.equals(player.uuid) && this.canEntityBeSeen(player) && this.distanceTo(player) < 1.5) {
+        if (target != null && target.uuid.equals(player.uuid) && this.canEntityBeSeen(player) && this.distanceTo(player) < 1.5) {
             target.hurt(this, this.attackStrength, DamageType.COMBAT);
             this.world.createExplosion(this, this.x, this.y - 0.5, this.z, 1f, false, true);
+            this.remove();
         }
     }
 
     ///  Sentries have true sight.
+    @Override
     protected Entity findPlayerToAttack() {
         Player entityplayer = this.world.getClosestPlayerToEntity(this, 16.0F);
-        return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().areMobsHostile() ? entityplayer : null;
+        return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().hasHostileMobs() ? entityplayer : null;
     }
 
     @Override
@@ -152,10 +150,7 @@ public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMes
 
     @Override
     public boolean canSpawnHere() {
-        return this.world != null
-            && this.world.getDifficulty().canHostileMobsSpawn()
-            && this.world.checkIfAABBIsClear(this.bb)
-            && this.world.getCubes(this, this.bb).isEmpty();
+        return this.world.getDifficulty().canHostileMobsSpawn() && this.world.checkIfAABBIsClear(this.bb) && this.world.getCubes(this, this.bb).isEmpty();
     }
 
     public boolean isActivated() {

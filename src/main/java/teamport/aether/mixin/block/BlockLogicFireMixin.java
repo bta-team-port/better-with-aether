@@ -1,34 +1,51 @@
 package teamport.aether.mixin.block;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.block.BlockLogicFire;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
+import net.minecraft.core.world.pos.TilePosc;
+import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import teamport.aether.block.AetherBlocks;
+import teamport.aether.block.terrain.BlockLogicLogAether;
 import teamport.aether.world.AetherDimension;
 
-@Mixin(value = BlockLogicFire.class)
+@Mixin(BlockLogicFire.class)
 public abstract class BlockLogicFireMixin extends BlockLogic {
     protected BlockLogicFireMixin(Block<?> block, Material material) {
         super(block, material);
     }
 
-    @WrapMethod(method = "onBlockPlacedByWorld")
-    private void onBlockPlacedByWorld(World world, int x, int y, int z, Operation<Void> original) {
+    @WrapMethod(method = "onPlacedByWorld")
+    private void onPlacedByWorld(@NonNull World world, TilePosc tilePos, Operation<Void> original) {
         if (world.dimension == AetherDimension.getAether()) {
-            Block<?> below = world.getBlock(x, y - 1, z);
-            boolean infiniteBurn = below != null && below.hasTag(BlockTags.INFINITE_BURN);
+            Block<?> below = world.getBlockType(tilePos.down(new TilePos()));
+            boolean infiniteBurn = below.hasTag(BlockTags.INFINITE_BURN);
 
             if (!infiniteBurn) {
-                world.setBlock(x, y, z, 0);
+                world.setBlockType(tilePos, Blocks.AIR);
                 return;
             }
         }
 
-        original.call(world, x, y, z);
+        original.call(world, tilePos);
+    }
+
+    @ModifyReturnValue(method = "getBurnResult", at = @At("RETURN"))
+    private Block<?> getAetherBurnResult(Block<?> original, @NonNull World world, TilePosc tilePos) {
+        Block<?> blockAtPos = world.getBlockType(tilePos);
+        if (blockAtPos.getLogic() instanceof BlockLogicLogAether) {
+            return AetherBlocks.LOG_AETHER_SCORCHED;
+        }
+        return original;
     }
 }

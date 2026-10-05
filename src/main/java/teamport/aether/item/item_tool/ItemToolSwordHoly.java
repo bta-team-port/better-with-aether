@@ -7,6 +7,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemToolSword;
 import net.minecraft.core.util.helper.DamageType;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherMod;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherHasCustomDamageType;
@@ -17,7 +18,7 @@ public class ItemToolSwordHoly extends ItemToolSword implements AetherHasCustomD
     }
 
     @Override
-    public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
+    public boolean hitEntity(@NonNull ItemStack itemstack, @NonNull Mob target, @NonNull Mob attacker) {
         boolean hitEntity = super.hitEntity(itemstack, target, attacker);
         if (target.hurtTime == 10 && (undeadKills(target))) {
             ParticleMaker.spawnHolySwordParticles(target);
@@ -34,8 +35,8 @@ public class ItemToolSwordHoly extends ItemToolSword implements AetherHasCustomD
     }
 
     @Override
-    public int getDamageVsEntity(Entity entity, ItemStack itemstack) {
-        int damage = super.getDamageVsEntity(entity, itemstack);
+    public int getDamageVsEntity(@NonNull ItemStack itemstack, @NonNull Entity entity) {
+        int damage = super.getDamageVsEntity(itemstack, entity);
         if (undeadKills(entity)) {
             damage = damage * 2;
         }
