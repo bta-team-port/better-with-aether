@@ -164,6 +164,14 @@ public class AetherModels {
         dispatcher.addDispatch(new BlockModelGeneric<>(AetherBlocks.ORE_GRAVITITE_HOLYSTONE,
             loadDataModel("aether:block/ore/gravitite/holystone")));
 
+
+        dispatcher.addDispatch(new BlockModelGeneric<>(AetherBlocks.ORE_AMBROSIUM_COBBLE_HOLYSTONE,
+            loadDataModel("aether:block/ore/ambrosium/cobble_holystone")));
+        dispatcher.addDispatch(new BlockModelGeneric<>(AetherBlocks.ORE_ZANITE_COBBLE_HOLYSTONE,
+            loadDataModel("aether:block/ore/zanite/cobble_holystone")));
+        dispatcher.addDispatch(new BlockModelGeneric<>(AetherBlocks.ORE_GRAVITITE_COBBLE_HOLYSTONE,
+            loadDataModel("aether:block/ore/gravitite/cobble_holystone")));
+
         dispatcher.addDispatch((new BlockModelGeneric<>(AetherBlocks.BLOCK_AMBER,
             loadDataModel("aether:block/block_amber")))
             .forceCullSelf(true));

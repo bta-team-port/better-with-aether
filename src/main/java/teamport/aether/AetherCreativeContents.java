@@ -1,21 +1,13 @@
 package teamport.aether;
 
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
-import net.minecraft.core.block.IPainted;
 import net.minecraft.core.item.*;
-import net.minecraft.core.util.collection.NamespaceID;
-import net.minecraft.core.util.helper.DyeColor;
-import org.jetbrains.annotations.NotNull;
-import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.item.AetherItems;
 import turniplabs.halplibe.helper.creativeInventory.CreativeInventoryCategory;
 import turniplabs.halplibe.helper.creativeInventory.CreativeInventoryPlacement;
 import turniplabs.halplibe.helper.creativeInventory.CreativeInventoryRegistry;
-
-import java.util.List;
 
 public final class AetherCreativeContents {
     private static CreativeInventoryRegistry REG = CreativeInventoryRegistry.INSTANCE;
@@ -112,8 +104,11 @@ public final class AetherCreativeContents {
 
     private static void addOreAndCo() {
         CreativeInventoryPlacement.After after = placeAfter(Blocks.ORE_NETHERCOAL_GLOOMSTONE);
+        REG.register(AetherBlocks.ORE_AMBROSIUM_COBBLE_HOLYSTONE, after);
         REG.register(AetherBlocks.ORE_AMBROSIUM_HOLYSTONE, after);
+        REG.register(AetherBlocks.ORE_ZANITE_COBBLE_HOLYSTONE, after);
         REG.register(AetherBlocks.ORE_ZANITE_HOLYSTONE, after);
+        REG.register(AetherBlocks.ORE_GRAVITITE_COBBLE_HOLYSTONE, after);
         REG.register(AetherBlocks.ORE_GRAVITITE_HOLYSTONE, after);
         after = placeAfter(Blocks.BLOCK_QUARTZ);
         REG.register(AetherBlocks.BLOCK_AMBER, after);
