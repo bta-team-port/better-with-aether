@@ -10,6 +10,7 @@ import net.minecraft.core.world.World;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.AetherMobOtherImmunities;
 import teamport.aether.entity.monster.MobMonsterAether;
+import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.item_tool.ItemToolPickaxeAether;
 
 public class MobSentry extends MobMonsterAether implements Enemy, AetherMobOtherImmunities {
@@ -39,15 +40,26 @@ public class MobSentry extends MobMonsterAether implements Enemy, AetherMobOther
 
     @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
-
         if (attacker instanceof Player player) {
             ItemStack item = player.inventory.getCurrentItem();
-
             if (item != null && (item.getItem() instanceof ItemToolPickaxe || item.getItem() instanceof ItemToolPickaxeAether)) {
                 return super.hurt(attacker, damage * 2, type);
             }
         }
+        this.spawnParticles();
         return super.hurt(attacker, damage, type);
+    }
+
+    private void spawnParticles() {
+        for(int i = 0; i < 32; i++){
+            double px = this.x;
+            double py = this.y + (this.bbHeight / 4.0D) * 3.0D;
+            double pz = this.z;
+            double dx = 0;
+            double dy = 0;
+            double dz = 0;
+            ParticleMaker.spawnParticle(this.world, "block", px, py, pz, dx, dy, dz, AetherBlocks.CARVED_STONE_LIGHT.id());
+        }
     }
 
     @Override

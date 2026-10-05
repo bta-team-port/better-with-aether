@@ -40,8 +40,10 @@ import teamport.aether.block.dungeon.BlockLogicPaintedChestMimic;
 import teamport.aether.block.entity.TileEntityMimic;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.entity.player.PlayerUtil;
+import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.item_tool.ItemToolAxeAether;
 import teamport.aether.item.item_tool.ItemToolPickaxeAether;
+import teamport.aether.particle.ParticleMimicHurt;
 import teamport.aether.world.feature.util.WorldFeatureComponent;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
 import turniplabs.halplibe.helper.EnvironmentHelper;
@@ -214,7 +216,21 @@ public class MobMimic extends MobMonsterAether implements Enemy {
     @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
         if (damage > 0 && this.isWallace()) damage = Math.max(1, damage / 3);
+        this.spawnParticles();
         return super.hurt(attacker, this.extraDamage(attacker, damage), type);
+    }
+
+    private void spawnParticles() {
+        for(int i = 0; i < 32; i++){
+            double px = this.x;
+            double py = this.y + (this.bbHeight / 4.0D) * 3.0D;
+            double pz = this.z;
+            double dx = 0;
+            double dy = 0;
+            double dz = 0;
+            int data = ParticleMimicHurt.setData(this.mimicChestID, this.mimicChestMetadata);
+            ParticleMaker.spawnParticle(this.world, "mimicHurt", px, py, pz, dx, dy, dz, data);
+        }
     }
 
     public int extraDamage(Entity attacker, int damage) {

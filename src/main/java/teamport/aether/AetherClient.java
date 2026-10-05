@@ -115,6 +115,7 @@ public class AetherClient implements ClientModInitializer {
             TilePos tilePos = new TilePos(x, y, z);
             return !world.isAirBlock(tilePos) ? (new ParticleAetherLeaf(world, x, y, z, motionX, motionY, motionZ)).init(tilePos) : null;
         });
+        dispatcher.addDispatch("mimicHurt", ParticleMimicHurt::new);
 
         SoundRepository.namespaceAdded(MOD_ID);
         AetherCommand.registerClientCommands();
