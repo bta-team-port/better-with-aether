@@ -81,8 +81,8 @@ public class AetherMod implements ModInitializer {
     public static final BlockLogicNote.Instrument MUSICBOX = new BlockLogicNote.Instrument(20, "musicbox");
     public static final byte ARMOR_START_INDEX = 41;
     public static final float ZANITE_MULTIPLIER = 2.0F;
-    public static final byte BRONZE_CHANCES = 8;
-    public static final byte SILVER_CHANCES = 20;
+    public static final byte BRONZE_CHANCES = 10;
+    public static final byte SILVER_CHANCES = 16;
     public static final byte GOLD_CHANCES = 22;
 
     private final AetherRecipes recipes = new AetherRecipes();

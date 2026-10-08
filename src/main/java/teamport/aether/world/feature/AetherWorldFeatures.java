@@ -9,6 +9,7 @@ import teamport.aether.world.feature.dungeon.bronze.component.*;
 import teamport.aether.world.feature.dungeon.gold.WorldFeatureAetherGoldDungeon;
 import teamport.aether.world.feature.dungeon.silver.WorldFeatureAetherSilverDungeon;
 import teamport.aether.world.feature.terrain.*;
+import teamport.aether.world.feature.terrain.WorldFeatureAetherStalagmite;
 import teamport.aether.world.feature.util.RotationBlockTest;
 
 import static net.minecraft.core.net.command.util.CommandHelper.registerWorldFeatureClass;
@@ -41,6 +42,9 @@ public class AetherWorldFeatures {
         registerWorldFeatureClass(WorldFeatureAetherSilverChest.class, "TempleTreasure");
         registerWorldFeatureClass(WorldFeatureAetherBronzeChest.class, "MazeTreasure");
 
+        registerWorldFeatureClass(WorldFeatureAetherStalagmite.class, "Stalagmite");
+        registerWorldFeatureClass(WorldFeatureAetherLake.class, "AdjustedLake");
+
         /// for testing bronze dungeon rooms
         if(FabricLoader.getInstance().isDevelopmentEnvironment()) {
             registerWorldFeatureClass(BossRoom.class, "DebugMazeBoss");
@@ -55,6 +59,9 @@ public class AetherWorldFeatures {
             registerWorldFeatureClass(StorageRoom.class, "DebugMazeStorage");
             registerWorldFeatureClass(DisplayRoom.class, "DebugDisplay");
             registerWorldFeatureClass(RotationBlockTest.class, "DebugRotationBlocks");
+
+            // testing new features
+
         }
     }
 }

@@ -9,6 +9,9 @@ import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
+import net.minecraft.core.world.pos.TilePosc;
+import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlockTags;
@@ -32,6 +35,11 @@ public class BlockLogicTallGrassAether extends BlockLogicFlower {
             case PICK_BLOCK, SILK_TOUCH -> new ItemStack[]{new ItemStack(this)};
             default -> null;
         };
+    }
+
+    @Override // for decorating the underhangs
+    public boolean canStay(@NotNull World world, @NotNull TilePosc tilePos) {
+        return this.mayPlaceOn(world.getBlockType(tilePos.down(new TilePos())));
     }
 
 }

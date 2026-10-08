@@ -685,12 +685,20 @@ tile.sign.wall.planks.skyroot.painted.black.name=Black Skyroot Wall Sign
 tile.sign.wall.planks.skyroot.painted.black.desc=A black skyroot sign placed on a wall.
 
 # Ores
-tile.ore.ambrosium.holystone.name=Holystone Ambrosium Ore
-tile.ore.ambrosium.holystone.desc=Ambrosium shards embedded in holystone.
-tile.ore.zanite.holystone.name=Holystone Zanite Ore
-tile.ore.zanite.holystone.desc=A lump of zanite embedded in holystone.
-tile.ore.gravitite.holystone.name=Holystone Gravitite Ore
-tile.ore.gravitite.holystone.desc=A chunk of gravitite embedded in holystone.
+tile.ore.ambrosium.holystone.name=Hallowed Holystone Ambrosium Ore
+tile.ore.ambrosium.holystone.desc=Ambrosium shards embedded in prestine holystone.
+tile.ore.zanite.holystone.name=Hallowed Holystone Zanite Ore
+tile.ore.zanite.holystone.desc=A lump of zanite embedded in prestine holystone.
+tile.ore.gravitite.holystone.name=Hallowed Holystone Gravitite Ore
+tile.ore.gravitite.holystone.desc=A chunk of gravitite embedded in prestine holystone.
+
+# Cobbled ore
+tile.ore.ambrosium.cobble.holystone.name=Holystone Ambrosium Ore
+tile.ore.ambrosium.cobble.holystone.desc=Ambrosium shards embedded in holystone.
+tile.ore.zanite.cobble.holystone.name=Holystone Zanite Ore
+tile.ore.zanite.cobble.holystone.desc=A lump of zanite embedded in holystone.
+tile.ore.gravitite.cobble.holystone.name=Holystone Gravitite Ore
+tile.ore.gravitite.cobble.holystone.desc=A chunk of gravitite embedded in holystone.
 
 # Dungeon Blocks
 tile.carved.stone.name=Sentry Stone
