@@ -106,9 +106,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeatureMap<DungeonLogicG
 
     static {
         TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_VAMPIRE.getDefaultStack(), 1), 100.0);
-        TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_FLAME.getDefaultStack(), 1), 100.0);
         TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_PIG.getDefaultStack(), 1), 100.0);
-        TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_BOW_PHOENIX.getDefaultStack()), 10);
 
         TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_GLOVES_PHOENIX.getDefaultStack(), 1), 100.0);
         TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_BOOTS_PHOENIX.getDefaultStack(), 1), 100.0);
@@ -123,6 +121,13 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeatureMap<DungeonLogicG
 
         TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_CAPE_INVISIBILITY.getDefaultStack()), 100.0);
         TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_SHIELD_REPULSION.getDefaultStack()), 100.0);
+
+        TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_FLAME.getDefaultStack(), 1), 100.0);
+        TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_PHOENIX.getDefaultStack(), 1), 0.5);
+        TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_BOW_PHOENIX.getDefaultStack()), 2);
+        TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_AXE_PHOENIX.getDefaultStack(), 1), 2);
+        TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_PICKAXE_PHOENIX.getDefaultStack(), 1), 2);
+        TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SHOVEL_PHOENIX.getDefaultStack()), 2);
     }
 
     public WorldFeatureAetherGoldDungeon(int dir) {

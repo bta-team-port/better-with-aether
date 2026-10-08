@@ -36,7 +36,10 @@ import teamport.aether.item.item_tool.item_tool_zanite.ItemToolAxeZanite;
 import teamport.aether.item.item_tool.item_tool_zanite.ItemToolPickaxeZanite;
 import teamport.aether.item.item_tool.item_tool_zanite.ItemToolShovelZanite;
 import teamport.aether.item.item_tool.item_tool_zanite.ItemToolSwordZanite;
-import teamport.aether.mixin.accessors.ItemAccessor;
+import teamport.aether.item.item_tool.phoenix.ItemToolAxePhoenix;
+import teamport.aether.item.item_tool.phoenix.ItemToolPickaxePhoenix;
+import teamport.aether.item.item_tool.phoenix.ItemToolShovelPhoenix;
+import teamport.aether.item.item_tool.phoenix.ItemToolSwordPhoenix;
 
 import static teamport.aether.AetherConfig.itemID;
 import static teamport.aether.AetherMod.MOD_ID;
@@ -109,6 +112,11 @@ public final class AetherItems {
     public static Item TOOL_AXE_VALKYRIE;
     public static Item TOOL_SWORD_VALKYRIE;
 
+    public static Item TOOL_PICKAXE_PHOENIX;
+    public static Item TOOL_SHOVEL_PHOENIX;
+    public static Item TOOL_AXE_PHOENIX;
+    public static Item TOOL_SWORD_PHOENIX;
+
     public static Item ARMOR_HELMET_ZANITE;
     public static Item ARMOR_CHESTPLATE_ZANITE;
     public static Item ARMOR_LEGGINGS_ZANITE;
@@ -162,6 +170,8 @@ public final class AetherItems {
     public static Item ARMOR_GLOVES_IRON;
     public static Item ARMOR_GLOVES_GOLD;
     public static Item ARMOR_GLOVES_DIAMOND;
+    public static Item ULTIMATIVE_FIST;
+    public static Item UNCHARGED_ULTIMATIVE_FIST;
     public static Item ARMOR_GLOVES_STEEL;
     public static Item ARMOR_GLOVES_ZANITE;
     public static Item ARMOR_GLOVES_GRAVITITE;
@@ -324,6 +334,10 @@ public final class AetherItems {
             .setDamage(2);
         ARMOR_GLOVES_DIAMOND = new ItemGloves("armor.gloves.diamond", itemKey("armor_gloves_diamond"), itemID("ARMOR_GLOVES_DIAMOND"), ArmorMaterial.DIAMOND, HumanAccessoryShape.GLOVES)
             .setDamage(4);
+
+        ULTIMATIVE_FIST = new ItemFist("ultimative.fist", itemKey("ultimative_fist"), itemID("ARMOR_GLOVES_ULTIMATE"), ArmorMaterial.DIAMOND, HumanAccessoryShape.GLOVES).setMaxStackSize(1);
+        UNCHARGED_ULTIMATIVE_FIST = new Item("ultimative.fist.uncharged", itemKey("ultimative_fist_uncharged"), itemID("ARMOR_GLOVES_ULTIMATE_UINCHARGED")).setMaxStackSize(1);
+
         ARMOR_GLOVES_STEEL = new ItemGloves("armor.gloves.steel", itemKey("armor_gloves_steel"), itemID("ARMOR_GLOVES_STEEL"), ArmorMaterial.STEEL, HumanAccessoryShape.GLOVES)
             .setDamage(3);
         ARMOR_GLOVES_ZANITE = new ItemGloves("armor.gloves.zanite", itemKey("armor_gloves_zanite"), itemID("ARMOR_GLOVES_ZANITE"), AetherArmorMaterial.ZANITE, HumanAccessoryShape.GLOVES)
@@ -398,44 +412,51 @@ public final class AetherItems {
             .setContainerItem(BUCKET_SKYROOT);
 
 
-        TOOL_SWORD_SKYROOT = new ItemToolSwordAether("tool.sword.skyroot", itemKey("tool_sword_skyroot"), itemID("TOOL_SWORD_SKYROOT"), AetherToolMaterial.skyroot)
+        TOOL_SWORD_SKYROOT = new ItemToolSwordAether("tool.sword.skyroot", itemKey("tool_sword_skyroot"), itemID("TOOL_SWORD_SKYROOT"), AetherToolMaterial.SKYROOT)
             .withTags(ItemTags.PREVENT_CREATIVE_MINING);
 
-        TOOL_SHOVEL_SKYROOT = new ItemToolShovelAether("tool.shovel.skyroot", itemKey("tool_shovel_skyroot"), itemID("TOOL_SHOVEL_SKYROOT"), AetherToolMaterial.skyroot);
-        TOOL_PICKAXE_SKYROOT = new ItemToolPickaxeAether("tool.pickaxe.skyroot", itemKey("tool_pickaxe_skyroot"), itemID("TOOL_PICKAXE_SKYROOT"), AetherToolMaterial.skyroot);
-        TOOL_AXE_SKYROOT = new ItemToolAxeAether("tool.axe.skyroot", itemKey("tool_axe_skyroot"), itemID("TOOL_AXE_SKYROOT"), AetherToolMaterial.skyroot);
+        TOOL_SHOVEL_SKYROOT = new ItemToolShovelAether("tool.shovel.skyroot", itemKey("tool_shovel_skyroot"), itemID("TOOL_SHOVEL_SKYROOT"), AetherToolMaterial.SKYROOT);
+        TOOL_PICKAXE_SKYROOT = new ItemToolPickaxeAether("tool.pickaxe.skyroot", itemKey("tool_pickaxe_skyroot"), itemID("TOOL_PICKAXE_SKYROOT"), AetherToolMaterial.SKYROOT);
+        TOOL_AXE_SKYROOT = new ItemToolAxeAether("tool.axe.skyroot", itemKey("tool_axe_skyroot"), itemID("TOOL_AXE_SKYROOT"), AetherToolMaterial.SKYROOT);
 
 
-        TOOL_SWORD_HOLYSTONE = new ItemToolSwordHolystone("tool.sword.holystone", itemKey("tool_sword_holystone"), itemID("TOOL_SWORD_HOLYSTONE"), AetherToolMaterial.holystone)
+        TOOL_SWORD_HOLYSTONE = new ItemToolSwordHolystone("tool.sword.holystone", itemKey("tool_sword_holystone"), itemID("TOOL_SWORD_HOLYSTONE"), AetherToolMaterial.HOLYSTONE)
             .withTags(ItemTags.PREVENT_CREATIVE_MINING);
 
-        TOOL_SHOVEL_HOLYSTONE = new ItemToolShovelHolystone("tool.shovel.holystone", itemKey("tool_shovel_holystone"), itemID("TOOL_SHOVEL_HOLYSTONE"), AetherToolMaterial.holystone);
-        TOOL_PICKAXE_HOLYSTONE = new ItemToolPickaxeHolystone("tool.pickaxe.holystone", itemKey("tool_pickaxe_holystone"), itemID("TOOL_PICKAXE_HOLYSTONE"), AetherToolMaterial.holystone);
-        TOOL_AXE_HOLYSTONE = new ItemToolAxeHolystone("tool.axe.holystone", itemKey("tool_axe_holystone"), itemID("TOOL_AXE_HOLYSTONE"), AetherToolMaterial.holystone);
+        TOOL_SHOVEL_HOLYSTONE = new ItemToolShovelHolystone("tool.shovel.holystone", itemKey("tool_shovel_holystone"), itemID("TOOL_SHOVEL_HOLYSTONE"), AetherToolMaterial.HOLYSTONE);
+        TOOL_PICKAXE_HOLYSTONE = new ItemToolPickaxeHolystone("tool.pickaxe.holystone", itemKey("tool_pickaxe_holystone"), itemID("TOOL_PICKAXE_HOLYSTONE"), AetherToolMaterial.HOLYSTONE);
+        TOOL_AXE_HOLYSTONE = new ItemToolAxeHolystone("tool.axe.holystone", itemKey("tool_axe_holystone"), itemID("TOOL_AXE_HOLYSTONE"), AetherToolMaterial.HOLYSTONE);
 
 
-        TOOL_SWORD_ZANITE = new ItemToolSwordZanite("tool.sword.zanite", itemKey("tool_sword_zanite"), itemID("TOOL_SWORD_ZANITE"), AetherToolMaterial.zanite)
+        TOOL_SWORD_ZANITE = new ItemToolSwordZanite("tool.sword.zanite", itemKey("tool_sword_zanite"), itemID("TOOL_SWORD_ZANITE"), AetherToolMaterial.ZANITE)
             .withTags(ItemTags.PREVENT_CREATIVE_MINING);
 
-        TOOL_SHOVEL_ZANITE = new ItemToolShovelZanite("tool.shovel.zanite", itemKey("tool_shovel_zanite"), itemID("TOOL_SHOVEL_ZANITE"), AetherToolMaterial.zanite);
-        TOOL_PICKAXE_ZANITE = new ItemToolPickaxeZanite("tool.pickaxe.zanite", itemKey("tool_pickaxe_zanite"), itemID("TOOL_PICKAXE_ZANITE"), AetherToolMaterial.zanite);
-        TOOL_AXE_ZANITE = new ItemToolAxeZanite("tool.axe.zanite", itemKey("tool_axe_zanite"), itemID("TOOL_AXE_ZANITE"), AetherToolMaterial.zanite);
+        TOOL_SHOVEL_ZANITE = new ItemToolShovelZanite("tool.shovel.zanite", itemKey("tool_shovel_zanite"), itemID("TOOL_SHOVEL_ZANITE"), AetherToolMaterial.ZANITE);
+        TOOL_PICKAXE_ZANITE = new ItemToolPickaxeZanite("tool.pickaxe.zanite", itemKey("tool_pickaxe_zanite"), itemID("TOOL_PICKAXE_ZANITE"), AetherToolMaterial.ZANITE);
+        TOOL_AXE_ZANITE = new ItemToolAxeZanite("tool.axe.zanite", itemKey("tool_axe_zanite"), itemID("TOOL_AXE_ZANITE"), AetherToolMaterial.ZANITE);
 
 
-        TOOL_SWORD_GRAVITITE = new ItemToolSwordGravitite("tool.sword.gravitite", itemKey("tool_sword_gravitite"), itemID("TOOL_SWORD_GRAVITITE"), AetherToolMaterial.gravitite)
+        TOOL_SWORD_GRAVITITE = new ItemToolSwordGravitite("tool.sword.gravitite", itemKey("tool_sword_gravitite"), itemID("TOOL_SWORD_GRAVITITE"), AetherToolMaterial.GRAVITITE)
             .withTags(ItemTags.PREVENT_CREATIVE_MINING);
 
-        TOOL_SHOVEL_GRAVITITE = new ItemToolShovelGravitite("tool.shovel.gravitite", itemKey("tool_shovel_gravitite"), itemID("TOOL_SHOVEL_GRAVITITE"), AetherToolMaterial.gravitite);
-        TOOL_PICKAXE_GRAVITITE = new ItemToolPickaxeGravitite("tool.pickaxe.gravitite", itemKey("tool_pickaxe_gravitite"), itemID("TOOL_PICKAXE_GRAVITITE"), AetherToolMaterial.gravitite);
-        TOOL_AXE_GRAVITITE = new ItemToolAxeGravitite("tool.axe.gravitite", itemKey("tool_axe_gravitite"), itemID("TOOL_AXE_GRAVITITE"), AetherToolMaterial.gravitite);
+        TOOL_SHOVEL_GRAVITITE = new ItemToolShovelGravitite("tool.shovel.gravitite", itemKey("tool_shovel_gravitite"), itemID("TOOL_SHOVEL_GRAVITITE"), AetherToolMaterial.GRAVITITE);
+        TOOL_PICKAXE_GRAVITITE = new ItemToolPickaxeGravitite("tool.pickaxe.gravitite", itemKey("tool_pickaxe_gravitite"), itemID("TOOL_PICKAXE_GRAVITITE"), AetherToolMaterial.GRAVITITE);
+        TOOL_AXE_GRAVITITE = new ItemToolAxeGravitite("tool.axe.gravitite", itemKey("tool_axe_gravitite"), itemID("TOOL_AXE_GRAVITITE"), AetherToolMaterial.GRAVITITE);
 
 
-        TOOL_SWORD_VALKYRIE = new ItemToolSwordValkyrie("tool.sword.valkyrie", itemKey("tool_sword_valkyrie"), itemID("TOOL_SWORD_VALKYRIE"), AetherToolMaterial.valkyrie)
+        TOOL_SWORD_VALKYRIE = new ItemToolSwordValkyrie("tool.sword.valkyrie", itemKey("tool_sword_valkyrie"), itemID("TOOL_SWORD_VALKYRIE"), AetherToolMaterial.VALKYRIE)
             .withTags(ItemTags.PREVENT_CREATIVE_MINING);
 
-        TOOL_SHOVEL_VALKYRIE = new ItemToolShovelValkyrie("tool.shovel.valkyrie", itemKey("tool_shovel_valkyrie"), itemID("TOOL_SHOVEL_VALKYRIE"), AetherToolMaterial.valkyrie);
-        TOOL_PICKAXE_VALKYRIE = new ItemToolPickaxeValkyrie("tool.pickaxe.valkyrie", itemKey("tool_pickaxe_valkyrie"), itemID("TOOL_PICKAXE_VALKYRIE"), AetherToolMaterial.valkyrie);
-        TOOL_AXE_VALKYRIE = new ItemToolAxeValkyrie("tool.axe.valkyrie", itemKey("tool_axe_valkyrie"), itemID("TOOL_AXE_VALKYRIE"), AetherToolMaterial.valkyrie);
+        TOOL_SHOVEL_VALKYRIE = new ItemToolShovelValkyrie("tool.shovel.valkyrie", itemKey("tool_shovel_valkyrie"), itemID("TOOL_SHOVEL_VALKYRIE"), AetherToolMaterial.VALKYRIE);
+        TOOL_PICKAXE_VALKYRIE = new ItemToolPickaxeValkyrie("tool.pickaxe.valkyrie", itemKey("tool_pickaxe_valkyrie"), itemID("TOOL_PICKAXE_VALKYRIE"), AetherToolMaterial.VALKYRIE);
+        TOOL_AXE_VALKYRIE = new ItemToolAxeValkyrie("tool.axe.valkyrie", itemKey("tool_axe_valkyrie"), itemID("TOOL_AXE_VALKYRIE"), AetherToolMaterial.VALKYRIE);
+
+        TOOL_SWORD_PHOENIX = new ItemToolSwordPhoenix("tool.sword.phoenix", itemKey("tool_sword_phoenix"), itemID("TOOL_SWORD_PHOENIX"), AetherToolMaterial.PHOENIX)
+            .withTags(ItemTags.PREVENT_CREATIVE_MINING);
+
+        TOOL_SHOVEL_PHOENIX = new ItemToolShovelPhoenix("tool.shovel.phoenix", itemKey("tool_shovel_phoenix"), itemID("TOOL_SHOVEL_PHOENIX"), AetherToolMaterial.PHOENIX);
+        TOOL_PICKAXE_PHOENIX = new ItemToolPickaxePhoenix("tool.pickaxe.phoenix", itemKey("tool_pickaxe_phoenix"), itemID("TOOL_PICKAXE_PHOENIX"), AetherToolMaterial.PHOENIX);
+        TOOL_AXE_PHOENIX = new ItemToolAxePhoenix("tool.axe.phoenix", itemKey("tool_axe_phoenix"), itemID("TOOL_AXE_PHOENIX"), AetherToolMaterial.PHOENIX);
     }
 
     private static void registerRangeWeapons() {
@@ -444,7 +465,7 @@ public final class AetherItems {
             .setMaxStackSize(32);
         AMMO_HAMMER_HEAD = new Item("ammo.hammer.head", itemKey("ammo_hammer_head"), itemID("AMMO_HAMMER_HEAD"))
             .withTags(ItemTags.NOT_IN_CREATIVE_MENU);
-        TOOL_HAMMER_NOTCH = new ItemToolHammerNotch("tool.hammer.notch", itemKey("tool_hammer_notch"), itemID("TOOL_HAMMER_NOTCH"), AetherToolMaterial.special)
+        TOOL_HAMMER_NOTCH = new ItemToolHammerNotch("tool.hammer.notch", itemKey("tool_hammer_notch"), itemID("TOOL_HAMMER_NOTCH"), AetherToolMaterial.SPECIAL)
             .withTags(ItemTags.PREVENT_CREATIVE_MINING);
         TOOL_BOW_PHOENIX = new ItemBowPhoenix("tool.bow.phoenix", itemKey("tool_bow_phoenix"), itemID("TOOL_BOW_PHOENIX"))
             .withTags(ItemTags.IS_FIRE_PROOF);
@@ -457,19 +478,19 @@ public final class AetherItems {
     }
 
     private static void registerSpecialWeapons() {
-        TOOL_SWORD_PIG = new ItemToolSwordPig("tool.sword.pig", itemKey("tool_sword_pig"), itemID("TOOL_SWORD_PIG"), AetherToolMaterial.special)
+        TOOL_SWORD_PIG = new ItemToolSwordPig("tool.sword.pig", itemKey("tool_sword_pig"), itemID("TOOL_SWORD_PIG"), AetherToolMaterial.SPECIAL)
             .withTags(ItemTags.PREVENT_CREATIVE_MINING);
 
-        TOOL_SWORD_VAMPIRE = new ItemToolSwordVampire("tool.sword.vampire", itemKey("tool_sword_vampire"), itemID("TOOL_SWORD_VAMPIRE"), AetherToolMaterial.special)
+        TOOL_SWORD_VAMPIRE = new ItemToolSwordVampire("tool.sword.vampire", itemKey("tool_sword_vampire"), itemID("TOOL_SWORD_VAMPIRE"), AetherToolMaterial.SPECIAL)
             .withTags(ItemTags.PREVENT_CREATIVE_MINING);
 
-        TOOL_SWORD_FLAME = new ItemToolSwordFire("tool.sword.flame", itemKey("tool_sword_flame"), itemID("TOOL_SWORD_FLAME"), AetherToolMaterial.special)
+        TOOL_SWORD_FLAME = new ItemToolSwordFire("tool.sword.flame", itemKey("tool_sword_flame"), itemID("TOOL_SWORD_FLAME"), AetherToolMaterial.SPECIAL)
             .withTags(ItemTags.PREVENT_CREATIVE_MINING);
 
-        TOOL_SWORD_HOLY = new ItemToolSwordHoly("tool.sword.holy", itemKey("tool_sword_holy"), itemID("TOOL_SWORD_HOLY"), AetherToolMaterial.special)
+        TOOL_SWORD_HOLY = new ItemToolSwordHoly("tool.sword.holy", itemKey("tool_sword_holy"), itemID("TOOL_SWORD_HOLY"), AetherToolMaterial.SPECIAL)
             .withTags(ItemTags.PREVENT_CREATIVE_MINING);
 
-        TOOL_SWORD_LIGHTNING = new ItemToolSwordLightning("tool.sword.lightning", itemKey("tool_sword_lightning"), itemID("TOOL_SWORD_LIGHTNING"), AetherToolMaterial.special)
+        TOOL_SWORD_LIGHTNING = new ItemToolSwordLightning("tool.sword.lightning", itemKey("tool_sword_lightning"), itemID("TOOL_SWORD_LIGHTNING"), AetherToolMaterial.SPECIAL)
             .withTags(ItemTags.PREVENT_CREATIVE_MINING);
     }
 

@@ -736,6 +736,11 @@ public class AetherModels {
         dispatcher.addDispatch(handheldTool(AetherItems.TOOL_PICKAXE_VALKYRIE));
         dispatcher.addDispatch(handheldTool(AetherItems.TOOL_AXE_VALKYRIE));
 
+        dispatcher.addDispatch(handheldTool(AetherItems.TOOL_SWORD_PHOENIX).setFullBright());
+        dispatcher.addDispatch(handheldTool(AetherItems.TOOL_AXE_PHOENIX).setFullBright());
+        dispatcher.addDispatch(handheldTool(AetherItems.TOOL_PICKAXE_PHOENIX).setFullBright());
+        dispatcher.addDispatch(handheldTool(AetherItems.TOOL_SHOVEL_PHOENIX).setFullBright());
+
         dispatcher.addDispatch(handheldTool(AetherItems.TOOL_KNIFE_LIGHTNING));
         dispatcher.addDispatch(handheldTool(AetherItems.TOOL_HAMMER_NOTCH));
         dispatcher.addDispatch(new ItemModelBowPhoenix(AetherItems.TOOL_BOW_PHOENIX, true).setFullBright()

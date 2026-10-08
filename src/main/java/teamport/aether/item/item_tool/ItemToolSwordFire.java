@@ -1,5 +1,6 @@
 package teamport.aether.item.item_tool;
 
+import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
@@ -10,10 +11,12 @@ import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherHasCustomDamageType;
+import teamport.aether.mixin.accessors.EntityAccessor;
 import teamport.aether.world.AetherDimension;
 
 public class ItemToolSwordFire extends ItemToolSword implements AetherHasCustomDamageType {
@@ -23,31 +26,29 @@ public class ItemToolSwordFire extends ItemToolSword implements AetherHasCustomD
 
     @Override
     public boolean hitEntity(@NonNull ItemStack itemstack, @NonNull Mob target, @NonNull Mob attacker) {
-        boolean hitEntity = super.hitEntity(itemstack, target, attacker);
-        if (target instanceof Mob && target.hurtTime == 10 && hitEntity) {
-            if ((target instanceof Player player) && player.gamemode.hasInvulnerablePlayer()) {
-                return false;
-            }
-            ParticleMaker.spawnFireSwordParticles(target);
-            target.maxFireTicks = 600;
-            target.remainingFireTicks = 600;
-            return true;
+        if (!(target instanceof EntityAccessor accessor)
+            || accessor.isFireImmune()
+            || target.hurtTime != 10
+            || (target instanceof Player player && player.gamemode.hasInvulnerablePlayer())
+            || !attacker.isSneaking()
+        ) {
+            return false;
         }
-        return false;
+        ParticleMaker.spawnFireSwordParticles(target);
+        target.maxFireTicks = 600;
+        target.remainingFireTicks = 600;
+        return super.hitEntity(itemstack, target, attacker);
     }
 
     @Override
     public boolean onUseOnBlock(@NonNull ItemStack itemstack, @NonNull World world, Player player, @NonNull TilePosc blockPos, @NonNull Side side, double xPlaced, double yPlaced) {
-        int blockX = blockPos.x();
-        int blockY = blockPos.y();
-        int blockZ = blockPos.z();
-        blockX += side.offsetX();
-        blockY += side.offsetY();
-        blockZ += side.offsetZ();
-        int blockID = world.getBlockId(blockX, blockY, blockZ);
-        if (blockID != 0) return false;
-        if (world.dimension != AetherDimension.getAether() && player != null && !world.setBlockWithNotify(blockX, blockY, blockZ, Blocks.FIRE.id())) return false;
-        world.playSoundEffect(player, SoundCategory.WORLD_SOUNDS, (double) blockX + (double) 0.5F, (double) blockY + (double) 0.5F, (double) blockZ + (double) 0.5F, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
+        TilePos tilePos = new TilePos(blockPos).add(side);
+        Block<?> block = world.getBlockType(tilePos);
+        if (block != Blocks.AIR) return false;
+        if (world.dimension != AetherDimension.getAether() && player != null && !world.setBlockTypeNotify(tilePos, Blocks.FIRE)) {
+            return false;
+        }
+        world.playSoundEffect(player, SoundCategory.WORLD_SOUNDS, (double) tilePos.x() + (double) 0.5F, (double) tilePos.y() + (double) 0.5F, (double) tilePos.z() + (double) 0.5F, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
         itemstack.damageItem(1, player);
         return true;
     }

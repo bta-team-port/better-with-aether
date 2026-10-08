@@ -398,5 +398,65 @@
       "id": "aether:item/armor_gloves_phoenix",
       "meta": 0
     }
+  },
+  {
+    "name": "aether:enchanter/repair_tool_shovel_phoenix",
+    "type": "aether:repair",
+    "time": 12000,
+    "input": {
+      "stack": {
+        "id": "aether:item/tool_shovel_phoenix",
+        "meta": -1
+      }
+    },
+    "output": {
+      "id": "aether:item/tool_shovel_phoenix",
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/repair_tool_pickaxe_phoenix",
+    "type": "aether:repair",
+    "time": 12000,
+    "input": {
+      "stack": {
+        "id": "aether:item/tool_pickaxe_phoenix",
+        "meta": -1
+      }
+    },
+    "output": {
+      "id": "aether:item/tool_pickaxe_phoenix",
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/repair_tool_axe_phoenix",
+    "type": "aether:repair",
+    "time": 12000,
+    "input": {
+      "stack": {
+        "id": "aether:item/tool_axe_phoenix",
+        "meta": -1
+      }
+    },
+    "output": {
+      "id": "aether:item/tool_axe_phoenix",
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/repair_tool_sword_phoenix",
+    "type": "aether:repair",
+    "time": 12000,
+    "input": {
+      "stack": {
+        "id": "aether:item/tool_sword_phoenix",
+        "meta": -1
+      }
+    },
+    "output": {
+      "id": "aether:item/tool_sword_phoenix",
+      "meta": 0
+    }
   }
 ]

@@ -13,6 +13,8 @@ item.tool.pickaxe.gravitite.name=Gravitite Pickaxe
 item.tool.pickaxe.gravitite.desc=Pick some holystone with this gravity defying gravitite tool.
 item.tool.pickaxe.valkyrie.name=Valkyrie Pickaxe
 item.tool.pickaxe.valkyrie.desc=Pick some holystone with this angelic valkyrie tool.
+item.tool.pickaxe.phoenix.name=Phoenix Pickaxe
+item.tool.pickaxe.phoenix.desc=Pick some holystone with this phoenix tool.
 
 # Shovels
 item.tool.shovel.skyroot.name=Skyroot Shovel
@@ -25,6 +27,8 @@ item.tool.shovel.gravitite.name=Gravitite Shovel
 item.tool.shovel.gravitite.desc=Dig up the Aether dirt with this gravity defying gravitite tool.
 item.tool.shovel.valkyrie.name=Valkyrie Shovel
 item.tool.shovel.valkyrie.desc=Dig up the Aether dirt with this angelic valkyrie tool.
+item.tool.shovel.phoenix.name=Phoenix Shovel
+item.tool.shovel.phoenix.desc=Dig up the Aether dirt with this phoenix tool.
 
 # Axes
 item.tool.axe.skyroot.name=Skyroot Axe
@@ -37,6 +41,8 @@ item.tool.axe.gravitite.name=Gravitite Axe
 item.tool.axe.gravitite.desc=Chop some trees with this gravity defying gravitite tool.
 item.tool.axe.valkyrie.name=Valkyrie Axe
 item.tool.axe.valkyrie.desc=Chop some trees with this angelic valkyrie tool.
+item.tool.axe.phoenix.name=Phoenix Axe
+item.tool.axe.phoenix.desc=Chop some trees with this phoenix tool.
 
 # Swords
 item.tool.sword.skyroot.name=Skyroot Sword
@@ -49,6 +55,8 @@ item.tool.sword.gravitite.name=Gravitite Sword
 item.tool.sword.gravitite.desc=Slay giant bosses with this sharp gravitite blade.
 item.tool.sword.valkyrie.name=Valkyrie Lance
 item.tool.sword.valkyrie.desc=Slay fearsome foes at range with this angelic valkyrie spear.
+item.tool.sword.phoenix.name=Phoenix Sword
+item.tool.sword.phoenix.desc=Slay giant bosses with this sharp flaming blade.
 
 # Specialty Weapons
 item.tool.sword.pig.name=Pig Slayer

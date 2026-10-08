@@ -47,7 +47,7 @@ public abstract class SkyrootSwordDropMultiplier {
             return;
         }
         ToolMaterial material = ((ItemToolSwordAccessor) heldStack.getItem()).getMaterial();
-        if (material != null && material == AetherToolMaterial.skyroot) {
+        if (material != null && material == AetherToolMaterial.SKYROOT) {
             Mob self = (Mob) (Object) this;
             if (self instanceof MobPhyg) {
                 if (self.remainingFireTicks > 0) {

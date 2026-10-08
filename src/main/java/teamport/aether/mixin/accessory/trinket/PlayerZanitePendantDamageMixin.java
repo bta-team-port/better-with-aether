@@ -14,7 +14,7 @@ import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
 
 @Mixin(Player.class)
-public abstract class ContainerInventoryZanitePendantDamageMixin {
+public abstract class PlayerZanitePendantDamageMixin {
     @ModifyExpressionValue(
         method = "attackTargetEntityWithCurrentItem(Lnet/minecraft/core/entity/Entity;)V",
         at = @At(value = "CONSTANT", args = "intValue=1", ordinal = 0)
