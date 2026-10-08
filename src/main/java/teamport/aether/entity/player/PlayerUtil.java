@@ -171,7 +171,7 @@ public class PlayerUtil {
             if (index < player.inventory.armorInventory.length) {
                 player.inventory.armorInventory[index] = null;
             } else {
-                ((IContainerInventoryAether) player.inventory).aether$getAccessoryInventory()[index - GLOVES_SLOT] = null;
+                ((IContainerInventoryAether) player.inventory).aether$getAccessoryInventory()[index] = null;
             }
         }
     }
@@ -181,8 +181,7 @@ public class PlayerUtil {
             return player.inventory.armorInventory[armorSlot];
         }
         ItemStack[] accessories = ((IContainerInventoryAether) player.inventory).aether$getAccessoryInventory();
-        int accessorySlot = armorSlot - GLOVES_SLOT;
-        return accessorySlot >= 0 && accessorySlot < accessories.length ? accessories[accessorySlot] : null;
+        return armorSlot < accessories.length ? accessories[armorSlot] : null;
     }
 
     public static void clearArmorOrAccessoryItem(@NonNull Player player, int armorSlot) {
@@ -191,9 +190,8 @@ public class PlayerUtil {
             return;
         }
         ItemStack[] accessories = ((IContainerInventoryAether) player.inventory).aether$getAccessoryInventory();
-        int accessorySlot = armorSlot - GLOVES_SLOT;
-        if (accessorySlot >= 0 && accessorySlot < accessories.length) {
-            accessories[accessorySlot] = null;
+        if (armorSlot < accessories.length) {
+            accessories[armorSlot] = null;
         }
     }
 
@@ -315,8 +313,8 @@ public class PlayerUtil {
             return null;
         }
         ItemStack[] accessories = ((IContainerInventoryAether) victim.inventory).aether$getAccessoryInventory();
-        ItemStack pendant1 = accessories[TRINKET_1_SLOT - GLOVES_SLOT];
-        ItemStack pendant2 = accessories[TRINKET_2_SLOT - GLOVES_SLOT];
+        ItemStack pendant1 = accessories[TRINKET_1_SLOT];
+        ItemStack pendant2 = accessories[TRINKET_2_SLOT];
         if ((pendant1 != null && pendant1.getItem() instanceof ItemIcePendant)
             || (pendant2 != null && pendant2.getItem() instanceof ItemIcePendant)
         ) {

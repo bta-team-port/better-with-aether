@@ -15,10 +15,10 @@ import teamport.aether.item.AetherItemTags;
 
 public class SlotAccessory extends Slot {
     // armorType
-    public static final byte GLOVES_SLOT    = 4;
-    public static final byte CAPE_SLOT      = 5; // cape, quiver
-    public static final byte TRINKET_1_SLOT = 6; // pendant, healing stone, compass, clock, calendar, etc.
-    public static final byte TRINKET_2_SLOT = 7; // pendant, healing stone, compass, clock, calendar, etc.
+    public static final byte GLOVES_SLOT    = 0;
+    public static final byte CAPE_SLOT      = 1; // cape, quiver
+    public static final byte TRINKET_1_SLOT = 2; // pendant, healing stone, compass, clock, calendar, etc.
+    public static final byte TRINKET_2_SLOT = 3; // pendant, healing stone, compass, clock, calendar, etc.
 
     // empty slot equipment
     private static final String[] accessoryOutlines = new String[]{

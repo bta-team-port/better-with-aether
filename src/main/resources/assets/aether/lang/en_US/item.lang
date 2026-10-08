@@ -191,6 +191,11 @@ item.armor.gloves.obsidian.name=Obsidian Gloves
 item.armor.gloves.obsidian.desc=A powerful pair of obsidian gloves.
 item.armor.gloves.neptune.name=Neptune Gloves
 item.armor.gloves.neptune.desc=A stormy pair of neptune gloves.
+item.armor.dinnerbone.gloves.name=Dinnerbone's Gauntlets
+item.armor.dinnerbone.gloves.desc=Work hard, fight hard, stand upside down.
+item.armor.dinnerbone.gloves.uncharged.name=Dinnerbone's Gauntlets
+item.armor.dinnerbone.gloves.uncharged.desc=Needs recharging. Diamonds or gravitite should do the trick.
+
 
 item.armor.wolf.zanite.name=Zanite Wolf Armor
 item.armor.wolf.zanite.desc=Keep your best friend safe with this shiny zanite shell.

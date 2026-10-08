@@ -79,7 +79,7 @@ public class AetherMod implements ModInitializer {
     public static final BlockLogicNote.Instrument TRANCE = new BlockLogicNote.Instrument(18, "trance");
     public static final BlockLogicNote.Instrument SAXOPHONE = new BlockLogicNote.Instrument(19, "saxophone");
     public static final BlockLogicNote.Instrument MUSICBOX = new BlockLogicNote.Instrument(20, "musicbox");
-    public static final byte ARMOR_START_INDEX = 41;
+    public static final byte ARMOR_START_INDEX = 41 + 4;
     public static final float ZANITE_MULTIPLIER = 2.0F;
     public static final byte BRONZE_CHANCES = 10;
     public static final byte SILVER_CHANCES = 16;

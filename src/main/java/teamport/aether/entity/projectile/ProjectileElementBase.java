@@ -1,6 +1,7 @@
 package teamport.aether.entity.projectile;
 
 import com.mojang.nbt.tags.CompoundTag;
+import net.minecraft.core.Global;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
@@ -74,7 +75,7 @@ public abstract class ProjectileElementBase extends Projectile implements Projec
             bounceCount++;
         }
 
-        if (!this.world.isClientSide && bounceCount >= MAX_BOUNCES) {
+        if ((!this.world.isClientSide && bounceCount >= MAX_BOUNCES) || ticksInAir > Global.TICKS_PER_SECOND * 60) {
             doExplosion();
             this.remove();
         }

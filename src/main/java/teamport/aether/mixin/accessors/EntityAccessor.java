@@ -12,4 +12,7 @@ public interface EntityAccessor {
     void setFallDistance(float fallDistance);
     @Accessor
     Random getRandom();
+
+    @Accessor
+    boolean isFireImmune();
 }

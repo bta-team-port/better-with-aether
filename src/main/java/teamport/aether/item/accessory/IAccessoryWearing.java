@@ -43,18 +43,20 @@ public interface IAccessoryWearing<T extends IAccessoryShape> {
 
     default void damageAccessories(int damage, int slotIndex) {
         ItemStack itemStack = this.better_with_aether$getAccessoryInSlot(slotIndex);
-        if (itemStack != null && itemStack.getItem() instanceof IAccessoryItem<?> accessory) {
-            if (!accessory.takesArmorDamage()) return;
-
-            if (accessory.getArmorMaterial() != null) {
-                Entity entity = (this instanceof Entity e) ? e : null;
-                itemStack.damageItem(damage, entity);
-
-                if (itemStack.stackSize <= 0) {
-                    this.better_with_aether$setAccessoryInSlot(slotIndex, null);
-                }
-            }
+        if (itemStack == null
+            || !(itemStack.getItem() instanceof IAccessoryItem<?> accessory)
+            || !accessory.takesArmorDamage()
+            || accessory.getArmorMaterial() == null
+        ) {
+            return;
         }
+        Entity entity = (this instanceof Entity e) ? e : null;
+        itemStack.damageItem(damage, entity);
+        if (itemStack.stackSize > 0) {
+            return;
+        }
+        this.better_with_aether$setAccessoryInSlot(slotIndex, accessory.getBrokenItem());
+
     }
 
     default void damageAccessories(int damage) {

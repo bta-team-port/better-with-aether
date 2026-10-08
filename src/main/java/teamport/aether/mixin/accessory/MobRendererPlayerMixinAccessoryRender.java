@@ -158,7 +158,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
             return original.call(entity, brightness, partialTick, layer);
         }
         PlayerUtil.setUpInvisibility(entity);
-        int slot = layer - 1;
+        int slot = layer - 5;
         ItemStack armorStack = this.getAccessory(entity, slot);
         if (armorStack == null
             || !(armorStack.getItem() instanceof ItemAccessory<?>)
@@ -337,7 +337,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
 
     @Unique
     private ItemStack getAccessory(@NonNull Player player, int logicalSlot) {
-        return ((IContainerInventoryAether) player.inventory).aether$getAccessoryInventory()[logicalSlot - GLOVES_SLOT];
+        return ((IContainerInventoryAether) player.inventory).aether$getAccessoryInventory()[logicalSlot];
     }
 
     @Unique

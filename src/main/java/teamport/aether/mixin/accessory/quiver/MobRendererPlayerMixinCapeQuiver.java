@@ -44,7 +44,7 @@ public abstract class MobRendererPlayerMixinCapeQuiver extends MobRenderer<Playe
     @WrapMethod(method = "getAndSetupModelForLayer(Lnet/minecraft/core/entity/player/Player;FFI)Lorg/useless/dragonfly/models/entity/StaticEntityModel;")
     private @Nullable StaticEntityModel setQuiverModel(Player player, float brightness, float partialTick, int layer, Operation<StaticEntityModel> original) {
         if (layer == 6) {
-            ItemStack armorStack = ((IContainerInventoryAether) player.inventory).aether$getAccessoryInventory()[SlotAccessory.CAPE_SLOT - SlotAccessory.GLOVES_SLOT];
+            ItemStack armorStack = ((IContainerInventoryAether) player.inventory).aether$getAccessoryInventory()[SlotAccessory.CAPE_SLOT];
             if (armorStack == null) {
                 return null;
             }

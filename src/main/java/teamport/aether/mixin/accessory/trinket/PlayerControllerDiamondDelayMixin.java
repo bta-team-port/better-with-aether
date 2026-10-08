@@ -30,8 +30,8 @@ public abstract class PlayerControllerDiamondDelayMixin {
     private void BlockHitDelay(CallbackInfo callbackInfo) {
         if (this.mc.thePlayer == null) return;
         ItemStack[] accessories = ((IContainerInventoryAether) this.mc.thePlayer.inventory).aether$getAccessoryInventory();
-        int trinketOne = TRINKET_1_SLOT - GLOVES_SLOT;
-        int trinketTwo = TRINKET_2_SLOT - GLOVES_SLOT;
+        int trinketOne = TRINKET_1_SLOT;
+        int trinketTwo = TRINKET_2_SLOT;
         if (accessories[trinketOne] != null && accessories[trinketOne].getItem().namespaceID.equals(AetherItems.ARMOR_TALISMAN_DIAMOND.namespaceID)) {
             destroyDelay = destroyDelay / 2;
         }

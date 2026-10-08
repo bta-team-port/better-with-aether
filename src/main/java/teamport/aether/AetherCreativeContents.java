@@ -174,6 +174,10 @@ public final class AetherCreativeContents {
         REG.register(AetherItems.TOOL_PICKAXE_VALKYRIE, after);
         REG.register(AetherItems.TOOL_AXE_VALKYRIE, after);
         REG.register(AetherItems.TOOL_SWORD_VALKYRIE, after);
+        REG.register(AetherItems.TOOL_SHOVEL_PHOENIX, after);
+        REG.register(AetherItems.TOOL_PICKAXE_PHOENIX, after);
+        REG.register(AetherItems.TOOL_AXE_PHOENIX, after);
+        REG.register(AetherItems.TOOL_SWORD_PHOENIX, after);
     }
 
     private static void addVanillaArmors() {
@@ -236,6 +240,8 @@ public final class AetherCreativeContents {
         REG.register(AetherItems.ARMOR_BOOTS_NEPTUNE, after);
         REG.register(AetherItems.ARMOR_GLOVES_NEPTUNE, after);
         REG.register(AetherItems.ARMOR_WOLF_NEPTUNE, after);
+
+        REG.register(AetherItems.DINNER_GLOVES, after);
     }
 
     private static void addTrinkets() {
@@ -254,6 +260,8 @@ public final class AetherCreativeContents {
     private static void addDungeonTools() {
         CreativeInventoryPlacement.After after = placeAfter(Items.MAP);
         REG.register(AetherItems.TOOL_DUNGEON_COMPASS, after);
+
+        REG.register(AetherItems.UNCHARGED_DINNER_GLOVES, after);
 
         REG.register(AetherItems.TOOL_SWORD_PIG, after);
         REG.register(AetherItems.TOOL_SWORD_VAMPIRE, after);

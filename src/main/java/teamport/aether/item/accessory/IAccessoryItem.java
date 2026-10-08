@@ -2,6 +2,7 @@ package teamport.aether.item.accessory;
 
 import net.minecraft.core.item.IItemConvertible;
 import net.minecraft.core.item.Item;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ArmorMaterial;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -32,6 +33,8 @@ public interface IAccessoryItem<T extends IAccessoryShape> extends IItemConverti
     default boolean takesArmorDamage() {
         return armorPieceProtection() > 0;
     }
+
+    default ItemStack getBrokenItem(){return null;}
 
     String name();
 }
