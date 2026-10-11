@@ -113,7 +113,9 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss {
 
 
         if (trophy != null) {
-            if (!EnvironmentHelper.isMultiplayerClient()) world.dropItem((int) x, (int) y, (int) z, trophy);
+            if (!EnvironmentHelper.isMultiplayerClient()) {
+                world.dropItem((int) x, (int) y, (int) z, trophy);
+            }
             world.playBlockEvent(null, 1003, (int) x, (int) y, (int) z, 0);
         }
 

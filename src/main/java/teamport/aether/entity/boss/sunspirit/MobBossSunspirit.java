@@ -8,6 +8,7 @@ import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityLightning;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.net.command.TextFormatting;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.DamageType;
@@ -29,6 +30,7 @@ import teamport.aether.entity.player.MessageMaker;
 import teamport.aether.entity.projectile.ProjectileElementFire;
 import teamport.aether.entity.projectile.ProjectileElementIce;
 import teamport.aether.helper.ParticleMaker;
+import teamport.aether.item.AetherItems;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.feature.util.map.DungeonMap;
 import turniplabs.halplibe.helper.EnvironmentHelper;
@@ -325,6 +327,14 @@ public class MobBossSunspirit extends MobBossFlying {
             MobBoss.stop();
         }
 
+        if (!EnvironmentHelper.isMultiplayerClient()) {
+            if(this.random.nextInt(512) == 0){
+                this.world.dropItem(new TilePos((int) this.x, (int) this.y, (int) this.z), AetherItems.TOOL_SWORD_PHOENIX.getDefaultStack());
+            }
+            if(this.random.nextInt(1024) == 0){
+//                this.world.dropItem(new TilePos((int) this.x, (int) this.y, (int) this.z), AetherItems.TOOL_SWORD_PHOENIX.getDefaultStack()); // golden medalian
+            }
+        }
         super.onDeath(entityKilledBy);
     }
 

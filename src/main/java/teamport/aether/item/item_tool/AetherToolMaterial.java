@@ -9,6 +9,8 @@ import org.jspecify.annotations.NonNull;
 import teamport.aether.mixin.accessors.ItemToolSwordAccessor;
 
 public class AetherToolMaterial {
+    private AetherToolMaterial(){}
+
     public static final ToolMaterial SKYROOT = new ToolMaterial().setDurability(64).setEfficiency(2.0F, 4.0f).setMiningLevel(0);
     public static final ToolMaterial HOLYSTONE = new ToolMaterial().setDurability(128).setEfficiency(4.0F, 6.0F).setMiningLevel(1);
     public static final ToolMaterial ZANITE = new ToolMaterial().setDurability(384).setEfficiency(6.0F, 12.0F).setMiningLevel(2);
@@ -22,7 +24,7 @@ public class AetherToolMaterial {
     public static boolean isHoldingValkyrieTool(@NonNull Player player) {
         ItemStack held = player.getHeldItem();
         if (held == null) return false;
-        if (held.getItem() instanceof ItemTool && (((ItemTool) held.getItem()).getMaterial() == AetherToolMaterial.VALKYRIE)) return true;
+        if (held.getItem() instanceof ItemTool itemTool && (itemTool.getMaterial() == AetherToolMaterial.VALKYRIE)) return true;
         return held.getItem() instanceof ItemToolSword && ((ItemToolSwordAccessor) held.getItem()).getMaterial() == AetherToolMaterial.VALKYRIE;
     }
 }

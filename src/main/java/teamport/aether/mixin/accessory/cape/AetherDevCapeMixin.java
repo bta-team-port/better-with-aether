@@ -26,6 +26,7 @@ public abstract class AetherDevCapeMixin {
             case AetherGlobals.UUID_SMUSHYTACO: // SmushyTaco
             case AetherGlobals.UUID_TOUFOUMASTER: //ToufouMaster
             case AetherGlobals.UUID_RIN: //Rin
+            case AetherGlobals.UUID_CAMOWEED_: // camoweed_
                 player.capeURL = "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/heads/7.3/src/main/resources/assets/aether/textures/armor/cape/aether.png";
                 break;
         }

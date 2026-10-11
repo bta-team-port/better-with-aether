@@ -5,6 +5,7 @@ import net.minecraft.core.enums.HumanArmorShape;
 import net.minecraft.core.enums.WolfArmorShape;
 import net.minecraft.core.item.*;
 import net.minecraft.core.item.material.ArmorMaterial;
+import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tag.ItemTags;
 import net.minecraft.core.util.helper.DamageType;
 import org.jspecify.annotations.NonNull;
@@ -160,6 +161,7 @@ public final class AetherItems {
 
     public static Item TOOL_KNIFE_LIGHTNING;
     public static Item TOOL_HAMMER_NOTCH;
+    public static Item TOOL_JEBBER;
     public static Item AMMO_HAMMER_HEAD;
     public static Item TOOL_BOW_PHOENIX;
 
@@ -170,8 +172,8 @@ public final class AetherItems {
     public static Item ARMOR_GLOVES_IRON;
     public static Item ARMOR_GLOVES_GOLD;
     public static Item ARMOR_GLOVES_DIAMOND;
-    public static Item DINNER_GLOVES;
-    public static Item UNCHARGED_DINNER_GLOVES;
+    public static Item KING_GLOVES;
+    public static Item UNCHARGED_KING_GLOVES;
     public static Item ARMOR_GLOVES_STEEL;
     public static Item ARMOR_GLOVES_ZANITE;
     public static Item ARMOR_GLOVES_GRAVITITE;
@@ -335,8 +337,8 @@ public final class AetherItems {
         ARMOR_GLOVES_DIAMOND = new ItemGloves("armor.gloves.diamond", itemKey("armor_gloves_diamond"), itemID("ARMOR_GLOVES_DIAMOND"), ArmorMaterial.DIAMOND, HumanAccessoryShape.GLOVES)
             .setDamage(4);
 
-        DINNER_GLOVES = new ItemDinnerGloves("armor.gloves.dinner", itemKey("armor_gloves_dinner"), itemID("ARMOR_GLOVES_DINNER"), ArmorMaterial.DIAMOND, HumanAccessoryShape.GLOVES).setMaxStackSize(1);
-        UNCHARGED_DINNER_GLOVES = new Item("armor.gloves.dinner.uncharged", itemKey("armor_gloves_dinner_uncharged"), itemID("ARMOR_GLOVES_DINNER_UNCHARGED")).setMaxStackSize(1);
+        KING_GLOVES = new ItemKingGloves("armor.gloves.king", itemKey("armor_gloves_king"), itemID("ARMOR_GLOVES_KING"), ArmorMaterial.DIAMOND, HumanAccessoryShape.GLOVES).setMaxStackSize(1);
+        UNCHARGED_KING_GLOVES = new Item("armor.gloves.king.uncharged", itemKey("armor_gloves_king_uncharged"), itemID("ARMOR_GLOVES_KING_UNCHARGED")).setMaxStackSize(1);
 
         ARMOR_GLOVES_STEEL = new ItemGloves("armor.gloves.steel", itemKey("armor_gloves_steel"), itemID("ARMOR_GLOVES_STEEL"), ArmorMaterial.STEEL, HumanAccessoryShape.GLOVES)
             .setDamage(3);
@@ -452,11 +454,13 @@ public final class AetherItems {
         TOOL_AXE_VALKYRIE = new ItemToolAxeValkyrie("tool.axe.valkyrie", itemKey("tool_axe_valkyrie"), itemID("TOOL_AXE_VALKYRIE"), AetherToolMaterial.VALKYRIE);
 
         TOOL_SWORD_PHOENIX = new ItemToolSwordPhoenix("tool.sword.phoenix", itemKey("tool_sword_phoenix"), itemID("TOOL_SWORD_PHOENIX"), AetherToolMaterial.PHOENIX)
-            .withTags(ItemTags.PREVENT_CREATIVE_MINING);
-
-        TOOL_SHOVEL_PHOENIX = new ItemToolShovelPhoenix("tool.shovel.phoenix", itemKey("tool_shovel_phoenix"), itemID("TOOL_SHOVEL_PHOENIX"), AetherToolMaterial.PHOENIX);
-        TOOL_PICKAXE_PHOENIX = new ItemToolPickaxePhoenix("tool.pickaxe.phoenix", itemKey("tool_pickaxe_phoenix"), itemID("TOOL_PICKAXE_PHOENIX"), AetherToolMaterial.PHOENIX);
-        TOOL_AXE_PHOENIX = new ItemToolAxePhoenix("tool.axe.phoenix", itemKey("tool_axe_phoenix"), itemID("TOOL_AXE_PHOENIX"), AetherToolMaterial.PHOENIX);
+            .withTags(ItemTags.PREVENT_CREATIVE_MINING, ItemTags.IS_FIRE_PROOF, AetherItemTags.IS_ACID_PROOF);
+        TOOL_SHOVEL_PHOENIX = new ItemToolShovelPhoenix("tool.shovel.phoenix", itemKey("tool_shovel_phoenix"), itemID("TOOL_SHOVEL_PHOENIX"), AetherToolMaterial.PHOENIX)
+            .withTags(ItemTags.IS_FIRE_PROOF);
+        TOOL_PICKAXE_PHOENIX = new ItemToolPickaxePhoenix("tool.pickaxe.phoenix", itemKey("tool_pickaxe_phoenix"), itemID("TOOL_PICKAXE_PHOENIX"), AetherToolMaterial.PHOENIX)
+            .withTags(ItemTags.IS_FIRE_PROOF);
+        TOOL_AXE_PHOENIX = new ItemToolAxePhoenix("tool.axe.phoenix", itemKey("tool_axe_phoenix"), itemID("TOOL_AXE_PHOENIX"), AetherToolMaterial.PHOENIX)
+            .withTags(ItemTags.IS_FIRE_PROOF);
     }
 
     private static void registerRangeWeapons() {
@@ -467,6 +471,7 @@ public final class AetherItems {
             .withTags(ItemTags.NOT_IN_CREATIVE_MENU);
         TOOL_HAMMER_NOTCH = new ItemToolHammerNotch("tool.hammer.notch", itemKey("tool_hammer_notch"), itemID("TOOL_HAMMER_NOTCH"), AetherToolMaterial.SPECIAL)
             .withTags(ItemTags.PREVENT_CREATIVE_MINING);
+        TOOL_JEBBER = new ItemJebber("tool.staff.jeb", itemKey("tool_staff_jeb"), itemID("TOOL_STAFF_JEB"), ToolMaterial.diamond);
         TOOL_BOW_PHOENIX = new ItemBowPhoenix("tool.bow.phoenix", itemKey("tool_bow_phoenix"), itemID("TOOL_BOW_PHOENIX"))
             .withTags(ItemTags.IS_FIRE_PROOF);
         AMMO_DART_GOLDEN = new ItemDart("ammo.dart.golden", itemKey("ammo_dart_golden"), itemID("AMMO_DART_GOLDEN"), 0);

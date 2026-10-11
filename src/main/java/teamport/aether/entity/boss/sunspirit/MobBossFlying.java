@@ -92,7 +92,9 @@ public class MobBossFlying extends MobFlying implements EnemyBoss {
         AetherGlobals.LOGGER.info("{} of ID {} has been slain!", bossName, dungeonID);
 
         if (trophy != null) {
-            if (!EnvironmentHelper.isMultiplayerClient()) world.dropItem((int) x, (int) y, (int) z, trophy);
+            if (!EnvironmentHelper.isMultiplayerClient()) {
+                world.dropItem((int) x, (int) y, (int) z, trophy);
+            }
             world.playBlockEvent(null, 1003, (int) x, (int) y, (int) z, 0);
         }
 

@@ -25,6 +25,8 @@ public class AetherBlockTags {
 
     public static Tag<Block<?>> AETHER_TERRAIN_BLOCK = Tag.of("aether_terrain_block");
 
+    public static Tag<Block<?>> BRIDLE = Tag.of("aether_bridle");
+
     static {
         for (Field field : AetherBlockTags.class.getDeclaredFields()) {
             if (field.getType().equals(Tag.class)) {

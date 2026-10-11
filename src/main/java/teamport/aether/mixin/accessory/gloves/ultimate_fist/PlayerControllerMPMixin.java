@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import teamport.aether.item.accessory.IAccessoryWearing;
 import teamport.aether.item.accessory.SlotAccessory;
 import teamport.aether.item.accessory.gloves.ItemGloveTool;
 
@@ -23,7 +24,7 @@ public class PlayerControllerMPMixin {
         TilePosc tilePos, Side side, CallbackInfoReturnable<Boolean> cir, @Local Block<?> block
 	) {
 		Player thePlayer = Minecraft.getMinecraft().thePlayer;
-		ItemStack gloves = thePlayer.inventory.armorInventory[SlotAccessory.GLOVES_SLOT];
+		ItemStack gloves = ((IAccessoryWearing<?>)thePlayer).better_with_aether$getAccessoryInSlot(SlotAccessory.GLOVES_SLOT);
 		ItemStack item = thePlayer.getCurrentEquippedItem();
 		if (item == null && gloves != null && gloves.getItem() instanceof ItemGloveTool toolGloves) {
             toolGloves.onBlockDestroyedEQ(Minecraft.getMinecraft().currentWorld, gloves, block, tilePos, side, thePlayer);

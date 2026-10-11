@@ -116,6 +116,7 @@ public class AetherClient implements ClientModInitializer {
             return !world.isAirBlock(tilePos) ? (new ParticleAetherLeaf(world, x, y, z, motionX, motionY, motionZ)).init(tilePos) : null;
         });
         dispatcher.addDispatch("mimicHurt", ParticleMimicHurt::new);
+        dispatcher.addDispatch("chaotic", (world, x, y, z, xa, ya, za, data) -> new ParticleChaotic(world, x, y, z, xa, ya, za, data));
 
         SoundRepository.namespaceAdded(MOD_ID);
         AetherCommand.registerClientCommands();

@@ -458,5 +458,20 @@
       "id": "aether:item/tool_sword_phoenix",
       "meta": 0
     }
+  },
+  {
+    "name": "aether:enchanter/repair_tool_staff_jeb",
+    "type": "aether:repair",
+    "time": 6000,
+    "input": {
+      "stack": {
+        "id": "aether:item/tool_staff_jeb",
+        "meta": -1
+      }
+    },
+    "output": {
+      "id": "aether:item/tool_staff_jeb",
+      "meta": 0
+    }
   }
 ]

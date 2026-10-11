@@ -27,7 +27,11 @@ public abstract class PlayerMixinDevDrops {
                 player.dropPlayerItem(new ItemStack(AetherItems.PARACHUTE_CLOUD, 1));
                 break;
             case AetherGlobals.UUID_TOCININ: // Tocinin
-                player.dropPlayerItem(new ItemStack(Items.FOOD_PORKCHOP_RAW, 1));
+                if(player.isOnFire()){
+                    player.dropPlayerItem(new ItemStack(Items.FOOD_PORKCHOP_COOKED, 1));
+                }else {
+                    player.dropPlayerItem(new ItemStack(Items.FOOD_PORKCHOP_RAW, 1));
+                }
                 break;
             case AetherGlobals.UUID_REDART15: // Redart15
                 player.dropPlayerItem(new ItemStack(AetherBlocks.CARVED_STONE_LIGHT, 1));

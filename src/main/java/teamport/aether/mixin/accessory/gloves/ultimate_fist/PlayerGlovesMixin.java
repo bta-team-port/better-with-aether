@@ -8,7 +8,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
-import teamport.aether.ducks.IContainerInventoryAether;
+import teamport.aether.item.accessory.IAccessoryWearing;
 import teamport.aether.item.accessory.SlotAccessory;
 import teamport.aether.item.accessory.gloves.ItemGloveTool;
 
@@ -25,7 +25,7 @@ public abstract class PlayerGlovesMixin {
 			return canHarvest;
 		}
 		ItemStack current = asThis.getCurrentEquippedItem();
-		ItemStack gloves = ((IContainerInventoryAether) asThis.inventory).aether$getAccessoryInventory()[SlotAccessory.GLOVES_SLOT];
+		ItemStack gloves = ((IAccessoryWearing<?>)asThis).better_with_aether$getAccessoryInSlot(SlotAccessory.GLOVES_SLOT);
 		if (current != null || gloves == null || !(gloves.getItem() instanceof ItemGloveTool toolGloves)) {
 			return false;
 		}
@@ -35,7 +35,7 @@ public abstract class PlayerGlovesMixin {
 	@WrapMethod(method = "getCurrentPlayerStrVsBlock")
 	private float getStrVsBlock(Block<?> block, Operation<Float> original) {
 		ItemStack current = asThis.getCurrentEquippedItem();
-		ItemStack gloves = ((IContainerInventoryAether) asThis.inventory).aether$getAccessoryInventory()[SlotAccessory.GLOVES_SLOT];
+		ItemStack gloves = ((IAccessoryWearing<?>)asThis).better_with_aether$getAccessoryInSlot(SlotAccessory.GLOVES_SLOT);
 		if (current != null || gloves == null || !(gloves.getItem() instanceof ItemGloveTool toolGloves)) {
 			return original.call(block);
 		}

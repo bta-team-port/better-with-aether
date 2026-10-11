@@ -15,6 +15,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import org.joml.Vector3d;
 import org.jspecify.annotations.NonNull;
+import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.monster.MobMonsterAether;
@@ -77,16 +78,10 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy {
     @Override
     public boolean canSpawnHere() {
         TilePos blockPos = new TilePos(MathHelper.floor(this.x), MathHelper.floor(this.bb.minY), MathHelper.floor(this.z));
-
-        if (this.world.getBlockType(blockPos.down(new TilePos())) != AetherBlocks.GRASS_AETHER) {
-            return false;
-        }
-
-        if (this.world.canBlockSeeSky(blockPos.down(new TilePos()))) {
-            return false;
-        }
-
-        if (this.world.getSavedLightValue(LightLayer.Block, blockPos) > 7) {
+        if (!this.world.getBlockType(blockPos.down(new TilePos())).hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS)
+            || this.world.getSavedLightValue(LightLayer.Sky, blockPos) < 7
+            || this.world.getSavedLightValue(LightLayer.Block, blockPos) > 7
+        ) {
             return false;
         }
 
@@ -202,7 +197,7 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy {
             ++this.smokeTime;
             if (this.smokeTime >= (this.hasTarget ? 3 : 8)) {
                 this.smokeTime = 0;
-                if (this.world.getBlockType(below) != AetherBlocks.GRASS_AETHER) {
+                if (!this.world.getBlockType(below).hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS)) {
                     MobUtil.killMob(this);
                 }
             }

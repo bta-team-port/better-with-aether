@@ -83,6 +83,7 @@ import teamport.aether.models.dungeon.BlockModelPaintedOakMimic;
 import teamport.aether.models.skyroot.*;
 
 import static net.minecraft.client.render.block.model.BlockModelDispatcher.loadDataModel;
+import static teamport.aether.AetherMod.MOD_ID;
 
 @Environment(EnvType.CLIENT)
 public class AetherModels {
@@ -678,8 +679,8 @@ public class AetherModels {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_GLOVES_OBSIDIAN));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_GLOVES_PHOENIX).setFullBright());
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_GLOVES_NEPTUNE));
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.DINNER_GLOVES));
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.UNCHARGED_DINNER_GLOVES));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.KING_GLOVES));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.UNCHARGED_KING_GLOVES));
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_AGILITY));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_SWET));
@@ -762,6 +763,14 @@ public class AetherModels {
         dispatcher.addDispatch(handheldTool(AetherItems.TOOL_STAFF_CLOUD));
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_DUNGEON_COMPASS));
+        dispatcher.addDispatch(new ItemModelJebber(AetherItems.TOOL_JEBBER)
+            .setOverlay(MOD_ID + ":item/chaotic_wand/overlay")
+            .setIcon(MOD_ID + ":item/chaotic_wand/wand")
+            .setFullBright()
+            .setDisplayPos(DisplayPos.FIRST_PERSON_RIGHT_HAND, ItemModelDispatcher.HANDHELD_FIRST_PERSON_RIGHT_HAND)
+            .setDisplayPos(DisplayPos.FIRST_PERSON_LEFT_HAND, ItemModelDispatcher.HANDHELD_FIRST_PERSON_LEFT_HAND)
+            .setDisplayPos(DisplayPos.THIRD_PERSON_RIGHT_HAND, ItemModelDispatcher.HANDHELD_THIRD_PERSON_RIGHT_HAND)
+            .setDisplayPos(DisplayPos.THIRD_PERSON_LEFT_HAND, ItemModelDispatcher.HANDHELD_THIRD_PERSON_LEFT_HAND));
     }
 
     private void setItemBlockModels(@NonNull ItemModelDispatcher dispatcher) {
@@ -820,5 +829,6 @@ public class AetherModels {
         dispatcher.assignRenderer(ProjectileNeedle.class, new EntityRendererNeedle());
         dispatcher.assignRenderer(ProjectileArrowFlaming.class, new EntityRendererArrowFlaming());
         dispatcher.assignRenderer(ProjectileKnifeLightning.class, new EntityRendererKnifeLightning());
+        dispatcher.assignRenderer(ProjectileRainBow.class, new EntityRenderRainBow());
     }
 }

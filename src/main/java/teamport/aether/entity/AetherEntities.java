@@ -1,5 +1,6 @@
 package teamport.aether.entity;
 
+import net.minecraft.core.block.entity.TileEntityDispatcher;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.entity.EntityDispatcher;
 import teamport.aether.block.entity.TileEntityEnchanter;
@@ -33,11 +34,12 @@ import teamport.aether.entity.projectile.*;
 import teamport.aether.entity.projectile.windball.ProjectileWindball;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
 import teamport.aether.entity.vehicle.parachute.EntityParachuteGold;
-import turniplabs.halplibe.helper.EntityHelper;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
 public final class AetherEntities {
+    private AetherEntities(){}
+
     private static boolean hasInit = false;
 
     public static void init() {
@@ -49,7 +51,6 @@ public final class AetherEntities {
     }
 
     public static void initializeEntities() {
-        EntityHelper helper = new EntityHelper();
         EntityDispatcher dispatcher = EntityDispatcher.getInstance();
         dispatcher.addMapping(MobSentry.class, NamespaceID.fromPool(MOD_ID, "sentry"), MobSentry::new, "guidebook.section.mob.sentry.name");
         dispatcher.addMapping(MobZephyr.class, NamespaceID.fromPool(MOD_ID, "zephyr"), MobZephyr::new, "guidebook.section.mob.zephyr.name");
@@ -78,25 +79,26 @@ public final class AetherEntities {
         dispatcher.addMapping(MobMoaBlack.class, NamespaceID.fromPool(MOD_ID, "moa_black"), MobMoaBlack::new, "guidebook.section.mob.moa.black.name");
 
 
-        helper.createEntity(EntityParachute.class, NamespaceID.fromPool(MOD_ID, "parachute"), EntityParachute::new);
-        helper.createEntity(EntityParachuteGold.class, NamespaceID.fromPool(MOD_ID, "parachute_gold"), EntityParachuteGold::new);
+        dispatcher.addMapping(EntityParachute.class, NamespaceID.fromPool(MOD_ID, "parachute"), EntityParachute::new);
+        dispatcher.addMapping(EntityParachuteGold.class, NamespaceID.fromPool(MOD_ID, "parachute_gold"), EntityParachuteGold::new);
 
-        helper.createEntity(EntityFloatingBlock.class, NamespaceID.fromPool(MOD_ID, "floating_block"), EntityFloatingBlock::new);
+        dispatcher.addMapping(EntityFloatingBlock.class, NamespaceID.fromPool(MOD_ID, "floating_block"), EntityFloatingBlock::new);
 
+        dispatcher.addMapping(ProjectileKnifeLightning.class, NamespaceID.fromPool(MOD_ID, "knife_lightning"), ProjectileKnifeLightning::new);
+        dispatcher.addMapping(ProjectileDart.class, NamespaceID.fromPool(MOD_ID, "dart"), ProjectileDart::new);
+        dispatcher.addMapping(ProjectileNeedle.class, NamespaceID.fromPool(MOD_ID, "needle"), ProjectileNeedle::new);
+        dispatcher.addMapping(ProjectileArrowFlaming.class, NamespaceID.fromPool(MOD_ID, "arrow_flaming"), ProjectileArrowFlaming::new);
+        dispatcher.addMapping(ProjectileHammerHead.class, NamespaceID.fromPool(MOD_ID, "hammer_head"), ProjectileHammerHead::new);
+        dispatcher.addMapping(ProjectileWindball.class, NamespaceID.fromPool(MOD_ID, "windball"), ProjectileWindball::new);
+        dispatcher.addMapping(ProjectileElementFire.class, NamespaceID.fromPool(MOD_ID, "projectile_fire"), ProjectileElementFire::new);
+        dispatcher.addMapping(ProjectileElementIce.class, NamespaceID.fromPool(MOD_ID, "projectile_ice"), ProjectileElementIce::new);
+        dispatcher.addMapping(ProjectileElementLightning.class, NamespaceID.fromPool(MOD_ID, "projectile_lightning"), ProjectileElementLightning::new);
+        dispatcher.addMapping(ProjectileRainBow.class, NamespaceID.fromPool(MOD_ID, "chaotic_wand"), ProjectileRainBow::new);
 
-        EntityHelper.addMapping(TileEntityEnchanter.class, NamespaceID.fromPool(MOD_ID, "enchanter"));
-        EntityHelper.addMapping(TileEntityFreezer.class, NamespaceID.fromPool(MOD_ID, "freezer"));
-        EntityHelper.addMapping(TileEntityIncubator.class, NamespaceID.fromPool(MOD_ID, "incubator"));
-        EntityHelper.addMapping(TileEntityMimic.class, NamespaceID.fromPool(MOD_ID, "chest_mimic"));
+        TileEntityDispatcher.addMapping(TileEntityEnchanter.class, NamespaceID.fromPool(MOD_ID, "enchanter"));
+        TileEntityDispatcher.addMapping(TileEntityFreezer.class, NamespaceID.fromPool(MOD_ID, "freezer"));
+        TileEntityDispatcher.addMapping(TileEntityIncubator.class, NamespaceID.fromPool(MOD_ID, "incubator"));
+        TileEntityDispatcher.addMapping(TileEntityMimic.class, NamespaceID.fromPool(MOD_ID, "chest_mimic"));
 
-        helper.createEntity(ProjectileKnifeLightning.class, NamespaceID.fromPool(MOD_ID, "knife_lightning"), ProjectileKnifeLightning::new);
-        helper.createEntity(ProjectileDart.class, NamespaceID.fromPool(MOD_ID, "dart"), ProjectileDart::new);
-        helper.createEntity(ProjectileNeedle.class, NamespaceID.fromPool(MOD_ID, "needle"), ProjectileNeedle::new);
-        helper.createEntity(ProjectileArrowFlaming.class, NamespaceID.fromPool(MOD_ID, "arrow_flaming"), ProjectileArrowFlaming::new);
-        helper.createEntity(ProjectileHammerHead.class, NamespaceID.fromPool(MOD_ID, "hammer_head"), ProjectileHammerHead::new);
-        helper.createEntity(ProjectileWindball.class, NamespaceID.fromPool(MOD_ID, "windball"), ProjectileWindball::new);
-        helper.createEntity(ProjectileElementFire.class, NamespaceID.fromPool(MOD_ID, "projectile_fire"), ProjectileElementFire::new);
-        helper.createEntity(ProjectileElementIce.class, NamespaceID.fromPool(MOD_ID, "projectile_ice"), ProjectileElementIce::new);
-        helper.createEntity(ProjectileElementLightning.class, NamespaceID.fromPool(MOD_ID, "projectile_lightning"), ProjectileElementLightning::new);
     }
 }

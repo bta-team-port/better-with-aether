@@ -7,10 +7,7 @@ import net.minecraft.core.data.DataLoader;
 import net.minecraft.core.data.registry.Registries;
 import net.minecraft.core.data.registry.recipe.RecipeNamespace;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
-import net.minecraft.core.data.registry.recipe.entry.RecipeEntryDyeing;
-import net.minecraft.core.data.registry.recipe.entry.RecipeEntryRepairable;
-import net.minecraft.core.data.registry.recipe.entry.RecipeEntryScrap;
-import net.minecraft.core.data.registry.recipe.entry.RecipeEntryUndyeing;
+import net.minecraft.core.data.registry.recipe.entry.*;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
@@ -48,8 +45,6 @@ public class AetherRecipes {
         DataLoader.loadRecipesFromFile("/assets/aether/recipes/freezer.json");
         DataLoader.loadRecipesFromFile("/assets/aether/recipes/incubator.json");
         DataLoader.loadRecipesFromFile("/assets/aether/recipes/enchanter.json");
-        DataLoader.loadRecipesFromFile("/assets/aether/recipes/workbench.json");
-
         if (INCLUDE_REPAIR_RECIPES) {
             DataLoader.loadRecipesFromFile("/assets/aether/recipes/repair.json");
         }
@@ -134,6 +129,7 @@ public class AetherRecipes {
 
         Registries.ITEM_GROUPS.register("aether:overworld_logs", Registries.stackListOf(Blocks.LOG_OAK, Blocks.LOG_OAK_MOSSY, Blocks.LOG_BIRCH, Blocks.LOG_PINE, Blocks.LOG_THORN, Blocks.LOG_PALM, Blocks.LOG_CHERRY, Blocks.LOG_EUCALYPTUS));
         Registries.ITEM_GROUPS.register("aether:aether_logs", Registries.stackListOf(AetherBlocks.LOG_SKYROOT, AetherBlocks.LOG_OAK_GOLDEN));
+        Registries.ITEM_GROUPS.register("aether:ult_repair", Registries.stackListOf(Items.DIAMOND, AetherBlocks.BLOCK_GRAVITITE));
     }
 
     public static void oreGemGroups() {
@@ -201,7 +197,6 @@ public class AetherRecipes {
         Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(new ItemStack(AetherItems.TOOL_SWORD_FLAME, 1, -1));
         Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(new ItemStack(AetherItems.TOOL_SWORD_LIGHTNING, 1, -1));
         Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(new ItemStack(AetherItems.TOOL_SWORD_PIG, 1, -1));
-
     }
 
     public static void freezerGroups() {
@@ -829,6 +824,14 @@ public class AetherRecipes {
         RecipeBuilderShaped wolf = new RecipeBuilderShaped(MOD_ID, " XX", "XXX", "X X");
         wolf.addInput('X', AetherItems.ZANITE).create("zanite_wolf_armor", new ItemStack(AetherItems.ARMOR_WOLF_ZANITE, 1));
         wolf.addInput('X', AetherBlocks.BLOCK_GRAVITITE).create("gravitite_wolf_armor", new ItemStack(AetherItems.ARMOR_WOLF_GRAVITITE, 1));
+
+        Registries.RECIPES.WORKBENCH.register("aether:repair_ultimate_fist", new RecipeEntryRepairable(AetherItems.KING_GLOVES.getDefaultStack(), new RecipeSymbol("aether:ult_repair")));
+
+        RecipeBuilder.Shaped(MOD_ID)
+            .setShape("III", "IKI", "III")
+            .addInput('I', "aether:ult_repair")
+            .addInput('K', AetherItems.UNCHARGED_KING_GLOVES.getDefaultStack())
+            .create("recharge_ultimate_fist", AetherItems.KING_GLOVES.getDefaultStack());
     }
 
     public static void toolsRecipes() {
