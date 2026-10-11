@@ -2,12 +2,15 @@ package teamport.aether.gui.machine.incubator;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.input.controller.ControllerInput;
 import net.minecraft.client.render.renderer.GLRenderer;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
+import org.jetbrains.annotations.NotNull;
 import teamport.aether.AetherRecipes;
 import teamport.aether.block.entity.TileEntityIncubator;
+import teamport.aether.gui.ControllerGuiSupport;
 import teamport.aether.gui.machine.ScreenAetherMachine;
 import teamport.aether.lookup.LookupFuelIncubator;
 
@@ -58,5 +61,11 @@ public class ScreenIncubator extends ScreenAetherMachine {
             return 2;
         }
         return 0;
+    }
+
+    @Override
+    public void guiSpecificControllerInput(@NotNull ControllerInput controller) {
+        super.guiSpecificControllerInput(controller);
+        ((ControllerGuiSupport)controller.inventoryHandler).handleIncubator(this); // enchanter call
     }
 }

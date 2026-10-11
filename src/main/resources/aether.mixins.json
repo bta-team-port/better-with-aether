@@ -165,6 +165,7 @@
     "fix.StaticEntityModelMojangMixin",
     "fix.catalyst.FixCatalystHitPositionMixin",
     "gui.AchievementScreenShadowMixin",
+    "gui.ControllerInputMixinInput",
     "gui.GuidebookMixinInclude",
     "gui.MinecraftMixinAddNewAchievements",
     "gui.hud.ArmorOverlayMixin",
