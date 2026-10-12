@@ -55,7 +55,7 @@ public class ProjectileRainBow extends Projectile {
 	@Override
 	public void tick() {
 		super.tick();
-		if (this.tickCount > 1) {
+		if (this.tickCount > 1 && !this.removed) {
 			this.spawnBeamParticles();
 		}
 		if (this.tickCount >= Global.TICKS_PER_SECOND) {
@@ -84,10 +84,10 @@ public class ProjectileRainBow extends Projectile {
 	}
 
 	protected void doEffect() {
-        for (int j = 0; j < 32; ++j) {
-			double dx = this.x + this.xd * 0.2f + 2 * (random.nextFloat() - 0.5f);
-			double dy = this.y + this.yd * 0.2f + 2 * (random.nextFloat() - 0.5f);
-			double dz = this.z + this.zd * 0.2f + 2 * (random.nextFloat() - 0.5f);
+        for (int j = 0; j < 12; ++j) {
+			double dx = this.x + this.xd * 0.2f + (random.nextFloat() - 0.5f);
+			double dy = this.y + this.yd * 0.2f + (random.nextFloat() - 0.5f);
+			double dz = this.z + this.zd * 0.2f + (random.nextFloat() - 0.5f);
 			ParticleMaker.spawnParticle(this.world, "explode", dx, dy, dz, 0.0F, 0.0F, 0.0F, 0, 256);
 			ParticleMaker.spawnParticle(this.world, "smoke", dx, dy, dz, 0.0F, 0.0F, 0.0F, 0, 256);
 			ParticleMaker.spawnParticle(this.world, "largesmoke", dx, dy, dz, 0.0F, 0.0F, 0.0F, 0, 256);
