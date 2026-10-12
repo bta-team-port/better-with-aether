@@ -2,7 +2,6 @@ package teamport.aether;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.spongepowered.asm.mixin.Unique;
 
 /**
  * Important, do not reference game classes here!
@@ -25,8 +24,13 @@ public class AetherGlobals {
     public static final String UUID_TOUFOUMASTER = "61ca7ec2-322f-4f95-b0d5-a47d608b4934";
     public static final String UUID_RIN = "337409a3-79c1-442f-913b-7e5b54d1ee9d";
     public static final String UUID_CAMOWEED_ = "19c2e35e-f52f-4bf5-b790-c8572f916387";
-    @Unique
+
     public static final int AETHER_ACCESSORY_SLOT_OFFSET = 104;
+    public static final byte ARMOR_START_INDEX = 45;
+    public static final float ZANITE_MULTIPLIER = 2.0F;
+    public static final byte BRONZE_CHANCES = 10;
+    public static final byte SILVER_CHANCES = 16;
+    public static final byte GOLD_CHANCES = 22;
 
 
     private AetherGlobals(){}

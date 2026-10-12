@@ -43,7 +43,7 @@ public class AetherWorldFeatures {
         registerWorldFeatureClass(WorldFeatureAetherBronzeChest.class, "MazeTreasure");
 
         registerWorldFeatureClass(WorldFeatureAetherStalagmite.class, "Stalagmite");
-        registerWorldFeatureClass(WorldFeatureAetherLake.class, "AdjustedLake");
+//        registerWorldFeatureClass(WorldFeatureAetherLake.class, "AdjustedLake"); // experimental under hang lake
 
         /// for testing bronze dungeon rooms
         if(FabricLoader.getInstance().isDevelopmentEnvironment()) {

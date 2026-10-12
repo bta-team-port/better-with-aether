@@ -10,7 +10,7 @@ import teamport.aether.block.AetherBlockTags;
 import teamport.aether.item.item_tool.ItemToolSwordAether;
 import teamport.aether.mixin.accessors.ItemToolSwordAccessor;
 
-import static teamport.aether.AetherMod.ZANITE_MULTIPLIER;
+import static teamport.aether.AetherGlobals.ZANITE_MULTIPLIER;
 
 public class ItemToolSwordZanite extends ItemToolSwordAether {
     public ItemToolSwordZanite(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {

@@ -8,7 +8,7 @@ import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.item.item_tool.ItemToolAxeAether;
 
-import static teamport.aether.AetherMod.ZANITE_MULTIPLIER;
+import static teamport.aether.AetherGlobals.ZANITE_MULTIPLIER;
 
 public class ItemToolAxeZanite extends ItemToolAxeAether {
     public ItemToolAxeZanite(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {

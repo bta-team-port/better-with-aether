@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.AetherMod;
+import teamport.aether.AetherGlobals;
 import teamport.aether.item.AetherItemTags;
 import teamport.aether.item.accessory.HumanAccessoryShape;
 import teamport.aether.item.accessory.ItemAccessory;
@@ -78,7 +78,7 @@ public abstract class MenuInventoryMixinAddSlotAdjSlot {
         }
         Item accessory = slot.getItemStack().getItem();
         if ((accessory instanceof ItemQuiver || accessory instanceof ItemQuiverEndless)) {
-            original.add(AetherMod.ARMOR_START_INDEX + CAPE_SLOT);
+            original.add(AetherGlobals.ARMOR_START_INDEX + CAPE_SLOT);
             return original;
         }
 
@@ -91,16 +91,16 @@ public abstract class MenuInventoryMixinAddSlotAdjSlot {
             Object shape = itemAccessory.getArmorShape();
 
             if (shape == HumanAccessoryShape.GLOVES) {
-                ints.add(AetherMod.ARMOR_START_INDEX + GLOVES_SLOT);
+                ints.add(AetherGlobals.ARMOR_START_INDEX + GLOVES_SLOT);
             } else if (shape == HumanAccessoryShape.CAPE) {
-                ints.add(AetherMod.ARMOR_START_INDEX + CAPE_SLOT);
+                ints.add(AetherGlobals.ARMOR_START_INDEX + CAPE_SLOT);
             } else {
-                ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_1_SLOT);
-                ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_2_SLOT);
+                ints.add(AetherGlobals.ARMOR_START_INDEX + TRINKET_1_SLOT);
+                ints.add(AetherGlobals.ARMOR_START_INDEX + TRINKET_2_SLOT);
             }
         } else if (accessory.hasTag(AetherItemTags.TRINKET)) {
-            ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_1_SLOT);
-            ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_2_SLOT);
+            ints.add(AetherGlobals.ARMOR_START_INDEX + TRINKET_1_SLOT);
+            ints.add(AetherGlobals.ARMOR_START_INDEX + TRINKET_2_SLOT);
         }
         return ints;
     }

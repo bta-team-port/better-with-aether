@@ -35,7 +35,8 @@ import static teamport.aether.AetherMod.MOD_ID;
 @SuppressWarnings({"java:S6539", "java:S1104", "java:S1444", "java:S3008", "unchecked", "java:S3878"})
 public final class AetherBlocks {
 
-    private AetherBlocks(){}
+    private AetherBlocks() {
+    }
 
     public static Block<BlockLogicPortalAether> PORTAL_AETHER;
 
@@ -236,7 +237,20 @@ public final class AetherBlocks {
     }
 
     public static void initializeBlocks() {
+        AetherBlocks.registerMisc();
+        AetherBlocks.registerTerrain();
+        AetherBlocks.registerStoneBlocks();
+        AetherBlocks.registerQuickGlass();
+        AetherBlocks.registerSkyroot();
+        AetherBlocks.registerMachines();
+        AetherBlocks.registerOre();
+        AetherBlocks.registerOreBricks();
+        AetherBlocks.registerDungeonBlocks();
+        AetherBlocks.registerMimicBlocks();
+        hasInit = false;
+    }
 
+    private static void registerMisc() {
         PORTAL_AETHER = register("portal.aether", blockKey("portal_aether"), blockID("PORTAL_AETHER"),
             b -> new BlockLogicPortalAether(b, AetherDimension.AETHER, Blocks.GLOWSTONE, Blocks.FLUID_WATER_FLOWING))
             .withSound(BlockSounds.GLASS)
@@ -246,7 +260,23 @@ public final class AetherBlocks {
             .withDisabledStats()
             .withTags(new Tag[]{BlockTags.BROKEN_BY_FLUIDS, BlockTags.NOT_IN_CREATIVE_MENU});
 
+        TORCH_AMBROSIUM = register("torch.ambrosium", blockKey("torch_ambrosium"), blockID("TORCH_AMBROSIUM"),
+            BlockLogicTorchAmbrosium::new)
+            .withSound(BlockSounds.WOOD)
+            .withHardness(0.0F)
+            .withLightEmission(0.9375F)
+            .withTags(BlockTags.BROKEN_BY_FLUIDS);
 
+        LANTERN_FIREFLY_SILVER = register("lantern.firefly.silver", blockKey("lantern_firefly_silver"), blockID("LANTERN_FIREFLY_SILVER"),
+            b -> new BlockLogicLanternFirefly(b, AetherMod.SILVER, () -> AetherItems.LANTERN_FIREFLY_SILVER))
+            .withSound(BlockSounds.GLASS)
+            .withHardness(0.1F)
+            .withLightEmission(0.9375F)
+            .setStatParent(() -> AetherItems.LANTERN_FIREFLY_SILVER)
+            .withTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.MINEABLE_BY_PICKAXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU);
+    }
+
+    private static void registerTerrain() {
         GRASS_AETHER = register("grass.aether", blockKey("grass_aether"), blockID("GRASS_AETHER"),
             b -> new BlockLogicGrassAether(b, DIRT_AETHER))
             .withSound(BlockSounds.GRASS)
@@ -282,7 +312,131 @@ public final class AetherBlocks {
             .withHardness(0.5F)
             .withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, AetherBlockTags.GROWS_AETHER_FLOWERS, BlockTags.CHAINLINK_FENCES_CONNECT);
 
+        AERCLOUD_WHITE = register("aercloud.white", blockKey("aercloud_white"), blockID("AERCLOUD_WHITE"),
+            BlockLogicCloudBase::new)
+            .withSound(BlockSounds.CLOTH)
+            .withLightBlock(1)
+            .withHardness(0.2f)
+            .withBlastResistance(0.2f)
+            .withTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.CAVE_GEN_REPLACES_SURFACE, BlockTags.CAVES_CUT_THROUGH, BlockTags.PREVENT_MOB_SPAWNS);
 
+        AERCLOUD_BLUE = register("aercloud.blue", blockKey("aercloud_blue"), blockID("AERCLOUD_BLUE"),
+            BlockLogicCloudBlue::new)
+            .withSound(BlockSounds.CLOTH)
+            .withLightBlock(1)
+            .withHardness(0.2f)
+            .withBlastResistance(0.2f)
+            .withTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.CAVE_GEN_REPLACES_SURFACE, BlockTags.CAVES_CUT_THROUGH, BlockTags.PREVENT_MOB_SPAWNS);
+
+        AERCLOUD_GOLD = register("aercloud.gold", blockKey("aercloud_gold"), blockID("AERCLOUD_GOLD"),
+            BlockLogicCloudBase::new)
+            .withSound(BlockSounds.CLOTH)
+            .withLightBlock(1)
+            .withHardness(0.2f)
+            .withBlastResistance(0.2f)
+            .withTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.CAVE_GEN_REPLACES_SURFACE, BlockTags.CAVES_CUT_THROUGH, BlockTags.PREVENT_MOB_SPAWNS);
+
+        LOG_SKYROOT = register("log.skyroot", blockKey("log_skyroot"), blockID("LOG_SKYROOT"),
+            BlockLogicLogAether::new)
+            .withSound(BlockSounds.WOOD)
+            .withHardness(2.0F)
+            .withTags(BlockTags.FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+
+        LOG_OAK_GOLDEN = register("log.oak.golden", blockKey("log_oak_golden"), blockID("LOG_OAK_GOLDEN"),
+            BlockLogicGoldenLogAether::new)
+            .withSound(BlockSounds.WOOD)
+            .withHardness(2.0F)
+            .withTags(BlockTags.FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+
+        LOG_AETHER_SCORCHED = register("log.aether.scorched", blockKey("log_aether_scorched"), blockID("LOG_AETHER_SCORCHED"),
+            BlockLogicLogAether::new)
+            .withSound(BlockSounds.WOOD)
+            .withHardness(1.5F)
+            .withTags(BlockTags.FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+
+
+        LEAVES_SKYROOT = register("leaves.skyroot", blockKey("leaves_skyroot"), blockID("LEAVES_SKYROOT"),
+            BlockLogicLeavesSkyroot::new)
+            .withSound(BlockSounds.GRASS)
+            .withHardness(0.2F)
+            .withLightBlock(1)
+            .withTags(BlockTags.MINEABLE_BY_AXE, AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.MINEABLE_BY_HOE, BlockTags.MINEABLE_BY_SWORD, AetherBlockTags.MINEABLE_BY_AETHER_SWORD, BlockTags.MINEABLE_BY_SHEARS, BlockTags.SHEARS_DO_SILK_TOUCH, AetherBlockTags.BRIDLE);
+
+        LEAVES_OAK_GOLDEN = register("leaves.oak.golden", blockKey("leaves_oak_golden"), blockID("LEAVES_OAK_GOLDEN"),
+            BlockLogicLeavesOakGolden::new)
+            .withSound(BlockSounds.GRASS)
+            .withHardness(0.2F)
+            .withLightBlock(1)
+            .withTags(BlockTags.MINEABLE_BY_AXE, AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.MINEABLE_BY_HOE, BlockTags.MINEABLE_BY_SWORD, AetherBlockTags.MINEABLE_BY_AETHER_SWORD, BlockTags.MINEABLE_BY_SHEARS, BlockTags.SHEARS_DO_SILK_TOUCH, AetherBlockTags.BRIDLE);
+
+        FLOWER_PURPLE = register("flower.aether.purple", blockKey("flower_aether_purple"), blockID("FLOWER_AETHER_PURPLE"),
+            b -> new BlockLogicFlowerAether(b)
+                .setKilledByWeather()
+                .setBonemealable())
+            .withSound(BlockSounds.GRASS)
+            .withHardness(0.0F)
+            .withOverrideColor(MaterialColor.paintedPurple)
+            .withTags(new Tag[]{BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, BlockTags.SHEARS_DO_SILK_TOUCH, BlockTags.SHEEPS_FAVOURITE_BLOCK, AetherBlockTags.PLANTABLE_IN_AETHER_JAR, AetherBlockTags.BRIDLE});
+
+        FLOWER_WHITE = register("flower.aether.white", blockKey("flower_aether_white"), blockID("FLOWER_AETHER_WHITE"),
+            b -> new BlockLogicFlowerAether(b)
+                .setKilledByWeather()
+                .setBonemealable())
+            .withSound(BlockSounds.GRASS)
+            .withHardness(0.0F)
+            .withOverrideColor(MaterialColor.paintedWhite)
+            .withTags(new Tag[]{BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, BlockTags.SHEARS_DO_SILK_TOUCH, BlockTags.SHEEPS_FAVOURITE_BLOCK, AetherBlockTags.PLANTABLE_IN_AETHER_JAR, AetherBlockTags.BRIDLE});
+
+
+        TALLGRASS_AETHER = register("tallgrass.aether", blockKey("tallgrass_aether"), blockID("TALLGRASS_AETHER"),
+            b -> new BlockLogicTallGrassAether(b)
+                .setKilledByWeather())
+            .withSound(BlockSounds.GRASS)
+            .withHardness(0.0F)
+            .withTags(BlockTags.MINEABLE_BY_SHEARS, BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLACE_OVERWRITES, BlockTags.SHEEPS_FAVOURITE_BLOCK, BlockTags.SHEARS_DO_SILK_TOUCH, AetherBlockTags.BRIDLE);
+
+        DEADBUSH_AETHER = register("deadbush.aether", blockKey("deadbush_aether"), blockID("DEADBUSH_AETHER"),
+            b -> new BlockLogicDeadBushAether(b)
+                .setKilledByWeather())
+            .withSound(BlockSounds.GRASS)
+            .withHardness(0.0F)
+            .withTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLACE_OVERWRITES, BlockTags.SHEARS_DO_SILK_TOUCH, AetherBlockTags.PLANTABLE_IN_AETHER_JAR, AetherBlockTags.BRIDLE);
+
+        SAPLING_SKYROOT = register("sapling.skyroot", blockKey("sapling_skyroot"), blockID("SAPLING_SKYROOT"),
+            BlockLogicSaplingSkyroot::new)
+            .withSound(BlockSounds.GRASS)
+            .withHardness(0.0F)
+            .withTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, AetherBlockTags.PLANTABLE_IN_AETHER_JAR, AetherBlockTags.BRIDLE);
+
+        SAPLING_OAK_GOLDEN = register("sapling.oak.golden", blockKey("sapling_oak_golden"), blockID("SAPLING_OAK_GOLDEN"),
+            BlockLogicSaplingOakGolden::new)
+            .withSound(BlockSounds.GRASS)
+            .withHardness(0.0F)
+            .withTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, AetherBlockTags.PLANTABLE_IN_AETHER_JAR, AetherBlockTags.BRIDLE);
+
+        ICESTONE = register("icestone", blockKey("icestone"), blockID("ICESTONE"),
+            BlockLogicIceStone::new)
+            .withSound(BlockSounds.GLASS)
+            .withHardness(3.0F)
+            .setTicking(true)
+            .withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.SKATEABLE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE);
+
+
+        QUICKSOIL = register("quicksoil", blockKey("quicksoil"), blockID("QUICKSOIL"),
+            BlockLogicQuicksoil::new)
+            .withSound(new BlockSound("step.sand", "step.gravel", 1.0F, 1.0F))
+            .withHardness(0.5F)
+            .withTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE);
+
+        AEROGEL = register("aerogel", blockKey("aerogel"), blockID("AEROGEL"),
+            b -> new BlockLogicTransparent(b, Materials.STONE))
+            .withSound(BlockSounds.STONE)
+            .withHardness(1.0f)
+            .withBlastResistance(2000.0F)
+            .withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT);
+    }
+
+    private static void registerStoneBlocks() {
         HOLYSTONE_POLISHED = register("holystone.polished", blockKey("holystone_polished"), blockID("HOLYSTONE_POLISHED"),
             b -> new BlockLogic(b, AetherMaterials.HOLYSTONE))
             .withSound(BlockSounds.STONE)
@@ -386,29 +540,16 @@ public final class AetherBlocks {
             .withHardness(1.5F)
             .setStatParent(() -> AetherItems.STATUE_HOLYSTONE)
             .withTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU);
+    }
 
-
-        ICESTONE = register("icestone", blockKey("icestone"), blockID("ICESTONE"),
-            BlockLogicIceStone::new)
-            .withSound(BlockSounds.GLASS)
-            .withHardness(3.0F)
-            .setTicking(true)
-            .withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.SKATEABLE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE);
-
-
-        QUICKSOIL = register("quicksoil", blockKey("quicksoil"), blockID("QUICKSOIL"),
-            BlockLogicQuicksoil::new)
-            .withSound(new BlockSound("step.sand", "step.gravel", 1.0F, 1.0F))
-            .withHardness(0.5F)
-            .withTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE);
-
+    private static void registerQuickGlass() {
         GLASS_QUICKSOIL = register("glass.quicksoil", blockKey("glass_quicksoil"), blockID("GLASS_QUICKSOIL"),
             BlockLogicGlassQuicksoil::new)
             .withSound(BlockSounds.GLASS)
             .withHardness(0.3F)
             .withLightEmission(7)
             .withLightBlock(0)
-            .withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.EXTENDS_MOTION_SENSOR_RANGE);
+            .withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.EXTENDS_MOTION_SENSOR_RANGE, AetherBlockTags.BRIDLE);
 
         DOOR_GLASS_QUICKSOIL_BOTTOM = register("door.glass.quicksoil.bottom", blockKey("door_glass_quicksoil_bottom"), blockID("DOOR_GLASS_QUICKSOIL_BOTTOM"),
             block -> new BlockLogicDoorGlassQuicksoil(block, Materials.GLASS, false, false, () -> AetherItems.DOOR_GLASS_AMBROSIUM))
@@ -417,7 +558,7 @@ public final class AetherBlocks {
             .withLightEmission(7)
             .withLightBlock(0)
             .setStatParent(() -> AetherItems.DOOR_GLASS_AMBROSIUM)
-            .withTags(new Tag[]{AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU});
+            .withTags(new Tag[]{AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, AetherBlockTags.BRIDLE});
 
         DOOR_GLASS_QUICKSOIL_TOP = register("door.glass.quicksoil.top", blockKey("door_glass_quicksoil_top"), blockID("DOOR_GLASS_QUICKSOIL_TOP"),
             block -> new BlockLogicDoorGlassQuicksoil(block, Materials.GLASS, true, false, () -> AetherItems.DOOR_GLASS_AMBROSIUM))
@@ -426,7 +567,7 @@ public final class AetherBlocks {
             .withLightEmission(7)
             .withLightBlock(0)
             .setStatParent(() -> AetherItems.DOOR_GLASS_AMBROSIUM)
-            .withTags(new Tag[]{AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU});
+            .withTags(new Tag[]{AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, AetherBlockTags.BRIDLE});
 
         TRAPDOOR_GLASS_QUICKSOIL = register("trapdoor.glass.quicksoil", blockKey("trapdoor_glass_quicksoil"), blockID("TRAPDOOR_GLASS_QUICKSOIL"),
             b -> new BlockLogicTrapDoorGlassQuicksoil(b, Materials.GLASS))
@@ -434,43 +575,10 @@ public final class AetherBlocks {
             .withHardness(0.3F)
             .withLightEmission(7)
             .withLightBlock(0)
-            .withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
+            .withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, AetherBlockTags.BRIDLE);
+    }
 
-
-        FLOWER_PURPLE = register("flower.aether.purple", blockKey("flower_aether_purple"), blockID("FLOWER_AETHER_PURPLE"),
-            b -> new BlockLogicFlowerAether(b)
-                .setKilledByWeather()
-                .setBonemealable())
-            .withSound(BlockSounds.GRASS)
-            .withHardness(0.0F)
-            .withOverrideColor(MaterialColor.paintedPurple)
-            .withTags(new Tag[]{BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, BlockTags.SHEARS_DO_SILK_TOUCH, BlockTags.SHEEPS_FAVOURITE_BLOCK, AetherBlockTags.PLANTABLE_IN_AETHER_JAR});
-
-        FLOWER_WHITE = register("flower.aether.white", blockKey("flower_aether_white"), blockID("FLOWER_AETHER_WHITE"),
-            b -> new BlockLogicFlowerAether(b)
-                .setKilledByWeather()
-                .setBonemealable())
-            .withSound(BlockSounds.GRASS)
-            .withHardness(0.0F)
-            .withOverrideColor(MaterialColor.paintedWhite)
-            .withTags(new Tag[]{BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, BlockTags.SHEARS_DO_SILK_TOUCH, BlockTags.SHEEPS_FAVOURITE_BLOCK, AetherBlockTags.PLANTABLE_IN_AETHER_JAR});
-
-
-        TALLGRASS_AETHER = register("tallgrass.aether", blockKey("tallgrass_aether"), blockID("TALLGRASS_AETHER"),
-            b -> new BlockLogicTallGrassAether(b)
-                .setKilledByWeather())
-            .withSound(BlockSounds.GRASS)
-            .withHardness(0.0F)
-            .withTags(BlockTags.MINEABLE_BY_SHEARS, BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLACE_OVERWRITES, BlockTags.SHEEPS_FAVOURITE_BLOCK, BlockTags.SHEARS_DO_SILK_TOUCH);
-
-        DEADBUSH_AETHER = register("deadbush.aether", blockKey("deadbush_aether"), blockID("DEADBUSH_AETHER"),
-            b -> new BlockLogicDeadBushAether(b)
-                .setKilledByWeather())
-            .withSound(BlockSounds.GRASS)
-            .withHardness(0.0F)
-            .withTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLACE_OVERWRITES, BlockTags.SHEARS_DO_SILK_TOUCH, AetherBlockTags.PLANTABLE_IN_AETHER_JAR);
-
-
+    private static void registerSkyroot() {
         PLANKS_SKYROOT = register("planks.skyroot", blockKey("planks_skyroot"), blockID("PLANKS_SKYROOT"),
             b -> new BlockLogicPaintableBlock(b, Materials.WOOD, () -> PLANKS_SKYROOT_PAINTED))
             .withSound(BlockSounds.WOOD)
@@ -665,96 +773,9 @@ public final class AetherBlocks {
             .withHardness(0.5F)
             .setBlockItem(b -> new ItemBlockPainted<>(b, true))
             .withTags(new Tag[]{AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.PREVENT_MOB_SPAWNS});
+    }
 
-
-        LOG_SKYROOT = register("log.skyroot", blockKey("log_skyroot"), blockID("LOG_SKYROOT"),
-            BlockLogicLogAether::new)
-            .withSound(BlockSounds.WOOD)
-            .withHardness(2.0F)
-            .withTags(BlockTags.FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-
-        LOG_OAK_GOLDEN = register("log.oak.golden", blockKey("log_oak_golden"), blockID("LOG_OAK_GOLDEN"),
-            BlockLogicGoldenLogAether::new)
-            .withSound(BlockSounds.WOOD)
-            .withHardness(2.0F)
-            .withTags(BlockTags.FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-
-        LOG_AETHER_SCORCHED = register("log.aether.scorched", blockKey("log_aether_scorched"), blockID("LOG_AETHER_SCORCHED"),
-            BlockLogicLogAether::new)
-            .withSound(BlockSounds.WOOD)
-            .withHardness(1.5F)
-            .withTags(BlockTags.FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-
-
-        LEAVES_SKYROOT = register("leaves.skyroot", blockKey("leaves_skyroot"), blockID("LEAVES_SKYROOT"),
-            BlockLogicLeavesSkyroot::new)
-            .withSound(BlockSounds.GRASS)
-            .withHardness(0.2F)
-            .withLightBlock(1)
-            .withTags(BlockTags.MINEABLE_BY_AXE, AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.MINEABLE_BY_HOE, BlockTags.MINEABLE_BY_SWORD, AetherBlockTags.MINEABLE_BY_AETHER_SWORD, BlockTags.MINEABLE_BY_SHEARS, BlockTags.SHEARS_DO_SILK_TOUCH);
-
-        LEAVES_OAK_GOLDEN = register("leaves.oak.golden", blockKey("leaves_oak_golden"), blockID("LEAVES_OAK_GOLDEN"),
-            BlockLogicLeavesOakGolden::new)
-            .withSound(BlockSounds.GRASS)
-            .withHardness(0.2F)
-            .withLightBlock(1)
-            .withTags(BlockTags.MINEABLE_BY_AXE, AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.MINEABLE_BY_HOE, BlockTags.MINEABLE_BY_SWORD, AetherBlockTags.MINEABLE_BY_AETHER_SWORD, BlockTags.MINEABLE_BY_SHEARS, BlockTags.SHEARS_DO_SILK_TOUCH);
-
-
-        SAPLING_SKYROOT = register("sapling.skyroot", blockKey("sapling_skyroot"), blockID("SAPLING_SKYROOT"),
-            BlockLogicSaplingSkyroot::new)
-            .withSound(BlockSounds.GRASS)
-            .withHardness(0.0F)
-            .withTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, AetherBlockTags.PLANTABLE_IN_AETHER_JAR);
-
-        SAPLING_OAK_GOLDEN = register("sapling.oak.golden", blockKey("sapling_oak_golden"), blockID("SAPLING_OAK_GOLDEN"),
-            BlockLogicSaplingOakGolden::new)
-            .withSound(BlockSounds.GRASS)
-            .withHardness(0.0F)
-            .withTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, AetherBlockTags.PLANTABLE_IN_AETHER_JAR);
-
-
-        AERCLOUD_WHITE = register("aercloud.white", blockKey("aercloud_white"), blockID("AERCLOUD_WHITE"),
-            BlockLogicCloudBase::new)
-            .withSound(BlockSounds.CLOTH)
-            .withLightBlock(1)
-            .withHardness(0.2f)
-            .withBlastResistance(0.2f)
-            .withTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.CAVE_GEN_REPLACES_SURFACE, BlockTags.CAVES_CUT_THROUGH, BlockTags.PREVENT_MOB_SPAWNS);
-
-        AERCLOUD_BLUE = register("aercloud.blue", blockKey("aercloud_blue"), blockID("AERCLOUD_BLUE"),
-            BlockLogicCloudBlue::new)
-            .withSound(BlockSounds.CLOTH)
-            .withLightBlock(1)
-            .withHardness(0.2f)
-            .withBlastResistance(0.2f)
-            .withTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.CAVE_GEN_REPLACES_SURFACE, BlockTags.CAVES_CUT_THROUGH, BlockTags.PREVENT_MOB_SPAWNS);
-
-        AERCLOUD_GOLD = register("aercloud.gold", blockKey("aercloud_gold"), blockID("AERCLOUD_GOLD"),
-            BlockLogicCloudBase::new)
-            .withSound(BlockSounds.CLOTH)
-            .withLightBlock(1)
-            .withHardness(0.2f)
-            .withBlastResistance(0.2f)
-            .withTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.CAVE_GEN_REPLACES_SURFACE, BlockTags.CAVES_CUT_THROUGH, BlockTags.PREVENT_MOB_SPAWNS);
-
-
-        AEROGEL = register("aerogel", blockKey("aerogel"), blockID("AEROGEL"),
-            b -> new BlockLogicTransparent(b, Materials.STONE))
-            .withSound(BlockSounds.STONE)
-            .withHardness(1.0f)
-            .withBlastResistance(2000.0F)
-            .withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT);
-
-
-        TORCH_AMBROSIUM = register("torch.ambrosium", blockKey("torch_ambrosium"), blockID("TORCH_AMBROSIUM"),
-            BlockLogicTorchAmbrosium::new)
-            .withSound(BlockSounds.WOOD)
-            .withHardness(0.0F)
-            .withLightEmission(0.9375F)
-            .withTags(BlockTags.BROKEN_BY_FLUIDS);
-
-
+    private static void registerMachines() {
         ENCHANTER_IDLE = register("enchanter.idle", blockKey("enchanter_idle"), blockID("ENCHANTER_IDLE"),
             b -> new BlockLogicEnchanter(b, false))
             .withSound(BlockSounds.WOOD)
@@ -802,8 +823,9 @@ public final class AetherBlocks {
             .withLightEmission(13)
             .setStatParent(() -> INCUBATOR_IDLE)
             .withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.FENCES_CONNECT, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU);
+    }
 
-
+    private static void registerOre() {
         ORE_AMBROSIUM_HOLYSTONE = register("ore.ambrosium.holystone", blockKey("ore_ambrosium_holystone"), blockID("ORE_AMBROSIUM_HOLYSTONE"),
             b -> new BlockLogicOreAmbrosium(b, HOLYSTONE, AetherMaterials.HOLYSTONE))
             .withSound(BlockSounds.STONE)
@@ -847,8 +869,9 @@ public final class AetherBlocks {
             .withBlastResistance(5.0F)
             .setTicking(true)
             .withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
+    }
 
-
+    private static void registerOreBricks() {
         BLOCK_AMBER = register("block.amber", blockKey("block_amber"), blockID("BLOCK_AMBER"),
             b -> new BlockLogicTransparent(b, Materials.STONE))
             .withSound(BlockSounds.STONE)
@@ -922,8 +945,9 @@ public final class AetherBlocks {
             .withBlastResistance(10.0F)
             .withLitInteriorSurface(true)
             .withTags(BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
+    }
 
-
+    private static void registerDungeonBlocks() {
         CARVED_STONE = register("carved.stone", blockKey("carved_stone"), blockID("CARVED_STONE"),
             b -> new BlockLogicDungeon(b, AetherMaterials.SENTRY))
             .withSound(BlockSounds.STONE)
@@ -1197,8 +1221,9 @@ public final class AetherBlocks {
             .withBlastResistance(6000000.0F)
             .setStatParent(() -> CARVED_HELLFIRE)
             .withTags(BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.PISTON_CRUSHING, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.INFINITE_BURN);
+    }
 
-
+    private static void registerMimicBlocks() {
         CHEST_MIMIC_OAK = register("chest.mimic.oak", blockKey("chest_mimic_oak"), blockID("CHEST_MIMIC_OAK"),
             block -> new BlockLogicPaintableChestMimic(block, Materials.WOOD, AetherBlocks.CHEST_MIMIC_OAK_PAINTED))
             .withSound(BlockSounds.WOOD)
@@ -1249,17 +1274,7 @@ public final class AetherBlocks {
             .withHardness(4.0F)
             .withBlastResistance(5.0F)
             .withTags(new Tag[]{AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, AetherBlockTags.AETHER_DOES_NOT_FIT_IN_MINECART});
-
-
-        LANTERN_FIREFLY_SILVER = register("lantern.firefly.silver", blockKey("lantern_firefly_silver"), blockID("LANTERN_FIREFLY_SILVER"),
-            b -> new BlockLogicLanternFirefly(b, AetherMod.SILVER, () -> AetherItems.LANTERN_FIREFLY_SILVER))
-            .withSound(BlockSounds.GLASS)
-            .withHardness(0.1F)
-            .withLightEmission(0.9375F)
-            .setStatParent(() -> AetherItems.LANTERN_FIREFLY_SILVER)
-            .withTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.MINEABLE_BY_PICKAXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU);
-
-        hasInit = false;
     }
+
 
 }

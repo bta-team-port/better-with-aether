@@ -16,6 +16,7 @@ import net.minecraft.core.world.pos.*;
 import net.minecraft.core.world.type.tag.WorldTypeTags;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
+import teamport.aether.AetherGlobals;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.block.BlockLogicFloatingBlock;
@@ -27,7 +28,6 @@ import teamport.aether.world.feature.dungeon.bronze.WorldFeatureAetherBronzeDung
 import teamport.aether.world.feature.dungeon.gold.WorldFeatureAetherGoldDungeon;
 import teamport.aether.world.feature.dungeon.silver.WorldFeatureAetherSilverDungeon;
 import teamport.aether.world.feature.terrain.*;
-import teamport.aether.world.feature.terrain.WorldFeatureAetherStalagmite;
 import teamport.aether.world.type.AetherWorldTypes;
 
 import javax.imageio.ImageIO;
@@ -38,8 +38,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Random;
-
-import static teamport.aether.AetherMod.*;
 
 @SuppressWarnings({"java:S116", "java:S3776"})
 public class ChunkDecoratorAether implements ChunkDecorator {
@@ -211,9 +209,9 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         int z = chunkZ * 16;
         long worldSeed = this.world.getRandomSeed();
         int transformedSeed = Worley.mix((int) (worldSeed >>> 32), (int) (worldSeed & 0xFFFFFFFFL), 0);
-        int goldSeed = Worley.isSeed(chunkX, chunkZ, GOLD_CHANCES, transformedSeed, 1, 2); // 22 - 2
-        int silverSeed = Worley.isSeed(chunkX, chunkZ, SILVER_CHANCES, transformedSeed, 1, 2); // 16 - 2
-        int bronzeSeed = Worley.isSeed(chunkX, chunkZ, BRONZE_CHANCES, transformedSeed, 1, 2); // 10 - 2
+        int goldSeed = Worley.isSeed(chunkX, chunkZ, AetherGlobals.GOLD_CHANCES, transformedSeed, 1, 2); // 22 - 2
+        int silverSeed = Worley.isSeed(chunkX, chunkZ, AetherGlobals.SILVER_CHANCES, transformedSeed, 1, 2); // 16 - 2
+        int bronzeSeed = Worley.isSeed(chunkX, chunkZ, AetherGlobals.BRONZE_CHANCES, transformedSeed, 1, 2); // 10 - 2
         if (goldSeed > -1) {
             int dungeonX = x + 8;
             int dungeonY = (rangeY / 2) + data.rand.nextInt(rangeY / 8);

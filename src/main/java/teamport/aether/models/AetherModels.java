@@ -764,8 +764,8 @@ public class AetherModels {
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_DUNGEON_COMPASS));
         dispatcher.addDispatch(new ItemModelJebber(AetherItems.TOOL_JEBBER)
-            .setOverlay(MOD_ID + ":item/chaotic_wand/overlay")
-            .setIcon(MOD_ID + ":item/chaotic_wand/wand")
+            .setOverlay(MOD_ID + ":item/jebber/orb3")
+            .setIcon(MOD_ID + ":item/jebber/wand1")
             .setFullBright()
             .setDisplayPos(DisplayPos.FIRST_PERSON_RIGHT_HAND, ItemModelDispatcher.HANDHELD_FIRST_PERSON_RIGHT_HAND)
             .setDisplayPos(DisplayPos.FIRST_PERSON_LEFT_HAND, ItemModelDispatcher.HANDHELD_FIRST_PERSON_LEFT_HAND)

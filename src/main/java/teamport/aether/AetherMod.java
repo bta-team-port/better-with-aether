@@ -79,11 +79,6 @@ public class AetherMod implements ModInitializer {
     public static final BlockLogicNote.Instrument TRANCE = new BlockLogicNote.Instrument(18, "trance");
     public static final BlockLogicNote.Instrument SAXOPHONE = new BlockLogicNote.Instrument(19, "saxophone");
     public static final BlockLogicNote.Instrument MUSICBOX = new BlockLogicNote.Instrument(20, "musicbox");
-    public static final byte ARMOR_START_INDEX = 41 + 4;
-    public static final float ZANITE_MULTIPLIER = 2.0F;
-    public static final byte BRONZE_CHANCES = 10;
-    public static final byte SILVER_CHANCES = 16;
-    public static final byte GOLD_CHANCES = 22;
 
     private final AetherRecipes recipes = new AetherRecipes();
 
@@ -184,10 +179,58 @@ public class AetherMod implements ModInitializer {
         Blocks.TROMMEL_IDLE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
 
         Blocks.SPIKES.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
-        Blocks.GLOWSTONE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
+        Blocks.GLOWSTONE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, AetherBlockTags.BRIDLE);
 
-        Blocks.ICE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
+        Blocks.ICE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, AetherBlockTags.BRIDLE);
         Blocks.PERMAICE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
+
+        Blocks.GLASS.withTags(AetherBlockTags.BRIDLE);
+        Blocks.GLASS_TINTED.withTags(AetherBlockTags.BRIDLE);
+        Blocks.GLASS_STEEL.withTags(AetherBlockTags.BRIDLE);
+        Blocks.DOOR_GLASS_TOP.withTags(AetherBlockTags.BRIDLE);
+        Blocks.DOOR_GLASS_BOTTOM.withTags(AetherBlockTags.BRIDLE);
+        Blocks.TRAPDOOR_GLASS.withTags(AetherBlockTags.BRIDLE);
+        Blocks.JAR_GLASS.withTags(AetherBlockTags.BRIDLE);
+
+        Blocks.LEAVES_OAK_RETRO.withTags(AetherBlockTags.BRIDLE);
+        Blocks.LEAVES_OAK.withTags(AetherBlockTags.BRIDLE);
+        Blocks.LEAVES_CACAO.withTags(AetherBlockTags.BRIDLE);
+        Blocks.LEAVES_PALM.withTags(AetherBlockTags.BRIDLE);
+        Blocks.LEAVES_SHRUB.withTags(AetherBlockTags.BRIDLE);
+        Blocks.LEAVES_PINE.withTags(AetherBlockTags.BRIDLE);
+        Blocks.LEAVES_BIRCH.withTags(AetherBlockTags.BRIDLE);
+        Blocks.LEAVES_CHERRY_FLOWERING.withTags(AetherBlockTags.BRIDLE);
+        Blocks.LEAVES_CHERRY.withTags(AetherBlockTags.BRIDLE);
+        Blocks.LEAVES_THORN.withTags(AetherBlockTags.BRIDLE);
+        Blocks.LEAVES_EUCALYPTUS.withTags(AetherBlockTags.BRIDLE);
+        Blocks.LAYER_LEAVES_OAK.withTags(AetherBlockTags.BRIDLE);
+
+        Blocks.SUGARCANE.withTags(AetherBlockTags.BRIDLE);
+        Blocks.FLOWER_YELLOW.withTags(AetherBlockTags.BRIDLE);
+        Blocks.FLOWER_RED.withTags(AetherBlockTags.BRIDLE);
+        Blocks.FLOWER_PURPLE.withTags(AetherBlockTags.BRIDLE);
+        Blocks.FLOWER_PINK.withTags(AetherBlockTags.BRIDLE);
+        Blocks.FLOWER_LIGHT_BLUE.withTags(AetherBlockTags.BRIDLE);
+        Blocks.FLOWER_ORANGE.withTags(AetherBlockTags.BRIDLE);
+        Blocks.SAPLING_CACAO.withTags(AetherBlockTags.BRIDLE);
+        Blocks.SAPLING_BIRCH.withTags(AetherBlockTags.BRIDLE);
+        Blocks.SAPLING_CHERRY.withTags(AetherBlockTags.BRIDLE);
+        Blocks.SAPLING_OAK.withTags(AetherBlockTags.BRIDLE);
+        Blocks.SAPLING_EUCALYPTUS.withTags(AetherBlockTags.BRIDLE);
+        Blocks.SAPLING_OAK_RETRO.withTags(AetherBlockTags.BRIDLE);
+        Blocks.SAPLING_PALM.withTags(AetherBlockTags.BRIDLE);
+        Blocks.SAPLING_PINE.withTags(AetherBlockTags.BRIDLE);
+        Blocks.SAPLING_SHRUB.withTags(AetherBlockTags.BRIDLE);
+        Blocks.SAPLING_THORN.withTags(AetherBlockTags.BRIDLE);
+        Blocks.TALLGRASS.withTags(AetherBlockTags.BRIDLE);
+        Blocks.TALLGRASS_FERN.withTags(AetherBlockTags.BRIDLE);
+        Blocks.CACTUS.withTags(AetherBlockTags.BRIDLE);
+        Blocks.PUMPKIN.withTags(AetherBlockTags.BRIDLE);
+        Blocks.PUMPKIN_PIE.withTags(AetherBlockTags.BRIDLE);
+        Blocks.PUMPKIN_CARVED_IDLE.withTags(AetherBlockTags.BRIDLE);
+        Blocks.CROPS_PUMPKIN.withTags(AetherBlockTags.BRIDLE);
+        Blocks.CROPS_WHEAT.withTags(AetherBlockTags.BRIDLE);
+
     }
 
     public static void registerNewTagForItems() {

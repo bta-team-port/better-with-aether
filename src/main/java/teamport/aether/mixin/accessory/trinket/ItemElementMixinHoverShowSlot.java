@@ -30,7 +30,7 @@ import teamport.aether.option.AetherGameSettingsHolder;
 
 import java.nio.DoubleBuffer;
 
-import static teamport.aether.AetherMod.ARMOR_START_INDEX;
+import static teamport.aether.AetherGlobals.ARMOR_START_INDEX;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 
 @Environment(EnvType.CLIENT)

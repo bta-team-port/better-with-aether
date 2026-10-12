@@ -11,7 +11,7 @@ import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherArmorMaterial;
 import teamport.aether.item.accessory.gloves.ItemGloves;
 
-import static teamport.aether.AetherMod.ZANITE_MULTIPLIER;
+import static teamport.aether.AetherGlobals.ZANITE_MULTIPLIER;
 import static teamport.aether.item.accessory.SlotAccessory.GLOVES_SLOT;
 
 @Mixin(Player.class)
