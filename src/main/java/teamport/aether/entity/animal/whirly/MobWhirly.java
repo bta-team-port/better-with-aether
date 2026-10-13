@@ -52,7 +52,7 @@ public class MobWhirly extends MobAetherAnimal {
     public void tick() {
         super.tick();
         if (this.isAlive()) {
-            ParticleMaker.spawnWhirlyParticles(world, this, 4, "whirly");
+            ParticleMaker.spawnWhirlyParticles(world, this, "whirly", 4);
         }
     }
 

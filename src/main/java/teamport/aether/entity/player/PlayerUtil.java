@@ -350,7 +350,7 @@ public class PlayerUtil {
     }
 
     public static boolean isFireImmune(Player player){
-        return !player.gamemode.hasInvulnerablePlayer() && PlayerUtil.fireResistanceCount(player.inventory) < 3;
+        return player.gamemode.hasInvulnerablePlayer() || PlayerUtil.fireResistanceCount(player.inventory) >= 3;
     }
 
 }

@@ -8,6 +8,7 @@ import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.monster.MobMonsterAether;
+import teamport.aether.helper.ParticleMaker;
 
 import static teamport.aether.entity.DamageInstance.inst;
 
@@ -74,7 +75,7 @@ public class MobFireMinion extends MobMonsterAether implements Enemy {
         super.tick();
         if (this.getHealth() > 0) {
             this.maxFireTicks = 20;
-//            ParticleMaker.spawnWhirlyParticles(world, this, 4, "fire"); // clutter to much
+//            ParticleMaker.spawnWhirlyParticles(world, this, "fire", 4); // clutter to much
         }
     }
 

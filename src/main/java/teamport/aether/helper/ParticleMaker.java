@@ -35,7 +35,7 @@ public class ParticleMaker {
         spawnParticle(world, particleKey, x, y, z, motionX, motionY, motionZ, data, 16D);
     }
 
-    public static void spawnWhirlyParticles(World world, Entity entity, int amount, String particleKey) {
+    public static void spawnWhirlyParticles(World world, Entity entity, String particleKey, int amount) {
         for (int i = 0; i < amount; ++i) {
             ParticleMaker.spawnParticle(world, particleKey, entity.x, entity.y, entity.z, 0, 10, 0, 0, 72D);
         }

@@ -30,7 +30,7 @@ public class MobTempest extends MobMonsterAether implements Enemy {
     public void tick() {
         super.tick();
         if (this.getHealth() > 0) {
-            ParticleMaker.spawnWhirlyParticles(world, this, 8, "tempest");
+            ParticleMaker.spawnWhirlyParticles(world, this, "tempest", 8);
             ParticleMaker.spawnParticle(world, "lightning", this.x, this.y + world.rand.nextDouble(), this.z,
                 world.rand.nextDouble() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), world.rand.nextDouble() * 0.2F, world.rand.nextDouble() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), 0, 72);
         }
