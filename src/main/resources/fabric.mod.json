@@ -26,20 +26,24 @@
 
     "Slainlight",
     "Telvarost",
-    "wyspr"
+    "wyspr",
+
+    "SajmonOriginal"
   ],
   "contributors": [
     "Tocinin",
     "Klyxlik",
     "Yallendallis",
-    "Beatrice/Maxine"
+    "Beatrice/Maxine",
+    "camoweed_"
   ],
 
   "icon": "icon.png",
 
   "contact": {
-    "homepage": "",
-    "sources": ""
+    "discord": "https://discord.com/channels/1138825919088312403/1193853358340063323",
+    "homepage": "https://modrinth.com/mod/better-with-aether-bta",
+    "sources": "https://github.com/bta-team-port/better-with-aether"
   },
 
   "license": "LGPL-3.0",

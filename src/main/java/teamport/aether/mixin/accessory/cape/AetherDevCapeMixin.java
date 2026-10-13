@@ -19,14 +19,15 @@ public abstract class AetherDevCapeMixin {
     @SuppressWarnings("java:S131")
     private void injectCapeOverride(TessellatorGeneral tessellator, @NonNull Player player, float partialTick, CallbackInfo ci) {
         switch (player.uuid.toString()) {
-            case AetherGlobals.UUID_LUKEISSTUFF: // LukeisStuff
-            case AetherGlobals.UUID_OLYPOLYU: // Olypolyu / Kheprep
-            case AetherGlobals.UUID_TOCININ: // Tocinin
-            case AetherGlobals.UUID_REDART15: // Redart15
-            case AetherGlobals.UUID_SMUSHYTACO: // SmushyTaco
-            case AetherGlobals.UUID_TOUFOUMASTER: //ToufouMaster
-            case AetherGlobals.UUID_RIN: //Rin
-            case AetherGlobals.UUID_CAMOWEED_: // camoweed_
+            case AetherGlobals.UUID_LUKEISSTUFF:        // LukeisStuff
+            case AetherGlobals.UUID_OLYPOLYU:           // Olypolyu / Kheprep
+            case AetherGlobals.UUID_TOCININ:            // Tocinin
+            case AetherGlobals.UUID_REDART15:           // Redart15
+            case AetherGlobals.UUID_SMUSHYTACO:         // SmushyTaco
+            case AetherGlobals.UUID_TOUFOUMASTER:       //ToufouMaster
+            case AetherGlobals.UUID_RIN:                //Rin
+            case AetherGlobals.UUID_CAMOWEED:           // Camoweed
+            case AetherGlobals.UUID_SAJMON:             // Sajmon
                 player.capeURL = "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/heads/7.3/src/main/resources/assets/aether/textures/armor/cape/aether.png";
                 break;
         }

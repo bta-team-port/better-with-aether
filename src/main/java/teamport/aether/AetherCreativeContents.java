@@ -241,7 +241,7 @@ public final class AetherCreativeContents {
         REG.register(AetherItems.ARMOR_GLOVES_NEPTUNE, after);
         REG.register(AetherItems.ARMOR_WOLF_NEPTUNE, after);
 
-        REG.register(AetherItems.KING_GLOVES, after);
+        REG.register(AetherItems.ULT_GLOVES, after);
     }
 
     private static void addTrinkets() {
@@ -261,7 +261,7 @@ public final class AetherCreativeContents {
         CreativeInventoryPlacement.After after = placeAfter(Items.MAP);
         REG.register(AetherItems.TOOL_DUNGEON_COMPASS, after);
 
-        REG.register(AetherItems.UNCHARGED_KING_GLOVES, after);
+        REG.register(AetherItems.UNCHARGED_ULT_GLOVES, after);
 
         REG.register(AetherItems.TOOL_SWORD_PIG, after);
         REG.register(AetherItems.TOOL_SWORD_VAMPIRE, after);

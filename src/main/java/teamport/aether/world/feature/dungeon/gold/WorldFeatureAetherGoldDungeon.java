@@ -116,7 +116,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeatureMap<DungeonLogicG
         TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_CHESTPLATE_PHOENIX.getDefaultStack(), 1), 100.0);
         TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_LEGGINGS_PHOENIX.getDefaultStack(), 1), 100.0);
         TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_WOLF_PHOENIX.getDefaultStack(), 1), 100.0);
-        TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.KING_GLOVES.getDefaultStack()), 10);
+        TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.ULT_GLOVES.getDefaultStack()), 10);
 
         TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.LIFESHARD.getDefaultStack(), 1, 2), 50.0);
         TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_DUNGEON_COMPASS.getDefaultStack()), 25.0);

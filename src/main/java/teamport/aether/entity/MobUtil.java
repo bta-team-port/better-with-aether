@@ -4,6 +4,7 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
+import net.minecraft.core.entity.EntityItem;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.animal.MobWolf;
 import net.minecraft.core.entity.player.Player;
@@ -11,6 +12,7 @@ import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.IArmorItem;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ArmorMaterial;
+import net.minecraft.core.item.tag.ItemTags;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.LevelListener;
 import net.minecraft.core.world.World;
@@ -26,6 +28,7 @@ import teamport.aether.entity.pathing.base.Path;
 import teamport.aether.entity.pathing.base.PathFinder;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherArmorMaterial;
+import teamport.aether.mixin.accessors.EntityAccessor;
 
 public class MobUtil {
 
@@ -177,5 +180,21 @@ public class MobUtil {
         if (armor == null || !(armor.getItem() instanceof IArmorItem)) return false;
         ArmorMaterial armorMaterial = ((IArmorItem<?>) armor.getItem()).getArmorMaterial();
         return armorMaterial != null && armorMaterial.equals(AetherArmorMaterial.PHOENIX);
+    }
+
+    public static boolean isImmuneToFire(@NotNull Entity entity){
+        if(entity instanceof EntityAccessor accessor && accessor.isFireImmune()){
+            return true;
+        }
+        if(entity instanceof MobWolf wolf){
+            return MobUtil.isImmuneToFire(wolf);
+        }
+        if(entity instanceof EntityItem entityItem
+            && entityItem.item != null
+            && (entityItem.item.getItem().hasTag(ItemTags.IS_FIRE_PROOF) || entityItem.item.getItem().hasTag(ItemTags.IS_INDESTRUCTIBLE))
+        ){
+            return true;
+        }
+        return entity instanceof Player player && PlayerUtil.isFireImmune(player);
     }
 }

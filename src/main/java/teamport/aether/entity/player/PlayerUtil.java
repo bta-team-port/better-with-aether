@@ -349,4 +349,8 @@ public class PlayerUtil {
         return new DeathCauseKilledBy(victim, mob);
     }
 
+    public static boolean isFireImmune(Player player){
+        return !player.gamemode.hasInvulnerablePlayer() && PlayerUtil.fireResistanceCount(player.inventory) < 3;
+    }
+
 }

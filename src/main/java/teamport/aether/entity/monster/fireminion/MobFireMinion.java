@@ -8,7 +8,6 @@ import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.monster.MobMonsterAether;
-import teamport.aether.helper.ParticleMaker;
 
 import static teamport.aether.entity.DamageInstance.inst;
 
@@ -50,16 +49,16 @@ public class MobFireMinion extends MobMonsterAether implements Enemy {
 
     @Override
     protected void attackEntity(@NonNull Entity target, float distance) {
-        if (this.attackTime <= 0 && distance < 2.0F && target.bb.maxY > this.bb.minY && target.bb.minY < this.bb.maxY) {
-            this.attackTime = 20;
-            MobUtil.multiHit(this, target,
-                inst(this.attackStrength, DamageType.FIRE),
-                inst(this.attackStrength / 2, DamageType.COMBAT)
-            );
-            target.remainingFireTicks = 300;
-            target.maxFireTicks = 300;
+        if (this.attackTime > 0 || distance >= 2.0F || target.bb.maxY <= this.bb.minY || target.bb.minY >= this.bb.maxY) {
+            return;
         }
-
+        this.attackTime = 20;
+        MobUtil.multiHit(this, target, inst(this.attackStrength, DamageType.FIRE), inst(this.attackStrength / 2, DamageType.COMBAT));
+        if (MobUtil.isImmuneToFire(target)) {
+            return;
+        }
+        target.remainingFireTicks = 300;
+        target.maxFireTicks = 300;
     }
 
     @Override
@@ -75,7 +74,7 @@ public class MobFireMinion extends MobMonsterAether implements Enemy {
         super.tick();
         if (this.getHealth() > 0) {
             this.maxFireTicks = 20;
-            ParticleMaker.spawnWhirlyParticles(world, this, 4, "fire");
+//            ParticleMaker.spawnWhirlyParticles(world, this, 4, "fire"); // clutter to much
         }
     }
 

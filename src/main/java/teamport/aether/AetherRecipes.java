@@ -825,13 +825,13 @@ public class AetherRecipes {
         wolf.addInput('X', AetherItems.ZANITE).create("zanite_wolf_armor", new ItemStack(AetherItems.ARMOR_WOLF_ZANITE, 1));
         wolf.addInput('X', AetherBlocks.BLOCK_GRAVITITE).create("gravitite_wolf_armor", new ItemStack(AetherItems.ARMOR_WOLF_GRAVITITE, 1));
 
-        Registries.RECIPES.WORKBENCH.register("aether:repair_ultimate_fist", new RecipeEntryRepairable(AetherItems.KING_GLOVES.getDefaultStack(), new RecipeSymbol("aether:ult_repair")));
+        Registries.RECIPES.WORKBENCH.register("aether:repair_ultimate_fist", new RecipeEntryRepairable(AetherItems.ULT_GLOVES.getDefaultStack(), new RecipeSymbol("aether:ult_repair")));
 
         RecipeBuilder.Shaped(MOD_ID)
             .setShape("III", "IKI", "III")
             .addInput('I', "aether:ult_repair")
-            .addInput('K', AetherItems.UNCHARGED_KING_GLOVES.getDefaultStack())
-            .create("recharge_ultimate_fist", AetherItems.KING_GLOVES.getDefaultStack());
+            .addInput('K', AetherItems.UNCHARGED_ULT_GLOVES.getDefaultStack())
+            .create("recharge_ultimate_fist", AetherItems.ULT_GLOVES.getDefaultStack());
     }
 
     public static void toolsRecipes() {

@@ -172,8 +172,8 @@ public final class AetherItems {
     public static Item ARMOR_GLOVES_IRON;
     public static Item ARMOR_GLOVES_GOLD;
     public static Item ARMOR_GLOVES_DIAMOND;
-    public static Item KING_GLOVES;
-    public static Item UNCHARGED_KING_GLOVES;
+    public static Item ULT_GLOVES;
+    public static Item UNCHARGED_ULT_GLOVES;
     public static Item ARMOR_GLOVES_STEEL;
     public static Item ARMOR_GLOVES_ZANITE;
     public static Item ARMOR_GLOVES_GRAVITITE;
@@ -337,8 +337,8 @@ public final class AetherItems {
         ARMOR_GLOVES_DIAMOND = new ItemGloves("armor.gloves.diamond", itemKey("armor_gloves_diamond"), itemID("ARMOR_GLOVES_DIAMOND"), ArmorMaterial.DIAMOND, HumanAccessoryShape.GLOVES)
             .setDamage(4);
 
-        KING_GLOVES = new ItemKingGloves("armor.gloves.king", itemKey("armor_gloves_king"), itemID("ARMOR_GLOVES_KING"), ArmorMaterial.DIAMOND, HumanAccessoryShape.GLOVES).setMaxStackSize(1);
-        UNCHARGED_KING_GLOVES = new Item("armor.gloves.king.uncharged", itemKey("armor_gloves_king_uncharged"), itemID("ARMOR_GLOVES_KING_UNCHARGED")).setMaxStackSize(1);
+        ULT_GLOVES = new ItemUltimateGloves("armor.gloves.ult", itemKey("armor_gloves_ult"), itemID("ARMOR_GLOVES_ULT"), ArmorMaterial.DIAMOND, HumanAccessoryShape.GLOVES).setMaxStackSize(1);
+        UNCHARGED_ULT_GLOVES = new Item("armor.gloves.ult.uncharged", itemKey("armor_gloves_ult_uncharged"), itemID("ARMOR_GLOVES_ULT_UNCHARGED")).setMaxStackSize(1);
 
         ARMOR_GLOVES_STEEL = new ItemGloves("armor.gloves.steel", itemKey("armor_gloves_steel"), itemID("ARMOR_GLOVES_STEEL"), ArmorMaterial.STEEL, HumanAccessoryShape.GLOVES)
             .setDamage(3);

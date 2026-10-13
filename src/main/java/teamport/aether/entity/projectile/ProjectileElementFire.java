@@ -7,6 +7,7 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
+import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 import teamport.aether.entity.monster.fireminion.MobFireMinion;
 import teamport.aether.helper.ParticleMaker;
@@ -46,10 +47,12 @@ public class ProjectileElementFire extends ProjectileElementBase {
     @Override
     public void onHit(@NonNull HitResult hitResult) {
         Entity hitEntity = hitResult instanceof HitResult.Entity entity ? entity.entity : null;
-        if (!this.world.isClientSide && !(hitEntity instanceof MobBossSunspirit || hitEntity instanceof ProjectileElementBase || hitEntity instanceof MobFireMinion) && hitEntity instanceof Mob) {
+        if (!this.world.isClientSide && !(hitEntity instanceof MobBossSunspirit || hitEntity instanceof ProjectileElementBase || hitEntity instanceof MobFireMinion) && hitEntity instanceof Mob mob) {
             hitEntity.hurt(this.owner, this.damage, DamageType.FIRE);
-            hitEntity.maxFireTicks = 200;
-            hitEntity.remainingFireTicks = 200;
+            if (!MobUtil.isImmuneToFire(hitEntity)) {
+                hitEntity.maxFireTicks = 200;
+                hitEntity.remainingFireTicks = 200;
+            }
             this.remove();
             return;
         }

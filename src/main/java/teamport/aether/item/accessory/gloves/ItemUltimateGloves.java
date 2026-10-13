@@ -19,7 +19,7 @@ import teamport.aether.item.accessory.HumanAccessoryShape;
 import teamport.aether.item.accessory.IAccessoryWearing;
 import teamport.aether.item.accessory.SlotAccessory;
 
-public class ItemKingGloves extends ItemGloves implements ItemGloveTool {
+public class ItemUltimateGloves extends ItemGloves implements ItemGloveTool {
     private final Tag<Block<?>>[] tagEffectiveAgainst = new Tag[]{
         BlockTags.MINEABLE_BY_SWORD,
         BlockTags.MINEABLE_BY_PICKAXE,
@@ -33,7 +33,7 @@ public class ItemKingGloves extends ItemGloves implements ItemGloveTool {
     private final int damageVsEntity;
     protected ToolMaterial toolMaterial;
 
-    public ItemKingGloves(String translationKey, String namespaceId, int id, ArmorMaterial toolMaterial, HumanAccessoryShape humanAccessoryShape) {
+    public ItemUltimateGloves(String translationKey, String namespaceId, int id, ArmorMaterial toolMaterial, HumanAccessoryShape humanAccessoryShape) {
         super(translationKey, namespaceId, id, toolMaterial, humanAccessoryShape);
         this.setMaxDamage(350);
         this.damageVsEntity = 5;
@@ -62,7 +62,7 @@ public class ItemKingGloves extends ItemGloves implements ItemGloveTool {
 
     @Override
     public ItemStack getBrokenItem() {
-        return AetherItems.UNCHARGED_KING_GLOVES.getDefaultStack();
+        return AetherItems.UNCHARGED_ULT_GLOVES.getDefaultStack();
     }
 
 
@@ -99,6 +99,6 @@ public class ItemKingGloves extends ItemGloves implements ItemGloveTool {
 
     @Override
     public String getTextureName() {
-        return "dinner";
+        return "ult";
     }
 }

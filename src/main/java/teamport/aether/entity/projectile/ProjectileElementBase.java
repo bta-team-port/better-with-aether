@@ -50,29 +50,45 @@ public abstract class ProjectileElementBase extends Projectile implements Projec
     @Override
     public void tick() {
         super.tick();
-        int xFloor = MathHelper.floor(this.x);
-        int yFloor = MathHelper.floor(this.y);
-        int zFloor = MathHelper.floor(this.z);
+        final double hw = this.bbWidth / 2.0;   // half width (x/z radius)
+        final double h  = this.bbHeight;
+        // full height; use your actual field names
 
-        if ((this.xd > 0 && this.world.getBlockId(xFloor + 1, yFloor, zFloor) != 0) ||
-            (this.xd < 0 && this.world.getBlockId(xFloor - 1, yFloor, zFloor) != 0)) {
-            this.xd = -this.xd;
-            bounceSound();
-            bounceCount++;
+        int xi = MathHelper.floor(this.x);
+        int zi = MathHelper.floor(this.z);
+        int yi = MathHelper.floor(this.y + h / 2.0); // cell at the box's vertical center
+
+        final double EPS = 1e-4;
+        if (this.xd != 0) {
+            int ex = MathHelper.floor(this.x + Math.signum(this.xd) * (hw - EPS));
+            if (this.world.getBlockId(ex, yi, zi) != 0) {
+                this.x = this.xd > 0 ? ex - hw : ex + 1 + hw;
+                this.xd = -this.xd;
+                bounceSound();
+                bounceCount++;
+            }
         }
 
-        if ((this.yd > 0 && this.world.getBlockId(xFloor, yFloor + 1, zFloor) != 0) ||
-            (this.yd < 0 && this.world.getBlockId(xFloor, yFloor - 1, zFloor) != 0)) {
-            this.yd = -this.yd;
-            bounceSound();
-            bounceCount++;
+        if (this.zd != 0) {
+            int ez = MathHelper.floor(this.z + Math.signum(this.zd) * (hw - EPS));
+            if (this.world.getBlockId(xi, yi, ez) != 0) {
+                this.z = this.zd > 0 ? ez - hw : ez + 1 + hw;
+                this.zd = -this.zd;
+                bounceSound();
+                bounceCount++;
+            }
         }
 
-        if ((this.zd > 0 && this.world.getBlockId(xFloor, yFloor, zFloor + 1) != 0) ||
-            (this.zd < 0 && this.world.getBlockId(xFloor, yFloor, zFloor - 1) != 0)) {
-            this.zd = -this.zd;
-            bounceSound();
-            bounceCount++;
+        if (this.yd != 0) {
+            // going up: the top of the box leads, going down: the feet lead
+            double edgeY = this.yd > 0 ? this.y + h - EPS : this.y + EPS;
+            int ey = MathHelper.floor(edgeY);
+            if (this.world.getBlockId(xi, ey, zi) != 0) {
+                this.y = this.yd > 0 ? ey - h : ey + 1; // top flush under the block / feet flush on top
+                this.yd = -this.yd;
+                bounceSound();
+                bounceCount++;
+            }
         }
 
         if ((!this.world.isClientSide && bounceCount >= MAX_BOUNCES) || ticksInAir > Global.TICKS_PER_SECOND * 60) {

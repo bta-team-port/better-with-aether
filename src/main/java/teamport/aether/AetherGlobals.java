@@ -23,7 +23,8 @@ public class AetherGlobals {
     public static final String UUID_SMUSHYTACO = "c6d2219b-c8a5-4ccd-a816-5328b2b32653";
     public static final String UUID_TOUFOUMASTER = "61ca7ec2-322f-4f95-b0d5-a47d608b4934";
     public static final String UUID_RIN = "337409a3-79c1-442f-913b-7e5b54d1ee9d";
-    public static final String UUID_CAMOWEED_ = "19c2e35e-f52f-4bf5-b790-c8572f916387";
+    public static final String UUID_CAMOWEED = "19c2e35e-f52f-4bf5-b790-c8572f916387";
+    public static final String UUID_SAJMON = "8da0bbde-ce5d-44b2-9ad0-6061a66a8abf";
 
     public static final int AETHER_ACCESSORY_SLOT_OFFSET = 104;
     public static final byte ARMOR_START_INDEX = 45;

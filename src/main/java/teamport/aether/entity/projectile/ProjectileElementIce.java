@@ -107,21 +107,19 @@ public class ProjectileElementIce extends ProjectileElementBase {
     @Override
     public boolean hurt(Entity entity, int damage, DamageType type) {
         this.markHurt();
-        if (entity != null) {
-            if (entity instanceof Player player) {
-                this.owner = player;
-            }
-
-            Vector3dc lookAngle = entity.getViewVector(1.0F);
-            if (lookAngle != null) {
-                this.setHeading(lookAngle.x(), lookAngle.y(), lookAngle.z(), 0.5f, 0.0F);
-                bounceCount = 18;
-            }
-
-            return true;
-        } else {
+        if (entity == null) {
             return false;
         }
+        if (entity instanceof Player player) {
+            this.owner = player;
+        }
+        Vector3dc lookAngle = entity.getViewVector(1.0F);
+        if (lookAngle != null) {
+            this.setHeading(lookAngle.x(), lookAngle.y(), lookAngle.z(), 0.5f, 0.0F);
+            bounceCount = 18;
+        }
+
+        return true;
     }
 
 }

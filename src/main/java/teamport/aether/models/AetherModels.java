@@ -679,8 +679,8 @@ public class AetherModels {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_GLOVES_OBSIDIAN));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_GLOVES_PHOENIX).setFullBright());
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_GLOVES_NEPTUNE));
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.KING_GLOVES));
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.UNCHARGED_KING_GLOVES));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ULT_GLOVES));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.UNCHARGED_ULT_GLOVES));
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_AGILITY));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_SWET));

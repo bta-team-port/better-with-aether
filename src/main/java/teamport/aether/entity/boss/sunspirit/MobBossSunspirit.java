@@ -3,27 +3,30 @@ package teamport.aether.entity.boss.sunspirit;
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
-import net.minecraft.core.block.material.Material;
-import net.minecraft.core.block.material.Materials;
+import net.minecraft.core.block.material.MaterialLiquid;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityLightning;
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.net.command.TextFormatting;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.LightIndexHelper;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.HitResult;
+import net.minecraft.core.world.LevelListener;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import org.joml.Vector3d;
 import org.joml.Vector3dc;
+import org.joml.primitives.AABBd;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import sunsetsatellite.catalyst.core.util.vector.Vec2f;
 import teamport.aether.achievements.AetherAchievements;
+import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.boss.AetherBossList;
+import teamport.aether.entity.boss.EnemyBoss;
 import teamport.aether.entity.boss.MobBoss;
 import teamport.aether.entity.monster.fireminion.MobFireMinion;
 import teamport.aether.entity.player.MessageMaker;
@@ -32,8 +35,11 @@ import teamport.aether.entity.projectile.ProjectileElementIce;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItems;
 import teamport.aether.world.AetherDimension;
+import teamport.aether.world.feature.util.WorldFeatureBlock;
 import teamport.aether.world.feature.util.map.DungeonMap;
 import turniplabs.halplibe.helper.EnvironmentHelper;
+
+import java.util.List;
 
 import static net.minecraft.core.net.command.TextFormatting.*;
 import static teamport.aether.AetherMod.TRANSLATOR;
@@ -94,7 +100,6 @@ public class MobBossSunspirit extends MobBossFlying {
         super.updateAI();
         if (this.isAgro) {
             this.moveSunspirit();
-            this.setFloorOnFire();
             this.target = this.findPlayerToAttack();
             if (target != null) {
                 this.lookAt(this.target, 20.0F, 20.0F);
@@ -127,7 +132,7 @@ public class MobBossSunspirit extends MobBossFlying {
         );
         HitResult hitResult = this.world.checkBlockCollisionBetweenPoints(currentPos, nextPos, false);
         if (hitResult != null || this.isInWall()) {
-            rotateSunspirit(MathHelper.toRadians((float) (90.0f + (this.random.nextFloat() + 0.5) * 45.0f)));
+            this.rotateSunspirit(MathHelper.toRadians((float) (90.0f + (this.random.nextFloat() + 0.5) * 45.0f)));
         }
         this.xd = this.defaultVector.x * speed;
         this.zd = this.defaultVector.y * speed;
@@ -165,18 +170,19 @@ public class MobBossSunspirit extends MobBossFlying {
             this.isAgro = false;
             this.chatLog = 0;
             this.returnToOriginalState();
-            this.evaporateMaterialWithEffect(Materials.FIRE);
+//            this.evaporateMaterialWithEffect(Materials.FIRE);
         }
         super.tick();
         this.syncAggroState();
-        this.evaporateMaterialWithEffect(Materials.WATER);
+        this.evaporateMaterialWithEffect();
+        this.breakBlockAheadOfAABB();
         if (this.chatCooldown > 0) {
             --this.chatCooldown;
             this.maxFireTicks = this.remainingFireTicks = 0;
         }
     }
 
-    private void evaporateMaterialWithEffect(Material material) {
+    private void evaporateMaterialWithEffect() {
         if (this.getHealth() > 0) {
             double a = this.random.nextDouble() - 0.5;
             double b = this.random.nextDouble();
@@ -187,19 +193,36 @@ public class MobBossSunspirit extends MobBossFlying {
             double flameZ = this.z + c * b;
 
             ParticleMaker.spawnParticle(world, "flame", flameX, flameY, flameZ, 0.0, -0.075F, 0.0, 0);
-            this.evaporateWater(material);
+            this.evaporateWater();
         }
     }
 
     @Override
     public boolean collidesWith(Entity entity) {
-        if (!(entity instanceof MobBossSunspirit || entity instanceof MobFireMinion)) {
+        if (!(entity instanceof MobBossSunspirit) && !(entity instanceof MobFireMinion)) {
             entity.hurt(this, 20, DamageType.FIRE);
             entity.hurt(this, 10, DamageType.COMBAT);
+            if (MobUtil.isImmuneToFire(entity)) {
+                return false;
+            }
             entity.maxFireTicks = 1000;
             entity.remainingFireTicks = 1000;
+            return false;
         }
         return false;
+    }
+
+    private void collideWithEntity() {
+        // collide with entities
+        List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity(this, MathHelper.aabbGrow(this.bb, 0.2, 0.0F, 0.2, new AABBd()));
+        if (list.isEmpty()) {
+            return;
+        }
+        for (Entity entity : list) {
+            if (entity.isPushable()) {
+                entity.push(this);
+            }
+        }
     }
 
     @Override
@@ -216,7 +239,7 @@ public class MobBossSunspirit extends MobBossFlying {
     @Override
     public void thunderHit(EntityLightning bolt) {/* cannot be take light */}
 
-    public void evaporateWater(Material material) {
+    public void evaporateWater() {
         int centerX = MathHelper.floor(this.x);
         int centerZ = MathHelper.floor(this.z);
         int radius = 9;
@@ -229,7 +252,7 @@ public class MobBossSunspirit extends MobBossFlying {
                 for (int i = 0; i < 9; ++i) {
                     int y = (int) (this.yo - 2 + i);
                     TilePos tilePos = new TilePos(x, y, z);
-                    if (this.world.getBlockMaterial(tilePos) == material) {
+                    if (this.world.getBlockMaterial(tilePos) instanceof MaterialLiquid) {
                         this.world.setBlockTypeNotify(tilePos, Blocks.AIR);
                         this.world.playSoundEffect(this, SoundCategory.ENTITY_SOUNDS, x + 0.5, y + 0.5, z + 0.5F, "random.fizz", 0.125F, 2.6F + (this.random.nextFloat() - this.random.nextFloat()) * 0.8F);
                         for (int l = 0; l < 8; ++l) {
@@ -238,6 +261,28 @@ public class MobBossSunspirit extends MobBossFlying {
                     }
                 }
             }
+        }
+    }
+
+    private void breakBlockAheadOfAABB() {
+        if (this.getHealth() <= 0) {
+            return;
+        }
+        int minX = MathHelper.floor(this.bb.minX() + Math.min(this.xd, 0));
+        int maxX = MathHelper.floor(this.bb.maxX() + Math.min(this.xd, 0));
+        int minY = MathHelper.floor(this.bb.minY() + Math.min(this.yd, 0));
+        int maxY = MathHelper.floor(this.bb.maxY() + Math.min(this.yd, 0));
+        int minZ = MathHelper.floor(this.bb.minZ() + Math.min(this.zd, 0));
+        int  maxZ = MathHelper.floor(this.bb.maxZ() + Math.min(this.zd, 0));
+
+        List<WorldFeatureBlock> blockInAABB = EnemyBoss.blockCollidingWithAABB(this.world, minX, minY, minZ, maxX, maxY, maxZ);
+        TilePos tilePos = new TilePos(0, 0, 0);
+        for (WorldFeatureBlock wfb : blockInAABB) {
+            Block<?> block = Blocks.getBlock(wfb.getBlockId());
+            tilePos.set(wfb.getX(), wfb.getY(), wfb.getZ());
+            block.dropWithCause(this.world, EnumDropCause.EXPLOSION, tilePos, this.world.getBlockData(tilePos), this.world.getTileEntity(tilePos), null);
+            this.world.playBlockEvent(tilePos, LevelListener.EVENT_BLOCK_BREAK, block.id());
+            this.world.setBlockTypeDataNotify(tilePos, Blocks.AIR, 0);
         }
     }
 
@@ -430,7 +475,7 @@ public class MobBossSunspirit extends MobBossFlying {
             return false;
         }
         if (attacker instanceof ProjectileElementIce) {
-            return hurt(attacker, type);
+            return this.hurt(attacker, type);
         }
         if (attacker instanceof Player) {
             ((AetherBossList) attacker).aether$TryAddBossList(this);
@@ -458,8 +503,8 @@ public class MobBossSunspirit extends MobBossFlying {
 
     private boolean hurt(Entity attacker, DamageType type) {
         super.hurt(attacker, 100, type);
-        triggerAchievement();
-        spawnMinions();
+        this.triggerAchievement();
+        this.spawnMinions();
         return true;
     }
 
@@ -467,23 +512,28 @@ public class MobBossSunspirit extends MobBossFlying {
         if (this.getHealth() <= 0) {
             return;
         }
-        if (this.getHealth() <= (this.getMaxHealth() / 2)) {
+        List<Player> playerList = this.world.getPlayersWithinRange(this.x, this.y, this.z, 24.24871130596428);
+        MobFireMinion minion = new MobFireMinion(this.world);
+        minion.setPos(this.x, this.y, this.z);
+        this.world.entityJoinedWorld(minion);
+        if(this.getHealth() <= (this.getMaxHealth() / 2)){
             MobFireMinion minion1 = new MobFireMinion(this.world);
-            minion1.setPos(this.x + 1, this.y + 1, this.z);
-
             MobFireMinion minion2 = new MobFireMinion(this.world);
-            minion2.setPos(this.x, this.y + 1, this.z);
-
-            MobFireMinion minion3 = new MobFireMinion(this.world);
-            minion3.setPos(this.x - 1, this.y + 1, this.z);
-
+            minion1.setPos(this.x + 1,  this.y + 1, this.z);
+            minion2.setPos(this.x,      this.y + 1, this.z - 1);
             this.world.entityJoinedWorld(minion1);
             this.world.entityJoinedWorld(minion2);
+        }
+        if(playerList.size() > 1){
+            MobFireMinion minion3 = new MobFireMinion(this.world);
+            minion3.setPos(this.x - 1,  this.y + 1, this.z);
             this.world.entityJoinedWorld(minion3);
-        } else {
-            MobFireMinion minion = new MobFireMinion(this.world);
-            minion.setPos(this.x, this.y, this.z);
-            this.world.entityJoinedWorld(minion);
+
+        }
+        if (playerList.size() > 2) {
+            MobFireMinion minion4 = new MobFireMinion(this.world);
+            minion4.setPos(this.x,      this.y + 1, this.z + 1);
+            this.world.entityJoinedWorld(minion4);
         }
     }
 
