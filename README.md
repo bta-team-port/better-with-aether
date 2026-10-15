@@ -35,16 +35,19 @@ official.
 [Aether Fandom Wiki](https://aether.fandom.com/wiki/Aether_Wiki) useful for when something is not documented on the
 official.
 
-If you interessted in contributing to the mod head on over
+If you interested in contributing to the mod head on over
 to [Better with Aether Repo](https://github.com/bta-team-port/better-with-aether-wiki)
 
 ### REQUIRES:
 
 - BTA == 8.0.1
-- Halplibe >= [6.1.3+8.0](https://github.com/Turnip-Labs/bta-halplibe/releases)
+- Halplibe >= [6.2.0+8.0.1](https://github.com/Turnip-Labs/bta-halplibe/releases)
 - UselessNumericals >= [1.1.1-8.0](https://github.com/gungun974/UselessNumerical/releases)
-- Catalyst Core >= [3.0.0-v8.0.1](https://github.com/MartinSVK12/catalyst/releases)
-- Catalyst Effects >= [3.0.0-v8.0.1](https://github.com/MartinSVK12/catalyst/releases)
+- Catalyst >= [3.1.4](https://modrinth.com/mod/catalyst/version/3.1.4)
+
+To be specific this mod requires the following modules from catalyst: 
+- Catalyst Core >= [3.0.5](https://github.com/MartinSVK12/catalyst/releases)
+- Catalyst Effects >= [3.0.1](https://github.com/MartinSVK12/catalyst/releases)
 
 ### Screenshots from the latest Release:
 
