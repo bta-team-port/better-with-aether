@@ -37,10 +37,10 @@ import teamport.aether.item.item_tool.item_tool_zanite.ItemToolAxeZanite;
 import teamport.aether.item.item_tool.item_tool_zanite.ItemToolPickaxeZanite;
 import teamport.aether.item.item_tool.item_tool_zanite.ItemToolShovelZanite;
 import teamport.aether.item.item_tool.item_tool_zanite.ItemToolSwordZanite;
-import teamport.aether.item.item_tool.phoenix.ItemToolAxePhoenix;
-import teamport.aether.item.item_tool.phoenix.ItemToolPickaxePhoenix;
-import teamport.aether.item.item_tool.phoenix.ItemToolShovelPhoenix;
-import teamport.aether.item.item_tool.phoenix.ItemToolSwordPhoenix;
+import teamport.aether.item.item_tool.item_tool_phoenix.ItemToolAxePhoenix;
+import teamport.aether.item.item_tool.item_tool_phoenix.ItemToolPickaxePhoenix;
+import teamport.aether.item.item_tool.item_tool_phoenix.ItemToolShovelPhoenix;
+import teamport.aether.item.item_tool.item_tool_phoenix.ItemToolSwordPhoenix;
 
 import static teamport.aether.AetherConfig.itemID;
 import static teamport.aether.AetherMod.MOD_ID;

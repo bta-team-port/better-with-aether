@@ -1,4 +1,4 @@
-package teamport.aether.item.item_tool.phoenix;
+package teamport.aether.item.item_tool.item_tool_phoenix;
 
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.entity.player.Player;

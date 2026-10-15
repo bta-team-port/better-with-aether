@@ -13,7 +13,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePosc;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.item.item_tool.phoenix.AdjustBlockDropped;
+import teamport.aether.item.item_tool.item_tool_phoenix.AdjustBlockDropped;
 
 @Mixin(value = BlockLogic.class, remap = false)
 public class BlockLogicMixinChangeBreakResults {

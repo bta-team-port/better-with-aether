@@ -12,7 +12,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.item.item_tool.phoenix.AdjustBlockDropped;
+import teamport.aether.item.item_tool.item_tool_phoenix.AdjustBlockDropped;
 
 @Mixin(value = {TreecapitatorHelper.class}, remap = false)
 public abstract class TreeCapitatorMixinPhoenixAxe {

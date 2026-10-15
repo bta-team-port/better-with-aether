@@ -1,4 +1,4 @@
-package teamport.aether.item.item_tool.phoenix;
+package teamport.aether.item.item_tool.item_tool_phoenix;
 
 import net.minecraft.core.data.registry.Registries;
 import net.minecraft.core.data.registry.recipe.entry.RecipeEntryBlastFurnace;

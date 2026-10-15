@@ -193,10 +193,10 @@ item.armor.gloves.obsidian.name=Obsidian Gloves
 item.armor.gloves.obsidian.desc=A powerful pair of obsidian gloves.
 item.armor.gloves.neptune.name=Neptune Gloves
 item.armor.gloves.neptune.desc=A stormy pair of neptune gloves.
-item.armor.ult.gloves.name=Ultimate Fist
-item.armor.ult.gloves.desc=All tools bow before the King.
-item.armor.ult.gloves.uncharged.name=Ultimate Fist (Dormant)
-item.armor.ult.gloves.uncharged.desc=Not yet fit for a King.
+item.armor.gloves.ult.name=Ultimate Fist
+item.armor.gloves.ult.desc=All tools bow before the King.
+item.armor.gloves.ult.uncharged.name=Ultimate Fist (Dormant)
+item.armor.gloves.ult.uncharged.desc=Not yet fit for a King.
 
 item.armor.wolf.zanite.name=Zanite Wolf Armor
 item.armor.wolf.zanite.desc=Keep your best friend safe with this shiny zanite shell.

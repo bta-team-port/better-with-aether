@@ -1,4 +1,4 @@
-package teamport.aether.item.item_tool.phoenix;
+package teamport.aether.item.item_tool.item_tool_phoenix;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicLog;
