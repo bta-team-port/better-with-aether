@@ -88,24 +88,23 @@ public class ItemAccessory<T extends IAccessoryShape> extends Item implements IA
         if (!(entity instanceof Player player)) return;
 
         int relativeSlot = slotId - player.inventory.mainInventory.length;
-        if (!isEquipped(relativeSlot)) {
+        if (!this.isEquipped(relativeSlot)) {
             return;
         }
 
-        tickAccessory(stack, world, player, slotId, flag);
+        this.tickAccessory(stack, world, player, slotId, flag);
     }
 
     public boolean isEquipped(int relativeSlot) {
-        int accessoryIndex = relativeSlot - 4;
-        if (accessoryIndex < 0 || accessoryIndex >= 4) {
+        if (relativeSlot < 0 || relativeSlot >= 4) {
             return false;
         }
 
         if (this.armorShape.getSlotIndex() == 2) {
-            return accessoryIndex == 2 || accessoryIndex == 3;
+            return relativeSlot == 2 || relativeSlot == 3;
         }
 
-        return accessoryIndex == this.armorShape.getSlotIndex();
+        return relativeSlot == this.armorShape.getSlotIndex();
     }
 
     protected void tickAccessory(@NonNull ItemStack stack, @NonNull World world, @NonNull Player player, int slotId, boolean flag) {
