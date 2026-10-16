@@ -80,11 +80,6 @@ public class SlotAccessory extends Slot {
         }
 
         AetherAchievements.checkChainmailAchievement(this.menu);
-
-        if (this.getItemStack() != null && this.container instanceof ContainerInventory containerInventory) {
-            Player player = containerInventory.player;
-            player.world.playSoundAtEntity(player, player, "random.equip", 1.0F, 1.0F);
-        }
     }
 
     @Override

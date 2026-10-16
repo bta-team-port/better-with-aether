@@ -17,6 +17,7 @@ import teamport.aether.item.accessory.SlotAccessory;
 import static teamport.aether.AetherMod.MOD_ID;
 
 public class AetherAchievements {
+    private AetherAchievements(){}
 
     public static @NonNull NamespaceID key(String string) {
         return NamespaceID.fromPool(MOD_ID, string);
