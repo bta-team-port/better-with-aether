@@ -5,6 +5,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.net.packet.PacketAddParticle;
+import net.minecraft.core.util.PackedField;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
@@ -17,6 +18,10 @@ import turniplabs.halplibe.helper.EnvironmentHelper;
 import java.util.Random;
 
 public class ParticleMaker {
+    // causes server to crash when attempting to spawn particles - thus this is extracted from the particle class
+    public static final PackedField packedMetadata = new PackedField(0, 8);
+    public static final PackedField packedBlockId = new PackedField(8, 24);
+
     private ParticleMaker(){}
     private static final Random random = new Random();
 
@@ -237,5 +242,9 @@ public class ParticleMaker {
             new PacketAddParticle(particleKey, x, y, z, motionX, motionY, motionZ, data, maxDistance),
             world.dimension.id
         );
+    }
+
+    public static int setParticleData(int id, int metadata){
+        return packedBlockId.set(packedMetadata.set(0, metadata & 0b1111_1111), id);
     }
 }

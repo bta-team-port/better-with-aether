@@ -109,4 +109,5 @@ public class MimicRegistry {
         return instance.MIMIC_ENTRY_LIST.get(Math.floorMod(index + 1, instance.MIMIC_ENTRY_LIST.size())).getMimicVariant();
     }
 
+
 }

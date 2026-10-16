@@ -43,7 +43,6 @@ import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.item_tool.ItemToolAxeAether;
 import teamport.aether.item.item_tool.ItemToolPickaxeAether;
-import teamport.aether.particle.ParticleMimicHurt;
 import teamport.aether.world.feature.util.WorldFeatureComponent;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
 import turniplabs.halplibe.helper.EnvironmentHelper;
@@ -228,7 +227,7 @@ public class MobMimic extends MobMonsterAether implements Enemy {
             double dx = 0;
             double dy = 0;
             double dz = 0;
-            int data = ParticleMimicHurt.setData(this.mimicChestID, this.mimicChestMetadata);
+            int data = ParticleMaker.setParticleData(this.mimicChestID, this.mimicChestMetadata);
             ParticleMaker.spawnParticle(this.world, "mimicHurt", px, py, pz, dx, dy, dz, data);
         }
     }

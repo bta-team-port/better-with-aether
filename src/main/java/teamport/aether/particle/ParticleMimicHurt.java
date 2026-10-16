@@ -21,8 +21,4 @@ public class ParticleMimicHurt extends ParticleBlockBreaking {
         ((ParticleBlockBreakingAccessor)this).setBlock(block);
         this.tex = BlockModelDispatcher.getInstance().getDispatch(block).getParticleTexture(Side.NORTH, metadata);
     }
-
-    public static int setData(int id, int metadata){
-        return packedBlockId.set(packedMetadata.set(0, metadata & 0b1111_1111), id);
-    }
 }
