@@ -27,13 +27,13 @@ public abstract class ServerPlayerControllerPendantDamageMixin {
     @Inject(method = "mineBlock(IIILnet/minecraft/core/util/helper/Side;)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/block/Block;onBlockDestroyedByPlayer(Lnet/minecraft/core/world/World;IIILnet/minecraft/core/util/helper/Side;ILnet/minecraft/core/entity/player/Player;Lnet/minecraft/core/item/Item;)V"))
     public void damagePendant(int x, int y, int z, Side side, CallbackInfoReturnable<Boolean> cir) {
         if (this.player == null) return;
-        ItemStack trinketSlot1 = PlayerUtil.getArmorOrAccessoryItem(this.player, TRINKET_1_SLOT);
-        ItemStack trinketSlot2 = PlayerUtil.getArmorOrAccessoryItem(this.player, TRINKET_2_SLOT);
+        ItemStack trinketSlot1 = PlayerUtil.getAccessoryItem(this.player, TRINKET_1_SLOT);
+        ItemStack trinketSlot2 = PlayerUtil.getAccessoryItem(this.player, TRINKET_2_SLOT);
         if (trinketSlot1 != null && trinketSlot1.getItem() instanceof ItemPendant pendant && pendant.canHarvestDamage()) {
-            PlayerUtil.damageItemArmor(this.player, trinketSlot1, TRINKET_1_SLOT);
+            PlayerUtil.damageItemAccessory(this.player, trinketSlot1, TRINKET_1_SLOT);
         }
         if (trinketSlot2 != null && trinketSlot2.getItem() instanceof ItemPendant pendant && pendant.canHarvestDamage()) {
-            PlayerUtil.damageItemArmor(this.player, trinketSlot2, TRINKET_2_SLOT);
+            PlayerUtil.damageItemAccessory(this.player, trinketSlot2, TRINKET_2_SLOT);
         }
     }
 }

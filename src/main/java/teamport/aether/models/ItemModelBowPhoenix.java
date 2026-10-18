@@ -3,6 +3,8 @@ package teamport.aether.models;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.entity.player.PlayerRemote;
+import net.minecraft.client.render.LightingCache;
+import net.minecraft.client.render.LightmapHelper;
 import net.minecraft.client.render.item.model.ItemModelDispatcher;
 import net.minecraft.client.render.item.model.ItemModelStandard;
 import net.minecraft.client.render.renderer.GLRenderer;
@@ -13,6 +15,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
+import net.minecraft.core.util.helper.LightIndexHelper;
 import org.jspecify.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.player.PlayerUtil;
@@ -42,7 +45,8 @@ public class ItemModelBowPhoenix extends ItemModelStandard {
 
             GLRenderer.modelM4f().translate(1.0E-4F, 1.0E-4F, 0.0F);
             GLRenderer.modelM4f().scale(1.0F, 1.0F, 0.999F);
-            this.renderCoordinate(tessellator, ItemModelDispatcher.getInstance().getDispatch(nextArrow).getIcon(holder, nextArrow.getDefaultStack()), lightIndex, color, items3d, !mirrorX);
+            // TODO make the arrow use emission texture instead of lightIndex
+            this.renderCoordinate(tessellator, ItemModelDispatcher.getInstance().getDispatch(nextArrow).getIcon(holder, nextArrow.getDefaultStack()), LightIndexHelper.lightIndex2i(15, 15), color, items3d, !mirrorX);
             GLRenderer.popFrame();
         }
 

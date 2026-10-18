@@ -25,17 +25,14 @@ public class ItemRepulsionShield extends ItemTrinket implements IAccessoryEffect
     @Override
     public void inventoryTick(@NonNull ItemStack stack, @NonNull World world, @NonNull Entity entity, int slotId, boolean flag) {
         Player player = (Player) entity;
-
-        int armorSlot = slotId - player.inventory.mainInventory.length;
+        int armorSlot = slotId - player.inventory.mainInventory.length - player.inventory.armorInventory.length;
         if (armorSlot != TRINKET_1_SLOT && armorSlot != TRINKET_2_SLOT) {
             return;
         }
-
-        ItemStack trinketOne = PlayerUtil.getArmorOrAccessoryItem(player, TRINKET_1_SLOT);
+        ItemStack trinketOne = PlayerUtil.getAccessoryItem(player, TRINKET_1_SLOT);
         if (armorSlot == TRINKET_2_SLOT && trinketOne != null && trinketOne.getItem() instanceof ItemRepulsionShield) {
             return;
         }
-
         double velocity = MathHelper.sqrt(player.xd * player.xd + player.zd * player.zd);
         if (player.isSneaking() || (player.onGround && velocity <= 0.075D)) {
             ((AetherRepulsion) player).aether$setRepulsion(true);

@@ -56,7 +56,7 @@ public class ItemTrinket extends ItemAccessory<HumanAccessoryShape> implements I
     }
 
 
-    static {
+    public static void initTrinketTextures() {
         TRINKET_TEXTURES.put(Items.TOOL_COMPASS, "compass_trinket");
         TRINKET_TEXTURES.put(Items.TOOL_CLOCK, "clock_trinket");
         TRINKET_TEXTURES.put(Items.TOOL_CALENDAR, "calendar_trinket");

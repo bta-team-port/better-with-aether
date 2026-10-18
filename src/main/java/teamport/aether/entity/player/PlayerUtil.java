@@ -71,7 +71,7 @@ public class PlayerUtil {
     }
 
     public enum InventoryType {
-        HOLD, MAIN, ARMOR
+        HOLD, MAIN, ARMOR, ACCESSORY
     }
 
     ///  Count the armor pieces of a specific material.
@@ -105,8 +105,8 @@ public class PlayerUtil {
 
     /// Checks if player is wearing gold pendants
     public static boolean isSilkTouchPendant(Player player) {
-        ItemStack trinketOne = getArmorOrAccessoryItem(player, TRINKET_1_SLOT);
-        ItemStack trinketTwo = getArmorOrAccessoryItem(player, TRINKET_2_SLOT);
+        ItemStack trinketOne = getAccessoryItem(player, TRINKET_1_SLOT);
+        ItemStack trinketTwo = getAccessoryItem(player, TRINKET_2_SLOT);
         return trinketOne != null && trinketOne.getItem().id == AetherItems.ARMOR_TALISMAN_GOLD.id
             || trinketTwo != null && trinketTwo.getItem().id == AetherItems.ARMOR_TALISMAN_GOLD.id;
     }
@@ -142,6 +142,9 @@ public class PlayerUtil {
                 case ARMOR:
                     PlayerUtil.damageItemArmor(player, itemDamage, stack, index);
                     return;
+                case ACCESSORY:
+                    PlayerUtil.damageItemAccessory(player, itemDamage, stack, index);
+                    return;
                 case MAIN:
                 default:
                     PlayerUtil.damageItemMain(player, itemDamage, stack, index);
@@ -163,6 +166,11 @@ public class PlayerUtil {
         PlayerUtil.damageItemMain(player, 1, stack, index);
     }
 
+    ///  Tool taking only 1 damage is quite common.
+    public static void damageItemArmor(Player player, ItemStack stack, int index) {
+        PlayerUtil.damageItemArmor(player, 1, stack, index);
+    }
+
     /// The normal damageItem does not destroy the item if the item durability hits zero. This target an item to destroy
     /// in the player armor inventory at an index.
     public static void damageItemArmor(Player player, int itemDamage, @NonNull ItemStack stack, int index) {
@@ -170,41 +178,63 @@ public class PlayerUtil {
         if (stack.stackSize <= 0) {
             if (index < player.inventory.armorInventory.length) {
                 player.inventory.armorInventory[index] = null;
-            } else {
-                ((IContainerInventoryAether) player.inventory).aether$getAccessoryInventory()[index] = null;
             }
         }
     }
 
-    public static @Nullable ItemStack getArmorOrAccessoryItem(@NonNull Player player, int armorSlot) {
-        if (armorSlot < player.inventory.armorInventory.length) {
-            return player.inventory.armorInventory[armorSlot];
-        }
-        ItemStack[] accessories = ((IContainerInventoryAether) player.inventory).aether$getAccessoryInventory();
-        return armorSlot < accessories.length ? accessories[armorSlot] : null;
+    public static @Nullable ItemStack getArmorItem(@NonNull Player player, int slot) {
+        ItemStack[] inventory = player.inventory.armorInventory;
+        return slot < inventory.length ? inventory[slot] : null;
     }
 
-    public static void clearArmorOrAccessoryItem(@NonNull Player player, int armorSlot) {
-        if (armorSlot < player.inventory.armorInventory.length) {
-            player.inventory.armorInventory[armorSlot] = null;
-            return;
+    public static void clearArmorItem(@NonNull Player player, int armorSlot) {
+        ItemStack[] inventory = player.inventory.armorInventory;
+        if (armorSlot < inventory.length) {
+            inventory[armorSlot] = null;
         }
+    }
+
+    public static void  damageItemAccessory(Player player, @NonNull ItemStack stack, int index){
+        PlayerUtil.damageItemAccessory(player, 1, stack, index);
+    }
+
+    public static void  damageItemAccessory(Player player, int itemDamage, @NonNull ItemStack stack, int index){
+        stack.damageItem(itemDamage, player);
+        if (stack.stackSize <= 0) {
+            ((IContainerInventoryAether) player.inventory).aether$getAccessoryInventory()[index] = null;
+        }
+    }
+
+    public static @Nullable ItemStack getAccessoryItem(@NonNull Player player, int accessorySlot) {
+        ItemStack[] accessories = ((IContainerInventoryAether) player.inventory).aether$getAccessoryInventory();
+        return accessorySlot < accessories.length ? accessories[accessorySlot] : null;
+    }
+
+    public static void clearAccessoryItem(@NonNull Player player, int armorSlot) {
         ItemStack[] accessories = ((IContainerInventoryAether) player.inventory).aether$getAccessoryInventory();
         if (armorSlot < accessories.length) {
             accessories[armorSlot] = null;
         }
     }
 
-    public static @Nullable ItemStack getActiveQuiver(Player player) {
-        int slot = getActiveQuiverSlot(player);
-        return slot >= 0 ? getArmorOrAccessoryItem(player, slot) : null;
+    public static InventoryType getActiveQuiverSlot(Player player) {
+        int chestSlot = HumanArmorShape.CHEST.getSlotIndex();
+        if (isUsableQuiver(player.inventory.armorInventory[chestSlot])) return InventoryType.ARMOR;
+        if (isUsableQuiver(getAccessoryItem(player, CAPE_SLOT))) return InventoryType.ACCESSORY;
+        return InventoryType.MAIN;
     }
 
-    public static int getActiveQuiverSlot(Player player) {
+    public static @Nullable ItemStack getActiveQuiver(Player player) {
         int chestSlot = HumanArmorShape.CHEST.getSlotIndex();
-        if (isUsableQuiver(getArmorOrAccessoryItem(player, chestSlot))) return chestSlot;
-        if (isUsableQuiver(getArmorOrAccessoryItem(player, CAPE_SLOT))) return CAPE_SLOT;
-        return -1;
+        ItemStack chest = player.inventory.armorInventory[chestSlot];
+        ItemStack cape = PlayerUtil.getAccessoryItem(player, CAPE_SLOT);
+        if (isUsableQuiver(chest)) {
+            return chest;
+        }
+        if (isUsableQuiver(cape)) {
+            return cape ;
+        }
+        return null;
     }
 
     public static boolean isUsableQuiver(ItemStack stack) {
@@ -212,17 +242,12 @@ public class PlayerUtil {
         if (stack.itemID == Items.ARMOR_QUIVER_GOLD.id) return true;
         return stack.itemID == Items.ARMOR_QUIVER.id && stack.getMetadata() < stack.getMaxDamage();
     }
-
-    ///  Tool taking only 1 damage is quite common.
-    public static void damageItemArmor(Player player, ItemStack stack, int index) {
-        PlayerUtil.damageItemArmor(player, 1, stack, index);
-    }
-
     @FunctionalInterface
     public interface PlayerStatus {
-        boolean test(Player player, Double distance);
-    }
 
+        boolean test(Player player, Double distance);
+
+    }
 
     /// The default way of finding player does not account for invisible player. The default is used by other function
     /// aside mobs and as such cannot be changed. Please use these function to search for closest player in mobs.

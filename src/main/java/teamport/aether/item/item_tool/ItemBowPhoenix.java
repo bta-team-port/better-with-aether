@@ -8,6 +8,7 @@ import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.entity.projectile.ProjectileArrowFlaming;
+import teamport.aether.item.accessory.HumanAccessoryShape;
 
 public class ItemBowPhoenix extends ItemBow {
     public ItemBowPhoenix(String name, String namespaceId, int id) {
@@ -18,10 +19,10 @@ public class ItemBowPhoenix extends ItemBow {
 
     @Override
     public ItemStack onUse(@NonNull ItemStack itemstack, @NonNull World world, @NonNull Player entityplayer) {
-        int quiverIndex = PlayerUtil.getActiveQuiverSlot(entityplayer);
+        PlayerUtil.InventoryType quiverType = PlayerUtil.getActiveQuiverSlot(entityplayer);
         ItemStack quiverSlot = PlayerUtil.getActiveQuiver(entityplayer);
         if (quiverSlot != null && quiverSlot.itemID == Items.ARMOR_QUIVER.id) {
-            PlayerUtil.damageItemArmor(entityplayer, quiverSlot, quiverIndex);
+            PlayerUtil.damageItem(entityplayer, quiverSlot, quiverType, HumanAccessoryShape.CAPE.getSlotIndex());
             shootArrow(itemstack, world, entityplayer);
         } else if ((quiverSlot != null && quiverSlot.itemID == Items.ARMOR_QUIVER_GOLD.id) ||
             entityplayer.inventory.consumeInventoryItem(Items.AMMO_ARROW_GOLD.id)

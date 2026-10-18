@@ -143,6 +143,7 @@ public class AetherMod implements ModInitializer {
         AetherEffects.init();
         MimicRegistry.init();
         AetherCreativeContents.init();
+        ItemTrinket.initTrinketTextures();
         TRANSLATOR = I18n.getInstance();
 
         EntityPainting.addBorder(AetherItems.AMBER.getDefaultStack(), NamespaceID.fromPool(MOD_ID, "border_amber"));

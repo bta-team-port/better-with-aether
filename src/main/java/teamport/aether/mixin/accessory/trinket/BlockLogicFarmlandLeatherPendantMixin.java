@@ -23,8 +23,8 @@ public abstract class BlockLogicFarmlandLeatherPendantMixin {
     private boolean onEntityWalkedOn(boolean original, World world, TilePosc tilePos, Entity walker) {
         if (!original) return false;
         Player player = (Player) walker;
-        ItemStack trinketOne = PlayerUtil.getArmorOrAccessoryItem(player, TRINKET_1_SLOT);
-        ItemStack trinketTwo = PlayerUtil.getArmorOrAccessoryItem(player, TRINKET_2_SLOT);
+        ItemStack trinketOne = PlayerUtil.getAccessoryItem(player, TRINKET_1_SLOT);
+        ItemStack trinketTwo = PlayerUtil.getAccessoryItem(player, TRINKET_2_SLOT);
         return (trinketOne == null || !trinketOne.getItem().namespaceID.equals(AetherItems.ARMOR_TALISMAN_LEATHER.namespaceID))
             && (trinketTwo == null || !trinketTwo.getItem().namespaceID.equals(AetherItems.ARMOR_TALISMAN_LEATHER.namespaceID));
     }

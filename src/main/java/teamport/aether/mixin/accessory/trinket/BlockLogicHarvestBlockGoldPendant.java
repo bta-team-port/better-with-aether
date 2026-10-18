@@ -43,7 +43,7 @@ public abstract class BlockLogicHarvestBlockGoldPendant {
 
         if (dropCause == EnumDropCause.PROPER_TOOL && !holdingShears && pendant != null) {
             original.call(instance, world, EnumDropCause.SILK_TOUCH, tilePos, data, tileEntity, player);
-            PlayerUtil.damageItemArmor(player, pendant, pendantSlot);
+            PlayerUtil.damageItemAccessory(player, pendant, pendantSlot);
             return;
         }
 
@@ -51,7 +51,7 @@ public abstract class BlockLogicHarvestBlockGoldPendant {
     }
 
     private static @Nullable ItemStack getGoldPendant(Player player, int slot) {
-        ItemStack stack = PlayerUtil.getArmorOrAccessoryItem(player, slot);
+        ItemStack stack = PlayerUtil.getAccessoryItem(player, slot);
         return stack != null && stack.getItem().id == AetherItems.ARMOR_TALISMAN_GOLD.id ? stack : null;
     }
 }

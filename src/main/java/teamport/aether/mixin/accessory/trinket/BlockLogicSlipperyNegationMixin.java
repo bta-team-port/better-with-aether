@@ -32,8 +32,8 @@ public abstract class BlockLogicSlipperyNegationMixin {
 
         BlockLogic logic = blockBelow.getLogic();
         if (logic instanceof BlockLogicIce || logic instanceof BlockLogicPermaIce || logic instanceof BlockLogicRubyglassCrystal) {
-            ItemStack trinketOne = PlayerUtil.getArmorOrAccessoryItem(player, TRINKET_1_SLOT);
-            ItemStack trinketTwo = PlayerUtil.getArmorOrAccessoryItem(player, TRINKET_2_SLOT);
+            ItemStack trinketOne = PlayerUtil.getAccessoryItem(player, TRINKET_1_SLOT);
+            ItemStack trinketTwo = PlayerUtil.getAccessoryItem(player, TRINKET_2_SLOT);
             if (trinketOne != null && trinketOne.getItem().namespaceID.equals(AetherItems.ARMOR_TALISMAN_LEATHER.namespaceID) || (trinketTwo != null && trinketTwo.getItem().namespaceID.equals(AetherItems.ARMOR_TALISMAN_LEATHER.namespaceID))) {
                 return 0.6F;
             }

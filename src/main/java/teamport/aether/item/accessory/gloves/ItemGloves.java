@@ -68,7 +68,7 @@ public class ItemGloves extends ItemAccessory<HumanAccessoryShape> implements IA
         }
         ItemStack hold = player.getHeldItem();
         if (hold == null && gloves.getItem() instanceof ItemGloves) {
-            PlayerUtil.damageItemArmor(player, gloves, GLOVES_SLOT);
+            PlayerUtil.damageItemAccessory(player, gloves, GLOVES_SLOT);
             return true;
         }
         return false;

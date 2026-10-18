@@ -22,7 +22,7 @@ public abstract class ContainerInventoryMixinGlovesDamage {
     )
     private int getGloveDamage(int original) {
         Player player = (Player) (Object) this;
-        ItemStack stack = PlayerUtil.getArmorOrAccessoryItem(player, GLOVES_SLOT);
+        ItemStack stack = PlayerUtil.getAccessoryItem(player, GLOVES_SLOT);
         if (stack == null || !(stack.getItem() instanceof ItemGloves gloves)) {
             return original;
         }

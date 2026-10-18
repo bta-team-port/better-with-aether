@@ -6,6 +6,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.ListTag;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.item.ItemMap;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import org.jspecify.annotations.NonNull;
@@ -104,7 +105,7 @@ public abstract class ContainerInventoryMixinAccessory implements IContainerInve
                     inv.player.world,
                     inv.player,
                     slot + inv.mainInventory.length + inv.armorInventory.length,
-                    false
+                    accessoryInventory[slot].getItem() instanceof ItemMap
                 );
             }
         }

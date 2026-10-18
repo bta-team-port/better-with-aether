@@ -21,8 +21,8 @@ public abstract class PlayerZanitePendantDamageMixin {
     )
     private int getZanitePendantDamage(int damage) {
         Player player = (Player) (Object) this;
-        ItemStack trinketOne = PlayerUtil.getArmorOrAccessoryItem(player, TRINKET_1_SLOT);
-        ItemStack trinketTwo = PlayerUtil.getArmorOrAccessoryItem(player, TRINKET_2_SLOT);
+        ItemStack trinketOne = PlayerUtil.getAccessoryItem(player, TRINKET_1_SLOT);
+        ItemStack trinketTwo = PlayerUtil.getAccessoryItem(player, TRINKET_2_SLOT);
         if (trinketOne != null && trinketOne.itemID == AetherItems.ARMOR_TALISMAN_ZANITE.id) {
             damage = addDamage(player, damage, trinketOne, TRINKET_1_SLOT);
         }
@@ -35,7 +35,7 @@ public abstract class PlayerZanitePendantDamageMixin {
     private int addDamage(Player player, int damage, ItemStack trinket, int slotID) {
         float damagePercent = (float) trinket.getMetadata() / trinket.getMaxDamage();
         float speed = MathHelper.lerp(0.0F, 3.0F, damagePercent);
-        PlayerUtil.damageItemArmor(player, trinket, slotID);
+        PlayerUtil.damageItemAccessory(player, trinket, slotID);
         damage += (int) Math.floor(speed);
         return damage;
     }

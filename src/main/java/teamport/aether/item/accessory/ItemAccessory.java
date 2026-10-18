@@ -86,12 +86,10 @@ public class ItemAccessory<T extends IAccessoryShape> extends Item implements IA
     @Override
     public void inventoryTick(@NonNull ItemStack stack, @NonNull World world, @NonNull Entity entity, int slotId, boolean flag) {
         if (!(entity instanceof Player player)) return;
-
-        int relativeSlot = slotId - player.inventory.mainInventory.length;
+        int relativeSlot = slotId - player.inventory.mainInventory.length - player.inventory.armorInventory.length;
         if (!this.isEquipped(relativeSlot)) {
             return;
         }
-
         this.tickAccessory(stack, world, player, slotId, flag);
     }
 
@@ -99,11 +97,9 @@ public class ItemAccessory<T extends IAccessoryShape> extends Item implements IA
         if (relativeSlot < 0 || relativeSlot >= 4) {
             return false;
         }
-
         if (this.armorShape.getSlotIndex() == 2) {
             return relativeSlot == 2 || relativeSlot == 3;
         }
-
         return relativeSlot == this.armorShape.getSlotIndex();
     }
 

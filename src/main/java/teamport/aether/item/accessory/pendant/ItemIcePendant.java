@@ -29,19 +29,16 @@ public class ItemIcePendant extends ItemPendant {
         if (player.isInWater() || player.isSneaking()) {
             return;
         }
-        this.freezeBlocks(stack, world, player, slotId);
+        this.freezeBlocks(stack, world, player, slotId - player.inventory.mainInventory.length - player.inventory.armorInventory.length);
     }
 
     public void freezeBlocks(@NonNull ItemStack stack, @NonNull World world, @NonNull Entity entity, int slotId) {
         class Cache{private static final @NotNull TilePos queryPos = new TilePos();}
         Player player = (Player) entity;
-        int relativeSlot = slotId - player.inventory.mainInventory.length;
-
         int activeSlot = -1;
         int pendantCount = 0;
-
         for (int slot : new int[]{TRINKET_1_SLOT, TRINKET_2_SLOT}) {
-            ItemStack equipped = PlayerUtil.getArmorOrAccessoryItem(player, slot);
+            ItemStack equipped = PlayerUtil.getAccessoryItem(player, slot);
             if (equipped != null && equipped.getItem() instanceof ItemIcePendant) {
                 if (activeSlot == -1) {
                     activeSlot = slot;
@@ -50,7 +47,7 @@ public class ItemIcePendant extends ItemPendant {
             }
         }
 
-        if (relativeSlot != activeSlot) {
+        if (slotId != activeSlot) {
             return;
         }
 
@@ -80,12 +77,12 @@ public class ItemIcePendant extends ItemPendant {
 
     public void damagePendant(@NonNull ItemStack stack, Player player) {
         stack.damageItem(1, player);
-        if (PlayerUtil.getArmorOrAccessoryItem(player, TRINKET_1_SLOT) == stack && stack.stackSize <= 0) {
-            PlayerUtil.clearArmorOrAccessoryItem(player, TRINKET_1_SLOT);
+        if (PlayerUtil.getAccessoryItem(player, TRINKET_1_SLOT) == stack && stack.stackSize <= 0) {
+            PlayerUtil.clearAccessoryItem(player, TRINKET_1_SLOT);
             return;
         }
-        if (PlayerUtil.getArmorOrAccessoryItem(player, TRINKET_2_SLOT) == stack && stack.stackSize <= 0) {
-            PlayerUtil.clearArmorOrAccessoryItem(player, TRINKET_2_SLOT);
+        if (PlayerUtil.getAccessoryItem(player, TRINKET_2_SLOT) == stack && stack.stackSize <= 0) {
+            PlayerUtil.clearAccessoryItem(player, TRINKET_2_SLOT);
         }
     }
 }

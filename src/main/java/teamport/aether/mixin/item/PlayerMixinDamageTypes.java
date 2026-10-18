@@ -30,7 +30,7 @@ public abstract class PlayerMixinDamageTypes {
                     damageTypeToUse = hasCustomDamageType.getDamageType();
                 }
             } else {
-                ItemStack gloves = PlayerUtil.getArmorOrAccessoryItem(player, GLOVES_SLOT);
+                ItemStack gloves = PlayerUtil.getAccessoryItem(player, GLOVES_SLOT);
                 if (gloves != null && gloves.getItem() instanceof ItemGloves hasCustomDamageType) {
                     damageTypeToUse = hasCustomDamageType.getDamageType();
                 }
@@ -39,7 +39,7 @@ public abstract class PlayerMixinDamageTypes {
             boolean damageDealt = original.call(instance, attacker, baseDamage, damageTypeToUse);
 
             if (damageDealt && heldItem == null && instance instanceof Mob mobTarget) {
-                ItemStack gloves = PlayerUtil.getArmorOrAccessoryItem(player, GLOVES_SLOT);
+                ItemStack gloves = PlayerUtil.getAccessoryItem(player, GLOVES_SLOT);
                 if (gloves != null && gloves.getItem() instanceof ItemGloves) {
                     gloves.hitEntity(mobTarget, player);
                 }

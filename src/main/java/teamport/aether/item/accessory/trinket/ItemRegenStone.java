@@ -24,7 +24,7 @@ public class ItemRegenStone extends ItemTrinket implements IAccessoryEffects {
             if (player.getHealth() < player.getMaxHealth()) {
                 player.heal(1);
                 world.playSoundAtEntity(player, player, "aether:heal", 0.5f, itemRand.nextFloat() * 0.4F + 0.8F);
-                ParticleMaker.spawnHeartParticles(world, player.x, player.y, player.z, player.bbHeight, player.bbWidth);
+                ParticleMaker.spawnHeartParticles(world, player.x, player.y + player.bbHeight, player.z, player.bbHeight, player.bbWidth);
             }
         }
     }

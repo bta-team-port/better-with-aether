@@ -30,16 +30,14 @@ public abstract class PlayerMixinPendantFallDamageModifier {
 
         if (mob instanceof Player player) {
             int pendants = 0;
-            ItemStack trinketOne = PlayerUtil.getArmorOrAccessoryItem(player, TRINKET_1_SLOT);
-            ItemStack trinketTwo = PlayerUtil.getArmorOrAccessoryItem(player, TRINKET_2_SLOT);
-
+            ItemStack trinketOne = PlayerUtil.getAccessoryItem(player, TRINKET_1_SLOT);
+            ItemStack trinketTwo = PlayerUtil.getAccessoryItem(player, TRINKET_2_SLOT);
             if (trinketOne != null && trinketOne.itemID == AetherItems.ARMOR_TALISMAN_GRAVITITE.id) {
                 pendants++;
             }
             if (trinketTwo != null && trinketTwo.itemID == AetherItems.ARMOR_TALISMAN_GRAVITITE.id) {
                 pendants++;
             }
-
             if (pendants > 0) {
                 damage -= pendants;
 
