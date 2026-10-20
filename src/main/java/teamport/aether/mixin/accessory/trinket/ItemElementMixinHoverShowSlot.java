@@ -25,6 +25,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.item.AetherItemTags;
 import teamport.aether.item.accessory.ItemAccessory;
+import teamport.aether.item.accessory.SlotAccessory;
 import teamport.aether.lookup.LookupTrinketOutlines;
 import teamport.aether.option.AetherGameSettingsHolder;
 
@@ -46,7 +47,7 @@ public abstract class ItemElementMixinHoverShowSlot {
     Minecraft mc;
     @WrapOperation(method = "render(Lnet/minecraft/core/item/ItemStack;IIZLnet/minecraft/core/player/inventory/slot/Slot;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/ItemElement;drawTexturedIcon(IIIILnet/minecraft/client/render/texture/stitcher/IconCoordinate;)V", ordinal = 0))
     private void changeWildcardIconOnHoverAndClick(ItemElement instance, int x, int y, int slotWidth, int slotHeight, IconCoordinate defaultIcon, Operation<Void> original, @Local(argsOnly = true) @NonNull Slot currectSlot) {
-        if (currectSlot.index >= ARMOR_START_INDEX + TRINKET_1_SLOT && (this.mc.currentScreen instanceof ScreenInventory || this.mc.currentScreen instanceof ScreenInventoryCreative)) {
+        if (currectSlot instanceof SlotAccessory && currectSlot.index >= ARMOR_START_INDEX + TRINKET_1_SLOT && (this.mc.currentScreen instanceof ScreenInventory || this.mc.currentScreen instanceof ScreenInventoryCreative)) {
             int seconds = AetherGameSettingsHolder.FLICK_ACCESSORY_SPEED.value;
             if (seconds != 0) {
                 if (this.mc.thePlayer.tickCount - lastTick >= seconds * Global.TICKS_PER_SECOND) { // 3000
